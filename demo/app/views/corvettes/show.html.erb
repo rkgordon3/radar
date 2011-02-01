@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Body style:</b>
+  <%= @corvette.body_style %>
+</p>
+
+<p>
+  <b>Miles:</b>
+  <%= @corvette.miles %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @corvette.year %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_corvette_path(@corvette) %> |
+<%= link_to 'Back', corvettes_path %>

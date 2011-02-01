@@ -1,0 +1,27 @@
+<h1>Listing corvettes</h1>
+
+<table>
+  <tr>
+    <th>Body style</th>
+    <th>Miles</th>
+    <th>Year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @corvettes.each do |corvette| %>
+  <tr>
+    <td><%= corvette.body_style %></td>
+    <td><%= corvette.miles %></td>
+    <td><%= corvette.year %></td>
+    <td><%= link_to 'Show', corvette %></td>
+    <td><%= link_to 'Edit', edit_corvette_path(corvette) %></td>
+    <td><%= link_to 'Destroy', corvette, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Corvette', new_corvette_path %>

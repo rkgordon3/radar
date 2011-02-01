@@ -1,0 +1,15 @@
+<p>
+<h1>Aidan's Used Car Lot</h1>
+<h2>Welcome to our home document</h2>
+We currently have <%= @num_cars %> listed for sale<br ?>
+Fill out the following for more info<br />
+<%= form_tag("result", :method=>"get") do %>
+	<%= label_tag(:year1, "From Year:") %>
+	<%= text_field_tag(:year1) %>
+	<%= label_tag(:year2, "To Year:") %>
+	<%= text_field_tag(:year2) %>
+	<%= label_tag(:body, "Body Style:") %>
+	<%= text_field_tag(:body) %>
+	<%= submit_tag("Search") %>
+	<% end %>
+</p>
