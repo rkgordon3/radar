@@ -1,0 +1,2 @@
+class ReportedInfraction < ActiveRecord::Base
+end

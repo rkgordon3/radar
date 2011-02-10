@@ -1,0 +1,9 @@
+class Report < ActiveRecord::Base
+	
+	belongs_to  	:submitter, :class_name => "Staff"
+	belongs_to     	:building
+end
+
+class IncidentReport < Report
+	has_many 	:student_infractions
+end

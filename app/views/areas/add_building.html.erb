@@ -1,0 +1,8 @@
+<h1>Select Building</h1>
+
+<div>
+<% for b in Building.all  %>
+  <%= check_box_tag  b.id, b.name %>
+  <%= b.name %>
+  <br/>
+<% end %>

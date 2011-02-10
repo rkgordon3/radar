@@ -1,0 +1,23 @@
+<h1>Listing student_infractions</h1>
+
+<table>
+  <tr>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @student_infractions.each do |student_infraction| %>
+  <tr>
+    <td><%= student_infraction.time %></td>
+    <td><%= link_to 'Show', student_infraction %></td>
+    <td><%= link_to 'Edit', edit_student_infraction_path(student_infraction) %></td>
+    <td><%= link_to 'Destroy', student_infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Student infraction', new_student_infraction_path %>

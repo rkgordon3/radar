@@ -1,5 +1,32 @@
-Hello::Application.routes.draw do
-  get "hello/index"
+Radar::Application.routes.draw do
+  resources :photos
+
+  resources :annotations
+
+  resources :participants
+
+  resources :reported_infractions
+
+  resources :staffs
+
+  resources :report_locations
+
+  resources :buildings  do
+  	  get :select, :on => :collection
+  end
+ 
+  resources :areas  do
+  	  get :add_building, :on => :collection
+  end
+  resources :student_infractions
+
+  resources :infractions
+
+  resources :locations
+
+  resources :reports
+
+  resources :students
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

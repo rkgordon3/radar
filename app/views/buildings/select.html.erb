@@ -1,0 +1,12 @@
+<h1>Select Building</h1>
+
+<div>
+
+<% @buildings.each do |b| %>
+   <%= check_box_tag  b.id, b.name %>
+  <%= b.name %>
+  <br/>
+<% end %>
+
+
+

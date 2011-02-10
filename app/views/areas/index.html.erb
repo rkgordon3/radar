@@ -1,0 +1,31 @@
+<h1>Listing areas</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @areas.each do |area| %>
+  <tr>
+    <td><%= area.name %></td>
+     <td><%= link_to 'Show', area %></td>
+    <td><%= link_to 'Edit', edit_area_path(area) %></td>
+    <td><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete %></td>
+    
+    </table>
+   
+  </tr>
+  <tr><td colspan="4"><table>
+       <%  area.buildings.each  do |b| %>
+       <tr><td><%= b.name %></td><td><%= b.abbreviation %></td></tr>
+       <% end %>
+  </td></tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Area', new_area_path %>

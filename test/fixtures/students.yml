@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  room: 1
+  building: MyString
+  age: 1
+
+two:
+  name: MyString
+  room: 1
+  building: MyString
+  age: 1

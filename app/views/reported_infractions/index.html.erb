@@ -1,0 +1,27 @@
+<h1>Listing reported_infractions</h1>
+
+<table>
+  <tr>
+    <th>Integer</th>
+    <th>Integer</th>
+    <th>Integer</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reported_infractions.each do |reported_infraction| %>
+  <tr>
+    <td><%= reported_infraction.integer %></td>
+    <td><%= reported_infraction.integer %></td>
+    <td><%= reported_infraction.integer %></td>
+    <td><%= link_to 'Show', reported_infraction %></td>
+    <td><%= link_to 'Edit', edit_reported_infraction_path(reported_infraction) %></td>
+    <td><%= link_to 'Destroy', reported_infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reported infraction', new_reported_infraction_path %>

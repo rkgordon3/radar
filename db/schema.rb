@@ -10,6 +10,93 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110210161345) do
+
+  create_table "annotations", :force => true do |t|
+    t.string   "text"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "report_id"
+  end
+
+  create_table "areas", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "buildings", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "abbreviation"
+    t.integer  "area_id"
+  end
+
+  create_table "infractions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "cell_phone"
+    t.string   "home_phone"
+    t.string   "affiliation"
+    t.integer  "age"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
+    t.integer  "photo_id"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reported_infractions", :force => true do |t|
+    t.integer  "report_id"
+    t.integer  "infraction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "participant_id"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
+    t.integer  "building_id"
+    t.datetime "approach_time"
+  end
+
+  create_table "staffs", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "user_name"
+    t.string   "password"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "students", :force => true do |t|
+    t.string   "name"
+    t.integer  "room"
+    t.integer  "age"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "building_id"
+  end
 
 end

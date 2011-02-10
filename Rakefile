@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Hello::Application.load_tasks
+Radar::Application.load_tasks

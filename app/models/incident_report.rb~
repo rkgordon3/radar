@@ -1,0 +1,3 @@
+class IncidentReport < Report
+	has_many 	:student_infractions
+end
