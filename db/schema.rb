@@ -30,17 +30,11 @@ ActiveRecord::Schema.define(:version => 20110210161345) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "abbreviation"
     t.integer  "area_id"
   end
 
   create_table "infractions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "locations", :force => true do |t|
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,8 +85,10 @@ ActiveRecord::Schema.define(:version => 20110210161345) do
   end
 
   create_table "students", :force => true do |t|
-    t.string   "name"
-    t.integer  "room"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "middle_initial"
+    t.integer  "room_number"
     t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
