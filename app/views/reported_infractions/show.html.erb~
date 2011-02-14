@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Integer:</b>
+  <%= @reported_infraction.integer %>
+</p>
+
+<p>
+  <b>Integer:</b>
+  <%= @reported_infraction.integer %>
+</p>
+
+<p>
+  <b>Integer:</b>
+  <%= @reported_infraction.integer %>
+</p>
+
+
+<%= link_to 'Edit', edit_reported_infraction_path(@reported_infraction) %> |
+<%= link_to 'Back', reported_infractions_path %>

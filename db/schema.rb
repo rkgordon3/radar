@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213215123) do
+ActiveRecord::Schema.define(:version => 20110214085055) do
 
   create_table "annotations", :force => true do |t|
     t.string   "text"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110213215123) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "abbreviation"
   end
 
   create_table "buildings", :force => true do |t|
@@ -31,10 +32,17 @@ ActiveRecord::Schema.define(:version => 20110213215123) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "area_id"
+    t.string   "abbreviation"
   end
 
   create_table "infractions", :force => true do |t|
     t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "detail"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -69,7 +77,6 @@ ActiveRecord::Schema.define(:version => 20110213215123) do
   create_table "reports", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
     t.integer  "building_id"
     t.datetime "approach_time"
     t.string   "annotation"

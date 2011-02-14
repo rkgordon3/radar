@@ -12,29 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :report_id %><br />
-    <%= f.text_field :report_id %>
+    <%= f.label :integer %><br />
+    <%= f.text_field :integer %>
   </div>
   <div class="field">
-    <%= f.label :infraction_id %><br />
-    <%= f.text_field :infraction_id %>
+    <%= f.label :integer %><br />
+    <%= f.text_field :integer %>
   </div>
-  
   <div class="field">
-    <%= f.label :participant_id %><br />
-    <%= f.text_field :participant_id %>
-  </div>  
-  
-  <div class="field">
-    <%= f.label :created_at %><br />
-    <%= f.text_field :created_at %>
+    <%= f.label :integer %><br />
+    <%= f.text_field :integer %>
   </div>
-  
-  <div class="field">
-    <%= f.label :updated_at %><br />
-    <%= f.text_field :updated_at %>
-  </div>
-
   <div class="actions">
     <%= f.submit %>
   </div>

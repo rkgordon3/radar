@@ -3,6 +3,9 @@
 <p>
   <b>Name:</b>
   <%= @building.name %>
+  <br/>
+  <b>Abbreviation:</b>
+  <%= @building.abbreviation %>
 </p>
 
 
