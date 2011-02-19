@@ -1,3 +1,4 @@
+<h1>Showing Student <%= @student.id %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -10,26 +11,16 @@
   <%= @student.last_name %>
 </p>
 <p>
+  <b>Building:</b>
+  <%= @student.building.name %>
+</p>
+<p>
   <b>Room Number:</b>
   <%= @student.room_number %>
 </p>
 <p>
-  <b>Building:</b>
-  <%= @student.building_id %>
-</p>
-<p>
   <b>Age:</b>
   <%= @student.age %>
-</p>
-
-<p>
-  <b>Affiliation:</b>
-  <%= @student.affiliation %>
-</p>
-
-<p>
-  <b>Photo ID:</b>
-  <%= @student.photo_id %>
 </p>
 
 <p>
@@ -42,6 +33,10 @@
 </p>
 
 
+<p>
+  <b>Photo ID:</b>
+  <%= @student.photo_id %>
+</p>
 
 
 

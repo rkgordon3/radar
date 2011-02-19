@@ -1,12 +1,19 @@
+<h1>Showing Report <%= @report.id %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Submitter:</b>
   <%= @report.staff.first_name %> <%= @report.staff.last_name %><br>
+  </p>
+  <p>
   <b>Annotation:</b>
   <%= @report.annotation %><br>
+  </p>
+  <p>
   <b>Created at:</b>
   <%= @report.created_at %><br>
+  </p>
+  <p>
   <b>Updated at:</b>
   <%= @report.updated_at %><br>
   

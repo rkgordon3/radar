@@ -1,11 +1,9 @@
-<h1>Listing reported_infractions</h1>
+<h1>Listing Reported Infractions</h1>
 
 <table>
   <tr>
     <th>Incident Report ID</th>
     <th>Infraction ID</th>
-    <th>Created At</th>
-    <th>Updated At</th>
     <th>Participant Name</th>
     <th></th>
     <th></th>
@@ -16,8 +14,6 @@
   <tr>
     <td><%= reported_infraction.incident_report_id %></td>
     <td><%= reported_infraction.infraction.description %></td>
-    <td><%= reported_infraction.created_at %></td>
-    <td><%= reported_infraction.updated_at %></td>
     <td><%= reported_infraction.participant.first_name %>
     	<%= reported_infraction.participant.last_name %></td>
     <td><%= link_to 'Show', reported_infraction %></td>

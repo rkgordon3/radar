@@ -1,6 +1,0 @@
-<h1>Editing infraction</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @infraction %> |
-<%= link_to 'Back', infractions_path %>
