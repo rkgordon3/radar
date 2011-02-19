@@ -12,8 +12,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :submissionTime %><br />
-    <%= f.text_field :submissionTime %>
+    <%= f.label :staffs_id %><br />
+    <%= f.text_field :staffs_id %><br/>
+    <%= f.label :annotation %><br />
+    <%= f.text_field :annotation %><br/>
+    
+    
+    
+    
   </div>
   <div class="actions">
     <%= f.submit %>

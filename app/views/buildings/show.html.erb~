@@ -6,6 +6,9 @@
   <br/>
   <b>Abbreviation:</b>
   <%= @building.abbreviation %>
+  <br/>
+  <b>Area ID:</b>
+  <%= @building.area_id %>
 </p>
 
 

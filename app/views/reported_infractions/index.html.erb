@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Report ID</th>
+    <th>Incident Report ID</th>
     <th>Infraction ID</th>
     <th>Created At</th>
     <th>Updated At</th>
@@ -14,7 +14,7 @@
 
 <% @reported_infractions.each do |reported_infraction| %>
   <tr>
-    <td><%= reported_infraction.report_id %></td>
+    <td><%= reported_infraction.incident_report_id %></td>
     <td><%= reported_infraction.infraction.description %></td>
     <td><%= reported_infraction.created_at %></td>
     <td><%= reported_infraction.updated_at %></td>

@@ -3,11 +3,9 @@
 <table>
   <tr>
     <th>Report ID</th>
+    <th>Type</th>
+    <th>Submitter</th>
     <th>Created At</th>
-    <th>Updated At</th>
-    <th>Approach Time</th>
-    <th>Building</th>
-    <th>Annotation</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,11 +14,9 @@
 <% @reports.each do |report| %>
   <tr>
     <td><%= report.id %></td>
+    <td><%= report.type %></td>
+    <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
     <td><%= report.created_at %></td>
-    <td><%= report.updated_at %></td>
-    <td><%= report.approach_time %></td>
-    <td><%= report.building.name %></td>
-    <td><%= report.annotation %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>
     <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>

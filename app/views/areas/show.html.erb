@@ -1,9 +1,19 @@
+<h1>Showing Area <%= @area.id %></h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Name:</b>
-  <%= @area.name %>
+  <%= @area.name %><br/><br/>
+  <b>Buildings:</b>
+ 
+  <table>
+   <%  @area.buildings.each  do |b| %>
+       <tr><td>&nbsp;&nbsp;<%= b.name %></td><td><%= b.abbreviation %></td></tr>
+       <% end %>
+  </table>
 </p>
+<p/>
 
 
 <%= link_to 'Edit', edit_area_path(@area) %> |

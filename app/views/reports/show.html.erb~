@@ -1,8 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Submissiontime:</b>
-  <%= @report.submissionTime %>
+  <b>Building ID:</b>
+  <%= @report.building.name %><br>
+  <b>Submitter:</b>
+  <%= @report.staff.first_name %><br>
+  <b>Created at:</b>
+  <%= @report.created_at %><br>
+  <b>Updated at:</b>
+  <%= @report.updated_at %><br>
+  
+
+  
 </p>
 
 

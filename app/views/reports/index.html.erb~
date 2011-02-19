@@ -2,6 +2,9 @@
 
 <table>
   <tr>
+    <th>Report ID</th>
+    <th>Type</th>
+    <th>Submitter</th>
     <th>Created At</th>
     <th></th>
     <th></th>
@@ -10,6 +13,9 @@
 
 <% @reports.each do |report| %>
   <tr>
+    <td><%= report.id %></td>
+    <td><%= report.type %></td>
+    <td><%= report.staffs_id %></td>
     <td><%= report.created_at %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>

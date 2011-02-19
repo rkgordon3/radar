@@ -1,4 +1,6 @@
 Radar::Application.routes.draw do
+  resources :incident_reports
+
   resources :photos
 
   resources :annotations

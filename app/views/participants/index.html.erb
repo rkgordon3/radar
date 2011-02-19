@@ -1,11 +1,10 @@
-<h1>Listing participants</h1>
+<h1>Listing Participants</h1>
 
 <table>
   <tr>
     <th>First name</th>
     <th>Last name</th>
-    <th>Cell phone</th>
-    <th>Home phone</th>
+    <th>Type</th>
     <th>Affiliation</th>
     <th>Age</th>
     <th></th>
@@ -17,8 +16,7 @@
   <tr>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
-    <td><%= participant.cell_phone %></td>
-    <td><%= participant.home_phone %></td>
+    <td><%= participant.type %></td>
     <td><%= participant.affiliation %></td>
     <td><%= participant.age %></td>
     <td><%= link_to 'Show', participant %></td>

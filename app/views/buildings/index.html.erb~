@@ -4,6 +4,7 @@
   <tr>
     <th>Name</th>
     <th>Abbreviation</th>
+    <th>Area ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +14,7 @@
   <tr>
     <td><%= building.name %></td>
     <td><%= building.abbreviation %></td>
+    <td><%= building.area_id %></td>
     <td><%= link_to 'Show', building %></td>
     <td><%= link_to 'Edit', edit_building_path(building) %></td>
     <td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
