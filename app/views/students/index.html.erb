@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Particpant ID</th>
     <th>First Name</th>
     <th>Last Name</th>
     <th>Building</th>
@@ -18,6 +19,7 @@
 
 <% @students.each do |student| %>
   <tr>
+    <td><%= student.id %></td>
     <td><%= student.first_name %></td>
     <td><%= student.last_name %></td>
     <td><%= student.building.name %></td>

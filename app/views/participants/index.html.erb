@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Particpant ID</th>
     <th>First name</th>
     <th>Last name</th>
     <th>Type</th>
@@ -14,6 +15,7 @@
 
 <% @participants.each do |participant| %>
   <tr>
+    <td><%= participant.id %></td>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.type %></td>
