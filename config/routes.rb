@@ -1,4 +1,6 @@
 Radar::Application.routes.draw do
+  get "home/landingpage"
+
   resources :incident_reports
 
   resources :photos
