@@ -1,4 +1,9 @@
 Radar::Application.routes.draw do
+  get "search/search"
+		root :to => "search#search"
+	
+  get 'search/autocomplete_student_first_name'
+  
   resources :photos
 
   resources :annotations
