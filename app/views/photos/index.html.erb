@@ -1,8 +1,9 @@
-<h1>Listing photos</h1>
+<h1>Listing Photos</h1>
 
 <table>
   <tr>
-    <th>Tag</th>
+    <th>Photo ID</th>
+    <th>URL</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +11,8 @@
 
 <% @photos.each do |photo| %>
   <tr>
-    <td><%= photo.tag %></td>
+    <td><%= photo.id %></td>
+    <td><%= photo.url %></td>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>

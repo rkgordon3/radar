@@ -1,25 +1,60 @@
+<h1>Showing Student <%= @student.id %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @student.name %>
+  <b>First Name:</b>
+  <%= @student.first_name %>
 </p>
 
 <p>
-  <b>Room:</b>
-  <%= @student.room %>
+  <b>Last Name:</b>
+  <%= @student.last_name %>
 </p>
-
 <p>
   <b>Building:</b>
-  <%= @student.building %>
+  <%= @student.building.name %>
 </p>
-
+<p>
+  <b>Room Number:</b>
+  <%= @student.room_number %>
+</p>
 <p>
   <b>Age:</b>
   <%= @student.age %>
 </p>
 
+<p>
+  <b>Home Phone:</b>
+  <%= @student.home_phone %>
+</p>
+<p>
+  <b>Cell Phone:</b>
+  <%= @student.cell_phone %>
+</p>
+
+
+<p>
+  <b>Photo ID:</b>
+  <%= @student.photo_id %>
+</p>
+
+
+
+<p>
+  <b>Created At:</b>
+  <%= @student.created_at %>
+</p>
+
+<p>
+  <b>Updated At:</b>
+  <%= @student.updated_at %>
+</p>
+
+
+
+
+
+ 
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>

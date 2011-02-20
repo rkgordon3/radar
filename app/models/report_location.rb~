@@ -1,2 +1,0 @@
-class ReportLocation < ActiveRecord::Base
-end

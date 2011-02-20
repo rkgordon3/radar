@@ -1,4 +1,5 @@
 Radar::Application.routes.draw do
+  resources :incident_reports
   get "search/search"
 		root :to => "search#search"
 	

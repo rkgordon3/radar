@@ -10,15 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110214085055) do
-
-  create_table "annotations", :force => true do |t|
-    t.string   "text"
-    t.integer  "staff_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "report_id"
-  end
+ActiveRecord::Schema.define(:version => 20110219230617) do
 
   create_table "areas", :force => true do |t|
     t.string   "name"
@@ -41,12 +33,6 @@ ActiveRecord::Schema.define(:version => 20110214085055) do
     t.datetime "updated_at"
   end
 
-  create_table "locations", :force => true do |t|
-    t.string   "detail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "participants", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -58,20 +44,22 @@ ActiveRecord::Schema.define(:version => 20110214085055) do
     t.datetime "updated_at"
     t.string   "type"
     t.integer  "photo_id"
+    t.string   "room_number"
+    t.integer  "building_id"
   end
 
   create_table "photos", :force => true do |t|
-    t.string   "tag"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "reported_infractions", :force => true do |t|
-    t.integer  "report_id"
     t.integer  "infraction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "participant_id"
+    t.string   "incident_report_id"
   end
 
   create_table "reports", :force => true do |t|
@@ -80,6 +68,9 @@ ActiveRecord::Schema.define(:version => 20110214085055) do
     t.integer  "building_id"
     t.datetime "approach_time"
     t.string   "annotation"
+    t.string   "room_number"
+    t.string   "type"
+    t.integer  "staff_id"
   end
 
   create_table "staffs", :force => true do |t|
@@ -90,17 +81,6 @@ ActiveRecord::Schema.define(:version => 20110214085055) do
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "students", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "middle_initial"
-    t.integer  "room_number"
-    t.integer  "age"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "building_id"
   end
 
 end

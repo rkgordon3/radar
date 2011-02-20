@@ -1,3 +1,0 @@
-class Student < Participant
-	has_one :building
-end

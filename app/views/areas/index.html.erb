@@ -1,8 +1,11 @@
-<h1>Listing areas</h1>
+<h1>Listing Areas</h1>
 
 <table>
   <tr>
+  
+    <th>Area ID</th>
     <th>Name</th>
+    <th>Abbreviation</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,19 +13,13 @@
 
 <% @areas.each do |area| %>
   <tr>
+    <td><%= area.id %></td>
     <td><%= area.name %></td>
+    <td><%= area.abbreviation %></td>
      <td><%= link_to 'Show', area %></td>
     <td><%= link_to 'Edit', edit_area_path(area) %></td>
     <td><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete %></td>
-    
-    </table>
-   
-  </tr>
-  <tr><td colspan="4"><table>
-       <%  area.buildings.each  do |b| %>
-       <tr><td><%= b.name %></td><td><%= b.abbreviation %></td></tr>
-       <% end %>
-  </td></tr>
+
 <% end %>
 </table>
 

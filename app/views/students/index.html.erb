@@ -1,11 +1,17 @@
-<h1>Listing students</h1>
+<h1>Listing Students</h1>
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Room</th>
+    <th>Particpant ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
     <th>Building</th>
+    <th>Room Number</th>
     <th>Age</th>
+    <th>Home Phone</th>
+    <th>Cell Phone</th>
+    <th>Photo ID</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,10 +19,17 @@
 
 <% @students.each do |student| %>
   <tr>
-    <td><%= student.name %></td>
-    <td><%= student.room %></td>
-    <td><%= student.building %></td>
+    <td><%= student.id %></td>
+    <td><%= student.first_name %></td>
+    <td><%= student.last_name %></td>
+    <td><%= student.building.name %></td>
+    <td><%= student.room_number %></td>
     <td><%= student.age %></td>
+    <td><%= student.home_phone %></td>
+    <td><%= student.cell_phone %></td>
+    <td><%= student.photo_id %></td>
+    
+    <td> </td>
     <td><%= link_to 'Show', student %></td>
     <td><%= link_to 'Edit', edit_student_path(student) %></td>
     <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>

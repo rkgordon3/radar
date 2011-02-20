@@ -1,8 +1,9 @@
+<h1>Showing Reported Infraction <%= @reported_infraction.id %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Report ID:</b>
-  <%= @reported_infraction.report_id %>
+  <%= @reported_infraction.incident_report_id %>
 </p>
 
 <p>
@@ -11,8 +12,9 @@
 </p>
 
 <p>
-  <b>Participant ID:</b>
-  <%= @reported_infraction.participant_id %>
+  <b>Participant:</b>
+  <%= @reported_infraction.participant.first_name %> 
+  <%= @reported_infraction.participant.last_name %>
 </p>
 
 <p>

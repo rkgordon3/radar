@@ -1,7 +1,8 @@
-<h1>Listing buildings</h1>
+<h1>Listing Buildings</h1>
 
 <table>
   <tr>
+    <th>Building ID</th>
     <th>Name</th>
     <th>Abbreviation</th>
     <th>Area ID</th>
@@ -12,6 +13,7 @@
 
 <% @buildings.each do |building| %>
   <tr>
+    <td><%= building.id %></td>
     <td><%= building.name %></td>
     <td><%= building.abbreviation %></td>
     <td><%= building.area_id %></td>
