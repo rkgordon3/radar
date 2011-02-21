@@ -1,9 +1,13 @@
 Radar::Application.routes.draw do
+  devise_for :staffs
+
+  
+  
   get "home/landingpage"
 
   resources :incident_reports
   get "search/search"
-		root :to => "search#search"
+		root :to => "home#landingpage"
 	
   get 'search/autocomplete_student_first_name'
   
@@ -35,6 +39,8 @@ Radar::Application.routes.draw do
   resources :reports
 
   resources :students
+  
+  root :to => "home#landingpage"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

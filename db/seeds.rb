@@ -79,15 +79,15 @@ Photo.create([{ :url => '1.jpg'},
 	{ :url => '9.jpg'},
 	{ :url => '10.jpg'}])
 
-Staff.create([{ :first_name => 'Stephanie', :last_name => 'Valentine', :user_name => 'svalentine', :password => 'svalentine', :role => 'RA'},
-	{ :first_name => 'Michelle', :last_name => 'Gossen', :user_name => 'mgossen', :password => 'mgossen', :role => 'RA'},
-	{ :first_name => 'Samantha', :last_name => 'Herbst', :user_name => 'sherbst', :password => 'sherbst', :role => 'RA'},
-	{ :first_name => 'Dongyang', :last_name => 'Xie', :user_name => 'dxie', :password => 'dxie', :role => 'RA'},
-	{ :first_name => 'Catherine', :last_name => 'Rennie', :user_name => 'crennie', :password => 'crennie', :role => 'RA'},
-	{ :first_name => 'Amanda', :last_name => 'VanLeeuwe', :user_name => 'avanleeuwe', :password => 'avanleeuwe', :role => 'RA'},
-	{ :first_name => 'Jenny', :last_name => 'Schmidt', :user_name => 'jschmidt', :password => 'password', :role => 'Admin'},
-	{ :first_name => 'Brendan', :last_name => 'Dolan', :user_name => 'bdolan', :password => 'password', :role => 'Admin'},
-	{ :first_name => 'Stephen', :last_name => 'Craig', :user_name => 'scraig', :password => 'password', :role => 'Admin'}])
+Staff.create([{ :first_name => 'Stephanie', :last_name => 'Valentine', :email => 'slvale07@smumn.edu', :role => 'RA'},
+	{ :first_name => 'Michelle', :last_name => 'Gossen', :email => 'mgossen', :role => 'RA'},
+	{ :first_name => 'Samantha', :last_name => 'Herbst', :email => 'sherbst', :role => 'RA'},
+	{ :first_name => 'Dongyang', :last_name => 'Xie', :email => 'dxie', :role => 'RA'},
+	{ :first_name => 'Catherine', :last_name => 'Rennie', :email => 'crennie', :role => 'RA'},
+	{ :first_name => 'Amanda', :last_name => 'VanLeeuwe', :email => 'avanleeuwe', :role => 'RA'},
+	{ :first_name => 'Jenny', :last_name => 'Schmidt', :email => 'jschmidt', :role => 'Admin'},
+	{ :first_name => 'Brendan', :last_name => 'Dolan', :email => 'bdolan', :role => 'Admin'},
+	{ :first_name => 'Stephen', :last_name => 'Craig', :email => 'scraig', :role => 'Admin'}])
 
 
 IncidentReport.create([{ :building_id => 5, :room_number => 332, :approach_time => '9:50 p.m.', :staff_id => 6, :annotation => 'This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...'},
