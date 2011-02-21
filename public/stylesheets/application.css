@@ -1,7 +1,7 @@
 body {
   background-color: #4B7399;
   font-family: Verdana, Helvetica, Arial;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 a img {
@@ -10,6 +10,10 @@ a img {
 
 a {
   color: #0000FF;
+}
+
+td {
+  padding: 5px;
 }
 
 .clear {
