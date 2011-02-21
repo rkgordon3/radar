@@ -51,16 +51,6 @@ Infraction.create([{ :description => 'Community Disruption'},
 	{ :description => 'Other'},
 	{ :description => 'FYI'}])
 
-Student.create([{ :first_name => 'Chris', :last_name => 'Engesser', :home_phone => '555-666-7777', :cell_phone => '555-222-3333', :affiliation => 'SMU', :age => 21, :photo_id => 1, :building_id => 8, :room_number => 421},
-	{ :first_name => 'Joseph', :last_name => 'Faber', :home_phone => '555-555-5555', :cell_phone => '555-555-5556', :affiliation => 'SMU', :age => 23, :photo_id => 2, :building_id => 15 , :room_number => 0 },
-	{ :first_name => 'Emily', :last_name => 'Friedl', :home_phone => '522-555-6377', :cell_phone => '533-555-3322', :affiliation => 'SMU', :age => 21, :photo_id => 3, :building_id => 12, :room_number => 573},
-	{ :first_name => 'Kelly', :last_name => 'John', :home_phone => '444-555-2252', :cell_phone => '666-555-2226', :affiliation => 'SMU', :age => 21, :photo_id => 4, :building_id => 7, :room_number => 255},
-	{ :first_name => 'Kujtkowska', :last_name => 'Justyna', :home_phone => 'n/a', :cell_phone => '652-555-2341', :affiliation => 'SMU', :age => 20, :photo_id => 5, :building_id => 2, :room_number => 245},
-	{ :first_name => 'Mitchell', :last_name => 'May', :home_phone => '653-555-3352', :cell_phone => '334-555-8824', :affiliation => 'SMU', :age => 20, :photo_id => 6, :building_id => 7, :room_number => 372},
-	{ :first_name => 'Rebecca', :last_name => 'Sandager', :home_phone => '625-555-2623', :cell_phone => '734-555-6682', :affiliation => 'SMU', :age => 21, :photo_id => 7, :building_id => 1, :room_number => 533},
-	{ :first_name => 'Jeffrey', :last_name => 'Thomas', :home_phone => '552-555-6276', :cell_phone => '668-555-9837', :affiliation => 'SMU', :age => 20, :photo_id => 8, :building_id => 5, :room_number => 346},
-	{ :first_name => 'Stephanie', :last_name => 'Valentine', :home_phone => '555-555-6738', :cell_phone => '624-555-8362', :affiliation => 'SMU', :age => 21, :photo_id => 9, :building_id => 3, :room_number => 112},
-	{ :first_name => 'Wildenborg', :last_name => 'Bradley', :home_phone => '507-555-7823', :cell_phone => '668-555-3234', :affiliation => 'SMU', :age => 20, :photo_id => 10, :building_id => 11, :room_number => 510}])
 Student.create([{ :first_name => 'Chris', :last_name => 'Engesser', :home_phone => '555-666-7777', :cell_phone => '555-222-3333', :affiliation => 'SMU', :age => 21, :url => 'Chris.gif', :building_id => 8, :room_number => 421},
 	{ :first_name => 'Joseph', :last_name => 'Faber', :home_phone => '555-555-5555', :cell_phone => '555-555-5556', :affiliation => 'SMU', :age => 23, :url => 'Joe.gif', :building_id => 15 , :room_number => 0 },
 	{ :first_name => 'Emily', :last_name => 'Friedl', :home_phone => '522-555-6377', :cell_phone => '533-555-3322', :affiliation => 'SMU', :age => 21, :url => 'Emily.gif', :building_id => 12, :room_number => 573},
