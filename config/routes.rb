@@ -1,6 +1,12 @@
 Radar::Application.routes.draw do
-  resources :incident_reports
+  get "home/landingpage"
 
+  resources :incident_reports
+  get "search/search"
+		root :to => "search#search"
+	
+  get 'search/autocomplete_student_first_name'
+  
   resources :photos
 
   resources :annotations
