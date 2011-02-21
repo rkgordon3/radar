@@ -43,15 +43,9 @@ ActiveRecord::Schema.define(:version => 20110219230617) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.integer  "photo_id"
+    t.string  "url"
     t.string   "room_number"
     t.integer  "building_id"
-  end
-
-  create_table "photos", :force => true do |t|
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "reported_infractions", :force => true do |t|

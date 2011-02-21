@@ -34,8 +34,8 @@
 
 
 <p>
-  <b>Photo ID:</b>
-  <%= @student.photo_id %>
+  <b>Photo URL:</b>
+  <%= @student.url %>
 </p>
 
 
@@ -48,6 +48,13 @@
 <p>
   <b>Updated At:</b>
   <%= @student.updated_at %>
+</p>
+
+<p>
+	<b>Picture:</b>
+	<% test = StudentsController.new() %>
+	<% image_url = test.getURLforID(@student.id) %>
+	<%= link_to image_tag(image_url, :border=>0) %>
 </p>
 
 
