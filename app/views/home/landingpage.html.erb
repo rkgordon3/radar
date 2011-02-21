@@ -6,8 +6,16 @@
 		<%= link_to "Sign Up", new_staff_registration_path %> or <%= link_to "Sign In", new_staff_session_path %>
 	<% end %>
 </div>
-<p><a href = "http://localhost:3000/students">Students</a></p>
-<p><a href = "http://localhost:3000/reports">Reports</a></p>
+
+<% if staff_signed_in? %>
+	<p><a href = "http://localhost:3000/students">Students</a></p>
+	<% if current_staff.role == "Admin" %>
+		<p><a href = "http://localhost:3000/reports">Reports</a></p>
+	<% end %>
+<% end %>
+
 <p><a href = "http://localhost:3000/areas">Areas</a></p>
 <p><a href = "http://localhost:3000/buildings">Buildings</a></p>
+<% if staff_signed_in? %>
 <p><a href = "http://localhost:3000/search/search">Student Search</a></p>
+<% end %>
