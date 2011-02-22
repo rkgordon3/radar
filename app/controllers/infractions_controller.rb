@@ -3,6 +3,7 @@ class InfractionsController < ApplicationController
   # GET /infractions.xml
   def index
     @infractions = Infraction.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

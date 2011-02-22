@@ -1,5 +1,5 @@
 body {
-  background-color: #4B7399;
+  background-color: #b22222;
   font-family: Verdana, Helvetica, Arial;
   font-size: 12px;
 }
@@ -76,4 +76,15 @@ td {
 
 .error_messages ul {
   margin: 0;
+}
+
+.field {
+  padding: 7px;
+}
+
+.shaded {
+  background-color: #efefef;
+  border-color: #efefef;
+  border-style: solid;
+  border-width: 1px;
 }

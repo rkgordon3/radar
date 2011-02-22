@@ -18,13 +18,23 @@
   
   <b>Student infractions:</b>
   <% @incident_report.reported_infractions.each do |b| %>
-  <br />&nbsp;&nbsp;<b> Participant:</b> <%= b.participant.first_name %> 
-  <%= b.participant.last_name %>
-  <b> Infraction:</b> 
+  <% if b.participant.id != @currentParticipantID %>
+   	<% @currentParticipantID = b.participant.id %>
+   	<br />
+  	<br />&nbsp;&nbsp;&nbsp;<b> Participant:</b>
+  
+  	<% if b.participant.type == "Student" %>
+  		<a href="../students/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% else %>
+  		<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% end %>
+   <% end %>
+  	<br />
+  	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infraction:</b> 
   <%= b.infraction.description %>
   <% end %>
   
-  <br/><br />
+  <br/><br /><br />
   <b>Created at:</b>
   <%= @incident_report.created_at %><br/><br />
   <b>Updated at:</b>
