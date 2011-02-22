@@ -3,6 +3,7 @@ class ParticipantsController < ApplicationController
   # GET /participants.xml
   def index
     @participants = Participant.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

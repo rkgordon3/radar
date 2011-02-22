@@ -3,11 +3,17 @@
 
 <p>
   <b>Submitter:</b>
-  <%= @report.staff.first_name %> <%= @report.staff.last_name %><br>
+  <%= @report.submitter %> <br>
   </p>
   <p>
   <b>Annotation:</b>
   <%= @report.annotation %><br>
+  </p>
+  <b>Location:</b>
+  <%= @report.location %><br>
+  </p>
+  <b>Approach Time:</b>
+  <%= @report.approach_time %><br>
   </p>
   <p>
   <b>Created at:</b>

@@ -1,8 +1,10 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
+  
   def index
     @students = Student.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,6 +82,7 @@ class StudentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
   def getURLforID(id)
 	base_url = "http://140.190.65.61:1337/gallery3/var/resizes/"
 	url = Student.find(id).url

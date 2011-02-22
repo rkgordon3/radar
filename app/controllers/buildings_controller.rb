@@ -3,6 +3,7 @@ class BuildingsController < ApplicationController
   # GET /buildings.xml
   def index
     @buildings = Building.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

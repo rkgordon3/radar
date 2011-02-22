@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   # GET /reports.xml
   def index
     @reports = Report.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

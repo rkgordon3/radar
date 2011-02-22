@@ -3,6 +3,7 @@ class AreasController < ApplicationController
   # GET /areas.xml
   def index
     @areas = Area.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

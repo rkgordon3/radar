@@ -3,6 +3,7 @@ class StaffsController < ApplicationController
   # GET /staffs.xml
   def index
     @staffs = Staff.all
+    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb

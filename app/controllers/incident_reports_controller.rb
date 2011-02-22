@@ -3,6 +3,7 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports.xml
   def index
     @incident_reports = IncidentReport.all
+    @numRows
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,8 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports/1.xml
   def show
     @incident_report = IncidentReport.find(params[:id])
+    @currentParticipantID = -1
+    
 
     respond_to do |format|
       format.html # show.html.erb
