@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th>Report ID</th>
-    <th>Submitter</th>
-	<th>Location</th>
+    <th>Report Type</th>
+    <th>Staff</th>
     <th>Created At</th>
     <th></th>
     <th></th>
@@ -20,8 +20,8 @@
     <tr>
   <% end %>
     <td><%= report.id %></td>
-	<td><%= report.submitter %></td>
-	<td><%= report.location %></td>
+    <td><%= report.type %></td>
+    <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
     <td><%= report.created_at %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>

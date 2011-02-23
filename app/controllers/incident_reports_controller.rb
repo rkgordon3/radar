@@ -28,6 +28,11 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports/new.xml
   def new
     @incident_report = IncidentReport.new
+    @buildings = Array.new
+
+    for b in Building.find(:all)
+    	    @buildings << b
+    end
 
     respond_to do |format|
       format.html # new.html.erb
