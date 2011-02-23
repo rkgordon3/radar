@@ -6,7 +6,9 @@ class SearchController < ApplicationController
   def search
   end
   
-  
+  def get_autocomplete_items(parameters)
+    Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
+  end
   
   def add_student_to_list(participant)
   	  if @student_list == nil

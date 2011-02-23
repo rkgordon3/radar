@@ -28,11 +28,10 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports/new.xml
   def new
     @incident_report = IncidentReport.new
-    @buildings = Array.new
+    @incident_report.approach_time = Time.now
+    @incident_report.staff_id = current_staff.id
+    @incident_report.building_id = 16
 
-    for b in Building.find(:all)
-    	    @buildings << b
-    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,6 +49,8 @@ class IncidentReportsController < ApplicationController
   def create
     @incident_report = IncidentReport.new(params[:incident_report])
     @incident_report.type='IncidentReport'
+    @incident_report.staff_id = current_staff.id
+    
     respond_to do |format|
       if @incident_report.save
         format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
