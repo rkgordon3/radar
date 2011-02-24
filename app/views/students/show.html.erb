@@ -47,12 +47,12 @@
 
 <p>
   <b>Created At:</b>
-  <%= @student.created_at %>
+  <%= @student.created_at.to_s(:my_time) %>
 </p>
 
 <p>
   <b>Updated At:</b>
-  <%= @student.updated_at %>
+  <%= @student.updated_at.to_s(:my_time) %>
 </p>
 
 <p>
@@ -61,6 +61,7 @@
 	<% image_url = test.getURLforID(@student.id) %>
 	<%= link_to image_tag(image_url, :border=>0) %>
 </p>
+
 
 
 
