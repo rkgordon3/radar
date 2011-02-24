@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:my_time] = "%A, %B %d, %Y --- %I:%M%p"

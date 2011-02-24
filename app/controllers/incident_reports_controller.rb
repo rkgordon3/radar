@@ -1,4 +1,7 @@
 class IncidentReportsController < ApplicationController
+	
+  autocomplete :student, :first_name, :display_value => :full_name
+	
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
@@ -28,6 +31,17 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports/new.xml
   def new
     @incident_report = IncidentReport.new
+    @incident_report.approach_time = Time.now
+    @incident_report.staff_id = current_staff.id
+    @incident_report.building_id = 16
+    @annotation = Annotation.new
+    
+    r_i = ReportedInfraction.new
+    r_i.participant_id = 3
+    r_i.infraction_id = 22
+    
+    @incident_report.reported_infractions << r_i
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,8 +59,14 @@ class IncidentReportsController < ApplicationController
   def create
     @incident_report = IncidentReport.new(params[:incident_report])
     @incident_report.type='IncidentReport'
+    @incident_report.staff_id = current_staff.id
+    @annotation = Annotation.new(params[:annotation])
+    
+    
     respond_to do |format|
       if @incident_report.save
+      	@annotation.report_id = @incident_report.id
+      	@annotation.save
         format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
         format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
       else
@@ -83,4 +103,12 @@ class IncidentReportsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  
+  # GET /incident_reports/new_report
+  # GET /incident_reports/new_report.xml
+  def new_report
+  	  self.new 
+  end
+  
 end

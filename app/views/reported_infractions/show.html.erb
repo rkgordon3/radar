@@ -19,12 +19,12 @@
 
 <p>
   <b>Created At:</b>
-  <%= @reported_infraction.created_at %>
+  <%= @reported_infraction.created_at.to_s(:my_time) %>
 </p>
 
 <p>
   <b>Updated At:</b>
-  <%= @reported_infraction.updated_at %>
+  <%= @reported_infraction.updated_at.to_s(:my_time) %>
 </p>
 
 

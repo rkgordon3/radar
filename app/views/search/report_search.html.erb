@@ -1,0 +1,27 @@
+<h1>Student Search</h1>
+
+<script type="text/javascript">
+function handletext(what){
+	if (document.createTextNode){
+		var theNewParagraph = document.createElement('p');
+		document.getElementById("found").appendChild(theNewParagraph);
+		var mytext=document.createTextNode(what)
+		theNewParagraph.appendChild(mytext)
+	}
+}
+
+var callback = Request.QueryString("callback");
+
+</script>
+
+<div id="found">
+<% if session[:reported_infractions] != nil %>
+	<% session[:reported_infractions].each do |r| %>
+		<p><%= r.participant.first_name %> <%= r.participant.last_name %></p>
+	<% end %>
+<% end %>
+
+</div>
+
+<%= render '/search/form' %>
+
