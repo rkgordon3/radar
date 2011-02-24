@@ -36,9 +36,9 @@
   
   <br/><br /><br />
   <b>Created at:</b>
-  <%= @incident_report.created_at %><br/><br />
+  <%= @incident_report.created_at.to_s(:my_time) %><br/><br />
   <b>Updated at:</b>
-  <%= @incident_report.updated_at %><br>
+  <%= @incident_report.updated_at.to_s(:my_time) %><br>
  
   
 </p>

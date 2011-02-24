@@ -17,11 +17,11 @@
   </p>
   <p>
   <b>Created at:</b>
-  <%= @report.created_at %><br>
+  <%= @report.created_at.to_s(:my_time) %><br>
   </p>
   <p>
   <b>Updated at:</b>
-  <%= @report.updated_at %><br>
+  <%= @report.updated_at.to_s(:my_time) %><br>
   
 
   
