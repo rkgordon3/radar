@@ -1,10 +1,9 @@
 <h1>Student Search</h1>
-<<<<<<< HEAD
+
 <%= form_tag do %>
-  <%=text_field_tag 'first_name', '', :autocomplete => search_autocomplete_student_first_name_path %>
+  
  
 <% end %>
-=======
 <%= javascript_include_tag 'jquery-1.4.4.min.js', 'jquery-ui-1.8.9.custom.min.js', 'autocomplete-rails.js', 'rails.js'  %>
 <script type="text/javascript">
 function handletext(what){
@@ -21,5 +20,4 @@ function handletext(what){
 <div id="found"></div>
 
 <%= render '/search/form' %>
->>>>>>> cf3dc711e0dd3ac7a8650072665dae68ea0afe1c
 
