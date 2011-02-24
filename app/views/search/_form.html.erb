@@ -1,7 +1,7 @@
 <form action="<%= request.query_string %>">
 
   <%=text_field_tag 'first_name', '', :autocomplete => search_autocomplete_student_first_name_path %>
-  
+    
   <input onclick="handletext(first_name.value)"; first_name.value = ''; type="button" value="Select" />
   <input onclick="first_name.value = '';"; type="submit" value="Done" />
 
