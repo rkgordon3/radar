@@ -12,20 +12,18 @@
   <% end %>
 
   <div class="field">
+    Approach Time<br />
+    <%= f.text_field :approach_time %><br/>
+  </div>
+  <div class="field">
     <%= f.label :annotation %><br />
     <%= f.text_area :annotation %><br/>
   </div>
   <div class="field">
-    Submitter ID<br />
-    <%= f.text_field :submitter %><br/>
+    Staff ID<br />
+    <%= f.text_field :staff_id %><br/>
   </div>
-  <div class="field">
-    Location<br />
-    <%= f.text_field :location %><br/>
-  </div><div class="field">
-    Approach Time<br />
-    <%= f.text_field :approach_time %><br/>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

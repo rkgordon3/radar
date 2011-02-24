@@ -134,6 +134,12 @@ buildings:
     - 2011-02-21 19:48:55.343125
     - 0
     - OC
+  - - 16
+    - Unspecified
+    - 2011-02-23 08:36:40.505000
+    - 2011-02-23 08:36:40.505000
+    - 
+    - NA
 
 --- 
 infractions: 
@@ -659,121 +665,6 @@ reported_infractions:
     - "8"
 
 --- 
-reports: 
-  columns: 
-  - id
-  - created_at
-  - updated_at
-  - building_id
-  - approach_time
-  - annotation
-  - room_number
-  - type
-  - staff_id
-  - submitted
-  records: 
-  - - 1
-    - 2011-02-21 19:49:00.483750
-    - 2011-02-21 19:49:00.483750
-    - 5
-    - 2011-02-21 21:50:00.000000
-    - This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...
-    - "332"
-    - IncidentReport
-    - 1
-    - false
-  - - 2
-    - 2011-02-21 19:49:00.608750
-    - 2011-02-21 19:49:00.608750
-    - 7
-    - 2011-02-21 21:50:00.000000
-    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The story follows the main character Elizabeth Bennet as she deals with issues of manners, upbringing, morality, education and marriage in the society of the landed gentry of early 19th-century England. Elizabeth is the second of five daughters of a country gentleman, living near the fictional town of Meryton in Hertfordshire, near London.Though the story is set at the turn of the 19th century, it retains a fascination for modern readers, continuing near the top of lists of most loved books such as The Big Read. It has become one of the most popular novels in English literature, and receives considerable attention from literary scholars. Modern interest in the book has resulted in a number of dramatic adaptations and an abundance of novels and stories imitating Austens memorable characters or themes. To date, the book has sold some 20 million copies worldwide.
-    - "332"
-    - IncidentReport
-    - 1
-    - false
-  - - 3
-    - 2011-02-21 19:49:00.765000
-    - 2011-02-21 19:49:00.765000
-    - 5
-    - 2011-02-21 23:50:00.000000
-    - "The plot of the novel is driven by a particular situation of the Bennet family: The Longbourn estate where they reside is entailed to one of Mr Bennets collateral relatives - male only in this case - by the legal terms of fee tail. Having had no sons, this means that if Mr Bennet dies soon, his wife and five daughters will be left without home or income. Mrs Bennet worries about this predicament, and wishes to find husbands for her five daughters quickly. The father doesnt seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young gentleman and a very eligible bachelor, renting a country estate near the Bennets called Netherfield. He arrives accompanied by his fashionable sisters and his good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well received in the community, while Darcy begins his acquaintance with smug condescension and proud distaste for all the country locals. After Darcys haughty rejection of her at the dance, Elizabeth resolves to match his coldness and pride, his prejudice against country people, with her own prideful anger - in biting wit and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition leads her into prejudices regarding Darcy and others, such that she is unable to sketch their characters accurately. Soon, Bingley and Elizabeths older sister Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane should show her affection to Bingley more openly, as he may not realise that she is indeed interested in him. Elizabeth flippantly dismisses the opinion - replying that Jane is shy and modest, and that if Bingley cant see how she feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long personal acquaintance with Darcy - they grew up together. Wickham tells her he has been seriously mistreated by the proud man; Elizabeth seizes on this news as further reason to dislike Darcy. Ironically, Darcy begins to find himself drawn to Elizabeth, unbeknownst to her."
-    - "533"
-    - IncidentReport
-    - 3
-    - false
-  - - 4
-    - 2011-02-21 19:49:00.905625
-    - 2011-02-21 19:49:00.905625
-    - 12
-    - 2011-02-21 21:58:00.000000
-    - "Jane pays a visit to the Bingley mansion. On her journey to the house she is caught in a downpour and catches ill, forcing her to stay at Netherfield for several days. In order to tend to Jane, Elizabeth hikes through muddy fields and arrives with a spattered dress, much to the disdain of the snobbish Miss Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth. Mr Collins, the male relative who is to inherit Longbourn, makes an appearance and stays with the Bennets. Recently ordained a clergyman, he is employed as parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent. Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour. Though his stated reason for visiting is to reconcile with the Bennets, Collins soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her eldest daughter is soon likely to be engaged, and redirects his attentions to Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen her acquaintance with Mr Wickham, who, however, fails to appear. She is asked to dance by Mr Darcy; here she raises Wickhams fate with him, causing their harmonious dance to fall into a testy discussion. The ball proceeds as spectacle: the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks loudly and indiscreetly of her expectation of marriage between Jane and Bingley, and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth - combine in a public display of poor manners and upbringing that clearly disgusts Darcy and embarrasses Elizabeth."
-    - "222"
-    - IncidentReport
-    - 2
-    - false
-  - - 5
-    - 2011-02-21 19:49:01.015000
-    - 2011-02-21 19:49:01.015000
-    - 9
-    - 2011-02-21 22:50:00.000000
-    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him, much to her mothers distress. Collins handily recovers and, within three days, proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts. Once marriage arrangements are settled, Charlotte persuades Elizabeth to come for an extended visit to her new bridal home. Though appearing at the point of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns to London, leaving the lady confused and upset. Elizabeth is convinced that Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt - where Elizabeth and her hosts are frequently invited to socialize. After Mr Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth renews her project of teasing Darcy - while his admiration for her grows in spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that Darcy prides himself on having separated Bingley from Jane; and, with the poorest of timing, Darcy chooses this moment to admit his love for Elizabeth, and he proposes to her. Incensed by his high-handed and insulting manner, she abruptly refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him with his sabotage of Jane and Bingleys budding relationship and with Wickhams account of Darcys mistreatment of him, among other complaints.
-    - "784"
-    - IncidentReport
-    - 1
-    - false
-  - - 6
-    - 2011-02-21 19:49:01.140000
-    - 2011-02-21 19:49:01.140000
-    - 8
-    - 2011-02-21 21:12:00.000000
-    - "Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a letter which reveals the true history between Wickham and himself. Wickham had renounced his legacy - a clergymans living in Darcys patronage - for a cash payment; only to return after gambling away the money to again claim the position. After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old sister Georgiana, and thereby secure her part of the Darcy family fortune. He was found out and stopped only a day before the intended elopement. Regarding Bingley and Jane, Darcy justifies his interference: he had observed in Jane no reciprocal interest for Bingley; thus he aimed to separate them to protect his friend from heartache. In the letter Darcy admits his repugnance for the total want of propriety of her (Elizabeths) family, especially her mother and three younger sisters. After reading the letter, Elizabeth begins to question both her familys behaviour and Wickhams credibility. She also concludes: Wickham is not as trustworthy as his easy manners would indicate; that he had lied to her previously; and that her early impressions of Darcys character might not have been accurate. Soon, Elizabeth returns home."
-    - "421"
-    - IncidentReport
-    - 2
-    - false
-  - - 7
-    - 2011-02-21 19:49:01.249375
-    - 2011-02-21 19:49:01.249375
-    - 3
-    - 2011-02-21 21:48:00.000000
-    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper has known Darcy since childhood, and presents a flattering and benevolent impression of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious effort to be gracious and welcoming, and treats the Gardiners - whom before he would have dismissed as socially inferior - with remarkable politeness. Later he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth is surprised and hopeful of a possible new beginning with Darcy.
-    - "583"
-    - IncidentReport
-    - 4
-    - false
-  - - 8
-    - 2011-02-21 19:49:01.374375
-    - 2011-02-21 19:49:01.374375
-    - 3
-    - 2011-02-21 02:50:00.000000
-    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her youngest (and most frivolous) sister, has run away with Wickham. Initially, the family (wishfully) believe they have eloped, but they soon learn that Wickham has no plans to marry Lydia. Lydias antics threaten her family - especially the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia and Wickham are found and married. Afterwards, they visit Longbourn; while bragging to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised, Elizabeth sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible for both finding the couple and arranging their marriage, at great expense to himself.
-    - "592"
-    - IncidentReport
-    - 5
-    - false
-  - - 9
-    - 2011-02-21 19:49:01.530625
-    - 2011-02-21 19:49:01.530625
-    - 1
-    - 2011-02-21 04:50:00.000000
-    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts. Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth she has heard rumours of Darcy proposing to her; she came with determined resolution to confront Elizabeth and to demand that she never accept such a proposal because Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy - which convinces him that Elizabeths opinion of him may have changed. He now visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the two become engaged.
-    - "639"
-    - IncidentReport
-    - 3
-    - false
-  - - 10
-    - 2011-02-21 19:49:01.624375
-    - 2011-02-21 19:49:01.624375
-    - 7
-    - 2011-02-21 00:50:00.000000
-    - "The novels final chapters establish the futures of the characters: Elizabeth and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains frivolous and silly - she often visits the new Mrs Bingley and talks of the new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced by Lydia better social graces, and Mary who had been the most reclusive learns to mix more with the outside world at Meryton. Lydia and Wickham continue a life of frivolity which keeps them from accumulating any wealth and leads them to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley, Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine holds out, indignant and abusive, over her nephews marriage, but eventually Darcy is prevailed upon to reconcile with her sufficiently that she condescends to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner - the agents of their reconciling and uniting."
-    - "181"
-    - IncidentReport
-    - 1
-    - false
-
---- 
 staffs: 
   columns: 
   - id
@@ -801,13 +692,13 @@ staffs:
     - 
     - 
     - 
-    - 2
-    - 2011-02-21 21:50:30.942000
-    - 2011-02-21 19:50:31.827500
+    - 5
+    - 2011-02-23 08:40:29.883000
+    - 2011-02-22 16:56:15.003000
     - 127.0.0.1
     - 127.0.0.1
     - 2011-02-21 19:50:31.608750
-    - 2011-02-21 21:50:30.944000
+    - 2011-02-23 08:40:29.884000
     - Stephanie
     - Valentine
     - RA
@@ -835,14 +726,14 @@ staffs:
     - 
     - 
     - 
-    - 1
-    - 2011-02-21 20:57:00.843125
-    - 2011-02-21 20:57:00.843125
+    - 3
+    - 2011-02-22 16:56:54.365000
+    - 2011-02-22 16:54:21.358000
     - 127.0.0.1
     - 127.0.0.1
     - 2011-02-21 20:57:00.733750
-    - 2011-02-21 20:57:00.843125
-    - Bredan
+    - 2011-02-23 08:39:42.110000
+    - Brendan
     - Dolan
     - Admin
   - - 4
@@ -879,3 +770,178 @@ staffs:
     - Ann
     - Smith
     - Admin
+
+--- 
+annotations: 
+  columns: 
+  - id
+  - annotation
+  - report_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...
+    - 1
+    - 2:00 a.m.
+    - 2:00 a.m.
+  - - 2
+    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The story follows the main character Elizabeth Bennet as she deals with issues of manners, upbringing, morality, education and marriage in the society of the landed gentry of early 19th-century England. Elizabeth is the second of five daughters of a country gentleman, living near the fictional town of Meryton in Hertfordshire, near London.Though the story is set at the turn of the 19th century, it retains a fascination for modern readers, continuing near the top of lists of most loved books such as The Big Read. It has become one of the most popular novels in English literature, and receives considerable attention from literary scholars. Modern interest in the book has resulted in a number of dramatic adaptations and an abundance of novels and stories imitating Austens memorable characters or themes. To date, the book has sold some 20 million copies worldwide.
+    - 2
+    - "2:00 "
+    - "2:00"
+  - - 3
+    - "The plot of the novel is driven by a particular situation of the Bennet family: The Longbourn estate where they reside is entailed to one of Mr Bennets collateral relatives - male only in this case - by the legal terms of fee tail. Having had no sons, this means that if Mr Bennet dies soon, his wife and five daughters will be left without home or income. Mrs Bennet worries about this predicament, and wishes to find husbands for her five daughters quickly. The father doesnt seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young gentleman and a very eligible bachelor, renting a country estate near the Bennets called Netherfield. He arrives accompanied by his fashionable sisters and his good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well received in the community, while Darcy begins his acquaintance with smug condescension and proud distaste for all the country locals. After Darcys haughty rejection of her at the dance, Elizabeth resolves to match his coldness and pride, his prejudice against country people, with her own prideful anger - in biting wit and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition leads her into prejudices regarding Darcy and others, such that she is unable to sketch their characters accurately. Soon, Bingley and Elizabeths older sister Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane should show her affection to Bingley more openly, as he may not realise that she is indeed interested in him. Elizabeth flippantly dismisses the opinion - replying that Jane is shy and modest, and that if Bingley cant see how she feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long personal acquaintance with Darcy - they grew up together. Wickham tells her he has been seriously mistreated by the proud man; Elizabeth seizes on this news as further reason to dislike Darcy. Ironically, Darcy begins to find himself drawn to Elizabeth, unbeknownst to her."
+    - 3
+    - 2011-02-24 07:35:36.807000
+    - 2011-02-24 07:35:36.807000
+  - - 4
+    - "Jane pays a visit to the Bingley mansion. On her journey to the house she is caught in a downpour and catches ill, forcing her to stay at Netherfield for several days. In order to tend to Jane, Elizabeth hikes through muddy fields and arrives with a spattered dress, much to the disdain of the snobbish Miss Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth. Mr Collins, the male relative who is to inherit Longbourn, makes an appearance and stays with the Bennets. Recently ordained a clergyman, he is employed as parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent. Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour. Though his stated reason for visiting is to reconcile with the Bennets, Collins soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her eldest daughter is soon likely to be engaged, and redirects his attentions to Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen her acquaintance with Mr Wickham, who, however, fails to appear. She is asked to dance by Mr Darcy; here she raises Wickhams fate with him, causing their harmonious dance to fall into a testy discussion. The ball proceeds as spectacle: the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks loudly and indiscreetly of her expectation of marriage between Jane and Bingley, and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth - combine in a public display of poor manners and upbringing that clearly disgusts Darcy and embarrasses Elizabeth."
+    - 4
+    - 2011-02-24 07:36:25.252000
+    - 2011-02-24 07:36:25.252000
+  - - 5
+    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him, much to her mothers distress. Collins handily recovers and, within three days, proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts. Once marriage arrangements are settled, Charlotte persuades Elizabeth to come for an extended visit to her new bridal home. Though appearing at the point of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns to London, leaving the lady confused and upset. Elizabeth is convinced that Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt - where Elizabeth and her hosts are frequently invited to socialize. After Mr Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth renews her project of teasing Darcy - while his admiration for her grows in spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that Darcy prides himself on having separated Bingley from Jane; and, with the poorest of timing, Darcy chooses this moment to admit his love for Elizabeth, and he proposes to her. Incensed by his high-handed and insulting manner, she abruptly refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him with his sabotage of Jane and Bingleys budding relationship and with Wickhams account of Darcys mistreatment of him, among other complaints.
+    - 5
+    - 2011-02-24 07:37:12.279000
+    - 2011-02-24 07:37:12.279000
+  - - 6
+    - "Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a letter which reveals the true history between Wickham and himself. Wickham had renounced his legacy - a clergymans living in Darcys patronage - for a cash payment; only to return after gambling away the money to again claim the position. After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old sister Georgiana, and thereby secure her part of the Darcy family fortune. He was found out and stopped only a day before the intended elopement. Regarding Bingley and Jane, Darcy justifies his interference: he had observed in Jane no reciprocal interest for Bingley; thus he aimed to separate them to protect his friend from heartache. In the letter Darcy admits his repugnance for the total want of propriety of her (Elizabeths) family, especially her mother and three younger sisters. After reading the letter, Elizabeth begins to question both her familys behaviour and Wickhams credibility. She also concludes: Wickham is not as trustworthy as his easy manners would indicate; that he had lied to her previously; and that her early impressions of Darcys character might not have been accurate. Soon, Elizabeth returns home."
+    - 6
+    - 2011-02-24 07:37:51.609000
+    - 2011-02-24 07:37:51.609000
+  - - 7
+    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper has known Darcy since childhood, and presents a flattering and benevolent impression of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious effort to be gracious and welcoming, and treats the Gardiners - whom before he would have dismissed as socially inferior - with remarkable politeness. Later he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth is surprised and hopeful of a possible new beginning with Darcy.
+    - 7
+    - 2011-02-24 07:38:20.457000
+    - 2011-02-24 07:38:20.457000
+  - - 8
+    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her youngest (and most frivolous) sister, has run away with Wickham. Initially, the family (wishfully) believe they have eloped, but they soon learn that Wickham has no plans to marry Lydia. Lydias antics threaten her family - especially the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia and Wickham are found and married. Afterwards, they visit Longbourn; while bragging to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised, Elizabeth sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible for both finding the couple and arranging their marriage, at great expense to himself.
+    - 8
+    - 2011-02-24 07:38:51.863000
+    - 2011-02-24 07:38:51.863000
+  - - 9
+    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts. Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth she has heard rumours of Darcy proposing to her; she came with determined resolution to confront Elizabeth and to demand that she never accept such a proposal because Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy - which convinces him that Elizabeths opinion of him may have changed. He now visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the two become engaged.
+    - 9
+    - 2011-02-24 07:39:19.437000
+    - 2011-02-24 07:39:19.437000
+  - - 10
+    - "The novels final chapters establish the futures of the characters: Elizabeth and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains frivolous and silly - she often visits the new Mrs Bingley and talks of the new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced by Lydia better social graces, and Mary who had been the most reclusive learns to mix more with the outside world at Meryton. Lydia and Wickham continue a life of frivolity which keeps them from accumulating any wealth and leads them to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley, Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine holds out, indignant and abusive, over her nephews marriage, but eventually Darcy is prevailed upon to reconcile with her sufficiently that she condescends to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner - the agents of their reconciling and uniting."
+    - 10
+    - 2011-02-24 07:39:59.173000
+    - 2011-02-24 07:39:59.173000
+
+--- 
+reports: 
+  columns: 
+  - id
+  - created_at
+  - updated_at
+  - building_id
+  - approach_time
+  - room_number
+  - type
+  - staff_id
+  - submitted
+  - annotation_id
+  records: 
+  - - 1
+    - 2011-02-21 19:49:00.483750
+    - 2011-02-21 19:49:00.483750
+    - 5
+    - 2011-02-21 21:50:00.000000
+    - "332"
+    - IncidentReport
+    - 1
+    - false
+    - 
+  - - 2
+    - 2011-02-21 19:49:00.608750
+    - 2011-02-21 19:49:00.608750
+    - 7
+    - 2011-02-21 21:50:00.000000
+    - "332"
+    - IncidentReport
+    - 1
+    - false
+    - 
+  - - 3
+    - 2011-02-21 19:49:00.765000
+    - 2011-02-21 19:49:00.765000
+    - 5
+    - 2011-02-21 23:50:00.000000
+    - "533"
+    - IncidentReport
+    - 3
+    - false
+    - 
+  - - 4
+    - 2011-02-21 19:49:00.905625
+    - 2011-02-21 19:49:00.905625
+    - 12
+    - 2011-02-21 21:58:00.000000
+    - "222"
+    - IncidentReport
+    - 2
+    - false
+    - 
+  - - 5
+    - 2011-02-21 19:49:01.015000
+    - 2011-02-21 19:49:01.015000
+    - 9
+    - 2011-02-21 22:50:00.000000
+    - "784"
+    - IncidentReport
+    - 1
+    - false
+    - 
+  - - 6
+    - 2011-02-21 19:49:01.140000
+    - 2011-02-21 19:49:01.140000
+    - 8
+    - 2011-02-21 21:12:00.000000
+    - "421"
+    - IncidentReport
+    - 2
+    - false
+    - 
+  - - 7
+    - 2011-02-21 19:49:01.249375
+    - 2011-02-21 19:49:01.249375
+    - 3
+    - 2011-02-21 21:48:00.000000
+    - "583"
+    - IncidentReport
+    - 4
+    - false
+    - 
+  - - 8
+    - 2011-02-21 19:49:01.374375
+    - 2011-02-21 19:49:01.374375
+    - 3
+    - 2011-02-21 02:50:00.000000
+    - "592"
+    - IncidentReport
+    - 5
+    - false
+    - 
+  - - 9
+    - 2011-02-21 19:49:01.530625
+    - 2011-02-21 19:49:01.530625
+    - 1
+    - 2011-02-21 04:50:00.000000
+    - "639"
+    - IncidentReport
+    - 3
+    - false
+    - 
+  - - 10
+    - 2011-02-21 19:49:01.624375
+    - 2011-02-21 19:49:01.624375
+    - 7
+    - 2011-02-21 00:50:00.000000
+    - "181"
+    - IncidentReport
+    - 1
+    - false
+    - 
