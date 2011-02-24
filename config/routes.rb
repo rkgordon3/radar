@@ -45,7 +45,7 @@ Radar::Application.routes.draw do
 
   resources :students
   
-  resources :temp_incedent
+  resources :temp_incident
     
   root :to => "home#landingpage"
 
