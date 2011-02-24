@@ -45,6 +45,8 @@ Radar::Application.routes.draw do
 
   resources :students
   
+  resources :temp_incedent
+    
   root :to => "home#landingpage"
 
   # The priority is based upon order of creation:

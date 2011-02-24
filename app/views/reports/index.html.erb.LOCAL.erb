@@ -1,0 +1,35 @@
+<h1>Listing Reports</h1>
+
+<table>
+  <tr>
+    <th>Report ID</th>
+    <th>Submitter</th>
+	<th>Location</th>
+    <th>Created At</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reports.each do |report| %>
+  <% if @numRows == 0 %>
+    <% @numRows = @numRows + 1 %>
+    <tr class="shaded">
+  <% else %>
+    <% @numRows = 0 %> 
+    <tr>
+  <% end %>
+    <td><%= report.id %></td>
+	<td><%= report.staff_id %></td>
+	<td><%= report.location %></td>
+    <td><%= report.created_at %></td>
+    <td><%= link_to 'Show', report %></td>
+    <td><%= link_to 'Edit', edit_report_path(report) %></td>
+    <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Report', new_report_path %>
