@@ -1,15 +1,20 @@
 Radar::Application.routes.draw do
   devise_for :staffs
-
-  
   
   get "home/landingpage"
 
-  resources :incident_reports
   get "search/search"
 		root :to => "home#landingpage"
 	
+  get "search/report_search"
+		root :to => "home#landingpage"
+
+		
   get 'search/autocomplete_student_first_name'
+  
+  resources :incident_reports do
+  	  get :new_report, :on => :collection
+  end
   
   resources :photos
 
