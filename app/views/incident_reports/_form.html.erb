@@ -1,3 +1,9 @@
+<script type="text/javascript">
+
+function roomNumberChanged(){
+}
+</script>
+
 <%= form_for(@incident_report) do |f| %>
   <% if @incident_report.errors.any? %>
     <div id="error_explanation">
@@ -17,27 +23,19 @@
   </div>
   <div class="field">
     <%= f.label :building_id %>:<br />
-    <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},  {}%>
     
     
-    
+    <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
     
     </div>
   <div class="field">
     <%= f.label :room_number %>:<br />
-    <%= f.text_field :room_number %>
+    <%= f.text_field :room_number, :onchange => 'roomNumberChanged()'%>
   </div>
   
-  
-  <div class="field">
-    <%= f.label :students %>:<br />
-    
-    &nbsp;&nbsp;&nbsp;<a href="/search/search"><%= image_tag('add_icon.gif', :border=>0) %> Add Students</a>
+  <div id="s-i-form">
+    <%= render "student_infractions" %>
   </div>
-  
-  
-  
-  
   
   
   <div class="field">
@@ -52,3 +50,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
