@@ -1,15 +1,7 @@
 <script type="text/javascript">
 function saveState(){
-	<%= session[:reported_infractions] = @incident_report.reported_infractions %>			
-	<% if @incident_report.id == 0 %>
-		<!--
-		<%= session[:building_id] = @incident_report.building_id%> 
-		<%= session[:room_number] = @incident_report.room_number %>
-		<%= session[:approach_time] = @incident_report.approach_time %>
-		<%= session[:annotation] = nil %>
-		<%= session[:annotation_id] = nil %>
-		-->
-	<% end %>	
+	<%= session[:incident_report] = @incident_report %>
+	<%= session[:annotation] = @annotation %>
 }
 
 </script>
@@ -21,6 +13,10 @@ function saveState(){
  	   	<p>&nbsp;&nbsp;&nbsp;<%= i.participant.first_name %> <%=i.participant.last_name %></p>
     	<% end %>
     
+    	<div class="actions">
+    		<input id="save_submit" name="save_submit" type="submit" value="Add Students" />
+    	</div>
+
  	   &nbsp;&nbsp;&nbsp;<a onclick='saveState();' href="/search/report_search?/incident_reports/new_report"><%= image_tag('add_icon.gif', :border=>0) %> Add Students</a>
     </div>
  

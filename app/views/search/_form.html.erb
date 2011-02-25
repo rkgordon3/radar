@@ -1,9 +1,18 @@
+
+
+    <%= form_tag 'update_list', :remote => true%>
+
+
+  <%=text_field_tag 'first_name', '', :autocomplete => search_autocomplete_student_first_name_path %> 
+  
+  <input id="options" type="submit" value="Select" onsubmit="first_name.value = ''">
+
+
+</form>
+<p><br /></p>
 <form action="<%= request.query_string %>">
 
-  <%=text_field_tag 'first_name', '', :autocomplete => search_autocomplete_student_first_name_path %>
-    
-  <input onclick="handletext(first_name.value)"; first_name.value = ''; type="button" value="Select" />
-  <input onclick="first_name.value = '';"; type="submit" value="Done" />
+  <input onclick=""; type="submit" value="Done" />
 
 
 </form>

@@ -13,9 +13,10 @@
 *   Example:
 *       <input type="text" data-autocomplete="/url/to/autocomplete" id_element="#id_field">
 */
+$j = jQuery.noConflict();
 
-$(document).ready(function(){
-	$('input[data-autocomplete]').railsAutocomplete();
+$j(document).ready(function(){
+	$j('input[data-autocomplete]').railsAutocomplete();
 });
 
 (function(jQuery)
@@ -41,7 +42,7 @@ $(document).ready(function(){
 	jQuery.railsAutocomplete.fn.extend = jQuery.railsAutocomplete.extend = jQuery.extend;
 	jQuery.railsAutocomplete.fn.extend({
 		init: function(e) {
-			e.delimiter = $(e).attr('data-delimiter') || null;
+			e.delimiter = $j(e).attr('data-delimiter') || null;
 			function split( val ) {
 				return val.split( e.delimiter );
 			}
@@ -49,9 +50,9 @@ $(document).ready(function(){
 				return split( term ).pop().replace(/^\s+/,"");
 			}
 		
-	    $(e).autocomplete({
+	    $j(e).autocomplete({
 				source: function( request, response ) {
-					$.getJSON( $(e).attr('data-autocomplete'), {
+					$j.getJSON( $j(e).attr('data-autocomplete'), {
 					term: extractLast( request.term )
 					}, response );
 				},
@@ -78,8 +79,8 @@ $(document).ready(function(){
 						this.value = terms.join( e.delimiter );
 					} else {
 						this.value = terms.join("");
-						if ($(this).attr('id_element')) {
-							$($(this).attr('id_element')).val(ui.item.id);
+						if ($j(this).attr('id_element')) {
+							$j($j(this).attr('id_element')).val(ui.item.id);
 						}
 					};
 				
