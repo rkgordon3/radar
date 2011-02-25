@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20110225005807) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.string   "url"
+    t.string   "url",                               :default => "unknown-person.gif"
     t.string   "room_number"
     t.integer  "building_id"
     t.string   "student_id"
