@@ -288,11 +288,11 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  	  	  	new_ris << ori
   	  	  	  	  	  	  	old_ris.delete(ori)
   	  	  	  	  	  	  end
-  	  	  	  	  	  	  	found = true
-  	  	  	  	  	  	  	something_found = true
+  	  	  	  	  	  	  found = true
+  	  	  	  	  	  	  something_found = true
   	  	  	  	  	  end
   	  	  	  	  end
-  	  	  	  	  if found == false
+  	  	  	  	  if found == false && i.id != 22
   	  	  	  	  	  ri = ReportedInfraction.new
   	  	  	  	  	  ri.participant_id = p
   	  	  	  	  	  ri.infraction_id = i.id
