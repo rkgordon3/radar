@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225005807) do
+ActiveRecord::Schema.define(:version => 20110228041636) do
 
   create_table "annotations", :force => true do |t|
     t.string   "annotation"
@@ -50,10 +50,11 @@ ActiveRecord::Schema.define(:version => 20110225005807) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.string   "url",                               :default => "unknown-person.gif"
+    t.string   "url",         :default => "unknown-person.gif"
     t.string   "room_number"
     t.integer  "building_id"
     t.string   "student_id"
+    t.string   "full_name"
   end
 
   create_table "reported_infractions", :force => true do |t|
