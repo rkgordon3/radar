@@ -1,4 +1,5 @@
 class AnnotationsController < ApplicationController
+  before_filter :authorize
   # GET /annotations
   # GET /annotations.xml
   def index
