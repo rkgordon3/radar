@@ -72,7 +72,7 @@ class IncidentReportsController < ApplicationController
   	  	  @incident_report.staff_id = current_staff.id
   	  	  @incident_report.reported_infractions = session[:incident_report].reported_infractions
   	  	  @annotation = Annotation.new
-  	  	  @annotation.annotation = params[:annotation]
+  	  	  @annotation.text = params[:annotation]
   	  	  
   	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  
@@ -92,14 +92,14 @@ class IncidentReportsController < ApplicationController
   	  	  
   	  	  self.clear_session
   	  	  
+  	  	  #deal with annotations
   	  	  annotation = Annotation.new
-  	  	  annotation.annotation = params[:annotation]
+  	  	  annotation.text = params[:annotation]
 		  annotation.save
 		  @incident_report.annotation_id = annotation.id
     
   	  	  respond_to do |format|
   	  	  	  if @incident_report.save
-  	  	  	  	  #self.save_annotation(@incident_report, params[:annotation])
   	  	  	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  	  	  @incident_report.reported_infractions.each do |ri|
   	  	  	  	  	  ri.incident_report_id = @incident_report.id
@@ -124,7 +124,7 @@ class IncidentReportsController < ApplicationController
 
     	if params[:save_submit] != nil
   	  	  @annotation = Annotation.new
-  	  	  @annotation.annotation = params[:annotation]
+  	  	  @annotation.text = params[:annotation]
   	  	  
   	  	  session[:annotation] = @annotation
   	  	  session[:students] = nil
@@ -138,7 +138,10 @@ class IncidentReportsController < ApplicationController
   	  	  end
   	  else 
   	  	 annotation = Annotation.find(@incident_report.annotation_id)
-		 annotation.annotation = params[:annotation]
+  	  	 annotation.destroy
+  	  	 annotation = Annotation.new
+		 annotation.text = params[:annotation]
+		 annotation.save
 		 @incident_report.annotation_id = annotation.id
   	  	  
 		  self.clear_session
@@ -302,20 +305,18 @@ class IncidentReportsController < ApplicationController
 
   
   
-  
-  
-  
+ 
   
   
   def save_annotation(incident_report, annot)
 		if incident_report.annotation_id == nil
 			annotation = Annotation.new
-			annotation.annotation = annot
+			annotation.text = annot
 			annotation.save
 			incident_report.annotation_id = annotation.id
 		else
 			annotation = Annotation.find(incident_report.annotation_id)
-			annotation.annotation = annot
+			annotation.text = annot
 			incident_report.annotation_id = annotation.id
 		end
 	end
