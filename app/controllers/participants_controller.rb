@@ -1,6 +1,7 @@
 class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
+  before_filter :authorize, :except => :index
   def index
     @participants = Participant.all
     @numRows = 0

@@ -1,7 +1,9 @@
 class ReportedInfractionsController < ApplicationController
   # GET /reported_infractions
   # GET /reported_infractions.xml
+  before_filter :authorize, :except => :index
   def index
+    
     @reported_infractions = ReportedInfraction.all
     @numRows = 0
 
