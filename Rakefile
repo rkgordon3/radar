@@ -6,4 +6,6 @@ require 'rake'
 require 'rubygems'
 gem 'ci_reporter'
 
+require ci/reporter/rake/test_unit
+
 Radar::Application.load_tasks
