@@ -663,54 +663,210 @@ reported_infractions:
     - 2011-02-22 06:32:46.431000
     - 6
     - "8"
-  - - 32
-    - 22
-    - 2011-02-25 05:34:06.915000
-    - 2011-02-25 05:34:06.915000
-    - 3
-    - "25"
-  - - 33
-    - 22
-    - 2011-02-25 05:34:06.919000
-    - 2011-02-25 05:34:06.919000
+  - - 129
     - 1
-    - "25"
-  - - 34
-    - 22
-    - 2011-02-25 05:34:06.923000
-    - 2011-02-25 05:34:06.923000
-    - 4
-    - "25"
-  - - 35
-    - 22
-    - 2011-02-25 05:34:06.929000
-    - 2011-02-25 05:34:06.929000
+    - 2011-02-27 22:49:57.108000
+    - 2011-02-27 23:24:55.790000
+    - 9
+    - "51"
+  - - 130
     - 10
-    - "25"
-  - - 36
+    - 2011-02-27 22:49:57.134000
+    - 2011-02-27 23:24:55.916000
+    - 9
+    - "51"
+  - - 131
     - 22
-    - 2011-02-25 05:34:57.948000
-    - 2011-02-25 05:34:57.948000
+    - 2011-02-27 23:26:21.566000
+    - 2011-02-27 23:26:21.566000
+    - 10
+    - 
+  - - 132
+    - 22
+    - 2011-02-27 23:31:35.755000
+    - 2011-02-27 23:31:35.755000
+    - 8
+    - 
+  - - 133
+    - 22
+    - 2011-02-27 23:33:07.836000
+    - 2011-02-27 23:33:07.836000
     - 3
-    - "26"
-  - - 37
+    - 
+  - - 134
     - 22
-    - 2011-02-25 05:34:57.952000
-    - 2011-02-25 05:34:57.952000
+    - 2011-02-27 23:47:28.668000
+    - 2011-02-27 23:47:28.668000
+    - 9
+    - 
+  - - 135
     - 1
-    - "26"
-  - - 38
+    - 2011-02-27 23:47:28.801000
+    - 2011-02-28 01:31:30.095000
+    - 9
+    - "58"
+  - - 136
+    - 3
+    - 2011-02-27 23:47:28.821000
+    - 2011-02-28 01:31:30.113000
+    - 9
+    - "58"
+  - - 137
+    - 5
+    - 2011-02-27 23:47:28.839000
+    - 2011-02-28 01:31:30.130000
+    - 9
+    - "58"
+  - - 138
+    - 6
+    - 2011-02-27 23:47:28.855000
+    - 2011-02-28 01:31:30.149000
+    - 9
+    - "58"
+  - - 139
+    - 8
+    - 2011-02-27 23:47:28.875000
+    - 2011-02-28 01:31:30.168000
+    - 9
+    - "58"
+  - - 140
+    - 12
+    - 2011-02-27 23:47:28.895000
+    - 2011-02-28 01:31:30.187000
+    - 9
+    - "58"
+  - - 141
     - 22
-    - 2011-02-25 05:34:57.954000
-    - 2011-02-25 05:34:57.954000
-    - 4
-    - "26"
-  - - 39
+    - 2011-02-28 01:43:38.576000
+    - 2011-02-28 01:43:38.576000
+    - 1
+    - 
+  - - 142
     - 22
-    - 2011-02-25 05:34:57.956000
-    - 2011-02-25 05:34:57.956000
+    - 2011-02-28 01:43:38.580000
+    - 2011-02-28 01:43:38.580000
+    - 3
+    - 
+  - - 144
+    - 22
+    - 2011-02-28 01:43:38.585000
+    - 2011-02-28 01:43:38.585000
+    - 8
+    - 
+  - - 145
+    - 22
+    - 2011-02-28 01:43:38.588000
+    - 2011-02-28 01:43:38.588000
+    - 9
+    - 
+  - - 146
+    - 22
+    - 2011-02-28 01:43:38.590000
+    - 2011-02-28 01:43:38.590000
     - 10
-    - "26"
+    - 
+  - - 151
+    - 12
+    - 2011-02-28 01:43:38.928000
+    - 2011-02-28 01:50:28.341000
+    - 3
+    - "59"
+  - - 152
+    - 14
+    - 2011-02-28 01:43:38.940000
+    - 2011-02-28 01:50:28.355000
+    - 3
+    - "59"
+  - - 153
+    - 17
+    - 2011-02-28 01:43:38.958000
+    - 2011-02-28 01:50:28.369000
+    - 3
+    - "59"
+  - - 154
+    - 10
+    - 2011-02-28 01:43:38.977000
+    - 2011-02-28 01:50:28.384000
+    - 6
+    - "59"
+  - - 155
+    - 16
+    - 2011-02-28 01:43:38.993000
+    - 2011-02-28 01:50:28.572000
+    - 6
+    - "59"
+  - - 156
+    - 1
+    - 2011-02-28 01:43:39.010000
+    - 2011-02-28 01:50:28.586000
+    - 8
+    - "59"
+  - - 157
+    - 5
+    - 2011-02-28 01:43:39.024000
+    - 2011-02-28 01:50:28.598000
+    - 8
+    - "59"
+  - - 158
+    - 8
+    - 2011-02-28 01:43:39.042000
+    - 2011-02-28 01:50:28.613000
+    - 9
+    - "59"
+  - - 159
+    - 9
+    - 2011-02-28 01:43:39.058000
+    - 2011-02-28 01:50:28.626000
+    - 9
+    - "59"
+  - - 160
+    - 1
+    - 2011-02-28 01:43:39.074000
+    - 2011-02-28 01:50:28.641000
+    - 10
+    - "59"
+  - - 161
+    - 18
+    - 2011-02-28 01:43:39.087000
+    - 2011-02-28 01:50:28.655000
+    - 10
+    - "59"
+  - - 163
+    - 5
+    - 2011-02-28 01:44:19.437000
+    - 2011-02-28 01:50:28.669000
+    - 1
+    - "59"
+  - - 167
+    - 22
+    - 2011-02-28 01:44:44.236000
+    - 2011-02-28 01:50:28.700000
+    - 5
+    - "59"
+  - - 169
+    - 22
+    - 2011-02-28 01:46:56.703000
+    - 2011-02-28 01:47:29.696000
+    - 1
+    - "59"
+  - - 171
+    - 21
+    - 2011-02-28 01:50:28.684000
+    - 2011-02-28 01:50:28.684000
+    - 1
+    - "59"
+  - - 172
+    - 5
+    - 2011-02-28 01:50:28.719000
+    - 2011-02-28 01:50:28.719000
+    - 1
+    - "59"
+  - - 173
+    - 21
+    - 2011-02-28 01:50:28.731000
+    - 2011-02-28 01:50:28.731000
+    - 1
+    - "59"
 
 --- 
 staffs: 
@@ -740,13 +896,13 @@ staffs:
     - 
     - 
     - 
-    - 9
+    - 10
+    - 2011-02-25 20:31:18.723000
     - 2011-02-25 05:14:17.398000
-    - 2011-02-25 04:41:50.670000
     - 127.0.0.1
     - 127.0.0.1
     - 2011-02-21 19:50:31.608750
-    - 2011-02-25 05:14:17.399000
+    - 2011-02-25 20:31:18.725000
     - Stephanie
     - Valentine
     - RA
@@ -820,84 +976,110 @@ staffs:
     - Admin
 
 --- 
+sessions: 
+  columns: 
+  - id
+  - session_id
+  - data
+  - created_at
+  - updated_at
+  records: 
+  - - 8
+    - f1002b0027ae4aaf04f67cc454fe6551
+    - |
+      BAh7CCIQX2NzcmZfdG9rZW4iMVNBOHE3K2I2enhvbjFubjBkQXR6ajlhMXdr
+      NzNQdW1Bbnc2aTAzR0hRdzQ9Ihp3YXJkZW4udXNlci5zdGFmZi5rZXlbByIK
+      U3RhZmZpBiIKZmxhc2hJQzolQWN0aW9uRGlzcGF0Y2g6OkZsYXNoOjpGbGFz
+      aEhhc2h7BjoLbm90aWNlIi5JbmNpZGVudCByZXBvcnQgd2FzIHN1Y2Nlc3Nm
+      dWxseSB1cGRhdGVkLgY6CkB1c2VkbzoIU2V0BjoKQGhhc2h7BjsGVA==
+
+    - 2011-02-25 20:31:18.771000
+    - 2011-02-28 01:50:30.111000
+
+--- 
 annotations: 
   columns: 
   - id
   - annotation
-  - report_id
   - created_at
   - updated_at
   records: 
   - - 1
     - This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...
-    - 1
     - 2:00 a.m.
     - 2:00 a.m.
   - - 2
     - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The story follows the main character Elizabeth Bennet as she deals with issues of manners, upbringing, morality, education and marriage in the society of the landed gentry of early 19th-century England. Elizabeth is the second of five daughters of a country gentleman, living near the fictional town of Meryton in Hertfordshire, near London.Though the story is set at the turn of the 19th century, it retains a fascination for modern readers, continuing near the top of lists of most loved books such as The Big Read. It has become one of the most popular novels in English literature, and receives considerable attention from literary scholars. Modern interest in the book has resulted in a number of dramatic adaptations and an abundance of novels and stories imitating Austens memorable characters or themes. To date, the book has sold some 20 million copies worldwide.
-    - 2
     - "2:00 "
     - "2:00"
   - - 3
     - "The plot of the novel is driven by a particular situation of the Bennet family: The Longbourn estate where they reside is entailed to one of Mr Bennets collateral relatives - male only in this case - by the legal terms of fee tail. Having had no sons, this means that if Mr Bennet dies soon, his wife and five daughters will be left without home or income. Mrs Bennet worries about this predicament, and wishes to find husbands for her five daughters quickly. The father doesnt seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young gentleman and a very eligible bachelor, renting a country estate near the Bennets called Netherfield. He arrives accompanied by his fashionable sisters and his good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well received in the community, while Darcy begins his acquaintance with smug condescension and proud distaste for all the country locals. After Darcys haughty rejection of her at the dance, Elizabeth resolves to match his coldness and pride, his prejudice against country people, with her own prideful anger - in biting wit and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition leads her into prejudices regarding Darcy and others, such that she is unable to sketch their characters accurately. Soon, Bingley and Elizabeths older sister Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane should show her affection to Bingley more openly, as he may not realise that she is indeed interested in him. Elizabeth flippantly dismisses the opinion - replying that Jane is shy and modest, and that if Bingley cant see how she feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long personal acquaintance with Darcy - they grew up together. Wickham tells her he has been seriously mistreated by the proud man; Elizabeth seizes on this news as further reason to dislike Darcy. Ironically, Darcy begins to find himself drawn to Elizabeth, unbeknownst to her."
-    - 3
     - 2011-02-24 07:35:36.807000
     - 2011-02-24 07:35:36.807000
   - - 4
     - "Jane pays a visit to the Bingley mansion. On her journey to the house she is caught in a downpour and catches ill, forcing her to stay at Netherfield for several days. In order to tend to Jane, Elizabeth hikes through muddy fields and arrives with a spattered dress, much to the disdain of the snobbish Miss Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth. Mr Collins, the male relative who is to inherit Longbourn, makes an appearance and stays with the Bennets. Recently ordained a clergyman, he is employed as parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent. Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour. Though his stated reason for visiting is to reconcile with the Bennets, Collins soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her eldest daughter is soon likely to be engaged, and redirects his attentions to Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen her acquaintance with Mr Wickham, who, however, fails to appear. She is asked to dance by Mr Darcy; here she raises Wickhams fate with him, causing their harmonious dance to fall into a testy discussion. The ball proceeds as spectacle: the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks loudly and indiscreetly of her expectation of marriage between Jane and Bingley, and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth - combine in a public display of poor manners and upbringing that clearly disgusts Darcy and embarrasses Elizabeth."
-    - 4
     - 2011-02-24 07:36:25.252000
     - 2011-02-24 07:36:25.252000
   - - 5
     - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him, much to her mothers distress. Collins handily recovers and, within three days, proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts. Once marriage arrangements are settled, Charlotte persuades Elizabeth to come for an extended visit to her new bridal home. Though appearing at the point of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns to London, leaving the lady confused and upset. Elizabeth is convinced that Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt - where Elizabeth and her hosts are frequently invited to socialize. After Mr Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth renews her project of teasing Darcy - while his admiration for her grows in spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that Darcy prides himself on having separated Bingley from Jane; and, with the poorest of timing, Darcy chooses this moment to admit his love for Elizabeth, and he proposes to her. Incensed by his high-handed and insulting manner, she abruptly refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him with his sabotage of Jane and Bingleys budding relationship and with Wickhams account of Darcys mistreatment of him, among other complaints.
-    - 5
     - 2011-02-24 07:37:12.279000
     - 2011-02-24 07:37:12.279000
   - - 6
     - "Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a letter which reveals the true history between Wickham and himself. Wickham had renounced his legacy - a clergymans living in Darcys patronage - for a cash payment; only to return after gambling away the money to again claim the position. After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old sister Georgiana, and thereby secure her part of the Darcy family fortune. He was found out and stopped only a day before the intended elopement. Regarding Bingley and Jane, Darcy justifies his interference: he had observed in Jane no reciprocal interest for Bingley; thus he aimed to separate them to protect his friend from heartache. In the letter Darcy admits his repugnance for the total want of propriety of her (Elizabeths) family, especially her mother and three younger sisters. After reading the letter, Elizabeth begins to question both her familys behaviour and Wickhams credibility. She also concludes: Wickham is not as trustworthy as his easy manners would indicate; that he had lied to her previously; and that her early impressions of Darcys character might not have been accurate. Soon, Elizabeth returns home."
-    - 6
     - 2011-02-24 07:37:51.609000
     - 2011-02-24 07:37:51.609000
   - - 7
     - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper has known Darcy since childhood, and presents a flattering and benevolent impression of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious effort to be gracious and welcoming, and treats the Gardiners - whom before he would have dismissed as socially inferior - with remarkable politeness. Later he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth is surprised and hopeful of a possible new beginning with Darcy.
-    - 7
     - 2011-02-24 07:38:20.457000
     - 2011-02-24 07:38:20.457000
   - - 8
     - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her youngest (and most frivolous) sister, has run away with Wickham. Initially, the family (wishfully) believe they have eloped, but they soon learn that Wickham has no plans to marry Lydia. Lydias antics threaten her family - especially the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia and Wickham are found and married. Afterwards, they visit Longbourn; while bragging to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised, Elizabeth sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible for both finding the couple and arranging their marriage, at great expense to himself.
-    - 8
     - 2011-02-24 07:38:51.863000
     - 2011-02-24 07:38:51.863000
   - - 9
     - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts. Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth she has heard rumours of Darcy proposing to her; she came with determined resolution to confront Elizabeth and to demand that she never accept such a proposal because Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy - which convinces him that Elizabeths opinion of him may have changed. He now visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the two become engaged.
-    - 9
     - 2011-02-24 07:39:19.437000
     - 2011-02-24 07:39:19.437000
   - - 10
     - "The novels final chapters establish the futures of the characters: Elizabeth and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains frivolous and silly - she often visits the new Mrs Bingley and talks of the new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced by Lydia better social graces, and Mary who had been the most reclusive learns to mix more with the outside world at Meryton. Lydia and Wickham continue a life of frivolity which keeps them from accumulating any wealth and leads them to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley, Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine holds out, indignant and abusive, over her nephews marriage, but eventually Darcy is prevailed upon to reconcile with her sufficiently that she condescends to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner - the agents of their reconciling and uniting."
-    - 10
     - 2011-02-24 07:39:59.173000
     - 2011-02-24 07:39:59.173000
-  - - 23
-    - wlekrj
-    - 23
-    - 2011-02-25 05:18:34.705000
-    - 2011-02-25 05:18:34.731000
-  - - 24
-    - plwer
-    - 24
-    - 2011-02-25 05:30:53.400000
-    - 2011-02-25 05:30:53.428000
-  - - 25
-    - hello, world!
-    - 
-    - 2011-02-25 05:34:57.983000
-    - 2011-02-25 05:39:24.182000
-  - - 26
-    - hello, world! hello!
-    - 26
-    - 2011-02-25 05:39:24.114000
-    - 2011-02-25 05:39:24.222000
+  - - 53
+    - hello, my name is steph. i am documenting myself right now. why would i do that? notice that I documented myself for a community disruption and non-compliance. i must not have listened to myself, and i must have bothered  me with lots of disruptive noise. love, steph
+    - 2011-02-27 22:50:29.982000
+    - 2011-02-27 22:50:30.018000
+  - - 54
+    - hello!
+    - 2011-02-27 23:26:21.583000
+    - 2011-02-27 23:26:21.583000
+  - - 55
+    - hello
+    - 2011-02-27 23:31:35.762000
+    - 2011-02-27 23:31:35.762000
+  - - 56
+    - ahoj!
+    - 2011-02-27 23:33:07.856000
+    - 2011-02-27 23:33:07.856000
+  - - 57
+    - lkju
+    - 2011-02-27 23:37:00.697000
+    - 2011-02-27 23:37:00.697000
+  - - 58
+    - helwekr
+    - 2011-02-27 23:43:44.198000
+    - 2011-02-27 23:43:44.198000
+  - - 59
+    - helwekrlkw
+    - 2011-02-27 23:45:51.476000
+    - 2011-02-27 23:45:51.476000
+  - - 60
+    - hello!!!!!!!!!!!!
+    - 2011-02-27 23:47:28.547000
+    - 2011-02-27 23:47:28.547000
+  - - 61
+    - annotation goes here!
+    - 2011-02-28 01:43:38.537000
+    - 2011-02-28 01:43:38.537000
 
 --- 
 reports: 
@@ -915,9 +1097,9 @@ reports:
   records: 
   - - 1
     - 2011-02-21 19:49:00.483750
-    - 2011-02-21 19:49:00.483750
-    - 5
-    - 2011-02-21 21:50:00.000000
+    - 2011-02-25 19:17:42.840000
+    - 13
+    - 2011-02-23 15:50:00.000000
     - "332"
     - IncidentReport
     - 1
@@ -1013,147 +1195,93 @@ reports:
     - 1
     - false
     - 10
-  - - 23
-    - 2011-02-25 05:18:34.680000
-    - 2011-02-25 05:18:34.680000
-    - 5
-    - 2011-02-25 05:14:25.000000
-    - "993"
+  - - 51
+    - 2011-02-27 22:49:56.998000
+    - 2011-02-27 23:24:55.668000
+    - 3
+    - 2011-03-02 04:48:13.000000
+    - "112"
+    - IncidentReport
+    - 1
+    - false
+    - 53
+  - - 52
+    - 2011-02-27 23:26:21.550000
+    - 2011-02-27 23:26:21.550000
+    - 10
+    - 2011-02-27 23:25:46.000000
+    - "927"
     - IncidentReport
     - 1
     - false
     - 
-  - - 24
-    - 2011-02-25 05:30:53.377000
-    - 2011-02-25 05:30:53.377000
-    - 16
-    - 2011-02-25 05:18:43.000000
-    - hello
+  - - 53
+    - 2011-02-27 23:31:35.730000
+    - 2011-02-27 23:31:35.730000
+    - 13
+    - 2011-02-27 23:31:07.000000
+    - "987"
     - IncidentReport
     - 1
     - false
     - 
-  - - 25
-    - 2011-02-25 05:34:06.898000
-    - 2011-02-25 05:34:06.898000
-    - 16
-    - 2011-02-25 05:33:18.000000
-    - "923"
+  - - 54
+    - 2011-02-27 23:33:07.818000
+    - 2011-02-27 23:33:07.818000
+    - 14
+    - 2011-02-27 23:32:31.000000
+    - "998"
     - IncidentReport
     - 1
     - false
     - 
-  - - 26
-    - 2011-02-25 05:34:57.931000
-    - 2011-02-25 05:35:46.455000
-    - 5
-    - 2011-02-25 05:33:18.000000
-    - "923"
+  - - 55
+    - 2011-02-27 23:37:00.670000
+    - 2011-02-27 23:37:00.670000
+    - 7
+    - 2011-02-27 23:36:42.000000
+    - "564"
     - IncidentReport
     - 1
     - false
     - 
-
---- 
-sessions: 
-  columns: 
-  - id
-  - session_id
-  - data
-  - created_at
-  - updated_at
-  records: 
-  - - 6
-    - a85f4073fc6f90292cb5f5f11576736b
-    - |
-      BAh7CiIQX2NzcmZfdG9rZW4iMUVTNmJEc3k1M0VpeWFVcENBVG5ENmdaZit4
-      TEFEZVdPZ2ZCOHY4ZVUzYVk9IhRpbmNpZGVudF9yZXBvcnRvOhNJbmNpZGVu
-      dFJlcG9ydBA6HEBtYXJrZWRfZm9yX2Rlc3RydWN0aW9uRjoQQGF0dHJpYnV0
-      ZXN7DyIPY3JlYXRlZF9hdCIfMjAxMS0wMi0yNSAwNTozNDo1Ny45MzEwMDAi
-      EmFubm90YXRpb25faWQwIg1zdGFmZl9pZGkGIg91cGRhdGVkX2F0Ih8yMDEx
-      LTAyLTI1IDA1OjM1OjQ2LjQ1NTAwMCIQcm9vbV9udW1iZXIiCDkyMyIHaWRp
-      HyIJdHlwZSITSW5jaWRlbnRSZXBvcnQiEmFwcHJvYWNoX3RpbWUiHzIwMTEt
-      MDItMjUgMDU6MzM6MTguMDAwMDAwIhBidWlsZGluZ19pZGkKIg5zdWJtaXR0
-      ZWQwOhpAcmVwb3J0ZWRfaW5mcmFjdGlvbnNvOjNBY3RpdmVSZWNvcmQ6OkFz
-      c29jaWF0aW9uczo6SGFzTWFueUFzc29jaWF0aW9uDToRQGNvdW50ZXJfc3Fs
-      IjMicmVwb3J0ZWRfaW5mcmFjdGlvbnMiLmluY2lkZW50X3JlcG9ydF9pZCA9
-      IDI2OhBAZmluZGVyX3NxbEAbOhlAX25hbWVkX3Njb3Blc19jYWNoZXsAOgxA
-      dGFyZ2V0WwlvOhdSZXBvcnRlZEluZnJhY3Rpb24OOwZGOwd7CyIPY3JlYXRl
-      ZF9hdCIfMjAxMS0wMi0yNSAwNTozNDo1Ny45NDgwMDAiD3VwZGF0ZWRfYXQi
-      HzIwMTEtMDItMjUgMDU6MzQ6NTcuOTQ4MDAwIhdpbmNpZGVudF9yZXBvcnRf
-      aWQiBzI2IgdpZGkpIhJpbmZyYWN0aW9uX2lkaRsiE3BhcnRpY2lwYW50X2lk
-      aQg6DkByZWFkb25seUY6D0BkZXN0cm95ZWRGOhFAcGFydGljaXBhbnRvOjVB
-      Y3RpdmVSZWNvcmQ6OkFzc29jaWF0aW9uczo6QmVsb25nc1RvQXNzb2NpYXRp
-      b24KOw1vOgxTdHVkZW50DTsGRjsHexMiD3N0dWRlbnRfaWQiDDY5MzkyMzQi
-      D2NyZWF0ZWRfYXQiHzIwMTEtMDItMjEgMTk6NDg6NTcuODkwMDAwIg91cGRh
-      dGVkX2F0Ih8yMDExLTAyLTIxIDE5OjQ4OjU3Ljg5MDAwMCIQcm9vbV9udW1i
-      ZXIiCDU3MyIIdXJsIg5FbWlseS5naWYiD2hvbWVfcGhvbmUiETUyMi01NTUt
-      NjM3NyIHaWRpCCIJdHlwZSIMU3R1ZGVudCIPY2VsbF9waG9uZSIRNTMzLTU1
-      NS0zMzIyIg5sYXN0X25hbWUiC0ZyaWVkbCIQYnVpbGRpbmdfaWRpESIIYWdl
-      aRoiEGFmZmlsaWF0aW9uIghTTVUiD2ZpcnN0X25hbWUiCkVtaWx5Ow9GOxBG
-      OhhAY2hhbmdlZF9hdHRyaWJ1dGVzewA6D0BwZXJzaXN0ZWRUOhhAcHJldmlv
-      dXNseV9jaGFuZ2VkewA6FkBhdHRyaWJ1dGVzX2NhY2hlewA6DEBsb2FkZWRU
-      OhBAcmVmbGVjdGlvbm86NEFjdGl2ZVJlY29yZDo6UmVmbGVjdGlvbjo6QXNz
-      b2NpYXRpb25SZWZsZWN0aW9uDToQQGNvbGxlY3Rpb25GOgtAa2xhc3NjEFBh
-      cnRpY2lwYW50OhBAY2xhc3NfbmFtZSIQUGFydGljaXBhbnQ6FkBwcmltYXJ5
-      X2tleV9uYW1lIhNwYXJ0aWNpcGFudF9pZDoNQG9wdGlvbnN7ADoKQG5hbWU6
-      EHBhcnRpY2lwYW50OgtAbWFjcm86D2JlbG9uZ3NfdG86E0BhY3RpdmVfcmVj
-      b3JkYxdSZXBvcnRlZEluZnJhY3Rpb246DUB1cGRhdGVkRjoLQG93bmVyQB47
-      FHsAOxVUOxZ7ADsXewBvOw4OOwZGOwd7CyIPY3JlYXRlZF9hdCIfMjAxMS0w
-      Mi0yNSAwNTozNDo1Ny45NTIwMDAiD3VwZGF0ZWRfYXQiHzIwMTEtMDItMjUg
-      MDU6MzQ6NTcuOTUyMDAwIhdpbmNpZGVudF9yZXBvcnRfaWQiBzI2IgdpZGkq
-      IhJpbmZyYWN0aW9uX2lkaRsiE3BhcnRpY2lwYW50X2lkaQY7D0Y7EEY7EW87
-      Ego7DW87Ew07BkY7B3sTIg9zdHVkZW50X2lkIgw1OTk0MDMwIg9jcmVhdGVk
-      X2F0Ih8yMDExLTAyLTIxIDE5OjQ4OjU3LjcwMjUwMCIPdXBkYXRlZF9hdCIf
-      MjAxMS0wMi0yMiAwNzoxNjo1MS4zODEwMDAiEHJvb21fbnVtYmVyIgg0MjEi
-      CHVybCIOQ2hyaXMuZ2lmIg9ob21lX3Bob25lIhE1NTUtNjY2LTc3NzciB2lk
-      aQYiCXR5cGUiDFN0dWRlbnQiD2NlbGxfcGhvbmUiETU1NS0yMjItMzMzMyIO
-      bGFzdF9uYW1lIg1Fbmdlc3NlciIQYnVpbGRpbmdfaWRpDSIIYWdlaRoiEGFm
-      ZmlsaWF0aW9uIghTTVUiD2ZpcnN0X25hbWUiEENocmlzdG9waGVyOw9GOxBG
-      OxR7ADsVVDsWewA7F3sAOxhUOxlASDslRjsmQFE7FHsAOxVUOxZ7ADsXewBv
-      Ow4OOwZGOwd7CyIPY3JlYXRlZF9hdCIfMjAxMS0wMi0yNSAwNTozNDo1Ny45
-      NTQwMDAiD3VwZGF0ZWRfYXQiHzIwMTEtMDItMjUgMDU6MzQ6NTcuOTU0MDAw
-      IhdpbmNpZGVudF9yZXBvcnRfaWQiBzI2IgdpZGkrIhJpbmZyYWN0aW9uX2lk
-      aRsiE3BhcnRpY2lwYW50X2lkaQk7D0Y7EEY7EW87Ego7DW87Ew07BkY7B3sT
-      Ig9zdHVkZW50X2lkIgw0NTIzNDIzIg9jcmVhdGVkX2F0Ih8yMDExLTAyLTIx
-      IDE5OjQ4OjU3Ljk2ODEyNSIPdXBkYXRlZF9hdCIfMjAxMS0wMi0yMiAwNToz
-      MDo1NS45ODEwMDAiEHJvb21fbnVtYmVyIggyNTUiCHVybCINSm9obi5naWYi
-      D2hvbWVfcGhvbmUiETQ0NC01NTUtMjI1MiIHaWRpCSIJdHlwZSIMU3R1ZGVu
-      dCIPY2VsbF9waG9uZSIRNjY2LTU1NS0yMjI2Ig5sYXN0X25hbWUiCktlbGx5
-      IhBidWlsZGluZ19pZGkMIghhZ2VpGiIQYWZmaWxpYXRpb24iCFNNVSIPZmly
-      c3RfbmFtZSIJSm9objsPRjsQRjsUewA7FVQ7FnsAOxd7ADsYVDsZQEg7JUY7
-      JkB+OxR7ADsVVDsWewA7F3sAbzsODjsGRjsHewsiD2NyZWF0ZWRfYXQiHzIw
-      MTEtMDItMjUgMDU6MzQ6NTcuOTU2MDAwIg91cGRhdGVkX2F0Ih8yMDExLTAy
-      LTI1IDA1OjM0OjU3Ljk1NjAwMCIXaW5jaWRlbnRfcmVwb3J0X2lkIgcyNiIH
-      aWRpLCISaW5mcmFjdGlvbl9pZGkbIhNwYXJ0aWNpcGFudF9pZGkPOw9GOxBG
-      OxFvOxIKOw1vOxMNOwZGOwd7EyIPc3R1ZGVudF9pZCIMNDgyOTIwMSIPY3Jl
-      YXRlZF9hdCIfMjAxMS0wMi0yMSAxOTo0ODo1OC41NDYyNTAiD3VwZGF0ZWRf
-      YXQiHzIwMTEtMDItMjIgMDU6MzE6MjYuMDIwMDAwIhByb29tX251bWJlciII
-      NTEwIgh1cmwiDmJyYWQuanBlZyIPaG9tZV9waG9uZSIRNTA3LTU1NS03ODIz
-      IgdpZGkPIgl0eXBlIgxTdHVkZW50Ig9jZWxsX3Bob25lIhE2NjgtNTU1LTMy
-      MzQiDmxhc3RfbmFtZSIPV2lsZGVuYm9yZyIQYnVpbGRpbmdfaWRpECIIYWdl
-      aRkiEGFmZmlsaWF0aW9uIghTTVUiD2ZpcnN0X25hbWUiDEJyYWRsZXk7D0Y7
-      EEY7FHsAOxVUOxZ7ADsXewA7GFQ7GUBIOyVGOyZAAaY7FHsAOxVUOxZ7ADsX
-      ewA7GFQ7GW87Gg47G1Q6F0BxdW90ZWRfdGFibGVfbmFtZSIbInJlcG9ydGVk
-      X2luZnJhY3Rpb25zIjscQE07HSIXUmVwb3J0ZWRJbmZyYWN0aW9uOx4iF2lu
-      Y2lkZW50X3JlcG9ydF9pZDsfewY6C2V4dGVuZFsAOyA6GXJlcG9ydGVkX2lu
-      ZnJhY3Rpb25zOyI6DWhhc19tYW55OyRjE0luY2lkZW50UmVwb3J0OyVGOyZA
-      CTsPRjsQRjsUewA7FVQ6DEBlcnJvcnNJQzoYQWN0aXZlTW9kZWw6OkVycm9y
-      c3sIOhJhcHByb2FjaF90aW1lWwA6EGJ1aWxkaW5nX2lkWwA6EHJvb21fbnVt
-      YmVyWwAHOgpAYmFzZUAJOgpAa2V5c1sIOy07LjsvOxZ7ADoQQGFubm90YXRp
-      b25vOjJBY3RpdmVSZWNvcmQ6OkFzc29jaWF0aW9uczo6SGFzT25lQXNzb2Np
-      YXRpb24LOwsiISJhbm5vdGF0aW9ucyIucmVwb3J0X2lkID0gMjY7DW86D0Fu
-      bm90YXRpb24NOwZGOwd7CiIPY3JlYXRlZF9hdCIfMjAxMS0wMi0yNSAwNToz
-      NDo1Ny45ODMwMDAiD3VwZGF0ZWRfYXQiHzIwMTEtMDItMjUgMDU6MzQ6NTgu
-      MDEzMDAwIgdpZGkeIg5yZXBvcnRfaWRpHyIPYW5ub3RhdGlvbiISaGVsbG8s
-      IHdvcmxkITsPRjsQRjsUewA7FVQ7FnsAOxd7ADsYVDsZbzsaDjsbRjsnIhIi
-      YW5ub3RhdGlvbnMiOxxjD0Fubm90YXRpb247HSIPQW5ub3RhdGlvbjseIg5y
-      ZXBvcnRfaWQ7H3sAOyA6D2Fubm90YXRpb247IjoMaGFzX29uZTskYwtSZXBv
-      cnQ7JUY7JkAJOxd7ACIad2FyZGVuLnVzZXIuc3RhZmYua2V5WwciClN0YWZm
-      aQYiD2Fubm90YXRpb25AAeEiCmZsYXNoSUM6JUFjdGlvbkRpc3BhdGNoOjpG
-      bGFzaDo6Rmxhc2hIYXNoewY6C25vdGljZSIuSW5jaWRlbnQgcmVwb3J0IHdh
-      cyBzdWNjZXNzZnVsbHkgdXBkYXRlZC4GOgpAdXNlZG86CFNldAY6CkBoYXNo
-      ewY7OFQ=
-
-    - 2011-02-25 05:14:17.464000
-    - 2011-02-25 05:39:24.913000
+  - - 56
+    - 2011-02-27 23:43:44.181000
+    - 2011-02-27 23:43:44.181000
+    - 9
+    - 2011-02-27 23:43:27.000000
+    - "928"
+    - IncidentReport
+    - 1
+    - false
+    - 
+  - - 57
+    - 2011-02-27 23:45:51.487000
+    - 2011-02-27 23:46:46.660000
+    - 9
+    - 2011-02-28 05:45:38.000000
+    - "975"
+    - IncidentReport
+    - 1
+    - false
+    - 59
+  - - 58
+    - 2011-02-27 23:47:28.644000
+    - 2011-02-28 01:31:29.861000
+    - 13
+    - 2011-02-28 23:46:56.000000
+    - "324"
+    - IncidentReport
+    - 1
+    - false
+    - 60
+  - - 59
+    - 2011-02-28 01:43:38.555000
+    - 2011-02-28 01:50:27.947000
+    - 3
+    - 2011-03-01 19:40:24.000000
+    - "144"
+    - IncidentReport
+    - 1
+    - false
+    - 61

@@ -4,7 +4,6 @@ class SearchController < ApplicationController
   
   autocomplete :student, :first_name, :display_value => :full_name, :full => true
   
-  @student_list = Array.new
   
   def search
   end
@@ -13,13 +12,7 @@ class SearchController < ApplicationController
     Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
   end
   
-  def add_student_to_list(participant)
-  	  if @student_list == nil
-  	  	  @student_list = Array.new
-  	  end
-  	  @student_list << participant
-  end
-  
+ 
   def update_list
   	message= params[:first_name]
 	split_up = message.split(/, /)
@@ -44,30 +37,31 @@ class SearchController < ApplicationController
 	
 	#@student = Student.where("'first_name' LIKE ? AND 'last_name' LIKE ? AND 'building_id' <= ? AND 'room_number' <= ?",
 	#	s_first_name, s_last_name, s_building_id, s_room_number ).first
+	
+	
 	@student = Student.find(Integer(split_up[3]))
 	
 	
-	@reported_infractions = session[:incident_report].reported_infractions
+	if session[:students] == nil
+		session[:students] = Array.new
+	end
+	@students = session[:students]
 	
 	exists = false
-	
-	@reported_infractions.each do |ri|
-		if ri.participant_id == @student.id
+	@students.each do |s|
+		if s.id == @student.id
 			exists = true
 		end
 	end
 	
 	if exists == false
-		newRI = ReportedInfraction.new
-		newRI.participant_id = @student.id
-		newRI.infraction_id = 22 #fyi
-		@reported_infractions << newRI
+		@students << @student
 	end
 	
 	@message = ''
 	
-	@reported_infractions.each do |ri|
-		@message = @message + '<p>' + ri.participant.first_name + ' ' + ri.participant.last_name + '</p>'
+	@students.each do |s|
+		@message = @message + '<p>' + s.first_name + ' ' + s.last_name + '</p>'
 	end
 	
 	
