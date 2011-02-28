@@ -1,6 +1,7 @@
 class StaffsController < ApplicationController
   # GET /staffs
   # GET /staffs.xml
+  before_filter :authorize
   def index
     @staffs = Staff.all
     @numRows = 0

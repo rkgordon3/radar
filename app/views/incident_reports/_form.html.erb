@@ -15,18 +15,16 @@
   
 
   <div class="field">
-    <%= f.label :approach_time %>:<br />
+    <b><%= f.label :approach_time %>:</b><br />
     <%= f.text_field :approach_time %>
   </div>
   <div class="field">
     <%= f.label :building_id %>:<br />
-    
-    
     <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
     
     </div>
   <div class="field">
-    <%= f.label :room_number %>:<br />
+    <b><%= f.label :room_number %>:</b><br />
     <%= f.text_field :room_number %>
   </div>
   
@@ -36,7 +34,7 @@
   
   
   <div class="field">
-    Annotation:<br />
+    <b>Annotation:</b><br />
     <textarea cols="60" id="incident_report_annotation" name="annotation" rows="20" ><%= session[:annotation].annotation %></textarea>
  </div>
 
