@@ -15,9 +15,9 @@ function handletext(what){
 </script>
 
 <div id="found">
-<% if session[:incident_report].reported_infractions != nil %>
-	<% session[:incident_report].reported_infractions.each do |r| %>
-		<p><%= r.participant.first_name %> <%= r.participant.last_name %></p>
+<% if session[:students] != nil %>
+	<% session[:students].each do |s| %>
+		<p><%= s.first_name %> <%= s.last_name %></p>
 	<% end %>
 <% end %>
 
