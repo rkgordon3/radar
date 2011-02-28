@@ -3,5 +3,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
+require 'rubygems'
+gem 'ci_reporter'
 
 Radar::Application.load_tasks

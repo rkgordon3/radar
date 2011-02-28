@@ -10,6 +10,7 @@ Radar::Application.routes.draw do
 		root :to => "home#landingpage"
 
 		
+  get 'search/autocomplete_student_full_name'
   get 'search/autocomplete_student_first_name'
   
   match "/search/update_list" => "search#update_list"

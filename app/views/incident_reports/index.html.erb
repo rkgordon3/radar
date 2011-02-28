@@ -7,6 +7,7 @@
     <th>Approach Time</th>
     <th>Building</th>
     <th>Room #</th>
+    <th>Submitted</th>
     <th></th>
     <th></th>
     <th></th>
@@ -26,6 +27,7 @@
     <td><%= incident_report.approach_time %></td>
     <td><%= incident_report.building.name %></td>
     <td><%= incident_report.room_number %></td>
+    <td><%= incident_report.submitted %></td>
     <td><%= link_to 'Show', incident_report %></td>
     <td><%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
     <td><%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -35,4 +37,4 @@
 
 <br />
 
-<%= link_to 'New Incident Report', new_incident_report_path %>
+<%= link_to 'New Incident Report', '/incident_reports/new_report' %>

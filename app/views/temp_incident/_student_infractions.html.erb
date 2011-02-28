@@ -1,0 +1,74 @@
+<script type="text/javascript">
+
+image1 = new Image();
+image1.src = "/images/add_icon.gif";
+
+image2 = new Image();
+image2.src = "/images/minus_icon.gif";
+
+function divToggle(divID,imgID) {
+	        var state = document.getElementById(divID).style.display;
+	            if (state == 'block') {
+	                document.getElementById(divID).style.display = 'none';
+	                document[imgID].src = '/images/add_icon.gif';
+	            } else {
+	                document.getElementById(divID).style.display = 'block';
+	                document[imgID].src = '/images/minus_icon.gif';
+	            }
+	        }
+	       
+</script>
+
+
+     <div class="field">
+   	 <b>Students:</b>
+  	    <% @incident_report.reported_infractions.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+
+  <% @incident_report.reported_infractions.each do |b| %>
+  <% if b.participant.id != @currentParticipantID %>
+<br />
+   	<% @currentParticipantID = b.participant.id %>
+  	&nbsp;&nbsp;&nbsp; <b>Participant:</b>
+  
+  	<% if b.participant.type == "Student" %>
+  		<a href="../students/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% else %>
+  		<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% end %>
+  	
+  	<br />
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	<a href="#" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
+  	<div id="<%= b.participant_id %>-infractions" style="display: none;">
+  		<% infractions = Infraction.all %>
+  		<% infractions.each do |i| %>
+  			<% if i.id != 1 %>
+  				<BR>
+  			<%end%>
+  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  			
+  			<% #this checkbox tag is not complete for another several lines# %>
+  			<input type=checkbox name="<%= b.participant_id %>[<%= i.id %>]"
+  			
+  			<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
+  			<% session[:incident_report].reported_infractions.each do |ri| %>
+  				<% if ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
+  					CHECKED
+  				<% end%>
+  			<%end%>
+  			
+  			<% #this is the end of the checkbox tag.# %>
+  			><%= i.description %>
+  		<% end %>
+  	</div>
+   <% end %>
+  	
+  	
+
+  <% end %>
+    
+    	<div class="actions">
+    		<p><input id="save_submit" name="save_submit" type="submit" value="Add Students" /></p>
+    	</div>
+    	</div>
+ 

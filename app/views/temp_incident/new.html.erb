@@ -1,0 +1,30 @@
+    <%= javascript_include_tag "prototype" %>
+<script type="text/javascript">
+function showReportSearchForm(){
+	document.getElementById("i-r-form").style.display = "none";
+	document.getElementById("r-s-form").style.display = "block";
+}
+function showIncidentReportForm(){
+	document.getElementById('r-s-form').style.display = "none";
+	document.getElementById('i-r-form').style.display = "block";
+	
+}
+</script>
+
+
+
+<div id="i-r-form">
+<h1>New Incident Report</h1>
+<%= render 'form' %>
+</div>
+
+<div id="r-s-form" style="display: none;">
+<%= render '/search/search_form' %>
+<p>
+<button type="button" onclick="showIncidentReportForm()">Add to Report</button>
+</p>
+</div>
+
+
+
+<%= link_to 'Back', incident_reports_path %>
