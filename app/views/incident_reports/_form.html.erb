@@ -1,8 +1,4 @@
-<script type="text/javascript">
 
-function roomNumberChanged(){
-}
-</script>
 
 <%= form_for(@incident_report) do |f| %>
   <% if @incident_report.errors.any? %>
@@ -16,6 +12,7 @@ function roomNumberChanged(){
       </ul>
     </div>
   <% end %>
+  
 
   <div class="field">
     <%= f.label :approach_time %>:<br />
@@ -30,7 +27,7 @@ function roomNumberChanged(){
     </div>
   <div class="field">
     <%= f.label :room_number %>:<br />
-    <%= f.text_field :room_number, :onchange => 'roomNumberChanged()'%>
+    <%= f.text_field :room_number %>
   </div>
   
   <div id="s-i-form">
@@ -39,9 +36,9 @@ function roomNumberChanged(){
   
   
   <div class="field">
-    <%= f.label :annotation %>:<br />
-    <%= f.text_area :annotation %>
-  </div>
+    Annotation:<br />
+    <textarea cols="60" id="incident_report_annotation" name="annotation" rows="20" ><%= session[:annotation].annotation %></textarea>
+ </div>
 
     
     

@@ -12,9 +12,15 @@ Radar::Application.routes.draw do
 		
   get 'search/autocomplete_student_first_name'
   
+  match "/search/update_list" => "search#update_list"
+  get "/search/update_list"
+  
   resources :incident_reports do
   	  get :new_report, :on => :collection
   end
+  
+  resources :search
+  
   
   resources :photos
 
@@ -45,6 +51,8 @@ Radar::Application.routes.draw do
 
   resources :students
   
+  resources :temp_incident
+    
   root :to => "home#landingpage"
 
   # The priority is based upon order of creation:

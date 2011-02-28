@@ -1,5 +1,6 @@
 <h1>Student Search</h1>
 
+
 <script type="text/javascript">
 function handletext(what){
 	if (document.createTextNode){
@@ -10,13 +11,12 @@ function handletext(what){
 	}
 }
 
-var callback = Request.QueryString("callback");
 
 </script>
 
 <div id="found">
-<% if session[:reported_infractions] != nil %>
-	<% session[:reported_infractions].each do |r| %>
+<% if session[:incident_report].reported_infractions != nil %>
+	<% session[:incident_report].reported_infractions.each do |r| %>
 		<p><%= r.participant.first_name %> <%= r.participant.last_name %></p>
 	<% end %>
 <% end %>
@@ -24,4 +24,7 @@ var callback = Request.QueryString("callback");
 </div>
 
 <%= render '/search/form' %>
+
+
+
 
