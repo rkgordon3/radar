@@ -60,6 +60,8 @@ function divToggle(divID,imgID) {
   			
   				<% #this is the end of the checkbox tag.# %>
   				><%= i.description %>
+  			<% else %>
+  				<input type=hidden name="<%= b.participant_id %>[<%= i.id %>]" value="on">
   			<% end %>
   		<% end %>
   		</div>
@@ -70,7 +72,7 @@ function divToggle(divID,imgID) {
   <% end %>
     
     	<div class="actions">
-    		<p><input id="search_submit" name="save_submit" type="submit" value="Add Students" /></p>
+    		<p><input id="search_submit" name="search_submit" type="submit" value="Add Students" /></p>
     	</div>
     	</div>
  

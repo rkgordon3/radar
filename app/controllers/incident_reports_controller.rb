@@ -278,14 +278,18 @@ class IncidentReportsController < ApplicationController
   	  	  something_found = false
   	  	  Infraction.all.each do |i|
   	  	  	  if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
-  	  	  	  	  #try to find if reported_infraction already exists
+  	  	  	  	  # try to find if reported_infraction already exists
   	  	  	  	  found = false
   	  	  	  	  old_ris.each do |ori|
   	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id
-  	  	  	  	  	  	  new_ris << ori
-  	  	  	  	  	  	  old_ris.delete(ori)
-  	  	  	  	  	  	  found = true
-  	  	  	  	  	  	  something_found = true
+  	  	  	  	  	  	  if i.id == 22 && something_found == true
+  	  	  	  	  	  	  	  # do nothing, because we want the fyi to be deleted
+  	  	  	  	  	  	  else	
+  	  	  	  	  	  	  	new_ris << ori
+  	  	  	  	  	  	  	old_ris.delete(ori)
+  	  	  	  	  	  	  end
+  	  	  	  	  	  	  	found = true
+  	  	  	  	  	  	  	something_found = true
   	  	  	  	  	  end
   	  	  	  	  end
   	  	  	  	  if found == false
@@ -297,7 +301,7 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  end
   	  	  	  end
   	  	  end
-  	  	  if something_found == false #no infractions were selected, add fyi
+  	  	  if something_found == false # no infractions were selected, add fyi
   	  	  	  ri = ReportedInfraction.new
   	  	  	  ri.participant_id = p
   	  	  	  ri.infraction_id = 22 #fyi
