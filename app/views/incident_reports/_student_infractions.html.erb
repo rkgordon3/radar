@@ -42,25 +42,27 @@ function divToggle(divID,imgID) {
   	<div id="<%= b.participant_id %>-infractions" style="display: none;">
   		<% infractions = Infraction.all %>
   		<% infractions.each do |i| %>
-  			<% if i.id != 1 %>
-  				<BR>
-  			<%end%>
-  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  			<% if i.id != 22 %>
+  				<% if i.id != 1 %>
+  					<BR>
+  				<%end%>
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   			
-  			<% #this checkbox tag is not complete for another several lines# %>
-  			<input type=checkbox name="<%= b.participant_id %>[<%= i.id %>]"
+  				<% #this checkbox tag is not complete for another several lines# %>
+  				<input type=checkbox name="<%= b.participant_id %>[<%= i.id %>]"
   			
-  			<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
-  			<% session[:incident_report].reported_infractions.each do |ri| %>
-  				<% if ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
-  					CHECKED
-  				<% end%>
-  			<%end%>
+  				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
+  				<% session[:incident_report].reported_infractions.each do |ri| %>
+  					<% if ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
+  						CHECKED
+  					<% end%>
+  				<%end%>
   			
-  			<% #this is the end of the checkbox tag.# %>
-  			><%= i.description %>
+  				<% #this is the end of the checkbox tag.# %>
+  				><%= i.description %>
+  			<% end %>
   		<% end %>
-  	</div>
+  		</div>
    <% end %>
   	
   	
@@ -68,7 +70,7 @@ function divToggle(divID,imgID) {
   <% end %>
     
     	<div class="actions">
-    		<p><input id="save_submit" name="save_submit" type="submit" value="Add Students" /></p>
+    		<p><input id="search_submit" name="save_submit" type="submit" value="Add Students" /></p>
     	</div>
     	</div>
  

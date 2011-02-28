@@ -66,7 +66,7 @@ class IncidentReportsController < ApplicationController
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
-  	  if params[:save_submit] != nil
+  	  if params[:search_submit] != nil
   	  	  @incident_report = IncidentReport.new(params[:incident_report])
   	  	  @incident_report.type='IncidentReport'
   	  	  @incident_report.staff_id = current_staff.id
@@ -115,6 +115,14 @@ class IncidentReportsController < ApplicationController
   	  	  end
 
   	  end
+  	  if params[:save_submit] != nil
+  	  	  @incident_report.submitted = false
+	          @incident_report.save  	  	  
+  	  end
+  	  if params[:submit_submit] != nil
+  	  	  @incident_report.submitted = true
+	          @incident_report.save  	  	  
+  	  end
   end
 
   # PUT /incident_reports/1
@@ -122,7 +130,7 @@ class IncidentReportsController < ApplicationController
   def update
     @incident_report = IncidentReport.find(params[:id])
 
-    	if params[:save_submit] != nil
+    if params[:search_submit] != nil
   	  	  @annotation = Annotation.new
   	  	  @annotation.text = params[:annotation]
   	  	  
@@ -137,12 +145,9 @@ class IncidentReportsController < ApplicationController
   	  	  
   	  	  end
   	  else 
-  	  	 annotation = Annotation.find(@incident_report.annotation_id)
-  	  	 annotation.destroy
-  	  	 annotation = Annotation.new
-		 annotation.text = params[:annotation]
-		 annotation.save
-		 @incident_report.annotation_id = annotation.id
+  	  	  #deal with annotations
+  	  	  annotation = Annotation.find(@incident_report.annotation_id)
+  	  	  annotation.update_text(params[:annotation])
   	  	  
 		  self.clear_session
   	  	  
@@ -156,6 +161,14 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
   	  	  	  end
   	  	  end
+  	  end
+  	  if params[:save_submit] != nil
+  	  	  @incident_report.submitted = false
+	          @incident_report.save  	  	  
+  	  end
+  	  if params[:submit_submit] != nil
+  	  	  @incident_report.submitted = true
+	          @incident_report.save  	  	  
   	  end
   end
 
@@ -241,6 +254,9 @@ class IncidentReportsController < ApplicationController
   	  new_ris = Array.new
   	  old_ris = incident_report.reported_infractions
   	  
+  	  old_ris.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } 
+
+  	  
   	  participants = Array.new
   	  
   	  if old_ris.count > 0
@@ -259,7 +275,7 @@ class IncidentReportsController < ApplicationController
   	  participants.each do |p|
   	  	  something_found = false
   	  	  Infraction.all.each do |i|
-  	  	  	  if params[p.to_s()][i.id.to_s()] == "on"
+  	  	  	  if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
   	  	  	  	  #try to find if reported_infraction already exists
   	  	  	  	  found = false
   	  	  	  	  old_ris.each do |ori|
@@ -282,14 +298,13 @@ class IncidentReportsController < ApplicationController
   	  	  if something_found == false #no infractions were selected, add fyi
   	  	  	  ri = ReportedInfraction.new
   	  	  	  ri.participant_id = p
-  	  	  	  ri.infraction_id = 21 #other
+  	  	  	  ri.infraction_id = 22 #fyi
   	  	  	  new_ris << ri
   	  	  end
   	  end
   	  
   	  
   	  old_ris.each do |ori|
-  	  	  ori.incident_report_id = 0
   	  	  old_ris.delete(ori)
   	  	  ori.destroy
   	  	  ori = nil
