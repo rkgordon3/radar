@@ -14,6 +14,4 @@ class Student < Participant
 	end
 	
 
-
-
 end
