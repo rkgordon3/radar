@@ -1,5 +1,7 @@
 class IncidentReportsController < ApplicationController
-		
+  before_filter :authorize	
+  autocomplete :student, :first_name, :display_value => :full_name
+ 
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
