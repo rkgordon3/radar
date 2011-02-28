@@ -3,13 +3,15 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
-    @incident_reports = IncidentReport.all
-    @numRows
+  	   self.clear_session #probably not necessary, 
+  	   # but maybe "back button" was pushed on a new_report or edit page
+ 
+  	  @incident_reports = IncidentReport.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @incident_reports }
-    end
+  	  respond_to do |format|
+  	  	  format.html # index.html.erb
+  	  	  format.xml  { render :xml => @incident_reports }
+  	  end
   end
 
   # GET /incident_reports/1
@@ -18,6 +20,8 @@ class IncidentReportsController < ApplicationController
     @incident_report = IncidentReport.find(params[:id])
     @currentParticipantID = -1
     
+    self.clear_session #probably not necessary, 
+    # but maybe "back button" was pushed on a new_report or edit page
 
     respond_to do |format|
       format.html # show.html.erb
@@ -50,8 +54,13 @@ class IncidentReportsController < ApplicationController
   # GET /incident_reports/1/edit
   def edit
     @incident_report = IncidentReport.find(params[:id])
-    @annotation = @incident_report.annotation
+    @annotation = Annotation.find(@incident_report.annotation_id)
+    
+    session[:incident_report] = @incident_report
     session[:annotation] = @annotation
+    
+    self.add_student_infractions_to_session
+    session[:students] = nil
   end
 
   # POST /incident_reports
@@ -65,6 +74,7 @@ class IncidentReportsController < ApplicationController
   	  	  @annotation = Annotation.new
   	  	  @annotation.annotation = params[:annotation]
   	  	  
+  	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  
   	  	  session[:incident_report] = @incident_report
   	  	  session[:annotation] = @annotation
@@ -80,17 +90,22 @@ class IncidentReportsController < ApplicationController
   	  	  @incident_report.staff_id = current_staff.id
   	  	  @incident_report.reported_infractions = session[:incident_report].reported_infractions
   	  	  
+  	  	  self.clear_session
   	  	  
-  	  	  session[:incident_report] = nil
-  	  	  session[:annotation] = nil
+  	  	  annotation = Annotation.new
+  	  	  annotation.annotation = params[:annotation]
+		  annotation.save
+		  @incident_report.annotation_id = annotation.id
     
   	  	  respond_to do |format|
   	  	  	  if @incident_report.save
+  	  	  	  	  #self.save_annotation(@incident_report, params[:annotation])
+  	  	  	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  	  	  @incident_report.reported_infractions.each do |ri|
   	  	  	  	  	  ri.incident_report_id = @incident_report.id
   	  	  	  	  	  ri.save
   	  	  	  	  end
-  	  	  	  	  @incident_report.save_annotation(params[:annotation])
+  	  	  	  	  
   	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
   	  	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
   	  	  	  else
@@ -107,16 +122,38 @@ class IncidentReportsController < ApplicationController
   def update
     @incident_report = IncidentReport.find(params[:id])
 
-    respond_to do |format|
-      if @incident_report.update_attributes(params[:incident_report])
-      	      @incident_report.save_annotation(params[:annotation])
-      	      format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully updated.') }
-      	      format.xml  { head :ok }
-      else
-      	      format.html { render :action => "edit" }
-      	      format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-      end
-    end
+    	if params[:save_submit] != nil
+  	  	  @annotation = Annotation.new
+  	  	  @annotation.annotation = params[:annotation]
+  	  	  
+  	  	  session[:annotation] = @annotation
+  	  	  session[:students] = nil
+  	  	  
+  	  	  self.add_reported_infractions_to_report(@incident_report, params)
+ 
+  	  	  respond_to do |format|
+  	  	  	  format.html { redirect_to '/search/report_search?/incident_reports/'+@incident_report.id.to_s()+'/edit/' }
+  	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
+  	  	  
+  	  	  end
+  	  else 
+  	  	 annotation = Annotation.find(@incident_report.annotation_id)
+		 annotation.annotation = params[:annotation]
+		 @incident_report.annotation_id = annotation.id
+  	  	  
+		  self.clear_session
+  	  	  
+		  respond_to do |format|
+  	  	  	  if @incident_report.update_attributes(params[:incident_report])
+  	  	  	  	  self.add_reported_infractions_to_report(@incident_report, params)
+  	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully updated.') }
+  	  	  	  	  format.xml  { head :ok }
+  	  	  	  else
+  	  	  	  	  format.html { render :action => "edit" }
+  	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
+  	  	  	  end
+  	  	  end
+  	  end
   end
 
   # DELETE /incident_reports/1
@@ -144,23 +181,143 @@ class IncidentReportsController < ApplicationController
     
   	  	  session[:incident_report] = @incident_report
   	  	  session[:annotation] = @annotation
- 
-  	  	  r_i = ReportedInfraction.new
-  	  	  r_i.participant_id = 3
-  	  	  r_i.infraction_id = 22
-    
-  	  	  @incident_report.reported_infractions << r_i
+  	  	  session[:students] = Array.new
   	  end
+  	  
   	  @incident_report = session[:incident_report] 
   	  @annotation = session[:annotation]
+  	  self.add_student_infractions_to_session
   	  
-
-
   	  respond_to do |format|
   	  	  format.html # new_report.html.erb
   	  	  format.xml  { render :xml => @incident_report }
   	  end 
   end
   
+  
+  
+  
+  def add_student_infractions_to_session
+  	  @students = session[:students]
+  	  
+  	  if @students != nil
+  	  	  @incident_report = session[:incident_report]
+  	  	  
+  	  	  @students.each do |s|
+  	  	  	  exists = false
+  	  	  	  @incident_report.reported_infractions.each do |ri|
+  	  	  	  	  if s.id == ri.participant_id
+  	  	  	  	  	  exists = true
+  	  	  	  	  end
+  	  	  	  end
+  	  	  	  if exists == false
+  	  	  	  	  newRI = ReportedInfraction.new
+  	  	  	  	  newRI.participant_id = s.id
+  	  	  	  	  newRI.infraction_id = 22 #fyi
+  	  	  	  	  @incident_report.reported_infractions << newRI
+  	  	  	  end
+  	  	  end
+  	  
+  	  	  session[:students] = nil
+  	  end
+  end
+  
+  
+  def clear_session
+  	  session[:incident_report] = nil
+  	  session[:annotation] = nil
+  	  session[:students] = nil
+  end
+  
+  
+  
+  
+  
+  
+  def add_reported_infractions_to_report(incident_report, params)
+  	  new_ris = Array.new
+  	  old_ris = incident_report.reported_infractions
+  	  
+  	  participants = Array.new
+  	  
+  	  if old_ris.count > 0
+  	  	  curr_participant_id = old_ris.first.participant_id
+  	  	  participants << curr_participant_id
+  	  
+  	  	  old_ris.each do |ri|
+  	  	  	  if curr_participant_id != ri.participant_id
+  	  	  	  	  curr_participant_id = ri.participant_id
+  	  	  	  	  participants << curr_participant_id
+  	  	  	  end
+  	  	  end
+  	  
+  	  end
+  	  
+  	  participants.each do |p|
+  	  	  something_found = false
+  	  	  Infraction.all.each do |i|
+  	  	  	  if params[p.to_s()][i.id.to_s()] == "on"
+  	  	  	  	  #try to find if reported_infraction already exists
+  	  	  	  	  found = false
+  	  	  	  	  old_ris.each do |ori|
+  	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id
+  	  	  	  	  	  	  new_ris << ori
+  	  	  	  	  	  	  old_ris.delete(ori)
+  	  	  	  	  	  	  found = true
+  	  	  	  	  	  	  something_found = true
+  	  	  	  	  	  end
+  	  	  	  	  end
+  	  	  	  	  if found == false
+  	  	  	  	  	  ri = ReportedInfraction.new
+  	  	  	  	  	  ri.participant_id = p
+  	  	  	  	  	  ri.infraction_id = i.id
+  	  	  	  	  	  new_ris << ri
+  	  	  	  	  	  something_found = true
+  	  	  	  	  end
+  	  	  	  end
+  	  	  end
+  	  	  if something_found == false #no infractions were selected, add fyi
+  	  	  	  ri = ReportedInfraction.new
+  	  	  	  ri.participant_id = p
+  	  	  	  ri.infraction_id = 21 #other
+  	  	  	  new_ris << ri
+  	  	  end
+  	  end
+  	  
+  	  
+  	  old_ris.each do |ori|
+  	  	  ori.incident_report_id = 0
+  	  	  old_ris.delete(ori)
+  	  	  ori.destroy
+  	  	  ori = nil
+  	  end
+  	  
+  	  new_ris.each do |nri|
+  	  	  incident_report.reported_infractions << nri
+  	  end
+  	  
+  	  
+  	  
+  end
+
+  
+  
+  
+  
+  
+  
+  
+  def save_annotation(incident_report, annot)
+		if incident_report.annotation_id == nil
+			annotation = Annotation.new
+			annotation.annotation = annot
+			annotation.save
+			incident_report.annotation_id = annotation.id
+		else
+			annotation = Annotation.find(incident_report.annotation_id)
+			annotation.annotation = annot
+			incident_report.annotation_id = annotation.id
+		end
+	end
   
 end
