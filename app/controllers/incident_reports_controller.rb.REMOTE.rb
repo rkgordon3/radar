@@ -1,5 +1,5 @@
 class IncidentReportsController < ApplicationController
-		
+  before_filter :authorize
   # GET /incident_reports
   # GET /incident_reports.xml
   def index

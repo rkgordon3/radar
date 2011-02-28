@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.xml
-  before_filter :authorize, :except => :index
+  before_filter :authorize
   
   def index
     @reports = Report.all
