@@ -5,6 +5,8 @@
 <p>
   <b>Report ID:</b>
   <%= @incident_report.id %><br/><br />
+  <b>Submitted:</b>
+  <%= @incident_report.submitted %><br/><br />
   <b>Approach Time:</b>
   <%= @incident_report.approach_time %><br/><br />
   <b>Building ID:</b>
@@ -12,7 +14,7 @@
   <b>Room Number:</b>
   <%= @incident_report.room_number %><br/><br />
   <b>Annotation:</b>
-  <%= Annotation.find(@incident_report.annotation_id).annotation %><br/><br />
+  <%= Annotation.find(@incident_report.annotation_id).text %><br/><br />
   <b>Submitter:</b>
   <%= @incident_report.staff.first_name %> <%= @incident_report.staff.last_name %><br/><br />
   
