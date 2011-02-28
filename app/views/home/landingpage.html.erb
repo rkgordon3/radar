@@ -19,34 +19,44 @@
 <% if staff_signed_in? %>
 <p><a href = "http://localhost:3000/search/search">Student Search</a></p>
 <% end %>
-<% myrandvar = "" %>
+
 <% if staff_signed_in? %>
 	<% if current_staff.role == "Admin" %>
 		<h3>Recent Reports</h3>
-		<table>
-		  <tr>
-			<th><%=h myrandvar %></th>
-			<th>Report Type</th>
-			<th>Staff</th>
-			<th>Created At</th>
-			<th></th>
-			<th></th>
-			<th></th>
-		  </tr>
-		
+		<% count = 0 %>
 		<% @reports.each do |report| %>
-		  <% if report.created_at.to_f > current_staff.last_sign_in_at.to_f %>
-			<tr>
-				<td><%= report.id %></td>
-				<td><%= report.type %></td>
-				<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-				<td><%= report.created_at.to_s(:my_time) %></td>
-				<td><%= link_to 'Show', report %></td>
-				<td><%= link_to 'Edit', edit_report_path(report) %></td>
-				<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
-			</tr>
-		<% end %>  
+			<% if report.created_at.to_f > current_staff.last_sign_in_at.to_f %>
+				<% count = 1 %>
+			<% end %>
 		<% end %>
-		</table>
-<% end %>	
+			<% if count == 1 %>
+				<table>
+				  <tr>
+					<th>Report ID</th>
+					<th>Report Type</th>
+					<th>Staff</th>
+					<th>Created At</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				  </tr>
+				
+				<% @reports.each do |report| %>
+					<% if report.created_at.to_f > current_staff.last_sign_in_at.to_f %>
+						<tr>
+							<td><%= report.id %></td>
+							<td><%= report.type %></td>
+							<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
+							<td><%= report.created_at.to_s(:my_time) %></td>
+							<td><%= link_to 'Show', report %></td>
+							<td><%= link_to 'Edit', edit_report_path(report) %></td>
+							<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+						</tr>
+					<% end %>  
+				<% end %>
+				</table>
+			<% else %>
+				<p> No Recent Reports </p>
+			<% end %>
+	<% end %>	
 <% end %>
