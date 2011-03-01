@@ -20,6 +20,7 @@
 <p><a href = "http://localhost:3000/search/search">Student Search</a></p>
 <% end %>
 
+<hr >
 <% if staff_signed_in? %>
 	<h3>Unsubmitted Reports</h3>
 	<% count = 0 %>
@@ -32,7 +33,7 @@
 							<th>Report ID</th>
 							<th>Report Type</th>
 							<th>Staff</th>
-							<th>Created At</th>
+							<th>Approach Time</th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -42,7 +43,7 @@
 						<td><%= report.id %></td>
 						<td><%= report.type %></td>
 						<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-						<td><%= report.created_at.to_s(:my_time) %></td>
+						<td><%= report.approach_time.to_s(:my_time) %></td>
 						<td><%= link_to 'Show', report %></td>
 						<td><%= link_to 'Edit', edit_report_path(report) %></td>
 						<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -56,7 +57,9 @@
 	<% else %>
 		<p> No Unsubmitted Reports </p>
 	<% end %>
+	
 	<% if current_staff.role == "Admin" %>
+		<hr >
 		<h3>Recent Reports</h3>
 		<% count = 0 %>
 		<% @reports.each do |report| %>
@@ -70,7 +73,7 @@
 					<th>Report ID</th>
 					<th>Report Type</th>
 					<th>Staff</th>
-					<th>Created At</th>
+					<th>Approach Time</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -82,7 +85,7 @@
 							<td><%= report.id %></td>
 							<td><%= report.type %></td>
 							<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-							<td><%= report.created_at.to_s(:my_time) %></td>
+							<td><%= report.approach_time.to_s(:my_time) %></td>
 							<td><%= link_to 'Show', report %></td>
 							<td><%= link_to 'Edit', edit_report_path(report) %></td>
 							<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
