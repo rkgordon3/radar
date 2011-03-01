@@ -4,6 +4,7 @@
   <tr>
     <th>Report ID</th>
     <th>Submitter</th>
+    <th>Approach Date</th>
     <th>Approach Time</th>
     <th>Building</th>
     <th>Room #</th>
@@ -24,7 +25,8 @@
   <% end %>
     <td><%= incident_report.id %></td>
     <td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>
-    <td><%= incident_report.approach_time %></td>
+    <td><%= incident_report.approach_time.to_s(:date_only) %></td>
+    <td><%= incident_report.approach_time.to_s(:time_only) %></td>
     <td><%= incident_report.building.name %></td>
     <td><%= incident_report.room_number %></td>
     <td><%= incident_report.submitted %></td>
