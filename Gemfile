@@ -7,6 +7,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'devise'
 gem 'ci_reporter'
+gem 'test-unit'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
