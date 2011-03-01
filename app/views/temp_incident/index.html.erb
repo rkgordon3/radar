@@ -32,7 +32,7 @@
                                     <li class="iRadio" value="autoback">
                                         Select Building<% @buildings.each do |b| %>
                                         <label>
-                                            <input type="radio" name="building set" value=<%= b.id %><%if b.id == 16 %>checked="checked"<%end %>/><%= b.name %>
+                                            <input type="radio" name="building set" value=<%= b.id %> <%if b.id == 16 %>checked="checked"<%end %>/><%= b.name %>
                                         </label><% end %>
                                     </li>
                                 </ul>
