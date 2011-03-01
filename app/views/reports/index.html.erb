@@ -5,7 +5,8 @@
     <th>Report ID</th>
     <th>Report Type</th>
     <th>Staff</th>
-    <th>Created At</th>
+    <th>Created Date</th>
+    <th>Created Time</th>
     <th></th>
     <th></th>
     <th></th>
@@ -22,7 +23,8 @@
     <td><%= report.id %></td>
     <td><%= report.type %></td>
     <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-    <td><%= report.created_at.to_s(:my_time) %></td>
+    <td><%= report.created_at.to_s(:date_only) %></td>
+    <td><%= report.created_at.to_s(:time_only) %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>
     <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
