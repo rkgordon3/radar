@@ -21,6 +21,39 @@
 <% end %>
 
 <% if staff_signed_in? %>
+	<h3>Unsubmitted Reports</h3>
+	<% count = 0 %>
+	<% @reports.each do |report| %>
+		<% if report.submitted == false %>
+			<% if count == 0 %>
+				<table>
+					<tr>
+						<th>Report ID</th>
+						<th>Report Type</th>
+						<th>Staff</th>
+						<th>Created At</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+			<% end %>
+				<tr>
+					<td><%= report.id %></td>
+					<td><%= report.type %></td>
+					<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
+					<td><%= report.created_at.to_s(:my_time) %></td>
+					<td><%= link_to 'Show', report %></td>
+					<td><%= link_to 'Edit', edit_report_path(report) %></td>
+					<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+				</tr>
+			<% count = 1 %>
+		<% end %>
+	<% end %>
+	<% if count == 1 %>
+		</table>
+	<% else %>
+		<p> No Unsubmitted Reports </p>
+	<% end %>
 	<% if current_staff.role == "Admin" %>
 		<h3>Recent Reports</h3>
 		<% count = 0 %>
