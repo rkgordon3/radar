@@ -1,16 +1,18 @@
 <h1>Showing Building <%= @building.id %></h1>
+<p id="notice"><%= notice %></p>
 
 <p>
+  <b>Building ID:</b>
+  <%= @building.id %>
+  <br/><br/>
   <b>Name:</b>
   <%= @building.name %>
   <br/><br/>
   <b>Abbreviation:</b>
   <%= @building.abbreviation %>
   <br/><br/>
-  <% if @building.area_id != nil %>
-  	<b>Area:</b>
-  	<%= Area.find(@building.area_id).abbreviation %>
-  <% end %>
+  <b>Area ID:</b>
+  <%= @building.area_id %>
 </p>
 
 
