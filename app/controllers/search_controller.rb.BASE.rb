@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   before_filter :authorize
-  autocomplete :student, :first_name, :display_value => :full_name
+  autocomplete :student, :full_name, :display_value => :full_name
   
   @student_list = Array.new
   
