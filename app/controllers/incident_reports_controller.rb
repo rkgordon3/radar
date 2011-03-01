@@ -177,12 +177,19 @@ class IncidentReportsController < ApplicationController
   # DELETE /incident_reports/1
   # DELETE /incident_reports/1.xml
   def destroy
-    @incident_report = IncidentReport.find(params[:id])
-    @incident_report.destroy
+     @incident_report = IncidentReport.find(params[:id])
+    
+     @incident_report.reported_infractions.each do |ri|
+     	     ri.destroy
+     end
+     
+     Annotation.find(@incident_report.annotation_id).destroy
+    
+     @incident_report.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(incident_reports_url) }
-      format.xml  { head :ok }
+     respond_to do |format|
+     	     format.html { redirect_to(incident_reports_url) }
+     	     format.xml  { head :ok }
     end
   end
   
@@ -258,7 +265,6 @@ class IncidentReportsController < ApplicationController
   	  
   	  old_ris.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } 
 
-  	  
   	  participants = Array.new
   	  
   	  if old_ris.count > 0
@@ -281,7 +287,7 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  # try to find if reported_infraction already exists
   	  	  	  	  found = false
   	  	  	  	  old_ris.each do |ori|
-  	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id
+  	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id 
   	  	  	  	  	  	  if i.id == 22 && something_found == true
   	  	  	  	  	  	  	  # do nothing, because we want the fyi to be deleted
   	  	  	  	  	  	  else	
@@ -312,6 +318,13 @@ class IncidentReportsController < ApplicationController
   	  
   	  old_ris.each do |ori|
   	  	  old_ris.delete(ori)
+  	  	  ori.destroy
+  	  	  ori = nil
+  	  end
+  	  
+  	  old_ris.each do |ori|
+  	  	  old_ris.delete(ori)
+  	  	  incident_report.reported_infractions.delete(ori)
   	  	  ori.destroy
   	  	  ori = nil
   	  end

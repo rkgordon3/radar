@@ -13,6 +13,7 @@
   </tr>
 
 <% @reports.each do |report| %>
+<% if report.submitted? == true %>
   <% if @numRows == 0 %>
     <% @numRows = @numRows + 1 %>
     <tr class="shaded">
@@ -29,6 +30,7 @@
     <td><%= link_to 'Edit', edit_report_path(report) %></td>
     <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
+  <%end%>
 <% end %>
 </table>
 

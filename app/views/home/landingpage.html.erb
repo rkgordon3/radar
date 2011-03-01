@@ -22,7 +22,7 @@
 
 <hr >
 <% if staff_signed_in? %>
-	<h3>Unsubmitted Reports</h3>
+	<h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
 	<% if @unsubmitted.length > 0 %>
 		<table>
 			<tr>
@@ -41,7 +41,11 @@
 				<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
 				<td><%= report.created_at.to_s(:my_time) %></td>
 				<td><%= link_to 'Show', report %></td>
+				<% if report.type == "IncidentReport" %>
+				<td><%= link_to 'Edit', edit_incident_report_path(report) %></td>
+				<% else %>
 				<td><%= link_to 'Edit', edit_report_path(report) %></td>
+				<% end %>
 				<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
 			</tr>
 		<% end %>
