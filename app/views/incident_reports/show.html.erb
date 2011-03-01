@@ -1,14 +1,12 @@
 <h1>Showing Incident Report <%= @incident_report.id %> </h1>
 
-<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Report ID:</b>
-  <%= @incident_report.id %><br/><br />
-  <b>Submitted:</b>
-  <%= @incident_report.submitted %><br/><br />
+  
+  <b>Approach Date:</b>
+  <%= @incident_report.approach_time.to_s(:date_only) %><br/><br />
   <b>Approach Time:</b>
-  <%= @incident_report.approach_time %><br/><br />
+  <%= @incident_report.approach_time.to_s(:time_only) %><br/><br />
   <b>Building ID:</b>
   <%= @incident_report.building.name %><br/><br />
   <b>Room Number:</b>
@@ -39,6 +37,10 @@
   <% end %>
   
   <br/><br /><br />
+  <b>Report ID:</b>
+  <%= @incident_report.id %><br/><br />
+  <b>Submitted:</b>
+  <%= @incident_report.submitted %><br/><br />
   <b>Created at:</b>
   <%= @incident_report.created_at.to_s(:my_time) %><br/><br />
   <b>Updated at:</b>

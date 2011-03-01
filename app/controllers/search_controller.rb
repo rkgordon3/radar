@@ -13,7 +13,7 @@ class SearchController < ApplicationController
   
  
   def update_list
-  	message= params[:first_name]
+  	message= params[:full_name]
 	split_up = message.split(/, /)
 	
 	long_name = split_up[0]
