@@ -44,6 +44,17 @@
 </p>
 
 
+
+<p>
+  <b>Created At:</b>
+  <%= @student.created_at.to_s(:my_time) %>
+</p>
+
+<p>
+  <b>Updated At:</b>
+  <%= @student.updated_at.to_s(:my_time) %>
+</p>
+
 <p>
 	<b>Picture:</b>
 	<% test = StudentsController.new() %>
