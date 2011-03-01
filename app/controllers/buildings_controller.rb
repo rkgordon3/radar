@@ -1,6 +1,7 @@
 class BuildingsController < ApplicationController
   # GET /buildings
   # GET /buildings.xml
+  before_filter :general_authorize
   def index
     @buildings = Building.all
     @numRows = 0

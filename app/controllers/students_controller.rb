@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
-  before_filter :authorize
+  before_filter :general_authorize
   def index
     @students = Student.all
     @numRows = 0
