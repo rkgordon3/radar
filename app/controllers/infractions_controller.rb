@@ -1,5 +1,5 @@
 class InfractionsController < ApplicationController
-  before_filter :authorize
+  before_filter :admin_authorize
   # GET /infractions
   # GET /infractions.xml
   def index

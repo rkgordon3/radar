@@ -1,11 +1,14 @@
 <h1>Showing Student <%= @student.id %></h1>
 <p id="notice"><%= notice %></p>
 
+<%if staff_signed_in? %>
+	<%if current_staff.role == "Admin" %>
 <p>
   <b>Student ID:</b>
   <%= @student.student_id %>
 </p>
-
+	<% end %>
+<% end %>	
 <p>
   <b>First Name:</b>
   <%= @student.first_name %>
@@ -27,6 +30,8 @@
   <b>Age:</b>
   <%= @student.age %>
 </p>
+<%if staff_signed_in? %>
+	<%if current_staff.role == "Admin" %>
 
 <p>
   <b>Home Phone:</b>
@@ -36,13 +41,14 @@
   <b>Cell Phone:</b>
   <%= @student.cell_phone %>
 </p>
-
+	
 
 <p>
   <b>Photo URL:</b>
   <%= @student.url %>
 </p>
-
+	<% end %>
+<% end %>
 
 
 <p>
