@@ -368,4 +368,14 @@ class IncidentReportsController < ApplicationController
   	  end
   end
   
+  # POST /incident_reports/search_results
+  def search_results
+  	if params[:building_id] != 0
+  	  	  
+  		@reports = IncidentReport.where("'building_id' <= ?")
+	  
+  	end
+  	  	  
+  end
+  
 end

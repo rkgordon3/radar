@@ -18,10 +18,12 @@ Radar::Application.routes.draw do
   resources :incident_reports do
   	  get :new_report, :on => :collection
   	  get :search, :on => :collection
+  	  get :search_results, :on => :collection
   end
   
   match "/incident_reports/search" => "incident_reports#search"
   get "/incident_reports/search/"
+  get "/incident_reports/search_results/"
   
   resources :search
   
