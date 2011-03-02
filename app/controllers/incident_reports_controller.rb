@@ -354,5 +354,17 @@ class IncidentReportsController < ApplicationController
 			incident_report.annotation_id = annotation.id
 		end
 	end
+	
+	
+	
+  # GET /incident_reports/search
+  def search
+  	   self.clear_session #probably not necessary, 
+  	   # but good practice anyway.
+  	  
+  	  respond_to do |format|
+  	  	  format.html # search.html.erb
+  	  end
+  end
   
 end

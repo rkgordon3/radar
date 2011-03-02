@@ -4,27 +4,26 @@ Radar::Application.routes.draw do
   get "home/landingpage"
 
   get "search/search"
-		root :to => "home#landingpage"
 	
   get "search/report_search"
-		root :to => "home#landingpage"
-
 		
   get 'search/autocomplete_student_full_name'
   
   match "/search/update_list" => "search#update_list"
   get "/search/update_list"
   
-  
   match "/search/go_to_student" => "search#go_to_student"
   get "/search/go_to_student"
   
   resources :incident_reports do
   	  get :new_report, :on => :collection
+  	  get :search, :on => :collection
   end
   
-  resources :search
+  match "/incident_reports/search" => "incident_reports#search"
+  get "/incident_reports/search/"
   
+  resources :search
   
   resources :photos
 
