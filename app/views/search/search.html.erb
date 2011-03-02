@@ -17,7 +17,12 @@ function handletext(what){
 }
 </script>
 
-<div id="found"></div>
+<form action="/search/go_to_student">
+  <%= render '/search/autocomplete_full_name' %>
+  <input onclick=""; type="submit" value="Find Student" />
 
-<%= render '/search/form' %>
+
+</form>
+
+
 
