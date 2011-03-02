@@ -1,0 +1,83 @@
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <a href="#" id="waBackButton">Back</a>
+        <span id="waHeadTitle">Incident Report</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+            <form action="/incident_reports" method="POST">
+            	
+                <div class="iPanel">
+                    <fieldset>
+                        <legend>
+                            Time:
+                        </legend>
+                        <ul>
+                            <li>
+                                <input type="text" name="TimeTextBox" value="<%=@incident_report.approach_time%>" />
+                            </li>
+                        </ul>
+                        <legend>
+                            Building:
+                        </legend>
+                        <ul>
+                            <li class="iRadio" value="autoback">
+                                Select Building<% Building.find(:all).each do |b| %>
+                                <label>
+                                    <input type="radio" name="building set" value=<%= b.id %> <%if b.id == 16 %> checked="checked"<%end %>/><%= b.name %>
+                                </label><% end %>
+                            </li>
+                        </ul>
+                        <legend>
+                            Room #:
+                        </legend>
+                        <ul>
+                            <li>
+                                <input type="text" name="RoomNumber" value="<%=@incident_report.room_number%>" />
+                            </li>
+                        </ul>
+                        <legend>
+                            Students:
+                        </legend>
+                      <!-- <%if @incident_report.reported_infractions != nil %>
+                        <% @incident_report.reported_infractions do |ri| %>
+                        <ul class="iArrow">
+                            <li>
+                        </ul>
+                        </li>
+                        <% end %>
+                        <% end %>
+-->
+                        <p>
+                            <a href="#_Next" class="iPush iBClassic" style="width:100%">Add Student</a>
+                        </p>
+                        <div class="iLayer" id="waNext" title="Students">
+                           <% render 'si'%>
+                        </div>
+                    </ul>
+                    <legend>
+                        Annotation: 
+                    </legend>
+                    <ul>
+                        <li>
+                            <textarea id="incident_report_annotation" name="annotation" rows="5">
+                                <%= session[:annotation].text %>
+                            </textarea>
+                        </li>
+                    </ul>
+                    <% if @incident_report.submitted != true %>
+                    <p>
+                    	<input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
+                       <!-- <a href="save_submit" class="iPush iBClassic" style="width:100%">Save</a>-->
+                    </p>
+                    <% end %>
+                    <p>
+                    	<input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
+                     <!-- <a href="javascript:void(0)" class="iPush iBWarn" style="width:100%">Submit</a> -->
+                    </p>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

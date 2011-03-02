@@ -3,7 +3,7 @@ class TempIncidentController < ApplicationController
 
 
 def index
-	
+
     @buildings = Building.all
     respond_to do |format|
       format.html { render :layout => false}
