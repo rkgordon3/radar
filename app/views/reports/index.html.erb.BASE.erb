@@ -3,10 +3,9 @@
 <table>
   <tr>
     <th>Report ID</th>
-    <th>Report Type</th>
-    <th>Staff</th>
-    <th>Approach Date</th>
-    <th>Approach Time</th>
+    <th>Submitter</th>
+	<th>Location</th>
+    <th>Created At</th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,10 +20,9 @@
     <tr>
   <% end %>
     <td><%= report.id %></td>
-    <td><%= report.type %></td>
-    <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-    <td><%= report.created_at.to_s(:date_only) %></td>
-    <td><%= report.created_at.to_s(:time_only) %></td>
+	<td><%= report.submitter %></td>
+	<td><%= report.location %></td>
+    <td><%= report.created_at %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>
     <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -33,6 +31,5 @@
 </table>
 
 <br />
-<!--
+
 <%= link_to 'New Report', new_report_path %>
--->

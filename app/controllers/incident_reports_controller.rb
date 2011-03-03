@@ -1,8 +1,11 @@
 class IncidentReportsController < ApplicationController
-  before_filter :admin_authorize, :except => [:new, :show, :edit]
+  before_filter :admin_authorize, :except => [:new_report, :show, :edit]
   before_filter :general_authorize  
   autocomplete :student, :first_name, :display_value => :full_name
+ skip_before_filter :verify_authenticity_token
  
+acts_as_iphone_controller = true
+
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
@@ -14,6 +17,7 @@ class IncidentReportsController < ApplicationController
   	  respond_to do |format|
   	  	  format.html # index.html.erb
   	  	  format.xml  { render :xml => @incident_reports }
+                  format.iphone {render :layout => 'mobile_application'}
   	  end
   end
 
@@ -29,30 +33,12 @@ class IncidentReportsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @incident_report }
+#format.iphone {render :layout => false}
     end
   end
 
   # GET /incident_reports/new
   # GET /incident_reports/new.xml
-  def new
-    @incident_report = IncidentReport.new
-    @incident_report.approach_time = Time.now
-    @incident_report.staff_id = current_staff.id
-    @incident_report.building_id = 16
-    @annotation = Annotation.new
-    
-    r_i = ReportedInfraction.new
-    r_i.participant_id = 3
-    r_i.infraction_id = 22
-    
-    @incident_report.reported_infractions << r_i
-
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @incident_report }
-    end
-  end
 
   # GET /incident_reports/1/edit
   def edit
@@ -86,7 +72,7 @@ class IncidentReportsController < ApplicationController
   	  	  respond_to do |format|
   	  	  	  format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
   	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-  	  	  
+  	  	  	  format.iphone {render :layout => 'mobile_application'}
   	  	  end
   	  else
   	  	  @incident_report = session[:incident_report]
@@ -113,10 +99,12 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  
   	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
   	  	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
+				format.iphone {render :layout => 'mobile_application'}
   	  	  	  else
   	  	  	  	  format.html { render :action => "new_report" }
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-  	  	  	  end
+  	  	  	 format.iphone {render :layout => 'mobile_application'}
+ end
   	  	  end
 
   	  end
@@ -147,7 +135,7 @@ class IncidentReportsController < ApplicationController
   	  	  respond_to do |format|
   	  	  	  format.html { redirect_to '/search/report_search?/incident_reports/'+@incident_report.id.to_s()+'/edit/' }
   	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-  	  	  
+  	  	 # format.iphone {render :layout => false}
   	  	  end
   	  else 
   	  	  #deal with annotations
@@ -161,10 +149,13 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully updated.') }
   	  	  	  	  format.xml  { head :ok }
+#format.iphone {render :layout => false}
   	  	  	  else
   	  	  	  	  format.html { render :action => "edit" }
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
   	  	  	  end
+#format.iphone {render :layout => false}  	  	  	  
+end
   	  	  end
   	  end
   	  if params[:save_submit] != nil
@@ -193,6 +184,7 @@ class IncidentReportsController < ApplicationController
      respond_to do |format|
      	     format.html { redirect_to(incident_reports_url) }
      	     format.xml  { head :ok }
+#format.iphone {render :layout => false}
     end
   end
   
@@ -215,10 +207,13 @@ class IncidentReportsController < ApplicationController
   	  @incident_report = session[:incident_report] 
   	  @annotation = session[:annotation]
   	  self.add_student_infractions_to_session
+  	 
   	  
   	  respond_to do |format|
   	  	  format.html # new_report.html.erb
+  	  	  format.html  
   	  	  format.xml  { render :xml => @incident_report }
+		  format.iphone {render :layout => 'mobile_application'}
   	  end 
   end
   

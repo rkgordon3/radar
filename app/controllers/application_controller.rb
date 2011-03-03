@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
 	end
   end
   
+
+   before_filter :set_iphone_format
+
+def set_iphone_format
+	if is_iphone_request? 
+		format = "iphone"
+	end
   def admin_authorize
 	if staff_signed_in?
 		unless current_staff.role == "Admin"
@@ -23,4 +30,10 @@ class ApplicationController < ActionController::Base
 	end	
   end	
   
+end
+
+ def is_iphone_request?
+      request.user_agent =~ /(Mobile\/.+Safari)/
+    end  
+
 end
