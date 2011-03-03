@@ -1,5 +1,5 @@
 class IncidentReportsController < ApplicationController
-  before_filter :admin_authorize, :except => [:new, :show, :edit]
+  before_filter :admin_authorize, :except => [:new_report, :show, :edit]
   before_filter :general_authorize  
   autocomplete :student, :first_name, :display_value => :full_name
  
