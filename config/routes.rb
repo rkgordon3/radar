@@ -4,8 +4,12 @@ Radar::Application.routes.draw do
   get "home/landingpage"
 
   get "search/search"
+  
+  root :to => "home#landingpage"
 	
   get "search/report_search"
+  
+  root :to => "home#landingpage"
 		
   get 'search/autocomplete_student_full_name'
   

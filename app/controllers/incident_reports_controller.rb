@@ -155,8 +155,7 @@ acts_as_iphone_controller = true
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
   	  	  	  end
 #format.iphone {render :layout => false}  	  	  	  
-end
-  	  	  end
+		   end
   	  end
   	  if params[:save_submit] != nil
   	  	  @incident_report.submitted = false
@@ -394,5 +393,4 @@ end
   	end
   	  	  
   end
-  
 end
