@@ -7,24 +7,14 @@
 </p>
 
 <p>
-  <b>Infraction ID:</b>
-  <%= @reported_infraction.infraction_id %>
+  <b>Infraction:</b>
+  <%= Infraction.find(@reported_infraction.infraction_id).description %>
 </p>
 
 <p>
   <b>Participant:</b>
   <%= @reported_infraction.participant.first_name %> 
   <%= @reported_infraction.participant.last_name %>
-</p>
-
-<p>
-  <b>Created At:</b>
-  <%= @reported_infraction.created_at.to_s(:my_time) %>
-</p>
-
-<p>
-  <b>Updated At:</b>
-  <%= @reported_infraction.updated_at.to_s(:my_time) %>
 </p>
 
 

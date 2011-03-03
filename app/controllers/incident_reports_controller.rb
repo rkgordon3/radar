@@ -1,5 +1,6 @@
 class IncidentReportsController < ApplicationController
-  before_filter :authorize	
+  before_filter :admin_authorize, :except => [:new_report, :show, :edit]
+  before_filter :general_authorize  
   autocomplete :student, :first_name, :display_value => :full_name
  skip_before_filter :verify_authenticity_token
  
@@ -150,6 +151,7 @@ acts_as_iphone_controller = true
   	  	  	  else
   	  	  	  	  format.html { render :action => "edit" }
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
+  	  	  	  end
 #format.iphone {render :layout => false}  	  	  	  
 end
   	  	  end
@@ -167,12 +169,19 @@ end
   # DELETE /incident_reports/1
   # DELETE /incident_reports/1.xml
   def destroy
-    @incident_report = IncidentReport.find(params[:id])
-    @incident_report.destroy
+     @incident_report = IncidentReport.find(params[:id])
+    
+     @incident_report.reported_infractions.each do |ri|
+     	     ri.destroy
+     end
+     
+     Annotation.find(@incident_report.annotation_id).destroy
+    
+     @incident_report.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(incident_reports_url) }
-      format.xml  { head :ok }
+     respond_to do |format|
+     	     format.html { redirect_to(incident_reports_url) }
+     	     format.xml  { head :ok }
 #format.iphone {render :layout => false}
     end
   end
@@ -199,6 +208,7 @@ end
   	 
   	  
   	  respond_to do |format|
+  	  	  format.html # new_report.html.erb
   	  	  format.html  
   	  	  format.xml  { render :xml => @incident_report }
 		  format.iphone {render :layout => 'mobile_application'}
@@ -251,7 +261,6 @@ end
   	  
   	  old_ris.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } 
 
-  	  
   	  participants = Array.new
   	  
   	  if old_ris.count > 0
@@ -274,7 +283,7 @@ end
   	  	  	  	  # try to find if reported_infraction already exists
   	  	  	  	  found = false
   	  	  	  	  old_ris.each do |ori|
-  	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id
+  	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id 
   	  	  	  	  	  	  if i.id == 22 && something_found == true
   	  	  	  	  	  	  	  # do nothing, because we want the fyi to be deleted
   	  	  	  	  	  	  else	
@@ -309,6 +318,13 @@ end
   	  	  ori = nil
   	  end
   	  
+  	  old_ris.each do |ori|
+  	  	  old_ris.delete(ori)
+  	  	  incident_report.reported_infractions.delete(ori)
+  	  	  ori.destroy
+  	  	  ori = nil
+  	  end
+  	  
   	  new_ris.each do |nri|
   	  	  incident_report.reported_infractions << nri
   	  end
@@ -334,5 +350,17 @@ end
 			incident_report.annotation_id = annotation.id
 		end
 	end
+	
+	
+	
+  # GET /incident_reports/search
+  def search
+  	   self.clear_session #probably not necessary, 
+  	   # but good practice anyway.
+  	  
+  	  respond_to do |format|
+  	  	  format.html # search.html.erb
+  	  end
+  end
   
 end

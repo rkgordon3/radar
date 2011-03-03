@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_filter :authorize
+  before_filter :general_authorize
   autocomplete :student, :first_name, :display_value => :full_name, :full =>true
   
   autocomplete :student, :full_name, :display_value => :full_name, :full => true
@@ -13,9 +13,8 @@ class SearchController < ApplicationController
     Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
   end
   
- 
-  def update_list
-  	message= params[:first_name]
+  def get_student_object_for_string(name_string)
+  	  message= name_string
 	split_up = message.split(/, /)
 	
 	long_name = split_up[0]
@@ -40,8 +39,30 @@ class SearchController < ApplicationController
 	#	s_first_name, s_last_name, s_building_id, s_room_number ).first
 	
 	
-	@student = Student.find(Integer(split_up[3]))
+	student = Student.find(Integer(split_up[3]))
 	
+	return student
+  	  
+  end
+  
+  
+  
+  def go_to_student
+  	  @student = self.get_student_object_for_string(params[:full_name])
+  	  
+  	  	  
+  	  	  respond_to do |format|
+  	  	  	  format.html { redirect_to "/students/" + @student.id.to_s }
+  	  	  	  format.xml  { render :xml => @student}
+  	  	  
+  	  	  end
+     
+  end
+  
+ 
+  def update_list
+  	
+  	  @student = self.get_student_object_for_string(params[:full_name])
 	
 	if session[:students] == nil
 		session[:students] = Array.new

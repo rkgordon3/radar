@@ -1,71 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-    <head>
-        <meta name="generator" content="HTML Tidy, see www.w3.org">
+<h1>Listing Incident Reports</h1>
 
-        <title></title>
-    </head>
+<table>
+  <tr>
+    <th>Report ID</th>
+    <th>Submitter</th>
+    <th>Approach Date</th>
+    <th>Approach Time</th>
+    <th>Building</th>
+    <th>Room #</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
 
-    <body>
-        <h1>Listing Incident Reports</h1>
+  
+<% @incident_reports.each do |incident_report| %>
+  <% if incident_report.submitted? == true %>
+  	<% if @numRows == 0 %>
+  		<% @numRows = @numRows + 1 %>
+  		<tr class="shaded">
+  	<% else %>
+  		<% @numRows = 0 %> 
+  		<tr>
+  	<% end %>
+  	<td><%= incident_report.id %></td>
+  	<td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>
+  	<td><%= incident_report.approach_time.to_s(:date_only) %></td>
+  	<td><%= incident_report.approach_time.to_s(:time_only) %></td>
+  	<td><%= incident_report.building.name %></td>
+  	<td><%= incident_report.room_number %></td>
+  	<td><%= link_to 'Show', incident_report %></td>
+  	<td><%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
+  	<td><%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
+  	</tr>
+  <% end %>
+<% end %>
+</table>
 
-        <table>
-            <tr>
-                <th>Report ID</th>
+<br />
 
-                <th>Submitter</th>
-
-                <th>Approach Time</th>
-
-                <th>Building</th>
-
-                <th>Room #</th>
-
-                <th>Submitted</th>
-
-                <th>
-                </th>
-
-                <th>
-                </th>
-
-                <th>
-                </th>
-            </tr>
-            <% @incident_reports.each do |incident_report| %><% if @numRows == 0 %><% @numRows = @numRows + 1 %>
-
-            <tr class="shaded">
-                <% else %><% @numRows = 0 %>
-            </tr>
-
-            <tr>
-                <% end %>
-
-                <td><%= incident_report.id %></td>
-
-                <td>
-                <%= incident_report.staff.first_name %><%= incident_report.staff.last_name %></td>
-
-                <td><%= incident_report.approach_time %></td>
-
-                <td><%= incident_report.building.name %></td>
-
-                <td><%= incident_report.room_number %></td>
-
-                <td><%= incident_report.submitted %></td>
-
-                <td><%= link_to 'Show', incident_report %></td>
-
-                <td>
-                <%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
-
-                <td>
-                <%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
-            </tr>
-            <% end %>
-        </table>
-        <br>
-         <%= link_to 'New Incident Report', '/incident_reports/new_report' %>
-    </body>
-</html>
-
+<%= link_to 'New Incident Report', '/incident_reports/new_report' %>

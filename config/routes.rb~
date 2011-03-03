@@ -15,6 +15,10 @@ Radar::Application.routes.draw do
   match "/search/update_list" => "search#update_list"
   get "/search/update_list"
   
+  
+  match "/search/go_to_student" => "search#go_to_student"
+  get "/search/go_to_student"
+  
   resources :incident_reports do
   	  get :new_report, :on => :collection
   end

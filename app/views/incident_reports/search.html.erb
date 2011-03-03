@@ -1,0 +1,27 @@
+<h1>Search Incident Reports </h1>
+
+
+  Please enter your search criteria.
+  
+  <%= form_tag 'search_reports' %>
+  	<p>
+  		 <div class="field">
+  		 	Building:<br />
+  		 	<select id="building_id" name="incident_report[building_id]">
+  		 		<option value="0" selected="selected">Select A Building</option>
+  		 	    	<% Building.all.each do |b| %>
+  		 	    		<option value="<%= b.id %>"><%= b.name %></option>
+  		 	    	<% end %>
+  		 	    	</select>
+  		  </div>
+
+  	</p>
+  	
+  	<input id="submit" name="submit" type="submit" value="Search Incident Reports" />
+  </form>
+
+  
+
+
+
+<%= link_to 'Back', incident_reports_path %>
