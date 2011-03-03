@@ -70,7 +70,7 @@ acts_as_iphone_controller = true
   	  	  respond_to do |format|
   	  	  	  format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
   	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-  	  	  format.iphone {render :layout => false}
+  	  	  	  format.iphone {render :layout => 'mobile_application'}
   	  	  end
   	  else
   	  	  @incident_report = IncidentReport.new(params[:incident_report])
@@ -96,11 +96,11 @@ acts_as_iphone_controller = true
   	  	  	  	  
   	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
   	  	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-				format.iphone {render :layout => false}
+				format.iphone {render :layout => 'mobile_application'}
   	  	  	  else
   	  	  	  	  format.html { render :action => "new_report" }
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-  	  	  	 format.iphone {render :layout => false}
+  	  	  	 format.iphone {render :layout => 'mobile_application'}
  end
   	  	  end
 
