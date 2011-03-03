@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
 			redirect_to "/home/landingpage"
 			false
 		end
+	else
+		flash[:notice] = "Unauthorized Access"
+		redirect_to "/home/landingpage"
+		false
 	end	
   end	
   
