@@ -31,9 +31,11 @@
   		<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
   	<% end %>
    <% end %>
-  	<br />
-  	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infraction:</b> 
-  <%= b.infraction.description %>
+  	<% if b.infraction_id != 22 %>
+  		<br />
+  		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infraction:</b> 
+  		<%= b.infraction.description %>
+  	<%end%>
   <% end %>
   
   <br/><br /><br />

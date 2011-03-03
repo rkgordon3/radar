@@ -22,8 +22,10 @@ Radar::Application.routes.draw do
   end
   
   match "/incident_reports/search" => "incident_reports#search"
-  get "/incident_reports/search/"
-  get "/incident_reports/search_results/"
+  get "/incident_reports/search"
+  
+  match "/incident_reports/search_results" => "incident_reports#search_results" 
+  get "/incident_reports/search_results"
   
   resources :search
   

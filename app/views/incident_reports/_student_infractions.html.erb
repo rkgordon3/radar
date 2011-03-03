@@ -42,7 +42,6 @@ function divToggle(divID,imgID) {
   	<div id="<%= b.participant_id %>-infractions" style="display: none;">
   		<% infractions = Infraction.all %>
   		<% infractions.each do |i| %>
-  			<% if i.id != 22 %>
   				<% if i.id != 1 %>
   					<BR>
   				<%end%>
@@ -60,9 +59,6 @@ function divToggle(divID,imgID) {
   			
   				<% #this is the end of the checkbox tag.# %>
   				><%= i.description %>
-  			<% else %>
-  				<input type=hidden name="<%= b.participant_id %>[<%= i.id %>]" value="on">
-  			<% end %>
   		<% end %>
   		</div>
    <% end %>

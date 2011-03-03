@@ -13,42 +13,12 @@ class SearchController < ApplicationController
     Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
   end
   
-  def get_student_object_for_string(name_string)
-  	  message= name_string
-	split_up = message.split(/, /)
-	
-	long_name = split_up[0]
-	#print long_name
-	s_building_id = split_up[1]
-	#print s_building_id
-	s_room_number = split_up[2]
-	#print s_room_number
-	
-	s_long_name = long_name.split(' ')
-	#print s_long_name
-	s_first_name = s_long_name[0]
-	#print s_first_name
-	s_last_name = s_long_name[1]
-	#print s_last_name
-	
-
-	split_up[3]
-		
-	
-	#@student = Student.where("'first_name' LIKE ? AND 'last_name' LIKE ? AND 'building_id' <= ? AND 'room_number' <= ?",
-	#	s_first_name, s_last_name, s_building_id, s_room_number ).first
-	
-	
-	student = Student.find(Integer(split_up[3]))
-	
-	return student
-  	  
-  end
+  
   
   
   
   def go_to_student
-  	  @student = self.get_student_object_for_string(params[:full_name])
+  	  @student = Student.get_student_object_for_string(params[:full_name])
   	  
   	  	  
   	  	  respond_to do |format|
@@ -62,7 +32,7 @@ class SearchController < ApplicationController
  
   def update_list
   	
-  	  @student = self.get_student_object_for_string(params[:full_name])
+  	  @student = Student.get_student_object_for_string(params[:full_name])
 	
 	if session[:students] == nil
 		session[:students] = Array.new

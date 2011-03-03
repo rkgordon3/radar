@@ -70,14 +70,15 @@ class IncidentReportsController < ApplicationController
   # POST /incident_reports.xml
   def create
   	  if params[:search_submit] != nil
-  	  	  @incident_report = IncidentReport.new(params[:incident_report])
-  	  	  @incident_report.type='IncidentReport'
-  	  	  @incident_report.staff_id = current_staff.id
-  	  	  @incident_report.reported_infractions = session[:incident_report].reported_infractions
+  	  	  @incident_report = session[:incident_report]
+  	  	  @incident_report.approach_time = params[:incident_report][:approach_time]
+  	  	  @incident_report.room_number = params[:incident_report][:room_number]
+  	  	  @incident_report.building_id = params[:incident_report][:building_id]
+  	  	  
   	  	  @annotation = Annotation.new
   	  	  @annotation.text = params[:annotation]
   	  	  
-  	  	  self.add_reported_infractions_to_report(@incident_report, params)
+  	  	  self.add_student_infractions_to_session
   	  	  
   	  	  session[:incident_report] = @incident_report
   	  	  session[:annotation] = @annotation
@@ -88,18 +89,19 @@ class IncidentReportsController < ApplicationController
   	  	  
   	  	  end
   	  else
-  	  	  @incident_report = IncidentReport.new(params[:incident_report])
-  	  	  @incident_report.type='IncidentReport'
-  	  	  @incident_report.staff_id = current_staff.id
-  	  	  @incident_report.reported_infractions = session[:incident_report].reported_infractions
+  	  	  @incident_report = session[:incident_report]
   	  	  
-  	  	  self.clear_session
   	  	  
   	  	  #deal with annotations
-  	  	  annotation = Annotation.new
-  	  	  annotation.text = params[:annotation]
-		  annotation.save
-		  @incident_report.annotation_id = annotation.id
+  	  	  @annotation = session[:annotation]
+  	  	  @annotation.text = params[:annotation]
+  	  	  @annotation.save
+  	  	  @incident_report.annotation_id = @annotation.id
+  	  	  
+  	  	  @incident_report.approach_time = params[:incident_report][:approach_time]
+  	  	  @incident_report.room_number = params[:incident_report][:room_number]
+  	  	  @incident_report.building_id = params[:incident_report][:building_id]
+  	  	  
     
   	  	  respond_to do |format|
   	  	  	  if @incident_report.save
@@ -243,8 +245,6 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  @incident_report.reported_infractions << newRI
   	  	  	  end
   	  	  end
-  	  
-  	  	  session[:students] = nil
   	  end
   end
   
@@ -283,23 +283,20 @@ class IncidentReportsController < ApplicationController
   	  
   	  participants.each do |p|
   	  	  something_found = false
-  	  	  Infraction.all.each do |i|
+  	  	  infractions = Infraction.all
+  	  	  infractions.each do |i|
   	  	  	  if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
   	  	  	  	  # try to find if reported_infraction already exists
   	  	  	  	  found = false
   	  	  	  	  old_ris.each do |ori|
   	  	  	  	  	  if found == false && ori.participant_id == p && ori.infraction_id == i.id 
-  	  	  	  	  	  	  if i.id == 22 && something_found == true
-  	  	  	  	  	  	  	  # do nothing, because we want the fyi to be deleted
-  	  	  	  	  	  	  else	
-  	  	  	  	  	  	  	new_ris << ori
-  	  	  	  	  	  	  	old_ris.delete(ori)
-  	  	  	  	  	  	  end
+  	  	  	  	  	  	  new_ris << ori
+  	  	  	  	  	  	  #old_ris.delete(ori)
   	  	  	  	  	  	  found = true
   	  	  	  	  	  	  something_found = true
   	  	  	  	  	  end
   	  	  	  	  end
-  	  	  	  	  if found == false && i.id != 22
+  	  	  	  	  if found == false
   	  	  	  	  	  ri = ReportedInfraction.new
   	  	  	  	  	  ri.participant_id = p
   	  	  	  	  	  ri.infraction_id = i.id
@@ -308,6 +305,8 @@ class IncidentReportsController < ApplicationController
   	  	  	  	  end
   	  	  	  end
   	  	  end
+  	  	  
+  	  	  
   	  	  if something_found == false # no infractions were selected, add fyi
   	  	  	  ri = ReportedInfraction.new
   	  	  	  ri.participant_id = p
@@ -316,19 +315,14 @@ class IncidentReportsController < ApplicationController
   	  	  end
   	  end
   	  
-  	  
-  	  old_ris.each do |ori|
-  	  	  old_ris.delete(ori)
-  	  	  ori.destroy
-  	  	  ori = nil
-  	  end
-  	  
-  	  old_ris.each do |ori|
-  	  	  old_ris.delete(ori)
-  	  	  incident_report.reported_infractions.delete(ori)
-  	  	  ori.destroy
-  	  	  ori = nil
-  	  end
+  	  #old_ris.each do |ori|
+  	  #	  if !new_ris.include?(ori)
+  	  #	  	  old_ris.delete(ori)
+  	  #	  	  incident_report.reported_infractions.delete(ori)
+  	  #	  	  ori.destroy
+  	  #	  	  ori = nil
+  	  #	  end
+  	  #end
   	  
   	  new_ris.each do |nri|
   	  	  incident_report.reported_infractions << nri
@@ -370,10 +364,38 @@ class IncidentReportsController < ApplicationController
   
   # POST /incident_reports/search_results
   def search_results
-  	if params[:building_id] != 0
+  	  @reports = nil
+  	 
+  	  if params[:full_name].length > 3
+  	  	  student = Student.get_student_object_for_string(params[:full_name])
+  	  	  #@reported_infractions = ReportedInfraction.where(:participant_id => student.id)
   	  	  
-  		@reports = IncidentReport.where("'building_id' <= ?")
-	  
+  	  	  @reports = IncidentReport.where().includes(:reported_infractions).where(:participant_id => student.id)
+  	  	  
+  	  	  #@set_reports = Set.new
+  	  	  
+  	  	  #@reported_infractions.each do |ri|
+  	  	  #	  @set_reports << IncidentReport.find(ri.incident_report_id)
+  	  	  #end
+  	  	  
+  	  	  #@reports = Array.new
+
+  	  	  #@set_reports.each do |ri|
+  	  	  #	  @reports << ri
+  	  	  #end
+  	  end
+  	  
+  	  if params[:building_id] != "0" 
+  	  	  if @reports != nil
+  	  	  	  @reports = @reports.where(:building_id => params[:building_id])
+  	  	  else	  
+  	  	  	  @reports = IncidentReport.where(:building_id => params[:building_id])
+  	  	  end
+  	  end
+  	 
+  	
+  	respond_to do |format|
+  	  	  format.html # search.html.erb
   	end
   	  	  
   end
