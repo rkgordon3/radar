@@ -77,7 +77,6 @@ acts_as_iphone_controller = true
   	  else
   	  	  @incident_report = session[:incident_report]
   	  	  
-  	  	  
   	  	  #deal with annotations
   	  	  @annotation = session[:annotation]
   	  	  @annotation.text = params[:annotation]
@@ -88,22 +87,23 @@ acts_as_iphone_controller = true
   	  	  @incident_report.room_number = params[:incident_report][:room_number]
   	  	  @incident_report.building_id = params[:incident_report][:building_id]
   	  	  
-    
   	  	  respond_to do |format|
   	  	  	  if @incident_report.save
   	  	  	  	  self.add_reported_infractions_to_report(@incident_report, params)
   	  	  	  	  @incident_report.reported_infractions.each do |ri|
-  	  	  	  	  	  ri.incident_report_id = @incident_report.id
-  	  	  	  	  	  ri.save
+  	  	  	  	  	  if !ri.frozen?
+  	  	  	  	  	  	  ri.incident_report_id = @incident_report.id
+  	  	  	  	  	  	  ri.save
+  	  	  	  	  	  end
   	  	  	  	  end
   	  	  	  	  
   	  	  	  	  format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
   	  	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-				format.iphone {render :layout => 'mobile_application'}
+				  format.iphone {render :layout => 'mobile_application'}
   	  	  	  else
   	  	  	  	  format.html { render :action => "new_report" }
   	  	  	  	  format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-  	  	  	 format.iphone {render :layout => 'mobile_application'}
+  	  	  	          format.iphone { render :layout => 'mobile_application'}
  end
   	  	  end
 
@@ -201,12 +201,11 @@ acts_as_iphone_controller = true
   	  	  session[:incident_report] = @incident_report
   	  	  session[:annotation] = @annotation
   	  	  session[:students] = Array.new
+  	  else
+  	  	  @incident_report = session[:incident_report] 
+  	  	  @annotation = session[:annotation]
+  	  	  self.add_student_infractions_to_session
   	  end
-  	  
-  	  @incident_report = session[:incident_report] 
-  	  @annotation = session[:annotation]
-  	  self.add_student_infractions_to_session
-  	 
   	  
   	  respond_to do |format|
   	  	  format.html # new_report.html.erb
@@ -256,7 +255,11 @@ acts_as_iphone_controller = true
   
   def add_reported_infractions_to_report(incident_report, params)
   	  new_ris = Array.new
-  	  old_ris = incident_report.reported_infractions
+  	  old_ris = Array.new
+  	  
+  	  incident_report.reported_infractions.each do |ri|
+  	  	  old_ris << ri
+  	  end
   	  
   	  old_ris.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } 
 
@@ -309,14 +312,14 @@ acts_as_iphone_controller = true
   	  	  end
   	  end
   	  
-  	  #old_ris.each do |ori|
-  	  #	  if !new_ris.include?(ori)
-  	  #	  	  old_ris.delete(ori)
-  	  #	  	  incident_report.reported_infractions.delete(ori)
-  	  #	  	  ori.destroy
-  	  #	  	  ori = nil
-  	  #	  end
-  	  #end
+  	  old_ris.each do |ori|
+  	  	  if !new_ris.include?(ori)
+  	  	  	  #old_ris.delete(ori)
+  	  	  	  ori.incident_report_id = 0
+  	  	  	  ori.destroy
+  	  	  	  #ori = nil
+  	  	  end
+  	  end
   	  
   	  new_ris.each do |nri|
   	  	  incident_report.reported_infractions << nri
