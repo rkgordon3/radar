@@ -362,24 +362,27 @@ acts_as_iphone_controller = true
   # POST /incident_reports/search_results
   def search_results
   	  @reports = nil
+  	  report_ids = Array.new
   	 
   	  if params[:full_name].length > 3
   	  	  student = Student.get_student_object_for_string(params[:full_name])
-  	  	  #@reported_infractions = ReportedInfraction.where(:participant_id => student.id)
+  	  	  reported_inf = ReportedInfraction.where(:participant_id => student.id)
   	  	  
-  	  	  @reports = IncidentReport.where().includes(:reported_infractions).where(:participant_id => student.id)
+  	  	  reported_inf.each do |ri|
+  	  	  	  report_ids << ri.incident_report_id
+  	  	  end
   	  	  
-  	  	  #@set_reports = Set.new
-  	  	  
-  	  	  #@reported_infractions.each do |ri|
-  	  	  #	  @set_reports << IncidentReport.find(ri.incident_report_id)
-  	  	  #end
-  	  	  
-  	  	  #@reports = Array.new
-
-  	  	  #@set_reports.each do |ri|
-  	  	  #	  @reports << ri
-  	  	  #end
+  	  	  @reports = IncidentReport.where(:id => report_ids)
+  	  end
+  	  
+  	  if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
+  	  	  reported_inf = ReportedInfraction.where(:infraction_id => params[:infraction_id])
+  	  	  	  
+  	  	  reported_inf.each do |ri|
+  	  	  	  report_ids << ri.incident_report_id
+  	  	  end
+  	  	  	  
+  	  	  @reports = IncidentReport.where(:id => report_ids)
   	  end
   	  
   	  if params[:building_id] != "0" 
@@ -389,7 +392,43 @@ acts_as_iphone_controller = true
   	  	  	  @reports = IncidentReport.where(:building_id => params[:building_id])
   	  	  end
   	  end
-  	 
+  	  
+  	  if params[:area_id] != "0" 
+  	  	  buildings = Building.where(:area_id => params[:area_id])
+  	  	  if @reports != nil
+  	  	  	  @reports = @reports.where(:building_id => buildings)
+  	  	  else	  
+  	  	  	  @reports = IncidentReport.where(:building_id => buildings)
+  	  	  end
+  	  end
+  	  
+  	  if params[:submitted_before] != "" 
+  	  	  min = Time.parse("01/01/2000").gmtime
+  	  	  max = Time.parse(params[:submitted_before]).gmtime
+  	  	  if @reports != nil
+  	  	  	  @reports = @reports.where(:approach_time => (min..max) )
+  	  	  else	  
+  	  	  	  @reports = IncidentReport.where(:approach_time => min..max )
+  	  	  end
+  	  end
+  	  
+  	  if params[:submitted_after] != "" 
+  	  	  min = Time.parse(params[:submitted_after]).gmtime
+  	  	  max = Time.now.gmtime
+  	  	  if @reports != nil
+  	  	  	  @reports = @reports.where(:approach_time => (min..max) )
+  	  	  else	  
+  	  	  	  @reports = IncidentReport.where(:approach_time => min..max )
+  	  	  end
+  	  end
+  	  
+  	  if @reports == nil
+  	  	  @reports = IncidentReport.where(:submitted => true)
+  	  else
+  	  	  @reports = @reports.where(:submitted => true)
+  	  end
+  	  
+  	  @reports = @reports.order(:approach_time)
   	
   	respond_to do |format|
   	  	  format.html # search.html.erb
