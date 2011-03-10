@@ -54,7 +54,7 @@ function divToggle(divID,imgID) {
   			
   				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
   				<% session[:incident_report].reported_infractions.each do |ri| %>
-  					<% if ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
+  					<% if i.id != 22 && ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
   						CHECKED
   					<% end%>
   				<%end%>
