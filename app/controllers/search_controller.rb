@@ -9,7 +9,17 @@ class SearchController < ApplicationController
   def search
   end
   
+  # rkg 
+  # I don't like coupling of search controller with Student SQL. Keep knowledge 
+  # of SQL in student model.
+  #
+  # Is this code even used?
+  
   def get_autocomplete_items(parameters)
+  	  # see rails doc
+  	  # Building your own conditions as pure strings can leave you vulnerable to SQL injection exploits. 
+  	  # For example, Client.where("first_name LIKE '%#{params[:first_name]}%'") is not safe. 
+  	  #See the next section for the preferred way to handle conditions using an array.
     Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
   end
   
@@ -18,6 +28,7 @@ class SearchController < ApplicationController
   
   
   def go_to_student
+  	  # rkg I don't think :full_name parameter contains just full_name.
   	  @student = Student.get_student_object_for_string(params[:full_name])
   	  
   	  	  
@@ -38,14 +49,22 @@ class SearchController < ApplicationController
 		session[:students] = Array.new
 	end
 	@students = session[:students]
-	
+	# rkg
+	# write an equality operator on Student (===)
+	# (just like Object.equals in java) and
+	# use:
+	# exists = @students.include? @student
+	# instead of iterator below
 	exists = false
-	@students.each do |s|
+	@students.each do |s| 
 		if s.id == @student.id
 			exists = true
 		end
 	end
-	
+	# even better
+	# if @students.include? @student == false 
+	#    @students << @student
+	#
 	if exists == false
 		@students << @student
 	end

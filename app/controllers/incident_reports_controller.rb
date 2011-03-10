@@ -46,8 +46,11 @@ acts_as_iphone_controller = true
     @annotation = Annotation.find(@incident_report.annotation_id)
     
     session[:incident_report] = @incident_report
-    session[:annotation] = @annotation
     
+    # rkg why do you put annotation/infractins in session?
+    # you can get them via indicent report already in session
+    session[:annotation] = @annotation
+   
     self.add_student_infractions_to_session
     session[:students] = nil
   end
@@ -55,6 +58,7 @@ acts_as_iphone_controller = true
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
+  	  # rkg what does this param mean? Answer: submitted from 
   	  if params[:search_submit] != nil
   	  	  @incident_report = session[:incident_report]
   	  	  @incident_report.approach_time = params[:incident_report][:approach_time]
@@ -74,6 +78,7 @@ acts_as_iphone_controller = true
   	  	  	  format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
   	  	  	  format.iphone {render :layout => 'mobile_application'}
   	  	  end
+  	  	  # rkg if search_submit is present do this...
   	  else
   	  	  @incident_report = session[:incident_report]
   	  	  
@@ -170,6 +175,7 @@ acts_as_iphone_controller = true
   # DELETE /incident_reports/1
   # DELETE /incident_reports/1.xml
   def destroy
+  	  # rkg Can we do delete cascade for this?
      @incident_report = IncidentReport.find(params[:id])
     
      @incident_report.reported_infractions.each do |ri|
@@ -193,10 +199,13 @@ acts_as_iphone_controller = true
   def new_report 	  
   	  if session[:incident_report] == nil
   	  	  @incident_report = IncidentReport.new
+  	  	  # rkg move to on_initialize; these are really arguments to constructor
   	  	  @incident_report.approach_time = Time.now
   	  	  @incident_report.staff_id = current_staff.id
+  	  	  # rkg WTF?
   	  	  @incident_report.building_id = 16
   	  	  @annotation = Annotation.new
+  	  	  # all above to on_initialize
     
   	  	  session[:incident_report] = @incident_report
   	  	  session[:annotation] = @annotation
@@ -210,7 +219,7 @@ acts_as_iphone_controller = true
   	  
   	  respond_to do |format|
   	  	  format.html # new_report.html.erb
-  	  	  format.html  
+  	  	  format.html  # rkg why twice?
   	  	  format.xml  { render :xml => @incident_report }
 		  format.iphone {render :layout => 'mobile_application'}
   	  end 
@@ -220,6 +229,10 @@ acts_as_iphone_controller = true
   
   
   def add_student_infractions_to_session
+  	  # rkg this method is adding nothing to sessions
+  	  # this code appears to be adding an RI of FYI to
+  	  # a student appearing in IR. 
+  	  # Looks more like update_participants_from_session?!
   	  @students = session[:students]
   	  
   	  if @students != nil
@@ -235,6 +248,8 @@ acts_as_iphone_controller = true
   	  	  	  if exists == false
   	  	  	  	  newRI = ReportedInfraction.new
   	  	  	  	  newRI.participant_id = s.id
+  	  	  	  	  
+  	  	  	  	  # rkg WTF?
   	  	  	  	  newRI.infraction_id = 22 #fyi
   	  	  	  	  @incident_report.reported_infractions << newRI
   	  	  	  end
@@ -277,6 +292,7 @@ acts_as_iphone_controller = true
   	  
   	  participants.each do |p|
   	  	  something_found = false
+  	  	  # rkg A database hit for each participant?
   	  	  infractions = Infraction.all
   	  	  infractions.each do |i|
   	  	  	  if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
@@ -304,6 +320,7 @@ acts_as_iphone_controller = true
   	  	  if something_found == false # no infractions were selected, add fyi
   	  	  	  ri = ReportedInfraction.new
   	  	  	  ri.participant_id = p
+  	  	  	  # rkg WTF?
   	  	  	  ri.infraction_id = 22 #fyi
   	  	  	  new_ris << ri
   	  	  end

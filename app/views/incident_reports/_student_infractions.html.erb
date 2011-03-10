@@ -29,7 +29,7 @@ function divToggle(divID,imgID) {
 <br />
    	<% @currentParticipantID = b.participant.id %>
   	&nbsp;&nbsp;&nbsp; <b>Participant:</b>
-  
+  <!-- why this test here? why can't all students be displayed with ../participants? Put test in view. -->
   	<% if b.participant.type == "Student" %>
   		<a href="../students/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
   	<% else %>
@@ -40,8 +40,10 @@ function divToggle(divID,imgID) {
   	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   	<a href="#" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
   	<div id="<%= b.participant_id %>-infractions" style="display: none;">
+  	<!-- don't need to query db for each reported_infraction -->
   		<% infractions = Infraction.all %>
   		<% infractions.each do |i| %>
+  		   <!-- This is a primary key check... ugh! -->
   				<% if i.id != 1 %>
   					<BR>
   				<%end%>

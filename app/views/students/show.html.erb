@@ -48,6 +48,8 @@
 
 <p>
 	<b>Picture:</b>
+	<!--  rkg make getURLforID a class method so that you don't
+	need to create a new students controller each time through  -->
 	<% test = StudentsController.new() %>
 	<% image_url = test.getURLforID(@student.id) %>
 	<%= link_to image_tag(image_url, :border=>0) %>
