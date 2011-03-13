@@ -33,7 +33,9 @@ function handletext(what){
 <%= render '/search/autocomplete_full_name' %>
 
 
-  <input id="options" type="submit" value="Select" onsubmit="first_name.value = ''">
+  	<input id="options" type="submit" value="Select">
+
+	<input id="options" type="button" value="Clear" onclick="full_name.value = ''">
 
 
 </form>

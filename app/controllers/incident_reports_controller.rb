@@ -2,16 +2,20 @@ class IncidentReportsController < ApplicationController
   before_filter :admin_authorize, :except => [:new_report, :show, :edit]
   before_filter :general_authorize  
   skip_before_filter :verify_authenticity_token
-  
   acts_as_iphone_controller = true
+  
+  
+  
+  
   
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
     self.clear_session #probably not necessary, 
-    # but maybe "back button" was pushed on a new_report or edit page
+    # but maybe "back" button was pushed on a new_report or edit page
     
-    @incident_reports = IncidentReport.all
+    # get all submitted reports so view can display them (in order of approach time)
+    @incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -20,14 +24,18 @@ class IncidentReportsController < ApplicationController
     end
   end
   
+  
+  
+  
+  
+  
   # GET /incident_reports/1
   # GET /incident_reports/1.xml
   def show
+    # get the report for the view to show
     @incident_report = IncidentReport.find(params[:id])
-    @currentParticipantID = -1
     
-    self.clear_session #probably not necessary, 
-    # but maybe "back button" was pushed on a new_report or edit page
+    self.clear_session #probably not necessary, but good practice anyway
     
     respond_to do |format|
       format.html # show.html.erb
@@ -36,20 +44,32 @@ class IncidentReportsController < ApplicationController
     end
   end
   
-  # GET /incident_reports/new
-  # GET /incident_reports/new.xml
+  
+  
+  
+  
   
   # GET /incident_reports/1/edit
   def edit
+    # get the report and annotation for the view to edit
     @incident_report = IncidentReport.find(params[:id])
     @annotation = Annotation.find(@incident_report.annotation_id)
     
+    # save the report and annotation into the session
     session[:incident_report] = @incident_report
     session[:annotation] = @annotation
     
-    self.add_student_infractions_to_session
-    session[:students] = nil
+    # if this is the return from a report_search page
+    if session[:students] != nil
+      self.add_student_infractions_to_session
+      session[:students] = nil
+    end 
   end
+  
+  
+  
+  
+  
   
   # POST /incident_reports
   # POST /incident_reports.xml
@@ -91,7 +111,7 @@ class IncidentReportsController < ApplicationController
       # save incident report in database
       saved = false
       if @incident_report.save #returns true if successful
-        # process paramters into reported infractions
+        # process parameters into reported infractions
         self.add_reported_infractions_to_report(@incident_report, params)
         # save each reported infraction to database
         @incident_report.reported_infractions.each do |ri|
@@ -130,20 +150,30 @@ class IncidentReportsController < ApplicationController
     end
   end
   
+  
+  
+  
+  
+  
   # PUT /incident_reports/1
   # PUT /incident_reports/1.xml
   def update
+    # get the report to update
     @incident_report = IncidentReport.find(params[:id])
     
+    # if search_submit button was clicked, save history
     if params[:search_submit] != nil
-      @annotation = Annotation.new
+      @annotation = session[:annotation]
       @annotation.text = params[:annotation]
+      @annotation.save
       
-      session[:annotation] = @annotation
+      # make sure students array in session is empty
       session[:students] = nil
       
+      # if user changed infractions for participants, save changes
       self.add_reported_infractions_to_report(@incident_report, params)
       
+      # go to report_search page, using current page as request parameter
       respond_to do |format|
         format.html { redirect_to '/search/report_search?/incident_reports/'+@incident_report.id.to_s()+'/edit/' }
         format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
@@ -152,44 +182,63 @@ class IncidentReportsController < ApplicationController
     else 
       #deal with annotations
       annotation = Annotation.find(@incident_report.annotation_id)
-      annotation.update_text(params[:annotation])
+      annotation.text = params[:annotation]
+      annotation.save
       
+      # clear everything out of the session
       self.clear_session
       
+      # process check boxes to update reported infractions
+      self.add_reported_infractions_to_report(@incident_report, params)
+      
+      # if save_submit button, then submitted = false
+      if params[:save_submit] != nil
+        @incident_report.submitted = false
+        @incident_report.save         
+      end
+      
+      # if submit_submit button, submitted = true
+      if params[:submit_submit] != nil
+        @incident_report.submitted = true
+        @incident_report.save         
+      end
+      
+      # show updated report
       respond_to do |format|
         if @incident_report.update_attributes(params[:incident_report])
-          self.add_reported_infractions_to_report(@incident_report, params)
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully updated.') }
           format.xml  { head :ok }
           #format.iphone {render :layout => false}
         else
           format.html { render :action => "edit" }
           format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-        end
-        #format.iphone {render :layout => false}  	  	  	  
+          #format.iphone {render :layout => false} 
+        end 	  	  	  
       end
     end
-    if params[:save_submit] != nil
-      @incident_report.submitted = false
-      @incident_report.save  	  	  
-    end
-    if params[:submit_submit] != nil
-      @incident_report.submitted = true
-      @incident_report.save  	  	  
-    end
+    
   end
+  
+  
+  
+  
+  
   
   # DELETE /incident_reports/1
   # DELETE /incident_reports/1.xml
   def destroy
+    # get the report
     @incident_report = IncidentReport.find(params[:id])
     
+    # destroy all reported infractions associated with it
     @incident_report.reported_infractions.each do |ri|
       ri.destroy
     end
     
+    # destroy the annotation
     Annotation.find(@incident_report.annotation_id).destroy
     
+    # destroy the report
     @incident_report.destroy
     
     respond_to do |format|
@@ -198,6 +247,9 @@ class IncidentReportsController < ApplicationController
       #format.iphone {render :layout => false}
     end
   end
+  
+  
+  
   
   
   # GET /incident_reports/new_report
@@ -230,23 +282,33 @@ class IncidentReportsController < ApplicationController
   end
   
   
+  
+  
+  
+  
   def add_student_infractions_to_session
+    # get students from session (added from search controller)
     @students = session[:students]
     
     if @students != nil
+      # get the incident report from the session
       @incident_report = session[:incident_report]
       
+      # go through the students to see if we need to add an fyi infraction
       @students.each do |s|
         exists = false
+        # search to see if an RI exists already for that student
         @incident_report.reported_infractions.each do |ri|
           if s.id == ri.participant_id
             exists = true
           end
         end
+        # if infraction was not found, create FYI RI for student
         if exists == false
           newRI = ReportedInfraction.new
           newRI.participant_id = s.id
           newRI.infraction_id = Infraction.fyi #fyi
+          # add new RI to the report
           @incident_report.reported_infractions << newRI
         end
       end
@@ -254,11 +316,20 @@ class IncidentReportsController < ApplicationController
   end
   
   
+  
+  
+  
+  
+  
   def clear_session
+    # clear everything out of the sesson
     session[:incident_report] = nil
     session[:annotation] = nil
     session[:students] = nil
   end
+  
+  
+  
   
   
   def add_reported_infractions_to_report(incident_report, params)
@@ -349,101 +420,110 @@ class IncidentReportsController < ApplicationController
   
   
   
-  
-  def save_annotation(incident_report, annot)
-    if incident_report.annotation_id == nil
-      annotation = Annotation.new
-      annotation.text = annot
-      annotation.save
-      incident_report.annotation_id = annotation.id
-    else
-      annotation = Annotation.find(incident_report.annotation_id)
-      annotation.text = annot
-      incident_report.annotation_id = annotation.id
-    end
-  end
-  
-  
-  
   # GET /incident_reports/search
   def search
-    self.clear_session #probably not necessary, 
-    # but good practice anyway.
+    self.clear_session #probably not necessary, but good practice anyway.
     
     respond_to do |format|
       format.html # search.html.erb
     end
   end
   
+  
+  
+  
+  
+  
   # POST /incident_reports/search_results
   def search_results
     @reports = nil
     report_ids = Array.new
+    student = nil
     
+    # if a student's name was entered, find all reports with that student
     if params[:full_name].length > 3
+      # get the student for the string entered
       student = Student.get_student_object_for_string(params[:full_name])
+      
+      # get all reported infractions for that student
       reported_inf = ReportedInfraction.where(:participant_id => student.id)
       
+      # get all of the report ids from the reported infractions
       reported_inf.each do |ri|
         report_ids << ri.incident_report_id
       end
       
+      # get the incident reports with those ids
       @reports = IncidentReport.where(:id => report_ids)
     end
     
+    #-----------------
+    # if a particular infraction was selected, get all reports w/ that infraction
     if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
+      # get reported infractions all with that infraction
       reported_inf = ReportedInfraction.where(:infraction_id => params[:infraction_id])
       
+      # if a student was selected, limit to only those infractions by that student
+      if student != nil
+        reported_inf = reported_inf.where(:participant_id => student.id)
+        report_ids = Array.new
+      end
+      
+      # collect the report_ids from the reported infractions into an array
       reported_inf.each do |ri|
         report_ids << ri.incident_report_id
       end
       
+      # get the reports with ids in the array
       @reports = IncidentReport.where(:id => report_ids)
     end
     
-    if params[:building_id] != "0" 
-      if @reports != nil
-        @reports = @reports.where(:building_id => params[:building_id])
-      else	  
-        @reports = IncidentReport.where(:building_id => params[:building_id])
-      end
-    end
-    
-    if params[:area_id] != "0" 
-      buildings = Building.where(:area_id => params[:area_id])
-      if @reports != nil
-        @reports = @reports.where(:building_id => buildings)
-      else	  
-        @reports = IncidentReport.where(:building_id => buildings)
-      end
-    end
-    
-    if params[:submitted_before] != "" 
-      min = Time.parse("01/01/2000").gmtime
-      max = Time.parse(params[:submitted_before]).gmtime
-      if @reports != nil
-        @reports = @reports.where(:approach_time => (min..max) )
-      else	  
-        @reports = IncidentReport.where(:approach_time => min..max )
-      end
-    end
-    
-    if params[:submitted_after] != "" 
-      min = Time.parse(params[:submitted_after]).gmtime
-      max = Time.now.gmtime
-      if @reports != nil
-        @reports = @reports.where(:approach_time => (min..max) )
-      else	  
-        @reports = IncidentReport.where(:approach_time => min..max )
-      end
-    end
-    
+    #----------------
+    # if no student or infraction was selected, select all 
     if @reports == nil
       @reports = IncidentReport.where(:submitted => true)
-    else
-      @reports = @reports.where(:submitted => true)
     end
     
+    
+    #-----------------
+    # if a building was selected, get reports in that building
+    if params[:building_id] != "0" 
+      @reports = @reports.where(:building_id => params[:building_id])
+    end
+    
+    #-----------------
+    # if an area was selected, get reports in that area
+    if params[:area_id] != "0" 
+      buildings = Building.where(:area_id => params[:area_id])
+      @reports = @reports.where(:building_id => buildings)
+      
+    end
+    
+    #-----------------
+    # if a date was provided, find all before that date
+    if params[:submitted_before] != "" 
+      # all incident reports should take place in this century
+      # be careful of time zones - all need to be in GMT to match the DB
+      min = Time.parse("01/01/2000").gmtime
+      max = Time.parse(params[:submitted_before]).gmtime
+      
+      @reports = @reports.where(:approach_time => min..max )
+    end
+    
+    #-----------------
+    # if a date was provided, find all after that date
+    if params[:submitted_after] != "" 
+      # all incident reports should take place before right now (ignoring daylight savings)
+      # be careful of time zones - all need to be in GMT to match the DB
+      min = Time.parse(params[:submitted_after]).gmtime
+      max = Time.now.gmtime
+      
+      @reports = @reports.where(:approach_time => min..max )
+    end
+    
+    
+    # finishing touches...
+    @reports = @reports.where(:submitted => true)    
     @reports = @reports.order(:approach_time)
     
     respond_to do |format|
