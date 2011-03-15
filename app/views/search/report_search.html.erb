@@ -28,23 +28,23 @@ function handletext(what){
 
     <%= form_tag 'update_list', :remote => true%>
 
+		<%= render '/search/autocomplete_full_name' %>
 
-  
-<%= render '/search/autocomplete_full_name' %>
+  		<input id="options" type="submit" value="Select">
 
-
-  	<input id="options" type="submit" value="Select">
-
-	<input id="options" type="button" value="Clear" onclick="full_name.value = ''">
+		<input id="options" type="button" value="Clear" onclick="full_name.value = ''">
 
 
-</form>
-<p><br /></p>
-<form action="<%= request.query_string %>">
+	</form>
 
-  <input onclick=""; type="submit" value="Done" />
+	<p>
+		<br />
+	</p>
 
+	<form action="<%= request.query_string %>">
 
-</form>
+  		<input onclick=""; type="submit" value="Done" />
+
+	</form>
 
 
