@@ -1,33 +1,59 @@
 <h1>Search Incident Reports </h1>
 
 
-  Please enter your search criteria.
+  <p>Please enter your search criteria.</b>
   
   <%= form_tag 'search_results' %>
   	
-  	<div class="field">
-  		 Building:<br />
-  		 <select id="building_id" name="building_id">
-  		 	<option value="0" selected="selected">Select A Building</option>
-  		 	<% Building.all.each do |b| %>
-  		 	    	<option value="<%= b.id %>"><%= b.name %></option>
-  		 	<% end %>
+  	<table>
+  	<tr>
+  		<td>
+  		 	<b>Building:</b><br />
+  		 	<select id="building_id" name="building_id">
+  		 		<option value="0" selected="selected">Select A Building</option>
+  		 		<% Building.all.each do |b| %>
+  		 	    		<option value="<%= b.id %>"><%= b.name %></option>
+  		 	    	<% end %>
+  		 	 </select>
+  		 </td>
+  		 <td>
+  	<b>--OR--</b>
+  		 </td>
+  		 <td>
+  		  	<b>Area:</b><br />
+  		  	<select id="area_id" name="area_id">
+  		 		<option value="0" selected="selected">Select An Area</option>
+  		 		<% Area.all.each do |a| %>
+  		 	    		<option value="<%= a.id %>"><%= a.name %></option>
+  		 	    	<% end %>
   		 	</select>
-  	</div>
+  		 </td>
+  	</tr>
+  	</table>
   	
   	<div class="field">
-  		 Student:<br />
+  		 <b>Student:</b><br />
   		 <%= render '/search/autocomplete_full_name' %>
   	</div>
   	
   	<div class="field">
-  		 Infraction:<br />
-  		 <select id="infraction_id" name="infraction_id">
+  		 <b>Infraction:</b><br />
+  		 <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
   		 	<option value="0" selected="selected">Select An Infraction</option>
   		 	<% Infraction.all.each do |i| %>
   		 	    	<option value="<%= i.id %>"><%= i.description %></option>
   		 	<% end %>
   		 	</select>
+  	</div>
+  	
+  	<div class="field">
+  		 <b>Approached Before:</b><br />
+  		 <input type="text" id="submitted_before" name="submitted_before"></input>	
+  	</div>
+  	
+  	<div class="field">
+  		 <b>Approached After:</b><br />
+  		 <input type="text" id="submitted_after" name="submitted_after"></input>	
   	</div>
   	
   	<p></p>
@@ -36,6 +62,8 @@
 
   
 
-
+<p>
 
 <%= link_to 'Back', incident_reports_path %>
+
+</p>
