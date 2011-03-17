@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Annotation ID</th>
-    <th>Report ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +11,6 @@
 <% @annotations.each do |annotation| %>
   <tr>
     <td><%= annotation.id %></td>
-    <td><%= annotation.report_id %></td>
     <td><%= link_to 'Show', annotation %></td>
     <td><%= link_to 'Edit', edit_annotation_path(annotation) %></td>
     <td><%= link_to 'Destroy', annotation, :confirm => 'Are you sure?', :method => :delete %></td>

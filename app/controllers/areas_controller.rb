@@ -1,6 +1,7 @@
 class AreasController < ApplicationController
   # GET /areas
   # GET /areas.xml
+  before_filter :general_authorize
   def index
     @areas = Area.all
     @numRows = 0
