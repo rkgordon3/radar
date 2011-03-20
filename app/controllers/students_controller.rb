@@ -84,7 +84,7 @@ class StudentsController < ApplicationController
   end
   
   def getURLforID(id)
-	url = Student.find(id).url
+	url = "edu.smumn." + Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
 	image_url = STUDENT_IMAGES_PATH + url
 	end
 end
