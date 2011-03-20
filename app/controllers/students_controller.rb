@@ -84,8 +84,7 @@ class StudentsController < ApplicationController
   end
   
   def getURLforID(id)
-	base_url = "http://140.190.65.61:1337/gallery3/var/resizes/"
 	url = Student.find(id).url
-	image_url = base_url + url
+	image_url = STUDENT_IMAGES_PATH + url
 	end
 end
