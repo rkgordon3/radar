@@ -441,7 +441,7 @@ class IncidentReportsController < ApplicationController
     student = nil
     
     # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 3
+    if params[:full_name].length > 3 # arbitrary number
       # get the student for the string entered
       student = Student.get_student_object_for_string(params[:full_name])
       
