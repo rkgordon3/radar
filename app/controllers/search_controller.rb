@@ -13,7 +13,6 @@ class SearchController < ApplicationController
   def go_to_student
     @student = Student.get_student_object_for_string(params[:full_name])
     
-    
     respond_to do |format|
       format.html { redirect_to "/students/" + @student.id.to_s }
       format.xml  { render :xml => @student}
@@ -50,9 +49,10 @@ class SearchController < ApplicationController
     end
     
     
-    render :update do|page|
-    page.replace_html 'found', @message
+    render :update do |page|
+      page.replace_html 'found', @message
+    end
+    
   end
-end
 
 end
