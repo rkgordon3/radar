@@ -51,17 +51,22 @@ class IncidentReportsController < ApplicationController
   
   # GET /incident_reports/1/edit
   def edit
-    # get the report and annotation for the view to edit
-    @incident_report = IncidentReport.find(params[:id])
-    @annotation = Annotation.find(@incident_report.annotation_id)
-    
-    # save the report and annotation into the session
-    session[:incident_report] = @incident_report
-    session[:annotation] = @annotation
+    if(session[:incident_report] !=nil)
+      @incident_report = session[:incident_report]
+      @annotation = session[:annotation]
+    else
+      # get the report and annotation for the view to edit
+      @incident_report = IncidentReport.find(params[:id])
+      @annotation = Annotation.find(@incident_report.annotation_id)
+      
+      # save the report and annotation into the session
+      session[:incident_report] = @incident_report
+      session[:annotation] = @annotation
+    end
     
     # if this is the return from a report_search page
     if session[:students] != nil
-      self.add_student_infractions_to_session
+      self.add_default_infractions_for_students_in_session
       session[:students] = nil
     end 
   end
@@ -104,28 +109,24 @@ class IncidentReportsController < ApplicationController
       @incident_report.annotation_id = @annotation.id
       
       # update other properties of incident report
-      @incident_report.approach_time = params[:incident_report][:approach_time]
-      @incident_report.room_number = params[:incident_report][:room_number]
-      @incident_report.building_id = params[:incident_report][:building_id]
+      @incident_report.update_attributes_without_saving(params)
       
-      # save incident report in database
-      saved = false
-      if @incident_report.save #returns true if successful
-        # process parameters into reported infractions
-        self.add_reported_infractions_to_report(@incident_report, params)
-        # save each reported infraction to database
-        @incident_report.reported_infractions.each do |ri|
-          if !ri.frozen?                                # make sure the reported infraction isn't frozen
-            ri.incident_report_id = @incident_report.id # establish connection
-            ri.save                                     # actually save
-          end
-        end
-        saved = true # saving was successful
-      end 
+      # if user only wants to save report, not submit, set submitted to false
+      if params[:save_submit] != nil
+        @incident_report.submitted = false
+      end
+      
+      # if user wants to submit report, set submitted to true
+      if params[:submit_submit] != nil
+        @incident_report.submitted = true
+      end
+      
+      # process parameters into reported infractions
+      self.add_reported_infractions_to_report(@incident_report, params)  
       
       # render next page, nothing else affects the view
       respond_to do |format|
-        if saved == true
+        if @incident_report.save
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
           format.iphone {render :layout => 'mobile_application'}
@@ -137,17 +138,7 @@ class IncidentReportsController < ApplicationController
       end
     end
     
-    # if user only wants to save report, not submit, set submitted to false
-    if params[:save_submit] != nil
-      @incident_report.submitted = false
-      @incident_report.save  	  	  
-    end
     
-    # if user wants to submit report, set submitted to true
-    if params[:submit_submit] != nil
-      @incident_report.submitted = true
-      @incident_report.save  	  	  
-    end
   end
   
   
@@ -163,9 +154,12 @@ class IncidentReportsController < ApplicationController
     
     # if search_submit button was clicked, save history
     if params[:search_submit] != nil
+      @incident_report = session[:incident_report]
+      
+      @incident_report.update_attributes_without_saving(params)
+      
       @annotation = session[:annotation]
       @annotation.text = params[:annotation]
-      @annotation.save
       
       # make sure students array in session is empty
       session[:students] = nil
@@ -194,13 +188,11 @@ class IncidentReportsController < ApplicationController
       # if save_submit button, then submitted = false
       if params[:save_submit] != nil
         @incident_report.submitted = false
-        @incident_report.save         
       end
       
       # if submit_submit button, submitted = true
       if params[:submit_submit] != nil
-        @incident_report.submitted = true
-        @incident_report.save         
+        @incident_report.submitted = true 
       end
       
       # show updated report
@@ -258,9 +250,7 @@ class IncidentReportsController < ApplicationController
     # incident_report in session will be nil if first visit to page
     if session[:incident_report] == nil
       @incident_report = IncidentReport.new                # new report
-      @incident_report.approach_time = Time.now            # set approach time
       @incident_report.staff_id = current_staff.id         # set submitter
-      @incident_report.building_id = Building.unspecified  # building = unspecified
       @annotation = Annotation.new                         # new annotation
       
       #save everything to the session
@@ -268,10 +258,10 @@ class IncidentReportsController < ApplicationController
       session[:annotation] = @annotation
       session[:students] = Array.new
       
-      # if incident report in session is not nil (not first visit)
     else
+      # if incident report in session is not nil (not first visit)
       # add students returned by search to report by creating fyi infractions
-      self.add_student_infractions_to_session              
+      self.add_default_infractions_for_students_in_session              
     end
     
     respond_to do |format|
@@ -286,7 +276,7 @@ class IncidentReportsController < ApplicationController
   
   
   
-  def add_student_infractions_to_session
+  def add_default_infractions_for_students_in_session
     # get students from session (added from search controller)
     @students = session[:students]
     
@@ -296,18 +286,16 @@ class IncidentReportsController < ApplicationController
       
       # go through the students to see if we need to add an fyi infraction
       @students.each do |s|
-        exists = false
+        student_already_has_infraction_in_report = false
         # search to see if an RI exists already for that student
         @incident_report.reported_infractions.each do |ri|
           if s.id == ri.participant_id
-            exists = true
+            student_already_has_infraction_in_report = true
           end
         end
         # if infraction was not found, create FYI RI for student
-        if exists == false
-          newRI = ReportedInfraction.new
-          newRI.participant_id = s.id
-          newRI.infraction_id = Infraction.fyi #fyi
+        if student_already_has_infraction_in_report == false
+          newRI = ReportedInfraction.new(:participant_id => s.id)
           # add new RI to the report
           @incident_report.reported_infractions << newRI
         end
@@ -365,40 +353,30 @@ class IncidentReportsController < ApplicationController
     # begin loop for each participant
     participants.each do |p|
       # variable to see if we have found an infraction for p
-      something_found = false 
+      any_infraction_found_for_participant = false 
       #loop through all infractions to see if user checked infraction for student
       infractions = Infraction.all
       infractions.each do |i|
         # example: if the user wants student 6 to have infraction 1 (comm. disrupt)
         # param entry would look like params[6][1] = "on"
         if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
+          any_infraction_found_for_participant = true
+          possible_ri = incident_report.get_specific_reported_infraction_for_participant(p, i.id)
           # try to find if reported_infraction already exists
-          found = false # var to see if rep. inf. already exists
-          old_ris.each do |ori|
-            if found == false && ori.participant_id == p && ori.infraction_id == i.id 
-              new_ris << ori # add old rep. inf. to new list
-              found = true # found already existing rep. inf
-              something_found = true # found soemthing for particpant
-            end 
-          end
-          
-          # if haven't found anything, create new rep. inf.
-          if found == false
-            ri = ReportedInfraction.new
-            ri.participant_id = p
+          if possible_ri != nil
+            new_ris << possible_ri # add old rep. inf. to new list
+          else
+            # if it doesn't exist
+            ri = ReportedInfraction.new(:participant_id => p)
             ri.infraction_id = i.id
             new_ris << ri # add new rep. inf to new list
-            something_found = true # found soemthing for particpant
           end
         end
-      end # end participant loop
+      end # end infractions loop
       
-      
-      if something_found == false # no infractions were selected, add fyi
-        ri = ReportedInfraction.new
-        ri.participant_id = p
-        ri.infraction_id = Infraction.fyi # fyi index
-        new_ris << ri # add new rep. inf to new list
+      if any_infraction_found_for_participant == false
+        ri = ReportedInfraction.new(:participant_id => p)
+        new_ris << ri
       end
     end
     
@@ -410,10 +388,9 @@ class IncidentReportsController < ApplicationController
       end
     end
     
-    # add all the current reported infractions to the incident report
-    new_ris.each do |nri|
-      incident_report.reported_infractions << nri
-    end
+    # save new ris to report
+    incident_report.reported_infractions = new_ris
+    
   end
   
   
