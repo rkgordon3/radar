@@ -288,251 +288,6 @@ infractions:
     - 2011-02-21 19:48:57.499375
 
 --- 
-participants: 
-  columns: 
-  - id
-  - first_name
-  - last_name
-  - cell_phone
-  - home_phone
-  - affiliation
-  - age
-  - created_at
-  - updated_at
-  - type
-  - url
-  - room_number
-  - building_id
-  - student_id
-  - full_name
-  records: 
-  - - 1
-    - Christopher
-    - Engesser
-    - 555-222-3333
-    - 555-666-7777
-    - SMU
-    - 21
-    - 2011-02-21 19:48:57.702500
-    - 2011-02-22 07:16:51.381000
-    - Student
-    - Chris.gif
-    - "421"
-    - 8
-    - "5994030"
-    - Christopher Engesser
-  - - 2
-    - Joseph
-    - Faber
-    - 555-555-5556
-    - 555-555-5555
-    - SMU
-    - 23
-    - 2011-02-21 19:48:57.796250
-    - 2011-02-21 19:48:57.796250
-    - Student
-    - Joe.gif
-    - "0"
-    - 15
-    - "5523454"
-    - Joseph Faber
-  - - 3
-    - Emily
-    - Friedl
-    - 533-555-3322
-    - 522-555-6377
-    - SMU
-    - 21
-    - 2011-02-21 19:48:57.890000
-    - 2011-02-21 19:48:57.890000
-    - Student
-    - Emily.gif
-    - "573"
-    - 12
-    - "6939234"
-    - Emily Friedl
-  - - 4
-    - John
-    - Kelly
-    - 666-555-2226
-    - 444-555-2252
-    - SMU
-    - 21
-    - 2011-02-21 19:48:57.968125
-    - 2011-02-22 05:30:55.981000
-    - Student
-    - John.gif
-    - "255"
-    - 7
-    - "4523423"
-    - John Kelly
-  - - 5
-    - Justyna
-    - Kujtkowska
-    - 652-555-2341
-    - n/a
-    - SMU
-    - 20
-    - 2011-02-21 19:48:58.061875
-    - 2011-02-22 05:30:36.040000
-    - Student
-    - Justyna.png
-    - "245"
-    - 2
-    - "5543213"
-    - Justyna Kujtkowska
-  - - 6
-    - Mitchell
-    - May
-    - 334-555-8824
-    - 653-555-3352
-    - SMU
-    - 20
-    - 2011-02-21 19:48:58.155625
-    - 2011-02-21 19:48:58.155625
-    - Student
-    - Mitchell.png
-    - "372"
-    - 7
-    - "5583909"
-    - Mitchell May
-  - - 7
-    - Rebecca
-    - Sandager
-    - 734-555-6682
-    - 625-555-2623
-    - SMU
-    - 21
-    - 2011-02-21 19:48:58.233750
-    - 2011-02-21 19:48:58.233750
-    - Student
-    - Becca.gif
-    - "533"
-    - 1
-    - "2281919"
-    - Rebecca Sandager
-  - - 8
-    - Jeffrey
-    - Thomas
-    - 668-555-9837
-    - 552-555-6276
-    - SMU
-    - 20
-    - 2011-02-21 19:48:58.327500
-    - 2011-02-21 19:48:58.327500
-    - Student
-    - Jeff.png
-    - "346"
-    - 5
-    - "5523470"
-    - Jeffrey Thomas
-  - - 9
-    - Stephanie
-    - Valentine
-    - 624-555-8362
-    - 555-555-6738
-    - SMU
-    - 21
-    - 2011-02-21 19:48:58.452500
-    - 2011-02-21 19:48:58.452500
-    - Student
-    - Stephanie.jpg
-    - "112"
-    - 3
-    - "3829083"
-    - Stephanie Valentine
-  - - 10
-    - Bradley
-    - Wildenborg
-    - 668-555-3234
-    - 507-555-7823
-    - SMU
-    - 20
-    - 2011-02-21 19:48:58.546250
-    - 2011-02-22 05:31:26.020000
-    - Student
-    - brad.jpeg
-    - "510"
-    - 11
-    - "4829201"
-    - Bradley Wildenborg
-  - - 11
-    - Samantha
-    - Reynolds
-    - 
-    - 
-    - Winona State
-    - 24
-    - 2011-02-21 19:48:58.686875
-    - 2011-02-21 19:48:58.686875
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-  - - 12
-    - Katelyn
-    - Barrachs
-    - 
-    - 
-    - Winona Resident
-    - 20
-    - 2011-02-21 19:48:58.765000
-    - 2011-02-21 19:48:58.765000
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-  - - 13
-    - Keith
-    - Parce
-    - 
-    - 
-    - University of Wisconsin At La Crosse
-    - 18
-    - 2011-02-21 19:48:58.843125
-    - 2011-02-21 19:48:58.843125
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-  - - 14
-    - Patricia
-    - Peterson
-    - 
-    - 
-    - Winona State
-    - 21
-    - 2011-02-21 19:48:58.952500
-    - 2011-02-21 19:48:58.952500
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-  - - 15
-    - Carter
-    - Jacobey
-    - 
-    - 
-    - Cotter High School
-    - 17
-    - 2011-02-21 19:48:59.061875
-    - 2011-02-21 19:48:59.061875
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-
---- 
 reported_infractions: 
   columns: 
   - id
@@ -862,6 +617,15 @@ sessions:
 
     - 2011-03-13 03:55:13.163000
     - 2011-03-13 04:11:28.079000
+  - - 21
+    - e0ebbef6c84ac9d497746f6f4bdf2519
+    - |
+      BAh7B0kiEF9jc3JmX3Rva2VuBjoGRUZJIjFEYmJkUXdoQTBrUG12YldDQUxZ
+      TDllTTFsQ1JSQlF0aGpTelJnK1VHc3BJPQY7AEZJIhp3YXJkZW4udXNlci5z
+      dGFmZi5rZXkGOwBUWwdJIgpTdGFmZgY7AEZpCA==
+
+    - 2011-03-20 18:08:41.708229
+    - 2011-03-20 18:10:14.631229
 
 --- 
 staffs: 
@@ -925,13 +689,13 @@ staffs:
     - 
     - 
     - 
-    - 6
+    - 7
+    - 2011-03-20 18:08:41.695229
     - 2011-03-13 03:55:13.137000
-    - 2011-03-09 19:42:04.873000
     - 127.0.0.1
     - 127.0.0.1
     - 2011-02-21 20:57:00.733750
-    - 2011-03-13 03:55:13.138000
+    - 2011-03-20 18:08:41.695229
     - Brendan
     - Dolan
     - Admin
@@ -969,3 +733,232 @@ staffs:
     - Ann
     - Smith
     - Admin
+
+--- 
+participants: 
+  columns: 
+  - id
+  - first_name
+  - last_name
+  - cell_phone
+  - home_phone
+  - affiliation
+  - age
+  - created_at
+  - updated_at
+  - type
+  - room_number
+  - building_id
+  - student_id
+  - full_name
+  records: 
+  - - 1
+    - Christopher
+    - Engesser
+    - 555-222-3333
+    - 555-666-7777
+    - SMU
+    - 21
+    - 2011-02-21 19:48:57.702500
+    - 2011-02-22 07:16:51.381000
+    - Student
+    - "421"
+    - 8
+    - "5994030"
+    - Christopher Engesser
+  - - 2
+    - Joseph
+    - Faber
+    - 555-555-5556
+    - 555-555-5555
+    - SMU
+    - 23
+    - 2011-02-21 19:48:57.796250
+    - 2011-02-21 19:48:57.796250
+    - Student
+    - "0"
+    - 15
+    - "5523454"
+    - Joseph Faber
+  - - 3
+    - Emily
+    - Friedl
+    - 533-555-3322
+    - 522-555-6377
+    - SMU
+    - 21
+    - 2011-02-21 19:48:57.890000
+    - 2011-02-21 19:48:57.890000
+    - Student
+    - "573"
+    - 12
+    - "6939234"
+    - Emily Friedl
+  - - 4
+    - John
+    - Kelly
+    - 666-555-2226
+    - 444-555-2252
+    - SMU
+    - 21
+    - 2011-02-21 19:48:57.968125
+    - 2011-02-22 05:30:55.981000
+    - Student
+    - "255"
+    - 7
+    - "4523423"
+    - John Kelly
+  - - 5
+    - Justyna
+    - Kujtkowska
+    - 652-555-2341
+    - n/a
+    - SMU
+    - 20
+    - 2011-02-21 19:48:58.061875
+    - 2011-02-22 05:30:36.040000
+    - Student
+    - "245"
+    - 2
+    - "5543213"
+    - Justyna Kujtkowska
+  - - 6
+    - Mitchell
+    - May
+    - 334-555-8824
+    - 653-555-3352
+    - SMU
+    - 20
+    - 2011-02-21 19:48:58.155625
+    - 2011-02-21 19:48:58.155625
+    - Student
+    - "372"
+    - 7
+    - "5583909"
+    - Mitchell May
+  - - 7
+    - Rebecca
+    - Sandager
+    - 734-555-6682
+    - 625-555-2623
+    - SMU
+    - 21
+    - 2011-02-21 19:48:58.233750
+    - 2011-02-21 19:48:58.233750
+    - Student
+    - "533"
+    - 1
+    - "2281919"
+    - Rebecca Sandager
+  - - 8
+    - Jeffrey
+    - Thomas
+    - 668-555-9837
+    - 552-555-6276
+    - SMU
+    - 20
+    - 2011-02-21 19:48:58.327500
+    - 2011-02-21 19:48:58.327500
+    - Student
+    - "346"
+    - 5
+    - "5523470"
+    - Jeffrey Thomas
+  - - 9
+    - Stephanie
+    - Valentine
+    - 624-555-8362
+    - 555-555-6738
+    - SMU
+    - 21
+    - 2011-02-21 19:48:58.452500
+    - 2011-02-21 19:48:58.452500
+    - Student
+    - "112"
+    - 3
+    - "3829083"
+    - Stephanie Valentine
+  - - 10
+    - Bradley
+    - Wildenborg
+    - 668-555-3234
+    - 507-555-7823
+    - SMU
+    - 20
+    - 2011-02-21 19:48:58.546250
+    - 2011-02-22 05:31:26.020000
+    - Student
+    - "510"
+    - 11
+    - "4829201"
+    - Bradley Wildenborg
+  - - 11
+    - Samantha
+    - Reynolds
+    - 
+    - 
+    - Winona State
+    - 24
+    - 2011-02-21 19:48:58.686875
+    - 2011-02-21 19:48:58.686875
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 12
+    - Katelyn
+    - Barrachs
+    - 
+    - 
+    - Winona Resident
+    - 20
+    - 2011-02-21 19:48:58.765000
+    - 2011-02-21 19:48:58.765000
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 13
+    - Keith
+    - Parce
+    - 
+    - 
+    - University of Wisconsin At La Crosse
+    - 18
+    - 2011-02-21 19:48:58.843125
+    - 2011-02-21 19:48:58.843125
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 14
+    - Patricia
+    - Peterson
+    - 
+    - 
+    - Winona State
+    - 21
+    - 2011-02-21 19:48:58.952500
+    - 2011-02-21 19:48:58.952500
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 15
+    - Carter
+    - Jacobey
+    - 
+    - 
+    - Cotter High School
+    - 17
+    - 2011-02-21 19:48:59.061875
+    - 2011-02-21 19:48:59.061875
+    - 
+    - 
+    - 
+    - 
+    - 

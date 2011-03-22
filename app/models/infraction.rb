@@ -1,7 +1,8 @@
 class Infraction < ActiveRecord::Base
   
   def Infraction.fyi
-    return 22
+    fyi_id = Infraction.where(:description => "FYI")
+    return fyi_id.first.id
   end
   
 end
