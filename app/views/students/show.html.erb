@@ -27,8 +27,16 @@
   <%= @student.room_number %>
 </p>
 <p>
+  <b>Phone Extension:</b>
+  <%= @student.extension %>
+</p>
+<p>
   <b>Age:</b>
   <%= @student.age %>
+</p>
+<p>
+  <b>Birthday:</b>
+  <%= @student.birthday.strftime("%m/%d/%Y") %>
 </p>
 <%if staff_signed_in? %>
 	<%if current_staff.role == "Admin" %>
@@ -40,6 +48,10 @@
 <p>
   <b>Cell Phone:</b>
   <%= @student.cell_phone %>
+</p>
+<p>
+  <b>Emergency Contact:</b>
+  <%= @student.emContact %>
 </p>
 	
 

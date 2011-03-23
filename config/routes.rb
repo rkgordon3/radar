@@ -1,4 +1,6 @@
 Radar::Application.routes.draw do
+  get "reports_query/reports_query"
+
   devise_for :staffs
   
   get "home/landingpage"
@@ -15,6 +17,9 @@ Radar::Application.routes.draw do
   
   match "/search/update_list" => "search#update_list"
   get "/search/update_list"
+  
+  match "/search/delete_student" => "search#delete_student"
+  get "/search/delete_student"
   
   match "/search/go_to_student" => "search#go_to_student"
   get "/search/go_to_student"
