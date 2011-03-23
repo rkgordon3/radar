@@ -1,4 +1,6 @@
 Radar::Application.routes.draw do
+  get "reports_query/reports_query"
+
   devise_for :staffs
   
   get "home/landingpage"

@@ -4,7 +4,7 @@ class ReportedInfraction < ActiveRecord::Base
 	belongs_to :infraction
   
   def after_initialize
-    if self.id == nil
+    if self.id == nil && self.infraction_id == nil
       self.infraction_id = Infraction.fyi
     end
   end
