@@ -1,19 +1,9 @@
 class SearchController < ApplicationController
-  before_filter :general_authorize
-  autocomplete :student, :first_name, :display_value => :full_name, :full =>true
-  
+  before_filter :general_authorize  
   autocomplete :student, :full_name, :display_value => :full_name, :full => true
-  
-  
   
   def search
   end
-  
-  # rkg 
-  # I don't like coupling of search controller with Student SQL. Keep knowledge 
-  # of SQL in student model.
-  #
-  # Is this code even used?
   
   def get_autocomplete_items(parameters)
   	  # see rails doc
@@ -24,61 +14,49 @@ class SearchController < ApplicationController
   end
   
   
-  
-  
-  
   def go_to_student
-  	  # rkg I don't think :full_name parameter contains just full_name.
-  	  @student = Student.get_student_object_for_string(params[:full_name])
-  	  
-  	  	  
-  	  	  respond_to do |format|
-  	  	  	  format.html { redirect_to "/students/" + @student.id.to_s }
-  	  	  	  format.xml  { render :xml => @student}
-  	  	  
-  	  	  end
-     
+    @student = Student.get_student_object_for_string(params[:full_name])
+    
+    respond_to do |format|
+      format.html { redirect_to "/students/" + @student.id.to_s }
+      format.xml  { render :xml => @student}
+      
+    end
+    
   end
   
- 
+  
   def update_list
-  	
-  	  @student = Student.get_student_object_for_string(params[:full_name])
-	
-	if session[:students] == nil
-		session[:students] = Array.new
-	end
-	@students = session[:students]
-	# rkg
-	# write an equality operator on Student (===)
-	# (just like Object.equals in java) and
-	# use:
-	# exists = @students.include? @student
-	# instead of iterator below
-	exists = false
-	@students.each do |s| 
-		if s.id == @student.id
-			exists = true
-		end
-	end
-	# even better
-	# if @students.include? @student == false 
-	#    @students << @student
-	#
-	if exists == false
-		@students << @student
-	end
-	
-	@message = ''
-	
-	@students.each do |s|
-		@message = @message + '<p>' + s.first_name + ' ' + s.last_name + '</p>'
-	end
-	
-	
-	render :update do|page|
-		page.replace_html 'found', @message
-	end
-   end
+    
+    @student = Student.get_student_object_for_string(params[:full_name])
+    
+    if session[:students] == nil
+      session[:students] = Array.new
+    end
+    @students = session[:students]
+    
+    exists = false
+    @students.each do |s|
+      if s.id == @student.id
+        exists = true
+      end
+    end
+    
+    if exists == false
+      @students << @student
+    end
+    
+    @message = ''
+    
+    @students.each do |s|
+      @message = @message + '<p>' + s.first_name + ' ' + s.last_name + '</p>'
+    end
+    
+    
+    render :update do |page|
+      page.replace_html 'found', @message
+    end
+    
+  end
 
 end

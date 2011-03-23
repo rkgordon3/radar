@@ -1,15 +1,22 @@
 digraph Radar {
-  rankdir = "LR"; ranksep = "0.5"; nodesep = "0.4"; pad = "0.4,0.4"; margin = "0,0"; concentrate = "true"; labelloc = "t"; fontsize = "13"; fontname = "Arial Bold";
-  node [shape = "Mrecord", fontsize = "10", fontname = "Arial", margin = "0.07,0.05", penwidth = "1.0"];
-  edge [fontname = "Arial", fontsize = "7", dir = "both", arrowsize = "0.9", penwidth = "1.0", labelangle = "32", labeldistance = "1.8"];
-  label = "Radar domain model\n\n";
+  fontsize = "13"; nodesep = "0.4"; fontname = "Arial Bold"; pad = "0.4,0.4"; margin = "0,0"; rankdir = "LR"; concentrate = "true"; labelloc = "t"; ranksep = "0.5";
+  node [fontsize = "10", fontname = "Arial", margin = "0.07,0.05", shape = "Mrecord", penwidth = "1.0"];
+  edge [fontsize = "7", arrowsize = "0.9", fontname = "Arial", labelangle = "32", labeldistance = "1.8", dir = "both", penwidth = "1.0"];
+  label = "Radar Model For Code Review\n\n";
+  "ActiveRecord::SessionStore::Session" [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">ActiveRecord::SessionStore::Session</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="data">data <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="session_id">session_id <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+</table>
+>];
   Annotation [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
   <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Annotation</font></td></tr>
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
-  <tr><td align="left" width="130" port="report_id">report_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
-  <tr><td align="left" width="130" port="staff_id">staff_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
   <tr><td align="left" width="130" port="text">text <font face="Arial Italic" color="grey60">string</font></td></tr>
 </table>
 >];
@@ -18,6 +25,7 @@ digraph Radar {
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="abbreviation">abbreviation <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
 </table>
 >];
@@ -27,12 +35,7 @@ digraph Radar {
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
   <tr><td align="left" width="130" port="abbreviation">abbreviation <font face="Arial Italic" color="grey60">string</font></td></tr>
-  <tr><td align="left" width="130" port="area_id">area_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
   <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
-</table>
->];
-  IncidentReport [color = "grey60", fontcolor = "grey60", label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
-  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">IncidentReport</font></td></tr>
 </table>
 >];
   Infraction [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
@@ -40,11 +43,7 @@ digraph Radar {
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
-  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
-</table>
->];
-  Location [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
-  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Location</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60">string</font></td></tr>
 </table>
 >];
   Participant [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
@@ -54,20 +53,15 @@ digraph Radar {
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
   <tr><td align="left" width="130" port="affiliation">affiliation <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="age">age <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="building_id">building_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
   <tr><td align="left" width="130" port="cell_phone">cell_phone <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="first_name">first_name <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="full_name">full_name <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="home_phone">home_phone <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="last_name">last_name <font face="Arial Italic" color="grey60">string</font></td></tr>
-  <tr><td align="left" width="130" port="photo_id">photo_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
-  <tr><td align="left" width="130" port="type">type <font face="Arial Italic" color="grey60">string</font></td></tr>
-</table>
->];
-  Photo [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
-  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Photo</font></td></tr>
-</table>
-|
-<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
-  <tr><td align="left" width="130" port="tag">tag <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="room_number">room_number <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="student_id">student_id <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="url">url <font face="Arial Italic" color="grey60">string</font></td></tr>
 </table>
 >];
   Report [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
@@ -75,19 +69,14 @@ digraph Radar {
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="annotation_id">annotation_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
   <tr><td align="left" width="130" port="approach_time">approach_time <font face="Arial Italic" color="grey60">datetime</font></td></tr>
-  <tr><td align="left" width="130" port="building_id">building_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
-  <tr><td align="left" width="130" port="type">type <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="room_number">room_number <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="submitted">submitted <font face="Arial Italic" color="grey60">boolean</font></td></tr>
 </table>
 >];
   ReportedInfraction [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
   <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">ReportedInfraction</font></td></tr>
-</table>
-|
-<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
-  <tr><td align="left" width="130" port="infraction_id">infraction_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
-  <tr><td align="left" width="130" port="participant_id">participant_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
-  <tr><td align="left" width="130" port="report_id">report_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
 </table>
 >];
   Staff [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
@@ -95,29 +84,26 @@ digraph Radar {
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="current_sign_in_at">current_sign_in_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="current_sign_in_ip">current_sign_in_ip <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="encrypted_password">encrypted_password <font face="Arial Italic" color="grey60">string (128) ∗</font></td></tr>
   <tr><td align="left" width="130" port="first_name">first_name <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="last_name">last_name <font face="Arial Italic" color="grey60">string</font></td></tr>
-  <tr><td align="left" width="130" port="password">password <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_at">last_sign_in_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_ip">last_sign_in_ip <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="password_salt">password_salt <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="remember_created_at">remember_created_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="remember_token">remember_token <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="reset_password_token">reset_password_token <font face="Arial Italic" color="grey60">string</font></td></tr>
   <tr><td align="left" width="130" port="role">role <font face="Arial Italic" color="grey60">string</font></td></tr>
-  <tr><td align="left" width="130" port="user_name">user_name <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="sign_in_count">sign_in_count <font face="Arial Italic" color="grey60">integer</font></td></tr>
 </table>
 >];
-  Student [color = "grey60", fontcolor = "grey60", label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
-  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Student</font></td></tr>
-</table>
->];
-  Participant -> Student [color = "grey60", arrowtail = "onormal", arrowhead = "none", arrowsize = "1.2"]
-  Report -> IncidentReport [color = "grey60", arrowtail = "onormal", arrowhead = "none", arrowsize = "1.2"]
-  Staff -> Annotation [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Report -> Annotation [arrowhead = "normal", arrowtail = "none", weight = "3"]
-  Area -> Building [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Staff -> Report [arrowhead = "normal", arrowtail = "none", weight = "2"]
-  Building -> Report [arrowhead = "normal", arrowtail = "none", weight = "2"]
-  IncidentReport -> ReportedInfraction [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Location -> Building [arrowhead = "none", arrowtail = "none", weight = "1"]
-  Photo -> Participant [arrowhead = "normal", arrowtail = "none", weight = "2"]
-  Building -> Student [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Report -> ReportedInfraction [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Participant -> ReportedInfraction [arrowhead = "normal", arrowtail = "none", weight = "1"]
-  Infraction -> ReportedInfraction [arrowhead = "normal", arrowtail = "none", weight = "1"]
+  Area -> Building [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  Staff -> Report [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  Building -> Report [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  Report -> Annotation [arrowhead = "none", weight = "1", arrowtail = "none"]
+  Infraction -> ReportedInfraction [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  Participant -> ReportedInfraction [arrowhead = "normal", weight = "1", arrowtail = "none"]
 }

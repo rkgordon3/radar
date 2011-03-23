@@ -1,6 +1,6 @@
 class IncidentReport < Report
 	has_many 	:reported_infractions
-	belongs_to	:annotations
+	belongs_to	:annotation
 	
 	def annotation
 		return self.annotation
