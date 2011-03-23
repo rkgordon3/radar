@@ -1,29 +1,21 @@
 <h1>Student Search</h1>
 
 
-<script type="text/javascript">
-function handletext(what){
-	if (document.createTextNode){
-		var theNewParagraph = document.createElement('p');
-		document.getElementById("found").appendChild(theNewParagraph);
-		var mytext=document.createTextNode(what)
-		theNewParagraph.appendChild(mytext)
-	}
-}
-
-
-</script>
-
+<%= form_tag 'delete_student', :remote => true %>
 <div id="found">
+
 <% if session[:students] != nil %>
-	<% session[:students].each do |s| %>
-		<p><%= s.first_name %> <%= s.last_name %></p>
+
+	<% session[:students].each do |s| %>	
+		
+			<p><input id="<%= s.id.to_s %>" name="<%= s.id.to_s %>" type="submit" value="X" /> <%= s.first_name %> <%= s.last_name %></p>
+		
 	<% end %>
+	
 <% end %>
 
 </div>
-
-
+</form>
 
 
     <%= form_tag 'update_list', :remote => true%>
