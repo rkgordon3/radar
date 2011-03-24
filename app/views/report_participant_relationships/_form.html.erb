@@ -1,0 +1,31 @@
+<%= form_for(@report_participant_relationship) do |f| %>
+  <% if @report_participant_relationship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report_participant_relationship.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+      <% @report_participant_relationship.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Report ID:<br />
+    <%= f.text_field :report_id %>
+  </div>
+  <div class="field">
+    Infraction ID:<br />
+    <%= f.text_field :relationship_to_report_id %>
+  </div>
+  <div class="field">
+    Participant ID:<br />
+    <%= f.text_field :participant_id %>
+  </div>  
+  
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

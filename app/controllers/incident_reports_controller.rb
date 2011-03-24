@@ -84,6 +84,10 @@ class IncidentReportsController < ApplicationController
       @incident_report = session[:incident_report]
       @incident_report.update_attributes_without_saving(params[:incident_report])
       
+      # process parameters into reported infractions
+      self.add_reported_infractions_to_report(@incident_report, params)  
+      
+      
       # update annotation
       @annotation = session[:annotation]
       @annotation.text = params[:annotation]
@@ -208,7 +212,7 @@ class IncidentReportsController < ApplicationController
     @incident_report = IncidentReport.find(params[:id])
     
     # destroy all reported infractions associated with it
-    @incident_report.reported_infractions.each do |ri|
+    @incident_report.report_participant_relationships.each do |ri|
       ri.destroy
     end
     
@@ -277,7 +281,7 @@ class IncidentReportsController < ApplicationController
     new_ris = Array.new
     old_ris = Array.new
     
-    incident_report.reported_infractions.each do |ri|
+    incident_report.report_participant_relationships.each do |ri|
       old_ris << ri
     end
     
@@ -287,19 +291,19 @@ class IncidentReportsController < ApplicationController
     # begin loop for each participant
     participants.each do |p|
       # variable to see if we have found an infraction for p
-      any_infraction_found_for_participant = false 
+      any_relationship_to_report_found_for_participant = false 
       #loop through all infractions to see if user checked infraction for student
-      Infraction.all.each do |i|
+      RelationshipToReport.all.each do |i|
         # example: if the user wants student 6 to have infraction 1 (community disruption)
         # param entry would look like params[6][1] = "on"
         if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
-          any_infraction_found_for_participant = true
+          any_relationship_to_report_found_for_participant = true
           new_ris << incident_report.add_specific_relationship_to_report_for_participant(p, i.id)
         end
       end
       
       # if there are no checkboxes checked for particpant
-      if any_infraction_found_for_participant == false
+      if any_relationship_to_report_found_for_participant == false
         new_ris << incident_report.add_default_relationship_to_report_for_participant(p)
       end
     end
@@ -313,7 +317,7 @@ class IncidentReportsController < ApplicationController
     end
     
     # save new ris to report
-    incident_report.reported_infractions = new_ris
+    incident_report.report_participant_relationships = new_ris
     
   end
   

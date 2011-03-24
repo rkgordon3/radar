@@ -2,9 +2,10 @@ class Report < ActiveRecord::Base
 	belongs_to  	:staff
 	belongs_to    :building
 	has_one		    :annotation
+  has_many      :report_participant_relationships
+  belongs_to    :annotation
+  
 	
-  
-  
   def update_attributes_without_saving(params)
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
@@ -27,9 +28,9 @@ class Report < ActiveRecord::Base
   
   def after_save
     # save each reported infraction to database
-    self.reported_infractions.each do |ri|
+    self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
-        ri.incident_report_id = self.id # establish connection
+        ri.report_id = self.id # establish connection
         ri.save                                     # actually save
       end
     end
@@ -40,7 +41,7 @@ class Report < ActiveRecord::Base
   
   def get_report_participant_relationships_for_participant(participant_id)
     found_relationships = Array.new
-    self.reported_infractions.each do |ri|
+    self.report_participant_relationships.each do |ri|
       if ri.participant_id == participant_id
         found_relationships << ri
       end
@@ -52,8 +53,8 @@ class Report < ActiveRecord::Base
   
   
   def get_specific_report_student_relationship(participant_id, relationship_id)
-    self.reported_infractions.each do |ri|
-      if ri.participant_id == participant_id && ri.infraction_id == relationship_id
+    self.report_participant_relationships.each do |ri|
+      if ri.participant_id == participant_id && ri.relationship_to_report_id == relationship_id
         return ri
       end
     end
@@ -67,7 +68,7 @@ class Report < ActiveRecord::Base
     partic_relationships = Array.new
     
     # populate the old reported infractions array with the report's infractions
-    self.reported_infractions.each do |ri|
+    self.report_participant_relationships.each do |ri|
       partic_relationships << ri
     end
     
@@ -103,11 +104,11 @@ class Report < ActiveRecord::Base
     
     # only want to add if no relationships exist
     if all_relationships_for_participant.count == 0
-      ri = ReportedInfraction.new(:participant_id => participant_id)
-      self.reported_infractions << ri
+      ri = ReportParticipantRelationship.new(:participant_id => participant_id)
+      self.report_participant_relationships << ri
       return ri
     else
-      ri = get_specific_report_student_relationship(participant_id, Infraction.fyi) 
+      ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
       return ri
     end
     
@@ -121,8 +122,8 @@ class Report < ActiveRecord::Base
     ri = get_specific_report_student_relationship(participant_id, relationship_id) 
     
     if ri == nil
-      ri = ReportedInfraction.new(:participant_id => participant_id, :infraction_id => relationship_id)
-      self.reported_infractions << ri
+      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => relationship_id)
+      self.report_participant_relationships << ri
     end
     
     return ri
@@ -144,13 +145,7 @@ class Report < ActiveRecord::Base
   
   
   
-  
-  def clear_session
-    # clear everything out of the sesson
-    session[:incident_report] = nil
-    session[:annotation] = nil
-    session[:students] = nil
-  end
+
   
 end
 

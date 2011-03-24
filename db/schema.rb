@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322060114) do
+ActiveRecord::Schema.define(:version => 20110324053156) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -33,12 +33,6 @@ ActiveRecord::Schema.define(:version => 20110322060114) do
     t.string   "abbreviation"
   end
 
-  create_table "infractions", :force => true do |t|
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "participants", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -58,12 +52,18 @@ ActiveRecord::Schema.define(:version => 20110322060114) do
     t.string   "emContact"
   end
 
-  create_table "reported_infractions", :force => true do |t|
-    t.integer  "infraction_id"
+  create_table "relationship_to_reports", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "report_participant_relationships", :force => true do |t|
+    t.integer  "relationship_to_report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "participant_id"
-    t.string   "incident_report_id"
+    t.string   "report_id"
   end
 
   create_table "reports", :force => true do |t|

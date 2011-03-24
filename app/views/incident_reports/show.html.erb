@@ -17,10 +17,10 @@
   <%= @incident_report.staff.first_name %> <%= @incident_report.staff.last_name %><br/><br />
   
   <b>Student infractions:</b>
-  <% @incident_report.reported_infractions.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+  <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
 
   <% current_participant_id = -1 %>
-  <% @incident_report.reported_infractions.each do |b| %>
+  <% @incident_report.report_participant_relationships.each do |b| %>
   <% if b.participant.id != current_participant_id %>
    	<% current_participant_id = b.participant.id %>
    	<br />
@@ -34,7 +34,7 @@
    <% end %>
   		<br />
   		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infraction:</b> 
-  		<%= b.infraction.description %>
+  		<%= b.relationship_to_report.description %>
   	<% end %>
   
   <br/><br /><br />

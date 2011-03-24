@@ -22,9 +22,10 @@ function divToggle(divID,imgID) {
 
      <div class="field">
    	 <b>Students:</b>
-  	    <% @incident_report.reported_infractions.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+  	    <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+	<% fyi = RelationshipToReport.fyi %>
 
-  <% @incident_report.reported_infractions.each do |b| %>
+  <% @incident_report.report_participant_relationships.each do |b| %>
   <% if b.participant.id != @currentParticipantID %>
 <br />
    	<% @currentParticipantID = b.participant.id %>
@@ -40,7 +41,7 @@ function divToggle(divID,imgID) {
   	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   	<a href="#" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
   	<div id="<%= b.participant_id %>-infractions" style="display: none;">
-  		<% infractions = Infraction.all %>
+  		<% infractions = RelationshipToReport.all %>
   		<% infractions.each do |i| %>
   				<% if i.id != 1 %>
   					<BR>
@@ -48,11 +49,11 @@ function divToggle(divID,imgID) {
   				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   			
   				<% #this checkbox tag is not complete for another several lines# %>
-  				<input type=checkbox name="<%= b.participant_id %>[<%= i.id %>]"
+  				<input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]"
   			
   				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
-  				<% session[:incident_report].reported_infractions.each do |ri| %>
-  					<% if i.id != 22 && ri.participant_id == b.participant_id && ri.infraction_id == i.id %>
+  				<% session[:incident_report].report_participant_relationships.each do |ri| %>
+  					<% if i.id != fyi && ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %>
   						CHECKED
   					<% end%>
   				<%end%>

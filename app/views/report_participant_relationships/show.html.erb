@@ -1,0 +1,24 @@
+<h1>Showing Reported Infraction <%= @report_participant_relationship.id %></h1>
+
+
+<p>
+  <b>Report ID:</b>
+  <%= @report_participant_relationship.report_id %>
+</p>
+
+<p>
+  <b>Relationship:</b>
+  <%= RelationshipToReport.find(@report_participant_relationship.relationship_to_report_id).description %>
+</p>
+
+<p>
+  <b>Participant:</b>
+  <%= @report_participant_relationship.participant.first_name %> 
+  <%= @report_participant_relationship.participant.last_name %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_report_participant_relationship_path(@report_participant_relationship) %> |
+<%= link_to 'Back', report_participant_relationships_path %>
