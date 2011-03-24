@@ -44,7 +44,7 @@ Radar::Application.routes.draw do
 
   resources :participants
 
-  resources :reported_infractions
+  resources :report_participant_relationships
 
   resources :staffs
 
@@ -59,7 +59,7 @@ Radar::Application.routes.draw do
   end
   resources :student_infractions
 
-  resources :infractions
+  resources :relationship_to_reports
 
   resources :locations
 

@@ -6,10 +6,11 @@ class StudentsController < ApplicationController
     @students = Student.all
     @numRows = 0
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @students }
-    end
+    render(@students)
+    #respond_to do |format|
+    #  format.html # index.html.erb
+    #  format.xml  { render :xml => @students }
+    #end
   end
 
   # GET /students/1

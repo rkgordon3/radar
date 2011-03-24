@@ -50,8 +50,11 @@ class SearchController < ApplicationController
 	
     
 	#replace 'found' (in report_search) with the new message
-    render :update do |page|
-      page.replace_html 'found', @message
+    #render :update do |page|
+    #  page.replace_html 'found', @message
+    #end
+    respond_to do |f|
+    	    format.js
     end
   
   end
@@ -105,6 +108,7 @@ class SearchController < ApplicationController
     render :update do |page|
       page.replace_html 'found', @message
     end
+
     
   end
 
