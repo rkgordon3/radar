@@ -311,7 +311,7 @@ class IncidentReportsController < ApplicationController
     # destroy all old rep. inf.s if they are not in new list
     old_ris.each do |ori|
       if !new_ris.include?(ori)
-        ori.incident_report_id = 0 # make sure connection is broken
+        ori.report_id = 0 # make sure connection is broken
         ori.destroy
       end
     end
