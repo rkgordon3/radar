@@ -116,4 +116,3 @@ class ReportsQueryController < ApplicationController
 end
 
 
-end
