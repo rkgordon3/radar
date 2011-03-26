@@ -5,12 +5,10 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
     @numRows = 0
-
-    render(@students)
-    #respond_to do |format|
-    #  format.html # index.html.erb
-    #  format.xml  { render :xml => @students }
-    #end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @students }
+    end
   end
 
   # GET /students/1

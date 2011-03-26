@@ -1,0 +1,22 @@
+<h1>Student Search</h1>
+
+<div id="found">
+<% if session[:students] != nil %>
+	<%= render(session[:students].values) %>
+<% end %>	
+</div>
+
+	<%= form_tag("/search", :method => :get,  :remote => true)  do %>
+			<%= render '/search/autocomplete_full_name' %>
+  		<%= submit_tag "Select"  %>	
+  		<input id="options" type="button" value="Clear" onclick="full_name.value = ''"  />
+  <% end %>
+<br/>
+<br/>
+	<%= form_tag("#{params[:returnUrl]}", :method => :get) do %>
+
+  		<%= submit_tag "Done", :name=> "search_submit" %>
+
+	<% end %>
+
+

@@ -5,9 +5,6 @@ class IncidentReportsController < ApplicationController
   acts_as_iphone_controller = true
   
   
-  
-  
-  
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
@@ -78,6 +75,8 @@ class IncidentReportsController < ApplicationController
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
+  	  
+  	  logger.debug "inside IR create"
     #search_submit is name of button clicked called "add students"
     if params[:search_submit] != nil
       # update values of incident_report
@@ -235,7 +234,9 @@ class IncidentReportsController < ApplicationController
   
   # GET /incident_reports/new_report
   # GET /incident_reports/new_report.xml
-  def new_report 	  
+  def new_report 	 
+  	  	  
+  	  logger.debug "inside IR new_report"
     # incident_report in session will be nil if first visit to page
     if session[:incident_report] == nil
       @incident_report = IncidentReport.new                # new report
@@ -245,7 +246,6 @@ class IncidentReportsController < ApplicationController
       #save everything to the session
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
-      session[:students] = Array.new
       
     else
       # if incident report in session is not nil (not first visit)
@@ -272,10 +272,6 @@ class IncidentReportsController < ApplicationController
     session[:annotation] = nil
     session[:students] = nil
   end
-  
-  
-  
-  
   
   def add_reported_infractions_to_report(incident_report, params)
     # create arrays for the new reported infractions

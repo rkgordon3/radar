@@ -69,7 +69,10 @@ function divToggle(divID,imgID) {
   <% end %>
     
     	<div class="actions">
-    		<p><input id="search_submit" name="search_submit" type="submit" value="Add Students" /></p>
+    		<%= form_tag("/search", { :method => :get }) do %>
+    			<%= hidden_field_tag "returnUrl", request.fullpath %>
+    			<%= submit_tag "Add Students" %>
+    		<% end %>
     	</div>
-    	</div>
+ </div>
  
