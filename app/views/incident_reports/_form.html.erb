@@ -45,11 +45,8 @@
   <div class="actions">
        		<p>
        			<% if @incident_report.submitted != true %>
-       				<!-- <input id="save_submit" name="save_submit" type="submit" value="Save Report" /> -->
        				<%= button_to "Save Report", { }, { :method => :get, :id => "save_submit" } %>
-       		
        			<% end %>
-       			<!-- <input id="submit_submit" name="submit_submit" type="submit" value="Submit Report" /> -->
        			<%= button_to "Submit Report", {  }, { :method => :get, :id=>"submit_submit" } %>
        		</p>
 
