@@ -96,7 +96,7 @@ class IncidentReportsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
         format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-        format.iphone {render :layout => 'mobile_application'}
+        format.iphone { redirect_to '/search/report_search.iphone?/incident_reports/new_report.iphone' }
       end
       
       
