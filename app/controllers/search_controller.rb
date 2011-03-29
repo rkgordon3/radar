@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
-  before_filter :general_authorize  
+  before_filter :general_authorize
+
   # autocomplete looks at the student table in the full name field, returns all values that match
   autocomplete :student, :full_name, :display_value => :full_name, :full => true
   

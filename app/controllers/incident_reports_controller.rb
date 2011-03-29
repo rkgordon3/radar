@@ -2,7 +2,7 @@ class IncidentReportsController < ApplicationController
   before_filter :admin_authorize, :except => [:new_report, :show, :edit]
   before_filter :general_authorize  
   skip_before_filter :verify_authenticity_token
-  acts_as_iphone_controller = true
+
   
   
   
@@ -40,7 +40,7 @@ class IncidentReportsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @incident_report }
-      #format.iphone {render :layout => false}
+      format.iphone {render :layout => 'mobile_application'}
     end
   end
   
@@ -96,7 +96,7 @@ class IncidentReportsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
         format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-        format.iphone { redirect_to '/search/report_search.iphone?/incident_reports/new_report.iphone' }
+        format.iphone {redirect_to '/search/report_search.iphone?/incident_reports/new_report.iphone', :layout => 'mobile_application'}
       end
       
       

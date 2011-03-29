@@ -1,4 +1,12 @@
-<h1>Showing Incident Report <%= @incident_report.id %> </h1>
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <a href="#" id="waBackButton">Back</a>
+        <span id="waHeadTitle">Incident Report</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+            <form action="/incident_reports.iphone" method="POST">
+                <div class="iPanel"><h1>Showing Incident Report <%= @incident_report.id %> </h1>
 
 <p id="notice"><%= notice %></p>
 
@@ -46,6 +54,7 @@
  
   
 </p>
+</div></form></div></div></div>
 
 
 <%= link_to 'Edit', edit_incident_report_path(@report) %> |

@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    function handletext(what){
+        if (document.createTextNode) {
+            var theNewParagraph = document.createElement('p');
+            document.getElementById("found").appendChild(theNewParagraph);
+            var mytext = document.createTextNode(what)
+            theNewParagraph.appendChild(mytext)
+        }
+    }
+    
+    
+</script>
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <a href="#" id="waBackButton">Back</a>
+        <span id="waHeadTitle">Student Search</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+        	
+            <div id="found">
+                <% if session[:students] != nil %>
+                <% session[:students].each do |s| %>
+                <p>
+                    <%= s.first_name %><%= s.last_name %>
+                </p>
+                <% end %>
+                <% end %>
+            </div>
+            <%= form_tag 'update_list', :remote => true %>
+            <%= render '/search/autocomplete_full_name.iphone' %>
+            <input id="options" type="submit" value="Select" onsubmit="first_name.value = ''" class="iPush iBAction">
+            </form>
+            <form action="<%= request.query_string %>">
+                <input onclick="";  type="submit" value="Done" class="iPush iBClassic" style="width:100%"/>
+            </form>
+			
+        </div>
+    </div>
+</div>

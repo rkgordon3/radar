@@ -2,70 +2,69 @@
 <html>
     <head>
         <meta name="generator" content="HTML Tidy, see www.w3.org">
-
         <title></title>
     </head>
-
     <body>
-        <h1>Listing Incident Reports</h1>
-
-        <table>
-            <tr>
-                <th>Report ID</th>
-
-                <th>Submitter</th>
-
-                <th>Approach Time</th>
-
-                <th>Building</th>
-
-                <th>Room #</th>
-
-                <th>Submitted</th>
-
-                <th>
-                </th>
-
-                <th>
-                </th>
-
-                <th>
-                </th>
-            </tr>
-            <% @incident_reports.each do |incident_report| %><% if @numRows == 0 %><% @numRows = @numRows + 1 %>
-
-            <tr class="shaded">
-                <% else %><% @numRows = 0 %>
-            </tr>
-
-            <tr>
-                <% end %>
-
-                <td><%= incident_report.id %></td>
-
-                <td>
-                <%= incident_report.staff.first_name %><%= incident_report.staff.last_name %></td>
-
-                <td><%= incident_report.approach_time %></td>
-
-                <td><%= incident_report.building.name %></td>
-
-                <td><%= incident_report.room_number %></td>
-
-                <td><%= incident_report.submitted %></td>
-
-                <td><%= link_to 'Show', incident_report %></td>
-
-                <td>
-                <%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
-
-                <td>
-                <%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
-            </tr>
-            <% end %>
-        </table>
-        <br>
-         <%= link_to 'New Incident Report', '/incident_reports/new_report.iphone' %>
-    </body>
+    <div id="WebApp">
+        <div id="iHeader" style="background-color: #b22222">
+            <a href="#" id="waBackButton">Back</a>
+            <span id="waHeadTitle">Listing Incident Reports</span>
+        </div>
+        <div id="iGroup">
+            <div class="iLayer" id="waHome" title="Home">
+            <fieldset>
+                <div class = "iPanel">
+                    <!-- <table>
+                    <tr>
+                    <th>Report ID</th>
+                    <th>Submitter</th>
+                    <th>Approach Time</th>
+                    <th>Building</th>
+                    <th>Room #</th>
+                    <th>Submitted</th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    </tr>
+                    <% @incident_reports.each do |incident_report| %><% if @numRows == 0 %><% @numRows = @numRows + 1 %>
+                    <tr class="shaded">
+                    <% else %><% @numRows = 0 %>
+                    </tr>
+                    <tr>
+                    <% end %>
+                    <td><%= incident_report.id %></td>
+                    <td>
+                    <%= incident_report.staff.first_name %><%= incident_report.staff.last_name %></td>
+                    <td><%= incident_report.approach_time %></td>
+                    <td><%= incident_report.building.name %></td>
+                    <td><%= incident_report.room_number %></td>
+                    <td><%= incident_report.submitted %></td>
+                    <td><%= link_to 'Show', incident_report %></td>
+                    <td>
+                    <%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
+                    <td>
+                    <%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
+                    </tr>
+                    <% end %>
+                    </table>
+                    <br>-->
+                    <Legend>
+                        Reports
+                    </Legend>
+                    <div class="field">
+                        <ul class="iArrow">
+                            <li href="/incident_reports/new_report.iphone" target="">
+                                New Incident Reports
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </fieldset>
+            </body>
+        </div>
+    </div>
+    </div>
 </html>
-
