@@ -6,11 +6,7 @@
 
 <% if session[:students] != nil %>
 
-	<% session[:students].each do |s| %>	
-		
-			<p><input id="<%= s.id.to_s %>" name="<%= s.id.to_s %>" type="submit" value="X" /> <%= s.first_name %> <%= s.last_name %></p>
-		
-	<% end %>
+	<%= render (session[:students]) %>
 	
 <% end %>
 
@@ -22,7 +18,7 @@
 
 		<%= render '/search/autocomplete_full_name' %>
 
-  		<input id="options" type="submit" value="Select">
+  		<input id="options" type="submit" value="Select" onclick="this.reset()">
 
 		<input id="options" type="button" value="Clear" onclick="full_name.value = ''">
 
@@ -33,9 +29,10 @@
 		<br />
 	</p>
 
+	
 	<form action="<%= request.query_string %>">
 
-  		<input onclick=""; type="submit" value="Done" />
+  		<input type="submit" value="Done" />
 
 	</form>
 
