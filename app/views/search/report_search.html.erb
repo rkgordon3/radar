@@ -1,36 +1,24 @@
 <h1>Student Search</h1>
 
 
-<script type="text/javascript">
-function handletext(what){
-	if (document.createTextNode){
-		var theNewParagraph = document.createElement('p');
-		document.getElementById("found").appendChild(theNewParagraph);
-		var mytext=document.createTextNode(what)
-		theNewParagraph.appendChild(mytext)
-	}
-}
-
-
-</script>
-
+<%= form_tag 'delete_student', :remote => true %>
 <div id="found">
+
 <% if session[:students] != nil %>
-	<% session[:students].each do |s| %>
-		<p><%= s.first_name %> <%= s.last_name %></p>
-	<% end %>
+
+	<%= render (session[:students]) %>
+	
 <% end %>
 
 </div>
-
-
+</form>
 
 
     <%= form_tag 'update_list', :remote => true%>
 
 		<%= render '/search/autocomplete_full_name' %>
 
-  		<input id="options" type="submit" value="Select">
+  		<input id="options" type="submit" value="Select" onclick="this.reset()">
 
 		<input id="options" type="button" value="Clear" onclick="full_name.value = ''">
 
@@ -41,9 +29,10 @@ function handletext(what){
 		<br />
 	</p>
 
+	
 	<form action="<%= request.query_string %>">
 
-  		<input onclick=""; type="submit" value="Done" />
+  		<input type="submit" value="Done" />
 
 	</form>
 

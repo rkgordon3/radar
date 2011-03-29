@@ -4,6 +4,8 @@ Radar::Application.routes.draw do
   resources :notification_preferences
   match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
+  get "reports_query/reports_query"
+
   devise_for :staffs
   
   get "home/landingpage"
@@ -20,6 +22,9 @@ Radar::Application.routes.draw do
   
   match "/search/update_list" => "search#update_list"
   get "/search/update_list"
+  
+  match "/search/delete_student" => "search#delete_student"
+  get "/search/delete_student"
   
   match "/search/go_to_student" => "search#go_to_student"
   get "/search/go_to_student"
@@ -44,7 +49,7 @@ Radar::Application.routes.draw do
 
   resources :participants
 
-  resources :reported_infractions
+  resources :report_participant_relationships
 
   resources :staffs
 
@@ -59,7 +64,7 @@ Radar::Application.routes.draw do
   end
   resources :student_infractions
 
-  resources :infractions
+  resources :relationship_to_reports
 
   resources :locations
 

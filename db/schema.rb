@@ -33,12 +33,6 @@ ActiveRecord::Schema.define(:version => 20110329003458) do
     t.string   "abbreviation"
   end
 
-  create_table "infractions", :force => true do |t|
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "notification_preferences", :force => true do |t|
     t.integer  "staff_id"
     t.string   "report_type"
@@ -63,20 +57,29 @@ ActiveRecord::Schema.define(:version => 20110329003458) do
     t.integer  "building_id"
     t.string   "student_id"
     t.string   "full_name"
+    t.datetime "birthday"
+    t.string   "extension"
+    t.string   "emContact"
+  end
+
+  create_table "relationship_to_reports", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "report_participant_relationships", :force => true do |t|
+    t.integer  "relationship_to_report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "participant_id"
+    t.string   "report_id"
   end
 
   create_table "report_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "reported_infractions", :force => true do |t|
-    t.integer  "infraction_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "participant_id"
-    t.string   "incident_report_id"
   end
 
   create_table "reports", :force => true do |t|

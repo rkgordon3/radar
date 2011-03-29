@@ -45,7 +45,7 @@ class SearchController < ApplicationController
     @message = ''
     
     @students.each do |s|
-      @message = @message + '<p>' + s.first_name + ' ' + s.last_name + '</p>'
+      @message = @message + '<p>' + '<img src="' + self.getURLforID(s.id.to_s) + '"/>' + ' ' + s.first_name + ' ' + s.last_name + '</p>'
     end
     
     
@@ -54,5 +54,12 @@ class SearchController < ApplicationController
     end
     
   end
+  
+  
+  def getURLforID(id)
+    url = Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
+    image_url = STUDENT_THUMBS_PATH + url
+  end
+    
 
 end
