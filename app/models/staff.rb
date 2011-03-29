@@ -1,4 +1,5 @@
 class Staff < ActiveRecord::Base
+	has_many :notification_preferences
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
@@ -6,4 +7,8 @@ class Staff < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :role 
+  def update_attributes(params)
+	
+	super
+  end
 end

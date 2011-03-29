@@ -1,4 +1,9 @@
 Radar::Application.routes.draw do
+  resources :report_types
+
+  resources :notification_preferences
+  match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
+  
   devise_for :staffs
   
   get "home/landingpage"
