@@ -19,12 +19,12 @@
     <%= f.text_field :approach_time %>
   </div>
   <div class="field">
-    <%= f.label :building_id %>:<br />
+    <b><%= f.label :building_id %>:<br /></b>
     <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
     
     </div>
   <div class="field">
-    <b><%= f.label :room_number %>:</b><br />
+    <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
     <%= f.text_field :room_number %>
   </div>
   
