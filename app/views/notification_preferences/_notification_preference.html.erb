@@ -7,6 +7,7 @@
 					<%= select notification_preference.id, :frequency, options_for_select({"Passive" => 0, "Every" => 1, "Daily" => 2, "Weekly" => 3}, notification_preference.frequency), {} %>
 		</div>
 </td>
+
 <td>		
 		<div class="field">
 					<%= select notification_preference.id, :scope, options_for_select({"Building" => 0, "Area" => 1, "All" => 2}, notification_preference.scope), {} %>
