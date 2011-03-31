@@ -11,7 +11,26 @@
     <%= javascript_tag '$j = jQuery.noConflict();' %>
     <%= stylesheet_link_tag 'jquery-ui-1.8.9.custom.css' %>
   </head>
+   
   <body>
+  <% if staff_signed_in? %>
+	<div id="toolbar" style="position: fixed; top: 0px; left: 0px; width: 100%; color: #fff; background: #000;"> 
+		<table border="0">
+		<tr>
+			<td width = "50%"><%=link_to image_tag("home.png", :size=> "35x35", :title=>"Home"), "/"%> </td>
+			<td width = "80%"><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> |</b> <%= link_to "Sign Out", destroy_staff_session_path %></p></td>
+			<td width = "10%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
+		</tr>
+		</table>    
+	</div> 	
+	
+	<br>
+	<br> 
+	<br>
+	<br>
+  
+	<% end %>
+
     <div id="container">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>

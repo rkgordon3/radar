@@ -1,7 +1,7 @@
 <h1>Radar</h1>
 <div id = "user_nav">
 	<% if staff_signed_in? %>
-		Signed in as <%= current_staff.email %> Not You? <%= link_to "Sign Out", destroy_staff_session_path %>
+		
 	<% else %>
 		<%= link_to "Sign Up", new_staff_registration_path %> or <%= link_to "Sign In", new_staff_session_path %>
 	<% end %>
@@ -14,7 +14,6 @@
 	<% end %>
 	<p><a href = "http://localhost:3000/reports/new">New Report</a></p>
 	<p><a href = "http://localhost:3000/incident_reports/new_report">New Incident Report</a></p>
-	<p><a href = "http://localhost:3000/notification_preferences">My Notification Preferences</a></p>
 <% end %>
 
 <% if staff_signed_in? %>
