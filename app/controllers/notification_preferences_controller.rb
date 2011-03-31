@@ -28,6 +28,19 @@ class NotificationPreferencesController < ApplicationController
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
 		end
 		pref.update_attributes(params["#{current_staff.id},#{r.name}"])
+		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
+		if(pref.frequency == 2)
+			logger.debug "2"
+			pref.time_offset = 480
+		end
+		if(pref.frequency == 3)
+			logger.debug "3"
+			pref.time_offset = 1920
+		end
+		if(pref.frequency == 1)
+			pref.time_offset = -1
+		end
+		pref.save
 		if(pref.frequency == 0)
 			pref.delete
 		end
