@@ -75,31 +75,7 @@ class IncidentReportsController < ApplicationController
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
-  	  
-  	  logger.debug "inside IR create"
-    #search_submit is name of button clicked called "add students"
-    if params[:search_submit] != nil
-      # update values of incident_report
-      @incident_report = session[:incident_report]
-      @incident_report.update_attributes_without_saving(params[:incident_report])
-      
-      # process parameters into reported infractions
-      self.add_reported_infractions_to_report(@incident_report, params)  
-      
-      
-      # update annotation
-      @annotation = session[:annotation]
-      @annotation.text = params[:annotation]
-      
-      # render search page, sending own path as return address
-      respond_to do |format|
-        format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
-        format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-        format.iphone {render :layout => 'mobile_application'}
-      end
-      
-      
-    else
+
       # any submit button except search_submit (save_submit or submit_submit)
       @incident_report = session[:incident_report]
       
@@ -131,10 +107,7 @@ class IncidentReportsController < ApplicationController
           format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
           format.iphone { render :layout => 'mobile_application'}
         end
-      end
-    end
-    
-    
+			end   
   end
   
   
@@ -148,25 +121,7 @@ class IncidentReportsController < ApplicationController
     # get the report to update
     @incident_report = IncidentReport.find(params[:id])
     
-    # if search_submit button was clicked, save history
-    if params[:search_submit] != nil
-      @incident_report = session[:incident_report]
-      
-      @incident_report.update_attributes_without_saving(params[:incident_report])
-      
-      @annotation = session[:annotation]
-      @annotation.text = params[:annotation]
-      
-      # if user changed infractions for participants, save changes
-      self.add_reported_infractions_to_report(@incident_report, params)
-      
-      # go to report_search page, using current page as request parameter
-      respond_to do |format|
-        format.html { redirect_to '/search/report_search?/incident_reports/'+@incident_report.id.to_s()+'/edit/' }
-        format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-        # format.iphone {render :layout => false}
-      end
-    else 
+
       #deal with annotations
       annotation = Annotation.find(@incident_report.annotation_id)
       annotation.text = params[:annotation]
@@ -195,7 +150,7 @@ class IncidentReportsController < ApplicationController
           #format.iphone {render :layout => false} 
         end 	  	  	  
       end
-    end
+   
     
   end
   
@@ -251,7 +206,9 @@ class IncidentReportsController < ApplicationController
       # if incident report in session is not nil (not first visit)
       # add students returned by search to report by creating fyi infractions
       @incident_report = session[:incident_report]
+      #@incident_report.update_attributes_without_save(params)
       @incident_report.add_default_report_student_relationships_for_participant_array(session[:students])
+      session[:students] = nil
     end
   	  	  # all above to on_initialize
     
@@ -316,6 +273,16 @@ class IncidentReportsController < ApplicationController
     # save new ris to report
     incident_report.report_participant_relationships = new_ris
     
+  end
+  
+  # Callback for student search form
+  def update_participant_list
+  	@student = Student.get_student_object_for_string(params[:full_name])
+  	@incident_report = session[:incident_report]
+  	@incident_report.add_default_report_student_relationships_for_participant_array([ @student ])
+  	respond_to do |format|
+   	   format.js
+   	end 
   end
   
 end

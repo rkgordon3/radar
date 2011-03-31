@@ -1,4 +1,5 @@
 
+    	<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
 
 <%= form_for(@incident_report) do |f| %>
   <% if @incident_report.errors.any? %>
@@ -11,13 +12,20 @@
       <% end %>
       </ul>
     </div>
+ 
   <% end %>
   
-
-  <div class="field">
-    <b><%= f.label :approach_time %>:</b><br />
-    <%= f.text_field :approach_time %>
+  
+      
+  <div id="s-i-form">
+    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
   </div>
+    <div class="field">
+    <b>Annotation:</b><br />
+    <textarea cols="60" id="incident_report_annotation" name="annotation" rows="4" ><%= session[:annotation].text %></textarea>
+ </div>
+
+ 
   <div class="field">
     <%= f.label :building_id %>:<br />
     <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
@@ -27,30 +35,24 @@
     <b><%= f.label :room_number %>:</b><br />
     <%= f.text_field :room_number %>
   </div>
-  <% end %>
-  
-  <div id="s-i-form">
-    <%= render "student_infractions" %>
+   <div class="field">
+    <b><%= f.label :approach_time %>:</b><br />
+    <%= f.text_field :approach_time %>
   </div>
-  
-  
-  <div class="field">
-    <b>Annotation:</b><br />
-    <textarea cols="60" id="incident_report_annotation" name="annotation" rows="20" ><%= session[:annotation].text %></textarea>
- </div>
+ 
 
-    
-    
+
     
   <div class="actions">
        		<p>
        			<% if @incident_report.submitted != true %>
-       				<%= button_to "Save Report", { }, { :method => :get, :id => "save_submit" } %>
+       				<%= submit_tag "Save Report", { :name => "save_submit" } %>
        			<% end %>
-       			<%= button_to "Submit Report", {  }, { :method => :get, :id=>"submit_submit" } %>
+       			<%= submit_tag "Submit Report",  { :name=>"submit_submit" } %>
        		</p>
 
   </div>
+   <% end %> 
 
 
 
