@@ -28,6 +28,9 @@ class NotificationPreferencesController < ApplicationController
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
 		end
 		pref.update_attributes(params["#{current_staff.id},#{r.name}"])
+		if(pref.frequency == 0)
+			pref.delete
+		end
 	end
 
     respond_to do |format|
