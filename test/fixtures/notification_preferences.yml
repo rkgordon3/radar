@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  staff_id: 1
+  report_type: MyString
+  frequency: 1
+  time_offset: 1
+  scope: 1
+
+two:
+  staff_id: 1
+  report_type: MyString
+  frequency: 1
+  time_offset: 1
+  scope: 1

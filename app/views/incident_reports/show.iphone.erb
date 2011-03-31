@@ -11,7 +11,7 @@
   <%= @incident_report.approach_time %><br/><br />
   <b>Building ID:</b>
   <%= @incident_report.building.name %><br/><br />
-  <b>Room Number:</b>
+  <b>Specific Location (Room Number):</b>
   <%= @incident_report.room_number %><br/><br />
   <b>Annotation:</b>
   <%= Annotation.find(@incident_report.annotation_id).text %><br/><br />
