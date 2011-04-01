@@ -193,7 +193,8 @@ class IncidentReportsController < ApplicationController
   	  	  
   	  logger.debug "inside IR new_report"
     # incident_report in session will be nil if first visit to page
-    if session[:incident_report] == nil
+
+ #   if session[:incident_report] == nil
       @incident_report = IncidentReport.new                # new report
       @incident_report.staff_id = current_staff.id         # set submitter
       @annotation = Annotation.new                         # new annotation
@@ -201,15 +202,16 @@ class IncidentReportsController < ApplicationController
       #save everything to the session
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
-      
+=begin      
     else
-      # if incident report in session is not nil (not first visit)
+
+     # if incident report in session is not nil (not first visit)
       # add students returned by search to report by creating fyi infractions
       @incident_report = session[:incident_report]
       #@incident_report.update_attributes_without_save(params)
       @incident_report.add_default_report_student_relationships_for_participant_array(session[:students])
       session[:students] = nil
-    end
+=end
   	  	  # all above to on_initialize
     
     respond_to do |format|
