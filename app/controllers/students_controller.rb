@@ -5,7 +5,6 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
     @numRows = 0
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @students }
@@ -84,7 +83,17 @@ class StudentsController < ApplicationController
   end
   
   def getURLforID(id)
-	url = "edu.smumn." + Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
+	url = Student.find(id).email.downcase
 	image_url = STUDENT_IMAGES_PATH + url
 	end
+	
+	  
+  def show_details
+  				logger.debug "IN SHOW DETAILS"
+  				@id = params[:id]
+  				@student = Student.find(@id)
+  				respond_to do |format|
+  								format.js
+  				end
+  end
 end

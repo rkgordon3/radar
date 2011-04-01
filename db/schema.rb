@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(:version => 20110401042314) do
 
+
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -33,6 +34,16 @@ ActiveRecord::Schema.define(:version => 20110401042314) do
     t.string   "abbreviation"
   end
 
+  create_table "notification_preferences", :force => true do |t|
+    t.integer  "staff_id"
+    t.string   "report_type"
+    t.integer  "frequency"
+    t.integer  "time_offset"
+    t.integer  "scope"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "participants", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -50,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20110401042314) do
     t.datetime "birthday"
     t.string   "extension"
     t.string   "emContact"
+    t.string   "email"
   end
 
   create_table "relationship_to_reports", :force => true do |t|
@@ -64,6 +76,12 @@ ActiveRecord::Schema.define(:version => 20110401042314) do
     t.datetime "updated_at"
     t.integer  "participant_id"
     t.string   "report_id"
+  end
+
+  create_table "report_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reports", :force => true do |t|

@@ -1,5 +1,14 @@
 Radar::Application.routes.draw do
+  resources :report_types
+
+  resources :notification_preferences
+  match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
+  
   get "reports_query/reports_query"
+  
+  match "/incident_reports/update_participant_list" => "incident_reports#update_participant_list"
+  match "/search/update_result_list" => "search#update_result_list"
+  match "/students/show_details/:id" => "students#show_details"
 
   devise_for :staffs
   
@@ -14,9 +23,7 @@ Radar::Application.routes.draw do
   root :to => "home#landingpage"
 		
   get 'search/autocomplete_student_full_name'
-  
-  match "/search/update_list" => "search#update_list"
-  get "/search/update_list"
+
   
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
@@ -36,7 +43,7 @@ Radar::Application.routes.draw do
   match "/reports_query/search_results" => "reports_query#search_results" 
   get "/reports_query/search_results"
   
-  resources :search
+  resources :search 
   
   resources :photos
 

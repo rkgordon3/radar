@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Staff:</b>
+  <%= @notification_preference.staff_id %>
+</p>
+
+<p>
+  <b>Report type:</b>
+  <%= @notification_preference.report_type %>
+</p>
+
+<p>
+  <b>Frequency:</b>
+  <%= @notification_preference.frequency %>
+</p>
+
+<p>
+  <b>Time offset:</b>
+  <%= @notification_preference.time_offset %>
+</p>
+
+<p>
+  <b>Scope:</b>
+  <%= @notification_preference.scope %>
+</p>
+
+
+<%= link_to 'Edit', edit_notification_preference_path(@notification_preference) %> |
+<%= link_to 'Back', notification_preferences_path %>

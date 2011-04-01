@@ -1,65 +1,47 @@
 class SearchController < ApplicationController
-  before_filter :general_authorize  
+	before_filter :general_authorize
+  # autocomplete looks at the student table in the full name field, returns all values that match
   autocomplete :student, :full_name, :display_value => :full_name, :full => true
   
-  def search
-  end
+ 
+  def init_students_from_session
+  	 	 @students = session[:students] 
+  end	 
   
-  def get_autocomplete_items(parameters)
-    Student.where("first_name LIKE ? OR last_name LIKE ?", "#{parameters[:term]}%").order(:first_name).order(:last_name)
-  end
+  def reset_students_in_session	  
+  				@students = Hash.new
+  				session[:students] = @students   
+  end	
   
-  
-  def go_to_student
-    @student = Student.get_student_object_for_string(params[:full_name])
-    
+ def destroy
+  	init_students_from_session	 
+  	@students.delete(params[:id]) 	  
     respond_to do |format|
-      format.html { redirect_to "/students/" + @student.id.to_s }
-      format.xml  { render :xml => @student}
-      
-    end
-    
-  end
-  
-  
-  def update_list
-    
-    @student = Student.get_student_object_for_string(params[:full_name])
-    
-    if session[:students] == nil
-      session[:students] = Array.new
-    end
-    @students = session[:students]
-    
-    exists = false
-    @students.each do |s|
-      if s.id == @student.id
-        exists = true
+    	    format.js
+    end 
+ end
+ 
+ def update_result_list
+ 		  logger.debug("IN UPDATE")
+ 			init_students_from_session
+      @student = Student.get_student_object_for_string(params[:full_name])
+
+      if !@students.key?(@student.id.to_s) 
+	  	  @students[@student.id.to_s] = @student
       end
-    end
-    
-    if exists == false
-      @students << @student
-    end
-    
-    @message = ''
-    
-    @students.each do |s|
-      @message = @message + '<p>' + '<img src="' + self.getURLforID(s.id.to_s) + '"/>' + ' ' + s.first_name + ' ' + s.last_name + '</p>'
-    end
-    
-    
-    render :update do |page|
-      page.replace_html 'found', @message
-    end
-    
-  end
+       respond_to do |format|
+   	   format.js
+   end 
+ end
   
-  
-  def getURLforID(id)
-    url = Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
-    image_url = STUDENT_THUMBS_PATH + url
+ def index
+  	  
+   reset_students_in_session
+
+   respond_to do |format|
+   	   format.js
+   	   format.html 
+   end   
   end
-    
 
 end
