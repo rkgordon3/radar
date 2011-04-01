@@ -30,11 +30,11 @@ Radar::Application.routes.draw do
   	  get :search_results, :on => :collection
   end
   
-  match "/incident_reports/search" => "incident_reports#search"
-  get "/incident_reports/search"
+  match "/reports_query/search" => "reports_query#search"
+  get "/reports_query/search"
   
-  match "/incident_reports/search_results" => "incident_reports#search_results" 
-  get "/incident_reports/search_results"
+  match "/reports_query/search_results" => "reports_query#search_results" 
+  get "/reports_query/search_results"
   
   resources :search
   
@@ -43,6 +43,8 @@ Radar::Application.routes.draw do
   resources :annotations
 
   resources :participants
+  
+  resources :reports_query
 
   resources :report_participant_relationships
 

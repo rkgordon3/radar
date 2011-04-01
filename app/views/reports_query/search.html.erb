@@ -40,7 +40,7 @@
   		 <b>Infraction:</b><br />
   		 <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
   		 	<option value="0" selected="selected">Select An Infraction</option>
-  		 	<% Infraction.all.each do |i| %>
+  		 	<% RelationshipToReport.all.each do |i| %>
   		 	    	<option value="<%= i.id %>"><%= i.description %></option>
   		 	<% end %>
   		 	</select>

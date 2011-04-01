@@ -1,6 +1,6 @@
 class IncidentReportsController < ApplicationController
-  before_filter :admin_authorize, :except => [:new_report, :show, :edit]
-  before_filter :general_authorize  
+  before_filter :hd_authorize_view_access, :except => [:new_report, :show, :edit]
+  before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
   acts_as_iphone_controller = true
   
