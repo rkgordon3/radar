@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Particpant ID</th>
+    <th></th>
     <% if current_staff.role == "Admin" %>
 	<th>Student ID</th>
 	<% end %>
@@ -26,7 +26,7 @@
     <% @numRows = 0 %> 
     <tr>
   <% end %>
-    <td><%= student.id %></td>
+    <td><%= image_tag(student.getThumbnailUrl, :border=> 0)  %></td>
 	<% if current_staff.role == "Admin" %>
     <td><%= student.student_id %></td>
 	<% end %>
