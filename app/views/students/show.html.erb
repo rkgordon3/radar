@@ -1,4 +1,4 @@
-<h1>Showing Student <%= @student.id %></h1>
+<h1><%= "#{@student.first_name} #{@student.last_name}" %></h1>
 <p id="notice"><%= notice %></p>
 
 <%if staff_signed_in? %>
@@ -9,23 +9,12 @@
 </p>
 	<% end %>
 <% end %>	
-<p>
-  <b>First Name:</b>
-  <%= @student.first_name %>
-</p>
 
 <p>
-  <b>Last Name:</b>
-  <%= @student.last_name %>
+  <b>Residence:</b>
+  <%= "#{@student.room_number} #{@student.building.name}" %>
 </p>
-<p>
-  <b>Building:</b>
-  <%= @student.building.name %>
-</p>
-<p>
-  <b>Room Number:</b>
-  <%= @student.room_number %>
-</p>
+
 <p>
   <b>Phone Extension:</b>
   <%= @student.extension %>
@@ -34,10 +23,12 @@
   <b>Age:</b>
   <%= @student.age %>
 </p>
+
 <p>
   <b>Birthday:</b>
-  <%= @student.birthday.strftime("%m/%d/%Y") %>
+  <%= @student.birthday != nil ? @student.birthday.strftime("%m/%d/%Y") : "" %>
 </p>
+
 <%if staff_signed_in? %>
 	<%if current_staff.role == "Admin" %>
 
@@ -59,12 +50,7 @@
 <% end %>
 
 <p>
-	<b>Picture:</b>
-	<!--  rkg make getURLforID a class method so that you don't
-	need to create a new students controller each time through  -->
-	<% test = StudentsController.new() %>
-	<% image_url = test.getURLforID(@student.id) %>
-	<%= link_to image_tag(image_url, :border=>0) %>
+	<%= link_to image_tag(@student.getImageUrl, :border=>0) %>
 </p>
 
 

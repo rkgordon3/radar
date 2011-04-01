@@ -82,10 +82,7 @@ class StudentsController < ApplicationController
     end
   end
   
-  def getURLforID(id)
-	url = Student.find(id).email.downcase
-	image_url = STUDENT_IMAGES_PATH + url
-	end
+ 
 	
 	  
   def show_details

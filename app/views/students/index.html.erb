@@ -1,4 +1,4 @@
-<h1>Listing Students</h1>
+<h1>Students</h1>
 
 <table>
   <tr>
@@ -36,7 +36,7 @@
     <td><%= student.room_number %></td>
 	<td><%= student.extension %></td>
     <td><%= student.age %></td>
-	<td><%= student.birthday.strftime("%m/%d/%Y") %></td>
+<td><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></td>
     
     <td><%= link_to 'Show', student %></td>
 <%if staff_signed_in? %>
