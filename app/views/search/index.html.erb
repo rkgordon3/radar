@@ -1,0 +1,15 @@
+<h1>Student Search</h1>
+
+<div id="found">
+<% if session[:students] != nil %>
+	<%= render(session[:students].values) %>
+<% end %>	
+</div>
+  <%= render(:partial => "autocomplete_full_name", :locals => { :target => "/search/update_result_list"} ) %>
+<br/>
+<br/>
+	<%= form_tag("#{params[:returnUrl]}", :method => :get) do %>
+  		<%= submit_tag "Done", :name=> "search_submit" %>
+	<% end %>
+
+

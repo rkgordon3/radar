@@ -1,2 +1,2 @@
-<p><%=image_tag(STUDENT_THUMBS_PATH:: + student.first_name.downcase + "." + student.last_name.downcase)%> <%= student.first_name %> <%= student.last_name %></p>
-
+<%= button_to  "X", { :action => "destroy",  :id => student.id }, { :method => :delete, :remote=>true }   %>
+<%= link_to  "#{student.last_name}, #{student.first_name}", student %><br/>

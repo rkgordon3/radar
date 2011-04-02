@@ -1,16 +1,24 @@
 <tr>
-<td>
-<%= notification_preference.report_type + " Report" %>
-</td>
-<td>
-		<div class="field">
-					<%= select notification_preference.id, :frequency, options_for_select({"Passive" => 0, "Every" => 1, "Daily" => 2, "Weekly" => 3}, notification_preference.frequency), {} %>
-		</div>
-</td>
+	<td>
+		<%= notification_preference.report_type + " Report:" %>
+	</td>
 
-<td>		
-		<div class="field">
-					<%= select notification_preference.id, :scope, options_for_select({"Building" => 0, "Area" => 1, "All" => 2}, notification_preference.scope), {} %>
+	<td>
+		<%= radio_button(notification_preference.id, :frequency, 0, :onclick => "Element.hide('scope_#{notification_preference.report_type}');", :checked =>"checked") %><label>Never</label><br>
+		<%= radio_button(notification_preference.id, :frequency, 1, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 1) %><label>Immediately</label><br>
+		<%= radio_button(notification_preference.id, :frequency, 2, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 2) %><label>Daily</label><br>
+		<%= radio_button(notification_preference.id, :frequency, 3, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 3) %><label>Weekly</label></td>
+	
+	<% if current_staff.role != "RA" %>
+	<td>		
+		<div id="scope_<%= notification_preference.report_type %>">
+			<% if current_staff.role != "Admin" %> 
+			<%= radio_button(notification_preference.id, :scope, 0, :checked =>"checked") %><label>Building</label><br>
+			<% end %>
+			<%= radio_button(notification_preference.id, :scope, 1, :checked =>notification_preference.scope == 1) %><label>Area</label><br>
+			<%= radio_button(notification_preference.id, :scope, 2, :checked =>notification_preference.scope == 2) %><label>All</label>
+			
 		</div>
-</td>
+	</td>
+	<% end %>
 </tr>
