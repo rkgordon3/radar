@@ -210,7 +210,6 @@ class IncidentReportsController < ApplicationController
   def new_report 	 
   	  	  
   	  logger.debug "inside IR new_report"
-      self.clear_session
       @incident_report = IncidentReport.new                # new report
       @incident_report.staff_id = current_staff.id         # set submitter
       @annotation = Annotation.new                         # new annotation
@@ -218,7 +217,8 @@ class IncidentReportsController < ApplicationController
       #save everything to the session
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
-      
+
+   
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @incident_report }

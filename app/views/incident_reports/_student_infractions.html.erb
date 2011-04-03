@@ -31,9 +31,10 @@ function divToggle(divID,imgID) {
    	<% @currentParticipantID = b.participant.id %>
   	&nbsp;&nbsp;&nbsp; 
   
-  		<%= link_to nil, { :onclick => "Element.toggle('details_div_#{b.participant.id}'); return false;"} do %>
-  		<%= "#{b.participant.first_name} #{b.participant.last_name}" %>
-  		<% end %>
+  		<%= link_to image_tag(b.participant.getThumbnailUrl, :border=> 0), "#", :onclick => "Element.toggle('details_div_#{b.participant.id}'); return false;"  %>
+  		
+  	
+  <%= "#{b.participant.first_name} #{b.participant.last_name}" %>
 
   	<div id="details_div_<%= b.participant.id %>" style="display: none;" >
   	  <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
