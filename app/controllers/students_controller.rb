@@ -83,17 +83,22 @@ class StudentsController < ApplicationController
   end
   
   def getURLforID(id)
-	url = Student.find(id).email.downcase
-	image_url = STUDENT_IMAGES_PATH + url
+	 url = Student.find(id).email.downcase
+	 image_url = STUDENT_IMAGES_PATH + url
 	end
 	
 	  
   def show_details
-  				logger.debug "IN SHOW DETAILS"
-  				@id = params[:id]
-  				@student = Student.find(@id)
-  				respond_to do |format|
-  								format.js
-  				end
-  end
+    logger.debug "IN SHOW DETAILS"
+    @id = params[:id]
+    @student = Student.find(@id)
+    respond_to do |format|
+  			format.js
+  	end
+ end
+ 
+ 
+ 
+ 
+ 
 end

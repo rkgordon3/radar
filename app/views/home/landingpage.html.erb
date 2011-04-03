@@ -46,7 +46,7 @@
 				<%= render :partial => "/incident_reports/incident_report_table_row_labels" %>
 				
 				<% num_rows = 0 %>
-				<% @unsubmitted.each do |report| %>
+				<% @recent.each do |report| %>
 					<%= render :partial => "/incident_reports/incident_report_table_row", :locals => { :incident_report => report, :num_rows => num_rows } %>
 				<% end %>
 			</table>

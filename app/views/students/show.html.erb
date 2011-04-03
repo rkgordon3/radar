@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 
 <%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
 <p>
   <b>Student ID:</b>
   <%= @student.student_id %>
@@ -39,7 +39,7 @@
   <%= @student.birthday.strftime("%m/%d/%Y") %>
 </p>
 <%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
 
 <p>
   <b>Home Phone:</b>

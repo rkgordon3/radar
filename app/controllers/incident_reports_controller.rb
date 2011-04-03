@@ -1,5 +1,5 @@
 class IncidentReportsController < ApplicationController
-  before_filter :hd_authorize_view_access, :except => [:new_report, :show, :edit]
+  before_filter :admin_assistant_authorize_view_access, :except => [:new_report, :show, :edit, :create, :update_participant_list, :update, :destroy]
   before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
   acts_as_iphone_controller = true
@@ -32,6 +32,13 @@ class IncidentReportsController < ApplicationController
     # get the report for the view to show
     @incident_report = IncidentReport.find(params[:id])
     
+    if (@incident_report.submitted? && @incident_report.updated_at + 1.minutes < Time.now && current_staff.access_level == Authorize.ra_access_level) || (@incident_report.staff != current_staff && current_staff.access_level == Authorize.ra_access_level)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+    end
+      
+    
     self.clear_session #probably not necessary, but good practice anyway
     
     respond_to do |format|
@@ -48,18 +55,22 @@ class IncidentReportsController < ApplicationController
   
   # GET /incident_reports/1/edit
   def edit
-    if(session[:incident_report] !=nil)
-      @incident_report = session[:incident_report]
-      @annotation = session[:annotation]
-    else
+
       # get the report and annotation for the view to edit
       @incident_report = IncidentReport.find(params[:id])
+      
+      if (@incident_report.submitted? && current_staff.access_level == Authorize.ra_access_level) || (!@incident_report.submitted? && current_staff.access_level == Authorize.ra_access_level && @incident_report.staff != current_staff)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+      end
+      
       @annotation = Annotation.find(@incident_report.annotation_id)
       
       # save the report and annotation into the session
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
-    end
+
     
     # if this is the return from a report_search page
     if session[:students] != nil
@@ -165,6 +176,13 @@ class IncidentReportsController < ApplicationController
     # get the report
     @incident_report = IncidentReport.find(params[:id])
     
+    # check authorization
+    if(Authorize.ra_authorize(current_staff) && current_staff != @incident_report.staff) || (Authorize.ra_authorize(current_staff) && current_staff == @incident_report.staff && @incident_report.submitted)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+    end
+    
     # destroy all reported infractions associated with it
     @incident_report.report_participant_relationships.each do |ri|
       ri.destroy
@@ -192,8 +210,7 @@ class IncidentReportsController < ApplicationController
   def new_report 	 
   	  	  
   	  logger.debug "inside IR new_report"
-    # incident_report in session will be nil if first visit to page
-    if session[:incident_report] == nil
+      self.clear_session
       @incident_report = IncidentReport.new                # new report
       @incident_report.staff_id = current_staff.id         # set submitter
       @annotation = Annotation.new                         # new annotation
@@ -202,16 +219,6 @@ class IncidentReportsController < ApplicationController
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
       
-    else
-      # if incident report in session is not nil (not first visit)
-      # add students returned by search to report by creating fyi infractions
-      @incident_report = session[:incident_report]
-      #@incident_report.update_attributes_without_save(params)
-      @incident_report.add_default_report_student_relationships_for_participant_array(session[:students])
-      session[:students] = nil
-    end
-  	  	  # all above to on_initialize
-    
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @incident_report }

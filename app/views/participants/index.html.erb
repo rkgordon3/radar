@@ -28,8 +28,10 @@
     <td><%= participant.affiliation %></td>
     <td><%= participant.age %></td>
     <td><%= link_to 'Show', participant %></td>
-    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if Authorize.not_admin_assistant_authorize(current_staff) %> 
+	    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
+    	<td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
+  	<% end %>
   </tr>
 <% end %>
 </table>
