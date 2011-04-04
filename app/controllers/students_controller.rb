@@ -81,9 +81,7 @@ class StudentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
- 
-	
+
 	  
   def show_details
   				logger.debug "IN SHOW DETAILS"

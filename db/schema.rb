@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110330002836) do
+ActiveRecord::Schema.define(:version => 20110404190052) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20110330002836) do
     t.string   "cell_phone"
     t.string   "home_phone"
     t.string   "affiliation"
-    t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
