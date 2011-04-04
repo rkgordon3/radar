@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     Building ID:<br />
-    <%= f.text_field :building_id %>
+	<%= f.select :building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
   </div>
   <div class="field">
     <%= f.label :room_number %>:<br />
