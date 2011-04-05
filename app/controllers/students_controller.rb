@@ -82,6 +82,7 @@ class StudentsController < ApplicationController
     end
   end
   
+  
   def show_details
     logger.debug "IN SHOW DETAILS"
     @id = params[:id]

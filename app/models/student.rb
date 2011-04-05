@@ -60,6 +60,16 @@ class Student < Participant
   	 def getThumbnailUrl
   	 				 STUDENT_THUMBS_PATH + email.downcase
   	 end
+	
+	def getAge(dob)
+     unless dob.nil?
+       a = Date.today.year - dob.year
+       b = Date.new(Date.today.year, dob.month, dob.day)
+       a = a-1 if b > Date.today
+       return a
+     end
+     nil
+   end	
   	 
 	
 	

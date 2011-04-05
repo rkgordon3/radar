@@ -5,8 +5,7 @@
     <th>Report ID</th>
     <th>Report Type</th>
     <th>Staff</th>
-    <th>Created Date</th>
-    <th>Created Time</th>
+    <th>Created Date/Time</th>
     <th></th>
     <th></th>
     <th></th>
@@ -24,8 +23,7 @@
     <td><%= report.id %></td>
     <td><%= report.type %></td>
     <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-    <td><%= report.created_at.to_s(:date_only) %></td>
-    <td><%= report.created_at.to_s(:time_only) %></td>
+    <td><%= report.created_at.to_s(:short) %></td>
     <td><%= link_to 'Show', report %></td>
     <% if Authorize.not_admin_assistant_authorize(current_staff) %>
     	<td><%= link_to 'Edit', edit_report_path(report) %></td>
