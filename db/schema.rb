@@ -10,11 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20110403221557) do
-=======
 ActiveRecord::Schema.define(:version => 20110404190052) do
->>>>>>> 1d6c011fc3d82b2d6e4a0bbe64f0868f9238a321
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -96,8 +92,6 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
     t.integer  "staff_id"
     t.boolean  "submitted"
     t.integer  "annotation_id"
-    t.string   "fieldname"
-    t.string   "report_no"
   end
 
   create_table "sessions", :force => true do |t|
