@@ -1,4 +1,4 @@
-<%= form_tag('/students/process_search_parameters') %>
+<%= form_tag('/students/search_results') %>
   
 <h1>Student Search</h1>
 
@@ -57,7 +57,7 @@
 		<td>
 			<div class="field">
     			<b>Birthdate After Date:</b><br />
-				<%= text_field_tag "stud_search[after_birthdate]" %> 
+				<%= text_field_tag "after_birthdate" %> 
 			</div>
 		</td>
 		<td>
@@ -65,7 +65,7 @@
 		<td>
 			<div class="field">
     			<b>Birthdate Before Date:</b><br />
-    			<%= text_field_tag "stud_search[before_birthdate]" %>
+    			<%= text_field_tag "before_birthdate" %>
   			</div>
 		</td>
 	</tr>

@@ -1,53 +1,7 @@
 <h1>Students</h1>
 
-<table>
-  <tr>
-    <th></th>
-	<%if current_staff.access_level > Authorize.ra_access_level %>
-	<th>Student ID</th>
-	<% end %>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Building</th>
-    <th>Room #</th>
-    <th>Phone Extension</th>
-    <th>Age</th>
-	<th>Birthday</th>
-    <th></th>
-    <th></th>
-  </tr>
-  
-<% @students.each do |student| %>
- 
-  <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
-    <tr>
-  <% end %>
-    <td><%= image_tag(student.getThumbnailUrl, :border=> 0)  %></td>
-	<%if current_staff.access_level > Authorize.ra_access_level %>
-    <td><%= student.student_id %></td>
-	<% end %>
-    <td><%= student.first_name %></td>
-    <td><%= student.last_name %></td>
-    <td><%= student.building.name %></td>
-    <td><%= student.room_number %></td>
-	<td><%= student.extension %></td>
-    <td><%= student.getAge(student.birthday) %></td>
-	<td><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></td>
-    
-    <td><%= link_to 'Show', student %></td>
-<%if staff_signed_in? %>
-	<%if current_staff.access_level > Authorize.admin_assistant_access_level %>
-    <td><%= link_to 'Edit', edit_student_path(student) %></td>
-    <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
-	<% end %>
-<% end %>	
-  </tr>
-<% end %>
-</table>
+  <%= render :partial => "/students/student_full_info_list", :locals => { :students => @students} %>
+
 
 <br />
 

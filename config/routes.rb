@@ -48,6 +48,9 @@ Radar::Application.routes.draw do
   match "/students/process_search_parameters" => "students#process_search_parameters" 
   get "/students/process_search_parameters"
   
+  match "/students/search_results" => "students#search_results" 
+  get "/students/search_results"
+  
   resources :search 
   
   resources :photos
