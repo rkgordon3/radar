@@ -219,6 +219,7 @@ class IncidentReportsController < ApplicationController
       session[:annotation] = @annotation
 
    
+
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @incident_report }

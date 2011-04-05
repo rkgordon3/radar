@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th></th>
-    <% if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
 	<th>Student ID</th>
 	<% end %>
     <th>First Name</th>
@@ -27,7 +27,7 @@
     <tr>
   <% end %>
     <td><%= image_tag(student.getThumbnailUrl, :border=> 0)  %></td>
-	<% if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
     <td><%= student.student_id %></td>
 	<% end %>
     <td><%= student.first_name %></td>
@@ -40,7 +40,7 @@
     
     <td><%= link_to 'Show', student %></td>
 <%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>	
+	<%if current_staff.access_level > Authorize.admin_assistant_access_level %>
     <td><%= link_to 'Edit', edit_student_path(student) %></td>
     <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
 	<% end %>
