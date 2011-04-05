@@ -3,24 +3,58 @@
 	<% if staff_signed_in? %>
 		
 	<% else %>
-		<%= link_to "Sign Up", new_staff_registration_path %> or <%= link_to "Sign In", new_staff_session_path %>
+		<%= link_to "Sign In", new_staff_session_path %>
 	<% end %>
 </div>
 
 <% if staff_signed_in? %>
-	<% if Authorize.admin_assistant_authorize(current_staff) %>
-		<p><a href = "http://localhost:3000/students">Students</a></p>
-		<p><a href = "http://localhost:3000/reports">Reports</a></p>
+	<ul>
+		<li>Students
+			<ul>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><a href = "/students">List Students</a></li>
+				<% end %>
+				<li><a href = "/students/search_students">Search Students</a></li>
+			</ul>
+		</li>
+		<li>Incident Reports
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li><a href = "/incident_reports/new_report">New Incident Report</a></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><a href = "/incident_reports">List Incident Reports</a></li>
+					<li><a href = "/reports_query/search">Search Incident Reports</a></li>
+				<% end %>
+			</ul>
+		</li>
+		<li>Maintenance Requests
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li>New Maintenence Request</li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li>List Maintenence Requests</li>
+					<li>Search Maintenence Requests</li>
+				<% end %>
+			</ul>
+		</li>
+		<li>Duty Logs
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li>New Duty Log</li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li>List Duty Logs</li>
+					<li>Search Duty Logs</li>
+				<% end %>
+			</ul>
+		</li>
+	</ul>
+	
 	<% end %>
-	<p><a href = "http://localhost:3000/incident_reports/new_report">New Incident Report</a></p>
-<% end %>
 
-<% if staff_signed_in? %>
 
-  <%= link_to "/search?returnUrl=#{request.fullpath} ", { :method => :get} do %>
-  Search Students
-  <% end %>
-<% end %>
 
 
 <% if staff_signed_in? %>
