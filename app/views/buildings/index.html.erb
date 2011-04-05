@@ -24,8 +24,10 @@
     <td><%= building.abbreviation %></td>
     <td><%= building.area_id %></td>
     <td><%= link_to 'Show', building %></td>
-    <td><%= link_to 'Edit', edit_building_path(building) %></td>
-    <td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
+        <td><%= link_to 'Edit', edit_building_path(building) %></td>
+    	<td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
+  	<% end %>
   </tr>
 <% end %>
 </table>

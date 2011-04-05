@@ -7,6 +7,7 @@ class Report < ActiveRecord::Base
   
 	
   def update_attributes_without_saving(params)
+  				logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time]   
@@ -128,16 +129,12 @@ class Report < ActiveRecord::Base
     
     return ri
   end
-  
-  
-  
-  
-  
+ 
   def add_default_report_student_relationships_for_participant_array(participants)    
     if participants != nil
       # go through the students and add fyi relationships
       participants.each do |s|
-        add_default_relationship_to_report_for_participant(s.id)
+      				add_default_relationship_to_report_for_participant(s.id)
       end
     end
   end

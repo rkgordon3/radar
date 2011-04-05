@@ -32,15 +32,16 @@
   	</table>
   	
   	<div class="field">
-  		 <b>Student:</b><br />
-  		 <%= render '/search/autocomplete_full_name' %>
+  		 <b>Student:</b><br />  
+		 <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+
   	</div>
   	
   	<div class="field">
   		 <b>Infraction:</b><br />
   		 <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
   		 	<option value="0" selected="selected">Select An Infraction</option>
-  		 	<% Infraction.all.each do |i| %>
+  		 	<% RelationshipToReport.all.each do |i| %>
   		 	    	<option value="<%= i.id %>"><%= i.description %></option>
   		 	<% end %>
   		 	</select>

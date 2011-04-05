@@ -1,7 +1,7 @@
 class StaffsController < ApplicationController
   # GET /staffs
   # GET /staffs.xml
-  before_filter :admin_authorize
+  before_filter :super_admin_authorize_view_access
   def index
     @staffs = Staff.all
     @numRows = 0
@@ -25,7 +25,7 @@ class StaffsController < ApplicationController
 
   # GET /staffs/new
   # GET /staffs/new.xml
-  def new
+  def new_old
     @staff = Staff.new
 
     respond_to do |format|

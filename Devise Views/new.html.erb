@@ -14,13 +14,15 @@
 
   <p><%= f.label :password %><br />
   <%= f.password_field :password %></p>
-
+  
   <p><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></p>
   
-  <p><%= f.label :role %><br />
-  <%= f.text_field :role %></p>
+  <p><%= f.label :access_level %><br />
+  <%= f.select :access_level, [["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]] %></p>
 
+  <%= f.hidden :active, "t" %>
+  
   <p><%= f.submit "Sign up" %></p>
 <% end %>
 

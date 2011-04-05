@@ -1,30 +1,43 @@
 Radar::Application.routes.draw do
+  get "reports_query/reports_query"
+  
+  match "/incident_reports/update_participant_list" => "incident_reports#update_participant_list"
+  match "/search/update_result_list" => "search#update_result_list"
+
   devise_for :staffs
   
   get "home/landingpage"
 
   get "search/search"
-		root :to => "home#landingpage"
+  
+  root :to => "home#landingpage"
 	
   get "search/report_search"
-		root :to => "home#landingpage"
-
+  
+  root :to => "home#landingpage"
 		
   get 'search/autocomplete_student_full_name'
+
   
-  match "/search/update_list" => "search#update_list"
-  get "/search/update_list"
-  
+  match "/search/delete_student" => "search#delete_student"
+  get "/search/delete_student"
   
   match "/search/go_to_student" => "search#go_to_student"
   get "/search/go_to_student"
   
   resources :incident_reports do
   	  get :new_report, :on => :collection
+  	  get :search, :on => :collection
+  	  get :search_results, :on => :collection
   end
   
-  resources :search
+  match "/incident_reports/search" => "incident_reports#search"
+  get "/incident_reports/search"
   
+  match "/incident_reports/search_results" => "incident_reports#search_results" 
+  get "/incident_reports/search_results"
+  
+  resources :search 
   
   resources :photos
 
@@ -32,7 +45,7 @@ Radar::Application.routes.draw do
 
   resources :participants
 
-  resources :reported_infractions
+  resources :report_participant_relationships
 
   resources :staffs
 
@@ -47,7 +60,7 @@ Radar::Application.routes.draw do
   end
   resources :student_infractions
 
-  resources :infractions
+  resources :relationship_to_reports
 
   resources :locations
 

@@ -1,11 +1,12 @@
 class ReportsQueryController < ApplicationController
+  
+  before_filter :admin_assistant_authorize_view_access
+  
   def reports_query
   end
 
    # GET /reports_query/
-  def search
-    self.clear_session #probably not necessary, but good practice anyway.
-    
+  def search    
     respond_to do |format|
       format.html # search.html.erb
     end
@@ -28,11 +29,11 @@ class ReportsQueryController < ApplicationController
       student = Student.get_student_object_for_string(params[:full_name])
       
       # get all reported infractions for that student
-      reported_inf = ReportedInfraction.where(:participant_id => student.id)
+      reported_inf = ReportParticipantRelationship.where(:participant_id => student.id)
       
       # get all of the report ids from the reported infractions
       reported_inf.each do |ri|
-        report_ids << ri.incident_report_id
+        report_ids << ri.report_id
       end
       
       # get the incident reports with those ids
@@ -43,7 +44,7 @@ class ReportsQueryController < ApplicationController
     # if a particular infraction was selected, get all reports w/ that infraction
     if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
       # get reported infractions all with that infraction
-      reported_inf = ReportedInfraction.where(:infraction_id => params[:infraction_id])
+      reported_inf = ReportParticipantRelationship.where(:infraction_id => params[:infraction_id])
       
       # if a student was selected, limit to only those infractions by that student
       if student != nil

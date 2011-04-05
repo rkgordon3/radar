@@ -23,9 +23,8 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :role %><br />
-    <%= f.text_field :role %>
+  	<p><%= f.label :role %><br />
+  	<%= f.select :access_level [["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]] %></p>
   </div>
   <div class="actions">
     <%= f.submit %>
