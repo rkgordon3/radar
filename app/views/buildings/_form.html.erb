@@ -19,9 +19,10 @@
     <%= f.label :abbreviation %><br />
     <%= f.text_field :abbreviation %>
   </div>
-   <div class="field">
+  <div class="field">
     Area ID<br />
-    <%= f.text_field :area_id %>
+    <% areas = Area.all %>
+    <%= select_tag "area_id", options_from_collection_for_select(areas, "id", "name") %>
   </div>
   <div class="actions">
     <%= f.submit %>
