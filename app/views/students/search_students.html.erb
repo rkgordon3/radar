@@ -1,0 +1,76 @@
+<%= form_tag('/students/process_search_parameters') %>
+  
+<h1>Student Search</h1>
+
+<h3>Search for one specific student.</h3>
+<table style="vertical-align: middle; border:none; margin: none;">
+	<tr>
+		<td>
+			<div class="field">
+    			<b>Student Name:</b><br />
+				<%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+			</div>
+		</td>
+		<td>
+			-or-
+		<td>
+			<div class="field">
+    			<b>Student ID Number:</b><br />
+    			<%= text_field_tag "student_id" %>
+  			</div>
+		</td>
+	</tr>
+</table>
+<div class="actions">
+    <%= submit_tag "Submit" %>
+</div>
+<br />
+<hr />
+<br />
+  	
+<h3>Search for multiple students.</h3>
+
+<table style="vertical-align: middle; border:none; margin: none;">
+	<tr>
+		<td>
+			<div class="field">
+    			<b>Building:</b><br />
+				<% res_halls = Building.where(:id => Building.unspecified..Building.end_of_res_hall_id) %>
+    			<%= select_tag "building_id", options_from_collection_for_select(res_halls, "id", "name") %>
+			</div>
+			<div class="field">
+				<b>Room Number:</b><br />
+				<%= text_field_tag "room_number" %> 
+			</div>
+		</td>
+		<td>
+			-or-
+		<td>
+			<div class="field">
+    			<b>Area:</b><br />
+    			<% areas = Area.all %>
+    			<%= select_tag "area_id", options_from_collection_for_select(areas, "id", "name") %>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="field">
+    			<b>Birthdate After Date:</b><br />
+				<%= text_field_tag "stud_search[after_birthdate]" %> 
+			</div>
+		</td>
+		<td>
+		</td>
+		<td>
+			<div class="field">
+    			<b>Birthdate Before Date:</b><br />
+    			<%= text_field_tag "stud_search[before_birthdate]" %>
+  			</div>
+		</td>
+	</tr>
+</table>
+
+<div class="actions">
+    <%= submit_tag "Submit" %>
+</div>
