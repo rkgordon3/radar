@@ -23,8 +23,9 @@
   <% end %>
 <% end %>
 
-<hr >
+
 <% if staff_signed_in? %>
+<hr >
 	<h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
 	<% if @unsubmitted.length > 0 %>
 		<table>
