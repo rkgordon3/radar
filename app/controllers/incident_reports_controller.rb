@@ -3,6 +3,7 @@ class IncidentReportsController < ApplicationController
   before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
   acts_as_iphone_controller = true
+
   
   
   # GET /incident_reports
@@ -45,6 +46,7 @@ class IncidentReportsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @incident_report }
       #format.iphone {render :layout => false}
+      format.iphone {render :layout => 'mobile_application'}
     end
   end
   
@@ -76,6 +78,12 @@ class IncidentReportsController < ApplicationController
     if session[:students] != nil
       @incident_report.add_default_report_student_relationships_for_participant_array(session[:students])
     end 
+    
+    respond_to do |format|
+        format.html 
+        format.iphone {render :layout => 'mobile_application'}
+      end
+      
   end
   
   
@@ -86,7 +94,29 @@ class IncidentReportsController < ApplicationController
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
-
+    #search_submit is name of button clicked called "add students"
+    if params[:search_submit] != nil
+      # update values of incident_report
+      @incident_report = session[:incident_report]
+      @incident_report.update_attributes_without_saving(params[:incident_report])
+      
+      # process parameters into reported infractions
+      self.add_reported_infractions_to_report(@incident_report, params)  
+      
+      
+      # update annotation
+      @annotation = session[:annotation]
+      @annotation.text = params[:annotation]
+      
+      # render search page, sending own path as return address
+      respond_to do |format|
+        format.html { redirect_to '/search/report_search?/incident_reports/new_report' }
+        format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
+        format.iphone {redirect_to '/search/report_search.iphone?/incident_reports/new_report.iphone', :layout => 'mobile_application'}
+      end
+      
+      
+    else
       # any submit button except search_submit (save_submit or submit_submit)
       @incident_report = session[:incident_report]
       
@@ -113,10 +143,12 @@ class IncidentReportsController < ApplicationController
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
           format.iphone {render :layout => 'mobile_application'}
+          format.iphone {redirect_to(@incident_report)}
         else
           format.html { render :action => "new_report" }
           format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
           format.iphone { render :layout => 'mobile_application'}
+          format.iphone { render :action => "new_report", :layout => 'mobile_application'}
         end
 			end   
   end

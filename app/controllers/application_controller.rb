@@ -1,25 +1,28 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-  before_filter :set_iphone_format
-  
-  
-  def general_authorize
-    unless staff_signed_in?
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
-    end
-  end
-  
-  
-  
-  def set_iphone_format
-    if is_iphone_request? 
-      format = "iphone"
-    end
-  end
-  
-  
+	before_filter :set_iphone_format
+	protect_from_forgery
+
+	def general_authorize
+		unless staff_signed_in?
+			flash[:notice] = "Unauthorized Access"
+			redirect_to "/home/landingpage"
+			false
+		end
+	end
+	def set_iphone_format
+		if is_iphone_request?
+			request.format = :iphone
+		end
+	end
+
+	def is_iphone_request?
+		TRUE
+		#request.user_agent =~ /(Mobile\/.+Safari)/
+	end  
+	
+
+	
+	
   
   def ra_authorize_view_access
     if staff_signed_in?
@@ -105,11 +108,4 @@ class ApplicationController < ActionController::Base
     end 
   end 
   
-  def is_iphone_request?
-    request.user_agent =~ /(Mobile\/.+Safari)/
-  end  
-  
-  
-  
-
 end

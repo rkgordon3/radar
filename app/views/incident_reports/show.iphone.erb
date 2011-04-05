@@ -1,4 +1,86 @@
 <h1>Showing Incident Report <%= @incident_report.id %> </h1>
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <a href="#" id="waBackButton">Back</a>
+        <span id="waHeadTitle">Incident Report</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+            <form action="/incident_reports.iphone" method="POST">
+                <div class="iPanel">
+                    <fieldset>
+                    <Legend>
+                        Showing Incident Report #<%= @incident_report.id %>
+                    </Legend>
+                    <ul>
+                        <li>
+                            Report ID:<span><%= @incident_report.id %>
+                            </span>
+                        </li>
+                        <li>
+                            Submitted:<span><%= @incident_report.submitted %></span>
+                        </li>
+                        <li>
+                            Approach Time:<span><%= @incident_report.approach_time %></span>
+                        </li>
+                        <li>
+                            Building ID:<span><%= @incident_report.building.name %></span>
+                        </li>
+                        <li>
+                            Room Number:<span><%= @incident_report.room_number %></span>
+                        </li>
+                        <li>
+                            Submitter:<span><%= @incident_report.staff.first_name %> <%= @incident_report.staff.last_name %>
+                            </span>
+                        </li>
+                    </ul>
+                    <Legend>
+                        Annotation:
+                    </Legend>
+                    <ul>
+                        <li>
+                            <%= Annotation.find(@incident_report.annotation_id).text %>
+                        </li>
+                    </ul>
+                    <Legend>
+                        Student infractions:
+                    </Legend>
+                    <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+                    <ul>
+					<% @incident_report.report_participant_relationships.each do |b| %>
+                    <% if b.participant.id != @currentParticipantID %>
+					
+                    <% @currentParticipantID = b.participant.id %>
+					</ul>
+                    <Legend>Participant:</Legend>
+					<ul>
+                        
+                            
+							<li>
+							<% if b.participant.type == "Student" %>
+                            
+                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                       
+                        <% else %>
+                        
+                        <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                    
+                    <% end %>
+                    </li>
+                </ul>
+                
+                <Legend>
+                    Infractions:
+                </Legend>
+				<ul>
+                    <% end %>
+					
+                    <li>
+                        <%= b.relationship_to_report.description %>
+                    </li>
+					
+                    <% end %>
+                </ul>
 
 <p id="notice"><%= notice %></p>
 
@@ -11,7 +93,7 @@
   <%= @incident_report.approach_time %><br/><br />
   <b>Building ID:</b>
   <%= @incident_report.building.name %><br/><br />
-  <b>Specific Location (Room Number):</b>
+  <b>Room Number:</b>
   <%= @incident_report.room_number %><br/><br />
   <b>Annotation:</b>
   <%= Annotation.find(@incident_report.annotation_id).text %><br/><br />
@@ -50,3 +132,15 @@
 
 <%= link_to 'Edit', edit_incident_report_path(@report) %> |
 <%= link_to 'Back', incident_reports_path %>
+                <ul>
+                    <li>
+                        Created at:<span><%= @incident_report.created_at.to_s(:my_time) %></span>
+                    </li>
+                </ul>
+                <a href='<%=incident_reports_path%>' class="iPush iBClassic" style="width:100%">View Reports</a>
+            </fieldset>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
