@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-	
+
 	def general_authorize
 		unless staff_signed_in?
 			flash[:notice] = "Unauthorized Access"
@@ -10,11 +10,13 @@ class ApplicationController < ActionController::Base
 		end
 	end
 	def set_iphone_format
-		if is_iphone_request? 
+		if is_iphone_request?
 			request.format = :iphone
 		end
 	end
+
 	def is_iphone_request?
+		#TRUE
 		request.user_agent =~ /(Mobile\/.+Safari)/
 	end  
 	

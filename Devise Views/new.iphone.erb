@@ -1,0 +1,54 @@
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <span id="waHeadTitle">Sign In</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waHello" title="hello">
+            <!--<form>-->
+                <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+                <div class="iPanel">
+                    <p>
+                        <fieldset><Legend>
+                            <%= f.label :email %>
+                        </Legend>
+                        
+                        <!--<input type="text" name="resource" value="<%= f.text_field :email %>" />-->
+						<ul><li>
+						<%= f.text_field :email %>
+						</li></ul></fieldset>
+                    </p>
+                    <p>
+                    	<fieldset>
+                        <Legend>
+                            <%= f.label :password %>
+                        </Legend>
+                        
+						
+                        <ul>
+                            <li>
+                                <%= f.password_field :password %>
+                            </li>
+                        </ul>
+						</fieldset>
+                    </p>
+                    
+                    <% if devise_mapping.rememberable? -%>
+                    <p>
+                        <fieldset>
+                            <ul class="iArrow">
+                                <li>
+                                	<%=f.check_box :remember_me, {:class=>"iToggle", :title=>"YES|NO"}%><%= f.label :remember_me %>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </p><% end -%>
+                    <p>
+                    	
+                        <%= f.submit "Sign In" , { :class => "iPush iBClassic", :style =>"width:100%" } %>
+                        <!--<input name="" type="button" value="<%= f.submit "Sign In"%>" class="iPush iBClassic" style="width:100%"/>-->
+                    </p><% end %>
+                </div>
+           <!-- </form>-->
+        </div>
+    </div>
+</div>

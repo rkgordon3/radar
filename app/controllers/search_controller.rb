@@ -51,11 +51,17 @@ class SearchController < ApplicationController
     
     
     render :update do |page|
-      page.replace_html 'found', @message
+    	    page.replace_html 'found', @message
     end
     
   end
   
+  def report_search
+  	    respond_to  do |format|
+    	    format.html # index.html.erb
+    	    format.iphone {render :layout => 'mobile_application'}
+    end
+  end
   
   def getURLforID(id)
     url = Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase

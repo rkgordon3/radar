@@ -68,6 +68,12 @@ class IncidentReportsController < ApplicationController
     if session[:students] != nil
       @incident_report.add_default_report_student_relationships_for_participant_array(session[:students])
     end 
+    
+    respond_to do |format|
+        format.html 
+        format.iphone {render :layout => 'mobile_application'}
+      end
+      
   end
   
   
@@ -126,11 +132,11 @@ class IncidentReportsController < ApplicationController
         if @incident_report.save
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-          format.iphone {render :layout => 'mobile_application'}
+          format.iphone {redirect_to(@incident_report)}
         else
           format.html { render :action => "new_report" }
           format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-          format.iphone { render :layout => 'mobile_application'}
+          format.iphone { render :action => "new_report", :layout => 'mobile_application'}
         end
       end
     end

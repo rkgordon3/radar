@@ -31,6 +31,7 @@ class StaffsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @staff }
+      format.iphone {render :layout => 'mobile_application'}
     end
   end
 
