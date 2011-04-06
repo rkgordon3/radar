@@ -152,7 +152,7 @@ class IncidentReportsController < ApplicationController
         end
 			end   
   end
-  
+end
   
   
   

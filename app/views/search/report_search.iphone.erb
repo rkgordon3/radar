@@ -31,7 +31,7 @@
                 <% end %>
             </div>
             
-                <%= form_tag 'update_list', {:remote => true} %>
+                <%= form_tag 'update_result_list', {:remote => true} %>
            
             
                 <ul>
@@ -39,8 +39,7 @@
                         <%= render '/search/autocomplete_full_name.iphone' %>
                     </li>
                 </ul>
-                <input id="options" type="submit" value="Select" onsubmit="full_name.value = ''" class="iPush iBClassic" style="width:25%">
-                </input>
+                <input id="options" type="submit" value="Select" onsubmit="full_name.value = ''" class="iPush iBClassic" style="width:25%"></input>
             	<input onclick="full_name.value = ''" value="Clear" class="iPush iBClassic" style="width:25%">
             </form>
 			</fieldset>

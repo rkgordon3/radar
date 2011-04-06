@@ -43,6 +43,7 @@ class SearchController < ApplicationController
    	   format.js
    	   format.html 
    end   
+end
   def report_search
   	    respond_to  do |format|
     	    format.html # index.html.erb
