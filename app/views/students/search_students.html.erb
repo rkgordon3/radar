@@ -48,9 +48,9 @@
 		<td>
 			<div class="field">
     			<b>Area:</b><br />
-    			<% areas = Area.all %>
-    			<%= select_tag "area_id", options_from_collection_for_select(areas, "id", "name") %>
-			</div>
+				<%= render :partial => "areas/all_areas_select_tag" %>
+
+				</div>
 		</td>
 	</tr>
 	<tr>

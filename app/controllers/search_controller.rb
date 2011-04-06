@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
 	before_filter :ra_authorize_view_access
   # autocomplete looks at the student table in the full name field, returns all values that match
+
   autocomplete :student, :full_name, :display_value => :full_name, :full => true
   
  
@@ -42,6 +43,17 @@ class SearchController < ApplicationController
    	   format.js
    	   format.html 
    end   
+end
+  def report_search
+  	    respond_to  do |format|
+    	    format.html # index.html.erb
+    	    format.iphone {render :layout => 'mobile_application'}
+    end
+  end
+  
+  def getURLforID(id)
+    url = Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
+    image_url = STUDENT_THUMBS_PATH + url
   end
 
 end
