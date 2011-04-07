@@ -25,42 +25,47 @@ function divToggle(divID,imgID) {
   	    <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
 	<% fyi = RelationshipToReport.fyi %>
 
-  <% ir.report_participant_relationships.each do |b| %>
-  <% if b.participant.id != @currentParticipantID %>
+  <% ir.report_participant_relationships.each do | relationship | %>
+  <% if relationship.participant.id != @currentParticipantID %>
 <br />
-   	<% @currentParticipantID = b.participant.id %>
+   	<% @currentParticipantID = relationship.participant.id %>
   	&nbsp;&nbsp;&nbsp; 
   
-  		<%= link_to image_tag(b.participant.getThumbnailUrl, :border=> 0), "#", :onclick => "Element.toggle('details_div_#{b.participant.id}'); return false;"  %>
+  		<%= link_to image_tag(relationship.participant.getThumbnailUrl, :border=> 0), "#", 
+  		    :onclick => "Element.toggle('details_div_#{relationship.participant.id}'); return false;"  %>
   		
   	
-  <%= "#{b.participant.first_name} #{b.participant.last_name}" %>
+  <%= "#{relationship.participant.first_name} #{relationship.participant.last_name}" %>
 
-  	<div id="details_div_<%= b.participant.id %>" style="display: none;" >
-  	  <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
+  	<div id="details_div_<%= relationship.participant.id %>" style="display: none;" >
+  	  <%= render :partial => "participants/participant_details", :locals => { :participant => relationship.participant } %>
   	</div>
   	
   	
   	
   	<br />
   	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  	<a href="javascript:void(0)" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
-  	<div id="<%= b.participant_id %>-infractions" style="display: none;">
+  	<a href="javascript:void(0)" onClick="divToggle('<%= relationship.participant_id %>-infractions', '<%=relationship.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=relationship.participant_id%>-img"/></a> <b>Infractions:</b>
+  	<div id="<%= relationship.participant_id %>-infractions" style="display: none;">
   		<% infractions = RelationshipToReport.all %>
-  		<% infractions.each do |i| %>
+  		<% infractions.each do |infraction| %>
   		  <div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
   				<% #this checkbox tag is not complete for another several lines# %>
-  				<input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]"
+  				<%= check_box_tag "#{relationship.participant_id}[#{infraction.id}]", infraction.description, ir.get_specific_report_student_relationship(relationship.participant_id, infraction.id) != nil %><%= label_tag infraction.description %>
+  				<% if false %>  				
+  				<input type="checkbox" name="<%= relationship.participant_id %>[<%= infraction.id %>]"
   			
   				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
   				<% ir.report_participant_relationships.each do |ri| %>
-  					<% if i.id != fyi && ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %>
+  					<% if infraction.id != fyi && ri.participant_id == relationship.participant_id && ri.relationship_to_report_id == infraction.id %>
   						CHECKED
   					<% end%>
   				<%end%>
   			
   				<% #this is the end of the checkbox tag.# %>
-  				><%= i.description %>
+  				><%= infraction.description %>
+  				
+  				<% end %>
   				</div>
   		<% end %>
   		</div>
