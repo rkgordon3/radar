@@ -5,36 +5,28 @@
     </div>
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
-            <form action="/incident_reports.iphone" method="POST">
+        	<div class="iPanel">
+        		<legend>
+                            Students:
+                        </legend> 
+
+                             	
+        	<div id="s-i-form">
+        		    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
+        	</div>	
+        	
+        		<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
+        	</div>
+        	
+            <form action="/incident_reports" method="POST">
                 <div class="iPanel">
                     <fieldset>
-                        <legend>
-                            Students:
-                        </legend>
+
                     	<div class="field">
-                            <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
-                            <ul class="iArrow">
-                                <% @incident_report.report_participant_relationships.each do |b| %>
-                                <% if b.participant.id != @currentParticipantID %>
-                                <% @currentParticipantID = b.participant.id %>
-                                <% if b.participant.type == "Student" %>
-                                <li>
-                                    <a href="#_<%=b.participant.id%>"><%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                                </li>
-                                <% else %>
-                                <li>
-                                    <a href="#_<%=b.participant.id%>"><%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                                </li>
-                                <% end %>
-                                <% end %>
-                                <% end %>
-                            </ul>
-                            <p>
-                                <input id="search_submit" name="search_submit" type="submit" value="Add Students" class="iPush iBClassic" style="width:100%"/>
-                            </p>
+   
                         </div>
                          <legend>
-                            Annotation: 
+                            Annotation:
                         </legend>
                         <ul>
                             <li>
