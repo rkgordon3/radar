@@ -5,3 +5,4 @@ require File.expand_path('../application', __FILE__)
 Radar::Application.initialize!
 
 STUDENT_IMAGES_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/"
+s
