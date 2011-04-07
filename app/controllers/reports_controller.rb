@@ -48,12 +48,9 @@ class ReportsController < ApplicationController
         
       @report = session[:report]
       logger.debug("IN REPORT CREATE report:  #{@report}")
-      # update other properties of incident report
-      @report.update_attributes_without_saving(params[:report])
-
-
+   
     respond_to do |format|
-      if @report.save
+      if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
         format.xml  { render :xml => @report, :status => :created, :location => @report }
         format.iphone {render :layout => 'mobile_application'}

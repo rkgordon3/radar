@@ -24,7 +24,7 @@
   	<td align="right"><%= report.approach_time.to_s(:time) %></td>
   	<td align="right"><%= report.room_number %> <%= report.building.name %></td>
   	<td><%= link_to 'Show', report %></td>
-  	<td><%= link_to 'Edit', edit_report_path(report)  %></td>
+  	<td><%= link_to 'Edit', :controller => "#{report.class.name.tableize}", :action => "edit", :id => report %></td>
   	<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
   	</tr>
 
