@@ -1,0 +1,14 @@
+<tr>
+	<th>Report ID</th>
+	<th>Approach Date</th>
+	<th>Approach Time</th>
+	<th>Building Name</th>
+	<th>Specific Loc.</th>
+	<th>Submitter</th>
+	<th></th>
+	
+	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
+		<td></td>
+		<td></td>
+	<% end %>
+</tr>

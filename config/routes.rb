@@ -1,4 +1,15 @@
 Radar::Application.routes.draw do
+  resources :report_types
+
+  resources :notification_preferences
+  match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
+  
+  get "reports_query/reports_query"
+  
+  match "/incident_reports/update_participant_list" => "incident_reports#update_participant_list"
+  match "/search/update_result_list" => "search#update_result_list"
+  match "/students/show_details/:id" => "students#show_details"
+
   devise_for :staffs
   
   get "home/landingpage"
@@ -12,9 +23,10 @@ Radar::Application.routes.draw do
   root :to => "home#landingpage"
 		
   get 'search/autocomplete_student_full_name'
+
   
-  match "/search/update_list" => "search#update_list"
-  get "/search/update_list"
+  match "/search/delete_student" => "search#delete_student"
+  get "/search/delete_student"
   
   match "/search/go_to_student" => "search#go_to_student"
   get "/search/go_to_student"
@@ -25,21 +37,31 @@ Radar::Application.routes.draw do
   	  get :search_results, :on => :collection
   end
   
-  match "/incident_reports/search" => "incident_reports#search"
-  get "/incident_reports/search"
+  match "/reports_query/search" => "reports_query#search"
+  get "/reports_query/search"
   
-  match "/incident_reports/search_results" => "incident_reports#search_results" 
-  get "/incident_reports/search_results"
+  match "/reports_query/search_results" => "reports_query#search_results" 
+  get "/reports_query/search_results"
   
-  resources :search
+  get "/students/search_students"
+  
+  match "/students/process_search_parameters" => "students#process_search_parameters" 
+  get "/students/process_search_parameters"
+  
+  match "/students/search_results" => "students#search_results" 
+  get "/students/search_results"
+  
+  resources :search 
   
   resources :photos
 
   resources :annotations
 
   resources :participants
+  
+  resources :reports_query
 
-  resources :reported_infractions
+  resources :report_participant_relationships
 
   resources :staffs
 
@@ -54,7 +76,7 @@ Radar::Application.routes.draw do
   end
   resources :student_infractions
 
-  resources :infractions
+  resources :relationship_to_reports
 
   resources :locations
 

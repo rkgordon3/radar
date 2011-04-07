@@ -1,0 +1,7 @@
+This is where both the session controller and new.iphone are located
+
+Session controller goes to:
+C:Ruby192/lib/ruby/gems/1.9.1/gems/devise-1.1.7/app/controllers/devise/
+
+new.iphone goes to:
+C:Ruby192/lib/ruby/gems/1.9.1/gems/devise-1.1.7/app/views/devise/sessions/

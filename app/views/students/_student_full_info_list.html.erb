@@ -1,0 +1,29 @@
+<table>
+  <tr>
+    <th></th>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
+	<th>Student ID</th>
+	<% end %>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Building</th>
+    <th>Room #</th>
+    <th>Phone Extension</th>
+    <th>Age</th>
+	<th>Birthday</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% num_rows = 0 %>
+<% students.each do |student| %>
+ 
+  <% if num_rows == 0 %>
+    <% num_rows = num_rows + 1 %>
+    <tr class="shaded">
+  <% else %>
+    <% num_rows = 0 %> 
+    <tr>
+  <% end %>
+  <%= render :partial => "/students/student_full_info", :locals => { :student => student} %>
+<% end %>
+</table>

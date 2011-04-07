@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110320184701) do
+
+ActiveRecord::Schema.define(:version => 20110404190052) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -33,8 +34,12 @@ ActiveRecord::Schema.define(:version => 20110320184701) do
     t.string   "abbreviation"
   end
 
-  create_table "infractions", :force => true do |t|
-    t.string   "description"
+  create_table "notification_preferences", :force => true do |t|
+    t.integer  "staff_id"
+    t.string   "report_type"
+    t.integer  "frequency"
+    t.integer  "time_offset"
+    t.integer  "scope"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20110320184701) do
     t.string   "cell_phone"
     t.string   "home_phone"
     t.string   "affiliation"
-    t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
@@ -53,14 +57,30 @@ ActiveRecord::Schema.define(:version => 20110320184701) do
     t.integer  "building_id"
     t.string   "student_id"
     t.string   "full_name"
+    t.datetime "birthday"
+    t.string   "extension"
+    t.string   "emContact"
+    t.string   "email"
   end
 
-  create_table "reported_infractions", :force => true do |t|
-    t.integer  "infraction_id"
+  create_table "relationship_to_reports", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "report_participant_relationships", :force => true do |t|
+    t.integer  "relationship_to_report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "participant_id"
-    t.string   "incident_report_id"
+    t.string   "report_id"
+  end
+
+  create_table "report_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reports", :force => true do |t|
@@ -101,7 +121,8 @@ ActiveRecord::Schema.define(:version => 20110320184701) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "role"
+    t.integer  "access_level"
+    t.boolean  "active"
   end
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true

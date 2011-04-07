@@ -1,46 +1,7 @@
-<h1>Listing Students</h1>
+<h1>Students</h1>
 
-<table>
-  <tr>
-    <th>Particpant ID</th>
-    <th>Student ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Building</th>
-    <th>Room #</th>
-    <th>Age</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  
-<% @students.each do |student| %>
- 
-  <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
-    <tr>
-  <% end %>
-    <td><%= student.id %></td>
-    <td><%= student.student_id %></td>
-    <td><%= student.first_name %></td>
-    <td><%= student.last_name %></td>
-    <td><%= student.building.name %></td>
-    <td><%= student.room_number %></td>
-    <td><%= student.age %></td>
-    
-    <td><%= link_to 'Show', student %></td>
-<%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>	
-    <td><%= link_to 'Edit', edit_student_path(student) %></td>
-    <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
-	<% end %>
-<% end %>	
-  </tr>
-<% end %>
-</table>
+  <%= render :partial => "/students/student_full_info_list", :locals => { :students => @students} %>
+
 
 <br />
 

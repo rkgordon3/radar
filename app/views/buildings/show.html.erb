@@ -8,7 +8,7 @@
   <%= @building.abbreviation %>
   <br/><br/>
   <% if @building.area_id != nil %>
-  	<b>Area ID:</b>
+  	<b>Area:</b>
   	<%= Area.find(@building.area_id).abbreviation %>
   <%end%>
 </p>

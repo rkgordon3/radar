@@ -1,37 +1,36 @@
-<h1>Showing Student <%= @student.id %></h1>
+<h1><%= "#{@student.first_name} #{@student.last_name}" %></h1>
 <p id="notice"><%= notice %></p>
 
 <%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
 <p>
   <b>Student ID:</b>
   <%= @student.student_id %>
 </p>
 	<% end %>
 <% end %>	
+
 <p>
-  <b>First Name:</b>
-  <%= @student.first_name %>
+  <b>Residence:</b>
+  <%= "#{@student.room_number} #{@student.building.name}" %>
 </p>
 
 <p>
-  <b>Last Name:</b>
-  <%= @student.last_name %>
-</p>
-<p>
-  <b>Building:</b>
-  <%= @student.building.name %>
-</p>
-<p>
-  <b>Room Number:</b>
-  <%= @student.room_number %>
+  <b>Phone Extension:</b>
+  <%= @student.extension %>
 </p>
 <p>
   <b>Age:</b>
-  <%= @student.age %>
+  <%= @student.getAge(@student.birthday) %>
 </p>
+
+<p>
+  <b>Birthday:</b>
+  <%= @student.birthday != nil ? @student.birthday.strftime("%m/%d/%Y") : "" %>
+</p>
+
 <%if staff_signed_in? %>
-	<%if current_staff.role == "Admin" %>
+	<%if current_staff.access_level > Authorize.ra_access_level %>
 
 <p>
   <b>Home Phone:</b>
@@ -41,16 +40,17 @@
   <b>Cell Phone:</b>
   <%= @student.cell_phone %>
 </p>
+<p>
+  <b>Emergency Contact:</b>
+  <%= @student.emContact %>
+</p>
 	
 
 	<% end %>
 <% end %>
 
 <p>
-	<b>Picture:</b>
-	<% test = StudentsController.new() %>
-	<% image_url = test.getURLforID(@student.id) %>
-	<%= link_to image_tag(image_url, :border=>0) %>
+	<%= link_to image_tag(@student.getImageUrl, :border=>0) %>
 </p>
 
 
