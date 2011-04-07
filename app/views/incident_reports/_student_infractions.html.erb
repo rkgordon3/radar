@@ -25,7 +25,7 @@ function divToggle(divID,imgID) {
   	    <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
 	<% fyi = RelationshipToReport.fyi %>
 
-  <% @incident_report.report_participant_relationships.each do |b| %>
+  <% ir.report_participant_relationships.each do |b| %>
   <% if b.participant.id != @currentParticipantID %>
 <br />
    	<% @currentParticipantID = b.participant.id %>

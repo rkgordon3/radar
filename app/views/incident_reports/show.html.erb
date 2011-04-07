@@ -1,26 +1,10 @@
-<h1>Showing Incident Report <%= @incident_report.id %> </h1>
+<h1>Incident Report <%= @report.id %> </h1>
 
-
-<p>
-  
-  <b>Approach Date:</b>
-  <%= @incident_report.approach_time.to_s(:date_only) %><br/><br />
-  <b>Approach Time:</b>
-  <%= @incident_report.approach_time.to_s(:time_only) %><br/><br />
-  <b>Building ID:</b>
-  <%= @incident_report.building.name %><br/><br />
-  <b>Specific Location (Room Number):</b>
-  <%= @incident_report.room_number %><br/><br />
-  <b>Annotation:</b>
-  <%= Annotation.find(@incident_report.annotation_id).text %><br/><br />
-  <b>Submitter:</b>
-  <%= @incident_report.staff.first_name %> <%= @incident_report.staff.last_name %><br/><br />
-  
   <b>Student infractions:</b>
-  <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+  <% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
 
   <% current_participant_id = -1 %>
-  <% @incident_report.report_participant_relationships.each do |b| %>
+  <% @report.report_participant_relationships.each do |b| %>
   <% if b.participant.id != current_participant_id %>
    	<% current_participant_id = b.participant.id %>
    	<br />
@@ -37,17 +21,8 @@
   		<%= b.relationship_to_report.description %>
   	<% end %>
   
-  <br/><br /><br />
-  <b>Report ID:</b>
-  <%= @incident_report.id %><br/><br />
-  <b>Submitted:</b>
-  <%= @incident_report.submitted %><br/><br />
-  <b>Created at:</b>
-  <%= @incident_report.created_at.to_s(:my_time) %><br/><br />
-  <b>Updated at:</b>
-  <%= @incident_report.updated_at.to_s(:my_time) %><br>
- 
-  
+  	<%= render :partial => "reports/show_generic" %>
+
 </p>
 
 

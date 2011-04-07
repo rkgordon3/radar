@@ -27,21 +27,13 @@ Radar::Application.routes.draw do
   
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
+
   
-  match "/search/go_to_student" => "search#go_to_student"
-  get "/search/go_to_student"
+ resources :incident_reports do
+ 	  get :new_report, :on => :collection
+ end
   
-  resources :incident_reports do
-  	  get :new_report, :on => :collection
-  	  get :search, :on => :collection
-  	  get :search_results, :on => :collection
-  end
-  
-  match "/incident_reports/search" => "incident_reports#search"
-  get "/incident_reports/search"
-  
-  match "/incident_reports/search_results" => "incident_reports#search_results" 
-  get "/incident_reports/search_results"
+ resources :maintenance_reports                                                                                                              
   
   resources :search 
   

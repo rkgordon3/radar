@@ -1,0 +1,23 @@
+ <div class="generic_show_report" >
+ <br/>
+ <b>Approach Date:</b>
+  <%= @report.approach_time.to_s(:date_only) %><br/><br />
+  <b>Approach Time:</b>
+  <%= @report.approach_time.to_s(:time_only) %><br/><br />
+  <b>Building ID:</b>
+  <%= @report.building.name %><br/><br />
+  <b>Specific Location (Room Number):</b>
+  <%= @report.room_number %><br/><br />
+  <b>Annotation:</b>
+  <%= @report.annotation_text %><br/><br />
+  <b>Submitter:</b>
+  <%= @report.staff.first_name %> <%= @report.staff.last_name %><br/><br />
+  
+  <b>Submitted:</b>
+  <%= @report.submitted %><br/><br />
+  <b>Created at:</b>
+  <%= @report.created_at.to_s(:my_time) %><br/><br />
+  <b>Updated at:</b>
+  <%= @report.updated_at.to_s(:my_time) %><br>
+  
+  </div>

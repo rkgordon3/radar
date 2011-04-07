@@ -1,32 +1,6 @@
 <h1>Showing Report <%= @report.id %></h1>
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Submitter:</b>
-  <%= @report.submitter %> <br>
-  </p>
-  <p>
-  <b>Annotation:</b>
-  <%= @report.annotation.annotation %><br>
-  </p>
-  <b>Location:</b>
-  <%= @report.location %><br>
-  </p>
-  <b>Approach Time:</b>
-  <%= @report.approach_time %><br>
-  </p>
-  <p>
-  <b>Created at:</b>
-  <%= @report.created_at.to_s(:my_time) %><br>
-  </p>
-  <p>
-  <b>Updated at:</b>
-  <%= @report.updated_at.to_s(:my_time) %><br>
-  
-
-  
-</p>
-
+<%= render :partial => "reports/show_generic" %>
 
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%= link_to 'Back', reports_path %>

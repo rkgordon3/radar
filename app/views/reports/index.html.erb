@@ -1,39 +1,6 @@
 <h1>Listing Reports</h1>
 
-<table>
-  <tr>
-    <th>Report ID</th>
-    <th>Report Type</th>
-    <th>Staff</th>
-    <th>Created Date</th>
-    <th>Created Time</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @reports.each do |report| %>
-<% if report.submitted? == true %>
-  <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
-    <tr>
-  <% end %>
-    <td><%= report.id %></td>
-    <td><%= report.type %></td>
-    <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-    <td><%= report.created_at.to_s(:date_only) %></td>
-    <td><%= report.created_at.to_s(:time_only) %></td>
-    <td><%= link_to 'Show', report %></td>
-    <td><%= link_to 'Edit', edit_report_path(report) %></td>
-    <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-  <%end%>
-<% end %>
-</table>
-
-<br />
-
+<%= render :partial => "reports/index_generic", :locals => { :reports => reports } %>
+<div class="new_report_link">
 <%= link_to 'New Report', new_report_path %>
+<div class="edit_link">

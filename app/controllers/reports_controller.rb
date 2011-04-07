@@ -5,11 +5,11 @@ class ReportsController < ApplicationController
   before_filter :general_authorize
   
   def index
-    @reports = Report.all
+  	@reports = Report.where("id > 0").order(:approach_time)
     @numRows = 0
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }
     end
   end
@@ -28,7 +28,8 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    @report = Report.new
+  	@report = Report.new(:staff_id =>  current_staff.id )
+    session[:report] = @report
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,15 +45,23 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.xml
   def create
-    @report = Report.new(params[:report])
+  				logger.debug("IN REPORT CREATE params #{params}")
+        
+      @report = session[:report]
+      logger.debug("IN REPORT CREATE report:  #{@report}")
+      # update other properties of incident report
+      @report.update_attributes_without_saving(params[:report])
+
 
     respond_to do |format|
       if @report.save
         format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
         format.xml  { render :xml => @report, :status => :created, :location => @report }
+        format.iphone {render :layout => 'mobile_application'}
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
+        format.iphone {render :layout => 'mobile_application'}
       end
     end
   end
@@ -63,7 +72,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
 
     respond_to do |format|
-      if @report.update_attributes(params[:report])
+      if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
         format.xml  { head :ok }
       else

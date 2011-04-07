@@ -5,17 +5,39 @@ class Report < ActiveRecord::Base
   has_many      :report_participant_relationships
   belongs_to    :annotation
   
+  
+  
+  def annotation_text
+  				if annotation != nil
+  								annotation.text
+  				else
+  								nil
+  				end
+  end
+	def update_attributes_and_save(params)
+					update_attributes_without_saving(params)
+					valid?
+					save
+	end
 	
   def update_attributes_without_saving(params)
   				logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
-    self.approach_time = params[:approach_time]   
+    self.approach_time = params[:approach_time] 
+    self.submitted = (params[:submitted] != nil) 
+    annotation_text = params[:annotation]
+    
+    if annotation_text != nil && annotation_text.length > 0 
+      if self.annotation == nil
+    	  self.annotation = Annotation.new(:text => annotation_text)
+      else
+    		self.annotation.text = annotation_text
+      end
+    end
+
   end
-  
-  
-  
-  
+
   def after_initialize
     if self.id == nil
       self.building_id = Building.unspecified
@@ -24,11 +46,18 @@ class Report < ActiveRecord::Base
     end
   end
   
-  
-  
+ 
+  def save
+  		
+  				if annotation != nil && annotation.save != nil 
+  					logger.debug " save report annotation : #{annotation}"
+  		self.annotation_id = annotation.id
+  	end
+  	super
+  end
   
   def after_save
-    # save each reported infraction to database
+    # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
         ri.report_id = self.id # establish connection
@@ -37,8 +66,12 @@ class Report < ActiveRecord::Base
     end
   end
   
-  
-  
+  def before_destroy
+  	destroy_participants
+    if annotation != nil
+    				annotation.destroy
+    end
+  end
   
   def get_report_participant_relationships_for_participant(participant_id)
     found_relationships = Array.new
@@ -50,8 +83,11 @@ class Report < ActiveRecord::Base
     return found_relationships
   end
   
-  
-  
+ def destroy_participants
+    report_participant_relationships.each do |ri|
+      ri.destroy
+    end
+end
   
   def get_specific_report_student_relationship(participant_id, relationship_id)
     self.report_participant_relationships.each do |ri|
@@ -112,8 +148,7 @@ class Report < ActiveRecord::Base
       ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
       return ri
     end
-    
-    
+
   end
   
   
@@ -138,9 +173,6 @@ class Report < ActiveRecord::Base
       end
     end
   end
-  
-  
-  
   
 
   
