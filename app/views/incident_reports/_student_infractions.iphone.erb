@@ -1,73 +1,48 @@
-<script type="text/javascript">
-
-image1 = new Image();
-image1.src = "/images/add_icon.gif";
-
-image2 = new Image();
-image2.src = "/images/minus_icon.gif";
-
-function divToggle(divID,imgID) {
-	        var state = document.getElementById(divID).style.display;
-	            if (state == 'block') {
-	                document.getElementById(divID).style.display = 'none';
-	                document[imgID].src = '/images/add_icon.gif';
-	            } else {
-	                document.getElementById(divID).style.display = 'block';
-	                document[imgID].src = '/images/minus_icon.gif';
-	            }
-	        }
-	       
-</script>
-
-
-     <div class="field">
-
-  	    <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
-	<% fyi = RelationshipToReport.fyi %>
-
-  <% @incident_report.report_participant_relationships.each do |b| %>
-  <% if b.participant.id != @currentParticipantID %>
-<br />
-   	<% @currentParticipantID = b.participant.id %>
-<fieldset>
-  <ul class="iArrow"><li>
-  	 <%= "#{b.participant.first_name} #{b.participant.last_name}" %>
-  		<%= link_to image_tag(b.participant.getThumbnailUrl, :border=> 0), "#", :onclick => "Element.toggle('details_div_#{b.participant.id}'); return false;"  %>
-</li></ul>
-</fieldset>
-  	<div id="details_div_<%= b.participant.id %>" style="display: none;" >
-  	  <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
-  	</div>
-  	
-  	
-  	
-  	<br />
-  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  	<a href="javascript:void(0)" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
-  	<div id="<%= b.participant_id %>-infractions" style="display: none;">
-  		<% infractions = RelationshipToReport.all %>
-  		<% infractions.each do |i| %>
-  		  <div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
-  				<% #this checkbox tag is not complete for another several lines# %>
-  				<input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]"
-  			
-  				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
-  				<% ir.report_participant_relationships.each do |ri| %>
-  					<% if i.id != fyi && ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %>
-  						CHECKED
+<div class="field">
+    <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+    <% fyi = RelationshipToReport.fyi %>
+    <fieldset>
+        <ul class="iArrow">
+            <% @incident_report.report_participant_relationships.each do |b| %>
+            <% if b.participant.id != @currentParticipantID %>
+            <% @currentParticipantID = b.participant.id %>
+            <!--<li>
+            	<a href="#_<%=b.participant.id%>" <img src="<%=b.participant.getThumbnailUrl%>" align="left">><%= "#{b.participant.first_name} #{b.participant.last_name}" %></a>
+            </li>  -->
+			<li>
+				<a href = "#_<%=b.participant.id%>">
+				<%=image_tag(b.participant.getThumbnailUrl, :border => 0)%>
+				<%= "#{b.participant.first_name} #{b.participant.last_name}"%></a>
+			</li>  
+			
+            <div id="details_div_<%= b.participant.id %>" style="display: none;">
+                <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
+            </div>
+            <div class="iLayer" id="wa<%=b.participant.id%>" title="<%=b.participant.full_name%>">
+                <div class="iPanel">
+                    <fieldset>
+                        <ul class="iArrow">
+                            <% infractions = RelationshipToReport.all %>
+                            <% infractions.each do |i| %>
+                            <% #this checkbox tag is not complete for another several lines# %>
+                            <li>
+                                <input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]" class="iToggle" title="YES|NO"
+								
+								<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
+                                <% ir.report_participant_relationships.each do |ri| %>
+  					<% if i.id != fyi && ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %> checked="checked"
   					<% end%>
   				<%end%>
   			
   				<% #this is the end of the checkbox tag.# %>
   				><%= i.description %>
-  				</div>
-  		<% end %>
-  		</div>
-   <% end %>
-  	
-  	
-
-  <% end %>
- 
- </div>
- 
+                            </li><% end %>
+                        </ul>
+                    </fieldset>
+                </div>
+            </div>
+			<% end %>
+            <% end %>
+        </ul>
+    </fieldset>
+</div>

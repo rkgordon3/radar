@@ -23,7 +23,7 @@ class IncidentReportsController < ReportsController
 
   # GET /incident_reports/1
   # GET /incident_reports/1.xml
-=begin
+
   def show
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
@@ -45,7 +45,6 @@ class IncidentReportsController < ReportsController
       format.iphone {render :layout => 'mobile_application'}
     end
   end
-=end
   
   
   
