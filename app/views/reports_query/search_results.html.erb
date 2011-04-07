@@ -1,18 +1,7 @@
 <h1>Search Results </h1>
 
 <table>
-  <tr>
-    <th>Report ID</th>
-    <th>Submitter</th>
-    <th>Approach Date</th>
-    <th>Approach Time</th>
-    <th>Building</th>
-    <th>Room #</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+  <%= render :partial => "/incident_reports/incident_report_table_row_labels" %>
   
 <% @reports.each do |incident_report| %>
   <% if incident_report.submitted? == true %>
@@ -23,19 +12,11 @@
   		<% @numRows = 0 %> 
   		<tr>
   	<% end %>
-  	<td><%= incident_report.id %></td>
-  	<td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>
-  	<td><%= incident_report.approach_time.to_s(:date_only) %></td>
-  	<td><%= incident_report.approach_time.to_s(:time_only) %></td>
-  	<td><%= incident_report.building.name %></td>
-  	<td><%= incident_report.room_number %></td>
-  	<td><%= link_to 'Show', incident_report %></td>
-  	<td><%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
-  	<td><%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
-  	</tr>
+  	<%= render :partial => "/incident_reports/incident_report_table_row", :locals => {:num_rows => @numRows, :incident_report => incident_report}%>
   <% end %>
 <% end %>
 
 </table>
-
+<p>
+	Showing <%= @num_reports %> of <%= @num_reports %> results.
 
