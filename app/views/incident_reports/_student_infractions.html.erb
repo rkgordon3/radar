@@ -35,6 +35,7 @@ function divToggle(divID,imgID) {
   		
   	
   <%= "#{b.participant.first_name} #{b.participant.last_name}" %>
+  <%= link_to image_tag("/images/remove_icon.png", :border=>0), { :action => 'remove_participant_from_participant_list', :id => @currentParticipantID }, :remote => true %>
 
   	<div id="details_div_<%= b.participant.id %>" style="display: none;" >
   	  <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>

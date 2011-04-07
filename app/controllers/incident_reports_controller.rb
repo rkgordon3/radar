@@ -278,11 +278,29 @@ class IncidentReportsController < ApplicationController
   end
   
   # Callback for student search form
-  def update_participant_list
+  def add_participant_to_participant_list
   	@student = Student.get_student_object_for_string(params[:full_name])
   	@incident_report = session[:incident_report]
   	@incident_report.add_default_report_student_relationships_for_participant_array([ @student ])
   	respond_to do |format|
+   	   format.js
+   	end 
+  end
+  
+  def remove_participant_from_participant_list
+	logger.debug "In remove method #{params}"
+	@incident_report = session[:incident_report]
+	@participant_id = Integer(params[:id])
+	infractions = @incident_report.get_report_participant_relationships_for_participant(@participant_id)
+	logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
+	infractions.each do |ri|
+		logger.debug "Inside upper if block"
+		@incident_report.report_participant_relationships.delete(ri)
+	    ri.report_id = 0
+		ri.destroy		
+    end
+	
+	respond_to do |format|
    	   format.js
    	end 
   end
