@@ -1,13 +1,58 @@
 
-<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
-   
-  <div id="s-i-form">
-    <%= render :partial => "student_infractions", :locals => { :ir => @report } %>
-  </div>
+    	<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
+
+<%= form_for(@incident_report) do |f| %>
+  <% if @incident_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@incident_report.errors.count, "error") %> prohibited this incident report from being saved:</h2>
+
+      <ul>
+      <% @incident_report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+ 
+  <% end %>
   
-  <%= render :partial => "reports/report_generic" %>
+  
+      
+  <div id="s-i-form">
+    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
+  </div>
+    <div class="field">
+    <b>Annotation:</b><br />
+    <textarea cols="60" id="incident_report_annotation" name="annotation" rows="4" ><%= session[:annotation].text %></textarea>
+ </div>
+
+ 
+  <div class="field">
+    <b><%= f.label :building_id %>:<br /></b>
+    <%= select :incident_report,:building_id,Building.find(:all).collect{|p| [p.name, p.id]},{}%>
+    
+    </div>
+  <div class="field">
+    <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
+    <%= f.text_field :room_number %>
+  </div>
+   <div class="field">
+    <b><%= f.label :approach_time %>:</b><br />
+    <%= f.text_field :approach_time %>
+  </div>
+ 
 
 
+    
+  <div class="actions">
+       		<p>
+       			<% if @incident_report.submitted != true %>
+       				<%= submit_tag "Save Report", { :name => "save_submit" } %>
+       			<% end %>
+       			<%= submit_tag "Submit Report",  { :name=>"submit_submit" } %>
+       		</p>
+
+  </div>
+   <% end %> 
 
 
 
