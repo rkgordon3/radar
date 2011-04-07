@@ -10,7 +10,6 @@
   		<td>
   		 	<b>Building:</b><br />
   		 	<select id="building_id" name="building_id">
-  		 		<option value="0" selected="selected">Select A Building</option>
   		 		<% Building.all.each do |b| %>
   		 	    		<option value="<%= b.id %>"><%= b.name %></option>
   		 	    	<% end %>
@@ -21,26 +20,22 @@
   		 </td>
   		 <td>
   		  	<b>Area:</b><br />
-  		  	<select id="area_id" name="area_id">
-  		 		<option value="0" selected="selected">Select An Area</option>
-  		 		<% Area.all.each do |a| %>
-  		 	    		<option value="<%= a.id %>"><%= a.name %></option>
-  		 	    	<% end %>
-  		 	</select>
+  		  	<%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified }%>
   		 </td>
   	</tr>
   	</table>
   	
   	<div class="field">
-  		 <b>Student:</b><br />
-  		 <%= render '/search/autocomplete_full_name' %>
+  		 <b>Student:</b><br />  
+		 <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+
   	</div>
   	
   	<div class="field">
   		 <b>Infraction:</b><br />
   		 <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
   		 	<option value="0" selected="selected">Select An Infraction</option>
-  		 	<% Infraction.all.each do |i| %>
+  		 	<% RelationshipToReport.all.each do |i| %>
   		 	    	<option value="<%= i.id %>"><%= i.description %></option>
   		 	<% end %>
   		 	</select>

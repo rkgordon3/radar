@@ -1,0 +1,12 @@
+    <%= form_tag(target, :method => :get, :remote => true, :format=>"js") do %>
+	<fieldset>
+	<ul><li>
+  <%=text_field_tag 'full_name', '', :autocomplete => search_autocomplete_student_full_name_path %> 
+  </li></ul>
+  
+   <%= submit_tag "Add", :class =>"iPush iBClassic", :style =>"width:50%" %>
+
+  <input id="options" type="button" value="Clear" onclick="full_name.value = ''" class="iPush iBClassic" style="width:49%" />
+</fieldset>
+  <% end %>
+  

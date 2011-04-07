@@ -29,11 +29,36 @@ Radar::Application.routes.draw do
   get "/search/delete_student"
 
   
+<<<<<<< HEAD
  resources :incident_reports do
  	  get :new_report, :on => :collection
  end
   
  resources :maintenance_reports                                                                                                              
+=======
+  match "/search/go_to_student" => "search#go_to_student"
+  get "/search/go_to_student"
+  
+  resources :incident_reports do
+  	  get :new_report, :on => :collection
+  	  get :search, :on => :collection
+  	  get :search_results, :on => :collection
+  end
+  
+  match "/reports_query/search" => "reports_query#search"
+  get "/reports_query/search"
+  
+  match "/reports_query/search_results" => "reports_query#search_results" 
+  get "/reports_query/search_results"
+  
+  get "/students/search_students"
+  
+  match "/students/process_search_parameters" => "students#process_search_parameters" 
+  get "/students/process_search_parameters"
+  
+  match "/students/search_results" => "students#search_results" 
+  get "/students/search_results"
+>>>>>>> afa32c6a1393960462bc3aee85c3b62e6f5b4441
   
   resources :search 
   
@@ -42,6 +67,8 @@ Radar::Application.routes.draw do
   resources :annotations
 
   resources :participants
+  
+  resources :reports_query
 
   resources :report_participant_relationships
 

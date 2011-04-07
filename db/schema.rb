@@ -10,6 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20110404190052) do
 
   create_table "annotations", :force => true do |t|
@@ -120,7 +121,8 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "role"
+    t.integer  "access_level"
+    t.boolean  "active"
   end
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true

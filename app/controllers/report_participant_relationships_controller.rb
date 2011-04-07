@@ -1,7 +1,7 @@
 class ReportParticipantRelationshipsController < ApplicationController
   # GET /reported_infractions
   # GET /reported_infractions.xml
-  before_filter :admin_authorize
+  before_filter :super_admin_authorize_view_access
   def index
     
     @report_participant_relationships = ReportParticipantRelationship.all

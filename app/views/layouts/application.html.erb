@@ -20,7 +20,7 @@
 		<tr>
 			<td width = "85%"><%=link_to image_tag("home.png", :size=> "35x35", :title=>"Home"), "/"%> </td>
 			<td width = "15%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> |</b> <%= link_to "Sign Out", destroy_staff_session_path %></p></td>
-			<% if current_staff.role != "RA" %>
+			<% if current_staff.access_level > Authorize.ra_access_level %>
 			<td width = "0%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
 			<% end %>
 		</tr>
@@ -40,7 +40,13 @@
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
+	  <br>
+	  <hr />	 
+	  <br>
+	  <p align="center"><%= image_tag("radar_words_logo.png") %></p>
+	  <p align ="center"><i><font size="1">Created by Saint Mary's University of Minnesota. Copyright 2011.</font></p>
     </div>
+		
 
   </body>
 </html>

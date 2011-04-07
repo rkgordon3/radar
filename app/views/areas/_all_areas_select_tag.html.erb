@@ -1,0 +1,11 @@
+<% areas = Area.all %>
+
+<select id="area_id" name="area_id">
+	<% areas.each do |a| %>
+		<option value="<%=a.id%>"
+		<% if a.id == selected_id%>
+			selected
+		<%end%>
+		><%=a.name%></option>
+	<% end %>
+</select>			

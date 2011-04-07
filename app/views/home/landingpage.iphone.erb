@@ -1,0 +1,46 @@
+<div id="WebApp">
+    <div id="iHeader" style="background-color: #b22222">
+        <span id="waHeadTitle">Radar</span>
+    </div>
+    <div id="iGroup">
+        <div class="iLayer" id="waRio" title="Rio">
+        	
+            <form>
+                <div id = "user_nav">
+                             <div class="iMenu">       	
+                    <% if staff_signed_in? %>
+
+                        <ul>
+                            <li>
+                                <a href='<%=destroy_staff_session_path%>' class="iButton iBAction">Sign Out</a>
+                                <a>Signed in as <%= current_staff.email %> Not You?</a>
+                            </li>
+                        </ul>
+                   
+                    <% else %>
+                    <p>
+					
+                        <a href='<%=new_staff_session_path%>' class="iPush iBClassic" style="width:100%">Sign In</a>
+
+					</p>
+                    <% end %>
+					 </div>
+                </div>
+                <% if staff_signed_in? %>
+                <p>
+                <div class="iPanel">
+                	<fieldset>
+                	<ul class="iArrow">
+                	<li>
+                    <a href = "/incident_reports/new_report">New Incident Report</a>
+					</li><li>
+					<a href = "/incident_reports">Incident Reports</a>
+					</li>
+					</ul></fieldset>
+						</div>
+				</p>
+                <% end %>
+            </form>
+        </div>
+    </div>
+</div>

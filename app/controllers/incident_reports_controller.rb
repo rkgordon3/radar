@@ -1,8 +1,8 @@
 class IncidentReportsController < ReportsController
-  before_filter :admin_authorize, :except => [:new_report, :show, :edit]
-  before_filter :general_authorize  
+  before_filter :admin_assistant_authorize_view_access, :except => [:new_report, :show, :edit, :create, :update_participant_list, :update, :destroy]
+  before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
-  acts_as_iphone_controller = true
+
   
   
   # GET /incident_reports
@@ -28,6 +28,13 @@ class IncidentReportsController < ReportsController
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
     
+    if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level == Authorize.ra_access_level) || (@report.staff != current_staff && current_staff.access_level == Authorize.ra_access_level)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+    end
+      
+    
     self.clear_session #probably not necessary, but good practice anyway
     
    
@@ -35,6 +42,7 @@ class IncidentReportsController < ReportsController
       format.html 
       format.xml  { render :xml => @report }
       #format.iphone {render :layout => false}
+      format.iphone {render :layout => 'mobile_application'}
     end
   end
 =end
@@ -46,15 +54,25 @@ class IncidentReportsController < ReportsController
   
   # GET /incident_reports/1/edit
   def edit
-  				logger.debug ("IN EDIT INCIDENT_CONTROLLER")
-    if(session[:report] !=nil)
-      @report = session[:report]
-    else
+
       # get the report and annotation for the view to edit
       @report = IncidentReport.find(params[:id])
+      
+      if (@report.submitted? && current_staff.access_level == Authorize.ra_access_level) || (!@report.submitted? && current_staff.access_level == Authorize.ra_access_level && @report.staff != current_staff)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+      end
+      
       # save the report and annotation into the session
       session[:report] = @report
-    end
+
+    
+    respond_to do |format|
+        format.html 
+        format.iphone {render :layout => 'mobile_application'}
+      end
+      
   end
 
   
@@ -73,11 +91,12 @@ class IncidentReportsController < ReportsController
         if @report.save
           format.html { redirect_to(@report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @report, :status => :created, :location => @report }
-          format.iphone {render :layout => 'mobile_application'}
+          #format.iphone {render :layout => 'mobile_application'}
+          format.iphone {redirect_to(@incident_report)}
         else
           format.html { render :action => "new_report" }
           format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
-          format.iphone { render :layout => 'mobile_application'}
+          format.iphone { render :action => "new_report", :layout => 'mobile_application'}
         end
 			end 
 =end
@@ -114,6 +133,12 @@ class IncidentReportsController < ReportsController
     # get the report
     @report = IncidentReport.find(params[:id])
     
+    # check authorization
+    if(Authorize.ra_authorize(current_staff) && current_staff != @incident_report.staff) || (Authorize.ra_authorize(current_staff) && current_staff == @report.staff && @report.submitted)
+        flash[:notice] = "Unauthorized Access"
+        redirect_to "/home/landingpage"
+        return
+    end
     # destroy the report
     @report.destroy
     
@@ -155,6 +180,11 @@ class IncidentReportsController < ReportsController
   	@report.add_default_report_student_relationships_for_participant_array([ student ])
   	respond_to do |format|
    	   format.js 
+   	   format.iphone {
+   	   render :update do |page|
+   	   	   page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   end
+   	   }
    	end 
   end
 end
