@@ -1,6 +1,9 @@
 class ReportTypesController < ApplicationController
   # GET /report_types
   # GET /report_types.xml
+  before_filter :super_admin_authorize_view_access
+  
+  
   def index
     @report_types = ReportType.all
 

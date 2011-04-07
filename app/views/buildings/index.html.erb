@@ -5,7 +5,7 @@
     <th>Building ID</th>
     <th>Name</th>
     <th>Abbreviation</th>
-    <th>Area ID</th>
+    <th>Area</th>
     <th></th>
     <th></th>
     <th></th>
@@ -22,10 +22,17 @@
     <td><%= building.id %></td>
     <td><%= building.name %></td>
     <td><%= building.abbreviation %></td>
-    <td><%= building.area_id %></td>
+    <% area = Area.where(:id =>building.area_id.to_i).first %>
+    <td>
+    <% if area != nil %>
+    <%= area.name %>
+    <% end %>
+    </td>
     <td><%= link_to 'Show', building %></td>
-    <td><%= link_to 'Edit', edit_building_path(building) %></td>
-    <td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
+        <td><%= link_to 'Edit', edit_building_path(building) %></td>
+    	<td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
+  	<% end %>
   </tr>
 <% end %>
 </table>

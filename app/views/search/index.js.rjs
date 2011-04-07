@@ -1,1 +1,1 @@
-page.replace_html('searchDiv', render ""search")
+page.replace_html('searchDiv', render "search")

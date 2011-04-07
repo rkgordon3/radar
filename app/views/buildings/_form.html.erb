@@ -19,9 +19,14 @@
     <%= f.label :abbreviation %><br />
     <%= f.text_field :abbreviation %>
   </div>
-   <div class="field">
-    Area ID<br />
-    <%= f.text_field :area_id %>
+  <div class="field">
+    Area<br />
+    <% areas = Area.all %>
+	<% selected = @building.area_id %>
+	<% if selected == nil %>
+		<% selected = Building.unspecified %>
+	<% end %>
+    <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => selected }%>
   </div>
   <div class="actions">
     <%= f.submit %>

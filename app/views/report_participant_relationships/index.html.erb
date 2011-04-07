@@ -23,8 +23,10 @@
     <td><%= rpr.participant.first_name %>
     	<%= rpr.participant.last_name %></td>
     <td><%= link_to 'Show', rpr %></td>
-    <td><%= link_to 'Edit', edit_report_participant_relationship_path(rpr) %></td>
-    <td><%= link_to 'Destroy', rpr, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
+    	<td><%= link_to 'Edit', edit_report_participant_relationship_path(rpr) %></td>
+    	<td><%= link_to 'Destroy', rpr, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
   </tr>
 <% end %>
 </table>

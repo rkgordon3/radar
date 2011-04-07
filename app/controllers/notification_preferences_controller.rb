@@ -1,5 +1,5 @@
 class NotificationPreferencesController < ApplicationController
-  before_filter :general_authorize  
+  before_filter :hd_authorize_view_access  
   skip_before_filter :verify_authenticity_token
   acts_as_iphone_controller = true 
  

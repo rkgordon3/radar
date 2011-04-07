@@ -1,5 +1,5 @@
 class RelationshipToReportsController < ApplicationController
-  before_filter :admin_authorize
+  before_filter :super_admin_authorize_view_access
   # GET /infractions
   # GET /infractions.xml
   def index
