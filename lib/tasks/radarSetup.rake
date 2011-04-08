@@ -3,6 +3,7 @@ namespace :radar do
   task :setup do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:setup'].invoke
+	Rake::Task['db:migrate'].invoke
     Rake::Task['db:data:load'].invoke
 	Rake::Task['db:sessions:clear'].invoke
     #rake_system('devisepost.bat')

@@ -41,10 +41,13 @@ class Report < ActiveRecord::Base
   
   
   def get_report_participant_relationships_for_participant(participant_id)
+    logger.debug "In get_report_participant_relationships_for_participant id:#{participant_id}"
     found_relationships = Array.new
     self.report_participant_relationships.each do |ri|
+	  logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
       if ri.participant_id == participant_id
         found_relationships << ri
+		logger.debug "FOUND RI"
       end
     end
     return found_relationships

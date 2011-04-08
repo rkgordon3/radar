@@ -2,7 +2,6 @@ class IncidentReportsController < ApplicationController
   before_filter :admin_assistant_authorize_view_access, :except => [:new_report, :show, :edit, :create, :update_participant_list, :update, :destroy]
   before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
-  acts_as_iphone_controller = true
 
   
   
@@ -142,12 +141,11 @@ class IncidentReportsController < ApplicationController
         if @incident_report.save
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
-          format.iphone {render :layout => 'mobile_application'}
+          #format.iphone {render :layout => 'mobile_application'}
           format.iphone {redirect_to(@incident_report)}
         else
           format.html { render :action => "new_report" }
           format.xml  { render :xml => @incident_report.errors, :status => :unprocessable_entity }
-          format.iphone { render :layout => 'mobile_application'}
           format.iphone { render :action => "new_report", :layout => 'mobile_application'}
         end
 			end   
@@ -316,11 +314,34 @@ end
   end
   
   # Callback for student search form
-  def update_participant_list
+  def add_participant_to_participant_list
   	@student = Student.get_student_object_for_string(params[:full_name])
   	@incident_report = session[:incident_report]
   	@incident_report.add_default_report_student_relationships_for_participant_array([ @student ])
   	respond_to do |format|
+   	   format.js
+   	   format.iphone {
+   	   render :update do |page|
+   	   	   page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   end
+   	   }
+   	end 
+  end
+  
+  def remove_participant_from_participant_list
+	logger.debug "In remove method #{params}"
+	@incident_report = session[:incident_report]
+	@participant_id = Integer(params[:id])
+	infractions = @incident_report.get_report_participant_relationships_for_participant(@participant_id)
+	logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
+	infractions.each do |ri|
+		logger.debug "Inside upper if block"
+		@incident_report.report_participant_relationships.delete(ri)
+	    ri.report_id = 0
+		ri.destroy		
+    end
+	
+	respond_to do |format|
    	   format.js
    	end 
   end
