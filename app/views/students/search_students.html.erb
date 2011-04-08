@@ -48,8 +48,8 @@
 		<td>
 			<div class="field">
     			<b>Area:</b><br />
-				<%= render :partial => "areas/all_areas_select_tag" %>
-
+				<% areas = Area.all %>
+					<%= select_tag "area_id", options_from_collection_for_select(areas,"id", "name") %>
 				</div>
 		</td>
 	</tr>
@@ -57,7 +57,7 @@
 		<td>
 			<div class="field">
     			<b>Birthdate After Date:</b><br />
-				<%= text_field_tag "after_birthdate" %> 
+				<%= date_select "student", "after_birthdate", :order => [:month, :day, :year], :start_year => 1940, :end_year => Time.now.year, :include_blank => true %>
 			</div>
 		</td>
 		<td>
@@ -65,7 +65,7 @@
 		<td>
 			<div class="field">
     			<b>Birthdate Before Date:</b><br />
-    			<%= text_field_tag "before_birthdate" %>
+    			<%= date_select "student", "before_birthdate", :order => [:month, :day, :year], :start_year => 1940, :end_year => Time.now.year, :include_blank => true %>
   			</div>
 		</td>
 	</tr>
