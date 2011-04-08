@@ -147,19 +147,21 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if a date was provided, find all before that date
-      if params[:before_birthdate] != "" 
+      if params[:student][:"before_birthdate(1i)"] != "" 
         # be careful of time zones - all need to be in GMT to match the DB
+        date = "#{params[:student][:"before_birthdate(1i)"].to_i}/#{params[:student][:"before_birthdate(2i)"].to_i}/#{params[:student][:"before_birthdate(3i)"].to_i}"
         min = Time.parse("01/01/1970").gmtime
-        max = Time.parse(params[:before_birthdate]).gmtime
+        max = Time.parse(date).gmtime
         
         @students = @students.where(:birthday => min..max )
       end
       
       #-----------------
       # if a date was provided, find all after that date
-      if params[:after_birthdate] != "" 
+      if params[:student][:"after_birthdate(1i)"] != "" 
         # be careful of time zones - all need to be in GMT to match the DB
-        min = Time.parse(params[:after_birthdate]).gmtime
+        date = "#{params[:student][:"after_birthdate(1i)"].to_i}/#{params[:student][:"after_birthdate(2i)"].to_i}/#{params[:student][:"after_birthdate(3i)"].to_i}"
+        min = Time.parse(date).gmtime
         max = Time.now.gmtime
         
         @students = @students.where(:birthday => min..max )
