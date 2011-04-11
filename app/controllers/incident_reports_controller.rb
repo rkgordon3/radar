@@ -131,7 +131,6 @@ class IncidentReportsController < ApplicationController
       # if user wants to submit report officially, set submitted to true
       if params[:submit_submit] != nil
         @incident_report.submitted = true
-		#Notification.immediate_notify(@incident_report.id)
       end
       
       # process parameters into reported infractions
@@ -140,6 +139,9 @@ class IncidentReportsController < ApplicationController
       # render next page, nothing else affects the view
       respond_to do |format|
         if @incident_report.save
+			if @incident_report.submitted == true
+				Notification.immediate_notify(@incident_report.id)
+			end	
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
           #format.iphone {render :layout => 'mobile_application'}
