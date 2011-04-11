@@ -44,12 +44,12 @@ function divToggle(divID,imgID) {
   	
   	
   	<br />
-  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   	<a href="javascript:void(0)" onClick="divToggle('<%= b.participant_id %>-infractions', '<%=b.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=b.participant_id%>-img"/></a> <b>Infractions:</b>
   	<div id="<%= b.participant_id %>-infractions" style="display: none;">
   		<% infractions = RelationshipToReport.all %>
   		<% infractions.each do |i| %>
-  		  <div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
+  		  <div style="margin-left: 70px;margin-top: 4px; margin-bottom: 0px;" >
   				<% #this checkbox tag is not complete for another several lines# %>
   				<input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]"
   			
