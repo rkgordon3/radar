@@ -13,15 +13,12 @@
                         Showing Incident Report #<%= @incident_report.id %>
                     </Legend>
                     <ul>
-                        <li>
-                            Report ID:<span><%= @incident_report.id %>
-                            </span>
-                        </li>
+                        
                         <li>
                             Submitted:<span><%= @incident_report.submitted %></span>
                         </li>
                         <li>
-                            Approach Time:<span><%= @incident_report.approach_time %></span>
+                            Approach Time:<span><%= @incident_report.approach_time.to_s(:time_only)%></span>
                         </li>
                         <li>
                             Building ID:<span><%= @incident_report.building.name %></span>
@@ -29,10 +26,7 @@
                         <li>
                             Room Number:<span><%= @incident_report.room_number %></span>
                         </li>
-                        <li>
-                            Submitter:<span><%= @incident_report.staff.first_name %> <%= @incident_report.staff.last_name %>
-                            </span>
-                        </li>
+                        
                     </ul>
                     <Legend>
                         Annotation:
@@ -42,18 +36,21 @@
                             <%= Annotation.find(@incident_report.annotation_id).text %>
                         </li>
                     </ul>
+                   
+                    <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+                    
                     <Legend>
                         Student infractions:
                     </Legend>
-                    <% @incident_report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
-                    <ul>
+					<ul>
 					<% @incident_report.report_participant_relationships.each do |b| %>
                     <% if b.participant.id != @currentParticipantID %>
 					
                     <% @currentParticipantID = b.participant.id %>
-					</ul>
-                    <Legend>Participant:</Legend>
-					<ul>
+					
+					<li>
+                    <Legend  style="color: #000000">Participant:</Legend>
+					<!--<ul>
                         
                             
 							<li>
@@ -65,27 +62,40 @@
                         
                         <%= b.participant.first_name %> <%= b.participant.last_name %></a>
                     
+					
+					
                     <% end %>
                     </li>
-                </ul>
-                
-                <Legend>
+                </ul>-->
+				<Legend style="color: #b22222">
+                <% if b.participant.type == "Student" %>
+                            
+                            &nbsp&nbsp<%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                       
+                        <% else %>
+                        
+                       &nbsp&nbsp <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                    
+					
+					
+                    <% end %>
+					</Legend>
+					<br/>
+                <Legend  style="color: #000000">
                     Infractions:
                 </Legend>
-				<ul>
+				
                     <% end %>
-					
-                    <li>
-                        <%= b.relationship_to_report.description %>
-                    </li>
-					
+				
+					<Legend style="color: #b22222">
+					&nbsp&nbsp<%= b.relationship_to_report.description %>
+					</Legend>
+					</li>
                     <% end %>
-                </ul>
-
-
+</ul>
                 <ul>
                     <li>
-                        Created at:<span><%= @incident_report.created_at.to_s(:my_time) %></span>
+                        Created:<span><%= @incident_report.created_at.to_s(:date_only) %></span>
                     </li>
                 </ul>
                 <a href='<%=incident_reports_path%>' class="iPush iBClassic" style="width:100%">View Reports</a>

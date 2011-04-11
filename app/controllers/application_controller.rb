@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 	def set_iphone_format
-		if is_iphone_request?
+		if is_iphone_request? || is_android_request?
 			request.format = :iphone
 		end
 	end
@@ -18,9 +18,12 @@ class ApplicationController < ActionController::Base
 	def is_iphone_request?
 		#TRUE
 		request.user_agent =~ /(Mobile\/.+Safari)/
+		
 	end  
 	
-
+	def is_android_request?
+		request.user_agent =~ /(Android)/
+	end
 	
 	
   
