@@ -131,7 +131,7 @@ class IncidentReportsController < ApplicationController
       # if user wants to submit report officially, set submitted to true
       if params[:submit_submit] != nil
         @incident_report.submitted = true
-		Notification.immediate_notify(@incident_report.id)
+		#Notification.immediate_notify(@incident_report.id)
       end
       
       # process parameters into reported infractions
