@@ -6,16 +6,17 @@
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
         	<div class="iPanel">
-        		<legend>
+        				<legend>
                             Students:
                         </legend> 
                              	
-        	<div id="s-i-form">
+        	<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
+        	
+			<div id="s-i-form">
         		    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
         	</div>	
-        	
-        		<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/update_participant_list" } %>
-        	</div>
+			
+			</div>
         	
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
@@ -36,16 +37,18 @@
                             Building:
                         </legend>
                         <ul>
-                            <li class="iRadio" value="autoback">
+                            <li id="build" class="iRadio" value="autoback">
+                            	
                                 Select Building<% Building.find(:all).each do |b| %>
 								
                                 <label>
-                                    <input type="radio" name="incident_report[building_id]" value=<%= b.id %> <%if @incident_report.building_id == b.id %> CHECKED <% end %>><%= b.name %>
+                                    <input type="radio" name="incident_report[building_id]" value="<%= b.id %>" <%if @incident_report.building_id == b.id %> CHECKED <% end %>><%= b.name %>
                                 </label>
                                 
 								
-								<% end %>
-								<span><%=@incident_report.building.name%></span>
+								
+								<% end %><!--<%= @incident_report.building.name %>-->
+								<!--<span><%=@incident_report.building.name%></span>-->
                             </li>
                         </ul>
                         <legend>

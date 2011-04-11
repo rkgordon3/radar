@@ -12,7 +12,11 @@ class IncidentReportsController < ApplicationController
     # but maybe "back" button was pushed on a new_report or edit page
     
     # get all submitted reports so view can display them (in order of approach time)
-    @incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
+
+    @incident_reports = IncidentReport.order(:approach_time)
+    
+    #this was the previous it was changed because unsubmitted reports were submitted
+    #@incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -135,6 +139,8 @@ class IncidentReportsController < ApplicationController
       
       # process parameters into reported infractions
       self.add_reported_infractions_to_report(@incident_report, params)  
+      
+      self.clear_session
       
       # render next page, nothing else affects the view
       respond_to do |format|
