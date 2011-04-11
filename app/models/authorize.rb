@@ -46,4 +46,22 @@ class Authorize
   def Authorize.super_admin_access_level
     return 5
   end
+  
+  def Authorize.string_for_access_level(lev)
+    if lev == Authorize.ra_access_level
+      return "Resident Asst."
+    end
+    if lev == Authorize.hd_access_level
+      return "Hall Director"
+    end
+    if lev == Authorize.admin_assistant_access_level
+      return "Admin Asst."
+    end
+    if lev == Authorize.admin_access_level
+      return "Administrator"
+    end
+    if lev == Authorize.super_admin_access_level
+      return "System Admin"
+    end
+  end
 end

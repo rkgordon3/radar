@@ -12,4 +12,9 @@ class Staff < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active 
 
+  def after_initialize
+    self.active = true
+  end
+
+
 end

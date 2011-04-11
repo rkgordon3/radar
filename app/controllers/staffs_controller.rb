@@ -35,42 +35,6 @@ class StaffsController < ApplicationController
     end
   end
 
-  # GET /staffs/1/edit
-  def edit
-    @staff = Staff.find(params[:id])
-  end
-
-  # POST /staffs
-  # POST /staffs.xml
-  def create
-    @staff = Staff.new(params[:staff])
-
-    respond_to do |format|
-      if @staff.save
-        format.html { redirect_to(@staff, :notice => 'Staff was successfully created.') }
-        format.xml  { render :xml => @staff, :status => :created, :location => @staff }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @staff.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /staffs/1
-  # PUT /staffs/1.xml
-  def update
-    @staff = Staff.find(params[:id])
-
-    respond_to do |format|
-      if @staff.update_attributes(params[:staff])
-        format.html { redirect_to(@staff, :notice => 'Staff was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @staff.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /staffs/1
   # DELETE /staffs/1.xml
