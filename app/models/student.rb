@@ -53,13 +53,7 @@ class Student < Participant
   	  
   	end
   	
-  	def getImageUrl 		 
-  					STUDENT_IMAGES_PATH + email.downcase
-  	 end
-  	 
-  	 def getThumbnailUrl
-  	 				 STUDENT_THUMBS_PATH + email.downcase
-  	 end
+
 	
 	def getAge(dob)
      unless dob.nil?
