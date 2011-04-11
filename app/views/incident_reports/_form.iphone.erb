@@ -22,9 +22,6 @@
                 <div class="iPanel">
                     <fieldset>
 
-                    	<div class="field">
-   
-                        </div>
                          <legend>
                             Annotation:
                         </legend>
@@ -86,6 +83,8 @@
                 <div class="iLayer" id="wa<%=b.participant.id%>" title="<%= b.participant.full_name%>">
                     <div class="iPanel">
                         <fieldset>
+                        	<legend>IT WORKS</legend>
+                        	<!--
                             <ul class="iArrow">
                                 <% infractions = RelationshipToReport.all %>
                                 <% infractions.each do |i| %>
@@ -99,7 +98,7 @@
                                     <% #this is the end of the checkbox tag.# %>
                                     ><%= i.description %>                            
 								</li><% end %>
-                            </ul>
+                            </ul>-->
                         </fieldset>
                     </div>
                 </div><% end %>

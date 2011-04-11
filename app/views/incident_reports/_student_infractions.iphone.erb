@@ -1,7 +1,9 @@
 <div class="field">
+	
     <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
     <% fyi = RelationshipToReport.fyi %>
-    <fieldset>
+	<div class="iPanel">
+<fieldset>
         <ul class="iArrow">
             <% @incident_report.report_participant_relationships.each do |b| %>
             <% if b.participant.id != @currentParticipantID %>
@@ -18,6 +20,7 @@
             <div id="details_div_<%= b.participant.id %>" style="display: none;">
                 <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
             </div>
+			</ul></fieldset></div>
             <div class="iLayer" id="wa<%=b.participant.id%>" title="<%=b.participant.full_name%>">
                 <div class="iPanel">
                     <fieldset>
@@ -41,8 +44,9 @@
                     </fieldset>
                 </div>
             </div>
+			
 			<% end %>
             <% end %>
-        </ul>
-    </fieldset>
-</div>
+        
+    
+</div></div>
