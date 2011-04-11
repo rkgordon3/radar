@@ -996,7 +996,7 @@ report_types:
   - updated_at
   records: 
   - - 1
-    - Incident
+    - IncidentReport
     - 
     - 
   - - 2
