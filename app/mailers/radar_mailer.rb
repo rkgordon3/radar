@@ -3,7 +3,7 @@ class RadarMailer < ActionMailer::Base
   
   def immediate_notification_mail(report, staff)
 	@report_type = report.type
-	@report_url = "http://140.190.71.162:300/incident_reports/"+report.id.to_s
+	@report_url = "http://140.190.71.162:3000/incident_reports/"+report.id.to_s
 	
 	@first_name = staff.first_name
 	@last_name = staff.last_name	
