@@ -12,7 +12,10 @@ class Student < Participant
 		end
 	def get_id
 		"#{:id}"
-	end
+end
+
+
+
 	# rkg why are inequalities used?
 	# Why get_id? You are getting student(s)?
 	def Student.get_id_from_name_building_room(f_name, building_id, room_number)
@@ -44,12 +47,9 @@ class Student < Participant
 	
   	  # rkg why query database twice to get id?
 
-  	  student_id = Student.get_id_from_name_building_room(
-		long_name,building_id,room_number)
-	
-	  student = Student.find(student_id)
-	
-	  return student
+  	  student = Student.get_id_from_name_building_room(long_name,building_id,room_number)
+	    
+	    return student.first
   	  
   	end
   	

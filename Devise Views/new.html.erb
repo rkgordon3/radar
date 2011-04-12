@@ -21,7 +21,6 @@
   <p><%= f.label :access_level %><br />
   <%= f.select :access_level, [["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]] %></p>
 
-  <%= f.hidden :active, "t" %>
   
   <p><%= f.submit "Sign up" %></p>
 <% end %>

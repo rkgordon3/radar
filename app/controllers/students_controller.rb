@@ -98,7 +98,7 @@ class StudentsController < ApplicationController
     student = nil
     
     # if a student's name was entered, find all reports with that student
-    if params[:student_id].length > 1 # arbitrary number
+    if params[:student_id]!= "" # arbitrary number
       # get the student by his/her ID
       search_string = "\"student_id\" LIKE \"" + params[:student_id] + "%\""
       student = Student.where(search_string)
@@ -107,12 +107,17 @@ class StudentsController < ApplicationController
     end
     
     # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 3 # arbitrary number
+    if params[:full_name].length != "" # arbitrary number
       # get the student for the string entered
       student = Student.get_student_object_for_string(params[:full_name])
-      
-      @students = Array.new << student
+      if student != nil
+        @students = Array.new << student
+      else 
+        @students = Student.where("full_name LIKE ?", "%#{params[:full_name]}%")
+      end
     end
+    
+    @students
     
     
     
@@ -172,7 +177,7 @@ class StudentsController < ApplicationController
       @students = @students.order(:last_name)
     end
     
-    
+    @num_results = @students.count
     
     respond_to do |format|
       format.html
