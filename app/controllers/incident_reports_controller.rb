@@ -330,13 +330,15 @@ end
   	@incident_report.add_default_report_student_relationships_for_participant_array([ @student ])
   	respond_to do |format|
    	   format.js
-   	   format.iphone {
-   	   render :update do |page|
+   	   format.iphone {render :update do |page|
    	   	   page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   	   
    	   end
    	   }
    	end 
   end
+  
+
   
   def remove_participant_from_participant_list
 	logger.debug "In remove method #{params}"

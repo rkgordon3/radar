@@ -5,18 +5,18 @@
     </div>
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
-        	<div class="iPanel">
-        				<legend>
-                            Students:
-                        </legend> 
-                             	
-        	<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/add_participant_to_participant_list" } %>
-        	
-			<div id="s-i-form">
-        		    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
-        	</div>	
-			
-			</div>
+            <div class="iPanel">
+                <legend>
+                    Students:
+                </legend>
+                <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/add_participant_to_participant_list" } %>
+                <div id="s-i-form">
+                	
+                    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
+
+
+                    </div>
+                </div>
         	
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
@@ -75,7 +75,7 @@
 							  <% end %>
 
                     </fieldset>
-                </div>
+                </div></form></div>
                 <% @currentParticipantID = nil %>
                 <% @incident_report.report_participant_relationships.each do |b| %>
                 <% if @currentParticipantID == nil or b.participant.id != @currentParticipantID %>
@@ -103,8 +103,8 @@
                     </div>
                 </div><% end %>
                 <% end %>
-            </form>
-        </div>
+            
+        
     </div>
 </div>
 
