@@ -120,11 +120,11 @@ class IncidentReportsController < ReportsController
       @report.add_reported_infractions(params)
 # TODO This will be a problem submit_submit key no longer a param
 # move notify to after_save
-      if params[:submit_submit] != nil
+#      if params[:submit_submit] != nil
+#    end
+     super
 
-		Notification.immediate_notify(@report.id)
-      end
-super=begin      respond_to do |format|
+=begin      respond_to do |format|
         if @report.update_attributes(params[:report])
           format.html { redirect_to(@report, :notice => 'Incident report was successfully updated.') }
           format.xml  { head :ok }

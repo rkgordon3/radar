@@ -64,7 +64,10 @@ class Report < ActiveRecord::Base
         ri.save                                     # actually save
       end
     end
-  end
+    if (self.submitted) 
+    				Notification.immediate_notify(self.id)
+    end
+end
   
   def before_destroy
   	destroy_participants
