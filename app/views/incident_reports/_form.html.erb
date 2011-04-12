@@ -39,6 +39,10 @@
     <b><%= f.label :approach_time %>:</b><br />
     <%= f.text_field :approach_time %>
   </div>
+   <div class="field">
+    <b><%= f.label :tag%>:</b><br />
+    <%= f.text_field :tag, :value => "#{@incident_report.type}-#{@incident_report.approach_time.strftime("%Y%m%d%H%M%S")}-#{@incident_report.staff_id}" %>
+  </div>
  
 
 
