@@ -6,9 +6,13 @@ Radar::Application.routes.draw do
   
   get "reports_query/reports_query"
   
-  match "/incident_reports/update_participant_list" => "incident_reports#update_participant_list"
+  match "/reports/add_participant" => "reports#add_participant"
+  match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/search/update_result_list" => "search#update_result_list"
   match "/students/show_details/:id" => "students#show_details"
+  
+  match "/incident_reports/add_participant"         => "reports#add_participant"
+  match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
 
   devise_for :staffs
   

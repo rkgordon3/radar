@@ -36,38 +36,25 @@ function divToggle(divID,imgID) {
   		
   	
   <%= "#{relationship.participant.first_name} #{relationship.participant.last_name}" %>
-  <%= link_to image_tag("/images/remove_icon.png", :border=>0), { :action => 'remove_participant_from_participant_list', :id => @currentParticipantID }, :remote => true %>
+  <%= link_to image_tag("/images/remove_icon.png", :border=>0), { :action => 'remove_participant', :id => @currentParticipantID }, :remote => true %>
 
   	<div id="details_div_<%= relationship.participant.id %>" style="display: none;" >
   	  <%= render :partial => "participants/participant_details", :locals => { :participant => relationship.participant } %>
   	</div>
   	
   	
-  	
+ 	
   	<br />
-  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   	<a href="javascript:void(0)" onClick="divToggle('<%= relationship.participant_id %>-infractions', '<%=relationship.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=relationship.participant_id%>-img"/></a> <b>Infractions:</b>
   	<div id="<%= relationship.participant_id %>-infractions" style="display: none;">
   		<% infractions = RelationshipToReport.all %>
   		<% infractions.each do |infraction| %>
   		  <div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
-  				<% #this checkbox tag is not complete for another several lines# %>
-  				<%= check_box_tag "#{relationship.participant_id}[#{infraction.id}]", infraction.description, ir.get_specific_report_student_relationship(relationship.participant_id, infraction.id) != nil %><%= label_tag infraction.description %>
-  				<% if false %>  				
-  				<input type="checkbox" name="<%= relationship.participant_id %>[<%= infraction.id %>]"
-  			
-  				<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
-  				<% ir.report_participant_relationships.each do |ri| %>
-  					<% if infraction.id != fyi && ri.participant_id == relationship.participant_id && ri.relationship_to_report_id == infraction.id %>
-  						CHECKED
-  					<% end%>
-  				<%end%>
-  			
-  				<% #this is the end of the checkbox tag.# %>
-  				><%= infraction.description %>
-  				
-  				<% end %>
-  				</div>
+  				<%= check_box_tag "#{relationship.participant_id}[#{infraction.id}]", 
+  				       infraction.description, 
+  				       ir.get_specific_report_student_relationship(relationship.participant_id, infraction.id) != nil %>
+  				<%= label_tag infraction.description %>			
+  			</div>
   		<% end %>
   		</div>
    <% end %>

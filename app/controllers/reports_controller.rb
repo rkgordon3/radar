@@ -65,6 +65,7 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
+  				logger.debug("Report update")
     @report = Report.find(params[:id])
 
     respond_to do |format|
@@ -89,4 +90,36 @@ class ReportsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+   def add_participant
+  	@student = Student.get_student_object_for_string(params[:full_name])
+  	@report = session[:report]
+  	@report.add_default_report_student_relationships_for_participant_array([ @student ])
+  	respond_to do |format|
+   	   format.js 
+   	   format.iphone {
+   	   				 render :update do |page|
+   	   				 				 page.replace_html("s-i-form", 
+   	   				 				 				 render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   				 end
+   	   }
+   	end 
+  end
+  
+  def remove_participant
+  	logger.debug "In remove method #{params}"
+		@report = session[:report]
+		@participant_id = Integer(params[:id])
+		infractions = @report.get_report_participant_relationships_for_participant(@participant_id)
+		logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
+		infractions.each do |ri|
+						@report.report_participant_relationships.delete(ri)
+						ri.destroy		
+    end
+	
+    respond_to do |format|
+   	   format.js
+   	end 
+  end
+  
 end

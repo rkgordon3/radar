@@ -17,14 +17,17 @@ class IncidentReport < Report
       # variable to see if we have found an infraction for p
       any_relationship_to_report_found_for_participant = false 
       #loop through all infractions to see if user checked infraction for student
-      RelationshipToReport.all.each do |i|
+     # RelationshipToReport.all.each do |infraction|
         # example: if the user wants student 6 to have infraction 1 (community disruption)
         # param entry would look like params[6][1] = "on"
-        if params[p.to_s()] != nil && params[p.to_s()][i.id.to_s()] == "on"
-          any_relationship_to_report_found_for_participant = true
-          new_ris << report.add_specific_relationship_to_report_for_participant(p, i.id)
+        if params[p.to_s()] != nil
+        				params[p.to_s()].each_key { |key| 
+        								logger.debug("Found infraction #{key} for #{p}")
+        								any_relationship_to_report_found_for_participant = true
+        								new_ris << add_specific_relationship_to_report_for_participant(p, key.to_i)
+        				}
         end
-      end
+      #end
       
       # if there are no checkboxes checked for particpant
       if any_relationship_to_report_found_for_participant == false

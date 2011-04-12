@@ -10,6 +10,11 @@
     </div>
   <% end %>
   <%= form_for(@report) do |f| %>
+  
+   
+   <div id="s-i-form">
+    <%= render :partial => "reports/student_infractions", :locals => { :ir => @report } %>
+  </div>
 
 <div class="field">
     <b>Annotation:</b><br />
