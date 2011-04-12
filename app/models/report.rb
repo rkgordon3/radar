@@ -32,9 +32,12 @@ class Report < ActiveRecord::Base
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
         ri.report_id = self.id # establish connection
-        ri.save                                     # actually save
+        ri.save		# actually save
       end
     end
+	if self.submitted == true
+				Notification.immediate_notify(self.id)
+	end	
   end
   
   
