@@ -142,7 +142,7 @@ end
   
   
   
-  def add_default_relationship_to_report_for_participant(participant_id)
+  def add_default_relationship_for_participant(participant_id)
     # only want to add if fyi doesn't already exist
     all_relationships_for_participant = get_report_participant_relationships_for_participant(participant_id)
     
@@ -150,12 +150,10 @@ end
     if all_relationships_for_participant.count == 0
       ri = ReportParticipantRelationship.new(:participant_id => participant_id)
       self.report_participant_relationships << ri
-      return ri
     else
       ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
-      return ri
     end
-
+    return ri
   end
   
   
@@ -176,7 +174,7 @@ end
     if participants != nil
       # go through the students and add fyi relationships
       participants.each do |s|
-      				add_default_relationship_to_report_for_participant(s.id)
+      				add_default_relationship_for_participant(s.id)
       end
     end
   end

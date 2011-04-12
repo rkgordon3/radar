@@ -1,0 +1,2 @@
+page.insert_html(:bottom, "s-i-form", render( :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship }))
+

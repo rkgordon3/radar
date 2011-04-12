@@ -124,7 +124,8 @@ class IncidentReportsController < ReportsController
 #    end
      super
 
-=begin      respond_to do |format|
+=begin      
+	respond_to do |format|
         if @report.update_attributes(params[:report])
           format.html { redirect_to(@report, :notice => 'Incident report was successfully updated.') }
           format.xml  { head :ok }

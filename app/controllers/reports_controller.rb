@@ -92,15 +92,16 @@ class ReportsController < ApplicationController
   end
   
    def add_participant
-  	@student = Student.get_student_object_for_string(params[:full_name])
+   	@participant = Student.get_student_object_for_string(params[:full_name])
   	@report = session[:report]
-  	@report.add_default_report_student_relationships_for_participant_array([ @student ])
+  	logger.debug("add participant #{@report}")
+  	@relationship = @report.add_default_relationship_for_participant(@participant.id)
   	respond_to do |format|
    	   format.js 
    	   format.iphone {
    	   				 render :update do |page|
-   	   				 				 page.replace_html("s-i-form", 
-   	   				 				 				 render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   				 				 page.insert_html("s-i-form", 
+   	   				 				 				 render( :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship }))
    	   				 end
    	   }
    	end 
