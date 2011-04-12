@@ -39,17 +39,24 @@
 				<% end %>
 			</ul>
 		</li>
-		<li>Duty Logs
-			<ul>
-				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
-					<li>New Duty Log</li>
-				<% end %>
-				<% if current_staff.access_level > Authorize.ra_access_level %>
+		<% if current_staff.access_level > Authorize.ra_access_level %>
+			<li>Duty Logs
+				<ul>
 					<li>List Duty Logs</li>
 					<li>Search Duty Logs</li>
-				<% end %>
+				</ul>
+			</li>
+		<% end %>
+		<% if current_staff.access_level == Authorize.super_admin_access_level %>
+		<li>Miscellaneous
+			<ul>
+				<li><%= link_to("Buildings", "/buildings")%></li>
+				<li><%= link_to("Areas", "/areas")%></li>
+				<li><%= link_to("Staff Members", "/staffs")%></li>
 			</ul>
 		</li>
+		<% end %>
+		
 	</ul>
 	
 	<% end %>

@@ -8,7 +8,6 @@
     <td><%= student.building.name %></td>
     <td><%= student.room_number %></td>
 	<td><%= student.extension %></td>
-    <td><%= student.getAge(student.birthday) %></td>
 	<% if student.birthday > -21.years.from_now %>
 		<td><font color="red"><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></font></td>
 	<% else %>
