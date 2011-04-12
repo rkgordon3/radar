@@ -98,7 +98,7 @@ class StudentsController < ApplicationController
     student = nil
     
     # if a student's name was entered, find all reports with that student
-    if params[:student_id].length > 1 # arbitrary number
+    if params[:student_id]!= "" # arbitrary number
       # get the student by his/her ID
       search_string = "\"student_id\" LIKE \"" + params[:student_id] + "%\""
       student = Student.where(search_string)
@@ -107,12 +107,17 @@ class StudentsController < ApplicationController
     end
     
     # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 3 # arbitrary number
+    if params[:full_name].length != "" # arbitrary number
       # get the student for the string entered
       student = Student.get_student_object_for_string(params[:full_name])
-      
-      @students = Array.new << student
+      if student != nil
+        @students = Array.new << student
+      else 
+        @students = Student.where("full_name LIKE ?", "%#{params[:full_name]}%")
+      end
     end
+    
+    @students
     
     
     
@@ -147,19 +152,21 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if a date was provided, find all before that date
-      if params[:before_birthdate] != "" 
+      if params[:student][:"before_birthdate(1i)"] != "" 
         # be careful of time zones - all need to be in GMT to match the DB
+        date = "#{params[:student][:"before_birthdate(1i)"].to_i}/#{params[:student][:"before_birthdate(2i)"].to_i}/#{params[:student][:"before_birthdate(3i)"].to_i}"
         min = Time.parse("01/01/1970").gmtime
-        max = Time.parse(params[:before_birthdate]).gmtime
+        max = Time.parse(date).gmtime
         
         @students = @students.where(:birthday => min..max )
       end
       
       #-----------------
       # if a date was provided, find all after that date
-      if params[:after_birthdate] != "" 
+      if params[:student][:"after_birthdate(1i)"] != "" 
         # be careful of time zones - all need to be in GMT to match the DB
-        min = Time.parse(params[:after_birthdate]).gmtime
+        date = "#{params[:student][:"after_birthdate(1i)"].to_i}/#{params[:student][:"after_birthdate(2i)"].to_i}/#{params[:student][:"after_birthdate(3i)"].to_i}"
+        min = Time.parse(date).gmtime
         max = Time.now.gmtime
         
         @students = @students.where(:birthday => min..max )
@@ -170,7 +177,7 @@ class StudentsController < ApplicationController
       @students = @students.order(:last_name)
     end
     
-    
+    @num_results = @students.count
     
     respond_to do |format|
       format.html

@@ -14,6 +14,9 @@ class IncidentReportsController < ReportsController
     # get all submitted reports so view can display them (in order of approach time)
     @reports = IncidentReport.where(:submitted => true).order(:approach_time)
     
+    #this was the previous it was changed because unsubmitted reports were submitted
+    #@incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
+    
     respond_to do |format|
     	format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }
@@ -86,13 +89,19 @@ class IncidentReportsController < ReportsController
       
    
 =begin     
+      self.clear_session
+      
       # render next page, nothing else affects the view
       respond_to do |format|
         if @report.save
+			if @report.submitted == true
+				Notification.immediate_notify(@report.id)
+			end	
           format.html { redirect_to(@report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @report, :status => :created, :location => @report }
           #format.iphone {render :layout => 'mobile_application'}
-          format.iphone {redirect_to(@incident_report)}
+# TODO This may be a problem - rkg
+          format.iphone {redirect_to(@report)}
         else
           format.html { render :action => "new_report" }
           format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
@@ -109,11 +118,13 @@ class IncidentReportsController < ReportsController
   		@report = session[:report]
       # process check boxes to update reported infractions
       @report.add_reported_infractions(params)
-      self.clear_session
-      super
+# TODO This will be a problem submit_submit key no longer a param
+# move notify to after_save
+      if params[:submit_submit] != nil
 
-=begin
-      respond_to do |format|
+		Notification.immediate_notify(@report.id)
+      end
+super=begin      respond_to do |format|
         if @report.update_attributes(params[:report])
           format.html { redirect_to(@report, :notice => 'Incident report was successfully updated.') }
           format.xml  { head :ok }
@@ -135,7 +146,7 @@ class IncidentReportsController < ReportsController
     @report = IncidentReport.find(params[:id])
     
     # check authorization
-    if(Authorize.ra_authorize(current_staff) && current_staff != @incident_report.staff) || (Authorize.ra_authorize(current_staff) && current_staff == @report.staff && @report.submitted)
+    if(Authorize.ra_authorize(current_staff) && current_staff != @report.staff) || (Authorize.ra_authorize(current_staff) && current_staff == @report.staff && @report.submitted)
         flash[:notice] = "Unauthorized Access"
         redirect_to "/home/landingpage"
         return

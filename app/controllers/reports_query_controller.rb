@@ -44,7 +44,7 @@ class ReportsQueryController < ApplicationController
     # if a particular infraction was selected, get all reports w/ that infraction
     if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
       # get reported infractions all with that infraction
-      reported_inf = ReportParticipantRelationship.where(:infraction_id => params[:infraction_id])
+      reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
       
       # if a student was selected, limit to only those infractions by that student
       if student != nil
@@ -54,7 +54,7 @@ class ReportsQueryController < ApplicationController
       
       # collect the report_ids from the reported infractions into an array
       reported_inf.each do |ri|
-        report_ids << ri.incident_report_id
+        report_ids << ri.report_id
       end
       
       # get the reports with ids in the array
@@ -108,6 +108,8 @@ class ReportsQueryController < ApplicationController
     # finishing touches...
     @reports = @reports.where(:submitted => true)    
     @reports = @reports.order(:approach_time)
+    
+    @num_reports = @reports.count
     
     respond_to do |format|
       format.html # search.html.erb

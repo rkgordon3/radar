@@ -2,9 +2,6 @@
 
   <%= render :partial => "/students/selectable_student_full_info_list", :locals => { :students => @students} %>
 
-
-<br />
-
 <p>
-<%= link_to 'Back', students_search_students_path %>
+	Showing <%= @num_results %> of <%= @num_results %> results.
 </p>

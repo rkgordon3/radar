@@ -49,7 +49,7 @@ function divToggle(divID,imgID) {
   	<div id="<%= relationship.participant_id %>-infractions" style="display: none;">
   		<% infractions = RelationshipToReport.all %>
   		<% infractions.each do |infraction| %>
-  		  <div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
+  		  <div style="margin-left: 70px;margin-top: 4px; margin-bottom: 0px;" >
   				<%= check_box_tag "#{relationship.participant_id}[#{infraction.id}]", 
   				       infraction.description, 
   				       ir.get_specific_report_student_relationship(relationship.participant_id, infraction.id) != nil %>

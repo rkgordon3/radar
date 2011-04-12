@@ -8,8 +8,11 @@
     <td><%= student.building.name %></td>
     <td><%= student.room_number %></td>
 	<td><%= student.extension %></td>
-    <td><%= student.getAge(student.birthday) %></td>
-	<td><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></td>
+	<% if student.birthday > -21.years.from_now %>
+		<td><font color="red"><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></font></td>
+	<% else %>
+		<td><%= student.birthday != nil ? student.birthday.strftime("%m/%d/%Y") : "" %></td>
+	<% end %>
     
     <td><%= link_to 'Show', student %></td>
 	<%if staff_signed_in? %>
