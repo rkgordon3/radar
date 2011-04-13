@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	def general_authorize
 		unless staff_signed_in?
 			flash[:notice] = "Unauthorized Access"
-			redirect_to "/home/landingpage"
+			redirect_to "/staffs/sign_in"
 			false
 		end
 	end
@@ -31,10 +31,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -45,10 +41,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -59,10 +51,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -73,10 +61,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -87,10 +71,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -101,10 +81,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   

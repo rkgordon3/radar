@@ -1,7 +1,9 @@
 class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.xml
+  before_filter :authenticate_staff!
   before_filter :ra_authorize_view_access
+  
   
   def index
   	@reports = Report.where("id > 0").order(:approach_time)
