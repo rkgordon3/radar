@@ -197,7 +197,7 @@ class StudentsController < ApplicationController
     session[:incident_report] = @incident_report
    
     respond_to do |format|
-      format.html { redirect_to "/incident_reports/new_report", :locals => {:incident_report => @incident_report} }
+      format.html { redirect_to "/incident_reports/new_report" }
       format.xml  { render :xml => @incident_report}
     end
   
