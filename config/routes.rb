@@ -23,8 +23,7 @@ Radar::Application.routes.draw do
   root :to => "home#landingpage"
 	
   get "search/report_search"
-  
-  root :to => "home#landingpage"
+
 		
   get 'search/autocomplete_student_full_name'
 
@@ -90,7 +89,6 @@ Radar::Application.routes.draw do
   
   resources :temp_incident
     
-  root :to => "home#landingpage"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
