@@ -117,6 +117,7 @@ class ReportsController < ApplicationController
 						@report.report_participant_relationships.delete(ri)
 						ri.destroy		
     end
+    @divid = "p-#{@participant_id}"
 	
     respond_to do |format|
    	   format.js
