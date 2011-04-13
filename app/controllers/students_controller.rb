@@ -195,7 +195,7 @@ class StudentsController < ApplicationController
       participant = Participant.where(:id => key)
       
       if participant.first != nil
-        @incident_report.add_default_relationship_to_report_for_participant(participant.first.id)  
+        @incident_report.add_default_relationship_for_participant(participant.first.id)  
       end
     end
     
