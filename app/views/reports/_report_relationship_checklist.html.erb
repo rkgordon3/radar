@@ -1,4 +1,4 @@
- <script type="text/javascript">
+<script type="text/javascript">
 
 image1 = new Image();
 image1.src = "/images/add_icon.gif";
@@ -21,7 +21,7 @@ function divToggle(divID,imgID) {
 
 <div class="relationship-checklist">
 <% if report.class.name == "IncidentReport" %>
-  	    <a href="javascript:void(0)" onClick="divToggle('<%= relationship.participant_id %>-infractions', '<%=relationship.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=relationship.participant_id%>-img"/></a> <b>Infractions:</b>
+  	    <a href="javascript:void(0)" onClick="Element.toggle('<%= relationship.participant_id %>-infractions'); divToggle('<%= relationship.participant_id %>-infractions', '<%=relationship.participant_id%>-img');"><img src="/images/add_icon.gif" name="<%=relationship.participant_id%>-img"/></a> <b>Infractions:</b>
   	<div id="<%= relationship.participant_id %>-infractions" style="display: none;">
   			<% infractions = RelationshipToReport.all %>
   			<% infractions.each do |infraction| %>

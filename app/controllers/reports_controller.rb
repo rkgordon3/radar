@@ -93,11 +93,33 @@ class ReportsController < ApplicationController
   
    def add_participant
    	@participant = Student.get_student_object_for_string(params[:full_name])
-  	@report = session[:report]
-  	logger.debug("add participant #{@report}")
+   	@report = session[:report]
+  	logger.debug("add participant #{@participant}")
   	@relationship = @report.add_default_relationship_for_participant(@participant.id)
   	respond_to do |format|
-   	   format.js 
+  					format.js
+=begin
+  					{								
+  									render   :update do |page|
+  													page.select("input#full_name").first.clear
+  													$('#next_participant').replaceWith('<%= escape_javascript(render(:partial => "relationship_to_report", 
+  																	   :locals => {:id=> "#{@relationship.participant.id}-p-id", 
+  																	               :report => @report, 
+  																	               :relationship => @relationship }) %>')
+  													#page.replace("next_participant", "<div id='xx'>hello</div>")
+  													#page.insert_html :after, "xx", "<div id='next_participant'></div>"
+
+  													page.replace( "next_participant", 
+  																	   :partial => "relationship_to_report", 
+  																	   :locals => {:id=> "#{@relationship.participant.id}-p-id", 
+  																	               :report => @report, 
+  																	               :relationship => @relationship })
+
+  											    page.insert_html :after, "#{@relationship.participant.id}-p-id", '<div id="next_participant"></div>'
+
+  									end
+  					}
+=end
    	   format.iphone {
    	   				 render :update do |page|
    	   				 				 page.insert_html("s-i-form", 

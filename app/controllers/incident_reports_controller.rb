@@ -172,6 +172,7 @@ class IncidentReportsController < ReportsController
  		@report = IncidentReport.new(:staff_id => current_staff.id)               # new report
     session[:report] = @report
 
+
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @report }

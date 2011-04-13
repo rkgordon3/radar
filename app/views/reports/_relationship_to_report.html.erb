@@ -1,4 +1,4 @@
-<div class="p-in-report" >
+<div id=<%= "'p-#{relationship.participant.id}'" %> >
       <%= link_to image_tag(relationship.participant.getThumbnailUrl, :border=> 0), "#", 
   		    :onclick => "Element.toggle('details_div_#{relationship.participant.id}'); return false;"  %>
   		
@@ -11,4 +11,5 @@
   	  </div>
   	  
   	   <%= render :partial => "report_relationship_checklist", :locals => { :report => @report, :relationship => @relationship } %>
-<div>
+  
+</div>
