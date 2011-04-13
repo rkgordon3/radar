@@ -145,9 +145,6 @@ class IncidentReportsController < ApplicationController
       # render next page, nothing else affects the view
       respond_to do |format|
         if @incident_report.save
-			if @incident_report.submitted == true
-				Notification.immediate_notify(@incident_report.id)
-			end	
           format.html { redirect_to(@incident_report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @incident_report, :status => :created, :location => @incident_report }
           #format.iphone {render :layout => 'mobile_application'}
@@ -186,7 +183,6 @@ end
       # if submit_submit button, submitted = true
       if params[:submit_submit] != nil
         @incident_report.submitted = true 
-		Notification.immediate_notify(@incident_report.id)
       end
       
       # show updated report
@@ -258,11 +254,13 @@ end
       @incident_report.staff_id = current_staff.id         # set submitter
       @annotation = Annotation.new                         # new annotation
       
+      self.clear_session
+      
       #save everything to the session
       session[:incident_report] = @incident_report
       session[:annotation] = @annotation
 
-   
+
 
     respond_to do |format|
       format.html # new_report.html.erb
@@ -335,13 +333,15 @@ end
   	@incident_report.add_default_report_student_relationships_for_participant_array([ @student ])
   	respond_to do |format|
    	   format.js
-   	   format.iphone {
-   	   render :update do |page|
+   	   format.iphone {render :update do |page|
    	   	   page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
+   	   	   
    	   end
    	   }
    	end 
   end
+  
+
   
   def remove_participant_from_participant_list
 	logger.debug "In remove method #{params}"
