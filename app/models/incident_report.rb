@@ -16,10 +16,9 @@ class IncidentReport < Report
     participants.each do |p|
       # variable to see if we have found an infraction for p
       any_relationship_to_report_found_for_participant = false 
-      #loop through all infractions to see if user checked infraction for student
-     # RelationshipToReport.all.each do |infraction|
-        # example: if the user wants student 6 to have infraction 1 (community disruption)
-        # param entry would look like params[6][1] = "on"
+     
+      # example: if the user wants student 6 to have infraction 1 (community disruption) and 3
+      # param entry would look like params[6] = { "3" => "on", "6" => "on" }
         if params[p.to_s()] != nil
         				params[p.to_s()].each_key { |key| 
         								logger.debug("Found infraction #{key} for #{p}")
