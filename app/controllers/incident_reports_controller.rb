@@ -1,4 +1,5 @@
 class IncidentReportsController < ApplicationController
+  before_filter :authenticate_staff!
   before_filter :admin_assistant_authorize_view_access, :except => [:new_report, :show, :edit, :create, :update_participant_list, :update, :destroy]
   before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token

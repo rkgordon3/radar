@@ -1,8 +1,10 @@
 class AreasController < ApplicationController
   # GET /areas
   # GET /areas.xml
+  before_filter :authenticate_staff!
   before_filter :super_admin_authorize_view_access, :except => [:show, :index]
   before_filter :admin_assistant_authorize_view_access
+
   def index
     @areas = Area.all
     @numRows = 0

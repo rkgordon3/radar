@@ -1,7 +1,9 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
+  before_filter :authenticate_staff!
   before_filter :ra_authorize_view_access
+ 
   def index
     @students = Student.all
     @numRows = 0
