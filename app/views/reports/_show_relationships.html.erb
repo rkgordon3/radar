@@ -1,0 +1,24 @@
+ <% if @report.report_participant_relationships.count == 0  %>
+ <div class="show-title"><%= "No #{title}" %></div>
+ <% else %>
+ <div class="show-title"><%= "#{title}:" %></div>
+ <% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+
+  <% current_participant_id = -1 %>
+  <% @report.report_participant_relationships.each do |b| %>
+  <% if b.participant.id != current_participant_id %>
+   	<% current_participant_id = b.participant.id %>
+   	<br />
+  	<br />&nbsp;&nbsp;&nbsp;<b> Participant:</b>
+  
+  	<% if b.participant.type == "Student" %>
+  		<a href="../students/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% else %>
+  		<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.last_name %> </a>
+  	<% end %>
+   <% end %>
+  		<br />
+  		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infraction:</b> 
+  		<%= b.relationship_to_report.description %>
+  	<% end %>
+ <%end %>

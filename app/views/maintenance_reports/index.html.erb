@@ -1,1 +1,7 @@
-Hello world!
+<div class="report-listing-header"><h1>Maintenance Requests</h1></div>
+
+<%= render :partial => "reports/index_generic", :locals => { :reports => reports } %>
+
+<div class="new_report_link">
+<%= link_to 'New Incident Report', '/maintenance_reports/new' %>
+</div>
