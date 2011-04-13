@@ -7,11 +7,10 @@ class RadarMailer < ActionMailer::Base
 	
 	@first_name = staff.first_name
 	@last_name = staff.last_name	
-	begin 
+	
 	  mail(:to => staff.email, :subject => "Incident Report Submitted") 
 	  puts "Mailed "+staff.email
-  rescue
-  end
+  
 	
 	end
 end

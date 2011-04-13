@@ -121,8 +121,7 @@ class StudentsController < ApplicationController
     
     @students
     
-    
-    logger.debug("Search results students:  #{@students}")
+ 
     
     #----------------
     # if no student was selected, select all 
@@ -143,12 +142,11 @@ class StudentsController < ApplicationController
         end
       end
       
-      logger.debug("****************Area = #{params[:area_id]} Building = #{params[:building_id]}")
+      #logger.debug("****************Area = #{params[:area_id]} Building = #{params[:building_id]}")
       
       #-----------------
       # if an area was selected, get students in that area
       if params[:area_id] != Area.unspecified.to_s && params[:building_id] == Building.unspecified.to_s
-      				logger.debug("***************Searching specific area: #{params[:area_id]}")
         buildings = Building.where(:area_id => params[:area_id])
         @students = @students.where(:building_id => buildings)
         
