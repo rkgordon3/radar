@@ -52,10 +52,6 @@ end
     	    format.iphone {render :layout => 'mobile_application'}
     end
   end
-  
-  def getURLforID(id)
-    url = Student.find(id).first_name.downcase + "." + Student.find(id).last_name.downcase
-    image_url = STUDENT_THUMBS_PATH + url
-  end
+ 
 
 end

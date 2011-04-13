@@ -2,7 +2,6 @@
   <%= label_tag "Search Students" , nil, { :class => "bold_label" } %>
   <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
   <%= submit_tag "Add" %>
-  <input id="options" type="button" value="Clear" onclick="full_name.value = ''"  />
   <% end %>
   
 

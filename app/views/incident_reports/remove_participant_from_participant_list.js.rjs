@@ -1,2 +1,0 @@
-page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
-
