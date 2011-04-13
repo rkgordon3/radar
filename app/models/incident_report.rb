@@ -31,7 +31,7 @@ class IncidentReport < Report
       
       # if there are no checkboxes checked for particpant
       if any_relationship_to_report_found_for_participant == false
-        new_ris << add_default_relationship_to_report_for_participant(p)
+        new_ris << add_default_relationship_for_participant(p)
       end
     end
     
