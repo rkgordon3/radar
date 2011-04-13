@@ -250,7 +250,11 @@ end
   def new_report 	 
   	  	  
   	  logger.debug "inside IR new_report"
-      @incident_report = IncidentReport.new                # new report
+      if session[:incident_report]== nil
+        @incident_report = IncidentReport.new
+      else
+        @incident_report = session[:incident_report]
+      end# new report
       @incident_report.staff_id = current_staff.id         # set submitter
       @annotation = Annotation.new                         # new annotation
       
@@ -265,6 +269,7 @@ end
       format.xml  { render :xml => @incident_report }
       format.iphone {render :layout => 'mobile_application'}
     end 
+    return
   end
   
   

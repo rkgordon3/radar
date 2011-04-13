@@ -117,10 +117,6 @@ class StudentsController < ApplicationController
       end
     end
     
-    @students
-    
-    
-    
     
     #----------------
     # if no student was selected, select all 
@@ -183,6 +179,30 @@ class StudentsController < ApplicationController
       format.html
     end
   end
+  
+  
+  def use_search_results_to_create_new_report
+    @incident_report = IncidentReport.new
+    
+    keys = params.keys
+    
+    for key in keys
+      participant = Participant.where(:id => key)
+      
+      if participant.first != nil
+        @incident_report.add_default_relationship_to_report_for_participant(participant.first.id)  
+      end
+    end
+    
+    session[:incident_report] = @incident_report
+   
+    respond_to do |format|
+      format.html { redirect_to "/incident_reports/new_report", :locals => {:incident_report => @incident_report} }
+      format.xml  { render :xml => @incident_report}
+    end
+  
+  end
+  
   
   
 end

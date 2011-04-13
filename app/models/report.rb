@@ -133,6 +133,8 @@ class Report < ActiveRecord::Base
     return ri
   end
  
+ 
+ 
   def add_default_report_student_relationships_for_participant_array(participants)    
     if participants != nil
       # go through the students and add fyi relationships
