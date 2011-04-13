@@ -94,9 +94,6 @@ class IncidentReportsController < ReportsController
       # render next page, nothing else affects the view
       respond_to do |format|
         if @report.save
-			if @report.submitted == true
-				Notification.immediate_notify(@report.id)
-			end	
           format.html { redirect_to(@report, :notice => 'Incident report was successfully created.') }
           format.xml  { render :xml => @report, :status => :created, :location => @report }
           #format.iphone {render :layout => 'mobile_application'}
@@ -118,10 +115,7 @@ class IncidentReportsController < ReportsController
   		@report = session[:report]
       # process check boxes to update reported infractions
       @report.add_reported_infractions(params)
-# TODO This will be a problem submit_submit key no longer a param
-# move notify to after_save
-#      if params[:submit_submit] != nil
-#    end
+
      super
 
 =begin      
@@ -178,6 +172,7 @@ class IncidentReportsController < ReportsController
       format.xml  { render :xml => @report }
       format.iphone {render :layout => 'mobile_application'}
     end 
+    return
   end
   
   

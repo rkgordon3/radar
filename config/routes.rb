@@ -52,6 +52,9 @@ Radar::Application.routes.draw do
   match "/students/search_results" => "students#search_results" 
   get "/students/search_results"
   
+  match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
+  "/students/use_search_results_to_create_new_report"
+  
   resources :search 
   
   resources :photos

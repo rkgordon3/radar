@@ -61,7 +61,7 @@ class Report < ActiveRecord::Base
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
         ri.report_id = self.id # establish connection
-        ri.save                                     # actually save
+        ri.save		# actually save
       end
     end
     if (self.submitted) 
@@ -83,7 +83,7 @@ end
 	  logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
       if ri.participant_id == participant_id
         found_relationships << ri
-		    logger.debug "FOUND RI"
+		 
       end
     end
     return found_relationships
@@ -169,6 +169,8 @@ end
     
     return ri
   end
+ 
+ 
  
   def add_default_report_student_relationships_for_participant_array(participants)    
     if participants != nil
