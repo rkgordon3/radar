@@ -34,7 +34,7 @@
 				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
 				<% end %>
 				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li>List Maintenence Requests</li>
+					<li><%= link_to "List Maintenence Requests", "/maintenance_reports" %></li>
 					<li>Search Maintenence Requests</li>
 				<% end %>
 			</ul>
