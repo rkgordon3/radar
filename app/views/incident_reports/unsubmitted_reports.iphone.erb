@@ -15,21 +15,21 @@
                             </Legend>
                             <br/>
                             <ul>
-                                <% @incident_reports.each do |incident_report| %>
-                                <% if incident_report.submitted? != true %>
+                                <% @reports.each do |report| %>
+                                <% if report.submitted? != true %>
                                 <li>
-                                    <span style="padding-top:32px"><a href='<%=edit_incident_report_path(incident_report) %>' class="iPush iBClassic">Edit</a></span>
-                                    <a href='incident_reports/<%=incident_report.id %>'>Approach Date: 
+                                    <span style="padding-top:32px"><a href='<%=edit_incident_report_path(report) %>' class="iPush iBClassic">Edit</a></span>
+                                    <a href='incident_reports/<%=report.id %>'>Approach Date: 
                                         <br/>
-                                        &nbsp&nbsp<%= incident_report.approach_time.to_s(:date_only) %>
+                                        &nbsp&nbsp<%= report.approach_time.to_s(:date_only) %>
                                         <br/>
                                         Approach Time: 
                                         <br/>
-                                        &nbsp&nbsp<%= incident_report.approach_time.to_s(:time_only) %>
+                                        &nbsp&nbsp<%= report.approach_time.to_s(:time_only) %>
                                         <br/>
                                         Building: 
                                         <br/>
-                                        &nbsp&nbsp<%= incident_report.building.name %>
+                                        &nbsp&nbsp<%= report.building.name %>
                                     </a>
                                 </li>
                                 <% end %>

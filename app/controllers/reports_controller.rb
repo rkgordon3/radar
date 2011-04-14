@@ -55,7 +55,7 @@ class ReportsController < ApplicationController
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
         format.xml  { render :xml => @report, :status => :created, :location => @report }
-        format.iphone {render :layout => 'mobile_application'}
+        format.iphone {redirect_to(@report)}
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
@@ -99,12 +99,12 @@ class ReportsController < ApplicationController
   	logger.debug("add participant #{@participant}")
   	@relationship = @report.add_default_relationship_for_participant(@participant.id)
   	respond_to do |format|
-  					format.js
-   	   format.iphone {
-   	   				 render :update do |page|
-   	   				 				 page.insert_html(:top, "s-i-form", 
-   	   				 				 				 render( :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship }))
-   	   				 end
+  		format.js
+  		format.iphone {render :update do |page|
+  				page.select("input#full_name").first.clear
+   	   			page.insert_html(:top, "s-i-form", render( :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship }))
+   	   			page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_relationship_checklist", :locals => { :report => @report, :relationship => @relationship }))
+   	   		end
    	   }
    	end 
   end
