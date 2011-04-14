@@ -1,6 +1,7 @@
 class ReportTypesController < ApplicationController
   # GET /report_types
   # GET /report_types.xml
+  before_filter :authenticate_staff!
   before_filter :super_admin_authorize_view_access
   
   

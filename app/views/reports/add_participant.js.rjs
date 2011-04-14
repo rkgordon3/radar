@@ -1,0 +1,3 @@
+		page.select("input#full_name").first.clear
+		page.insert_html(:top, "s-i-form", :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship })
+

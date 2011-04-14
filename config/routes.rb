@@ -6,10 +6,13 @@ Radar::Application.routes.draw do
   
   get "reports_query/reports_query"
   
-  match "/incident_reports/add_participant_to_participant_list" => "incident_reports#add_participant_to_participant_list"
-  match "/incident_reports/remove_participant_from_participant_list/:id" => "incident_reports#remove_participant_from_participant_list"
+  match "/reports/add_participant" => "reports#add_participant"
+  match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/search/update_result_list" => "search#update_result_list"
   match "/students/show_details/:id" => "students#show_details"
+  
+  match "/incident_reports/add_participant"         => "reports#add_participant"
+  match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
 
   devise_for :staffs
   
@@ -20,23 +23,19 @@ Radar::Application.routes.draw do
   root :to => "home#landingpage"
 	
   get "search/report_search"
-  
-  root :to => "home#landingpage"
+
 		
   get 'search/autocomplete_student_full_name'
 
   
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
+
+ resources :incident_reports do
+ 	  get :new_report, :on => :collection
+ end
   
-  match "/search/go_to_student" => "search#go_to_student"
-  get "/search/go_to_student"
-  
-  resources :incident_reports do
-  	  get :new_report, :on => :collection
-  	  get :search, :on => :collection
-  	  get :search_results, :on => :collection
-  end
+ resources :maintenance_reports                                                                                                              
   
   match "/reports_query/search" => "reports_query#search"
   get "/reports_query/search"
@@ -51,6 +50,9 @@ Radar::Application.routes.draw do
   
   match "/students/search_results" => "students#search_results" 
   get "/students/search_results"
+  
+  match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
+  "/students/use_search_results_to_create_new_report"
   
   resources :search 
   
@@ -87,7 +89,6 @@ Radar::Application.routes.draw do
   
   resources :temp_incident
     
-  root :to => "home#landingpage"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
