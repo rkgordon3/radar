@@ -333,11 +333,11 @@ end
   	respond_to do |format|
    	   format.js
    	   format.iphone {render :update do |page|
-   	   	   page.replace_html("s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report }))
-   	   	   
-   	   end
+   	   		   page.replace_html "s-i-form", render( :partial => "student_infractions", :locals => { :ir => @incident_report })
+   	   		   page.insert_html :bottom, "s-i-checkbox", render( :partial => "infraction_checkboxes", :locals => { :ir => @incident_report })
+   	  end
    	   }
-   	end 
+   end
   end
   
 

@@ -20,34 +20,7 @@
                 <!--<div id="details_div_<%= b.participant.id %>" style="display: none;">
                     <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
                 </div>-->
-    
-			
 
-    
-                <div class="iLayer" id="wa<%=b.participant.id%>" title="<%=b.participant.full_name%>">
-                	
-				<div class="iPanel">
-                    <fieldset>
-                        <ul class="iArrow">
-                            <% infractions = RelationshipToReport.all %>
-                            <% infractions.each do |i| %>
-                            <% #this checkbox tag is not complete for another several lines# %>
-                            <li>
-                                <input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]" class="iToggle" title="YES|NO"
-								
-								<% #if a reported infraction exists for this infraction and this student, make box checked.# %>
-                                <% ir.report_participant_relationships.each do |ri| %>
-  					<% if i.id != fyi && ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %> checked="checked"
-  					<% end%>
-  				<%end%>
-  			
-  				<% #this is the end of the checkbox tag.# %>
-  				><%= i.description %>
-                            </li><% end %>
-                       </ul>
-                    </fieldset>
-                </div>
-            </div>
 					<% end %>
             <% end %>
             			</ul>
