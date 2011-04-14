@@ -1,5 +1,5 @@
 
----
+--- 
 annotations: 
   columns: 
   - id
@@ -1252,4 +1252,22 @@ staffs:
     - System
     - Administrator
     - 5
+    - true
+  - - 11
+    - mjmay08@smumn.edu
+    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCuaz8j8UrB3HzlIi/q2SjYo9OKIKDey12
+    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCu
+    - 
+    - 
+    - 
+    - 1
+    - 2011-04-12 16:38:37.099620
+    - 2011-04-12 16:38:37.099620
+    - 127.0.0.1
+    - 127.0.0.1
+    - 2011-04-12 16:38:36.922620
+    - 2011-04-12 16:38:37.100620
+    - Mitchell
+    - May
+    - 4
     - true

@@ -6,7 +6,6 @@ chris:
   cell_phone: MyString
   home_phone: MyString
   affiliation: MyString
-  age: 1
 
 two:
   first_name: MyString
@@ -14,4 +13,3 @@ two:
   cell_phone: MyString
   home_phone: MyString
   affiliation: MyString
-  age: 1
