@@ -1,25 +1,46 @@
-<div class="field">
+
+   
+
     <% ir.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
     <% fyi = RelationshipToReport.fyi %>
-    <fieldset>
-        <ul class="iArrow">
-            <% @incident_report.report_participant_relationships.each do |b| %>
-            <% if b.participant.id != @currentParticipantID %>
-            <% @currentParticipantID = b.participant.id %>
-            <!--<li>
-            	<a href="#_<%=b.participant.id%>" <img src="<%=b.participant.getThumbnailUrl%>" align="left">><%= "#{b.participant.first_name} #{b.participant.last_name}" %></a>
-            </li>  -->
-			<li>
-				<a href = "#_<%=b.participant.id%>">
-				<%=image_tag(b.participant.getThumbnailUrl, :border => 0)%>
-				<%= "#{b.participant.first_name} #{b.participant.last_name}"%></a>
-			</li>  
+				
+    <div class="field">
+
+    	<div class="iPanel">
+    		          
+
+
+
+
+
+
+
+
+
+
+
+
+
 			
-            <div id="details_div_<%= b.participant.id %>" style="display: none;">
-                <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
-            </div>
-            <div class="iLayer" id="wa<%=b.participant.id%>" title="<%=b.participant.full_name%>">
-                <div class="iPanel">
+        <fieldset>
+            <ul class="iArrow">
+	         <% @incident_report.report_participant_relationships.each do |b| %>
+                <% if b.participant.id != @currentParticipantID %>
+                <% @currentParticipantID = b.participant.id %>
+                <li>
+                    <a href = "#_<%=b.participant.id%>"><%=image_tag(b.participant.getThumbnailUrl, :border => 0) %>
+                        <%= "#{b.participant.first_name} #{b.participant.last_name}" %></a>
+                </li>
+                <!--<div id="details_div_<%= b.participant.id %>" style="display: none;">
+                    <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
+                </div>-->
+    
+			
+
+    
+                <div class="iLayer" id="wa<%=b.participant.id%>" title="<%=b.participant.full_name%>">
+                	
+				<div class="iPanel">
                     <fieldset>
                         <ul class="iArrow">
                             <% infractions = RelationshipToReport.all %>
@@ -37,12 +58,31 @@
   				<% #this is the end of the checkbox tag.# %>
   				><%= i.description %>
                             </li><% end %>
-                        </ul>
+                       </ul>
                     </fieldset>
                 </div>
             </div>
-			<% end %>
+        <fieldset>
+            <ul class="iArrow">
+	         <% @incident_report.report_participant_relationships.each do |b| %>
+                <% if b.participant.id != @currentParticipantID %>
+                <% @currentParticipantID = b.participant.id %>
+                <li>
+                    <a href = "#_<%=b.participant.id%>"><%=image_tag(b.participant.getThumbnailUrl, :border => 0) %>
+                        <%= "#{b.participant.first_name} #{b.participant.last_name}" %></a>
+                </li>
+                <!--<div id="details_div_<%= b.participant.id %>" style="display: none;">
+                    <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
+                </div>-->
+
+					<% end %>
+
             <% end %>
-        </ul>
-    </fieldset>
-</div>
+            			</ul>
+        </fieldset>
+
+		</div>
+        </div>
+
+
+

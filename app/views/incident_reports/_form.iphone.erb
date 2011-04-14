@@ -12,11 +12,11 @@
                 <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/add_participant_to_participant_list" } %>
                 <div id="s-i-form">
                 	
-                    <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
-
-
-                    </div>
-                </div>
+                   <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
+                
+				</div>
+                
+				</div>
         	
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
@@ -57,6 +57,8 @@
                             </li>
                         </ul>
                   
+
+				
                         <legend>
                             Time: 
                        </legend>
@@ -68,6 +70,7 @@
                             </li>
                         </ul>
                        
+					   
 						<% if @incident_report.submitted != true %>
 						      <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
 							  <%else%>
@@ -75,16 +78,24 @@
 							  <% end %>
 
                     </fieldset>
-                </div></form></div>
+                </div>
+				</form>
+								
+				</div>
+				
+<div id="s-i-checkbox">
+					
+				
+				
                 <% @currentParticipantID = nil %>
                 <% @incident_report.report_participant_relationships.each do |b| %>
                 <% if @currentParticipantID == nil or b.participant.id != @currentParticipantID %>
                 <% @currentParticipantID = b.participant.id %>
+
                 <div class="iLayer" id="wa<%=b.participant.id%>" title="<%= b.participant.full_name%>">
                     <div class="iPanel">
                         <fieldset>
-                        	<legend>IT WORKS</legend>
-                        	<!--
+
                             <ul class="iArrow">
                                 <% infractions = RelationshipToReport.all %>
                                 <% infractions.each do |i| %>
@@ -98,13 +109,13 @@
                                     <% #this is the end of the checkbox tag.# %>
                                     ><%= i.description %>                            
 								</li><% end %>
-                            </ul>-->
+                            </ul>
                         </fieldset>
                     </div>
                 </div><% end %>
                 <% end %>
-            
-        
+           
+        </div>
     </div>
 </div>
 
