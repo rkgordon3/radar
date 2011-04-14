@@ -1,5 +1,5 @@
 
---- 
+---
 annotations:
   columns:
   - id
@@ -7,6 +7,7 @@ annotations:
   - updated_at
   - text
   records: 
+---
   - - 1
     - 2:00 a.m.
     - 2:00 a.m.
@@ -380,6 +381,7 @@ areas:
   - updated_at
   - abbreviation
   records: 
+---
   - - 1
     - Unspecified
     - '2011-02-21 19:48:53.218125'
@@ -421,6 +423,7 @@ buildings:
   - area_id
   - abbreviation
   records: 
+---
   - - 1
     - Unspecified
     - '2011-02-23 08:36:40.505000'
@@ -521,109 +524,109 @@ buildings:
     - Athletic Fields
     - '2011-03-28 18:36:03.917000'
     - '2011-03-28 18:36:03.917000'
-    -  
+    - !!null 
     - ATHL
   - - 18
     - Jul Gernes Pool
     - '2011-03-28 18:36:43.731000'
     - '2011-03-28 18:36:43.731000'
-    -  
+    - !!null 
     - POOL
   - - 19
     - Gostomski Fieldhouse
     - '2011-03-28 18:37:23.632000'
     - '2011-03-28 18:37:23.632000'
-    -  
+    - !!null 
     - GF
   - - 20
     - Gym/Hall of Fame Room
     - '2011-03-28 18:37:50.041000'
     - '2011-03-28 18:37:50.041000'
-    -  
+    - !!null 
     - GYM
   - - 21
     - Hendrickson Center
     - '2011-03-28 18:38:13.342000'
     - '2011-03-28 18:38:13.342000'
-    -  
+    - !!null 
     - HC
   - - 22
     - Ice Arena
     - '2011-03-28 18:38:33.871000'
     - '2011-03-28 18:38:33.871000'
-    -  
+    - !!null 
     - ICE
   - - 23
     - IHM Seminary
     - '2011-03-28 18:38:59.514000'
     - '2011-03-28 18:38:59.514000'
-    -  
+    - !!null 
     - IHM
   - - 24
     - Fitzgerald Library
     - '2011-03-28 18:39:24.298000'
     - '2011-03-28 18:39:24.298000'
-    -  
+    - !!null 
     - LIB
   - - 25
     - Pedestrian Overpass
     - '2011-03-28 18:39:51.216000'
     - '2011-03-28 18:39:51.216000'
-    -  
+    - !!null 
     - PED
   - - 26
     - Power Plant/Clock Tower
     - '2011-03-28 18:40:23.304000'
     - '2011-03-28 18:40:23.304000'
-    -  
+    - !!null 
     - PPL
   - - 27
     - Plaza
     - '2011-03-28 18:40:47.566000'
     - '2011-03-28 18:40:47.566000'
-    -  
+    - !!null 
     - PLZ
   - - 28
     - Performance Center
     - '2011-03-28 18:41:07.979000'
     - '2011-03-28 18:41:07.979000'
-    -  
+    - !!null 
     - PC
   - - 29
     - RAC
     - '2011-03-28 18:41:28.687000'
     - '2011-03-28 18:41:28.687000'
-    -  
+    - !!null 
     - RAC
   - - 30
     - Saint Mary's Hall
     - '2011-03-28 18:41:55.446000'
     - '2011-03-28 18:41:55.446000'
-    -  
+    - !!null 
     - SM
   - - 31
     - Saint Thomas More Chapel
     - '2011-03-28 18:42:29.361000'
     - '2011-03-28 18:42:29.361000'
-    -  
+    - !!null 
     - CHAP
   - - 32
     - St. Yon's Valley/X-Country Trails
     - '2011-03-28 18:43:05.966000'
     - '2011-03-28 18:43:05.966000'
-    -  
+    - !!null 
     - XCT
   - - 33
     - Intramural Fields
     - '2011-03-28 18:43:28.518000'
     - '2011-03-28 18:43:28.518000'
-    -  
+    - !!null 
     - INTF
   - - 34
     - Michael H. Toner Student Center
     - '2011-03-28 18:44:13.139000'
     - '2011-03-28 18:44:13.139000'
-    -  
+    - !!null 
     - TON
 
 ---
@@ -638,6 +641,7 @@ notification_preferences:
   - created_at
   - updated_at
   records: 
+---
   - - 34
     - 2
     - IncidentReport
@@ -650,7 +654,7 @@ notification_preferences:
     - 3
     - MaintenanceReport
     - 0
-    -  
+    - !!null 
     - 2
     - '2011-03-24 02:57:56.322041'
     - '2011-03-24 02:57:56.322041'
@@ -658,7 +662,7 @@ notification_preferences:
     - 3
     - FYI
     - 1
-    -  
+    - !!null 
     - 1
     - '2011-03-29 01:29:40.826020'
     - '2011-03-29 01:29:40.826020'
@@ -667,7 +671,7 @@ notification_preferences:
     - MaintenanceReport
     - 1
     - -1
-    -  
+    - !!null 
     - '2011-04-14 16:18:26.958524'
     - '2011-04-14 16:18:26.958524'
 
@@ -692,6 +696,7 @@ participants:
   - emContact
   - email
   records: 
+---
   - - 1
     - Christopher
     - Engesser
@@ -865,88 +870,88 @@ participants:
   - - 11
     - Samantha
     - Reynolds
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Winona State
     - '2011-02-21 19:48:58.686875'
     - '2011-02-21 19:48:58.686875'
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
   - - 12
     - Katelyn
     - Barrachs
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Winona Resident
     - '2011-02-21 19:48:58.765000'
     - '2011-02-21 19:48:58.765000'
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
   - - 13
     - Keith
     - Parce
-    -  
-    -  
+    - !!null 
+    - !!null 
     - University of Wisconsin At La Crosse
     - '2011-02-21 19:48:58.843125'
     - '2011-02-21 19:48:58.843125'
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
   - - 14
     - Patricia
     - Peterson
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Winona State
     - '2011-02-21 19:48:58.952500'
     - '2011-02-21 19:48:58.952500'
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
   - - 15
     - Carter
     - Jacobey
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Cotter High School
     - '2011-02-21 19:48:59.061875'
     - '2011-02-21 19:48:59.061875'
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
 
 ---
 relationship_to_reports:
@@ -956,6 +961,7 @@ relationship_to_reports:
   - created_at
   - updated_at
   records: 
+---
   - - 1
     - Community Disruption
     - '2011-02-21 19:48:55.499375'
@@ -1055,6 +1061,7 @@ report_participant_relationships:
   - participant_id
   - report_id
   records: 
+---
   - - 1
     - 12
     - '2011-02-21 19:49:01.765000'
@@ -1407,24 +1414,24 @@ report_types:
   - updated_at
   - display_name
   - abbreviation
-
   records: 
+---
   - - 1
     - IncidentReport
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Incident Report
     - IR
   - - 2
     - MaintenanceReport
-    -  
-    -  
+    - !!null 
+    - !!null 
     - Maintenance Request
     - MR
   - - 3
     - Report
-    -  
-    -  
+    - !!null 
+    - !!null 
     - FYI
     - FYI
 
@@ -1443,6 +1450,7 @@ reports:
   - annotation_id
   - tag
   records: 
+---
   - - 1
     - '2011-02-21 19:49:00.483750'
     - '2011-02-25 19:17:42.840000'
@@ -1453,7 +1461,7 @@ reports:
     - 1
     - true
     - 1
-    - 
+    - !!null 
   - - 2
     - '2011-02-21 19:49:00.608750'
     - '2011-02-21 19:49:00.608750'
@@ -1464,7 +1472,7 @@ reports:
     - 1
     - true
     - 2
-    - 
+    - !!null 
   - - 3
     - '2011-02-21 19:49:00.765000'
     - '2011-02-21 19:49:00.765000'
@@ -1475,7 +1483,7 @@ reports:
     - 3
     - true
     - 3
-    - 
+    - !!null 
   - - 4
     - '2011-02-21 19:49:00.905625'
     - '2011-02-21 19:49:00.905625'
@@ -1486,7 +1494,7 @@ reports:
     - 2
     - true
     - 4
-    - 
+    - !!null 
   - - 5
     - '2011-02-21 19:49:01.015000'
     - '2011-02-28 05:47:15.560000'
@@ -1497,7 +1505,7 @@ reports:
     - 1
     - true
     - 5
-    - 
+    - !!null 
   - - 6
     - '2011-02-21 19:49:01.140000'
     - '2011-02-28 05:52:31.397000'
@@ -1508,7 +1516,7 @@ reports:
     - 2
     - true
     - 6
-    - 
+    - !!null 
   - - 7
     - '2011-02-21 19:49:01.249375'
     - '2011-02-21 19:49:01.249375'
@@ -1519,7 +1527,7 @@ reports:
     - 4
     - true
     - 7
-    - 
+    - !!null 
   - - 8
     - '2011-02-21 19:49:01.374375'
     - '2011-02-21 19:49:01.374375'
@@ -1530,7 +1538,7 @@ reports:
     - 5
     - true
     - 8
-    - 
+    - !!null 
   - - 9
     - '2011-02-21 19:49:01.530625'
     - '2011-02-21 19:49:01.530625'
@@ -1541,7 +1549,7 @@ reports:
     - 3
     - true
     - 9
-    - 
+    - !!null 
   - - 10
     - '2011-02-21 19:49:01.624375'
     - '2011-02-28 05:52:53.119000'
@@ -1552,13 +1560,13 @@ reports:
     - 1
     - true
     - 10
-    - 
+    - !!null 
   - - 11
-    - 2011-04-14 16:16:14.537000
-    - 2011-04-14 16:16:14.537000
+    - '2011-04-14 16:16:14.537000'
+    - '2011-04-14 16:16:14.537000'
     - 1
-    - 2011-04-14 16:16:04.000000
-    - ""
+    - '2011-04-14 16:16:04.000000'
+    - ''
     - IncidentReport
     - 3
     - true
@@ -1587,13 +1595,14 @@ staffs:
   - access_level
   - active
   records: 
+---
   - - 1
     - slvale07@smumn.edu
     - $2a$10$BlJV0WF/UwxowHTG9loTd.Fpi4ftK5C2RtoJdx1PQXT08WlYYtbOa
     - $2a$10$BlJV0WF/UwxowHTG9loTd.
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
     - 19
     - '2011-04-03 20:03:17.578800'
     - '2011-04-03 18:35:53.135800'
@@ -1609,9 +1618,9 @@ staffs:
     - cmenge07@smumn.edu
     - $2a$10$xtB4X92zxIJjHNrvOMD9budOF.hV2QdYakr17zCiKrxinmfPZKghG
     - $2a$10$xtB4X92zxIJjHNrvOMD9bu
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
     - 3
     - '2011-04-14 16:18:05.898934'
     - '2011-04-03 20:10:31.693800'
@@ -1627,16 +1636,16 @@ staffs:
     - cmengesser@gmail.com
     - $2a$10$5TsKc.XDucVwRxktphv7julDXOoa7Fh7eF65cSYWSqKcxxHMMfOcK
     - $2a$10$5TsKc.XDucVwRxktphv7ju
-    - 
-    - 
-    - 
+    - !!null 
+    - !!null 
+    - !!null 
     - 21
-    - 2011-04-14 17:02:58.407000
-    - 2011-04-14 15:34:37.424000
+    - '2011-04-14 17:02:58.407000'
+    - '2011-04-14 15:34:37.424000'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 20:57:00.733750
-    - 2011-04-14 17:02:58.408000
+    - '2011-02-21 20:57:00.733750'
+    - '2011-04-14 17:02:58.408000'
     - Brendan
     - Dolan
     - 3
@@ -1645,9 +1654,9 @@ staffs:
     - rgordon@smumn.edu
     - $2a$10$bF8iK3K4DJU86cqUkSw99.oI2tW/xvM4QIImLK77hiksZ1Fe0oh2q
     - $2a$10$bF8iK3K4DJU86cqUkSw99.
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
     - 2
     - '2011-03-12 19:59:21.325000'
     - '2011-02-21 21:04:14.374375'
@@ -1663,9 +1672,9 @@ staffs:
     - asmith@smumn.edu
     - $2a$10$GdREgm3v/bjGswqfoxW/bOV8sD3/jpeUEs/aYd.YddxavOa/lVbR.
     - $2a$10$GdREgm3v/bjGswqfoxW/bO
-    -  
-    -  
-    -  
+    - !!null 
+    - !!null 
+    - !!null 
     - 4
     - '2011-04-03 20:11:31.261800'
     - '2011-04-01 07:46:57.096000'
@@ -1681,7 +1690,7 @@ staffs:
     - radar.system.admin@smumn.edu
     - $2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276
     - $2a$10$IghfYLOEKBMlPm4Z2dAGYe
-    -  
+    - !!null 
     - v2RNkgfisN4yckqPA-C5
     - '2011-04-05 05:27:12.442000'
     - 3
@@ -1699,16 +1708,16 @@ staffs:
     - mjmay08@smumn.edu
     - $2a$10$6Z8ecWaBnw0oOiTqqBMhCuaz8j8UrB3HzlIi/q2SjYo9OKIKDey12
     - $2a$10$6Z8ecWaBnw0oOiTqqBMhCu
-    - 
-    - 
-    - 
+    - !!null 
+    - !!null 
+    - !!null 
     - 1
-    - 2011-04-12 16:38:37.099620
-    - 2011-04-12 16:38:37.099620
+    - '2011-04-12 16:38:37.099620'
+    - '2011-04-12 16:38:37.099620'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-04-12 16:38:36.922620
-    - 2011-04-12 16:38:37.100620
+    - '2011-04-12 16:38:36.922620'
+    - '2011-04-12 16:38:37.100620'
     - Mitchell
     - May
     - 4
