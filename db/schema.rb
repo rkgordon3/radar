@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110404190052) do
+ActiveRecord::Schema.define(:version => 20110414165321) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "display_name"
   end
 
   create_table "reports", :force => true do |t|

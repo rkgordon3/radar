@@ -181,7 +181,9 @@ end
     end
   end
 
-  
+  def display_name
+	return ReportType.find_by_name(self.class.name).display_name
+  end
 end
 
 
