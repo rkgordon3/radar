@@ -1,7 +1,9 @@
 class BuildingsController < ApplicationController
   # GET /buildings
   # GET /buildings.xml  before_filter :super_admin_authorize_view_access, :except => [:show, :index]
+  before_filter :authenticate_staff!
   before_filter :admin_assistant_authorize_view_access
+
   def index
     @buildings = Building.all
     @numRows = 0

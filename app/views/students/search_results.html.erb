@@ -1,6 +1,14 @@
-<h1>Students</h1>
+<%= form_tag "/students/use_search_results_to_create_new_report" %>
+<table>
+	<tr>
+		<td><h1>Student Results</h1></td>
+		<td style="width: 150px;"></td>
+		<td><%= submit_tag "Add To New Incident Report"%></td>
+		<td><%= submit_tag "Add To New Maintenance Request"%></td>
+	</tr>
+</table>
 
-  <%= render :partial => "/students/selectable_student_full_info_list", :locals => { :students => @students} %>
+  <%= render :partial => "selectable_student_full_info_list", :locals => { :students => @students} %>
 
 <p>
 	Showing <%= @num_results %> of <%= @num_results %> results.

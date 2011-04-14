@@ -5,17 +5,39 @@ class Report < ActiveRecord::Base
   has_many      :report_participant_relationships
   belongs_to    :annotation
   
+  
+  
+  def annotation_text
+  				if annotation != nil
+  								annotation.text
+  				else
+  								nil
+  				end
+  end
+	def update_attributes_and_save(params)
+					update_attributes_without_saving(params)
+					valid?
+					save
+	end
 	
   def update_attributes_without_saving(params)
   				logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
-    self.approach_time = params[:approach_time]   
+    self.approach_time = params[:approach_time] 
+    self.submitted = (params[:submitted] != nil) 
+    annotation_text = params[:annotation]
+    
+    if annotation_text != nil && annotation_text.length > 0 
+      if self.annotation == nil
+    	  self.annotation = Annotation.new(:text => annotation_text)
+      else
+    		self.annotation.text = annotation_text
+      end
+    end
+
   end
-  
-  
-  
-  
+
   def after_initialize
     if self.id == nil
       self.building_id = Building.unspecified
@@ -24,21 +46,35 @@ class Report < ActiveRecord::Base
     end
   end
   
-  
-  
+ 
+  def save
+  		
+  				if annotation != nil && annotation.save != nil 
+  					logger.debug " save report annotation : #{annotation}"
+  		self.annotation_id = annotation.id
+  	end
+  	super
+  end
   
   def after_save
-    # save each reported infraction to database
+    # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
         ri.report_id = self.id # establish connection
-        ri.save                                     # actually save
+        ri.save		# actually save
       end
     end
+    if (self.submitted) 
+    				Notification.immediate_notify(self.id)
+    end
+end
+  
+  def before_destroy
+  	destroy_participants
+    if annotation != nil
+    				annotation.destroy
+    end
   end
-  
-  
-  
   
   def get_report_participant_relationships_for_participant(participant_id)
     logger.debug "In get_report_participant_relationships_for_participant id:#{participant_id}"
@@ -47,14 +83,18 @@ class Report < ActiveRecord::Base
 	  logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
       if ri.participant_id == participant_id
         found_relationships << ri
-		logger.debug "FOUND RI"
+		 
       end
     end
     return found_relationships
   end
   
-  
-  
+ def destroy_participants
+ 				 logger.debug("REPORT destory_participants")
+    report_participant_relationships.each do |ri|
+      ri.destroy
+    end
+end
   
   def get_specific_report_student_relationship(participant_id, relationship_id)
     self.report_participant_relationships.each do |ri|
@@ -102,7 +142,7 @@ class Report < ActiveRecord::Base
   
   
   
-  def add_default_relationship_to_report_for_participant(participant_id)
+  def add_default_relationship_for_participant(participant_id)
     # only want to add if fyi doesn't already exist
     all_relationships_for_participant = get_report_participant_relationships_for_participant(participant_id)
     
@@ -110,13 +150,10 @@ class Report < ActiveRecord::Base
     if all_relationships_for_participant.count == 0
       ri = ReportParticipantRelationship.new(:participant_id => participant_id)
       self.report_participant_relationships << ri
-      return ri
     else
       ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
-      return ri
     end
-    
-    
+    return ri
   end
   
   
@@ -133,18 +170,16 @@ class Report < ActiveRecord::Base
     return ri
   end
  
+ 
+ 
   def add_default_report_student_relationships_for_participant_array(participants)    
     if participants != nil
       # go through the students and add fyi relationships
       participants.each do |s|
-      				add_default_relationship_to_report_for_participant(s.id)
+      				add_default_relationship_for_participant(s.id)
       end
     end
   end
-  
-  
-  
-  
 
   
 end

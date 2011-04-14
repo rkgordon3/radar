@@ -1,5 +1,5 @@
 class TempIncidentController < ApplicationController
-
+before_filter :authenticate_staff!
 
 
 def index

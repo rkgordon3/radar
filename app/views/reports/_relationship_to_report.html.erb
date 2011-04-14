@@ -1,0 +1,15 @@
+<div id=<%= "'p-#{relationship.participant.id}'" %> >
+      <%= link_to image_tag(relationship.participant.getThumbnailUrl, :border=> 0), "#", 
+  		    :onclick => "Element.toggle('details_div_#{relationship.participant.id}'); return false;"  %>
+  		
+      <%= "#{relationship.participant.first_name} #{relationship.participant.last_name}" %>
+      <%= link_to image_tag("/images/remove_icon.png", :border=>0), { :controller => "reports",   
+         :action => 'remove_participant', :id => relationship.participant.id }, :remote => true %>
+
+  	  <div id="details_div_<%= relationship.participant.id %>" style="display: none;" >
+  	    <%= render :partial => "participants/participant_details", :locals => { :participant => relationship.participant } %>
+  	  </div>
+  	  
+  	   <%= render :partial => "report_relationship_checklist", :locals => { :report => @report, :relationship => @relationship } %>
+  
+</div>

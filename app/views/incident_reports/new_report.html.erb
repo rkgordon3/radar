@@ -1,5 +1,24 @@
+<% javascript_tag do %>
 
+image1 = new Image();
+image1.src = "/images/add_icon.gif";
 
+image2 = new Image();
+image2.src = "/images/minus_icon.gif";
+
+function divToggle(divID,imgID) {
+
+	        var state = document.getElementById(divID).style.display;
+	            if (state == 'block') {
+	                document.getElementById(divID).style.display = 'none';
+	                document[imgID].src = '/images/add_icon.gif';
+	            } else {
+	                document.getElementById(divID).style.display = 'block';
+	                document[imgID].src = '/images/minus_icon.gif';
+	            }
+	        }
+	       
+<% end -%>
 <div id="i-r-form">
 	<h1>New Incident Report</h1>
 <%= render 'form'%>
