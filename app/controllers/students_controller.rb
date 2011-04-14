@@ -1,7 +1,9 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
+  before_filter :authenticate_staff!
   before_filter :ra_authorize_view_access
+ 
   def index
     @students = Student.all
     @numRows = 0
@@ -94,6 +96,8 @@ class StudentsController < ApplicationController
   
   # POST 
   def search_results
+  				
+  				logger.debug("IN SEARCH RESULTS")
     @students = nil
     student = nil
     
@@ -107,7 +111,7 @@ class StudentsController < ApplicationController
     end
     
     # if a student's name was entered, find all reports with that student
-    if params[:full_name].length != "" # arbitrary number
+    if params[:full_name].length > 0 # arbitrary number
       # get the student for the string entered
       student = Student.get_student_object_for_string(params[:full_name])
       if student != nil
@@ -117,10 +121,8 @@ class StudentsController < ApplicationController
       end
     end
     
-    @students
     
-    
-    
+ 
     
     #----------------
     # if no student was selected, select all 
@@ -141,6 +143,7 @@ class StudentsController < ApplicationController
         end
       end
       
+      #logger.debug("****************Area = #{params[:area_id]} Building = #{params[:building_id]}")
       
       #-----------------
       # if an area was selected, get students in that area
@@ -183,6 +186,30 @@ class StudentsController < ApplicationController
       format.html
     end
   end
+  
+  
+  def use_search_results_to_create_new_report
+    @incident_report = IncidentReport.new
+    
+    keys = params.keys
+    
+    for key in keys
+      participant = Participant.where(:id => key)
+      
+      if participant.first != nil
+        @incident_report.add_default_relationship_for_participant(participant.first.id)  
+      end
+    end
+    
+    session[:incident_report] = @incident_report
+   
+    respond_to do |format|
+      format.html { redirect_to "/incident_reports/new_report" }
+      format.xml  { render :xml => @incident_report}
+    end
+  
+  end
+  
   
   
 end

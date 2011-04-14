@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	def general_authorize
 		unless staff_signed_in?
 			flash[:notice] = "Unauthorized Access"
-			redirect_to "/home/landingpage"
+			redirect_to "/staffs/sign_in"
 			false
 		end
 	end
@@ -16,17 +16,14 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_iphone_request?
-		#TRUE
-		request.user_agent =~ /(Mobile\/.+Safari)/
 		
+		request.user_agent =~ /(Mobile\/.+Safari)/	
 	end  
 	
 	def is_android_request?
 		request.user_agent =~ /(Android)/
 	end
 	
-	
-  
   def ra_authorize_view_access
     if staff_signed_in?
       unless Authorize.ra_authorize(current_staff)
@@ -34,10 +31,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -48,10 +41,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -62,10 +51,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -76,10 +61,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -90,10 +71,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   
@@ -104,10 +81,6 @@ class ApplicationController < ActionController::Base
         redirect_to "/home/landingpage"
         false
       end
-    else
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      false
     end 
   end 
   

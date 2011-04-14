@@ -1,6 +1,7 @@
 class ReportsQueryController < ApplicationController
-  
+  before_filter :authenticate_staff!
   before_filter :admin_assistant_authorize_view_access
+  
   
   def reports_query
   end

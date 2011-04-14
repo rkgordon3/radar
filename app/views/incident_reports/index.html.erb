@@ -1,17 +1,7 @@
-<h1>Listing Incident Reports</h1>
+<div class="report-listing-header"><h1>Incident Reports</h1></div>
 
-<table>
-  <%= render :partial => "/incident_reports/incident_report_table_row_labels" %>
-  
+<%= render :partial => "reports/index_generic", :locals => { :reports => reports } %>
 
-  
-<% @incident_reports.each do |incident_report| %>
-  <% if incident_report.submitted? == true %>
-  	<%= render :partial => "/incident_reports/incident_report_table_row", :locals => { :incident_report => incident_report, :num_rows => @num_rows } %>
-  <% end %>
-<% end %>
-</table>
-
-<br />
-
+<div class="new_report_link">
 <%= link_to 'New Incident Report', '/incident_reports/new_report' %>
+</div>

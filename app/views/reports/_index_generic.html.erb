@@ -1,0 +1,33 @@
+<table>
+  <tr>
+    <th>Author</th>
+    <th>Approach Date</th>
+    <th width="30">Approach Time</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% reports.each do |report| %>
+ 
+  	<% if @numRows == 0 %>
+  		<% @numRows = @numRows + 1 %>
+  		<tr class="shaded">
+  	<% else %>
+  		<% @numRows = 0 %> 
+  		<tr>
+  	<% end %>
+
+  	<td><%= report.staff.first_name.first %> <%= report.staff.last_name %></td>
+  	<td><%= report.approach_time.to_s(:date_only) %></td>
+  	<td align="right"><%= report.approach_time.to_s(:time) %></td>
+  	<td align="right"><%= report.room_number %> <%= report.building.name %></td>
+  	<td><%= link_to 'Show', report %></td>
+  	<td><%= link_to 'Edit', :controller => "#{report.class.name.tableize}", :action => "edit", :id => report %></td>
+  	<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+  	</tr>
+
+<% end %>
+</table>
+
