@@ -43,6 +43,7 @@ class Report < ActiveRecord::Base
       self.building_id = Building.unspecified
       self.approach_time = Time.now
       self.submitted = false
+	  self.tag = tag
     end
   end
   
@@ -179,6 +180,10 @@ end
       				add_default_relationship_for_participant(s.id)
       end
     end
+  end
+  
+  def tag
+	tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + approach_time.strftime("%Y%m%d-%H%M") + "-" + staff_id.to_s 
   end
 
   
