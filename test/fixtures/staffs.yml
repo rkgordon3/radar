@@ -4,10 +4,8 @@ one:
   first_name: MyString
   last_name: MyString
   email: cmenge07@smumn.edu
-  role: MyString
 
 two:
   first_name: MyString
   last_name: MyString
   email: slvale07@smumn.edu
-  role: MyString
