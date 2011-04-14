@@ -166,9 +166,20 @@ class IncidentReportsController < ReportsController
   	logger.debug "inside IR new_report"
 
  		@report = IncidentReport.new(:staff_id => current_staff.id)               # new report
+    
+    if params[:participants]!=nil
+      participants = params[:participants].split(/,/)
+      participants.each do |p|
+        logger.debug "adding default relationship for p from new_report " + p
+        @report.add_default_relationship_for_participant(Integer(p))
+      end
+    end
+
     session[:report] = @report
 
-
+    logger.debug "in new report, these are my session saved reported infractions " 
+    logger.debug session[:report].report_participant_relationships
+    
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @report }
