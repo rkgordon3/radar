@@ -4,9 +4,10 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <p><%= @first_name %> <%= @last_name %>, an Incident Report has been submitted.</p>
-    <p>
-      To view the report follow this link: <a href="<%= @report_url %>">Incident Report</a><br/>
-    </p>
+  <% @loc =  "#{@report.room_number}" +" " + Building.find(@report.building_id).name %>
+  <%  @loc = @loc.match(/Unspecified/)? "an unspecified location" : @loc.strip %>
+      
+    <p><%= @first_name %> <%= @last_name %>,</p> 
+	<p><%= @report.display_name.match(/^[AaEeIiOoUu]/)? "An":"A" %> <a href="<%= @report_url %>"><%= @report.display_name %></a> has been submitted by <%= Staff.find(@report.staff_id).first_name%> <%= Staff.find(@report.staff_id).last_name%> regarding <%= @loc %> at <%= @report.created_at %>.</p>
   </body>
 </html>

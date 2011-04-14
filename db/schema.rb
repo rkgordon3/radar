@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110404190052) do
+ActiveRecord::Schema.define(:version => 20110414172651) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "display_name"
+    t.string   "abbreviation"
   end
 
   create_table "reports", :force => true do |t|
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
     t.integer  "staff_id"
     t.boolean  "submitted"
     t.integer  "annotation_id"
+    t.string   "tag"
   end
 
   create_table "sessions", :force => true do |t|
@@ -103,6 +106,13 @@ ActiveRecord::Schema.define(:version => 20110404190052) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "shifts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "staff_id"
+    t.datetime "time_out"
+  end
 
   create_table "staffs", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
