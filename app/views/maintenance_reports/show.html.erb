@@ -1,4 +1,4 @@
-<h1>Maintenance Request <%= @report.id %> </h1>
+<h1>Maintenance Request <%= @report.tag %> </h1>
     <%= render :partial => "reports/show_relationships", :locals => { :title => "Interested Students" } %>
   	<%= render :partial => "reports/show_generic" %>
 </p>
@@ -6,4 +6,4 @@
 <%if Authorize.not_admin_assistant_authorize(current_staff) && !(Authorize.ra_authorize(current_staff) && @report.submitted)%>
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%end%>
-<%= link_to 'Back', "/#{@report.class.name.tableize}" %>
+
