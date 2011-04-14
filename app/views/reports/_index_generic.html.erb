@@ -1,5 +1,6 @@
 <table>
   <tr>
+	<th>Tag</th>
     <th>Author</th>
     <th>Approach Date</th>
     <th width="30">Approach Time</th>
@@ -19,8 +20,9 @@
   		<tr>
   	<% end %>
 
+	<td><%= report.tag %></td>
   	<td><%= report.staff.first_name.first %> <%= report.staff.last_name %></td>
-  	<td><%= report.approach_time.to_s(:date_only) %></td>
+  	<td><%= report.approach_time.strftime("%m/%d/%Y") %></td>
   	<td align="right"><%= report.approach_time.to_s(:time) %></td>
   	<td align="right"><%= report.room_number %> <%= report.building.name %></td>
   	<td><%= link_to 'Show', report %></td>
