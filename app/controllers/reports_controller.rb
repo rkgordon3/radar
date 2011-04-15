@@ -100,11 +100,15 @@ class ReportsController < ApplicationController
   	@report.add_default_relationship_for_participant(@participant.id)
   	respond_to do |format|
   		format.js
-  		format.iphone {render :update do |page|
-  				page.select("input#full_name").first.clear
-   	   		    page.insert_html(:top, "s-i-form", 
+  		format.iphone {
+  			render :update do |page|
+  			 page.select("input#full_name").first.clear
+   	   	         page.insert_html(:top, "s-i-form", 
    	   			    render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-                page.insert_html(:top, "s-i-checkbox",                     render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))   	   }
+                         page.insert_html(:top, "s-i-checkbox",  
+                          render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))  
+                         end
+                     }
    	end 
   end
   

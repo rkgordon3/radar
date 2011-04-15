@@ -1,5 +1,10 @@
 <fieldset>
 <ul><li>
-<%= label_tag  "Birthday: #{participant.birthday}", %><br/>
-<%= label_tag "Room Number: #{participant.room_number}" %>
+<%= label_tag  "Birthday: #{participant.birthday}", %>
+</li>
+<li>
+<%= label_tag "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
+</li>
+<li>
+<%= label_tag "Emergency Contact: #{participant.emContact}" %>
 </li></ul></fieldset> 

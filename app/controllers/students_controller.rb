@@ -190,7 +190,6 @@ class StudentsController < ApplicationController
   
   def use_search_results_to_create_new_report
     @incident_report = IncidentReport.new
-    
     keys = params.keys
     participant_string = ""
     
