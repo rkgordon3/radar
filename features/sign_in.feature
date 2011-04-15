@@ -7,4 +7,4 @@ Feature: sign in
 	Scenario: sign in
 		Given I am a user of RADAR
 		When I sign in
-		Then I should be directed to the landing page
+		Then I should see the landing page

@@ -13,7 +13,7 @@ Radar::Application.routes.draw do
   
   match "/incident_reports/add_participant"         => "reports#add_participant"
   match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
-
+  
   devise_for :staffs
   
   get "home/landingpage"
