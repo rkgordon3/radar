@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.5'
 gem 'composite_primary_keys', '=3.1.0'
 gem 'rails3-jquery-autocomplete'
 
