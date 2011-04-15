@@ -1,5 +1,5 @@
 class Devise::SessionsController < ApplicationController
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+	prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   include Devise::Controllers::InternalHelpers
 
   
@@ -16,7 +16,6 @@ class Devise::SessionsController < ApplicationController
 
   # POST /resource/sign_in
   def create
-    params[:staff][:email].downcase!
     resource = warden.authenticate!(:scope => resource_name, :recall => "new")
     set_flash_message :notice, :signed_in
     sign_in_and_redirect(resource_name, resource)

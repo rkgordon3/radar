@@ -16,15 +16,23 @@ class IncidentReportsController < ReportsController
     # get all submitted reports so view can display them (in order of approach time)
     @reports = IncidentReport.where(:submitted => true).order(:approach_time)
     
-    #this was the previous it was changed because unsubmitted reports were submitted
-    #@incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
-    
     respond_to do |format|
     	format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }
       format.iphone {render :layout => 'mobile_application'}
     end
   end
+  
+  def unsubmitted_reports
+  	  self.clear_session
+  	  
+  	  @reports = IncidentReport.where(:submitted => false).order(:approach_time)
+  	  
+  	  respond_to do |format|
+  	  	  format.iphone {render :layout => 'mobile_application'}
+  	  end
+  end
+  	  
 
   # GET /incident_reports/1
   # GET /incident_reports/1.xml

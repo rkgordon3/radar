@@ -188,7 +188,9 @@ end
 	tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + approach_time.strftime("%Y%m%d-%H%M") + "-" + staff_id.to_s 
   end
 
-  
+  def display_name
+	return ReportType.find_by_name(self.class.name).display_name
+  end
 end
 
 

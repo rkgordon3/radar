@@ -1,4 +1,6 @@
 Radar::Application.routes.draw do
+  resources :shifts
+
   resources :report_types
 
   resources :notification_preferences
@@ -33,8 +35,9 @@ Radar::Application.routes.draw do
 
  resources :incident_reports do
  	  get :new_report, :on => :collection
+ 	  get :unsubmitted_reports, :on => :collection
  end
-  
+
  resources :maintenance_reports                                                                                                              
   
   match "/reports_query/search" => "reports_query#search"
