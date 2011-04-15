@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.xml
   def create
-  				logger.debug("IN REPORT CREATE params #{params}")
+      logger.debug("IN REPORT CREATE params #{params}")
         
       @report = session[:report]
       logger.debug("IN REPORT CREATE report:  #{@report}")
@@ -67,7 +67,7 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
-  				logger.debug("Report update")
+    logger.debug("Report update")
     @report = Report.find(params[:id])
 
     respond_to do |format|
@@ -97,13 +97,13 @@ class ReportsController < ApplicationController
    	@participant = Student.get_student_object_for_string(params[:full_name])
    	@report = session[:report]
   	logger.debug("add participant #{@participant}")
-  	@relationship = @report.add_default_relationship_for_participant(@participant.id)
+  	@report.add_default_relationship_for_participant(@participant.id)
   	respond_to do |format|
   					format.js
    	   format.iphone {
    	   				 render :update do |page|
-   	   				 				 page.insert_html(:top, "s-i-form", 
-   	   				 				 				 render( :partial => "relationship_to_report", :locals => { :report => @report, :relationship => @relationship }))
+   	   				 	 page.insert_html(:top, "s-i-form", 
+   	   				 		 render( :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant }))
    	   				 end
    	   }
    	end 
@@ -119,7 +119,7 @@ class ReportsController < ApplicationController
 						@report.report_participant_relationships.delete(ri)
 						ri.destroy		
     end
-    @divid = "p-#{@participant_id}"
+    @divid = "p-in-report-#{@participant_id}"
 	
     respond_to do |format|
    	   format.js

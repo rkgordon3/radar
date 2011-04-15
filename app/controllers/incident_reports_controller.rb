@@ -163,11 +163,10 @@ class IncidentReportsController < ReportsController
   # GET /incident_reports/new_report.xml
   def new_report 	 
   	  	  
-  	logger.debug "inside IR new_report"
+  	  logger.debug "inside IR new_report params: #{params}"
 
- 		@report = IncidentReport.new(:staff_id => current_staff.id)               # new report
+    @report = IncidentReport.new(:staff_id => current_staff.id)               # new report
     session[:report] = @report
-
 
     respond_to do |format|
       format.html # new_report.html.erb
