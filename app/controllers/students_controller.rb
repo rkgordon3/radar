@@ -192,23 +192,27 @@ class StudentsController < ApplicationController
     @incident_report = IncidentReport.new
     
     keys = params.keys
+    participant_string = ""
     
     for key in keys
       participant = Participant.where(:id => key)
       
       if participant.first != nil
-        @incident_report.add_default_relationship_for_participant(participant.first.id)  
+        if participant_string != ""
+          participant_string = participant_string + ","
+        end
+        
+        participant_string = participant_string + participant.first.id.to_s
       end
     end
-    
-    session[:incident_report] = @incident_report
-   
+       
     respond_to do |format|
-      format.html { redirect_to "/incident_reports/new_report" }
+      format.html { redirect_to "/incident_reports/new_report?participants=#{participant_string}" }
       format.xml  { render :xml => @incident_report}
     end
   
   end
+  
   
   
   

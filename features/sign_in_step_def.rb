@@ -1,6 +1,6 @@
 Given /^I am a user of RADAR$/ do
 	staff = Staff.where(:email => "radar.system.admin@smumn.edu")
-	staff.first.should != nil
+	staff.first.first_name.should == "System"
 end
 
 When /^I sign in$/ do
@@ -10,6 +10,6 @@ When /^I sign in$/ do
 	click_button "Sign in"
 end
 
-Then /^I should be directed to the landing page$/ do 
-	response.should have_selector("toolbar")
+Then /^I should see the landing page$/ do   
+  page.should have_content("Hi, System Administrator")
 end

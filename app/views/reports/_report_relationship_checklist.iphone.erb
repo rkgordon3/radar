@@ -1,0 +1,24 @@
+ <div class="iLayer" id="wa<%=relationship.participant_id%>" title="<%= relationship.participant.full_name%>">
+                    <div class="iPanel">
+                        <fieldset>
+                        
+
+<% if report.class.name == "IncidentReport" %>
+
+	<ul class="iArrow">
+  			<% infractions = RelationshipToReport.all %>
+  			<% infractions.each do |infraction| %>
+			<li>
+<input type="checkbox" id="<%=infraction.id%>" name="check<%=infraction.id%>" class="iToggle" title="YES|NO"/><label for="check<%=infraction.id%>"> <%=infraction.description%></label>
+
+				 </li> 
+  			<% end %>
+			</ul>
+			</div>
+  	
+                    
+                
+				</fieldset>
+
+<% end %>
+</div>

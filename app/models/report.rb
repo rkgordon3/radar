@@ -4,7 +4,9 @@ class Report < ActiveRecord::Base
 	has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
-  
+  after_initialize :setup_defaults
+  after_save       :save_everything
+  before_destroy   :destroy_everything
   
   
   def annotation_text
@@ -35,7 +37,7 @@ class Report < ActiveRecord::Base
 
   end
 
-  def after_initialize
+  def setup_defaults
     if self.id == nil
       self.building_id = Building.unspecified
       self.approach_time = Time.now
@@ -52,7 +54,7 @@ class Report < ActiveRecord::Base
    super
   end
   
-  def after_save
+  def save_everything
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?                                # make sure the reported infraction isn't frozen
@@ -65,7 +67,7 @@ class Report < ActiveRecord::Base
     end
 end
   
-  def before_destroy
+  def destroy_everything
     destroy_participants
     if annotation != nil
     	annotation.destroy
