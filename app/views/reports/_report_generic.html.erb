@@ -9,13 +9,16 @@
       </ul>
     </div>
   <% end %>
+  
+
   <%= form_for(@report) do |f| %>
   
-   
-   <div id="s-i-form">
-   <div id="next_participant"></div>
+  <div id="s-i-form">
+     <%  @report.participant_ids.each  do |pid|  %>    
+       <% logger.debug("location participant #{pid} ") %>
+       <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
+     <% end %>
   </div>
-
 <div class="field">
     <b>Annotation:</b><br />
     <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
