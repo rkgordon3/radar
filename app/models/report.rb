@@ -8,20 +8,17 @@ class Report < ActiveRecord::Base
   
   
   def annotation_text
-  				if annotation != nil
-  								annotation.text
-  				else
-  								nil
-  				end
+    annotation != nil ? annotation.text : nil
   end
-	def update_attributes_and_save(params)
-					update_attributes_without_saving(params)
-					valid?
-					save
-	end
+	
+  def update_attributes_and_save(params)
+	update_attributes_without_saving(params)
+	valid?
+	save
+  end
 	
   def update_attributes_without_saving(params)
-  				logger.debug "IN REPORT.update attributes  params #{params}"
+    logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] 
@@ -32,7 +29,7 @@ class Report < ActiveRecord::Base
       if self.annotation == nil
     	  self.annotation = Annotation.new(:text => annotation_text)
       else
-    		self.annotation.text = annotation_text
+    	  self.annotation.text = annotation_text
       end
     end
 
@@ -43,18 +40,16 @@ class Report < ActiveRecord::Base
       self.building_id = Building.unspecified
       self.approach_time = Time.now
       self.submitted = false
-	  self.tag = tag
+      self.tag = tag
     end
   end
   
  
   def save
-  		
-  				if annotation != nil && annotation.save != nil 
-  					logger.debug " save report annotation : #{annotation}"
-  		self.annotation_id = annotation.id
-  	end
-  	super
+   if annotation != nil && annotation.save != nil 
+     self.annotation_id = annotation.id
+   end
+   super
   end
   
   def after_save
@@ -66,14 +61,14 @@ class Report < ActiveRecord::Base
       end
     end
     if (self.submitted) 
-    				Notification.immediate_notify(self.id)
+    	Notification.immediate_notify(self.id)
     end
 end
   
   def before_destroy
-  	destroy_participants
+    destroy_participants
     if annotation != nil
-    				annotation.destroy
+    	annotation.destroy
     end
   end
   
@@ -91,7 +86,6 @@ end
   end
   
  def destroy_participants
- 				 logger.debug("REPORT destory_participants")
     report_participant_relationships.each do |ri|
       ri.destroy
     end
@@ -107,7 +101,11 @@ end
   end
   
   
-  
+  def participant_ids
+    p  = get_all_participants
+    logger.debug("report has #{p.count} participants")
+    p
+  end
   
   def get_all_participants
     partic_relationships = Array.new
