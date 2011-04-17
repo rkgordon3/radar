@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20110414172651) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "display_name"
     t.string   "abbreviation"
   end
 

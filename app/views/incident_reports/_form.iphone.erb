@@ -9,13 +9,16 @@
                 <legend>
                     Students:
                 </legend>
-                <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/incident_reports/add_participant_to_participant_list" } %>
-                <div id="s-i-form">
-                	
-                   <%= render :partial => "student_infractions", :locals => { :ir => @incident_report } %>
+                <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
+
+				<div id="s-i-form">
                 
+                 <%  @report.participant_ids.each  do |pid|  %>    
+                    <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
+                <% end %>
+				
 				</div>
-                
+
 				</div>
         	
             <form action="/incident_reports" method="POST">
@@ -27,7 +30,7 @@
                         </legend>
                         <ul>
                             <li>
-                                <textarea id="incident_report_annotation" name="annotation" rows="5"><%= session[:annotation].text %></textarea>
+                                <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
                             </li>
                         </ul>
                         <legend>
@@ -39,13 +42,13 @@
                                 Select Building<% Building.find(:all).each do |b| %>
 								
                                 <label>
-                                    <input type="radio" name="incident_report[building_id]" value="<%= b.id %>" <%if @incident_report.building_id == b.id %> CHECKED <% end %>><%= b.name %>
+                                    <input type="radio" name="report[building_id]" value="<%= b.id %>" <%if @report.building_id == b.id %> CHECKED <% end %>><%= b.name %>
                                 </label>
                                 
 								
 								
-								<% end %><!--<%= @incident_report.building.name %>-->
-								<!--<span><%=@incident_report.building.name%></span>-->
+								<% end %><!--<%= @report.building.name %>-->
+								<span></span>
                             </li>
                         </ul>
                         <legend>
@@ -53,7 +56,7 @@
                         </legend>
                         <ul>
                             <li>
-                                <input type="text" name="incident_report[room_number]" placeholder="Room #" value="<%=@incident_report.room_number%>" />
+                                <input type="text" name="report[room_number]" placeholder="Room #" value="<%=@report.room_number%>" />
                             </li>
                         </ul>
                   
@@ -66,12 +69,12 @@
                         
                         <ul>
                             <li>
-                                <input type="text" name="incident_report[approach_time]" value="<%=@incident_report.approach_time%>" />
+                                <input type="text" name="report[approach_time]" value="<%=@report.approach_time%>" />
                             </li>
                         </ul>
                        
 					   
-						<% if @incident_report.submitted != true %>
+						<% if @report.submitted != true %>
 						      <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
 							  <%else%>
 							  <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
@@ -85,35 +88,7 @@
 				
 <div id="s-i-checkbox">
 					
-				
-				
-                <% @currentParticipantID = nil %>
-                <% @incident_report.report_participant_relationships.each do |b| %>
-                <% if @currentParticipantID == nil or b.participant.id != @currentParticipantID %>
-                <% @currentParticipantID = b.participant.id %>
 
-                <div class="iLayer" id="wa<%=b.participant.id%>" title="<%= b.participant.full_name%>">
-                    <div class="iPanel">
-                        <fieldset>
-
-                            <ul class="iArrow">
-                                <% infractions = RelationshipToReport.all %>
-                                <% infractions.each do |i| %>
-                                <li>
-                                    <input type="checkbox" name="<%= b.participant_id %>[<%= i.id %>]" class="iToggle" title="YES|NO" 
-									<% #if a reported infraction exists for this infraction and this student, make box checked.# %> 
-									<% session[:incident_report].report_participant_relationships.each do |ri| %> 
-									<% if ri.participant_id == b.participant_id && ri.relationship_to_report_id == i.id %> checked="checked"
-									 <% end %>
-                                    <% end %>
-                                    <% #this is the end of the checkbox tag.# %>
-                                    ><%= i.description %>                            
-								</li><% end %>
-                            </ul>
-                        </fieldset>
-                    </div>
-                </div><% end %>
-                <% end %>
            
         </div>
     </div>

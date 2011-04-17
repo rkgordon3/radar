@@ -16,15 +16,23 @@ class IncidentReportsController < ReportsController
     # get all submitted reports so view can display them (in order of approach time)
     @reports = IncidentReport.where(:submitted => true).order(:approach_time)
     
-    #this was the previous it was changed because unsubmitted reports were submitted
-    #@incident_reports = IncidentReport.where(:submitted => true).order(:approach_time)
-    
     respond_to do |format|
     	format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }
       format.iphone {render :layout => 'mobile_application'}
     end
   end
+  
+  def unsubmitted_reports
+  	  self.clear_session
+  	  
+  	  @reports = IncidentReport.where(:submitted => false).order(:approach_time)
+  	  
+  	  respond_to do |format|
+  	  	  format.iphone {render :layout => 'mobile_application'}
+  	  end
+  end
+  	  
 
   # GET /incident_reports/1
   # GET /incident_reports/1.xml
@@ -163,12 +171,22 @@ class IncidentReportsController < ReportsController
   # GET /incident_reports/new_report.xml
   def new_report 	 
   	  	  
-  	logger.debug "inside IR new_report"
+  	  logger.debug "inside IR new_report params: #{params}"
 
- 		@report = IncidentReport.new(:staff_id => current_staff.id)               # new report
+    @report = IncidentReport.new(:staff_id => current_staff.id)               # new report
+    
+    if params[:participants]!=nil
+      participants = params[:participants].split(/,/)
+      participants.each do |p|
+        logger.debug "adding default relationship for p from new_report " + p
+        @report.add_default_relationship_for_participant(Integer(p))
+      end
+    end
+
     session[:report] = @report
 
-
+   # logger.debug "in new report, these are my session saved reported infractions " 
+   # logger.debug session[:report].report_participant_relationships
     respond_to do |format|
       format.html # new_report.html.erb
       format.xml  { render :xml => @report }
