@@ -12,8 +12,7 @@
   		  		<div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
-  				       report.get_specific_report_student_relationship(participant.id, infraction.id) != nil %>
-  				       
+  				       report.get_specific_report_student_relationship(participant.id, infraction.id) != nil%>
   				    <%= label_tag infraction.description %>			
   				
   				  </div>

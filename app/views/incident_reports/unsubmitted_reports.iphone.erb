@@ -19,17 +19,17 @@
                                 <% if report.submitted? != true %>
                                 <li>
                                     <span style="padding-top:32px"><a href='<%=edit_incident_report_path(report) %>' class="iPush iBClassic">Edit</a></span>
-                                    <a href='incident_reports/<%=report.id %>'>Approach Date: 
+                                    <a href='<%=report.id %>'>Approach Date: 
                                         <br/>
-                                        &nbsp&nbsp<%= report.approach_time.to_s(:date_only) %>
+                                        <%= report.approach_time.to_s(:date_only)%>
                                         <br/>
                                         Approach Time: 
                                         <br/>
-                                        &nbsp&nbsp<%= report.approach_time.to_s(:time_only) %>
+                                        <%= report.approach_time.to_s(:time_only) %>
                                         <br/>
                                         Building: 
                                         <br/>
-                                        &nbsp&nbsp<%= report.building.name %>
+                                        <%= report.building.name %>
                                     </a>
                                 </li>
                                 <% end %>
