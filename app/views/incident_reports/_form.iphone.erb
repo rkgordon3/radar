@@ -10,22 +10,16 @@
                     Students:
                 </legend>
                 <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
-
-				<div id="s-i-form">
-                
-                 <%  @report.participant_ids.each  do |pid|  %>    
+                <div id="s-i-form">
+                    <% @report.participant_ids.each  do |pid| %>
                     <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
-                <% end %>
-				
-				</div>
-
-				</div>
-        	
+                    <% end %>
+                </div>
+            </div>
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
                     <fieldset>
-
-                         <legend>
+                        <legend>
                             Annotation:
                         </legend>
                         <ul>
@@ -38,17 +32,10 @@
                         </legend>
                         <ul>
                             <li id="build" class="iRadio" value="autoback">
-                            	
                                 Select Building<% Building.find(:all).each do |b| %>
-								
                                 <label>
-                                    <input type="radio" name="report[building_id]" value="<%= b.id %>" <%if @report.building_id == b.id %> CHECKED <% end %>><%= b.name %>
-                                </label>
-                                
-								
-								
-								<% end %><!--<%= @report.building.name %>-->
-								<span></span>
+                                    <input type="radio" name="report[building_id]" value="<%= b.id %>"<%if @report.building_id == b.id %> CHECKED<% end %>><%= b.name %>
+                               </label><% end %><!--<%= @report.building.name %>-->
                             </li>
                         </ul>
                         <legend>
@@ -59,38 +46,25 @@
                                 <input type="text" name="report[room_number]" placeholder="Room #" value="<%=@report.room_number%>" />
                             </li>
                         </ul>
-                  
-
-				
                         <legend>
                             Time: 
-                       </legend>
-                        
-                        
+                        </legend>
                         <ul>
                             <li>
                                 <input type="text" name="report[approach_time]" value="<%=@report.approach_time%>" />
                             </li>
-                        </ul>
-                       
-					   
-						<% if @report.submitted != true %>
-						      <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
-							  <%else%>
-							  <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
-							  <% end %>
-
+                        </ul><% if @report.submitted != true %>
+                        <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/><%else %>
+                        <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/><% end %>
                     </fieldset>
                 </div>
-				</form>
-								
-				</div>
-				
-<div id="s-i-checkbox">
-					
-
-           
+                </div>
+                <div id="s-i-checkbox">
+                   
+                    <% @report.participant_ids.each  do |pid| %>
+                    <%= render :partial=> "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => Participant.find(pid) } %>
+                    <% end %>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-
