@@ -1,10 +1,10 @@
 <fieldset>
 <ul><li>
-<%= label_tag  "Birthday: #{participant.birthday}", %>
+<%= "Birthday: #{participant.birthday}" %>
 </li>
 <li>
-<%= label_tag "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
+<%= "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
 </li>
 <li>
-<%= label_tag "Emergency Contact: #{participant.emContact}" %>
+<%= "Emergency Contact: #{participant.emContact}" %>
 </li></ul></fieldset> 
