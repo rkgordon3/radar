@@ -1,0 +1,12 @@
+<div id="newParticipantPartialDiv">
+  <%= form_tag('/reports/create_participant_and_add_to_report', :method => :post, :remote => true) do %>
+    <h3>No entries found for <%= "#{fName} #{lName}" %></h3>
+	<%= text_field_tag 'firstname', "#{fName}", :placeholder => 'First name' %>
+	<%= text_field_tag 'lastname', "#{lName}", :placeholder => 'Last name' %>
+	<br />
+	<%= telephone_field_tag 'phonenum', nil, :placeholder => 'Phone number' %>
+	<%= text_field_tag 'affiliation', nil, :placeholder => 'Affiliation' %>
+	<br />
+	<%= submit_tag "Create Participant" %>
+  <% end %>
+</div>
