@@ -94,22 +94,34 @@ class ReportsController < ApplicationController
   end
   
    def add_participant
-   	@participant = Student.get_student_object_for_string(params[:full_name])
+   	@participant = Participant.get_participant_for_full_name(params[:full_name])
    	@report = session[:report]
-  	logger.debug("add participant #{@participant}")
-  	@report.add_default_relationship_for_participant(@participant.id)
-  	respond_to do |format|
+	logger.debug "Participant = #{@participant}"
+	if @participant == nil
+	  name_tokens = params[:full_name].split(' ')
+	  firstName = name_tokens[0].capitalize
+	  lastName = name_tokens[1].capitalize
+	  respond_to do |format|
+	    format.js{
+		  render :update do |page|
+	        page.select("input#full_name").first.clear
+		    page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :lName => lastName })
+	      end
+	    }
+	  end
+	else
+	  @report.add_default_relationship_for_participant(@participant.id)
+  	  respond_to do |format|
   		format.js
   		format.iphone {
-  			render :update do |page|
-  			 page.select("input#full_name").first.clear
-   	   	         page.insert_html(:top, "s-i-form", 
-   	   			    render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-                         page.insert_html(:top, "s-i-checkbox",  
-                          render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))  
-                         end
-                     }
-   	end 
+  		  render :update do |page|
+  		    page.select("input#full_name").first.clear
+   	   	    page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+            page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))  
+          end
+        }
+   	  end 
+	end
   end
   
   def remove_participant
@@ -129,4 +141,17 @@ class ReportsController < ApplicationController
    	end 
   end
   
+  def create_participant_and_add_to_report
+    @participant = Participant.create
+	logger.debug "Parameters = #{params}"
+	@participant.first_name = params[:firstname]
+	@participant.last_name = params[:lastname]
+	@participant.affiliation = params[:affiliation]
+	@participant.home_phone = params[:phonenum]
+	@participant.full_name = "#{@participant.first_name} #{@participant.last_name}"
+	@participant.update_attributes(@participant)
+	logger.debug "Partipant full name = #{@participant.full_name}"
+	logger.debug "ID = #{@participant.id}"
+	redirect_to :action => 'add_participant', :full_name => @participant.full_name
+  end
 end
