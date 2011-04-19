@@ -1,5 +1,7 @@
 
 <%=  "Birthday: #{participant.birthday.to_s(:short)}" %><br/>
+<% if (participant.building_id != nil) %>
 <%=  "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
+<% end %>
 <%=  "Emergency Contact: #{participant.emContact}" %>
                       
