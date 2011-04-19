@@ -1,4 +1,9 @@
-<%= label_tag  "Birthday: #{participant.birthday(:short)}" %><br/>
+<% if participant.birthday > -21.years.from_now %>
+	<%= label_tag  "Birthday: " %>
+	<font color="CC3333"><%= label_tag  "#{participant.birthday.strftime("%m/%d/%Y")}" %></font>
+<% else %>
+	<%= label_tag  "Birthday: #{participant.birthday.strftime("%m/%d/%Y")}" %>
+<% end %><br/>
 <% if participant.building_id != nil %>
   <%= label_tag "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %></br>
 <% end %>
