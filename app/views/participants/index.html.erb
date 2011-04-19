@@ -26,7 +26,7 @@
     <td><%= participant.last_name %></td>
     <td><%= participant.type %></td>
     <td><%= participant.affiliation %></td>
-    <td><%= participant.age %></td>
+    <td><%= participant.birthday %></td>
     <td><%= link_to 'Show', participant %></td>
 	<% if Authorize.not_admin_assistant_authorize(current_staff) %> 
 	    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
