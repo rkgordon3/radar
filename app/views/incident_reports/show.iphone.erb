@@ -6,7 +6,7 @@
     </div>
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
-            <form action="/incident_reports.iphone" method="POST">
+            <form action="/incident_reports" method="POST">
                 <div class="iPanel">
                     <fieldset>
                     <Legend>
@@ -43,6 +43,7 @@
                         Student infractions:
                     </Legend>
 					<ul>
+						
 					<% @report.report_participant_relationships.each do |b| %>
                     <% if b.participant.id != @currentParticipantID %>
 					
@@ -50,31 +51,15 @@
 					
 					<li>
                     <Legend  style="color: #000000">Participant:</Legend>
-					<!--<ul>
-                        
-                            
-							<li>
-							<% if b.participant.type == "Student" %>
+					
+				<Legend style="color: #b22222">
+                <% if b.participant.type == "Student" %>
                             
                             <%= b.participant.first_name %> <%= b.participant.last_name %></a>
                        
                         <% else %>
                         
-                        <%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                    
-					
-					
-                    <% end %>
-                    </li>
-                </ul>-->
-				<Legend style="color: #b22222">
-                <% if b.participant.type == "Student" %>
-                            
-                            &nbsp&nbsp<%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                       
-                        <% else %>
-                        
-                       &nbsp&nbsp <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                       <%= b.participant.first_name %> <%= b.participant.last_name %></a>
                     
 					
 					
@@ -88,10 +73,11 @@
                     <% end %>
 				
 					<Legend style="color: #b22222">
-					&nbsp&nbsp<%= b.relationship_to_report.description %>
+					<%= b.relationship_to_report.description %>
 					</Legend>
-					</li>
+					
                     <% end %>
+					</li>
 </ul>
                 <ul>
                     <li>
