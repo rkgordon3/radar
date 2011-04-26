@@ -7,6 +7,7 @@ namespace :radar do
     Rake::Task['db:data:load'].invoke
     Rake::Task['db:sessions:clear'].invoke
     rake_system('devisepost.bat')
+    puts "devise done"
   end
   task :precommit do
     Rake::Task['db:sessions:clear'].invoke

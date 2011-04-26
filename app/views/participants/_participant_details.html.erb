@@ -1,6 +1,14 @@
-<%= label_tag  "Birthday: #{participant.birthday(:short)}" %><br/>
-<% if participant.building_id != nil %>
-  <%= label_tag "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %></br>
+<% if (participant.birthday < 21.year.from_now) %>
+
+<%=  "Birthday:" %>
+<font color='red'>
+<%= participant.birthday.strftime("%m/%d/%Y") %>
+</font>
+<%  else %>
+<%=  "Birthday: #{participant.birthday.strftime("%m/%d/%Y")}" %>
+<% end %> <br/>
+<% if (participant.building_id != nil) %>
+<%=  "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
 <% end %>
-<%= label_tag "Emergency Contact: #{participant.emContact}" %>
+<%=  "Emergency Contact: #{participant.emContact}" %>
                       
