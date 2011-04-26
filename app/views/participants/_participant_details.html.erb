@@ -1,14 +1,24 @@
-<% if (participant.birthday < 21.year.from_now) %>
-
-<%=  "Birthday:" %>
-<font color='red'>
-<%= participant.birthday.strftime("%m/%d/%Y") %>
-</font>
-<%  else %>
-<%=  "Birthday: #{participant.birthday.strftime("%m/%d/%Y")}" %>
-<% end %> <br/>
-<% if (participant.building_id != nil) %>
-<%=  "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
-<% end %>
-<%=  "Emergency Contact: #{participant.emContact}" %>
-                      
+<div style="margin-left: 15px;">
+	<span style="font-style: italic;">Date of Birth: </span>
+	<% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
+		<font color='red'><%= participant.birthday.strftime("%m/%d/%Y") %></font>
+	<%  elsif (participant.birthday != nil) %>
+		<%=  "#{participant.birthday.strftime("%m/%d/%Y")}" %>
+	<%  else %>
+		<%=  "Unknown" %>
+	<% end %> <br/>
+	
+	<span style="font-style: italic;">Residence: </span> 
+	<% if (participant.building_id != nil) %>
+		<%=  "#{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
+	<% else %>
+		<%=  "Unknown" %><br/>
+	<% end %>
+	
+	<span style="font-style: italic;">Emergency Contact: </span>
+	<% if (participant.emContact !=nil) %>
+		<%=  "#{participant.emContact}" %>
+	<% else %>
+		<%=  "Unknown" %>
+	<% end %>                   
+</div>
