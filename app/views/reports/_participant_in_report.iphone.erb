@@ -1,11 +1,14 @@
+
+
 <% logger.debug("inside particiapnt_in_report participant is #{participant.first_name} id is #{participant.id}") %>
 <div class="p-relationship" id=<%= "'p-in-report-#{participant.id}'" %> >
       <fieldset>
       	<ul class="iArrow">
       		<li>
-      			<a href="#_<%=participant.id%>"
-      	<%= link_to image_tag(participant.getThumbnailUrl, :border=> 0)%><%= "#{participant.first_name} #{participant.last_name}" %> </a>
+      			<a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"> 
+      	<%=image_tag(participant.getThumbnailUrl, :border=> 0)%> <%= "#{participant.first_name} #{participant.last_name}" %></a>
 	  </li>
+	  
 	  </ul>
 	  </fieldset>
      

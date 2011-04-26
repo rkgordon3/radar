@@ -2,7 +2,19 @@
 <div class="iLayer" id="wa<%=participant.id%>" title="<%= participant.full_name%>">
 <div class="iPanel">
 <% if report.class.name == "IncidentReport" %>
+
 <fieldset>
+	<div class="iBlock">
+		<span><img src="<%=participant.getImageUrl%>" align="center"/></span>
+	</div>
+		
+		<%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+	
+</fieldset>
+<fieldset>
+
+
+
   	    <Legend>Infractions:</Legend>
 
 	  	<div id="<%= participant.id %>-infractions">
