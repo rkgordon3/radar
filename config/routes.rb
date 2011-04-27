@@ -1,5 +1,6 @@
 Radar::Application.routes.draw do
   resources :shifts
+  match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
 
   resources :report_types
 

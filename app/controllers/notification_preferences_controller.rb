@@ -32,11 +32,11 @@ class NotificationPreferencesController < ApplicationController
 		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
 		if(pref.frequency == 2)
 			logger.debug "2"
-			pref.time_offset = 480
+			pref.time_offset = 360
 		end
 		if(pref.frequency == 3)
 			logger.debug "3"
-			pref.time_offset = 1920
+			pref.time_offset = 360
 		end
 		if(pref.frequency == 1)
 			pref.time_offset = -1
