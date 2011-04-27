@@ -18,10 +18,11 @@
 	<div id="toolbar" style="position: fixed; top: 0px; left: 0px; width: 100%; color: #fff; background: #000;"> 
 		<table border="0">
 		<tr>
-			<td width = "85%%"><%=link_to image_tag("radar_circle_logo.png", :size=> "35x35", :title=>"Radar Home"), "/"%> </td>
+			<td width = "85%"><%=link_to image_tag("radar_circle_logo.png", :size=> "35x35", :title=>"Radar Home"), "/"%> </td>
+			
 			<td width = "15%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
 			<% if current_staff.access_level > Authorize.ra_access_level %>
-			<td width = "0%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
+				<td width = "0%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
 			<% end %>
 		</tr>
 		</table>    

@@ -1,5 +1,5 @@
 Radar::Application.routes.draw do
-  resources :shifts
+
 
   resources :report_types
 
