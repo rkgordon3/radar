@@ -1,23 +1,28 @@
+
 <div id="WebApp">
     <div id="iHeader" style="background-color: #b22222">
-        <a href="#" id="waBackButton">Back</a>
+        <a href="#" onclick="javascript:showDiv('searchform')" id="waBackButton">Back</a>
         <span id="waHeadTitle">Incident Report</span>
     </div>
-    <div id="iGroup">
-        <div class="iLayer" id="waHome" title="Home">
-            <div class="iPanel">
-                <legend>
-                    Students:
-                </legend>
+           	     
+			
+			 <div class="iPanel">
+
                 <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
-                <div id="s-i-form">
+               
+            </div>
+				
+    	<form action="/incident_reports" method="POST">
+<div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+           
+                <div class="iPanel">
+                	 <div id="s-i-form">
                     <% @report.participant_ids.each  do |pid| %>
                     <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
                     <% end %>
                 </div>
-            </div>
-            <form action="/incident_reports" method="POST">
-                <div class="iPanel">
+					
                     <fieldset>
                         <legend>
                             Annotation:
@@ -31,11 +36,12 @@
                             Building:
                         </legend>
                         <ul>
+						
                             <li id="build" class="iRadio" value="autoback">
                                 Select Building<% Building.find(:all).each do |b| %>
                                 <label>
-                                    <input type="radio" name="report[building_id]" value="<%= b.id %>"<%if @report.building_id == b.id %> CHECKED<% end %>><%= b.name %>
-                               </label><% end %><!--<%= @report.building.name %>-->
+                                    <input type="radio" name="report[building_id]" value="<%= b.id %>"<%if @report.building_id == b.id %> CHECKED <% end %>\><%= b.name %>
+							   </label><% end %><!--<%= @report.building.name %>-->
                             </li>
                         </ul>
                         <legend>
@@ -58,13 +64,15 @@
                         <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/><% end %>
                     </fieldset>
                 </div>
-                </div>
+				</div>
                 <div id="s-i-checkbox">
                    
                     <% @report.participant_ids.each  do |pid| %>
                     <%= render :partial=> "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => Participant.find(pid) } %>
                     <% end %>
-                </div>
+                </div> </div>
             </form>
-        </div>
-    </div>
+       
+    
+
+</div>
