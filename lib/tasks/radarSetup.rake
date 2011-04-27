@@ -7,6 +7,7 @@ namespace :radar do
     Rake::Task['db:data:load'].invoke
     Rake::Task['db:sessions:clear'].invoke
     rake_system('devisepost.bat')
+    puts "devise done"
   end
   task :precommit do
     Rake::Task['db:sessions:clear'].invoke
@@ -17,11 +18,11 @@ namespace :radar do
   namespace :test do
     desc "Setup fresh Radar environment for testing"
     task :setup do
-      system("rake db:drop RAILS_ENV=test")
-      system("rake db:setup RAILS_ENV=test")
-      system("rake db:migrate RAILS_ENV=test")
-      system("rake db:data:load RAILS_ENV=test")
-      system("rake db:sessions:clear RAILS_ENV=test")
+      rake_system("rake db:drop RAILS_ENV=test")
+      rake_system("rake db:setup RAILS_ENV=test")
+      rake_system("rake db:migrate RAILS_ENV=test")
+      rake_system("rake db:data:load RAILS_ENV=test")
+      rake_system("rake db:sessions:clear RAILS_ENV=test")
     end
   end
   

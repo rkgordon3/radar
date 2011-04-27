@@ -1,23 +1,38 @@
-
-
-<div class="relationship-checklist">
+                
+<div class="iLayer" id="wa<%=participant.id%>" title="<%= participant.full_name%>">
+<div class="iPanel">
 <% if report.class.name == "IncidentReport" %>
-<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
- 
-  	    <b>Infractions:</b>
-  	<div id="<%= participant.id %>-infractions" style="display: none;">
+
+<fieldset>
+	<div class="iBlock">
+		<span><img src="<%=participant.getImageUrl%>" align="center"/></span>
+	</div>
+		
+		<%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+	
+</fieldset>
+<fieldset>
+
+
+
+  	    <Legend>Infractions:</Legend>
+
+	  	<div id="<%= participant.id %>-infractions">
   			<% infractions = RelationshipToReport.all %>
-  			<% infractions.each do |infraction| %>
-  		  		<div style="margin-left: 48px;margin-top: 4px; margin-bottom: 0px;" >
-  						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
+  			<ul>
+				<% infractions.each do |infraction| %>
+				<li><%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
-  				       report.get_specific_report_student_relationship(participant.id, infraction.id) != nil %>
-  				       
-  				    <%= label_tag infraction.description %>			
-  				
-  				  </div>
-  			<% end %>
-  	</div>
+  				       report.get_specific_report_student_relationship(participant.id, infraction.id) != nil,
+						 :class=>"iToggle", :title=>"YES|NO" %>
+						<%= label_tag infraction.description %>
+				</li>
+				<%end%>
+			</ul>
+			</div>
+</fieldset>
 <% end %>
 </div>
+
+</div>
+

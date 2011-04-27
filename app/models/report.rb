@@ -1,7 +1,7 @@
 class Report < ActiveRecord::Base
-	belongs_to  	:staff
-	belongs_to    :building
-	has_one		    :annotation
+  belongs_to  	:staff
+  belongs_to    :building
+  has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
   after_initialize :setup_defaults
@@ -12,13 +12,17 @@ class Report < ActiveRecord::Base
   def annotation_text
     annotation != nil ? annotation.text : nil
   end
-	
+  
+  
+  
   def update_attributes_and_save(params)
-	update_attributes_without_saving(params)
-	valid?
-	save
+    update_attributes_without_saving(params)
+    valid?
+    save
   end
-	
+  
+  
+  
   def update_attributes_without_saving(params)
     logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
@@ -29,14 +33,16 @@ class Report < ActiveRecord::Base
     
     if annotation_text != nil && annotation_text.length > 0 
       if self.annotation == nil
-    	  self.annotation = Annotation.new(:text => annotation_text)
+        self.annotation = Annotation.new(:text => annotation_text)
       else
-    	  self.annotation.text = annotation_text
+        self.annotation.text = annotation_text
       end
     end
-
+    
   end
-
+  
+  
+  
   def setup_defaults
     if self.id == nil
       self.building_id = Building.unspecified
@@ -46,52 +52,63 @@ class Report < ActiveRecord::Base
     end
   end
   
- 
+  
+  
   def save
-   if annotation != nil && annotation.save != nil 
-     self.annotation_id = annotation.id
-   end
-   super
+    if annotation != nil && annotation.save != nil 
+      self.annotation_id = annotation.id
+    end
+    super
   end
+  
+  
   
   def save_everything
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
-      if !ri.frozen?                                # make sure the reported infraction isn't frozen
+      if !ri.frozen?   # make sure the reported infraction isn't frozen
         ri.report_id = self.id # establish connection
         ri.save		# actually save
       end
     end
     if (self.submitted) 
-    	Notification.immediate_notify(self.id)
+      Notification.immediate_notify(self.id)
     end
-end
+  end
+  
+  
   
   def destroy_everything
     destroy_participants
     if annotation != nil
-    	annotation.destroy
+      annotation.destroy
     end
   end
+  
+  
   
   def get_report_participant_relationships_for_participant(participant_id)
     logger.debug "In get_report_participant_relationships_for_participant id:#{participant_id}"
     found_relationships = Array.new
     self.report_participant_relationships.each do |ri|
-	  logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
+      logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
       if ri.participant_id == participant_id
         found_relationships << ri
-		 
+        
       end
     end
     return found_relationships
   end
   
- def destroy_participants
+  
+  
+  def destroy_participants
     report_participant_relationships.each do |ri|
       ri.destroy
     end
-end
+  end
+  
+  
   
   def get_specific_report_student_relationship(participant_id, relationship_id)
     self.report_participant_relationships.each do |ri|
@@ -103,11 +120,14 @@ end
   end
   
   
+  
   def participant_ids
     p  = get_all_participants
     logger.debug("report has #{p.count} participants")
     p
   end
+  
+  
   
   def get_all_participants
     partic_relationships = Array.new
@@ -142,7 +162,6 @@ end
   
   
   
-  
   def add_default_relationship_for_participant(participant_id)
     # only want to add if fyi doesn't already exist
     all_relationships_for_participant = get_report_participant_relationships_for_participant(participant_id)
@@ -150,13 +169,15 @@ end
     # only want to add if no relationships exist
     if all_relationships_for_participant.count == 0
       ri = ReportParticipantRelationship.new(:participant_id => participant_id)
+      if self.is_a? MaintenanceReport
+        ri.relationship_to_report_id = RelationshipToReport.maintenance_concern
+      end
       self.report_participant_relationships << ri
     else
       ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
     end
     return ri
   end
-  
   
   
   
@@ -170,25 +191,39 @@ end
     
     return ri
   end
- 
- 
- 
+  
+  
+  
   def add_default_report_student_relationships_for_participant_array(participants)    
     if participants != nil
       # go through the students and add fyi relationships
       participants.each do |s|
-      				add_default_relationship_for_participant(s.id)
+        add_default_relationship_for_participant(s.id)
       end
     end
   end
   
+  
+  
   def tag
-	tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + approach_time.strftime("%Y%m%d-%H%M") + "-" + staff_id.to_s 
+    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + approach_time.strftime("%Y%m%d-%H%M") + "-" + staff_id.to_s 
   end
-
+  
+  
+  
   def display_name
-	return ReportType.find_by_name(self.class.name).display_name
+    return ReportType.find_by_name(self.class.name).display_name
   end
+  
+  
+  
+  def process_participant_params_string_from_student_search(participants_string)
+    if participants_string !=nil
+      participants = participants_string.split(/,/)
+      participants.each do |p|
+        self.add_default_relationship_for_participant(Integer(p))
+      end
+    end
+  end
+  
 end
-
-

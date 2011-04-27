@@ -1,5 +1,6 @@
 Radar::Application.routes.draw do
   resources :shifts
+  match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
 
   resources :report_types
 
@@ -8,7 +9,8 @@ Radar::Application.routes.draw do
   
   get "reports_query/reports_query"
   
-  match "/reports/add_participant" => "reports#add_participant"
+  match "/reports/add_participant/" => "reports#add_participant"
+  match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/search/update_result_list" => "search#update_result_list"
   match "/students/show_details/:id" => "students#show_details"
@@ -16,6 +18,7 @@ Radar::Application.routes.draw do
   match "/incident_reports/add_participant"         => "reports#add_participant"
   match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
   
+  match "/participant/createNoRedirect" => "participant#createNoRedirect"
   devise_for :staffs
   
   get "home/landingpage"

@@ -17,4 +17,16 @@ function plusMinusToggle(divID,imgID) {
 	                document.getElementById(divID).style.display = 'block';
 	                document[imgID].src = '/images/minus_icon.gif';
 	            }
-	        }
+}
+
+			
+
+
+function hideDiv(divID){
+			document.getElementById(divID).setAttribute("style", "display:none");
+}
+function showDiv(divID){
+			document.getElementById(divID).setAttribute("style", "display:block");
+}
+
+

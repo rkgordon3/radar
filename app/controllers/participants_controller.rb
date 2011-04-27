@@ -2,7 +2,7 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   before_filter :authenticate_staff!
-  before_filter :admin_authorize
+  before_filter :admin_authorize_view_access
   
   def index
     @participants = Participant.all
@@ -84,5 +84,4 @@ class ParticipantsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end

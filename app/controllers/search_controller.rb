@@ -27,7 +27,7 @@ class SearchController < ApplicationController
  def update_result_list
  		  logger.debug("IN UPDATE")
  			init_students_from_session
-      @student = Student.get_student_object_for_string(params[:full_name])
+      @student = Participant.get_participant_for_full_name(params[:full_name])
 
       if !@students.key?(@student.id.to_s) 
 	  	  @students[@student.id.to_s] = @student

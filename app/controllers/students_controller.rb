@@ -113,7 +113,7 @@ class StudentsController < ApplicationController
     # if a student's name was entered, find all reports with that student
     if params[:full_name].length > 0 # arbitrary number
       # get the student for the string entered
-      student = Student.get_student_object_for_string(params[:full_name])
+      student = Participant.get_participant_for_full_name(params[:full_name])
       if student != nil
         @students = Array.new << student
       else 
@@ -189,7 +189,12 @@ class StudentsController < ApplicationController
   
   
   def use_search_results_to_create_new_report
-    @incident_report = IncidentReport.new
+    if params[:commit] == "Add To New Maintenance Request"
+      report_folder = "maintenance_reports/new"
+    else
+      report_folder = "incident_reports/new_report"
+    end
+    
     keys = params.keys
     participant_string = ""
     
@@ -204,10 +209,10 @@ class StudentsController < ApplicationController
         participant_string = participant_string + participant.first.id.to_s
       end
     end
+    
        
     respond_to do |format|
-      format.html { redirect_to "/incident_reports/new_report?participants=#{participant_string}" }
-      format.xml  { render :xml => @incident_report}
+      format.html { redirect_to "/#{report_folder}?participants=#{participant_string}" }
     end
   
   end
