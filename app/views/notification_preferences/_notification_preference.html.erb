@@ -4,7 +4,7 @@
 	</td>
 
 	<td>
-		<%= radio_button(notification_preference.id, :frequency, 0, :onclick => "Element.hide('scope_#{notification_preference.report_type}');", :checked =>"checked") %><label>Never</label><br>
+		<%= radio_button(notification_preference.id, :frequency, 0, :onclick => "Element.hide('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 0) %><label>Never</label><br>
 		<%= radio_button(notification_preference.id, :frequency, 1, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 1) %><label>Immediately</label><br>
 		<%= radio_button(notification_preference.id, :frequency, 2, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 2) %><label>Daily</label><br>
 		<%= radio_button(notification_preference.id, :frequency, 3, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 3) %><label>Weekly</label></td>

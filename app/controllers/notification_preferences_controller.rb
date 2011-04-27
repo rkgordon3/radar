@@ -12,6 +12,7 @@ class NotificationPreferencesController < ApplicationController
 		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
 		if(pref == nil)
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
+            pref.frequency = 1
 		end
 		@notification_preferences << pref
 	end
