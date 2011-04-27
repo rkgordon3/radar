@@ -6,6 +6,9 @@ Radar::Application.routes.draw do
   resources :notification_preferences
   match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
+  resources :shifts
+  match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
+  
   get "reports_query/reports_query"
   
   match "/reports/add_participant/" => "reports#add_participant"
