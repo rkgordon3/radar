@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110414172651) do
+ActiveRecord::Schema.define(:version => 20110428050008) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20110414172651) do
     t.boolean  "submitted"
     t.integer  "annotation_id"
     t.string   "tag"
+  end
+
+  create_table "rounds", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "shift_id"
+    t.datetime "end_time"
   end
 
   create_table "sessions", :force => true do |t|

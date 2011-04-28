@@ -21,12 +21,20 @@
 </p>
 <p>
   <b>Age:</b>
-  <%= @student.getAge(@student.birthday) %>
+  <% if @student.birthday > -21.years.from_now %>
+	<font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
+  <% else %>
+	<%= @student.getAge(@student.birthday) %>
+  <% end %>
 </p>
 
 <p>
-  <b>Birthday:</b>
-  <%= @student.birthday != nil ? @student.birthday.strftime("%m/%d/%Y") : "" %>
+  <b>Date of Birth:</b>
+  <% if @student.birthday > -21.years.from_now %>
+	<font color="CC3333"><%= @student.birthday != nil ? @student.birthday.to_s(:short_date_only) : "" %></font>
+  <% else %>
+	<%= @student.birthday != nil ? @student.birthday.to_s(:short_date_only) : "" %>
+  <% end %>
 </p>
 
 <%if staff_signed_in? %>

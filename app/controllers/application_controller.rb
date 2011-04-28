@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-
+	
 	def general_authorize
 		unless staff_signed_in?
 			flash[:notice] = "Unauthorized Access"
