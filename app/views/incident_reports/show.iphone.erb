@@ -2,92 +2,68 @@
 <div id="WebApp">
     <div id="iHeader" style="background-color: #b22222">
         <a href="#" id="waBackButton">Back</a>
-        <span id="waHeadTitle">Incident Report</span>
+        <span id="waHeadTitle"><%= @report.tag %></span>
+		<%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
     </div>
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
                     <fieldset>
-                    <Legend>
-                        Showing Incident Report #<%= @report.id %>
+
+                        <Legend>
+                            Student infractions:
+                        </Legend>
+                        <ul>
+                            <% @report.report_participant_relationships.each do |b| %>
+                            <% if b.participant.id != @currentParticipantID %>
+                            <% @currentParticipantID = b.participant.id %>
+                            <li>
+                            <%=image_tag(b.participant.getThumbnailUrl, :border=> 0)%>
+                            <% if b.participant.type == "Student" %>
+                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                            <% else %>
+                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                        <% end %>
+                        <br/>
+                        <% end %>
+                        <div class="print-infraction" style="margin-left:25px; font-style:italic;">
+                            <%= b.relationship_to_report.description %>
+                        </div>
+                        <% end %>
+                        </li>
+                    </ul>
+					<Legend>
+                            Building:
                     </Legend>
                     <ul>
-                        
+                    	
                         <li>
-                            Submitted:<span><%= @report.submitted %></span>
+                            Building:<span><%= @report.building.name %></span>
                         </li>
                         <li>
-                            Approach Time:<span><%= @report.approach_time.to_s(:time_only)%></span>
+                            Specific Location:<span><%= @report.room_number %></span>
                         </li>
-                        <li>
-                            Building ID:<span><%= @report.building.name %></span>
-                        </li>
-                        <li>
-                            Room Number:<span><%= @report.room_number %></span>
-                        </li>
-                        
                     </ul>
                     <Legend>
                         Annotation:
                     </Legend>
                     <ul>
                         <li>
-                           <%=@report.annotation_text %>
+                            <%=@report.annotation_text %>
                         </li>
                     </ul>
-                   
                     <% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
-                    
-                    <Legend>
-                        Student infractions:
-                    </Legend>
+                    <legend>Approach Date:</legend>
 					<ul>
-						
-					<% @report.report_participant_relationships.each do |b| %>
-                    <% if b.participant.id != @currentParticipantID %>
-					
-                    <% @currentParticipantID = b.participant.id %>
-					
-					<li>
-                    <Legend  style="color: #000000">Participant:</Legend>
-					
-				<Legend style="color: #b22222">
-                <% if b.participant.type == "Student" %>
-                            
-                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                       
-                        <% else %>
-                        
-                       <%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                    
-					
-					
-                    <% end %>
-					</Legend>
-					<br/>
-                <Legend  style="color: #000000">
-                    Infractions:
-                </Legend>
-				
-                    <% end %>
-				
-					<Legend style="color: #b22222">
-					<%= b.relationship_to_report.description %>
-					</Legend>
-					
-                    <% end %>
-					</li>
-</ul>
-                <ul>
-                    <li>
-                        Created:<span><%= @report.created_at.to_s(:date_only) %></span>
-                    </li>
-                </ul>
-                <a href='unsubmitted_reports' class="iPush iBClassic" style="width:100%">View Reports</a>
-            </fieldset>
+                        <li>
+                            <%= @report.approach_time.to_s(:my_time) %>
+                        </li>
+                    </ul>
+                    <a href='unsubmitted_reports' class="iPush iBClassic" style="width:100%">View Reports</a>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
 </div>

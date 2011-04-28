@@ -1,21 +1,18 @@
-
-
 <% logger.debug("inside particiapnt_in_report participant is #{participant.first_name} id is #{participant.id}") %>
-<div class="p-relationship" id=<%= "'p-in-report-#{participant.id}'" %> >
-      <fieldset>
-      	<ul class="iArrow">
-      		<li>
-      			<a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"> 
-      	<%=image_tag(participant.getThumbnailUrl, :border=> 0)%> <%= "#{participant.first_name} #{participant.last_name}" %></a>
-	  </li>
-	  
-	  </ul>
-	  </fieldset>
-     
-  	  <div id="details_div_<%= participant.id %>" style="display: none;" >
-  	    <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
-  	  </div>
-  	  
-  	 
-  
+<div class="p-relationship" id=<%= "'p-in-report-#{participant.id}'" %>>
+    <fieldset>
+        <ul class="iArrow">
+            <li>
+                <a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"><%=image_tag(participant.getThumbnailUrl, :border=> 0) %><%= "#{participant.first_name} #{participant.last_name}" %></a>
+            </li>
+			<% infractions = RelationshipToReport.all %>
+			<li>
+            <% infractions.each do |infraction| %>
+			<% if report.get_specific_report_student_relationship(participant.id, infraction.id) != nil%>
+            <%= label_tag infraction.description %><br/>
+			<% end %>
+			<% end %>
+			</li>
+        </ul>
+    </fieldset>
 </div>
