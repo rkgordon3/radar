@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
   before_filter :ra_authorize_view_access
  
   def index
-    @students = Student.all
+    @students = Student.order(params[:sort])
     @numRows = 0
     respond_to do |format|
       format.html # index.html.erb
