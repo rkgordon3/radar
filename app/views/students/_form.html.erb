@@ -30,7 +30,7 @@
   <div class="field">
     Building:<br />
     <% res_halls = Building.where(:id => Building.unspecified..Building.end_of_res_hall_id) %>
-	<%= f.select :building_id,options_from_collection_for_select(res_halls, "id", "name"),{}%>
+	<%= f.select :building_id, options_from_collection_for_select(res_halls, 'id', 'name', "#{@student.building_id}")%>
   </div>
   <div class="field">
     <%= f.label :room_number %>:<br />

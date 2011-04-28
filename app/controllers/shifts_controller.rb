@@ -1,5 +1,6 @@
 class ShiftsController < ApplicationController
-
+    before_filter :authenticate_staff!
+    skip_before_filter :verify_authenticity_token
   # GET /shifts
   # GET /shifts.xml
   
@@ -87,7 +88,7 @@ class ShiftsController < ApplicationController
   def add_shift_and_save
 	@shift = Shift.create
 	@shift.on_off_duty
-	logger.debug "current staff = #{current_staff.first_name}"
+	logger.debug "current staff = #{current_staff.id}"
 	@shift.staff_id = current_staff.id
 	logger.debug "ID = #{@shift.staff_id}"
 	@shift.update_attributes()
