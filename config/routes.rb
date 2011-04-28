@@ -1,11 +1,4 @@
 Radar::Application.routes.draw do
-<<<<<<< HEAD
-  
-
-  
-=======
-
->>>>>>> bea2a5055cc7baa00185a11c743585e1781f67cb
 
   resources :report_types
 

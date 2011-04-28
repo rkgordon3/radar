@@ -10,11 +10,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20110428050008) do
-=======
+
 ActiveRecord::Schema.define(:version => 20110418202235) do
->>>>>>> bea2a5055cc7baa00185a11c743585e1781f67cb
+
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
