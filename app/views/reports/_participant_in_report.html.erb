@@ -3,16 +3,14 @@
       	<table>
       		<tr>
       			<td style="vertical-align: top;">
-      				<%= link_to image_tag(participant.getThumbnailUrl, :style=>"align:left;", :border=> 0), "#", 
-  		    		:onclick => "Element.toggle('details_div_#{participant.id}'); return false;"  %>
+      				<%=  image_tag(participant.getThumbnailUrl, :style=>"align:left;", :border=> 0) %>
       			</td>
 				<td style="vertical-align: top;">
-					 <%= "#{participant.first_name} #{participant.last_name}" %>
+					 <%= link_to "#{participant.first_name} #{participant.last_name}", participant, :target=>"blank" %>
       				 <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), { :controller => "reports",   
          				:action => 'remove_participant', :id => participant.id }, :remote => true %>
-  	  				 <div id="details_div_<%= participant.id %>" style="display: none;" >
-  	    			 	<%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
-  	   				 </div>
+					 <br />
+  	   			 	 <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
   	  				 <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => participant } %>
 				</td>
       		</tr>

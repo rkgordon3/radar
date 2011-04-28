@@ -1,8 +1,14 @@
 class ShiftsController < ApplicationController
-    before_filter :authenticate_staff!
-    skip_before_filter :verify_authenticity_token
+
+
+
   # GET /shifts
   # GET /shifts.xml
+  
+  before_filter :authenticate_staff!
+  before_filter :ra_authorize_view_access 
+  skip_before_filter :verify_authenticity_token
+  
   
   def index
     @shifts = Shift.all
@@ -17,8 +23,10 @@ class ShiftsController < ApplicationController
   # GET /shifts/1.xml
   def show
     @shift = Shift.find(params[:id])
-
+	
+	
     respond_to do |format|
+	  
       format.html # show.html.erb
       format.xml  { render :xml => @shift }
     end
@@ -87,13 +95,37 @@ class ShiftsController < ApplicationController
   
   def add_shift_and_save
 	@shift = Shift.create
-	@shift.on_off_duty
-	logger.debug "current staff = #{current_staff.id}"
 	@shift.staff_id = current_staff.id
-	logger.debug "ID = #{@shift.staff_id}"
-	@shift.update_attributes()
+	@shift.save
 	
-	redirect_to request.url
+	render :update do |page|
+	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now on duty. </div>")
+	  page.replace_html("duty_button", :partial=>"shifts/go_off_dutybutton" )
+	  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton" )
+	end
+	return
+  end
+  
+  def go_off_duty
+    @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+    @shift.time_out = Time.now
+	@shift.save
+	@round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+	if @round != nil
+		logger.debug "end/n/n/n/n"
+		@round.end_time = Time.now
+		@round.save
+		logger.debug " #{@round.end_time}"
+		notice = "You are now off a round and off duty."
+	else
+		notice = "You are now off duty."		
+	end
+	
+	render :update do |page|	
+	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> #{notice} </div>")
+	  page.replace_html("duty_button", :partial=>"shifts/go_on_dutybutton")
+	  page.replace_html("round_button", "" )
+	end
   end
   
 end
