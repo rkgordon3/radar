@@ -90,10 +90,10 @@ class RoundsController < ApplicationController
     # I NEED A SHIFT ID TO DO ANYTHINGGGG
 	@round = Round.create
 	#shift = params[:shift_id]
-	#@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
 	#logger.debug "current staff = #{current_staff.first_name}"
 	logger.debug "shift = #{@shift.id}"
-	@round.shift_id = shift.id
+	@round.shift_id = @shift.id
 	@round.save
 			
 	render :update do |page|
@@ -106,7 +106,8 @@ class RoundsController < ApplicationController
   
   def go_off_round
   # add where shift time something
-	@round = Round.where(:end_time => nil).first
+	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+	@round = Round.where(:end_time => nil, :shift_id => @shift.id).first
     @round.end_time = Time.now
 	@round.save
 	render :update do |page|	

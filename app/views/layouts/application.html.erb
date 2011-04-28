@@ -19,14 +19,30 @@
 		<table border="0">
 		<tr>
 			<td width = "0%"><%=link_to image_tag("radar_circle_logo.png", :size=> "35x35", :title=>"Radar Home"), "/"%> </td>
+			
 			<td style = "width: 150px;">
-			<div id= "duty_button">
-				<%= render :partial => "shifts/go_on_dutybutton" %>
-			</div></td>
-			<td style = "width: 160px;">
+			<% if on_duty == true %>
+				<div id= "duty_button">
+					<%= render :partial => "shifts/go_off_dutybutton" %>
+				</div>
+			<% else %>
+				<div id= "duty_button">
+					<%= render :partial => "shifts/go_on_dutybutton" %>
+				</div>
+			<% end %></td>
+			
+			<td style = "width: 170px;">
+			
 			<div id = "round_button">
-			</div></td>
-			<td width = "80%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
+			<% if on_duty == true %>
+				<% if on_round == true %>					
+						<%= render :partial => "shifts/go_off_roundbutton" %>					
+				<% else %>					
+						<%= render :partial => "shifts/go_on_roundbutton" %>					
+				<% end %>
+			<% end %></div></td>			
+			
+			<td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
 			<% if current_staff.access_level > Authorize.ra_access_level %>
 				<td width = "0%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
 			<% end %>

@@ -101,7 +101,7 @@ class ShiftsController < ApplicationController
 	render :update do |page|
 	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now on duty. </div>")
 	  page.replace_html("duty_button", :partial=>"shifts/go_off_dutybutton" )
-	#  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton", :locals => { :shift => @shift})
+	  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton" )
 	end
 	return
   end
@@ -110,10 +110,21 @@ class ShiftsController < ApplicationController
     @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
     @shift.time_out = Time.now
 	@shift.save
+	@round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+	if @round != nil
+		logger.debug "end/n/n/n/n"
+		@round.end_time = Time.now
+		@round.save
+		logger.debug " #{@round.end_time}"
+		notice = "You are now off a round and off duty."
+	else
+		notice = "You are now off duty."		
+	end
 	
 	render :update do |page|	
-	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now off duty. </div>")
+	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> #{notice} </div>")
 	  page.replace_html("duty_button", :partial=>"shifts/go_on_dutybutton")
+	  page.replace_html("round_button", "" )
 	end
   end
   

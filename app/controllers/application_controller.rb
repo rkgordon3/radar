@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
 		request.user_agent =~ /(Android)/
 	end
 	
+
+	
   def ra_authorize_view_access
     if staff_signed_in?
       unless Authorize.ra_authorize(current_staff)
