@@ -1,5 +1,7 @@
 class ShiftsController < ApplicationController
 
+
+
   # GET /shifts
   # GET /shifts.xml
   

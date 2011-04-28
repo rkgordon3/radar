@@ -159,4 +159,7 @@ class ReportsController < ApplicationController
     logger.debug "ID = #{@participant.id}"
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
+  
+  
+  
 end

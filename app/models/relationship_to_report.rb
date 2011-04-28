@@ -6,4 +6,9 @@ class RelationshipToReport < ActiveRecord::Base
     return fyi_id.first.id
   end
   
+  def RelationshipToReport.maintenance_concern
+    mc_id = RelationshipToReport.where(:description => "Maintenance Concern")
+    return mc_id.first.id
+  end
+  
 end
