@@ -1,56 +1,207 @@
-
---- 
-annotations: 
-  columns: 
+---
+annotations:
+  columns:
   - id
   - created_at
   - updated_at
   - text
   records: 
   - - 1
-    - 2:00 a.m.
-    - 2:00 a.m.
-    - This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...
+    - '2011-02-24 07:35:36.807000'
+    - '2011-02-24 07:35:36.807000'
+    - This is a report. It will be pretty long. There were probably some interesting
+      things that happened. Amanda handled them very well I am sure. She is a great
+      RA. I believe that she will be a great teacher as well. She is an education
+      major. I like her a lot. But there were probably people disrepsecting her. Or
+      maybe the students were compliant. I have not decided yet. I have not made the
+      reported infraction table yet, so I have not chosen whose wrongdoing caused
+      this report. Is this long enough yet? I hope it is getting to be long enough.
+      I am not sure how many more thoughts are going to come through my fingers to
+      this screen...
   - - 2
-    - "2:00 "
-    - "2:00"
-    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The story follows the main character Elizabeth Bennet as she deals with issues of manners, upbringing, morality, education and marriage in the society of the landed gentry of early 19th-century England. Elizabeth is the second of five daughters of a country gentleman, living near the fictional town of Meryton in Hertfordshire, near London.Though the story is set at the turn of the 19th century, it retains a fascination for modern readers, continuing near the top of lists of most loved books such as The Big Read. It has become one of the most popular novels in English literature, and receives considerable attention from literary scholars. Modern interest in the book has resulted in a number of dramatic adaptations and an abundance of novels and stories imitating Austens memorable characters or themes. To date, the book has sold some 20 million copies worldwide.
+    - '2011-02-24 07:35:36.807000'
+    - '2011-02-24 07:35:36.807000'
+    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The
+      story follows the main character Elizabeth Bennet as she deals with issues of
+      manners, upbringing, morality, education and marriage in the society of the
+      landed gentry of early 19th-century England. Elizabeth is the second of five
+      daughters of a country gentleman, living near the fictional town of Meryton
+      in Hertfordshire, near London.Though the story is set at the turn of the 19th
+      century, it retains a fascination for modern readers, continuing near the top
+      of lists of most loved books such as The Big Read. It has become one of the
+      most popular novels in English literature, and receives considerable attention
+      from literary scholars. Modern interest in the book has resulted in a number
+      of dramatic adaptations and an abundance of novels and stories imitating Austens
+      memorable characters or themes. To date, the book has sold some 20 million copies
+      worldwide.
   - - 3
-    - 2011-02-24 07:35:36.807000
-    - 2011-02-24 07:35:36.807000
-    - "The plot of the novel is driven by a particular situation of the Bennet family: The Longbourn estate where they reside is entailed to one of Mr Bennets collateral relatives - male only in this case - by the legal terms of fee tail. Having had no sons, this means that if Mr Bennet dies soon, his wife and five daughters will be left without home or income. Mrs Bennet worries about this predicament, and wishes to find husbands for her five daughters quickly. The father doesnt seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young gentleman and a very eligible bachelor, renting a country estate near the Bennets called Netherfield. He arrives accompanied by his fashionable sisters and his good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well received in the community, while Darcy begins his acquaintance with smug condescension and proud distaste for all the country locals. After Darcys haughty rejection of her at the dance, Elizabeth resolves to match his coldness and pride, his prejudice against country people, with her own prideful anger - in biting wit and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition leads her into prejudices regarding Darcy and others, such that she is unable to sketch their characters accurately. Soon, Bingley and Elizabeths older sister Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane should show her affection to Bingley more openly, as he may not realise that she is indeed interested in him. Elizabeth flippantly dismisses the opinion - replying that Jane is shy and modest, and that if Bingley cant see how she feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long personal acquaintance with Darcy - they grew up together. Wickham tells her he has been seriously mistreated by the proud man; Elizabeth seizes on this news as further reason to dislike Darcy. Ironically, Darcy begins to find himself drawn to Elizabeth, unbeknownst to her."
+    - '2011-02-24 07:35:36.807000'
+    - '2011-02-24 07:35:36.807000'
+    - ! 'The plot of the novel is driven by a particular situation of the Bennet family:
+      The Longbourn estate where they reside is entailed to one of Mr Bennets collateral
+      relatives - male only in this case - by the legal terms of fee tail. Having
+      had no sons, this means that if Mr Bennet dies soon, his wife and five daughters
+      will be left without home or income. Mrs Bennet worries about this predicament,
+      and wishes to find husbands for her five daughters quickly. The father doesnt
+      seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young
+      gentleman and a very eligible bachelor, renting a country estate near the Bennets
+      called Netherfield. He arrives accompanied by his fashionable sisters and his
+      good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well
+      received in the community, while Darcy begins his acquaintance with smug condescension
+      and proud distaste for all the country locals. After Darcys haughty rejection
+      of her at the dance, Elizabeth resolves to match his coldness and pride, his
+      prejudice against country people, with her own prideful anger - in biting wit
+      and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition
+      leads her into prejudices regarding Darcy and others, such that she is unable
+      to sketch their characters accurately. Soon, Bingley and Elizabeths older sister
+      Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane
+      should show her affection to Bingley more openly, as he may not realise that
+      she is indeed interested in him. Elizabeth flippantly dismisses the opinion
+      - replying that Jane is shy and modest, and that if Bingley cant see how she
+      feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later
+      Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long
+      personal acquaintance with Darcy - they grew up together. Wickham tells her
+      he has been seriously mistreated by the proud man; Elizabeth seizes on this
+      news as further reason to dislike Darcy. Ironically, Darcy begins to find himself
+      drawn to Elizabeth, unbeknownst to her.'
   - - 4
-    - 2011-02-24 07:36:25.252000
-    - 2011-02-24 07:36:25.252000
-    - "Jane pays a visit to the Bingley mansion. On her journey to the house she is caught in a downpour and catches ill, forcing her to stay at Netherfield for several days. In order to tend to Jane, Elizabeth hikes through muddy fields and arrives with a spattered dress, much to the disdain of the snobbish Miss Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth. Mr Collins, the male relative who is to inherit Longbourn, makes an appearance and stays with the Bennets. Recently ordained a clergyman, he is employed as parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent. Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour. Though his stated reason for visiting is to reconcile with the Bennets, Collins soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her eldest daughter is soon likely to be engaged, and redirects his attentions to Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen her acquaintance with Mr Wickham, who, however, fails to appear. She is asked to dance by Mr Darcy; here she raises Wickhams fate with him, causing their harmonious dance to fall into a testy discussion. The ball proceeds as spectacle: the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks loudly and indiscreetly of her expectation of marriage between Jane and Bingley, and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth - combine in a public display of poor manners and upbringing that clearly disgusts Darcy and embarrasses Elizabeth."
+    - '2011-02-24 07:36:25.252000'
+    - '2011-02-24 07:36:25.252000'
+    - ! 'Jane pays a visit to the Bingley mansion. On her journey to the house she
+      is caught in a downpour and catches ill, forcing her to stay at Netherfield
+      for several days. In order to tend to Jane, Elizabeth hikes through muddy fields
+      and arrives with a spattered dress, much to the disdain of the snobbish Miss
+      Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she
+      notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth.
+      Mr Collins, the male relative who is to inherit Longbourn, makes an appearance
+      and stays with the Bennets. Recently ordained a clergyman, he is employed as
+      parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent.
+      Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour.
+      Though his stated reason for visiting is to reconcile with the Bennets, Collins
+      soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet
+      sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her
+      eldest daughter is soon likely to be engaged, and redirects his attentions to
+      Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen
+      her acquaintance with Mr Wickham, who, however, fails to appear. She is asked
+      to dance by Mr Darcy; here she raises Wickhams fate with him, causing their
+      harmonious dance to fall into a testy discussion. The ball proceeds as spectacle:
+      the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and
+      a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks
+      loudly and indiscreetly of her expectation of marriage between Jane and Bingley,
+      and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth
+      - combine in a public display of poor manners and upbringing that clearly disgusts
+      Darcy and embarrasses Elizabeth.'
   - - 5
-    - 2011-02-24 07:37:12.279000
-    - 2011-02-24 07:37:12.279000
-    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him, much to her mothers distress. Collins handily recovers and, within three days, proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts. Once marriage arrangements are settled, Charlotte persuades Elizabeth to come for an extended visit to her new bridal home. Though appearing at the point of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns to London, leaving the lady confused and upset. Elizabeth is convinced that Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt - where Elizabeth and her hosts are frequently invited to socialize. After Mr Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth renews her project of teasing Darcy - while his admiration for her grows in spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that Darcy prides himself on having separated Bingley from Jane; and, with the poorest of timing, Darcy chooses this moment to admit his love for Elizabeth, and he proposes to her. Incensed by his high-handed and insulting manner, she abruptly refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him with his sabotage of Jane and Bingleys budding relationship and with Wickhams account of Darcys mistreatment of him, among other complaints.
+    - '2011-02-24 07:37:12.279000'
+    - '2011-02-24 07:37:12.279000'
+    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him,
+      much to her mothers distress. Collins handily recovers and, within three days,
+      proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts.
+      Once marriage arrangements are settled, Charlotte persuades Elizabeth to come
+      for an extended visit to her new bridal home. Though appearing at the point
+      of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns
+      to London, leaving the lady confused and upset. Elizabeth is convinced that
+      Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the
+      spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent
+      to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt
+      - where Elizabeth and her hosts are frequently invited to socialize. After Mr
+      Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth
+      renews her project of teasing Darcy - while his admiration for her grows in
+      spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that
+      Darcy prides himself on having separated Bingley from Jane; and, with the poorest
+      of timing, Darcy chooses this moment to admit his love for Elizabeth, and he
+      proposes to her. Incensed by his high-handed and insulting manner, she abruptly
+      refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him
+      with his sabotage of Jane and Bingleys budding relationship and with Wickhams
+      account of Darcys mistreatment of him, among other complaints.
   - - 6
-    - 2011-02-24 07:37:51.609000
-    - 2011-02-24 07:37:51.609000
-    - "Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a letter which reveals the true history between Wickham and himself. Wickham had renounced his legacy - a clergymans living in Darcys patronage - for a cash payment; only to return after gambling away the money to again claim the position. After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old sister Georgiana, and thereby secure her part of the Darcy family fortune. He was found out and stopped only a day before the intended elopement. Regarding Bingley and Jane, Darcy justifies his interference: he had observed in Jane no reciprocal interest for Bingley; thus he aimed to separate them to protect his friend from heartache. In the letter Darcy admits his repugnance for the total want of propriety of her (Elizabeths) family, especially her mother and three younger sisters. After reading the letter, Elizabeth begins to question both her familys behaviour and Wickhams credibility. She also concludes: Wickham is not as trustworthy as his easy manners would indicate; that he had lied to her previously; and that her early impressions of Darcys character might not have been accurate. Soon, Elizabeth returns home."
+    - '2011-02-24 07:37:51.609000'
+    - '2011-02-24 07:37:51.609000'
+    - ! 'Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a
+      letter which reveals the true history between Wickham and himself. Wickham had
+      renounced his legacy - a clergymans living in Darcys patronage - for a cash
+      payment; only to return after gambling away the money to again claim the position.
+      After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old
+      sister Georgiana, and thereby secure her part of the Darcy family fortune. He
+      was found out and stopped only a day before the intended elopement. Regarding
+      Bingley and Jane, Darcy justifies his interference: he had observed in Jane
+      no reciprocal interest for Bingley; thus he aimed to separate them to protect
+      his friend from heartache. In the letter Darcy admits his repugnance for the
+      total want of propriety of her (Elizabeths) family, especially her mother and
+      three younger sisters. After reading the letter, Elizabeth begins to question
+      both her familys behaviour and Wickhams credibility. She also concludes: Wickham
+      is not as trustworthy as his easy manners would indicate; that he had lied to
+      her previously; and that her early impressions of Darcys character might not
+      have been accurate. Soon, Elizabeth returns home.'
   - - 7
-    - 2011-02-24 07:38:20.457000
-    - 2011-02-24 07:38:20.457000
-    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper has known Darcy since childhood, and presents a flattering and benevolent impression of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious effort to be gracious and welcoming, and treats the Gardiners - whom before he would have dismissed as socially inferior - with remarkable politeness. Later he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth is surprised and hopeful of a possible new beginning with Darcy.
+    - '2011-02-24 07:38:20.457000'
+    - '2011-02-24 07:38:20.457000'
+    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle
+      Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper
+      has known Darcy since childhood, and presents a flattering and benevolent impression
+      of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy
+      unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious
+      effort to be gracious and welcoming, and treats the Gardiners - whom before
+      he would have dismissed as socially inferior - with remarkable politeness. Later
+      he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth
+      is surprised and hopeful of a possible new beginning with Darcy.
   - - 8
-    - 2011-02-24 07:38:51.863000
-    - 2011-02-24 07:38:51.863000
-    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her youngest (and most frivolous) sister, has run away with Wickham. Initially, the family (wishfully) believe they have eloped, but they soon learn that Wickham has no plans to marry Lydia. Lydias antics threaten her family - especially the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia and Wickham are found and married. Afterwards, they visit Longbourn; while bragging to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised, Elizabeth sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible for both finding the couple and arranging their marriage, at great expense to himself.
+    - '2011-02-24 07:38:51.863000'
+    - '2011-02-24 07:38:51.863000'
+    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her
+      youngest (and most frivolous) sister, has run away with Wickham. Initially,
+      the family (wishfully) believe they have eloped, but they soon learn that Wickham
+      has no plans to marry Lydia. Lydias antics threaten her family - especially
+      the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and
+      uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy
+      will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia
+      and Wickham are found and married. Afterwards, they visit Longbourn; while bragging
+      to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised,
+      Elizabeth sends an inquiry to her aunt, from whom she learns that Darcy himself
+      was responsible for both finding the couple and arranging their marriage, at
+      great expense to himself.
   - - 9
-    - 2011-02-24 07:39:19.437000
-    - 2011-02-24 07:39:19.437000
-    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts. Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth she has heard rumours of Darcy proposing to her; she came with determined resolution to confront Elizabeth and to demand that she never accept such a proposal because Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy - which convinces him that Elizabeths opinion of him may have changed. He now visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the two become engaged.
+    - '2011-02-24 07:39:19.437000'
+    - '2011-02-24 07:39:19.437000'
+    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts.
+      Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth
+      she has heard rumours of Darcy proposing to her; she came with determined resolution
+      to confront Elizabeth and to demand that she never accept such a proposal because
+      Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines
+      demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy
+      - which convinces him that Elizabeths opinion of him may have changed. He now
+      visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the
+      two become engaged.
   - - 10
-    - 2011-02-24 07:39:59.173000
-    - 2011-02-24 07:39:59.173000
-    - "The novels final chapters establish the futures of the characters: Elizabeth and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains frivolous and silly - she often visits the new Mrs Bingley and talks of the new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced by Lydia better social graces, and Mary who had been the most reclusive learns to mix more with the outside world at Meryton. Lydia and Wickham continue a life of frivolity which keeps them from accumulating any wealth and leads them to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley, Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine holds out, indignant and abusive, over her nephews marriage, but eventually Darcy is prevailed upon to reconcile with her sufficiently that she condescends to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner - the agents of their reconciling and uniting."
+    - '2011-02-24 07:39:59.173000'
+    - '2011-02-24 07:39:59.173000'
+    - ! 'The novels final chapters establish the futures of the characters: Elizabeth
+      and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains
+      frivolous and silly - she often visits the new Mrs Bingley and talks of the
+      new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in
+      Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced
+      by Lydia better social graces, and Mary who had been the most reclusive learns
+      to mix more with the outside world at Meryton. Lydia and Wickham continue a
+      life of frivolity which keeps them from accumulating any wealth and leads them
+      to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley,
+      Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful
+      treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine
+      holds out, indignant and abusive, over her nephews marriage, but eventually
+      Darcy is prevailed upon to reconcile with her sufficiently that she condescends
+      to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner -
+      the agents of their reconciling and uniting.'
+  - - 11
+    - '2011-04-27 00:26:55.266564'
+    - '2011-04-27 00:26:55.331570'
+    - test
+  - - 12
+    - '2011-04-27 17:59:14.887326'
+    - '2011-04-27 17:59:15.241347'
+    - Hi
 
---- 
-areas: 
-  columns: 
+---
+areas:
+  columns:
   - id
   - name
   - created_at
@@ -59,38 +210,38 @@ areas:
   records: 
   - - 1
     - Unspecified
-    - 2011-02-21 19:48:53.218125
-    - 2011-02-21 19:48:53.218125
-    - Unspec.
+    - '2011-02-21 19:48:53.218125'
+    - '2011-04-26 22:03:22.009000'
+    - NA
   - - 2
     - Skemp, Heffron, La Salle
-    - 2011-02-21 19:48:53.218125
-    - 2011-02-21 19:48:53.218125
+    - '2011-02-21 19:48:53.218125'
+    - '2011-02-21 19:48:53.218125'
     - SKHELS
   - - 3
     - St. Edwards, Vlazny
-    - 2011-02-21 19:48:53.530625
-    - 2011-02-21 19:48:53.530625
+    - '2011-02-21 19:48:53.530625'
+    - '2011-02-21 19:48:53.530625'
     - VLEDS
   - - 4
     - Watters, Ek Village, New Village
-    - 2011-02-21 19:48:53.624375
-    - 2011-02-21 19:48:53.624375
+    - '2011-02-21 19:48:53.624375'
+    - '2011-02-21 19:48:53.624375'
     - Willages
   - - 5
     - Gilmore Creek, Benilde, St. Yons
-    - 2011-02-21 19:48:53.718125
-    - 2011-02-21 19:48:53.718125
+    - '2011-02-21 19:48:53.718125'
+    - '2011-02-21 19:48:53.718125'
     - GCBY
   - - 6
     - St. Josephs, Pines, Hillside
-    - 2011-02-21 19:48:53.811875
-    - 2011-02-21 19:48:53.811875
+    - '2011-02-21 19:48:53.811875'
+    - '2011-02-21 19:48:53.811875'
     - JPH
 
---- 
-buildings: 
-  columns: 
+---
+buildings:
+  columns:
   - id
   - name
   - created_at
@@ -100,212 +251,212 @@ buildings:
   records: 
   - - 1
     - Unspecified
-    - 2011-02-23 08:36:40.505000
-    - 2011-02-23 08:36:40.505000
+    - '2011-02-23 08:36:40.505000'
+    - '2011-02-23 08:36:40.505000'
     - 1
     - NA
   - - 2
     - Skemp Hall
-    - 2011-02-21 19:48:53.936875
-    - 2011-02-21 19:48:53.936875
+    - '2011-02-21 19:48:53.936875'
+    - '2011-02-21 19:48:53.936875'
     - 2
     - SK
   - - 3
     - Heffron Hall
-    - 2011-02-21 19:48:54.077500
-    - 2011-02-21 19:48:54.077500
+    - '2011-02-21 19:48:54.077500'
+    - '2011-02-21 19:48:54.077500'
     - 2
     - HE
   - - 4
     - La Salle Hall
-    - 2011-02-21 19:48:54.233750
-    - 2011-02-21 19:48:54.233750
+    - '2011-02-21 19:48:54.233750'
+    - '2011-02-21 19:48:54.233750'
     - 2
     - LS
   - - 5
     - St. Edward Hall
-    - 2011-02-21 19:48:54.311875
-    - 2011-02-21 19:48:54.311875
+    - '2011-02-21 19:48:54.311875'
+    - '2011-02-21 19:48:54.311875'
     - 3
     - SE
   - - 6
     - Vlazny Hall
-    - 2011-02-21 19:48:54.436875
-    - 2011-02-21 19:48:54.436875
+    - '2011-02-21 19:48:54.436875'
+    - '2011-02-21 19:48:54.436875'
     - 3
     - VL
   - - 7
     - Watters Hall
-    - 2011-02-21 19:48:54.530625
-    - 2011-02-21 19:48:54.530625
+    - '2011-02-21 19:48:54.530625'
+    - '2011-02-21 19:48:54.530625'
     - 4
     - WT
   - - 8
     - Ek Village
-    - 2011-02-21 19:48:54.655625
-    - 2011-02-21 19:48:54.655625
+    - '2011-02-21 19:48:54.655625'
+    - '2011-02-21 19:48:54.655625'
     - 4
     - EV
   - - 9
     - New Village
-    - 2011-02-21 19:48:54.749375
-    - 2011-02-21 19:48:54.749375
+    - '2011-02-21 19:48:54.749375'
+    - '2011-02-21 19:48:54.749375'
     - 4
     - NV
   - - 10
     - Gilmore Creek Hall
-    - 2011-02-21 19:48:54.827500
-    - 2011-02-21 19:48:54.827500
+    - '2011-02-21 19:48:54.827500'
+    - '2011-02-21 19:48:54.827500'
     - 5
     - GC
   - - 11
     - St. Benilde Hall
-    - 2011-02-21 19:48:54.905625
-    - 2011-02-21 19:48:54.905625
+    - '2011-02-21 19:48:54.905625'
+    - '2011-02-21 19:48:54.905625'
     - 5
     - SB
   - - 12
     - St. Yons Hall
-    - 2011-02-21 19:48:54.983750
-    - 2011-02-21 19:48:54.983750
+    - '2011-02-21 19:48:54.983750'
+    - '2011-02-21 19:48:54.983750'
     - 5
     - SY
   - - 13
     - St. Joseph Hall
-    - 2011-02-21 19:48:55.061875
-    - 2011-02-21 19:48:55.061875
+    - '2011-02-21 19:48:55.061875'
+    - '2011-02-21 19:48:55.061875'
     - 6
     - SJ
   - - 14
     - The Pines Hall
-    - 2011-02-21 19:48:55.140000
-    - 2011-02-21 19:48:55.140000
+    - '2011-02-21 19:48:55.140000'
+    - '2011-02-21 19:48:55.140000'
     - 6
     - PI
   - - 15
     - Hillside Hall
-    - 2011-02-21 19:48:55.249375
-    - 2011-02-21 19:48:55.249375
+    - '2011-02-21 19:48:55.249375'
+    - '2011-02-21 19:48:55.249375'
     - 6
     - HI
   - - 16
     - Off Campus
-    - 2011-02-21 19:48:55.343125
-    - 2011-02-21 19:48:55.343125
+    - '2011-02-21 19:48:55.343125'
+    - '2011-02-21 19:48:55.343125'
     - 1
     - OC
   - - 17
     - Athletic Fields
-    - 2011-03-28 18:36:03.917000
-    - 2011-03-28 18:36:03.917000
+    - '2011-03-28 18:36:03.917000'
+    - '2011-03-28 18:36:03.917000'
     - 1
     - ATHL
   - - 18
     - Jul Gernes Pool
-    - 2011-03-28 18:36:43.731000
-    - 2011-03-28 18:36:43.731000
+    - '2011-03-28 18:36:43.731000'
+    - '2011-03-28 18:36:43.731000'
     - 1
     - POOL
   - - 19
     - Gostomski Fieldhouse
-    - 2011-03-28 18:37:23.632000
-    - 2011-03-28 18:37:23.632000
+    - '2011-03-28 18:37:23.632000'
+    - '2011-03-28 18:37:23.632000'
     - 1
     - GF
   - - 20
     - Gym/Hall of Fame Room
-    - 2011-03-28 18:37:50.041000
-    - 2011-03-28 18:37:50.041000
+    - '2011-03-28 18:37:50.041000'
+    - '2011-03-28 18:37:50.041000'
     - 1
     - GYM
   - - 21
     - Hendrickson Center
-    - 2011-03-28 18:38:13.342000
-    - 2011-03-28 18:38:13.342000
+    - '2011-03-28 18:38:13.342000'
+    - '2011-03-28 18:38:13.342000'
     - 1
     - HC
   - - 22
     - Ice Arena
-    - 2011-03-28 18:38:33.871000
-    - 2011-03-28 18:38:33.871000
+    - '2011-03-28 18:38:33.871000'
+    - '2011-03-28 18:38:33.871000'
     - 1
     - ICE
   - - 23
     - IHM Seminary
-    - 2011-03-28 18:38:59.514000
-    - 2011-03-28 18:38:59.514000
+    - '2011-03-28 18:38:59.514000'
+    - '2011-03-28 18:38:59.514000'
     - 1
     - IHM
   - - 24
     - Fitzgerald Library
-    - 2011-03-28 18:39:24.298000
-    - 2011-03-28 18:39:24.298000
+    - '2011-03-28 18:39:24.298000'
+    - '2011-03-28 18:39:24.298000'
     - 1
     - LIB
   - - 25
     - Pedestrian Overpass
-    - 2011-03-28 18:39:51.216000
-    - 2011-03-28 18:39:51.216000
+    - '2011-03-28 18:39:51.216000'
+    - '2011-03-28 18:39:51.216000'
     - 1
     - PED
   - - 26
     - Power Plant/Clock Tower
-    - 2011-03-28 18:40:23.304000
-    - 2011-03-28 18:40:23.304000
+    - '2011-03-28 18:40:23.304000'
+    - '2011-03-28 18:40:23.304000'
     - 1
     - PPL
   - - 27
     - Plaza
-    - 2011-03-28 18:40:47.566000
-    - 2011-03-28 18:40:47.566000
+    - '2011-03-28 18:40:47.566000'
+    - '2011-03-28 18:40:47.566000'
     - 1
     - PLZ
   - - 28
     - Performance Center
-    - 2011-03-28 18:41:07.979000
-    - 2011-03-28 18:41:07.979000
+    - '2011-03-28 18:41:07.979000'
+    - '2011-03-28 18:41:07.979000'
     - 1
     - PC
   - - 29
     - RAC
-    - 2011-03-28 18:41:28.687000
-    - 2011-03-28 18:41:28.687000
+    - '2011-03-28 18:41:28.687000'
+    - '2011-03-28 18:41:28.687000'
     - 1
     - RAC
   - - 30
     - Saint Mary's Hall
-    - 2011-03-28 18:41:55.446000
-    - 2011-03-28 18:41:55.446000
+    - '2011-03-28 18:41:55.446000'
+    - '2011-03-28 18:41:55.446000'
     - 1
     - SM
   - - 31
     - Saint Thomas More Chapel
-    - 2011-03-28 18:42:29.361000
-    - 2011-03-28 18:42:29.361000
+    - '2011-03-28 18:42:29.361000'
+    - '2011-03-28 18:42:29.361000'
     - 1
     - CHAP
   - - 32
     - St. Yon's Valley/X-Country Trails
-    - 2011-03-28 18:43:05.966000
-    - 2011-03-28 18:43:05.966000
+    - '2011-03-28 18:43:05.966000'
+    - '2011-03-28 18:43:05.966000'
     - 1
     - XCT
   - - 33
     - Intramural Fields
-    - 2011-03-28 18:43:28.518000
-    - 2011-03-28 18:43:28.518000
+    - '2011-03-28 18:43:28.518000'
+    - '2011-03-28 18:43:28.518000'
     - 1
     - INTF
   - - 34
     - Michael H. Toner Student Center
-    - 2011-03-28 18:44:13.139000
-    - 2011-03-28 18:44:13.139000
+    - '2011-03-28 18:44:13.139000'
+    - '2011-03-28 18:44:13.139000'
     - 1
     - TON
 
---- 
-notification_preferences: 
-  columns: 
+---
+notification_preferences:
+  columns:
   - id
   - staff_id
   - report_type
@@ -314,6 +465,7 @@ notification_preferences:
   - scope
   - created_at
   - updated_at
+  - last_notified
   records: 
   - - 34
     - 2
@@ -321,36 +473,67 @@ notification_preferences:
     - 1
     - -1
     - 0
-    - 2011-03-24 01:22:03.720041
-    - 2011-03-24 01:22:03.720041
+    - '2011-03-24 01:22:03.720041'
+    - '2011-03-24 01:22:03.720041'
+    - !!null 
   - - 35
     - 3
     - MaintenanceReport
     - 0
     - -1
     - 2
-    - 2011-03-24 02:57:56.322041
-    - 2011-03-24 02:57:56.322041
+    - '2011-03-24 02:57:56.322041'
+    - '2011-03-24 02:57:56.322041'
+    -  
   - - 39
     - 3
     - FYI
     - 1
     - -1
     - 1
-    - 2011-03-29 01:29:40.826020
-    - 2011-03-29 01:29:40.826020
+    - '2011-03-29 01:29:40.826020'
+    - '2011-03-29 01:29:40.826020'
+    -  
   - - 40
     - 2
     - MaintenanceReport
     - 1
     - -1
     - -1
-    - 2011-04-14 16:18:26.958524
-    - 2011-04-14 16:18:26.958524
+    - '2011-04-14 16:18:26.958524'
+    - '2011-04-14 16:18:26.958524'
+    -  
+  - - 41
+    - 11
+    - IncidentReport
+    - 1
+    - -1
+    - 2
+    - '2011-04-27 00:26:21.456183'
+    - '2011-04-27 00:26:21.456183'
+    -  
+  - - 42
+    - 11
+    - MaintenanceReport
+    - 1
+    - -1
+    - 2
+    - '2011-04-27 00:26:21.530191'
+    - '2011-04-27 00:26:21.530191'
+    -  
+  - - 43
+    - 11
+    - Report
+    - 1
+    - -1
+    - 2
+    - '2011-04-27 00:26:21.601198'
+    - '2011-04-27 00:26:21.601198'
+    -  
 
---- 
-participants: 
-  columns: 
+---
+participants:
+  columns:
   - id
   - first_name
   - last_name
@@ -375,15 +558,15 @@ participants:
     - 555-222-3333
     - 555-666-7777
     - SMU
-    - 2011-02-21 19:48:57.702500
-    - 2011-04-05 08:09:18.654000
+    - '2011-02-21 19:48:57.702500'
+    - '2011-04-05 08:09:18.654000'
     - Student
-    - "421"
+    - '421'
     - 8
-    - "5994030"
+    - '5994030'
     - Christopher Engesser
-    - 1988-04-05 08:08:31.735000
-    - "1818"
+    - '1988-04-05 08:08:31.735000'
+    - '1818'
     - (123) 458-4727
     - cmenge07
   - - 2
@@ -392,15 +575,15 @@ participants:
     - 555-555-5556
     - 555-555-5555
     - SMU
-    - 2011-02-21 19:48:57.796250
-    - 2011-04-05 08:10:49.050000
+    - '2011-02-21 19:48:57.796250'
+    - '2011-04-05 08:10:49.050000'
     - Student
-    - "0"
+    - '0'
     - 16
-    - "5523454"
+    - '5523454'
     - Joseph Faber
-    - 1990-03-05 06:00:00.000000
-    - "7759"
+    - '1990-03-05 06:00:00.000000'
+    - '7759'
     - (402) 211-9283
     - jrfabe06
   - - 3
@@ -409,15 +592,15 @@ participants:
     - 533-555-3322
     - 522-555-6377
     - SMU
-    - 2011-02-21 19:48:57.890000
-    - 2011-04-05 08:11:21.884000
+    - '2011-02-21 19:48:57.890000'
+    - '2011-04-05 08:11:21.884000'
     - Student
-    - "573"
+    - '573'
     - 12
-    - "6939234"
+    - '6939234'
     - Emily Friedl
-    - 1991-05-06 05:00:00.000000
-    - "9123"
+    - '1991-05-06 05:00:00.000000'
+    - '9123'
     - (123) 456-7890
     - emfrie06
   - - 4
@@ -426,15 +609,15 @@ participants:
     - 666-555-2226
     - 444-555-2252
     - SMU
-    - 2011-02-21 19:48:57.968125
-    - 2011-04-05 08:12:01.396000
+    - '2011-02-21 19:48:57.968125'
+    - '2011-04-05 08:12:01.396000'
     - Student
-    - "255"
+    - '255'
     - 7
-    - "4523423"
+    - '4523423'
     - John Kelly
-    - 1988-06-02 05:00:00.000000
-    - "4567"
+    - '1988-06-02 05:00:00.000000'
+    - '4567'
     - (123) 456-7890
     - jmkell07
   - - 5
@@ -443,15 +626,15 @@ participants:
     - 652-555-2341
     - n/a
     - SMU
-    - 2011-02-21 19:48:58.061875
-    - 2011-04-05 08:12:55.051000
+    - '2011-02-21 19:48:58.061875'
+    - '2011-04-05 08:12:55.051000'
     - Student
-    - "245"
+    - '245'
     - 2
-    - "5543213"
+    - '5543213'
     - Justyna Kujtkowska
-    - 1989-08-27 05:00:00.000000
-    - "8912"
+    - '1989-08-27 05:00:00.000000'
+    - '8912'
     - (123) 456-7890
     - jmkujt08
   - - 6
@@ -460,15 +643,15 @@ participants:
     - 334-555-8824
     - 653-555-3352
     - SMU
-    - 2011-02-21 19:48:58.155625
-    - 2011-04-05 08:13:27.354000
+    - '2011-02-21 19:48:58.155625'
+    - '2011-04-05 08:13:27.354000'
     - Student
-    - "372"
+    - '372'
     - 7
-    - "5583909"
+    - '5583909'
     - Mitchell May
-    - 1987-09-12 05:00:00.000000
-    - "3456"
+    - '1987-09-12 05:00:00.000000'
+    - '3456'
     - (123) 456-7890
     - mjmay08
   - - 7
@@ -477,15 +660,15 @@ participants:
     - 734-555-6682
     - 625-555-2623
     - SMU
-    - 2011-02-21 19:48:58.233750
-    - 2011-04-05 08:13:57.657000
+    - '2011-02-21 19:48:58.233750'
+    - '2011-04-05 08:13:57.657000'
     - Student
-    - "533"
+    - '533'
     - 3
-    - "2281919"
+    - '2281919'
     - Rebecca Sandager
-    - 1992-12-12 06:00:00.000000
-    - "7891"
+    - '1992-12-12 06:00:00.000000'
+    - '7891'
     - (123) 456-7890
     - rjsand07
   - - 8
@@ -494,15 +677,15 @@ participants:
     - 668-555-9837
     - 552-555-6276
     - SMU
-    - 2011-02-21 19:48:58.327500
-    - 2011-04-05 08:14:48.386000
+    - '2011-02-21 19:48:58.327500'
+    - '2011-04-05 08:14:48.386000'
     - Student
-    - "346"
+    - '346'
     - 5
-    - "5523470"
+    - '5523470'
     - Jeffrey Thomas
-    - 1991-04-05 06:00:00.000000
-    - "2345"
+    - '1991-04-05 06:00:00.000000'
+    - '2345'
     - (123) 456-7890
     - jsthom08
   - - 9
@@ -511,15 +694,15 @@ participants:
     - 624-555-8362
     - 555-555-6738
     - SMU
-    - 2011-02-21 19:48:58.452500
-    - 2011-04-05 08:15:45.024000
+    - '2011-02-21 19:48:58.452500'
+    - '2011-04-26 20:50:19.834000'
     - Student
-    - "112"
-    - 3
-    - "3829083"
+    - '112'
+    - 4
+    - '3829083'
     - Stephanie Valentine
-    - 1989-03-15 06:00:00.000000
-    - "6789"
+    - '1989-03-15 06:00:00.000000'
+    - '6789'
     - (123) 456-7890
     - slvale07
   - - 10
@@ -528,106 +711,123 @@ participants:
     - 668-555-3234
     - 507-555-7823
     - SMU
-    - 2011-02-21 19:48:58.546250
-    - 2011-04-05 08:16:11.933000
+    - '2011-02-21 19:48:58.546250'
+    - '2011-04-05 08:16:11.933000'
     - Student
-    - "510"
+    - '510'
     - 11
-    - "4829201"
+    - '4829201'
     - Bradley Wildenborg
-    - 1993-01-01 06:00:00.000000
-    - "0123"
+    - '1993-01-01 06:00:00.000000'
+    - '0123'
     - (123) 456-7890
     - bjwild07
   - - 11
     - Samantha
     - Reynolds
-    - 
-    - 
+    -  
+    -  
     - Winona State
-    - 2011-02-21 19:48:58.686875
-    - 2011-02-21 19:48:58.686875
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - '2011-02-21 19:48:58.686875'
+    - '2011-02-21 19:48:58.686875'
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
   - - 12
     - Katelyn
     - Barrachs
-    - 
-    - 
+    -  
+    -  
     - Winona Resident
-    - 2011-02-21 19:48:58.765000
-    - 2011-02-21 19:48:58.765000
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - '2011-02-21 19:48:58.765000'
+    - '2011-02-21 19:48:58.765000'
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
   - - 13
     - Keith
     - Parce
-    - 
-    - 
+    -  
+    -  
     - University of Wisconsin At La Crosse
-    - 2011-02-21 19:48:58.843125
-    - 2011-02-21 19:48:58.843125
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - '2011-02-21 19:48:58.843125'
+    - '2011-02-21 19:48:58.843125'
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
   - - 14
     - Patricia
     - Peterson
-    - 
-    - 
+    -  
+    -  
     - Winona State
-    - 2011-02-21 19:48:58.952500
-    - 2011-02-21 19:48:58.952500
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - '2011-02-21 19:48:58.952500'
+    - '2011-02-21 19:48:58.952500'
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
   - - 15
     - Carter
     - Jacobey
-    - 
-    - 
+    -  
+    -  
     - Cotter High School
-    - 2011-02-21 19:48:59.061875
-    - 2011-02-21 19:48:59.061875
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - '2011-02-21 19:48:59.061875'
+    - '2011-02-21 19:48:59.061875'
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+    -  
+  - - 16
+    - Molly
+    - P
+    -  
+    -  
+    - Random
+    - '2011-04-27 02:15:56.456000'
+    - '2011-04-27 02:15:56.572000'
+    -  
+    -  
+    -  
+    -  
+    - Molly P
+    - '2001-01-01 00:00:00.000000'
+    -  
+    -  
+    -  
 
---- 
-relationship_to_reports: 
-  columns: 
+---
+relationship_to_reports:
+  columns:
   - id
   - description
   - created_at
@@ -635,96 +835,100 @@ relationship_to_reports:
   records: 
   - - 1
     - Community Disruption
-    - 2011-02-21 19:48:55.499375
-    - 2011-02-21 19:48:55.499375
+    - '2011-02-21 19:48:55.499375'
+    - '2011-02-21 19:48:55.499375'
   - - 2
     - Smoking
-    - 2011-02-21 19:48:55.593125
-    - 2011-02-21 19:48:55.593125
+    - '2011-02-21 19:48:55.593125'
+    - '2011-02-21 19:48:55.593125'
   - - 3
     - Alcohol (Underage)
-    - 2011-02-21 19:48:55.671250
-    - 2011-02-21 19:48:55.671250
+    - '2011-02-21 19:48:55.671250'
+    - '2011-02-21 19:48:55.671250'
   - - 4
     - Alcohol (Of Age)
-    - 2011-02-21 19:48:55.749375
-    - 2011-02-21 19:48:55.749375
+    - '2011-02-21 19:48:55.749375'
+    - '2011-02-21 19:48:55.749375'
   - - 5
     - Intoxication
-    - 2011-02-21 19:48:55.827500
-    - 2011-02-21 19:48:55.827500
+    - '2011-02-21 19:48:55.827500'
+    - '2011-02-21 19:48:55.827500'
   - - 6
     - Paraphernalia (Alcohol)
-    - 2011-02-21 19:48:55.905625
-    - 2011-02-21 19:48:55.905625
+    - '2011-02-21 19:48:55.905625'
+    - '2011-02-21 19:48:55.905625'
   - - 7
     - Fire Safety
-    - 2011-02-21 19:48:55.983750
-    - 2011-02-21 19:48:55.983750
+    - '2011-02-21 19:48:55.983750'
+    - '2011-02-21 19:48:55.983750'
   - - 8
     - Vandalism
-    - 2011-02-21 19:48:56.077500
-    - 2011-02-21 19:48:56.077500
+    - '2011-02-21 19:48:56.077500'
+    - '2011-02-21 19:48:56.077500'
   - - 9
     - Privacy Hours
-    - 2011-02-21 19:48:56.171250
-    - 2011-02-21 19:48:56.171250
+    - '2011-02-21 19:48:56.171250'
+    - '2011-02-21 19:48:56.171250'
   - - 10
     - Non-Compliance
-    - 2011-02-21 19:48:56.249375
-    - 2011-02-21 19:48:56.249375
+    - '2011-02-21 19:48:56.249375'
+    - '2011-02-21 19:48:56.249375'
   - - 11
     - Hosted Large Party
-    - 2011-02-21 19:48:56.327500
-    - 2011-02-21 19:48:56.327500
+    - '2011-02-21 19:48:56.327500'
+    - '2011-02-21 19:48:56.327500'
   - - 12
     - Drugs
-    - 2011-02-21 19:48:56.436875
-    - 2011-02-21 19:48:56.436875
+    - '2011-02-21 19:48:56.436875'
+    - '2011-02-21 19:48:56.436875'
   - - 13
     - Paraphernalia (Drugs)
-    - 2011-02-21 19:48:56.515000
-    - 2011-02-21 19:48:56.515000
+    - '2011-02-21 19:48:56.515000'
+    - '2011-02-21 19:48:56.515000'
   - - 14
     - Mental Health Concern
-    - 2011-02-21 19:48:56.593125
-    - 2011-02-21 19:48:56.593125
+    - '2011-02-21 19:48:56.593125'
+    - '2011-02-21 19:48:56.593125'
   - - 15
     - Hosting of Minors
-    - 2011-02-21 19:48:56.686875
-    - 2011-02-21 19:48:56.686875
+    - '2011-02-21 19:48:56.686875'
+    - '2011-02-21 19:48:56.686875'
   - - 16
     - Binge Drinking Situation/Drinking Games
-    - 2011-02-21 19:48:56.796250
-    - 2011-02-21 19:48:56.796250
+    - '2011-02-21 19:48:56.796250'
+    - '2011-02-21 19:48:56.796250'
   - - 17
     - Weapon
-    - 2011-02-21 19:48:56.890000
-    - 2011-02-21 19:48:56.890000
+    - '2011-02-21 19:48:56.890000'
+    - '2011-02-21 19:48:56.890000'
   - - 18
     - Public Urination
-    - 2011-02-21 19:48:56.999375
-    - 2011-02-21 19:48:56.999375
+    - '2011-02-21 19:48:56.999375'
+    - '2011-02-21 19:48:56.999375'
   - - 19
     - Physical Fight/Assault
-    - 2011-02-21 19:48:57.093125
-    - 2011-02-21 19:48:57.093125
+    - '2011-02-21 19:48:57.093125'
+    - '2011-02-21 19:48:57.093125'
   - - 20
     - Threats/Harrassment
-    - 2011-02-21 19:48:57.202500
-    - 2011-02-21 19:48:57.202500
+    - '2011-02-21 19:48:57.202500'
+    - '2011-02-21 19:48:57.202500'
   - - 21
     - Other
-    - 2011-02-21 19:48:57.296250
-    - 2011-02-21 19:48:57.296250
+    - '2011-02-21 19:48:57.296250'
+    - '2011-02-21 19:48:57.296250'
   - - 22
     - FYI
-    - 2011-02-21 19:48:57.499375
-    - 2011-02-21 19:48:57.499375
+    - '2011-02-21 19:48:57.499375'
+    - '2011-02-21 19:48:57.499375'
+  - - 23
+    - Maintenance Concern
+    - '2011-04-26 20:29:46.498000'
+    - '2011-04-26 20:29:46.498000'
 
---- 
-report_participant_relationships: 
-  columns: 
+---
+report_participant_relationships:
+  columns:
   - id
   - relationship_to_report_id
   - created_at
@@ -734,206 +938,224 @@ report_participant_relationships:
   records: 
   - - 1
     - 12
-    - 2011-02-21 19:49:01.765000
-    - 2011-03-24 05:17:36.264800
+    - '2011-02-21 19:49:01.765000'
+    - '2011-03-24 05:17:36.264800'
     - 5
-    - "1"
+    - '1'
   - - 2
     - 13
-    - 2011-02-21 19:49:01.905625
-    - 2011-02-21 19:49:01.905625
+    - '2011-02-21 19:49:01.905625'
+    - '2011-02-21 19:49:01.905625'
     - 5
-    - "1"
+    - '1'
   - - 3
     - 12
-    - 2011-02-21 19:49:01.983750
-    - 2011-02-21 19:49:01.983750
+    - '2011-02-21 19:49:01.983750'
+    - '2011-02-21 19:49:01.983750'
     - 6
-    - "1"
+    - '1'
   - - 4
     - 13
-    - 2011-02-21 19:49:02.218125
-    - 2011-02-21 19:49:02.218125
+    - '2011-02-21 19:49:02.218125'
+    - '2011-02-21 19:49:02.218125'
     - 6
-    - "1"
+    - '1'
   - - 5
     - 4
-    - 2011-02-21 19:49:02.718125
-    - 2011-02-21 19:49:02.718125
+    - '2011-02-21 19:49:02.718125'
+    - '2011-02-21 19:49:02.718125'
     - 10
-    - "2"
+    - '2'
   - - 6
     - 4
-    - 2011-02-21 19:49:02.827500
-    - 2011-02-21 19:49:02.827500
+    - '2011-02-21 19:49:02.827500'
+    - '2011-02-21 19:49:02.827500'
     - 3
-    - "2"
+    - '2'
   - - 7
     - 11
-    - 2011-02-21 19:49:02.905625
-    - 2011-02-21 19:49:02.905625
+    - '2011-02-21 19:49:02.905625'
+    - '2011-02-21 19:49:02.905625'
     - 3
-    - "2"
+    - '2'
   - - 8
     - 4
-    - 2011-02-21 19:49:02.999375
-    - 2011-02-21 19:49:02.999375
+    - '2011-02-21 19:49:02.999375'
+    - '2011-02-21 19:49:02.999375'
     - 11
-    - "2"
+    - '2'
   - - 9
     - 19
-    - 2011-02-21 19:49:03.124375
-    - 2011-03-24 06:20:14.983800
+    - '2011-02-21 19:49:03.124375'
+    - '2011-03-24 06:20:14.983800'
     - 2
-    - "3"
+    - '3'
   - - 10
     - 19
-    - 2011-02-21 19:49:03.249375
-    - 2011-03-24 06:20:14.989800
+    - '2011-02-21 19:49:03.249375'
+    - '2011-03-24 06:20:14.989800'
     - 7
-    - "3"
+    - '3'
   - - 11
     - 15
-    - 2011-02-21 19:49:03.358750
-    - 2011-03-24 04:06:49.632000
+    - '2011-02-21 19:49:03.358750'
+    - '2011-03-24 04:06:49.632000'
     - 1
-    - "4"
+    - '4'
   - - 12
     - 11
-    - 2011-02-21 19:49:03.483750
-    - 2011-03-24 04:06:49.634000
+    - '2011-02-21 19:49:03.483750'
+    - '2011-03-24 04:06:49.634000'
     - 1
-    - "4"
+    - '4'
   - - 14
     - 4
-    - 2011-02-21 19:49:03.640000
-    - 2011-03-24 04:06:49.636000
+    - '2011-02-21 19:49:03.640000'
+    - '2011-03-24 04:06:49.636000'
     - 2
-    - "4"
+    - '4'
   - - 15
     - 4
-    - 2011-02-21 19:49:03.733750
-    - 2011-03-24 04:06:49.639000
+    - '2011-02-21 19:49:03.733750'
+    - '2011-03-24 04:06:49.639000'
     - 3
-    - "4"
+    - '4'
   - - 16
     - 4
-    - 2011-02-21 19:49:03.827500
-    - 2011-03-24 04:06:49.641000
+    - '2011-02-21 19:49:03.827500'
+    - '2011-03-24 04:06:49.641000'
     - 4
-    - "4"
+    - '4'
   - - 17
     - 3
-    - 2011-02-21 19:49:03.952500
-    - 2011-03-24 04:06:49.644000
+    - '2011-02-21 19:49:03.952500'
+    - '2011-03-24 04:06:49.644000'
     - 5
-    - "4"
+    - '4'
   - - 18
     - 3
-    - 2011-02-21 19:49:04.061875
-    - 2011-03-24 04:06:49.646000
+    - '2011-02-21 19:49:04.061875'
+    - '2011-03-24 04:06:49.646000'
     - 6
-    - "4"
+    - '4'
   - - 19
     - 4
-    - 2011-02-21 19:49:04.155625
-    - 2011-03-24 04:06:49.649000
+    - '2011-02-21 19:49:04.155625'
+    - '2011-03-24 04:06:49.649000'
     - 7
-    - "4"
+    - '4'
   - - 20
     - 3
-    - 2011-02-21 19:49:04.249375
-    - 2011-03-24 04:06:49.651000
+    - '2011-02-21 19:49:04.249375'
+    - '2011-03-24 04:06:49.651000'
     - 8
-    - "4"
+    - '4'
   - - 21
     - 4
-    - 2011-02-21 19:49:04.358750
-    - 2011-03-24 04:06:49.653000
+    - '2011-02-21 19:49:04.358750'
+    - '2011-03-24 04:06:49.653000'
     - 9
-    - "4"
+    - '4'
   - - 22
     - 3
-    - 2011-02-21 19:49:04.499375
-    - 2011-03-24 04:06:49.657000
+    - '2011-02-21 19:49:04.499375'
+    - '2011-03-24 04:06:49.657000'
     - 10
-    - "4"
+    - '4'
   - - 23
     - 3
-    - 2011-02-21 19:49:04.608750
-    - 2011-03-24 04:06:49.659000
+    - '2011-02-21 19:49:04.608750'
+    - '2011-03-24 04:06:49.659000'
     - 14
-    - "4"
+    - '4'
   - - 24
     - 14
-    - 2011-02-21 19:49:04.702500
-    - 2011-02-28 05:47:15.637000
+    - '2011-02-21 19:49:04.702500'
+    - '2011-02-28 05:47:15.637000'
     - 9
-    - "5"
+    - '5'
   - - 25
     - 9
-    - 2011-02-21 19:49:04.811875
-    - 2011-02-28 05:52:31.296000
+    - '2011-02-21 19:49:04.811875'
+    - '2011-02-28 05:52:31.296000'
     - 4
-    - "6"
+    - '6'
   - - 26
     - 9
-    - 2011-02-21 19:49:04.921250
-    - 2011-02-28 05:52:31.340000
+    - '2011-02-21 19:49:04.921250'
+    - '2011-02-28 05:52:31.340000'
     - 7
-    - "6"
+    - '6'
   - - 27
     - 1
-    - 2011-02-21 19:49:05.030625
-    - 2011-02-21 19:49:05.030625
+    - '2011-02-21 19:49:05.030625'
+    - '2011-02-21 19:49:05.030625'
     - 4
-    - "7"
+    - '7'
   - - 28
     - 1
-    - 2011-02-21 19:49:05.155625
-    - 2011-02-21 19:49:05.155625
+    - '2011-02-21 19:49:05.155625'
+    - '2011-02-21 19:49:05.155625'
     - 13
-    - "7"
+    - '7'
   - - 29
     - 1
-    - 2011-02-21 19:49:05.249375
-    - 2011-02-21 19:49:05.249375
+    - '2011-02-21 19:49:05.249375'
+    - '2011-02-21 19:49:05.249375'
     - 7
-    - "7"
+    - '7'
   - - 30
     - 17
-    - 2011-02-21 19:49:05.374375
-    - 2011-02-21 19:49:05.374375
+    - '2011-02-21 19:49:05.374375'
+    - '2011-02-21 19:49:05.374375'
     - 8
-    - "8"
+    - '8'
   - - 31
     - 22
-    - 2011-02-21 19:49:05.546250
-    - 2011-02-22 06:32:46.431000
+    - '2011-02-21 19:49:05.546250'
+    - '2011-02-22 06:32:46.431000'
     - 6
-    - "8"
+    - '8'
   - - 34
     - 4
-    - 2011-03-24 04:06:49.572000
-    - 2011-03-24 04:06:49.572000
+    - '2011-03-24 04:06:49.572000'
+    - '2011-03-24 04:06:49.572000'
     - 1
-    - "4"
+    - '4'
   - - 41
     - 22
-    - 2011-03-24 05:43:09.423800
-    - 2011-03-24 05:43:19.649800
+    - '2011-03-24 05:43:09.423800'
+    - '2011-03-24 05:43:19.649800'
     - 7
-    - "6"
+    - '6'
   - - 42
     - 22
-    - 2011-03-24 06:20:06.776800
-    - 2011-03-24 06:20:14.995800
+    - '2011-03-24 06:20:06.776800'
+    - '2011-03-24 06:20:14.995800'
     - 8
-    - "3"
+    - '3'
+  - - 43
+    - 22
+    - '2011-04-27 00:26:55.323570'
+    - '2011-04-27 00:26:55.323570'
+    - 6
+    - '11'
+  - - 44
+    - 7
+    - '2011-04-27 00:26:55.331570'
+    - '2011-04-27 00:26:55.331570'
+    - 6
+    - '11'
+  - - 45
+    - 1
+    - '2011-04-27 17:59:15.183343'
+    - '2011-04-27 17:59:15.183343'
+    - 6
+    - '12'
 
---- 
-report_types: 
-  columns: 
+---
+report_types:
+  columns:
   - id
   - name
   - created_at
@@ -943,26 +1165,26 @@ report_types:
   records: 
   - - 1
     - IncidentReport
-    - 2011-04-15 06:25:05.138000
-    - 2011-04-15 06:25:11.605000
+    - '2011-04-15 06:25:05.138000'
+    - '2011-04-15 06:25:11.605000'
     - Incident Report
     - IR
   - - 2
     - MaintenanceReport
-    - 2011-04-15 06:24:48.163000
-    - 2011-04-15 06:24:51.677000
+    - '2011-04-15 06:24:48.163000'
+    - '2011-04-15 06:24:51.677000'
     - Maintenance Request
     - MR
   - - 3
     - Report
-    - 2011-04-15 06:24:03.664000
-    - 2011-04-15 06:24:10.484000
+    - '2011-04-15 06:24:03.664000'
+    - '2011-04-15 06:24:10.484000'
     - FYI
     - FYI
 
---- 
-reports: 
-  columns: 
+---
+reports:
+  columns:
   - id
   - created_at
   - updated_at
@@ -976,119 +1198,141 @@ reports:
   - tag
   records: 
   - - 1
-    - 2011-02-21 19:49:00.483750
-    - 2011-02-25 19:17:42.840000
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-25 19:17:42.840000'
     - 13
-    - 2011-02-23 15:50:00.000000
-    - "332"
+    - '2011-02-23 15:50:00.000000'
+    - '332'
     - IncidentReport
     - 1
     - true
     - 1
     - IR-20110415-1236-9
   - - 2
-    - 2011-02-21 19:49:00.608750
-    - 2011-02-21 19:49:00.608750
+    - '2011-02-21 19:49:00.608750'
+    - '2011-02-21 19:49:00.608750'
     - 7
-    - 2011-02-21 21:50:00.000000
-    - "332"
+    - '2011-02-21 21:50:00.000000'
+    - '332'
     - IncidentReport
     - 1
     - true
     - 2
     - IR-20110414-1115-1
   - - 3
-    - 2011-02-21 19:49:00.765000
-    - 2011-02-21 19:49:00.765000
+    - '2011-02-21 19:49:00.765000'
+    - '2011-02-21 19:49:00.765000'
     - 5
-    - 2011-02-21 23:50:00.000000
-    - "533"
+    - '2011-02-21 23:50:00.000000'
+    - '533'
     - IncidentReport
     - 3
     - true
     - 3
     - IR-20110414-1116-2
   - - 4
-    - 2011-02-21 19:49:00.905625
-    - 2011-02-21 19:49:00.905625
+    - '2011-02-21 19:49:00.905625'
+    - '2011-02-21 19:49:00.905625'
     - 12
-    - 2011-02-21 21:58:00.000000
-    - "222"
+    - '2011-02-21 21:58:00.000000'
+    - '222'
     - IncidentReport
     - 2
     - true
     - 4
     - IR-20110514-1136-3
   - - 5
-    - 2011-02-21 19:49:01.015000
-    - 2011-02-28 05:47:15.560000
+    - '2011-02-21 19:49:01.015000'
+    - '2011-02-28 05:47:15.560000'
     - 9
-    - 2011-02-22 10:50:00.000000
-    - "784"
+    - '2011-02-22 10:50:00.000000'
+    - '784'
     - IncidentReport
     - 1
     - true
     - 5
     - IR-20110414-1116-0
   - - 6
-    - 2011-02-21 19:49:01.140000
-    - 2011-02-28 05:52:31.397000
+    - '2011-02-21 19:49:01.140000'
+    - '2011-02-28 05:52:31.397000'
     - 8
-    - 2011-02-22 09:12:00.000000
-    - "421"
+    - '2011-02-22 09:12:00.000000'
+    - '421'
     - IncidentReport
     - 2
     - true
     - 6
     - IR-20110414-1116-8
   - - 7
-    - 2011-02-21 19:49:01.249375
-    - 2011-02-21 19:49:01.249375
+    - '2011-02-21 19:49:01.249375'
+    - '2011-02-21 19:49:01.249375'
     - 3
-    - 2011-02-21 21:48:00.000000
-    - "583"
+    - '2011-02-21 21:48:00.000000'
+    - '583'
     - IncidentReport
     - 4
     - true
     - 7
     - IR-20110414-1116-7
   - - 8
-    - 2011-02-21 19:49:01.374375
-    - 2011-02-21 19:49:01.374375
+    - '2011-02-21 19:49:01.374375'
+    - '2011-02-21 19:49:01.374375'
     - 3
-    - 2011-02-21 02:50:00.000000
-    - "592"
+    - '2011-02-21 02:50:00.000000'
+    - '592'
     - IncidentReport
     - 5
     - true
     - 8
     - IR-20110414-1116-3
   - - 9
-    - 2011-02-21 19:49:01.530625
-    - 2011-02-21 19:49:01.530625
+    - '2011-02-21 19:49:01.530625'
+    - '2011-02-21 19:49:01.530625'
     - 1
-    - 2011-02-21 04:50:00.000000
-    - "639"
+    - '2011-02-21 04:50:00.000000'
+    - '639'
     - IncidentReport
     - 3
     - true
     - 9
     - IR-20110414-1116-5
   - - 10
-    - 2011-02-21 19:49:01.624375
-    - 2011-02-28 05:52:53.119000
+    - '2011-02-21 19:49:01.624375'
+    - '2011-02-28 05:52:53.119000'
     - 7
-    - 2011-02-21 06:50:00.000000
-    - "181"
+    - '2011-02-21 06:50:00.000000'
+    - '181'
     - IncidentReport
     - 1
     - true
     - 10
     - IR-20110414-1116-4
+  - - 11
+    - '2011-04-27 00:26:55.279565'
+    - '2011-04-27 00:26:55.279565'
+    - 33
+    - '2011-04-26 19:26:29.000000'
+    - none
+    - IncidentReport
+    - 11
+    - true
+    - 11
+    - IR-20110426-1926-11
+  - - 12
+    - '2011-04-27 17:59:15.153342'
+    - '2011-04-27 17:59:15.153342'
+    - 3
+    - '2011-04-27 12:58:47.000000'
+    - '345'
+    - IncidentReport
+    - 2
+    - true
+    - 12
+    - IR-20110427-1258-2
 
---- 
-staffs: 
-  columns: 
+---
+staffs:
+  columns:
   - id
   - email
   - encrypted_password
@@ -1112,16 +1356,16 @@ staffs:
     - slvale07@smumn.edu
     - $2a$10$BlJV0WF/UwxowHTG9loTd.Fpi4ftK5C2RtoJdx1PQXT08WlYYtbOa
     - $2a$10$BlJV0WF/UwxowHTG9loTd.
-    - 
-    - 
-    - 
-    - 19
-    - 2011-04-03 20:03:17.578800
-    - 2011-04-03 18:35:53.135800
+    -  
+    -  
+    -  
+    - 21
+    - '2011-04-27 00:15:24.157460'
+    - '2011-04-26 20:47:14.379000'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 19:50:31.608750
-    - 2011-04-03 20:03:17.582800
+    - '2011-02-21 19:50:31.608750'
+    - '2011-04-27 00:15:24.157460'
     - Stephanie
     - Valentine
     - 1
@@ -1130,16 +1374,16 @@ staffs:
     - cmenge07@smumn.edu
     - $2a$10$xtB4X92zxIJjHNrvOMD9budOF.hV2QdYakr17zCiKrxinmfPZKghG
     - $2a$10$xtB4X92zxIJjHNrvOMD9bu
-    - 
-    - 
-    - 
-    - 3
-    - 2011-04-14 16:18:05.898934
-    - 2011-04-03 20:10:31.693800
+    -  
+    -  
+    -  
+    - 4
+    - '2011-04-27 17:58:44.565734'
+    - '2011-04-14 16:18:05.898934'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 20:12:33.968125
-    - 2011-04-15 06:37:08.156000
+    - '2011-02-21 20:12:33.968125'
+    - '2011-04-27 17:58:44.567735'
     - Christopher
     - Engesser
     - 4
@@ -1148,16 +1392,16 @@ staffs:
     - cmengesser@gmail.com
     - $2a$10$5TsKc.XDucVwRxktphv7julDXOoa7Fh7eF65cSYWSqKcxxHMMfOcK
     - $2a$10$5TsKc.XDucVwRxktphv7ju
-    - 
-    - 
-    - 2011-04-15 06:43:35.183000
+    -  
+    -  
+    - '2011-04-15 06:43:35.183000'
     - 21
-    - 2011-04-14 17:02:58.407000
-    - 2011-04-14 15:34:37.424000
+    - '2011-04-14 17:02:58.407000'
+    - '2011-04-14 15:34:37.424000'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 20:57:00.733750
-    - 2011-04-15 06:43:36.732000
+    - '2011-02-21 20:57:00.733750'
+    - '2011-04-15 06:43:36.732000'
     - Brendan
     - Dolan
     - 3
@@ -1166,16 +1410,16 @@ staffs:
     - rgordon@smumn.edu
     - $2a$10$bF8iK3K4DJU86cqUkSw99.oI2tW/xvM4QIImLK77hiksZ1Fe0oh2q
     - $2a$10$bF8iK3K4DJU86cqUkSw99.
-    - 
-    - 
-    - 2011-04-15 06:43:55.364000
+    -  
+    -  
+    - '2011-04-15 06:43:55.364000'
     - 2
-    - 2011-03-12 19:59:21.325000
-    - 2011-02-21 21:04:14.374375
+    - '2011-03-12 19:59:21.325000'
+    - '2011-02-21 21:04:14.374375'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 21:04:14.171250
-    - 2011-04-15 06:43:57.932000
+    - '2011-02-21 21:04:14.171250'
+    - '2011-04-15 06:43:57.932000'
     - Rob
     - Gordon
     - 3
@@ -1184,16 +1428,16 @@ staffs:
     - asmith@smumn.edu
     - $2a$10$GdREgm3v/bjGswqfoxW/bOV8sD3/jpeUEs/aYd.YddxavOa/lVbR.
     - $2a$10$GdREgm3v/bjGswqfoxW/bO
-    - 
-    - 
-    - 2011-04-15 06:44:05.430000
+    -  
+    -  
+    - '2011-04-15 06:44:05.430000'
     - 4
-    - 2011-04-03 20:11:31.261800
-    - 2011-04-01 07:46:57.096000
+    - '2011-04-03 20:11:31.261800'
+    - '2011-04-01 07:46:57.096000'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-02-21 21:09:10.327500
-    - 2011-04-15 06:44:06.834000
+    - '2011-02-21 21:09:10.327500'
+    - '2011-04-15 06:44:06.834000'
     - Ann
     - Smith
     - 2
@@ -1202,16 +1446,16 @@ staffs:
     - radar.system.admin@smumn.edu
     - $2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276
     - $2a$10$IghfYLOEKBMlPm4Z2dAGYe
-    - 
-    - 
-    - 2011-04-15 06:44:19.082000
-    - 5
-    - 2011-04-15 18:56:08.757000
-    - 2011-04-15 06:11:37.814000
+    -  
+    -  
+    -  
+    - 9
+    - '2011-04-27 03:44:46.832000'
+    - '2011-04-27 01:06:33.634000'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-04-03 19:49:31.971800
-    - 2011-04-15 18:56:08.757000
+    - '2011-04-03 19:49:31.971800'
+    - '2011-04-27 03:44:46.832000'
     - System
     - Administrator
     - 5
@@ -1220,16 +1464,16 @@ staffs:
     - mjmay08@smumn.edu
     - $2a$10$6Z8ecWaBnw0oOiTqqBMhCuaz8j8UrB3HzlIi/q2SjYo9OKIKDey12
     - $2a$10$6Z8ecWaBnw0oOiTqqBMhCu
-    - 
-    - 
-    - 2011-04-15 06:44:29.992000
-    - 3
-    - 2011-04-16 19:30:02.058839
-    - 2011-04-15 02:04:19.365200
+    -  
+    -  
+    - '2011-04-15 06:44:29.992000'
+    - 5
+    - '2011-04-27 01:04:18.380000'
+    - '2011-04-27 00:21:10.332074'
     - 127.0.0.1
     - 127.0.0.1
-    - 2011-04-12 16:38:36.922620
-    - 2011-04-16 19:30:02.058839
+    - '2011-04-12 16:38:36.922620'
+    - '2011-04-27 01:04:18.381000'
     - Mitchell
     - May
     - 4

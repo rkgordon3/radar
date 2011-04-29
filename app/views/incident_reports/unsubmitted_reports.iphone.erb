@@ -5,6 +5,7 @@
             <div id="iHeader" style="background-color: #b22222">
                 <a href="#" id="waBackButton">Back</a>
                 <span id="waHeadTitle">Incident Reports</span>
+				<%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
             </div>
             <div id="iGroup">
                 <div class="iLayer" id="waHome" title="Home">
@@ -14,21 +15,18 @@
                                 Reports:
                             </Legend>
                             <br/>
-                            <ul>
+                            <ul class="iArrow">
                                 <% @reports.each do |report| %>
                                 <% if report.submitted? != true %>
                                 <li>
-                                    <span style="padding-top:32px"><a href='<%=edit_incident_report_path(report) %>' class="iPush iBClassic">Edit</a></span>
-                                    <a href='<%=report.id %>'>Approach Date: 
-                                        <br/>
+
+                                    <a href='<%=edit_incident_report_path(report) %>'>Date: 
                                         <%= report.approach_time.to_s(:date_only)%>
-                                        <br/>
-                                        Approach Time: 
-                                        <br/>
+										<br/>
+                                        Time: 
                                         <%= report.approach_time.to_s(:time_only) %>
                                         <br/>
                                         Building: 
-                                        <br/>
                                         <%= report.building.name %>
                                     </a>
                                 </li>

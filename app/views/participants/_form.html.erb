@@ -24,8 +24,8 @@
     <%= f.text_field :affiliation %>
   </div>
   <div class="field">
-    <%= f.label :age %><br />
-    <%= f.text_field :age %>
+	<%= f.label :birthday %>:<br />
+	<%= f.date_select :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
   </div>
   <div class="actions">
     <%= f.submit %>

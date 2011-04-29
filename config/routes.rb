@@ -1,13 +1,22 @@
 Radar::Application.routes.draw do
-  resources :shifts
 
   resources :report_types
 
   resources :notification_preferences
   match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
-  resources :shifts
+  
+  get "shifts/add_shift_and_save"
   match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
+  
+  get "shifts/go_off_duty"
+  match "/shifts/go_off_duty" => "shifts#go_off_duty"
+  
+  get "rounds/add_round_and_save"
+  match "/rounds/add_round_and_save" => "rounds#add_round_and_save"
+  
+  get "rounds/go_off_round"
+  match "/rounds/go_off_round" => "rounds#go_off_round"
   
   get "reports_query/reports_query"
   
@@ -61,6 +70,10 @@ Radar::Application.routes.draw do
   
   match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
   "/students/use_search_results_to_create_new_report"
+  
+  resources :shifts
+  
+  resources :rounds
   
   resources :search 
   

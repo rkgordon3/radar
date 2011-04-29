@@ -1,0 +1,8 @@
+<%= form_tag('/rounds/add_round_and_save', :method => :post , :remote => true) do %>
+	<table style = "width: 160px;" border="0">
+	<tr>
+		<td style = "width: 40px;"><%=image_submit_tag("start_round_sign.png", :size=> "35x35", :title=>"Go On Round")%> </td> 
+		<td style = "width: 120px;"><b> Go On Round </b></td>	
+	</tr>
+	</table>	
+<% end %>

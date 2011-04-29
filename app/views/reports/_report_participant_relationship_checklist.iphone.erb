@@ -1,26 +1,33 @@
-                
 <div class="iLayer" id="wa<%=participant.id%>" title="<%= participant.full_name%>">
-<div class="iPanel">
-<% if report.class.name == "IncidentReport" %>
-<fieldset>
-  	    <Legend>Infractions:</Legend>
-
-	  	<div id="<%= participant.id %>-infractions">
-  			<% infractions = RelationshipToReport.all %>
-  			<ul>
-				<% infractions.each do |infraction| %>
-				<li><%= check_box_tag "#{participant.id}[#{infraction.id}]", 
-  				       infraction.description,
-  				       report.get_specific_report_student_relationship(participant.id, infraction.id) != nil,
-						 :class=>"iToggle", :title=>"YES|NO" %>
-						<%= label_tag infraction.description %>
-				</li>
-				<%end%>
-			</ul>
-			</div>
-</fieldset>
-<% end %>
+    <div class="iPanel">
+        <% if report.class.name == "IncidentReport" %>
+        <div align="center">
+            <img src="<%=participant.getImageUrl%>"></img>
+        </div>
+        
+        <br/>
+        <fieldset>
+            <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+        </fieldset>
+        <fieldset>
+            <Legend>
+                Infractions:
+            </Legend>
+            <div id="<%= participant.id %>-infractions">
+                <% infractions = RelationshipToReport.all %>
+                <ul>
+                    <% infractions.each do |infraction| %>
+                    <li>
+                        <%= check_box_tag "#{participant.id}[#{infraction.id}]",
+                        infraction.description,
+                        report.get_specific_report_student_relationship(participant.id, infraction.id) != nil,
+                        :class=>"iToggle", :title=>"YES|NO" %>
+                        <%= label_tag infraction.description %>
+                    </li>
+                    <%end %>
+                </ul>
+            </div>
+        </fieldset>
+        <% end %>
+    </div>
 </div>
-
-</div>
-

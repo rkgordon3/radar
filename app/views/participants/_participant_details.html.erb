@@ -1,11 +1,30 @@
-<% if participant.birthday > -21.years.from_now %>
-	<%= label_tag  "Birthday: " %>
-	<font color="CC3333"><%= label_tag  "#{participant.birthday.strftime("%m/%d/%Y")}" %></font>
-<% else %>
-	<%= label_tag  "Birthday: #{participant.birthday.strftime("%m/%d/%Y")}" %>
-<% end %><br/>
-<% if participant.building_id != nil %>
-  <%= label_tag "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %></br>
-<% end %>
-<%= label_tag "Emergency Contact: #{participant.emContact}" %>
-                      
+<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-details_img"), "javascript:void(0)",  
+                     :onclick => "plusMinusToggle('details_div_#{participant.id}', '#{participant.id}-details_img');" %>
+<b>Details</b>
+<div id="details_div_<%= participant.id %>" style="display: none;" >
+	<div style="margin-left: 15px;">
+		<span style="font-style: italic;">Date of Birth: </span>
+		<% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
+			<font color="CC3333"><%= participant.birthday.strftime("%m/%d/%Y") %></font>
+		<%  elsif (participant.birthday != nil) %>
+			<%=  "#{participant.birthday.strftime("%m/%d/%Y")}" %>
+		<%  else %>
+			<%=  "Unknown" %>
+		<% end %> <br/>
+		
+		<span style="font-style: italic;">Residence: </span> 
+		<% if (participant.building_id != nil) %>
+			<%=  "#{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
+		<% else %>
+			<%=  "Unknown" %><br/>
+		<% end %>
+		
+		<span style="font-style: italic;">Emergency Contact: </span>
+		<% if (participant.emContact !=nil) %>
+			<%=  "#{participant.emContact}" %>
+		<% else %>
+			<%=  "Unknown" %>
+		<% end %>                   
+	</div>
+</div>
+
