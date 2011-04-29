@@ -1,6 +1,7 @@
-<h1>Showing Report <%= @report.tag %></h1>
+<div id="inside_container" class="inside_container"><h1>Showing Report <%= @report.tag %></h1>
 
 <%= render :partial => "reports/show_generic" %>
 
 <%= link_to 'Edit', edit_report_path(@report) %>
 
+</div>

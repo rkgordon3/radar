@@ -23,7 +23,7 @@ td {
 }
 
 #container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   background-color: #FFF;
   padding: 00px 0px;
@@ -44,7 +44,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 }
 
 #toolbar{ 
-width:80%; 
+width:90%; 
 margin: 0 auto;
 padding: 0px 0px;
 margin-top: 20px;
@@ -125,7 +125,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 	margin:0px;
 	padding:0px;
 	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
 	color: #595959;
 	}

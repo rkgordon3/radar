@@ -1,4 +1,4 @@
-<h1><%= "#{@participant.first_name} #{@participant.last_name}" %></h1>
+<div id="inside_container" class="inside_container"><h1><%= "#{@participant.first_name} #{@participant.last_name}" %></h1>
 
 <p>
   <b>First name:</b>
@@ -21,3 +21,4 @@
 </p>
 
 <%= link_to 'Edit', edit_participant_path(@participant) %>
+</div>

@@ -1,3 +1,4 @@
+<div id="inside_container" class="inside_container">
 <h1>Students</h1>
 
   <%= render :partial => "/students/student_full_info_list", :locals => { :students => @students} %>
@@ -6,3 +7,4 @@
 <br />
 
 <%= link_to 'New Student', new_student_path %>
+</div>
