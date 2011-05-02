@@ -1,6 +1,5 @@
-<h1>Editing Participant <%= @participant.id %></h1>
+<div id="inside_container" class="inside_container"><h1>Editing <%= "#{@participant.first_name} #{@participant.last_name}" %></h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @participant %> |
-<%= link_to 'Back', participants_path %>
+<%= link_to 'Show', @participant %> 
+</div>

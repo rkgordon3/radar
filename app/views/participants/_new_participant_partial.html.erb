@@ -1,11 +1,17 @@
 <div id="newParticipantPartialDiv">
   <%= form_tag('/reports/create_participant_and_add_to_report', :method => :post, :remote => true) do %>
     <h3>No entries found for <%= "#{fName} #{lName}" %></h3>
-	<%= text_field_tag 'first_name', "#{fName}", :placeholder => 'First name' %>
-	<%= text_field_tag 'last_name', "#{lName}", :placeholder => 'Last name' %>
+	<%= label :participant, :first_name %>
+	<%= text_field_tag 'first_name', "#{fName}" %>
 	<br />
-	<%= telephone_field_tag 'birthday', nil, :placeholder => 'Date of Birth' %>
-	<%= text_field_tag 'affiliation', nil, :placeholder => 'Affiliation' %>
+	<%= label :participant, :last_name %>
+	<%= text_field_tag 'last_name', "#{lName}" %>
+	<br />
+	<%= label :participant, :affiliation %>
+	<%= text_field_tag 'affiliation', nil %>
+	<br />
+	<%= label :participant, :birthday %>
+	<%= date_select 'range', :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
 	<br />
 	<%= submit_tag "Create Participant",  :name => "create_participant" %>
 	<input type="button" value="Cancel" name="cancel" onClick="document.getElementById('new-part-div').innerHTML = '';" >	
