@@ -24,13 +24,16 @@
                             Building:
                         </legend>
                         <ul>
-                            <li class="iRadio" value="autoback">
-                            	
+                        	
+                            <li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+								<span id="blabel"><%=@report.building.name%></span>
                                 Select Building<% Building.find(:all).each do |b| %>
                                 <label>
-                                    <input type="radio" name="report[building_id]" value="<%= b.id %>"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
-                                </label><% end %><!--<%= session[:report].building.name %>-->
+                                    <input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:displayBuilding('blabel','<%=b.name%>')"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
+                                </label><% end %>
+								
                             </li>
+							
                         </ul>
 						
                         <legend>

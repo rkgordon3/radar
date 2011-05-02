@@ -1,30 +1,29 @@
-
 <div id="WebApp">
     <div id="iHeader" style="background-color: #b22222">
         <a href="#" id="waBackButton">Back</a>
         <span id="waHeadTitle"><%= @report.tag %></span>
-		<%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
+        <%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; " %>
     </div>
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
             <form action="/incident_reports" method="POST">
                 <div class="iPanel">
                     <fieldset>
-
                         <Legend>
                             Student infractions:
                         </Legend>
                         <ul>
+                        	<% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
                             <% @report.report_participant_relationships.each do |b| %>
                             <% if b.participant.id != @currentParticipantID %>
                             <% @currentParticipantID = b.participant.id %>
                             <li>
-                            <%=image_tag(b.participant.getThumbnailUrl, :border=> 0)%>
                             <% if b.participant.type == "Student" %>
-                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
+                            <%=image_tag(b.participant.getThumbnailUrl, :border=> 0) %>
+                            <%= b.participant.first_name %><%= b.participant.last_name %></a>
                             <% else %>
-                            <%= b.participant.first_name %> <%= b.participant.last_name %></a>
-                        <% end %>
+                            <%= b.participant.first_name %><%= b.participant.last_name %></a>
+                        	<% end %>
                         <br/>
                         <% end %>
                         <div class="print-infraction" style="margin-left:25px; font-style:italic;">
@@ -33,11 +32,10 @@
                         <% end %>
                         </li>
                     </ul>
-					<Legend>
-                            Building:
+                    <Legend>
+                        Building:
                     </Legend>
                     <ul>
-                    	
                         <li>
                             Building:<span><%= @report.building.name %></span>
                         </li>
@@ -53,9 +51,10 @@
                             <%=@report.annotation_text %>
                         </li>
                     </ul>
-                    <% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
-                    <legend>Approach Date:</legend>
-					<ul>
+                    <legend>
+                        Approach Date:
+                    </legend>
+                    <ul>
                         <li>
                             <%= @report.approach_time.to_s(:my_time) %>
                         </li>
