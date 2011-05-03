@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   
+  before_filter :authenticate_staff!
+  
   def landingpage
     @reports = Report.all
     if staff_signed_in?
