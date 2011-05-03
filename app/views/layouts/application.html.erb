@@ -19,7 +19,7 @@
 	<div id="toolbar"> 
 		<table border="0">
 		<tr>
-			<td width = "0%"><%=link_to image_tag("StMarysLogo.png", :target=> "_blank", :title=>"Radar Home"), "http://www.smumn.edu"%> </td>
+			<td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
 			
 			<td style = "width: 150px;">
 			<% if on_duty == true %>
@@ -56,17 +56,13 @@
 
     <div id="container">
 <div id = "user_nav" class="menu">
-	<% if staff_signed_in? %>
-		
-	<% else %>
-		<%= link_to "Sign In", new_staff_session_path %>
-	<% end %>
+	
 
 
 <% if staff_signed_in? %>
 	
 		<ul>
-		<a href="/" alt="Radar Home">  <img src="/images/radar_logo.png" align="left"></a><img src="/images/seperator.gif" align="left">
+		<%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
 		<li><a href="/students">Students</a>
 			<ul>
 				<% if current_staff.access_level > Authorize.ra_access_level %>
@@ -129,7 +125,7 @@
       <%= yield %>
 
 <div id="footer" class="footer"><br>
-&nbsp;&copy; 2011 &nbsp;&#149;&nbsp; Created by Saint Mary's University of Minnesota.<br><br></div>	  
+&nbsp;&copy; 2011 &nbsp;&#149;&nbsp; Created by Saint Mary's University of Minnesota &nbsp;&#149;&nbsp; Department of Computer Science<br><br></div>	  
 
     </div>
 		
