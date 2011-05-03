@@ -138,7 +138,7 @@ class StudentsController < ApplicationController
         
         #-----------------
         # if a building was selected, get students in that building
-        if params[:room_number] != Building.unspecified.to_s
+        if params[:room_number].length > 0
           @students = @students.where(:room_number => params[:room_number])
         end
       end
