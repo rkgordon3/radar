@@ -97,7 +97,7 @@ class RoundsController < ApplicationController
 	@round.save
 			
 	render :update do |page|
-	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now on a round. </div>")
+	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
 	  page.replace_html("round_button", :partial=>"rounds/go_off_roundbutton")
 	end
 	return
@@ -112,7 +112,7 @@ class RoundsController < ApplicationController
 	@round.save
 	render :update do |page|	
 	  #page.replace_html("flash_notice", "You are now off duty.")
-	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now off a round. </div>")
+	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now off a round. </div>")
 	  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton")
 	end
   end

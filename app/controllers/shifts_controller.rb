@@ -99,7 +99,7 @@ class ShiftsController < ApplicationController
 	@shift.save
 	
 	render :update do |page|
-	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> You are now on duty. </div>")
+	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
 	  page.replace_html("duty_button", :partial=>"shifts/go_off_dutybutton" )
 	  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton" )
 	end
@@ -122,7 +122,7 @@ class ShiftsController < ApplicationController
 	end
 	
 	render :update do |page|	
-	  page.insert_html(:top, "container", "<div id = \"flash_notice\"> #{notice} </div>")
+	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
 	  page.replace_html("duty_button", :partial=>"shifts/go_on_dutybutton")
 	  page.replace_html("round_button", "" )
 	end
