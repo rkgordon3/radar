@@ -42,9 +42,10 @@ WEEKLY_NOTIFICATION = 3
 			notify = Notification.should_notify(p)
 				if notify
 					r = Report.where(:created_at => (p.last_notified..Time.now), :type => p.report_type)
-					temp_hash = {r.first.display_name => r}
-					reports.merge!(temp_hash)
-					
+					if r.first != nil
+						temp_hash = {r.first.display_name => r}
+						reports.merge!(temp_hash)
+					end
 					p.last_notified = Time.now
 					p.save
 				end

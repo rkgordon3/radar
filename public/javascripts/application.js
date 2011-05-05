@@ -7,6 +7,8 @@ image1.src = "/images/add_icon.gif";
 image2 = new Image();
 image2.src = "/images/minus_icon.gif";
 
+
+
 function plusMinusToggle(divID,imgID) {
 
 	        var state = document.getElementById(divID).style.display;
@@ -28,5 +30,6 @@ function hideDiv(divID){
 function showDiv(divID){
 			document.getElementById(divID).setAttribute("style", "display:block");
 }
-
-
+function displayBuilding(spanID,building){
+	document.getElementById(spanID).innerHTML=building;
+}

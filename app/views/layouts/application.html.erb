@@ -7,18 +7,19 @@
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
-    <%= javascript_include_tag 'jquery-1.4.4.min.js', 'jquery-ui-1.8.9.custom.min.js', 'autocomplete-rails.js',  'CSJSRequestObject.js'  %>
+    <%= javascript_include_tag 'jquery-1.4.4.min.js', 'jquery-ui-1.8.9.custom.min.js', 'autocomplete-rails.js',  'CSJSRequestObject.js', 'suckertree.js'  %>
     <%= javascript_tag '$j = jQuery.noConflict();' %>
     <%= stylesheet_link_tag 'jquery-ui-1.8.9.custom.css' %>
     <link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon' />
+
   </head>
    
   <body>
   <% if staff_signed_in? %>
-	<div id="toolbar" style="position: fixed; top: 0px; left: 0px; width: 100%; color: #fff; background: #000;"> 
+	<div id="toolbar"> 
 		<table border="0">
 		<tr>
-			<td width = "0%"><%=link_to image_tag("radar_circle_logo.png", :size=> "35x35", :title=>"Radar Home"), "/"%> </td>
+			<td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
 			
 			<td style = "width: 150px;">
 			<% if on_duty == true %>
@@ -44,30 +45,88 @@
 			
 			<td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
 			<% if current_staff.access_level > Authorize.ra_access_level %>
-				<td width = "0%"><%=link_to image_tag("customize.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
+				<td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
 			<% end %>
 		</tr>
 		</table>    
 	</div> 	
 	
-	<br>
-	<br> 
-	<br>
-	<br>
-  
+
 	<% end %>
 
     <div id="container">
+<div id = "user_nav" class="menu">
+	
+
+
+<% if staff_signed_in? %>
+	
+		<ul>
+		<%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
+		<li><a href="/students">Students</a>
+			<ul>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><a href = "/students">List Students</a></li>
+				<% end %>
+				<li><a href = "/students/search_students">Search Students</a></li>
+			</ul>
+		</li>
+		<li><a href="/incident_reports/new_report">Incident Reports</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li><%= link_to "New Incident Report", "/incident_reports/new_report" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Incident Reports", "/incident_reports" %></li>
+					<li><%= link_to "Search Incident Reports", "/reports_query/search" %></li>
+				<% end %>
+			</ul>
+		</li>
+		<li><a href=" /maintenance_reports/new">Maintenance Requests</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Maintenence Requests", "/maintenance_reports" %></li>
+					<li><a href="/">Search Maintenence Requests</a></li>
+				<% end %>
+			</ul>
+		</li>
+		<% if current_staff.access_level > Authorize.ra_access_level %>
+			<li><a href="/">Duty Logs</a>
+				<ul>
+					<li><a href="/">List Duty Logs</a></li>
+					<li><a href="/">Search Duty Logs</a></li>
+				</ul>
+			</li>
+		<% end %>
+		<% if current_staff.access_level == Authorize.super_admin_access_level %>
+		<li><a href="/">Miscellaneous</a>
+			<ul>
+				<li><%= link_to("Buildings", "/buildings")%></li>
+				<li><%= link_to("Areas", "/areas")%></li>
+				<li><%= link_to("Staff Members", "/staffs")%></li>
+			</ul>
+		</li>
+		<% end %>
+		
+	</ul>
+	
+	<% end %>
+
+
+</div>
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
+
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
-	  <br>
-	  <hr />	 
-	  <br>
-	  <p align="center"><%= image_tag("radar_words_logo.png") %></p>
-	  <p align ="center"><i><font size="1">Created by Saint Mary's University of Minnesota. Copyright 2011.</font></p>
+
+<div id="footer" class="footer"><br>
+&nbsp;&copy; 2011 &nbsp;&#149;&nbsp; Created by Saint Mary's University of Minnesota &nbsp;&#149;&nbsp; Department of Computer Science<br><br></div>	  
+
     </div>
 		
 

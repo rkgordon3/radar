@@ -1,71 +1,18 @@
-<h1>Radar</h1>
+<div id="inside_container" class="inside_container">
 <div id = "user_nav">
 	<% if staff_signed_in? %>
 		
 	<% else %>
 		<%= link_to "Sign In", new_staff_session_path %>
 	<% end %>
+
+
+
 </div>
+<div id = "inside_container" class="inside_container">
 
 <% if staff_signed_in? %>
-	<ul>
-		<li>Students
-			<ul>
-				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li><a href = "/students">List Students</a></li>
-				<% end %>
-				<li><a href = "/students/search_students">Search Students</a></li>
-			</ul>
-		</li>
-		<li>Incident Reports
-			<ul>
-				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
-					<li><%= link_to "New Incident Report", "/incident_reports/new_report" %></li>
-				<% end %>
-				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li><%= link_to "List Incident Reports", "/incident_reports" %></li>
-					<li><%= link_to "Search Incident Reports", "/reports_query/search" %></li>
-				<% end %>
-			</ul>
-		</li>
-		<li>Maintenance Requests
-			<ul>
-				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
-				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
-				<% end %>
-				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li><%= link_to "List Maintenence Requests", "/maintenance_reports" %></li>
-					<li>Search Maintenence Requests</li>
-				<% end %>
-			</ul>
-		</li>
-		<% if current_staff.access_level > Authorize.ra_access_level %>
-			<li>Duty Logs
-				<ul>
-					<li>List Duty Logs</li>
-					<li>Search Duty Logs</li>
-				</ul>
-			</li>
-		<% end %>
-		<% if current_staff.access_level == Authorize.super_admin_access_level %>
-		<li>Miscellaneous
-			<ul>
-				<li><%= link_to("Buildings", "/buildings")%></li>
-				<li><%= link_to("Areas", "/areas")%></li>
-				<li><%= link_to("Staff Members", "/staffs")%></li>
-			</ul>
-		</li>
-		<% end %>
-		
-	</ul>
-	
-	<% end %>
 
-
-
-
-<% if staff_signed_in? %>
-<hr >
 	<h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
 	<% if @unsubmitted.length > 0 %>
 		<table>
@@ -97,3 +44,5 @@
 			<% end %>
 	<% end %>	
 <% end %>
+</div>
+</div>

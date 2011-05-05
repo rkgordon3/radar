@@ -152,10 +152,10 @@ class ReportsController < ApplicationController
     @participant.first_name = params[:first_name]
     @participant.last_name = params[:last_name]
     @participant.affiliation = params[:affiliation]
-    @participant.birthday = params[:birthday]
+    @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
     @participant.full_name = "#{@participant.first_name} #{@participant.last_name}"
     @participant.update_attributes(@participant)
-    logger.debug "Partipant full name = #{@participant.full_name}"
+    logger.debug "Partipant birthday = #{@participant.birthday}"
     logger.debug "ID = #{@participant.id}"
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
