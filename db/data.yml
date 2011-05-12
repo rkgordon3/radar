@@ -556,6 +556,8 @@ participants:
   - extension
   - emContact
   - email
+  - classification
+  - emergency_contact_name
   records: 
 
   - - 1
@@ -575,6 +577,8 @@ participants:
     - '1818'
     - (123) 458-4727
     - cmenge07
+    - Senior
+    - !!null 
   - - 2
     - Joseph
     - Faber
@@ -592,6 +596,8 @@ participants:
     - '7759'
     - (402) 211-9283
     - jrfabe06
+    - !!null 
+    - !!null 
   - - 3
     - Emily
     - Friedl
@@ -609,6 +615,8 @@ participants:
     - '9123'
     - (123) 456-7890
     - emfrie06
+    - !!null 
+    - !!null 
   - - 4
     - John
     - Kelly
@@ -626,6 +634,8 @@ participants:
     - '4567'
     - (123) 456-7890
     - jmkell07
+    - !!null 
+    - !!null 
   - - 5
     - Justyna
     - Kujtkowska
@@ -643,6 +653,8 @@ participants:
     - '8912'
     - (123) 456-7890
     - jmkujt08
+    - !!null 
+    - !!null 
   - - 6
     - Mitchell
     - May
@@ -660,6 +672,8 @@ participants:
     - '3456'
     - (123) 456-7890
     - mjmay08
+    - !!null 
+    - !!null 
   - - 7
     - Rebecca
     - Sandager
@@ -677,6 +691,8 @@ participants:
     - '7891'
     - (123) 456-7890
     - rjsand07
+    - !!null 
+    - !!null 
   - - 8
     - Jeffrey
     - Thomas
@@ -694,6 +710,8 @@ participants:
     - '2345'
     - (123) 456-7890
     - jsthom08
+    - !!null 
+    - !!null 
   - - 9
     - Stephanie
     - Valentine
@@ -711,6 +729,8 @@ participants:
     - '6789'
     - (123) 456-7890
     - slvale07
+    - !!null 
+    - !!null 
   - - 10
     - Bradley
     - Wildenborg
@@ -728,6 +748,8 @@ participants:
     - '0123'
     - (123) 456-7890
     - bjwild07
+    - !!null 
+    - !!null 
   - - 11
     - Samantha
     - Reynolds
@@ -736,6 +758,8 @@ participants:
     - Winona State
     - '2011-02-21 19:48:58.686875'
     - '2011-02-21 19:48:58.686875'
+    - !!null 
+    - !!null 
     - !!null 
     - !!null 
     - !!null 
@@ -762,6 +786,8 @@ participants:
     - !!null 
     - !!null 
     - !!null 
+    - !!null 
+    - !!null 
   - - 13
     - Keith
     - Parce
@@ -770,6 +796,8 @@ participants:
     - University of Wisconsin At La Crosse
     - '2011-02-21 19:48:58.843125'
     - '2011-02-21 19:48:58.843125'
+    - !!null 
+    - !!null 
     - !!null 
     - !!null 
     - !!null 
@@ -796,6 +824,8 @@ participants:
     - !!null 
     - !!null 
     - !!null 
+    - !!null 
+    - !!null 
   - - 15
     - Carter
     - Jacobey
@@ -804,6 +834,8 @@ participants:
     - Cotter High School
     - '2011-02-21 19:48:59.061875'
     - '2011-02-21 19:48:59.061875'
+    - !!null 
+    - !!null 
     - !!null 
     - !!null 
     - !!null 
@@ -830,6 +862,8 @@ participants:
     - !!null 
     - !!null 
     - !!null 
+    - !!null 
+    - !!null 
   - - 17
     - Lyric
     - Hupp
@@ -844,6 +878,8 @@ participants:
     - !!null 
     - !!null 
     - '2011-05-12 05:00:00.000000'
+    - !!null 
+    - !!null 
     - !!null 
     - !!null 
     - !!null 
@@ -1483,13 +1519,13 @@ staffs:
     - !!null 
     - !!null 
     - !!null 
-    - 10
+    - 11
+    - '2011-05-12 18:17:25.444200'
     - '2011-05-12 15:04:06.509200'
-    - '2011-04-27 03:44:46.832000'
     - 127.0.0.1
     - 127.0.0.1
     - '2011-04-03 19:49:31.971800'
-    - '2011-05-12 15:04:06.509200'
+    - '2011-05-12 18:17:25.444200'
     - System
     - Administrator
     - 5
