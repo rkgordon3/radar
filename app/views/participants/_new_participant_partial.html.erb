@@ -10,7 +10,7 @@
 	<%= label :participant, :affiliation %>
 	<%= text_field_tag 'affiliation', nil %>
 	<br />
-	<%= label :participant, :birthday %>
+	<%= label :participant, :birthday, "Date of Birth" %>
 	<%= date_select 'range', :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
 	<br />
 	<%= submit_tag "Create Participant",  :name => "create_participant" %>

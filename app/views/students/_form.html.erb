@@ -24,9 +24,13 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-	<%= f.label :birthday %>:<br />
+	<%= f.label :birthday, "Date of Birth" %>:<br />
 	<%= f.date_select :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
   </div>
+  <div class="field">
+	<%= f.label :classification, "Grade" %>:<br />
+	<%= f.select :classification, options_for_select(["","Freshman", "Sophomore", "Junior", "Senior"],@student.classification)%>
+	</div>
   <div class="field">
     Building:<br />
     <% res_halls = Building.where(:id => Building.unspecified..Building.end_of_res_hall_id) %>

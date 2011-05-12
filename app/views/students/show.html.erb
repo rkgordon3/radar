@@ -21,6 +21,10 @@
   <%= @student.extension %>
 </p>
 <p>
+  <b>Grade:</b>
+  <%= @student.classification %>
+</p>
+<p>
   <b>Age:</b>
   <% if @student.birthday > -21.years.from_now %>
 	<font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
@@ -49,6 +53,7 @@
   <b>Cell Phone:</b>
   <%= @student.cell_phone %>
 </p>
+
 <p>
   <b>Emergency Contact:</b>
   <%= @student.emContact %>
