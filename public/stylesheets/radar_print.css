@@ -22,7 +22,7 @@ td {
   overflow: hidden;
 }
 
-#print_logo { display:none; }
+#print_logo { display:block; }
 
 #container {
   width: 90%;
@@ -46,6 +46,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 }
 
 #toolbar{ 
+display:none;
 width:90%; 
 margin: 0 auto;
 padding: 0px 0px;
@@ -58,11 +59,13 @@ vertical-align: bottom;
 }
 
 #flash_notice, #flash_error, #flash_alert {
+  display:none;
   padding: 5px 8px;
   margin: 10px 0;
 }
 
 #flash_notice {
+	
   background-color: #94c0d9;
 }
 
@@ -71,14 +74,14 @@ vertical-align: bottom;
   border: solid 1px #C66;
 }
 
-.fieldWithErrors {
-  display: inline;
-}
-
 .report_title {
    margin-bottom: 10px;
    margin-top: 10px;
    font-size: 18px;
+}
+
+.fieldWithErrors {
+  display: inline;
 }
 
 .error_messages {
@@ -128,6 +131,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 }
 
 .menu{
+
 	border:none;
 	border:0px;
 	margin:0px;
@@ -217,9 +221,12 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 	.menu p{
 		clear:left;
 		}	
+		
+	#user_nav { display:none; }
+	#print_link { display:none;  }
 
-	#print_link { display:block; float:right }
 	#footer{
+		display:none;
 	  background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
 	  color:#fff;
   	  height:1%;

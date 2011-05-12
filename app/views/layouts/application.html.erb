@@ -3,7 +3,8 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "RADAR" %></title>
     <%= stylesheet_link_tag "application" %>
-    <%= stylesheet_link_tag "radar" %>
+    <%= stylesheet_link_tag "radar", :media => :screen %>
+    <%= stylesheet_link_tag "radar_print", :media => :print %>
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
@@ -55,6 +56,10 @@
 	<% end %>
 
     <div id="container">
+    
+    <div id="print_logo" >
+    	<img src="/images/radar_logo.png" align="left"><br/><br/><br/>
+    </div>
 <div id = "user_nav" class="menu">
 	
 
