@@ -6,6 +6,7 @@ class MaintenanceReportsController < ReportsController
     session[:report] = @report
     respond_to do |format|
       format.html
+      format.iphone { render :layout => 'mobile_application' }
     end
   end
   

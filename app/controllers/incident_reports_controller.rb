@@ -23,10 +23,11 @@ class IncidentReportsController < ReportsController
     end
   end
   
+  # Used only by iphone view
   def unsubmitted_reports
-  	  self.clear_session
+  	  @reports = IncidentReport.where("submitted = ? AND staff_id = ?", false, current_staff.id).order(:approach_time)
   	  
-  	  @reports = IncidentReport.where(:submitted => false).order(:approach_time)
+  	 # @reports = IncidentReport.where(:submitted => false).order(:approach_time)
   	  
   	  respond_to do |format|
   	  	  format.iphone {render :layout => 'mobile_application'}
