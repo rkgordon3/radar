@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :tasks
+
   resources :report_types
 
   resources :notification_preferences

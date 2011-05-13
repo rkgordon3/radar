@@ -1548,3 +1548,69 @@ staffs:
     - May
     - 4
     - true
+
+---
+tasks:
+  columns:
+  - id
+  - title
+  - created_at
+  - updated_at
+  - note
+  records: 
+
+  - - 1
+    - Fire Safety Equipment
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 2
+    - Kitchen
+    - !!null 
+    - !!null 
+    - stove/oven off
+  - - 3
+    - Lounge
+    - !!null 
+    - !!null 
+    - furniture, TV, VCR, artwork
+  - - 4
+    - Bathroom/Shower Rooms
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 5
+    - Hallway and Stairwells
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 6
+    - Computer Room
+    - !!null 
+    - !!null 
+    - printer paper
+  - - 7
+    - Classrooms
+    - !!null 
+    - !!null 
+    - locked and empty
+  - - 8
+    - Entrances
+    - !!null 
+    - !!null 
+    - locked and not propped
+  - - 9
+    - Laundry Room
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 10
+    - Garbage/Recycling Rooms
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 11
+    - Parking Lots
+    - !!null 
+    - !!null 
+    - villages only
