@@ -19,12 +19,18 @@
 			<%=  "Unknown" %><br/>
 		<% end %>
 		
-		<span style="font-style: italic;">Emergency Contact: </span>
+		<span style="font-style: italic;">Emergency Contact Information: </span>
+		<% if (participant.emergency_contact_name !=nil) %>
+			<%=  "#{participant.emergency_contact_name}" %>
+		<% else %>
+			<%=  "Unknown" %>
+		<% end %>
+		<span style="font-style: italic;"> @ </span>
 		<% if (participant.emContact !=nil) %>
 			<%=  "#{participant.emContact}" %>
 		<% else %>
 			<%=  "Unknown" %>
-		<% end %>                   
+		<% end %>                
 	</div>
 </div>
 

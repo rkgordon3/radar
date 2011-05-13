@@ -7,7 +7,7 @@
 <%= "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
 </li>
 <li>
-<%= "Emergency Contact: #{participant.emContact}" %>
+<%= "Emergency Contact: #{participant.emergency_contact_name} @ #{participant.emContact}" %>
 </li>
 </ul>
 </fieldset> 

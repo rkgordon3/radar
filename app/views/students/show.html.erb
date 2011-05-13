@@ -55,10 +55,19 @@
 </p>
 
 <p>
-  <b>Emergency Contact:</b>
-  <%= @student.emContact %>
+<b>Emergency Contact Information: </b>
+		<% if (@student.emergency_contact_name !=nil) %>
+			<%=  "#{@student.emergency_contact_name}" %>
+		<% else %>
+			<%=  "Unknown" %>
+		<% end %>
+		<b> @ </b>
+		<% if (@student.emContact !=nil) %>
+			<%=  "#{@student.emContact}" %>
+		<% else %>
+			<%=  "Unknown" %>
+		<% end %> 
 </p>
-	
 
 	<% end %>
 <% end %>
