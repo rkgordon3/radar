@@ -1,0 +1,31 @@
+<table>
+  <tr>
+	<th>Name</th>
+    <th>Date</th>
+    <th width="30">Time In</th>
+    <th width="30">Time Out</th>
+    <th>Area</th>
+    <th></th>
+  </tr>
+  
+<% shifts.each do |shift| %>
+ 
+  	<% if @numRows == 0 %>
+  		<% @numRows = @numRows + 1 %>
+  		<tr class="shaded">
+  	<% else %>
+  		<% @numRows = 0 %> 
+  		<tr>
+  	<% end %>
+
+	<td><%= shift.staff.first_name %> <%= shift.staff.last_name %></td>
+  	<td><%= shift.created_at.to_s(:short_date_only) %></td>
+  	<td align="right"><%= shift.created_at.to_s(:time) %></td>
+  	<td align="right"><%= shift.time_out.to_s(:time) %></td>
+  	<td><%= shift.area.name %></td>
+  	<td><%= link_to 'View Duty Log', shift%></td> 
+  	</tr>
+
+<% end %>
+</table>
+
