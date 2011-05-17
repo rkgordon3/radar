@@ -19,9 +19,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-group :development do
-  gem "rails-erd"
-end
+#group :development do
+#  gem "rails-erd"
+#end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
@@ -40,11 +40,11 @@ end
 #   gem 'webrat'
 # end
 
-group :test do
-  gem 'capybara'
+#group :test do
+#  gem 'capybara'
 #  gem 'cucumber-rails'
-  gem 'rspec-rails', '>= 2.0.0.beta.12'
-  gem 'factory_girl'
-  gem 'mongoid-rspec', :require => false
-  gem 'database_cleaner'
-end
+#  gem 'rspec-rails', '>= 2.0.0.beta.12'
+#  gem 'factory_girl'
+#  gem 'mongoid-rspec', :require => false
+#  gem 'database_cleaner'
+#end
