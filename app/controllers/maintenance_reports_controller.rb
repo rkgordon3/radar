@@ -13,7 +13,7 @@ class MaintenanceReportsController < ReportsController
   # GET /incident_reports
   # GET /incident_reports.xml
   def index
-    @reports = MaintenanceReport.where(:submitted => true).order(:approach_time)
+    @reports = MaintenanceReport.where(:submitted => true).order("approach_time DESC")
     
     
     respond_to do |format|

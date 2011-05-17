@@ -1,7 +1,12 @@
-<div id="inside_container" class="inside_container"><h1>Listing Reports</h1>
-
-<%= render :partial => "reports/index_generic", :locals => { :reports => reports } %>
+<div id="inside_container" class="inside_container"><h1>All Reports</h1>
+<% if @reports.length > 0 %>
+<% num_rows=0 %>	
+			<%= render :partial => "reports/index_generic", :locals => { :reports => reports, :num_rows=>num_rows} %>
+	<% else %>
+		<p> No Reports </p>
+	<% end %>
 <div class="new_report_link">
 <%= link_to 'New Report', new_report_path %>
 <div class="edit_link">
+</div>
 </div>

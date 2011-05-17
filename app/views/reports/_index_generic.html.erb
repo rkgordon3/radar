@@ -1,35 +1,4 @@
 <table>
-  <tr>
-	<th>Tag</th>
-    <th>Author</th>
-    <th>Approach Date</th>
-    <th width="30">Time</th>
-    <th>Location</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  
-<% reports.each do |report| %>
- 
-  	<% if @numRows == 0 %>
-  		<% @numRows = @numRows + 1 %>
-  		<tr class="shaded">
-  	<% else %>
-  		<% @numRows = 0 %> 
-  		<tr>
-  	<% end %>
-
-	<td><%= report.tag %></td>
-  	<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-  	<td><%= report.approach_time.to_s(:short_date_only) %></td>
-  	<td align="right"><%= report.approach_time.to_s(:time) %></td>
-  	<td align="right"><%= report.room_number %> <%= report.building.name %></td>
-  	<td><%= link_to 'Show', report %></td>
-  	<td><%= link_to 'Edit', :controller => "#{report.class.name.tableize}", :action => "edit", :id => report %></td>
-  	<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
-  	</tr>
-
-<% end %>
+<%= render :partial => "reports/report_table_row_labels" %>
+<%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>num_rows } %>
 </table>
-
