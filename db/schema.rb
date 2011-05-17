@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20110516145850) do
   end
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
-  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
+  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token"
 
   create_table "tasks", :force => true do |t|
     t.string   "title"
