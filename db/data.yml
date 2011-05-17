@@ -1400,6 +1400,72 @@ reports:
     - IR-20110427-1258-2
 
 ---
+rounds:
+  columns:
+  - id
+  - created_at
+  - updated_at
+  - shift_id
+  - end_time
+  records: 
+
+  - - 1
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 1
+    - '2011-02-21 23:49:00.483750'
+  - - 2
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 2
+    - '2011-02-21 23:49:00.483750'
+  - - 3
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 3
+    - '2011-02-21 23:49:00.483750'
+  - - 4
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 1
+    - '2011-02-21 22:01:00.483750'
+  - - 5
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 3
+    - '2011-02-21 22:01:00.483750'
+
+---
+shifts:
+  columns:
+  - id
+  - created_at
+  - updated_at
+  - staff_id
+  - time_out
+  - area_id
+  records: 
+
+  - - 1
+    - '2011-02-21 19:49:00.483750'
+    - '2011-02-21 19:49:00.483750'
+    - 1
+    - '2011-02-21 23:10:00.483750'
+    - 1
+  - - 2
+    - '2011-02-24 12:30:00.483750'
+    - '2011-02-24 12:30:00.483750'
+    - 1
+    - '2011-02-24 17:30:00.483750'
+    - 2
+  - - 3
+    - '2011-02-23 13:35:00.483750'
+    - '2011-02-23 13:35:00.483750'
+    - 2
+    - '2011-02-23 19:35:00.483750'
+    - 1
+
+---
 staffs:
   columns:
   - id
@@ -1519,13 +1585,13 @@ staffs:
     - !!null 
     - !!null 
     - !!null 
-    - 11
+    - 12
+    - '2011-05-16 16:08:42.781173'
     - '2011-05-12 18:17:25.444200'
-    - '2011-05-12 15:04:06.509200'
     - 127.0.0.1
     - 127.0.0.1
     - '2011-04-03 19:49:31.971800'
-    - '2011-05-12 18:17:25.444200'
+    - '2011-05-16 16:08:42.781173'
     - System
     - Administrator
     - 5
@@ -1548,3 +1614,87 @@ staffs:
     - May
     - 4
     - true
+  - - 12
+    - llhupp09@smumn.edu
+    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276
+    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe
+    - !!null 
+    - !!null 
+    - !!null 
+    - 3
+    - '2011-05-16 21:05:51.040000'
+    - '2011-05-16 21:03:47.701000'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-05-16 16:08:42.781173'
+    - '2011-05-16 21:05:51.040000'
+    - Lyric
+    - Hupp
+    - 5
+    - true
+
+---
+tasks:
+  columns:
+  - id
+  - title
+  - created_at
+  - updated_at
+  - note
+  records: 
+
+  - - 1
+    - Fire Safety Equipment
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 2
+    - Kitchen
+    - !!null 
+    - !!null 
+    - stove/oven off
+  - - 3
+    - Lounge
+    - !!null 
+    - !!null 
+    - furniture, TV, VCR, artwork
+  - - 4
+    - Bathroom/Shower Rooms
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 5
+    - Hallway and Stairwells
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 6
+    - Computer Room
+    - !!null 
+    - !!null 
+    - printer paper
+  - - 7
+    - Classrooms
+    - !!null 
+    - !!null 
+    - locked and empty
+  - - 8
+    - Entrances
+    - !!null 
+    - !!null 
+    - locked and not propped
+  - - 9
+    - Laundry Room
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 10
+    - Garbage/Recycling Rooms
+    - !!null 
+    - !!null 
+    - !!null 
+  - - 11
+    - Parking Lots
+    - !!null 
+    - !!null 
+    - villages only

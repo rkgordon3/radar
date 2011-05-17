@@ -1,22 +1,7 @@
-<div id="inside_container" class="inside_container"><h1>Listing shifts</h1>
+<div id="inside_container" class="inside_container"><h1>Shifts</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @shifts.each do |shift| %>
-  <tr>
-    <td><%= link_to 'Show', shift %></td>
-    <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-    <td><%= link_to 'Destroy', shift, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
+<%= render :partial => "shifts/index_generic", :locals => { :shifts => shifts } %>
+<div class="new_shift_link">
 <%= link_to 'New Shift', new_shift_path %>
+<div class="edit_link">
 </div>
