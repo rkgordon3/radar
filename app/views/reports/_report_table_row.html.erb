@@ -1,0 +1,26 @@
+<% reports.each do |report| %>
+
+<% if num_rows == 0 %>
+  	<% num_rows = num_rows + 1 %>
+	<tr class="shaded">
+<% else %>
+  	<% num_rows = 0 %> 
+  	<tr>
+<% end %>
+
+<td><%= report.approach_time.strftime("%m/%d/%Y") %></td>
+<td><%= report.approach_time.to_s(:time_only) %></td>
+<td><%= report.tag %></td>
+<td><%= report.building.name %></td>
+<td><%= report.room_number %></td>
+<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
+<td><%= link_to 'Show', report %></td>
+
+<% if Authorize.not_admin_assistant_authorize(current_staff) %>
+	<td><%= link_to 'Edit', edit_report_path(report) %></td>
+	<td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+<% end %>
+
+</tr>
+<% end %>
+</tr>
