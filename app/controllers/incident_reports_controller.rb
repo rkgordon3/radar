@@ -14,7 +14,7 @@ class IncidentReportsController < ReportsController
     # but maybe "back" button was pushed on a new_report or edit page
     
     # get all submitted reports so view can display them (in order of approach time)
-    @reports = IncidentReport.where(:submitted => true).order(:approach_time)
+    @reports = IncidentReport.where(:submitted => true).order("approach_time DESC")
     
     respond_to do |format|
     	format.html { render :locals => { :reports => @reports } }

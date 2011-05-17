@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
   
   
   def index
-    @reports = Report.where("id > 0").order(:approach_time)
+    @reports = Report.where("id > 0").order("approach_time DESC")
     @numRows = 0
     
     respond_to do |format|
