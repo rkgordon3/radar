@@ -134,10 +134,6 @@ GEM
     tzinfo (0.3.26)
     warden (1.0.3)
       rack (>= 1.0.0)
-    webrat (0.7.3)
-      nokogiri (>= 1.2.0)
-      rack (>= 1.0)
-      rack-test (>= 0.5.3)
     whenever (0.6.7)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
@@ -156,11 +152,9 @@ DEPENDENCIES
   factory_girl
   mongoid-rspec
   nifty-generators
-  nokogiri
   rails (= 3.0.6)
   rails-erd
   rails3-jquery-autocomplete
   rspec-rails (>= 2.0.0.beta.12)
   sqlite3-ruby
-  webrat
   whenever
