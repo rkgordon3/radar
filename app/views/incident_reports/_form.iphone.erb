@@ -1,11 +1,5 @@
 
 
-<div id="WebApp">
-    <div id="iHeader" style="background-color: #b22222">
-        <a href="#" onclick="javascript:showDiv('searchform')" id="waBackButton">Back</a>
-        <span id="waHeadTitle">Incident Report</span>
-		<%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
-    </div>
     <div class="iPanel">
         <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
     </div>
@@ -15,7 +9,7 @@
                 <div class="iPanel">
                     <div id="s-i-form">
                         <% @report.participant_ids.each  do |pid| %>
-								<%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
+				<%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
                         <% end %>
                     </div>
                     <fieldset>
@@ -73,7 +67,6 @@
             </div>
         </div>
     </form>
-</div>
 
 
 

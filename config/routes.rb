@@ -8,17 +8,17 @@ Radar::Application.routes.draw do
   match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
   
-  get "shifts/add_shift_and_save"
-  match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
+  get "shifts/start_shift"
+  match "/shifts/start_shift" => "shifts#start_shift"
   
-  get "shifts/go_off_duty"
-  match "/shifts/go_off_duty" => "shifts#go_off_duty"
+  get "shifts/end_shift"
+  match "/shifts/end_shift" => "shifts#end_shift"
   
-  get "rounds/add_round_and_save"
-  match "/rounds/add_round_and_save" => "rounds#add_round_and_save"
+  get "rounds/start_round"
+  match "/rounds/start_round" => "rounds#start_round"
   
-  get "rounds/go_off_round"
-  match "/rounds/go_off_round" => "rounds#go_off_round"
+  get "rounds/end_round"
+  match "/rounds/end_round" => "rounds#end_round"
   
   get "reports_query/reports_query"
   

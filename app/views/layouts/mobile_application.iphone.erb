@@ -17,9 +17,50 @@
      <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
   </head>
   <body>
-    
-      <%= yield %>
+    <div id="WebApp">
 
+    	<div id="iHeader" style="background-color: #b22222">
+          <a href="#" onclick="javascript:showDiv('searchform')" id="waBackButton">Back</a>
+            <% if staff_signed_in? %>
+	<div id="toolbar"> 
+		<table border="0">
+		<tr>
+			
+			
+			<td style = "width: 150px;">
+			<% if on_duty == true %>
+				<div id= "duty_button">
+					<%= render :partial => "shifts/end_shift_button" %>
+				</div>
+			<% else %>
+				<div id= "duty_button">
+					<%= render :partial => "shifts/start_shift_button" %>
+				</div>
+			<% end %></td>
+			
+			<td style = "width: 170px;">
+			
+			<div id = "round_button">
+			<% if on_duty == true %>
+				<% if on_round == true %>					
+						<%= render :partial => "rounds/end_round_button" %>					
+				<% else %>					
+						<%= render :partial => "rounds/start_round_button" %>					
+				<% end %>
+			<% end %></div></td>			
+
+		</tr>
+		</table>    
+	</div> 	
+	
+
+<% end %>
+ 
+	 
+    	</div>
+   
+    <%= yield %>
+     </div>
   </body>
   <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>

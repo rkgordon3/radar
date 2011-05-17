@@ -94,38 +94,47 @@ class ShiftsController < ApplicationController
     end
   end
   
-  def add_shift_and_save
-    @shift = Shift.create
-    @shift.staff_id = current_staff.id
+  def start_shift
+    @shift = Shift.new(:staff_id => current_staff.id)
     @shift.save
     
-    render :update do |page|
-      page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
-      page.replace_html("duty_button", :partial=>"shifts/go_off_dutybutton" )
-      page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton" )
+    respond_to do |format|
+    	    format.js
+    	    format.iphone {
+    	    	    render :update do |page|
+    	    	    	   # page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
+    	    	    	    page.replace_html("duty_button", :partial=>"shifts/end_shift_button" )
+    	    	    	    page.replace_html("round_button", :partial=>"rounds/start_round_button" )
+    	    	    end
+    	    }
     end
-    return
   end
   
-  def go_off_duty
+  def end_shift
     @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+    if @shift == nil 
+    	    return
+    end
     @shift.time_out = Time.now
     @shift.save
     @round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-    if @round != nil
-      logger.debug "end/n/n/n/n"
-      @round.end_time = Time.now
-      @round.save
-      logger.debug " #{@round.end_time}"
-      notice = "You are now off a round and off duty."
+    if @round != nil	    	
+    	@round.end_time = Time.now
+    	@round.save
+    	notice = "You are now off a round and off duty."
     else
-      notice = "You are now off duty."		
+    	notice = "You are now off duty."		
     end
     
-    render :update do |page|	
-      page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
-      page.replace_html("duty_button", :partial=>"shifts/go_on_dutybutton")
-      page.replace_html("round_button", "" )
+    respond_to do |format|
+    	    format.js
+    	    format.iphone {
+    	    	    render :update do |page|	
+    	    	    	    #page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
+    	    	    	    page.replace_html("duty_button", :partial=>"shifts/start_shift_button")
+    	    	    	    page.replace_html("round_button", "" )
+    	    	    end
+    	    }
     end
   end
   
