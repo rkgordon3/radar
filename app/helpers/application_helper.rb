@@ -1,21 +1,11 @@
 module ApplicationHelper
 
 	def on_duty
-		@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
-		if @shift == nil
-			false
-		else
-			true
-		end		
+		Shift.where(:staff_id => current_staff.id, :time_out => nil).first != nil
 	end
 	
 	def on_round
-		@round = Round.where(:end_time => nil).first
-		if @round == nil
-			false
-		else
-			true
-		end		
+		Round.where(:end_time => nil).first != nil		
 	end
 				
 module Helpers
