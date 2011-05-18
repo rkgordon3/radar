@@ -99,24 +99,6 @@ class IncidentReportsController < ReportsController
   		super
       
    
-=begin     
-      self.clear_session
-      
-      # render next page, nothing else affects the view
-      respond_to do |format|
-        if @report.save
-          format.html { redirect_to(@report, :notice => 'Incident report was successfully created.') }
-          format.xml  { render :xml => @report, :status => :created, :location => @report }
-          #format.iphone {render :layout => 'mobile_application'}
-# TODO This may be a problem - rkg
-          format.iphone {redirect_to(@report)}
-        else
-          format.html { render :action => "new_report" }
-          format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
-          format.iphone { render :action => "new_report", :layout => 'mobile_application'}
-        end
-			end 
-=end
   end
 
   # PUT /incident_reports/1
@@ -128,20 +110,6 @@ class IncidentReportsController < ReportsController
       @report.add_reported_infractions(params)
 
      super
-
-=begin      
-	respond_to do |format|
-        if @report.update_attributes(params[:report])
-          format.html { redirect_to(@report, :notice => 'Incident report was successfully updated.') }
-          format.xml  { head :ok }
-          #format.iphone {render :layout => false}
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
-          #format.iphone {render :layout => false} 
-        end 	  	  	  
-      end
-=end
   end
 
   
