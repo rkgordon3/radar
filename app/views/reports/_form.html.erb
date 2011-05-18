@@ -1,5 +1,9 @@
-
+<div class="help" >
+  <%= t "#{params[:controller]}.help" %>
+<br/>
+<div>
 <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
-  
+<div id="new-part-div">
+</div>
 <%= render :partial => "reports/report_generic" %>
 

@@ -34,10 +34,12 @@
     <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
     <%= text_field(:report, :room_number) %>
   </div>
+  <% if !@report.is_note? %>
    <div class="field">
     <b><%= f.label :approach_time %>:</b><br />
     <%= text_field(:report, :approach_time) %>
   </div>
+  <% end %>
 
     
   <div class="actions">
@@ -45,7 +47,9 @@
        			<% if @report.submitted != true %>
        				<%= submit_tag "Save Report", { :name => "save_submit" } %>
        			<% end %>
-       			<%= submit_tag "Submit Report",  { :name=> "report[submitted]" } %>
+       			<% if !@report.is_note? %>
+       			  <%= submit_tag "Submit Report",  { :name=> "report[submitted]" } %>
+       			<% end %>
        		</p>
 
   </div>
