@@ -1,6 +1,8 @@
 Radar::Application.routes.draw do
 
   resources :tasks
+  
+  resources :notes
 
   resources :report_types
 

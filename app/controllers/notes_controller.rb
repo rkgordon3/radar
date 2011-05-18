@@ -1,0 +1,2 @@
+class NotesController < ReportsController
+end

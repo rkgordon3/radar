@@ -8,6 +8,14 @@ class Report < ActiveRecord::Base
   after_save       :save_everything
   before_destroy   :destroy_everything
   
+  # return true if report is a generic report, ie FYI
+  def is_generic? 
+  	  type == nil
+  end
+  
+  def is_note?
+  	  type == "Note"
+  end
   
   def annotation_text
     annotation != nil ? annotation.text : nil
