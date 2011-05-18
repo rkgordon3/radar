@@ -2,4 +2,9 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  incident_reports:
+     help: Add students involved in incident
+  maintenance_reports:
+     help: Add students reporting problem for Maintenance to contact for follow-up
+  reports:
+     help: Add students to FYI Report
