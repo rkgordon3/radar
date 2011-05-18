@@ -4,9 +4,9 @@ class ShiftsController < ApplicationController
   
   # GET /shifts
   # GET /shifts.xml
-  
+  helper_method :round_map
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access 
+  before_filter :ra_authorize_view_access
   skip_before_filter :verify_authenticity_token
   
   
@@ -107,6 +107,24 @@ class ShiftsController < ApplicationController
     return
   end
   
+  def duty_log
+    
+    @shift=Shift.find(params[:id])
+    @rounds=Round.where("shift_id = ?",params[:id]).order(:end_time)
+    round_time_start=@shift.created_at
+    @rounds.each do |round|
+      round_time_end=round.end_time
+      rep=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end)
+      round_map[round] =rep
+      round_time_start=round_time_end
+      end
+    
+    respond_to do |format|
+      format.html
+      format.xml
+    end
+  end
+  
   def go_off_duty
     @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
     @shift.time_out = Time.now
@@ -129,8 +147,10 @@ class ShiftsController < ApplicationController
     end
   end
   
-  def view_rounds
-    
+  private
+  def round_map
+    @round_map ||= Hash.new
   end
+  
   
 end

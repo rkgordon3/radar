@@ -11,6 +11,9 @@ Radar::Application.routes.draw do
   get "shifts/add_shift_and_save"
   match "/shifts/add_shift_and_save" => "shifts#add_shift_and_save"
   
+  get "shifts/duty_log"
+  match "/shifts/duty_log" => "shifts#duty_log"
+  
   get "shifts/go_off_duty"
   match "/shifts/go_off_duty" => "shifts#go_off_duty"
   
