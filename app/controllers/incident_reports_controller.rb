@@ -92,7 +92,6 @@ class IncidentReportsController < ReportsController
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
-  				logger.debug("IR create params = #{params}")
   		@report = session[:report]
    # process parameters into reported infractions
    		@report.add_reported_infractions(params)   
