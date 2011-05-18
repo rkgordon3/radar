@@ -4,11 +4,11 @@ to (<%= "#{@shift.time_out.to_s(:short_date_only)}" %>, <%= "#{@shift.time_out.t
 <h2>Area: <%= "#{@shift.area.name}" %>
 </div>
 
-<div id="s-i-form">
+<div>
 	<% round_count = 0 %>
      <%  @rounds.each  do |round|  %>    
      	<% round_count = round_count + 1 %>
-       <%= render :partial=> "rounds/round_in_duty_log", :locals => 
+       <%= render :partial=> "shifts/round_in_duty_log", :locals => 
        { :round_count => round_count, :round => round, :reports =>round_map[round] } %>
      <% end %>
   </div>

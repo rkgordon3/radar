@@ -41,6 +41,7 @@ class ReportsController < ApplicationController
   # GET /reports/1/edit
   def edit
     @report = Report.find(params[:id])
+    session[:report]=@report
   end
   
   # POST /reports
@@ -97,6 +98,7 @@ class ReportsController < ApplicationController
     @participant = Participant.get_participant_for_full_name(params[:full_name])
     @report = session[:report]
     logger.debug "Participant = #{@participant}"
+    logger.debug "Report = #{@report}"
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
       firstName = name_tokens[0].capitalize
