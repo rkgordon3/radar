@@ -139,8 +139,6 @@ class IncidentReportsController < ReportsController
   # GET /incident_reports/new_report
   # GET /incident_reports/new_report.xml
   def new_report
-  	  	  
-  	logger.debug "inside IR new_report params: #{params}"
 
     @report = IncidentReport.new(:staff_id => current_staff.id)               # new report
     
