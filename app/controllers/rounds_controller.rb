@@ -86,34 +86,42 @@ class RoundsController < ApplicationController
     end
   end
   
-  def add_round_and_save
+  def start_round
     # I NEED A SHIFT ID TO DO ANYTHINGGGG
-	@round = Round.create
+    	@round = Round.new
 	#shift = params[:shift_id]
 	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
 	#logger.debug "current staff = #{current_staff.first_name}"
 	logger.debug "shift = #{@shift.id}"
 	@round.shift_id = @shift.id
 	@round.save
-			
-	render :update do |page|
-	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
-	  page.replace_html("round_button", :partial=>"rounds/go_off_roundbutton")
+		
+	respond_to do |format|	
+		format.js
+		format.iphone {
+			render :update do |page|
+				#page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
+				page.replace_html("round_button", :partial=>"rounds/end_round_button")
+			end
+		}
 	end
-	return
-
   end
   
-  def go_off_round
+  def end_round
   # add where shift time something
 	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
 	@round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-    @round.end_time = Time.now
+	@round.end_time = Time.now
 	@round.save
-	render :update do |page|	
-	  #page.replace_html("flash_notice", "You are now off duty.")
-	  page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now off a round. </div>")
-	  page.replace_html("round_button", :partial=>"rounds/go_on_roundbutton")
+	respond_to do |format| 
+		format.js
+		format.iphone {
+			render :update do |page|	
+				#page.replace_html("flash_notice", "You are now off duty.")
+				#page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now off a round. </div>")
+				page.replace_html("round_button", :partial=>"rounds/start_round_button")
+			end
+		}
 	end
   end
 end

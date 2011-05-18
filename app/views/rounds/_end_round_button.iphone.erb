@@ -1,0 +1,8 @@
+<%= form_tag('/rounds/end_round', :method => :post , :remote => true, :format=>"js") do %>
+	<table style = "width: 170px;" border="0">
+	<tr>
+		<td style = "width: 40px;"><%=image_submit_tag("end_round_sign.png", :size=> "35x35", :title=>"Go Off Round")%> </td> 
+		<td style = "width: 120px;"><b> Go Off Round </b></td>	
+	</tr>
+	</table>	
+<% end %>

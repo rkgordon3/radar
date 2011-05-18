@@ -1,0 +1,2 @@
+page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
+page.replace_html("round_button", :partial=>"rounds/end_round_button")

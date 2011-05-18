@@ -1,17 +1,16 @@
-
-	<%= form_tag(target,:id=>"searchform", :method => :get, :remote => true, :format=>"js", ) do %>
-	<fieldset>
+<%= form_tag(target,:id=>"searchform", :method => :get, :remote => true, :format=>"js", ) do %>
+  <fieldset>
 	<legend>
-        Students:
-    </legend>
-	<ul>
+        	Students:
+        </legend>
+	  <ul>
 		<li>
   			<%= text_field_tag 'full_name', '', :autocomplete => search_autocomplete_student_full_name_path, :placeholder => "Add Student" %> 
   		</li>
-  </ul>
+  	  </ul>
   
-   <%= submit_tag "Add", :class =>"iPush iBClassic", :style =>"width:100%"%>
+         <%= submit_tag "Add", :class =>"iPush iBClassic", :style =>"width:100%"%>
 
-</fieldset>
-  <% end %>
+  </fieldset>
+<% end %>
 
