@@ -127,7 +127,9 @@ class ShiftsController < ApplicationController
       format.xml
     end
   end
-  def end_shift    @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+  
+  def end_shift    
+    @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
     if @shift == nil 
     	    return
     end
