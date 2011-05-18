@@ -59,12 +59,7 @@ class IncidentReportsController < ReportsController
       format.iphone {render :layout => 'mobile_application'}
     end
   end
-  
-  
-  
-  
-  
-  
+
   # GET /incident_reports/1/edit
   def edit
 
