@@ -10,11 +10,11 @@
 
 <td><%= report.event_date %></td>
 <td><%= report.event_time %></td>
-<td><%= report.tag %></td>
+<td><%= report.type %></td>
 <td><%= report.building.name %></td>
 <td><%= report.room_number %></td>
 <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-<td><%= link_to 'Show', report %></td>
+<td><%= link_to report.tag, report %></td>
 
 <% if Authorize.not_admin_assistant_authorize(current_staff) %>
 	<td><%= link_to 'Edit', edit_report_path(report) %></td>

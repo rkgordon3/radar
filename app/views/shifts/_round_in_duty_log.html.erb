@@ -1,0 +1,17 @@
+<div class="rounds-details">
+<h3><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-img"), "javascript:void(0)",  
+                     :onclick => "plusMinusToggle('#{round.id}-details', '#{round.id}-img');" %>
+ 
+  	    <%= "Reports for Round #{round_count}" %>: (<%= "#{round.created_at.to_s(:short_date_only)}" %>, 
+  	    <%= "#{round.created_at.to_s(:time_only)}" %>) to (<%= "#{round.end_time.to_s(:short_date_only)}" %>, 
+  	    <%= "#{round.end_time.to_s(:time_only)}" %>)</h3>
+  		<div id="<%= round.id %>-details" style="display: none;">
+  			<% if reports.length > 0 %>
+  			
+				<%= render :partial => "reports/index_generic", :locals => { :reports => reports, :num_rows=>0 } %>
+			<% else %>
+			
+				<p>No Reports For This Round</p>
+			<% end %>
+  		</div>
+</div>

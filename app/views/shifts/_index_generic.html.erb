@@ -23,7 +23,7 @@
   	<td align="right"><%= shift.created_at.to_s(:time) %></td>
   	<td align="right"><%= shift.time_out.to_s(:time) %></td>
   	<td><%= shift.area.name %></td>
-  	<td><%= link_to 'View Duty Log', shift%></td> 
+  	<td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td> 
   	</tr>
 
 <% end %>

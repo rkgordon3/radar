@@ -1,0 +1,14 @@
+<div id="inside_container" class="inside_container"><h1>RA: <%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></h1>
+<h2>On Duty: (<%= "#{@shift.created_at.to_s(:short_date_only)}" %>, <%= "#{@shift.created_at.to_s(:time_only)}" %>) 
+to (<%= "#{@shift.time_out.to_s(:short_date_only)}" %>, <%= "#{@shift.time_out.to_s(:time_only)}" %>)</h2>
+<h2>Area: <%= "#{@shift.area.name}" %>
+</div>
+
+<div>
+	<% round_count = 0 %>
+     <%  @rounds.each  do |round|  %>    
+     	<% round_count = round_count + 1 %>
+       <%= render :partial=> "shifts/round_in_duty_log", :locals => 
+       { :round_count => round_count, :round => round, :reports =>round_map[round] } %>
+     <% end %>
+  </div>

@@ -1,0 +1,13 @@
+<div id="inside_container" class="inside_container">
+<%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %>
+<div class="report_title" >
+<%= @report.display_name %> <%= @report.tag %>
+</div>
+    <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
+    <%= render :partial => "reports/show_generic" %>
+</p>
+
+<%if Authorize.not_admin_assistant_authorize(current_staff) && !(Authorize.ra_authorize(current_staff) && @report.submitted)%>
+<%= link_to 'Edit', edit_report_path(@report) %> 
+<%end%>
+</div>
