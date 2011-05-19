@@ -21,10 +21,10 @@
                                 <li>
 
                                     <a href='<%=edit_incident_report_path(report) %>'>Date: 
-                                        <%= report.approach_time.to_s(:date_only)%>
+                                        <%= report.event_date %>
 										<br/>
                                         Time: 
-                                        <%= report.approach_time.to_s(:time_only) %>
+                                        <%= report.event_time %>
                                         <br/>
                                         Building: 
                                         <%= report.building.name %>

@@ -229,10 +229,7 @@ class Report < ActiveRecord::Base
  	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
  end
  
-   private
-   def tag_datetime
-  	   (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
-  end
+
  
  
   
@@ -251,6 +248,11 @@ class Report < ActiveRecord::Base
         self.add_default_relationship_for_participant(Integer(p))
       end
     end
+  end
+  
+   private
+   def tag_datetime
+  	   (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
   
 end

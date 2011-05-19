@@ -8,3 +8,5 @@ en:
      help: Add students reporting problem for Maintenance to contact for follow-up
   reports:
      help: Add students to FYI Report
+  notes:
+     help: Add students related to rounds note

@@ -7,8 +7,8 @@
 <% end %>
 
 <td><%= incident_report.tag %></td>
-<td><%= incident_report.approach_time.strftime("%m/%d/%Y") %></td>
-<td><%= incident_report.approach_time.to_s(:time_only) %></td>
+<td><%= incident_report.event_date %></td>
+<td><%= incident_report.event_time %></td>
 <td><%= incident_report.building.name %></td>
 <td><%= incident_report.room_number %></td>
 <td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>

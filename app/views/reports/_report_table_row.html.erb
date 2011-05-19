@@ -8,8 +8,8 @@
   	<tr>
 <% end %>
 
-<td><%= report.approach_time.strftime("%m/%d/%Y") %></td>
-<td><%= report.approach_time.to_s(:time_only) %></td>
+<td><%= report.event_date %></td>
+<td><%= report.event_time %></td>
 <td><%= report.tag %></td>
 <td><%= report.building.name %></td>
 <td><%= report.room_number %></td>
