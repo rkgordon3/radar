@@ -46,7 +46,7 @@ class Report < ActiveRecord::Base
   def setup_defaults
     if self.id == nil
       self.building_id = Building.unspecified
-      self.approach_time = Time.now
+      self.approach_time = Time.now.utc
       self.submitted = false
       self.tag = tag
     end
