@@ -214,8 +214,27 @@ class Report < ActiveRecord::Base
   
   
   def tag
-    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + approach_time.strftime("%Y%m%d-%H%M") + "-" + staff_id.to_s 
+  	
+  	  tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s 
+ 
   end
+  
+
+  
+ def event_time
+  	  (approach_time != nil ? approach_time : created_at).to_s(:time_only)
+ end
+ 
+ def event_date
+ 	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
+ end
+ 
+   private
+   def tag_datetime
+  	   (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
+  end
+ 
+ 
   
   
   
