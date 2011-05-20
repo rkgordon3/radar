@@ -11,7 +11,14 @@ class ShiftsController < ApplicationController
   
   
   def index
-    @shifts = Shift.find( :all, :order => "created_at DESC"  ) 
+    
+    @shifts = Shift.order("created_at DESC")
+    if params[:sort]=="date"
+    elsif params[:sort]=="area"
+      @shifts=Shift.joins(:area).order("name ASC")
+    elsif params[:sort]=="submitter"
+      @shifts=Shift.joins(:staff).order("last_name " + "ASC")
+    end
     @numRows = 0
     
     respond_to do |format|
@@ -99,14 +106,14 @@ class ShiftsController < ApplicationController
     @shift.save
     
     respond_to do |format|
-    	    format.js
-    	    format.iphone {
-    	    	    render :update do |page|
-    	    	    	   # page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
-    	    	    	    page.replace_html("duty_button", :partial=>"shifts/end_shift_button" )
-    	    	    	    page.replace_html("round_button", :partial=>"rounds/start_round_button" )
-    	    	    end
-    	    }
+      format.js
+      format.iphone {
+        render :update do |page|
+          # page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
+          page.replace_html("duty_button", :partial=>"shifts/end_shift_button" )
+          page.replace_html("round_button", :partial=>"rounds/start_round_button" )
+        end
+      }
     end
   end
   
@@ -120,7 +127,7 @@ class ShiftsController < ApplicationController
       rep=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end)
       round_map[round] =rep
       round_time_start=round_time_end
-      end
+    end
     
     respond_to do |format|
       format.html
@@ -131,28 +138,28 @@ class ShiftsController < ApplicationController
   def end_shift    
     @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
     if @shift == nil 
-    	    return
+      return
     end
     @shift.time_out = Time.now
     @shift.save
     @round = Round.where(:end_time => nil, :shift_id => @shift.id).first
     if @round != nil	    	
-    	@round.end_time = Time.now
-    	@round.save
-    	notice = "You are now off a round and off duty."
+      @round.end_time = Time.now
+      @round.save
+      notice = "You are now off a round and off duty."
     else
-    	notice = "You are now off duty."		
+      notice = "You are now off duty."		
     end
     
     respond_to do |format|
-    	    format.js
-    	    format.iphone {
-    	    	    render :update do |page|	
-    	    	    	    #page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
-    	    	    	    page.replace_html("duty_button", :partial=>"shifts/start_shift_button")
-    	    	    	    page.replace_html("round_button", "" )
-    	    	    end
-    	    }
+      format.js
+      format.iphone {
+        render :update do |page|	
+          #page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
+          page.replace_html("duty_button", :partial=>"shifts/start_shift_button")
+          page.replace_html("round_button", "" )
+        end
+      }
     end
   end
   
@@ -160,6 +167,5 @@ class ShiftsController < ApplicationController
   def round_map
     @round_map ||= Hash.new
   end
-  
   
 end

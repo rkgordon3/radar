@@ -1,11 +1,10 @@
 <table>
   <tr>
-	<th>Name</th>
-    <th>Date</th>
-    <th width="30">Time In</th>
-    <th width="30">Time Out</th>
-    <th>Area</th>
-    <th></th>
+    <th><%= link_to "Date", :sort => "date" %></th>
+    <th><%= link_to "Time", :sort => "date" %></th>
+    <th><%= link_to "Area", :sort => "area" %></th>
+    <th><%= link_to "Submitter", :sort => "submitter" %></th>
+	<th></th>
   </tr>
   
 <% shifts.each do |shift| %>
@@ -18,11 +17,10 @@
   		<tr>
   	<% end %>
 
-	<td><%= shift.staff.first_name %> <%= shift.staff.last_name %></td>
-  	<td><%= shift.created_at.to_s(:short_date_only) %></td>
-  	<td align="right"><%= shift.created_at.to_s(:time) %></td>
-  	<td align="right"><%= shift.time_out.to_s(:time) %></td>
+	<td><%= shift.start_date %></td>
+  	<td><%= shift.time %></td>
   	<td><%= shift.area.name %></td>
+  	<td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
   	<td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td> 
   	</tr>
 
