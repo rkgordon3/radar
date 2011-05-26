@@ -3,7 +3,7 @@ require File.expand_path('../application', __FILE__)
 
 DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
 
-VENDOR_IMAGE_PATH = "http://webtools.smumn.edu/images/"
+VENDOR_IMAGE_PATH = nil
 
 IMAGE_PATH = VENDOR_IMAGE_PATH || DEFAULT_IMAGE_PATH
 
