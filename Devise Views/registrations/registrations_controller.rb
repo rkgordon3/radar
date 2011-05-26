@@ -26,14 +26,18 @@ class Devise::RegistrationsController < ApplicationController
 
   # GET /resource/edit
   def edit
+    @staff = Staff.find(params[:id])
     render_with_scope :edit
   end
 
   # PUT /resource
   def update
-    if resource.update_with_password(params[resource_name])
-      set_flash_message :notice, :updated
-      redirect_to after_update_path_for(resource)
+    params[resource_name].delete(:password) if params[resource_name][:password].blank?
+    params[resource_name].delete(:password_confirmation) if params[resource_name][:password_confirmation].blank?
+    @staff = Staff.find(params[resource_name][:id])
+    if resource.update_attributes(params[resource_name])
+      set_flash_message :notice, "Updated Account Successfully"
+      redirect_to (resource)
     else
       clean_up_passwords(resource)
       render_with_scope :edit

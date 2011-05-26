@@ -1,4 +1,4 @@
-class StaffsController < ApplicationController
+class StaffsController < Devise::RegistrationsController
   # GET /staffs
   # GET /staffs.xml
   before_filter :authenticate_staff!
@@ -7,7 +7,6 @@ class StaffsController < ApplicationController
   def index
     @staffs = Staff.all
     @numRows = 0
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @staffs }
@@ -23,6 +22,10 @@ class StaffsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @staff }
     end
+  end
+  
+  def edit
+    @staff = Staff.find(params[:id])
   end
 
   # GET /staffs/new
@@ -49,4 +52,17 @@ class StaffsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  def update
+    @staff = Staff.find(params[:id])
+    
+    respond_to do |format|
+      if @staff.update_attributes(params[:staff])
+        format.html { redirect_to(@staff, :notice => 'Staff was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @staff.errors, :status => :unprocessable_entity }
+      end
+    end
+   end
 end

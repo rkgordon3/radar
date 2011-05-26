@@ -1,10 +1,7 @@
 class Participant < ActiveRecord::Base
-  	def getImageUrl 		 
-  					STUDENT_IMAGES_PATH + (email.downcase rescue "unknown")
-  	 end
-  	 
-  	 def getThumbnailUrl
-  	 				 STUDENT_THUMBS_PATH + (email.downcase rescue "unknown")
+  	def getImageUrl
+        url_for_id = UrlForId.find(self.student_id) rescue nil
+        IMAGE_PATH + (url_for_id != nil ? url_for_id.url : (self.email.downcase rescue "unknown"))
   	 end
 		
 	def Participant.get_participant_for_full_name(name_string)

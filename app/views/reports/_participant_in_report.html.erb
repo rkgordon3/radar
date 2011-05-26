@@ -3,7 +3,7 @@
       	<table>
       		<tr>
       			<td style="vertical-align: top;">
-      				<%=  image_tag(participant.getThumbnailUrl, :style=>"align:left;", :border=> 0) %>
+      				<%=  image_tag(participant.getImageUrl, :style=>"align:left;", :border=> 0, :width => 50) %>
       			</td>
 				<td style="vertical-align: top;">
 					 <%= link_to "#{participant.first_name} #{participant.last_name}", participant, :target=>"blank" %>

@@ -38,6 +38,11 @@ Radar::Application.routes.draw do
   
   match "/participant/createNoRedirect" => "participant#createNoRedirect"
   devise_for :staffs
+  devise_scope :staff do
+    get 'sign_up' => 'devise/sessions#new'
+    get '/staffs/*id/edit' => 'devise/registrations#edit'
+    resources :staffs, :only => [:index, :show, :destroy]
+  end
   
   get "home/landingpage"
 
@@ -93,8 +98,6 @@ Radar::Application.routes.draw do
   resources :reports_query
 
   resources :report_participant_relationships
-
-  resources :staffs
 
   resources :report_locations
 

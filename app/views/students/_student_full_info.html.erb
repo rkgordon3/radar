@@ -1,5 +1,5 @@
 
-    <td><%= image_tag(student.getThumbnailUrl, :border=> 0)  %></td>
+    <td><%= image_tag(student.getImageUrl, :border=> 0, :width => 50)  %></td>
 	<%if current_staff.access_level > Authorize.ra_access_level %>
     	<td><%= student.student_id %></td>
 	<% end %>
