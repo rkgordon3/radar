@@ -1,2 +1,3 @@
-page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
+page["flash_notice"].show
+page.replace_html("flash_notice", "You are now on a round.")
 page.replace_html("round_button", :partial=>"rounds/end_round_button")

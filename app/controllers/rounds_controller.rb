@@ -100,7 +100,6 @@ class RoundsController < ApplicationController
 		format.js
 		format.iphone {
 			render :update do |page|
-				#page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on a round. </div>")
 				page.replace_html("round_button", :partial=>"rounds/end_round_button")
 			end
 		}
@@ -116,9 +115,7 @@ class RoundsController < ApplicationController
 	respond_to do |format| 
 		format.js
 		format.iphone {
-			render :update do |page|	
-				#page.replace_html("flash_notice", "You are now off duty.")
-				#page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now off a round. </div>")
+			render :update do |page|
 				page.replace_html("round_button", :partial=>"rounds/start_round_button")
 			end
 		}
