@@ -60,7 +60,6 @@ Radar::Application.routes.draw do
   get "/search/delete_student"
 
  resources :incident_reports do
- 	  get :new_report, :on => :collection
  	  get :unsubmitted_reports, :on => :collection
  end
 
