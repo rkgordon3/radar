@@ -1,11 +1,10 @@
-
+<% if report.supports_selectable_contact_reasons? %>
 
 <div class="relationship-checklist">
-<% if report.class.name == "IncidentReport" %>
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	    <b>Infractions</b>
+  	<b>Infraction</b>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
   			<% infractions = RelationshipToReport.all %>
   			<% infractions.each do |infraction| %>
@@ -18,5 +17,5 @@
   				  </div>
   			<% end %>
   	</div>
-<% end %>
 </div>
+<% end %>

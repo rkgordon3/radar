@@ -37,6 +37,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @report }
+	  format.iphone { render :layout => 'mobile_application' }
     end
   end
   

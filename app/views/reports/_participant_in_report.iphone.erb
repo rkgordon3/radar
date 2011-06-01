@@ -3,7 +3,7 @@
     <fieldset>
         <ul class="iArrow">
             <li>
-                <a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"><%=image_tag(participant.getThumbnailUrl, :border=> 0) %><%= "#{participant.first_name} #{participant.last_name}" %></a>
+                <a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"><%=image_tag(participant.getImageUrl, :border=> 0) %><%= "#{participant.first_name} #{participant.last_name}" %></a>
             </li>
 
         </ul>

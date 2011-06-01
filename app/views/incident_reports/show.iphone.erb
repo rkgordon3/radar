@@ -19,7 +19,7 @@
                             <% @currentParticipantID = b.participant.id %>
                             <li>
                             <% if b.participant.type == "Student" %>
-                            <%=image_tag(b.participant.getThumbnailUrl, :border=> 0) %>
+                            <%=image_tag(b.participant.getImageUrl, :border=> 0) %>
                             <%= b.participant.first_name %><%= b.participant.last_name %></a>
                             <% else %>
                             <%= b.participant.first_name %><%= b.participant.last_name %></a>

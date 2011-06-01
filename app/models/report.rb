@@ -21,14 +21,15 @@ class Report < ActiveRecord::Base
     annotation != nil ? annotation.text : nil
   end
   
-  
-  
   def update_attributes_and_save(params)
     update_attributes_without_saving(params)
     valid?
     save
   end
   
+  def supports_selectable_contact_reasons?
+    false
+  end
   
   
   def update_attributes_without_saving(params)
