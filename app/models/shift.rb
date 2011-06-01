@@ -28,4 +28,16 @@ class Shift < ActiveRecord::Base
     end
   end
   
+  def Shift.sort(data,key)
+    new_data = data.order("created_at DESC")
+    if key=="date"
+      #default already sorted by date
+    elsif key=="area"
+      new_data=data.joins(:area).order("name ASC")
+    elsif key=="submitter"
+      new_data=data.joins(:staff).order("last_name " + "ASC")
+    end
+    return new_data
+  end
+  
 end
