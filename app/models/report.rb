@@ -230,8 +230,25 @@ class Report < ActiveRecord::Base
  	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
  end
  
-
- 
+def Report.sort(data,key)
+    new_data = data.order("approach_time DESC")
+    if key=="time"
+      #default already sorted by time
+    elsif key=="area"
+      new_data = data.joins(:building=>:area).order("areas.name ASC")
+    elsif key=="type"
+      new_data = data.order("type ASC")
+    elsif key=="building"
+      new_data = data.joins(:building).order("name ASC")
+    elsif key=="location"
+      new_data = data.order("room_number ASC")
+    elsif key=="tag"
+      new_data = data.order("tag DESC")
+    elsif key=="submitter"
+      new_data = data.joins(:staff).order("last_name " + "ASC")
+    end
+    return new_data
+  end
  
   
   

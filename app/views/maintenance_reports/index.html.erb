@@ -1,4 +1,4 @@
-<div class="report-listing-header"><h1>Maintenance Requests</h1></div>
+<div id="inside_container" class="inside_container"><h1>Maintenance Requests</h1>
 <% if @reports.length > 0 %>
 <% num_rows=0 %>	
 			<%= render :partial => "reports/index_generic", :locals => { :reports => reports, :num_rows=>num_rows} %>
@@ -7,4 +7,5 @@
 	<% end %>
 <div class="new_report_link">
 <%= link_to 'New Maintenance Request', '/maintenance_reports/new' %>
+</div>
 </div>

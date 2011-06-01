@@ -12,13 +12,8 @@ class ShiftsController < ApplicationController
   
   def index
     
-    @shifts = Shift.order("created_at DESC")
-    if params[:sort]=="date"
-    elsif params[:sort]=="area"
-      @shifts=Shift.joins(:area).order("name ASC")
-    elsif params[:sort]=="submitter"
-      @shifts=Shift.joins(:staff).order("last_name " + "ASC")
-    end
+    reorder
+    
     @numRows = 0
     
     respond_to do |format|
@@ -160,6 +155,17 @@ class ShiftsController < ApplicationController
           page.replace_html("round_button", "" )
         end
       }
+    end
+  end
+  
+  def reorder
+    @shifts = Shift.order("created_at DESC")
+    if params[:sort]=="date"
+      #default already sorted by date
+    elsif params[:sort]=="area"
+      @shifts=Shift.joins(:area).order("name ASC")
+    elsif params[:sort]=="submitter"
+      @shifts=Shift.joins(:staff).order("last_name " + "ASC")
     end
   end
   

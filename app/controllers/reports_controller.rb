@@ -6,7 +6,8 @@ class ReportsController < ApplicationController
   
   
   def index
-    @reports = Report.where("id > 0").order("approach_time DESC")
+    @reports=Report.sort(Report,params[:sort])
+    
     @numRows = 0
     
     respond_to do |format|
@@ -162,7 +163,5 @@ class ReportsController < ApplicationController
     logger.debug "ID = #{@participant.id}"
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
-  
-  
   
 end
