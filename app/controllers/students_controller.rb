@@ -193,7 +193,7 @@ class StudentsController < ApplicationController
     if params[:commit] == "Add To New Maintenance Request"
       report_folder = "maintenance_reports/new"
     else
-      report_folder = "incident_reports/new_report"
+      report_folder = "incident_reports/new"
     end
     
     keys = params.keys

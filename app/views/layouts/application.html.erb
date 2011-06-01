@@ -76,10 +76,10 @@
 				<li><a href = "/students/search_students">Search Students</a></li>
 			</ul>
 		</li>
-		<li><a href="/incident_reports/new_report">Incident Reports</a>
+		<li><a href="/incident_reports/new">Incident Reports</a>
 			<ul>
 				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
-					<li><%= link_to "New Incident Report", "/incident_reports/new_report" %></li>
+					<li><%= link_to "New Incident Report", "/incident_reports/new" %></li>
 				<% end %>
 				<% if current_staff.access_level > Authorize.ra_access_level %>
 					<li><%= link_to "List Incident Reports", "/incident_reports" %></li>

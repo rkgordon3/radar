@@ -1,7 +1,7 @@
 class IncidentReportsController < ReportsController
   
   before_filter :authenticate_staff!
-  before_filter :admin_assistant_authorize_view_access, :except => [:new_report, :show, :edit, :create, :update, :destroy]
+  before_filter :admin_assistant_authorize_view_access, :except => [:new, :show, :edit, :create, :update, :destroy]
   before_filter :not_admin_assistant_authorize_view_access, :except => [:show, :index]
   skip_before_filter :verify_authenticity_token
   
@@ -11,7 +11,7 @@ class IncidentReportsController < ReportsController
   # GET /incident_reports.xml
   def index
     self.clear_session #probably not necessary, 
-    # but maybe "back" button was pushed on a new_report or edit page
+    # but maybe "back" button was pushed on a new report or edit page
     
     # get all submitted reports so view can display them (in order of approach time)
     @reports = IncidentReport.where(:submitted => true)
@@ -131,9 +131,9 @@ class IncidentReportsController < ReportsController
   end
   
   
-  # GET /incident_reports/new_report
-  # GET /incident_reports/new_report.xml
-  def new_report
+  # GET /incident_reports/new
+  # GET /incident_reports/new.xml
+  def new
     
     @report = IncidentReport.new(:staff_id => current_staff.id)               # new report
     
@@ -144,7 +144,7 @@ class IncidentReportsController < ReportsController
     # logger.debug "in new report, these are my session saved reported infractions " 
     # logger.debug session[:report].report_participant_relationships
     respond_to do |format|
-      format.html # new_report.html.erb
+      format.html # new.html.erb
       format.xml  { render :xml => @report }
       format.iphone {render :layout => 'mobile_application'}
     end 
