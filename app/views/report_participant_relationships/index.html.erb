@@ -21,6 +21,7 @@
     <td><%= rpr.report_id %></td>
     <td><%= rpr.relationship_to_report.description %></td>
     <td><%= rpr.participant.first_name %>
+    	<%= rpr.participant.middle_initial %>
     	<%= rpr.participant.last_name %></td>
     <td><%= link_to 'Show', rpr %></td>
 	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
