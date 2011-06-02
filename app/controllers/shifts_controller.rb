@@ -102,13 +102,6 @@ class ShiftsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.iphone {
-        render :update do |page|
-          # page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> You are now on duty. </div>")
-          page.replace_html("duty_button", :partial=>"shifts/end_shift_button" )
-          page.replace_html("round_button", :partial=>"rounds/start_round_button" )
-        end
-      }
     end
   end
   
@@ -148,13 +141,6 @@ class ShiftsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.iphone {
-        render :update do |page|	
-          #page.insert_html(:top, "inside_container", "<div id = \"flash_notice\"> #{notice} </div>")
-          page.replace_html("duty_button", :partial=>"shifts/start_shift_button")
-          page.replace_html("round_button", "" )
-        end
-      }
     end
   end
   

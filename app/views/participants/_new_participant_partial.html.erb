@@ -1,8 +1,11 @@
 <div id="newParticipantPartialDiv">
   <%= form_tag('/reports/create_participant_and_add_to_report', :method => :post, :remote => true) do %>
-    <h3>No entries found for <%= "#{fName} #{lName}" %></h3>
+    <h3>No entries found for <%= "#{fName} #{mInitial} #{lName}" %></h3>
 	<%= label :participant, :first_name %>
 	<%= text_field_tag 'first_name', "#{fName}" %>
+	<br />
+	<%= label :participant, :middle_initial %>
+	<%= text_field_tag 'middle_initial', "#{mInitial}" %>
 	<br />
 	<%= label :participant, :last_name %>
 	<%= text_field_tag 'last_name', "#{lName}" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110601185854) do
+ActiveRecord::Schema.define(:version => 20110601192906) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20110601185854) do
     t.string   "email"
     t.string   "classification"
     t.string   "emergency_contact_name"
+    t.string   "middle_initial"
   end
 
   create_table "relationship_to_reports", :force => true do |t|

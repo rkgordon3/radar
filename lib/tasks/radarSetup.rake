@@ -1,10 +1,15 @@
 namespace :radar do 
   desc "Setup fresh Radar environment for developments"
   task :setup do
+    
     Rake::Task['db:drop'].invoke
     Rake::Task['db:setup'].invoke
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:data:load'].invoke
+    if ENV['RAILS_ENV'] == 'production'
+        Rake::Task["db:fixtures:load FIXTURES=participants.csv"].invoke
+    end
+    
     Rake::Task['db:sessions:clear'].invoke
     rake_system('devisepost.bat')
     puts "devise done"
@@ -14,7 +19,7 @@ namespace :radar do
     Rake::Task['db:data:dump'].invoke
     rake_system('devisepre.bat')
   end
-  
+
   namespace :test do
     desc "Setup fresh Radar environment for testing"
     task :setup do

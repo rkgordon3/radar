@@ -15,9 +15,9 @@
                             <li>
                             <% if b.participant.type == "Student" %>
                             <%=image_tag(b.participant.getImageUrl, :border=> 0) %>
-                            <%= b.participant.first_name %><%= b.participant.last_name %></a>
+                            <%= b.participant.first_name %><%= b.participant.middle_initial %><%= b.participant.last_name %></a>
                             <% else %>
-                            <%= b.participant.first_name %><%= b.participant.last_name %></a>
+                            <%= b.participant.first_name %><%= b.participant.middle_initial %><%= b.participant.last_name %></a>
                         	<% end %>
                         <br/>
                         <% end %>

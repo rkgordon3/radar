@@ -23,7 +23,7 @@
                     <ul>
                         <% session[:students].each do |s| %>
                         <li>
-                            <%= s.first_name %> <%= s.last_name %>
+                            <%= s.first_name %> <%= s.middle_initial %> <%= s.last_name %>
                         </li>
                         <% end %>
                     </ul>

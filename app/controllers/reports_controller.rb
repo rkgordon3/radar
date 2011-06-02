@@ -110,7 +110,7 @@ class ReportsController < ApplicationController
         format.js{
           render :update do |page|
             page.select("input#full_name").first.clear
-            page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :lName => lastName })
+            page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :mInitial => middleInitial, :lName => lastName })
           end
         }
       end
@@ -156,9 +156,10 @@ class ReportsController < ApplicationController
     logger.debug "Parameters = #{params}"
     @participant.first_name = params[:first_name]
     @participant.last_name = params[:last_name]
+    @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
     @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
-    @participant.full_name = "#{@participant.first_name} #{@participant.last_name}"
+    @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
     logger.debug "Partipant birthday = #{@participant.birthday}"
     logger.debug "ID = #{@participant.id}"

@@ -1,4 +1,4 @@
 <div id="inside_container" class="inside_container">
 <%= button_to  "X", { :action => "destroy",  :id => student.id }, { :method => :delete, :remote=>true }   %>
-<%= link_to  "#{student.last_name}, #{student.first_name}", student %><br/>
+<%= link_to  "#{student.last_name}, #{student.first_name} #{student.middle_initial}", student %><br/>
 </div>
