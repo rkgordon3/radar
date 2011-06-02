@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 20110601192906) do
     t.string   "email"
     t.string   "classification"
     t.string   "emergency_contact_name"
-    t.string   "middle_initial",         :limit => nil
+    t.string   "middle_initial"
   end
 
   create_table "relationship_to_reports", :force => true do |t|
