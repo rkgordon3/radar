@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.xml
   def create
-    logger.debug("IN REPORT CREATE params #{params}")
+    logger.debug("IN REPORT CREATE params: #{params}")
     
     @report = session[:report]
     logger.debug("IN REPORT CREATE report:  #{@report}")
@@ -104,7 +104,9 @@ class ReportsController < ApplicationController
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
       firstName = name_tokens[0].capitalize
-      lastName = name_tokens[1].capitalize
+      middleInitial = name_tokens[1].capitalize
+      lastName = name_tokens[2].capitalize
+      
       respond_to do |format|
         format.js{
           render :update do |page|
