@@ -87,38 +87,38 @@ class RoundsController < ApplicationController
   end
   
   def start_round
-    # I NEED A SHIFT ID TO DO ANYTHINGGGG
-    	@round = Round.new
-	#shift = params[:shift_id]
-	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
-	#logger.debug "current staff = #{current_staff.first_name}"
-	logger.debug "shift = #{@shift.id}"
-	@round.shift_id = @shift.id
-	@round.save
+	shift = current_staff.current_shift
+	if (shift != nil) 
+	
+	  @round = Round.new
+	  @round.shift_id = shift.id
+	  @round.save
 		
-	respond_to do |format|	
+	  respond_to do |format|	
 		format.js
 		format.iphone {
 			render :update do |page|
 				page.replace_html("round_button", :partial=>"rounds/end_round_button")
 			end
 		}
+	  end
 	end
   end
   
   def end_round
-  # add where shift time something
-	@shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
-	@round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-	@round.end_time = Time.now
-	@round.save
-	respond_to do |format| 
+	shift = current_staff.current_shift
+	if (shift == nil) 
+	  @round = Round.where(:end_time => nil, :shift_id => shift.id).first
+	  @round.end_time = Time.now
+	  @round.save
+	  respond_to do |format| 
 		format.js
 		format.iphone {
 			render :update do |page|
 				page.replace_html("round_button", :partial=>"rounds/start_round_button")
 			end
 		}
+	  end
 	end
   end
 end
