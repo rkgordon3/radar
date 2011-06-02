@@ -44,7 +44,7 @@
                                 <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
                             </li>
                         </ul>
-						
+						<% if !@report.is_note? %>
                         <legend>
                             Time: 
                         </legend>
@@ -52,7 +52,9 @@
                             <li>
                                 <input type="text" name="report[approach_time]" value="<%=@report.approach_time%>" />
                             </li>
-                        </ul><% if @report.submitted != true %>
+                        </ul>
+						<%end %>
+						<% if @report.submitted != true %>
                         <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/><%else %>
                         <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/><% end %>
                     </fieldset>
