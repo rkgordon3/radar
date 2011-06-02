@@ -1,6 +1,10 @@
 class IncidentReport < Report
 
- def add_reported_infractions(params)
+ def supports_selectable_contact_reasons?
+    true
+  end
+
+ def add_contact_reason(params)
     # create arrays for the new reported infractions
     new_ris = Array.new
     old_ris = Array.new

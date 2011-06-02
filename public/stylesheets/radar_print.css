@@ -31,10 +31,7 @@ td {
   padding: 00px 0px;
   border: solid 1px black;
   margin-top: 0px;
-  box-shadow: 0px 0px 12px #878787;
--webkit-box-shadow: 0px 0px 12px #878787;
--moz-box-shadow: 0px 0px 12px #878787;
-filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true)
+ 
 }
 
 #inside_container {

@@ -18,8 +18,8 @@
   	<% end %>
 
 	<td><%= shift.start_date %></td>
-  	<td><%= shift.time %></td>
-  	<td><%= shift.area.name %></td>
+  	<td><%= shift.time rescue "In Progress" %></td>
+  	<td><%= shift.area.name rescue "Unknown" %></td>
   	<td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
   	<td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td> 
   	</tr>

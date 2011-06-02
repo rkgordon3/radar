@@ -1,12 +1,5 @@
 module ApplicationHelper
 
-	def on_duty
-		Shift.where(:staff_id => current_staff.id, :time_out => nil).first != nil
-	end
-	
-	def on_round
-		Round.where(:end_time => nil).first != nil		
-	end
 				
 module Helpers
     module UrlHelper

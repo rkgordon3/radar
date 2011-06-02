@@ -90,7 +90,7 @@ class IncidentReportsController < ReportsController
   def create
     @report = session[:report]
     # process parameters into reported infractions
-    @report.add_reported_infractions(params)   
+    @report.add_contact_reason(params)   
     super
     
     
@@ -102,7 +102,7 @@ class IncidentReportsController < ReportsController
     logger.debug("IR update")
     @report = session[:report]
     # process check boxes to update reported infractions
-    @report.add_reported_infractions(params)
+    @report.add_contact_reason(params)
     
     super
   end

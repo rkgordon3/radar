@@ -37,6 +37,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @report }
+	  format.iphone { render :layout => 'mobile_application' }
     end
   end
   
@@ -104,9 +105,9 @@ class ReportsController < ApplicationController
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
       firstName = name_tokens[0].capitalize
-      middleInitial = name_tokens[1].capitalize
       lastName = name_tokens[2].capitalize
-      
+	  middleInitial = name_tokens[1].capitalize
+
       respond_to do |format|
         format.js{
           render :update do |page|
