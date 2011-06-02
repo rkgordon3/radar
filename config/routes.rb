@@ -1,5 +1,9 @@
 Radar::Application.routes.draw do
 
+  resources :staff_organizations
+
+  resources :organizations
+
   resources :tasks
   
   resources :notes

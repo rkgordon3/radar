@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110524032329) do
+ActiveRecord::Schema.define(:version => 20110601185854) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(:version => 20110524032329) do
     t.datetime "last_notified"
   end
 
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.string   "display_name"
+    t.string   "abbreviation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "participants", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -69,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20110524032329) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "report_type_id"
   end
 
   create_table "report_participant_relationships", :force => true do |t|
@@ -85,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20110524032329) do
     t.datetime "updated_at"
     t.string   "display_name"
     t.string   "abbreviation"
+    t.integer  "organization_id"
   end
 
   create_table "reports", :force => true do |t|
@@ -123,6 +133,13 @@ ActiveRecord::Schema.define(:version => 20110524032329) do
     t.integer  "staff_id"
     t.datetime "time_out"
     t.integer  "area_id"
+  end
+
+  create_table "staff_organizations", :force => true do |t|
+    t.integer  "staff_id"
+    t.integer  "organization_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "staffs", :force => true do |t|
