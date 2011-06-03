@@ -1,5 +1,6 @@
 class Staff < ActiveRecord::Base
-  has_many :organization
+  has_many :organizations
+  has_many :areas
   has_many :notification_preferences
   before_save :lower_email
   after_initialize :set_active

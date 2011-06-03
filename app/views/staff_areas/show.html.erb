@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Staff:</b>
+  <%= @staff_area.staff_id %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%= @staff_area.area_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_staff_area_path(@staff_area) %> |
+<%= link_to 'Back', staff_areas_path %>
