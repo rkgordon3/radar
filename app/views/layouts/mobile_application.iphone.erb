@@ -20,33 +20,27 @@
     <div id="WebApp">
 
     	<div id="iHeader" style="background-color: #b22222">
-          <a href="#" onclick="javascript:showDiv('searchform')" id="waBackButton">Back</a>
-            <% if staff_signed_in? %>
-	<div id="toolbar"> 
-		<table border="0">
-		<tr>
 			
-			
-			
-			
-			<td style = "width: 170px;">
-			
-			<div id = "round_button">
-			<% if current_staff.on_duty? %>
-				<% if current_staff.on_round? == true %>					
-						<%= render :partial => "rounds/end_round_button" %>					
-				<% else %>					
-						<%= render :partial => "rounds/start_round_button" %>					
+          
+           
+			<div id="toolbar"> 
+				<div sytle="position:absolute;left=10px;top:10px;" >
+				    <a href = "../home/landingpage" class="iPush" >
+				     <%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
+			        </a>
+				</div>
+				<% if staff_signed_in? %>
+					<div id = "round_button" style="position:absolute;left:60px; top:0px;">
+						<% if current_staff.on_duty? %>
+							<% if current_staff.on_round? == true %>					
+								<%= render :partial => "rounds/end_round_button" %>					
+							<% else %>					
+								<%= render :partial => "rounds/start_round_button" %>					
+							<% end %>
+						<% end %>
+					</div>
 				<% end %>
-			<% end %></div></td>			
-
-		</tr>
-		</table>    
-	</div> 	
-	
-
-<% end %>
- 
+			</div> 	
 	 
     	</div>
    
