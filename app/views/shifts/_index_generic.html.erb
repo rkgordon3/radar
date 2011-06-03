@@ -1,7 +1,7 @@
 <table>
   <tr>
-    <th><%= link_to "Date", :sort => "date" %></th>
-    <th><%= link_to "Time", :sort => "date" %></th>
+    <th><%= link_to "Time In", :sort => "time_in" %></th>
+    <th><%= link_to "Time Out", :sort => "time_out" %></th>
     <th><%= link_to "Area", :sort => "area" %></th>
     <th><%= link_to "Submitter", :sort => "submitter" %></th>
 	<th></th>
@@ -17,8 +17,8 @@
   		<tr>
   	<% end %>
 
-	<td><%= shift.start_date %></td>
-  	<td><%= shift.time rescue "In Progress" %></td>
+	<td><%= "#{shift.start_date}, #{shift.start_time}" %></td>
+  	<td><%= "#{shift.end_date}, #{shift.end_time}" rescue "In Progress" %></td>
   	<td><%= shift.area.name rescue "Unknown" %></td>
   	<td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
   	<td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td> 
