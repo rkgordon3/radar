@@ -6,7 +6,9 @@ Radar::Application.routes.draw do
 
   resources :tasks
   
-  resources :notes
+  resources :notes do
+   get :unsubmitted_index, :on => :collection
+  end
 
   resources :report_types
 
@@ -64,10 +66,13 @@ Radar::Application.routes.draw do
   get "/search/delete_student"
 
  resources :incident_reports do
- 	  get :unsubmitted_reports, :on => :collection
- end
+  get :unsubmitted_index, :on => :collection
+  end
 
- resources :maintenance_reports                                                                                                              
+ resources :maintenance_reports do
+  get :unsubmitted_index, :on => :collection
+  end
+
   
   match "/reports_query/search" => "reports_query#search"
   get "/reports_query/search"
@@ -117,7 +122,9 @@ Radar::Application.routes.draw do
 
   resources :locations
 
-  resources :reports
+  resources :reports  do
+ 	  get :unsubmitted_index, :on => :collection
+ end
 
   resources :students
   

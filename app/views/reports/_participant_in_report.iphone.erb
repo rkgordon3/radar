@@ -1,11 +1,18 @@
 
 <div class="p-relationship" id=<%= "'p-in-report-#{participant.id}'" %>>
     <fieldset>
+	<% if report.supports_selectable_contact_reasons? %>
         <ul class="iArrow">
             <li>
-                <a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"><%=image_tag(participant.getImageUrl, :border=> 0) %><%= "#{participant.first_name} #{participant.middle_initial} #{participant.last_name}" %></a>
+                <a href="#_<%=participant.id%>" onclick="javascript:hideDiv('searchform')"><%=image_tag(participant.getImageUrl, :border=> 0, :width=>30) %><%= "#{participant.first_name} #{participant.middle_initial} #{participant.last_name}" %></a>
             </li>
-
         </ul>
+	<% else %>
+	   <ul>
+	     <li>
+	       <%=image_tag(participant.getImageUrl, :border=> 0, :width=>30) %><%= "#{participant.first_name} #{participant.middle_initial} #{participant.last_name}" %>
+	     </li>
+       </ul>
+	<% end %>
     </fieldset>
 </div>
