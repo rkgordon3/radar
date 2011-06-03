@@ -167,4 +167,14 @@ class ReportsController < ApplicationController
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
   
+    # Used only by iphone view
+  def unsubmitted_index
+    model_name = params[:controller].chomp('_controller').camelize.singularize
+    @reports = Kernel.const_get(model_name).where("submitted = ? AND staff_id = ? and type = '#{model_name}' ", false, current_staff.id).order(:approach_time)
+	
+    respond_to do |format|
+      format.iphone {render :file => "reports/unsubmitted_index", :layout => 'mobile_application'}
+    end
+  end
+  
 end

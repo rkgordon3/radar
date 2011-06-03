@@ -1,7 +1,7 @@
 
     <div id="iGroup">
         <div class="iLayer" id="waHome" title="Home">
-            <form action="/incident_reports" method="POST">
+            <form action="/incident_reports" >
                 <div class="iPanel">
                     <fieldset>
 					   <legend><%= "#{@report.display_name} :  #{@report.tag}" %></legend>
@@ -49,14 +49,14 @@
                         </li>
                     </ul>
                     <legend>
-                        Approach Date:
+                        Approach Time:
                     </legend>
                     <ul>
                         <li>
-                            <%= @report.event_date %>
+                            <%= @report.event_date %> @ <%= @report.event_time %>
                         </li>
                     </ul>
-                    <a href='unsubmitted_reports' class="iPush iBClassic" style="width:100%">View Reports</a>
+                    <a href='unsubmitted_index' class="iPush iBClassic" style="width:100%">View Reports</a>
                     </fieldset>
                 </div>
             </form>
