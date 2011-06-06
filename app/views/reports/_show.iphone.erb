@@ -5,6 +5,7 @@
                 <div class="iPanel">
                     <fieldset>
 					   <legend><%= "#{@report.display_name} :  #{@report.tag}" %></legend>
+					   <% if @report.report_participant_relationships.size > 0 %>
 					   <br/>
                         <Legend>
                             Student:
@@ -29,9 +30,8 @@
                         <% end %>
                         </li>
                     </ul>
-                    <Legend>
-                        Building:
-                    </Legend>
+					<% end %>
+
                     <ul>
                         <li>
                             Building:<span><%= @report.building.name %></span>
