@@ -17,6 +17,10 @@ class Report < ActiveRecord::Base
   	  type == "Note"
   end
   
+  def can_submit_from_mobile?
+    false
+  end
+  
   def annotation_text
     annotation != nil ? annotation.text : nil
   end
