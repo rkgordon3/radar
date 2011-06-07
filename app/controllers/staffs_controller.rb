@@ -52,6 +52,7 @@ class StaffsController < Devise::RegistrationsController
       format.xml  { head :ok }
     end
   end
+  
   def update
     @staff = Staff.find(params[:id])
     
@@ -64,5 +65,10 @@ class StaffsController < Devise::RegistrationsController
         format.xml  { render :xml => @staff.errors, :status => :unprocessable_entity }
       end
     end
-   end
+  end
+  
+  def update_area
+    logger.debug "*********in update_area**************"
+  end
+  
 end
