@@ -1,0 +1,16 @@
+<% task_assignments.each do |assignment| %>
+
+<% if num_rows == 0 %>
+    <% num_rows = num_rows + 1 %>
+    <tr class="shaded">
+  <% else %>
+    <% num_rows = 0 %> 
+    <tr>
+  <% end %>
+  
+<td><%= assignment.task.title %></td>
+<td><%= assignment.done_string %></td>
+
+</tr>
+<% end %>
+</tr>
