@@ -34,14 +34,14 @@
 
                     <ul>
                         <li>
-                            Building:<span><%= @report.building.name %></span>
+                            <%= t "building" %><span><%= @report.building.name %></span>
                         </li>
                         <li>
-                            Specific Location:<span><%= @report.room_number %></span>
+                            <%= t "location" %><span><%= @report.room_number %></span>
                         </li>
                     </ul>
                     <Legend>
-                        Annotation:
+                        <%= t "annotation" %>
                     </Legend>
                     <ul>
                         <li>
