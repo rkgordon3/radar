@@ -107,7 +107,7 @@ class RoundsController < ApplicationController
   
   def end_round
 	shift = current_staff.current_shift
-	if (shift == nil) 
+	if (shift != nil) 
 	  @round = Round.where(:end_time => nil, :shift_id => shift.id).first
 	  @round.end_time = Time.now
 	  @round.save
