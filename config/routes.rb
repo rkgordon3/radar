@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :task_assignments  
+  
   resources  :tests
   
   get "tests/xxxx"

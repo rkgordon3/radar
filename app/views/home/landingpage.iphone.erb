@@ -46,9 +46,11 @@ RUBY
 						<li>
 							<a href = "/notes/new">Make a Note</a>
 						</li>
+						<% if current_staff.on_duty? %>
 						<li>
 							<a href = "#_Checklist">To Do List</a>
 						</li>
+						<% end %>
 						<li>
 							<a href = "#_Reports">View Reports</a>
 						</li>
@@ -76,6 +78,7 @@ RUBY
 				</fieldset>
 			</div>
 		</div>
+		<% if staff_signed_in? %>
 		<div class="iLayer" id="waChecklist" >
 			<a href="#_Home" rel="back">Back</a>
 			<div class="iPanel">
@@ -85,14 +88,14 @@ RUBY
 				</Legend>
 				<%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
 				<ul class="iArrow">
-					<% Task.find(:all).each do |t| %>
+					<% current_staff.currently_assigned_tasks.each do | t | %>
 					<li>
 					<%= check_box_tag "task[#{t.id}]",
-                        t.title,
-                        true,
+                        t.task.title,
+                        t.done,
 						:onclick => "javascript: update_todo();",
                         :class=>"iToggle", :title=>"Yes|No" %>
-						<%= t.title %>
+						<%= t.task.title %>
 					</li>
 					
 					<% end %>
@@ -103,6 +106,7 @@ RUBY
 				</fieldset>
 			</div>
 		</div>
+		<% end %>
     </div>
 
 

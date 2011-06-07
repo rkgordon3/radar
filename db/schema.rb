@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110603193720) do
+ActiveRecord::Schema.define(:version => 20110607173352) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -172,6 +172,14 @@ ActiveRecord::Schema.define(:version => 20110603193720) do
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
   add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token"
+
+  create_table "task_assignments", :force => true do |t|
+    t.integer  "shift_id"
+    t.integer  "task_id"
+    t.boolean  "done"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tasks", :force => true do |t|
     t.string   "title"

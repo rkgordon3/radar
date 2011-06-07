@@ -1,4 +1,4 @@
-<div id="inside_container" class="inside_container">
+<div>
 <h3><%= "Round #{round_count}" %>: 
   	    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
 	<div>
@@ -6,7 +6,7 @@
                      :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
  
   	    Reports</h4>
-  		<div id="<%= round.id %>-reports" style="display: none;">
+  		<div id="<%= round.id %>-reports" style="display: none;" >
   			<% if reports.length > 0 %>
   				<table>
 					<%= render :partial => "reports/report_table_row_labels" %>

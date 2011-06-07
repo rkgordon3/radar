@@ -67,8 +67,4 @@ class StaffsController < Devise::RegistrationsController
     end
   end
   
-  def update_area
-    logger.debug "*********in update_area**************"
-  end
-  
 end

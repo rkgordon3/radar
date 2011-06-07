@@ -4,11 +4,11 @@
   <%= @report.event_date %><br/><br />
   <b>Approach Time:</b>
   <%= @report.event_time %><br/><br />
-  <b>Location:</b>
+  <b><%= t "location" %></b>
   <%= @report.building.name %><br/><br />
   <b>Room Number:</b>
   <%= @report.room_number %><br/><br />
-  <b>Annotation:</b>
+  <b> <%= t "annotation" %></b>
   <%= @report.annotation_text %><br/><br />
   <b>Submitter:</b>
   <%= @report.staff.first_name %> <%= @report.staff.last_name %><br/><br />

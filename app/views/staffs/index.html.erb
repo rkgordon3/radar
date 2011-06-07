@@ -19,10 +19,10 @@
     <% @numRows = 0 %> 
     <tr>
   <% end %>
-  	<td><%= "#{staff.last_name}, #{staff.first_name}" %></td>
+    <td><%= "#{staff.last_name}, #{staff.first_name}" %></td>
     <td><%= staff.email %></td>
     <td><%= Authorize.string_for_access_level(staff.access_level) %></td>
-    <td><%= select :staff_area, :area_id, Area.where("name <> 'Unspecified'").order(:name).collect{|p| [p.name, p.id]}, {}%><%= link_to 'Update', :controller => "staffs", :action => "update_area", :id => staff, :area_id => :area_id %></td>
+    <td><%= select( staff, :area_id, options_for_select(Area.where("name <> 'Unspecified'").order(:name).collect{|p| [p.name, p.id]}, staff.staff_areas[0].area.id ), {} ) %>
     <td><%= link_to 'Show', staff %></td>
     <td><%= link_to 'Edit', "/staffs/#{staff.id}/edit" %></td>
     <td><%= link_to 'Destroy', staff, :confirm => 'Are you sure?', :method => :delete %></td>

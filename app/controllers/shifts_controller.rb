@@ -99,6 +99,9 @@ class ShiftsController < ApplicationController
   
   def start_shift
     @shift = Shift.new(:staff_id => current_staff.id)
+    Task.all.each do |task|
+      @shift.add_task(task)
+    end
     @shift.save
     
     respond_to do |format|
@@ -108,9 +111,10 @@ class ShiftsController < ApplicationController
   
   def duty_log
     
-    @shift=Shift.find(params[:id])
-    @rounds=Round.where("shift_id = ?",params[:id]).order(:end_time)
-    round_time_start=@shift.created_at
+    @shift = Shift.find(params[:id])
+    @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
+    round_time_start = @shift.created_at
+    @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
     @rounds.each do |round|
       round_time_end=round.end_time
       report=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
@@ -138,18 +142,28 @@ class ShiftsController < ApplicationController
     if @round != nil	    	
       @round.end_time = Time.now
       @round.save
-      notice = "You are now off a round and off duty."
+      @notice = "You are now off a round and off duty."
     else
-      notice = "You are now off duty."		
+      @notice = "You are now off duty."		
     end
+	
+	if !@shift.tasks_completed?
+	   @notice = @notice + "...but some tasks were not completed!"
+	end
     
     respond_to do |format|
-      format.js
+      format.js 
     end
   end
   
   def update_todo
-  logger.debug("in update todo")
+    task_list = params[:task]
+    TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
+	logger.debug("Assignment #{task_list[assignment.task_id]}")
+      assignment.done = task_list[assignment.task_id.to_s] != nil
+	  assignment.save
+    end
+  
 	respond_to do |format|
 	  format.iphone { render :nothing => true }
 	end
