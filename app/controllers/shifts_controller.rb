@@ -111,9 +111,10 @@ class ShiftsController < ApplicationController
   
   def duty_log
     
-    @shift=Shift.find(params[:id])
-    @rounds=Round.where("shift_id = ?",params[:id]).order(:end_time)
-    round_time_start=@shift.created_at
+    @shift = Shift.find(params[:id])
+    @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
+    round_time_start = @shift.created_at
+    @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
     @rounds.each do |round|
       round_time_end=round.end_time
       report=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
