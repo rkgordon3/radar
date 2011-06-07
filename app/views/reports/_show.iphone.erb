@@ -56,7 +56,7 @@
                             <%= @report.event_date %> @ <%= @report.event_time %>
                         </li>
                     </ul>
-                    <a href='unsubmitted_index' class="iPush iBClassic" style="width:100%">View Reports</a>
+                    <a href='on_duty_index' class="iPush iBClassic" style="width:100%">View <%= @report.display_name.pluralize %></a>
                     </fieldset>
                 </div>
             </form>

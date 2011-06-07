@@ -54,9 +54,11 @@
                             </li>
                         </ul>
 						<%end %>
-						<% if @report.submitted != true %>
-                        <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/><%else %>
-                        <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/><% end %>
+						<% if @report.can_submit_from_mobile? %>
+						  <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
+                        <%else %>
+						  <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
+						<% end %>
                     </fieldset>
                 </div>
             </div>
