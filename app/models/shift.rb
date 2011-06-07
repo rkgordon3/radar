@@ -16,6 +16,12 @@ class Shift < ActiveRecord::Base
     super
   end
   
+  def tasks_completed? 
+  logger.debug("TASKS COMPLETED? #{ TaskAssignment.where(:shift_id => self.id, :done => false).length}")
+   TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
+  end
+ 
+  
   def start_time
     created_at.to_s(:time_only)
   end
