@@ -56,7 +56,8 @@
                             <%= @report.event_date %> @ <%= @report.event_time %>
                         </li>
                     </ul>
-                    <a href='on_duty_index' class="iPush iBClassic" style="width:100%">View <%= @report.display_name.pluralize %></a>
+					<a href=<%="/#{params[:controller]}/#{@report.id}/edit"  %>   style="width:100%" class="iPush iBClassic" %>Edit</a>
+					<a href = "/home/landingpage" class="iPush iBClassic" style="width:100%">Home</a>
                     </fieldset>
                 </div>
             </form>
