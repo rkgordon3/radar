@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shift_id: 1
+  task_id: 1
+  done: false
+
+two:
+  shift_id: 1
+  task_id: 1
+  done: false

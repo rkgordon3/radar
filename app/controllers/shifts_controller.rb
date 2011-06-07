@@ -99,6 +99,9 @@ class ShiftsController < ApplicationController
   
   def start_shift
     @shift = Shift.new(:staff_id => current_staff.id)
+    Task.all.each do |task|
+      @shift.add_task(task)
+    end
     @shift.save
     
     respond_to do |format|

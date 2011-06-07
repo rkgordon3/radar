@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Shift:</b>
+  <%= @task_assignment.shift_id %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%= @task_assignment.task_id %>
+</p>
+
+<p>
+  <b>Done:</b>
+  <%= @task_assignment.done %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_assignment_path(@task_assignment) %> |
+<%= link_to 'Back', task_assignments_path %>

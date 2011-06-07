@@ -1,7 +1,20 @@
 class Shift < ActiveRecord::Base
-  belongs_to  	:staff
+  belongs_to :staff
   has_many :rounds
   belongs_to :area
+  has_many :task_assignments
+  
+  def add_task (task)
+    ta = TaskAssignment.new(:shift_id => self.id, :task_id => task.id, :done => false)
+    self.task_assignments << ta
+  end
+  
+  def save
+    self.task_assignments.each do |ta|
+      ta.save
+    end
+    super
+  end
   
   def start_time
     created_at.to_s(:time_only)
