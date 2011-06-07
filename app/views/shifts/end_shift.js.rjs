@@ -1,4 +1,4 @@
 page["flash_notice"].show
-page.replace_html("flash_notice", "You are now off duty.")
+page.replace_html("flash_notice", @notice)
 page.replace_html("duty_button", :partial=>"shifts/start_shift_button")
 page.replace_html("round_button", "" )

@@ -21,6 +21,10 @@ class Report < ActiveRecord::Base
     false
   end
   
+  def can_edit_from_mobile?
+	false
+  end
+  
   def annotation_text
     annotation != nil ? annotation.text : nil
   end

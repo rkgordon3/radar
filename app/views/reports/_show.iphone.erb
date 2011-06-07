@@ -56,7 +56,9 @@
                             <%= @report.event_date %> @ <%= @report.event_time %>
                         </li>
                     </ul>
-					<a href=<%="/#{params[:controller]}/#{@report.id}/edit"  %>   style="width:100%" class="iPush iBClassic" %>Edit</a>
+					<% if @report.can_edit_from_mobile? %>
+						<a href=<%="/#{params[:controller]}/#{@report.id}/edit"  %>   style="width:100%" class="iPush iBClassic" %>Edit</a>
+					<% end %>
 					<a href = "/home/landingpage" class="iPush iBClassic" style="width:100%">Home</a>
                     </fieldset>
                 </div>

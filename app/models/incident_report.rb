@@ -4,6 +4,10 @@ class IncidentReport < Report
     true
   end
 
+  def can_edit_from_mobile?
+	true
+  end
+  
  def add_contact_reason(params)
     # create arrays for the new reported infractions
     new_ris = Array.new
