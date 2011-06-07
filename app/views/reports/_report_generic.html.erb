@@ -15,7 +15,6 @@
   
   <div id="s-i-form">
      <%  @report.participant_ids.each  do |pid|  %>    
-       <% logger.debug("location participant #{pid} ") %>
        <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
      <% end %>
   </div>
