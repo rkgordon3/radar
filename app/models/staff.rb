@@ -23,7 +23,7 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
   
-  
+ 
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active 
@@ -37,6 +37,10 @@ class Staff < ActiveRecord::Base
   
   def current_shift
     Shift.where(:staff_id => self.id, :time_out => nil).first 
+  end
+  
+  def currently_assigned_tasks
+    Shift.find(self.current_shift.id).task_assignments rescue []
   end
   
   
