@@ -141,13 +141,17 @@ class ShiftsController < ApplicationController
     if @round != nil	    	
       @round.end_time = Time.now
       @round.save
-      notice = "You are now off a round and off duty."
+      @notice = "You are now off a round and off duty."
     else
-      notice = "You are now off duty."		
+      @notice = "You are now off duty."		
     end
+	
+	if !@shift.tasks_completed?
+	   @notice = @notice + "...but some tasks were not completed!"
+	end
     
     respond_to do |format|
-      format.js
+      format.js 
     end
   end
   
