@@ -1,8 +1,17 @@
-
+<%= javascript_tag <<-RUBY
+function update_todo()
+{
+ var submit_button="submit_button";
+ var form_name="update_todo";
+ // here you can build the form, or modify form parameters
+ $(submit_button).click();
+}
+RUBY
+%>
     <div id="iGroup">
-        <div class="iLayer" id="waRio" title="Rio">
+        <div class="iLayer" id="waHome" title="Home">
         	
-            <form>
+        
                 <div id = "user_nav">
                              <div class="iMenu">       	
                     <% if staff_signed_in? %>
@@ -27,25 +36,73 @@
                 <p>
                 <div class="iPanel">
                 	<fieldset>
-                	  <ul class="iArrow">
-                	    <li>
-                		<a href = "/incident_reports/new">New Incident Report</a>
-			    </li>
-			     <li>
-                		<a href = "/maintenance_reports/new">New Maintenance Request</a>
-			    </li>
-			    <li>
-                		<a href = "/notes/new">Make a Note</a>
-			    </li>
-			    <li>
-				<a href = "/incident_reports/unsubmitted_index">Incident Reports</a>
-			    </li>
-			  </ul>
-			</fieldset>
+						<ul class="iArrow">
+						<li>
+							<a href = "/incident_reports/new">New Incident Report</a>
+						</li>
+						<li>
+							<a href = "/maintenance_reports/new">New Maintenance Request</a>
+						</li>
+						<li>
+							<a href = "/notes/new">Make a Note</a>
+						</li>
+						<li>
+							<a href = "#_Checklist">To Do List</a>
+						</li>
+						<li>
+							<a href = "#_Reports">View Reports</a>
+						</li>
+						</ul>
+					</fieldset>
 				</div>
-				</p>
                 <% end %>
-            </form>
+         
         </div>
+		<div class="iLayer" id="waReports" >
+			<a href="#_Home" rel="back">Back</a>
+			<div class="iPanel">
+				<fieldset>
+				<ul class="iArrow">
+					<li>
+						<a href = "/incident_reports/on_duty_index">Incident Reports</a>
+					</li>
+					<li>
+						<a href = "/maintenance_reports/on_duty_index">Maintenance Request</a>
+					</li>
+					<li>
+						<a href = "/notes/on_duty_index">Notes</a>
+					</li>
+				</ul>
+				</fieldset>
+			</div>
+		</div>
+		<div class="iLayer" id="waChecklist" >
+			<a href="#_Home" rel="back">Back</a>
+			<div class="iPanel">
+				<fieldset>
+				<Legend>
+				  To Do List
+				</Legend>
+				<%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
+				<ul class="iArrow">
+					<% Task.find(:all).each do |t| %>
+					<li>
+					<%= check_box_tag "task[#{t.id}]",
+                        t.title,
+                        true,
+						:onclick => "javascript: update_todo();",
+                        :class=>"iToggle", :title=>"Yes|No" %>
+						<%= t.title %>
+					</li>
+					
+					<% end %>
+					<div id="foo"></div>
+				</ul>
+				<%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
+			    <% end -%>
+				</fieldset>
+			</div>
+		</div>
     </div>
+
 

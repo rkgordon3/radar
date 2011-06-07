@@ -5,6 +5,7 @@
                 <div class="iPanel">
                     <fieldset>
 					   <legend><%= "#{@report.display_name} :  #{@report.tag}" %></legend>
+					   <% if @report.report_participant_relationships.size > 0 %>
 					   <br/>
                         <Legend>
                             Student:
@@ -29,9 +30,8 @@
                         <% end %>
                         </li>
                     </ul>
-                    <Legend>
-                        Building:
-                    </Legend>
+					<% end %>
+
                     <ul>
                         <li>
                             Building:<span><%= @report.building.name %></span>
@@ -56,7 +56,8 @@
                             <%= @report.event_date %> @ <%= @report.event_time %>
                         </li>
                     </ul>
-                    <a href='unsubmitted_index' class="iPush iBClassic" style="width:100%">View Reports</a>
+					<a href=<%="/#{params[:controller]}/#{@report.id}/edit"  %>   style="width:100%" class="iPush iBClassic" %>Edit</a>
+					<a href = "/home/landingpage" class="iPush iBClassic" style="width:100%">Home</a>
                     </fieldset>
                 </div>
             </form>

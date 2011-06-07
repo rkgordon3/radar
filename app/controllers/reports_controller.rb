@@ -78,6 +78,7 @@ class ReportsController < ApplicationController
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
         format.xml  { head :ok }
+		format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
@@ -169,12 +170,13 @@ class ReportsController < ApplicationController
   end
   
     # Used only by iphone view
-  def unsubmitted_index
+  def on_duty_index
     model_name = params[:controller].chomp('_controller').camelize.singularize
-    @reports = Kernel.const_get(model_name).where("submitted = ? AND staff_id = ? and type = '#{model_name}' ", false, current_staff.id).order(:approach_time)
+	shift_start_time = current_staff.current_shift.created_at
+    @reports = Kernel.const_get(model_name).where("created_at > '#{shift_start_time}' and staff_id = ? and type = '#{model_name}' ",  current_staff.id).order(:approach_time)
 	
     respond_to do |format|
-      format.iphone {render :file => "reports/unsubmitted_index", :layout => 'mobile_application'}
+      format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}
     end
   end
   

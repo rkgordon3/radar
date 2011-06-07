@@ -7,7 +7,7 @@
                 <div class="iPanel">
                     <div id="s-i-form">
                         <% @report.participant_ids.each  do |pid| %>
-				<%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
+							<%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
                         <% end %>
                     </div>
                     <fieldset>
@@ -44,19 +44,14 @@
                                 <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
                             </li>
                         </ul>
-						<% if !@report.is_note? %>
                         <legend>
-                            Time: 
+                            Time: <%=@report.approach_time%>
                         </legend>
-                        <ul>
-                            <li>
-                                <input type="text" name="report[approach_time]" value="<%=@report.approach_time%>" />
-                            </li>
-                        </ul>
-						<%end %>
-						<% if @report.submitted != true %>
-                        <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/><%else %>
-                        <input id="submit_submit" name="submit_submit" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/><% end %>
+						<% if @report.can_submit_from_mobile? %>
+						  <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
+                        <%else %>
+						  <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
+						<% end %>
                     </fieldset>
                 </div>
             </div>

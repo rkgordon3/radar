@@ -151,6 +151,13 @@ class ShiftsController < ApplicationController
     end
   end
   
+  def update_todo
+  logger.debug("in update todo")
+	respond_to do |format|
+	  format.iphone { render :nothing => true }
+	end
+  end
+  
   private
   def report_map
     @report_map ||= Hash.new
