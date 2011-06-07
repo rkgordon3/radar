@@ -37,7 +37,7 @@
   <% if !@report.is_note? %>
    <div class="field">
     <b><%= f.label :approach_time %>:</b><br />
-    <%= text_field(:report, :approach_time) %>
+    <%= text_field(:report, :approach_time, :id => "approach_time") %>
   </div>
   <% end %>
 
@@ -55,3 +55,8 @@
   </div>
   
   <% end %>
+  <script type="text/javascript">
+        AnyTime.picker( "approach_time",
+            { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+  </script>
+  

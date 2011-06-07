@@ -19,23 +19,16 @@ class Shift < ActiveRecord::Base
     time_out.to_s(:short_date_only)
   end
   
-  def time
-    
-    if start_date == end_date
-      "" + start_time + " - " + end_time
-    else
-      "" + start_time + " - " + end_time + ", " + end_date
-    end
-  end
-  
   def Shift.sort(data,key)
     new_data = data.order("created_at DESC")
-    if key=="date"
-      #default already sorted by date
+    if key=="time_in"
+      #default already sorted by start date
+    elsif key=="time_out"
+      new_data = data.order("time_out DESC")
     elsif key=="area"
       new_data=data.joins(:area).order("name ASC")
     elsif key=="submitter"
-      new_data=data.joins(:staff).order("last_name " + "ASC")
+      new_data=data.joins(:staff).order("last_name ASC")
     end
     return new_data
   end

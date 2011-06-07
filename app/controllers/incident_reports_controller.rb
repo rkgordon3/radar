@@ -24,16 +24,7 @@ class IncidentReportsController < ReportsController
     end
   end
   
-  # Used only by iphone view
-  def unsubmitted_reports
-    @reports = IncidentReport.where("submitted = ? AND staff_id = ?", false, current_staff.id).order(:approach_time)
-    
-    # @reports = IncidentReport.where(:submitted => false).order(:approach_time)
-    
-    respond_to do |format|
-      format.iphone {render :layout => 'mobile_application'}
-    end
-  end
+
   
   
   # GET /incident_reports/1
@@ -155,6 +146,10 @@ class IncidentReportsController < ReportsController
   def clear_session
     # clear everything out of the sesson
     session[:report] = nil
+  end
+ 
+  def on_duty_index
+	super
   end
   
   

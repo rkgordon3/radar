@@ -1,0 +1,66 @@
+
+    <div id="iGroup">
+        <div class="iLayer" id="waHome" title="Home">
+            <form action="/incident_reports" >
+                <div class="iPanel">
+                    <fieldset>
+					   <legend><%= "#{@report.display_name} :  #{@report.tag}" %></legend>
+					   <% if @report.report_participant_relationships.size > 0 %>
+					   <br/>
+                        <Legend>
+                            Student:
+                        </Legend>
+                        <ul>
+                        	<% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+                            <% @report.report_participant_relationships.each do |b| %>
+                            <% if b.participant.id != @currentParticipantID %>
+                            <% @currentParticipantID = b.participant.id %>
+                            <li>
+                            <% if b.participant.type == "Student" %>
+                            <%=image_tag(b.participant.getImageUrl, :border=> 0) %>
+                            <%= b.participant.first_name %> <%= b.participant.middle_initial %> <%= b.participant.last_name %></a>
+                            <% else %>
+                            <%= b.participant.first_name %> <%= b.participant.middle_initial %> <%= b.participant.last_name %></a>
+                        	<% end %>
+                        <br/>
+                        <% end %>
+                        <div class="print-infraction" style="margin-left:25px; font-style:italic;">
+                            <%= b.relationship_to_report.description %>
+                        </div>
+                        <% end %>
+                        </li>
+                    </ul>
+					<% end %>
+
+                    <ul>
+                        <li>
+                            Building:<span><%= @report.building.name %></span>
+                        </li>
+                        <li>
+                            Specific Location:<span><%= @report.room_number %></span>
+                        </li>
+                    </ul>
+                    <Legend>
+                        Annotation:
+                    </Legend>
+                    <ul>
+                        <li>
+                            <%=@report.annotation_text %>
+                        </li>
+                    </ul>
+                    <legend>
+                        Approach Time:
+                    </legend>
+                    <ul>
+                        <li>
+                            <%= @report.event_date %> @ <%= @report.event_time %>
+                        </li>
+                    </ul>
+					<a href=<%="/#{params[:controller]}/#{@report.id}/edit"  %>   style="width:100%" class="iPush iBClassic" %>Edit</a>
+					<a href = "/home/landingpage" class="iPush iBClassic" style="width:100%">Home</a>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+

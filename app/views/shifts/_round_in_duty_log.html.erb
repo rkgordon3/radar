@@ -1,11 +1,12 @@
-<div class="rounds-details">
-<h3><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('#{round.id}-details', '#{round.id}-img');" %>
+<div id="inside_container" class="inside_container">
+<h3><%= "Round #{round_count}" %>: 
+  	    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
+	<div>
+		<h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",  
+                     :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
  
-  	    <%= "Reports for Round #{round_count}" %>: (<%= "#{round.created_at.to_s(:short_date_only)}" %>, 
-  	    <%= "#{round.created_at.to_s(:time_only)}" %>) to (<%= "#{round.end_time.to_s(:short_date_only)}" %>, 
-  	    <%= "#{round.end_time.to_s(:time_only)}" %>)</h3>
-  		<div id="<%= round.id %>-details" style="display: none;">
+  	    Reports</h4>
+  		<div id="<%= round.id %>-reports" style="display: none;">
   			<% if reports.length > 0 %>
   				<table>
 					<%= render :partial => "reports/report_table_row_labels" %>
@@ -16,4 +17,22 @@
 				<p>No Reports For This Round</p>
 			<% end %>
   		</div>
+  	</div>
+  	<div>
+		<h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",  
+                     :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
+ 
+  	    Notes</h4>
+  	    <div id="<%= round.id %>-notes" style="display: none;">
+  			<% if notes.length > 0 %>
+  				<table>
+					<%= render :partial => "reports/report_table_row_labels" %>
+					<%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
+				</table>
+			<% else %>
+			
+				<p>No Notes For This Round</p>
+			<% end %>
+  		</div>
+  	</div>
 </div>

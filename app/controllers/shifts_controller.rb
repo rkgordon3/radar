@@ -4,7 +4,8 @@ class ShiftsController < ApplicationController
   
   # GET /shifts
   # GET /shifts.xml
-  helper_method :round_map
+  helper_method :report_map
+  helper_method :note_map
   before_filter :authenticate_staff!
   before_filter :ra_authorize_view_access
   skip_before_filter :verify_authenticity_token
@@ -112,8 +113,11 @@ class ShiftsController < ApplicationController
     round_time_start=@shift.created_at
     @rounds.each do |round|
       round_time_end=round.end_time
-      rep=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end)
-      round_map[round] =rep
+      report=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
+      note=report.where(:type=>"Note").order(:approach_time)
+      report=report.where(:type=>["IncidentReport","MaintenanceReport"]).order(:approach_time)
+      report_map[round] = report
+      note_map[round] = note
       round_time_start=round_time_end
     end
     
@@ -144,9 +148,20 @@ class ShiftsController < ApplicationController
     end
   end
   
+  def update_todo
+  logger.debug("in update todo")
+	respond_to do |format|
+	  format.iphone { render :nothing => true }
+	end
+  end
+  
   private
-  def round_map
-    @round_map ||= Hash.new
+  def report_map
+    @report_map ||= Hash.new
+  end
+  
+  def note_map
+    @note_map ||= Hash.new
   end
   
 end

@@ -8,9 +8,10 @@
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
-    <%= javascript_include_tag 'jquery-1.4.4.min.js', 'jquery-ui-1.8.9.custom.min.js', 'autocomplete-rails.js',  'CSJSRequestObject.js', 'suckertree.js'  %>
+    <%= javascript_include_tag 'jquery-1.4.4.min.js', 'jquery-ui-1.8.9.custom.min.js', 'autocomplete-rails.js',  'CSJSRequestObject.js', 'suckertree.js', 'anytime.js'  %>
     <%= javascript_tag '$j = jQuery.noConflict();' %>
     <%= stylesheet_link_tag 'jquery-ui-1.8.9.custom.css' %>
+    <%= stylesheet_link_tag 'anytime.css' %>
     <link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon' />
 
   </head>
@@ -23,7 +24,7 @@
 			<td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
 			
 			<td style = "width: 150px;">
-			<% if on_duty == true %>
+			<% if current_staff.on_duty?  %>
 				<div id= "duty_button">
 					<%= render :partial => "shifts/end_shift_button" %>
 				</div>
@@ -36,8 +37,8 @@
 			<td style = "width: 170px;">
 			
 			<div id = "round_button">
-			<% if on_duty == true %>
-				<% if on_round == true %>					
+			<% if  current_staff.on_duty? %>
+				<% if current_staff.on_round? %>					
 						<%= render :partial => "rounds/end_round_button" %>					
 				<% else %>					
 						<%= render :partial => "rounds/start_round_button" %>					

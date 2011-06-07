@@ -1,13 +1,13 @@
 <% reports.each do |report| %>
 
 <% if num_rows == 0 %>
-  	<% num_rows = num_rows + 1 %>
-	<tr class="shaded">
-<% else %>
-  	<% num_rows = 0 %> 
-  	<tr>
-<% end %>
-
+    <% num_rows = num_rows + 1 %>
+    <tr class="shaded">
+  <% else %>
+    <% num_rows = 0 %> 
+    <tr>
+  <% end %>
+  
 <td><%= report.event_date %></td>
 <td><%= report.event_time %></td>
 <td><%= report.type %></td>

@@ -1,18 +1,27 @@
 Radar::Application.routes.draw do
 
+  resources  :tests
+  
+  get "tests/xxxx"
+  match "tests/xxxx" => "tests#xxxx"
+  
   resources :staff_organizations
 
   resources :organizations
 
   resources :tasks
   
-  resources :notes
+  resources :notes do
+   get :on_duty_index, :on => :collection
+  end
 
   resources :report_types
 
   resources :notification_preferences
   match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
+  
+  match "/shifts/update_todo" => "shifts#update_todo"
   
   get "shifts/start_shift"
   match "/shifts/start_shift" => "shifts#start_shift"
@@ -64,10 +73,13 @@ Radar::Application.routes.draw do
   get "/search/delete_student"
 
  resources :incident_reports do
- 	  get :unsubmitted_reports, :on => :collection
- end
+  get :on_duty_index, :on => :collection
+  end
 
- resources :maintenance_reports                                                                                                              
+ resources :maintenance_reports do
+  get :on_duty_index, :on => :collection
+  end
+
   
   match "/reports_query/search" => "reports_query#search"
   get "/reports_query/search"
@@ -117,7 +129,9 @@ Radar::Application.routes.draw do
 
   resources :locations
 
-  resources :reports
+  resources :reports  do
+ 	  get :on_duty_index, :on => :collection
+ end
 
   resources :students
   

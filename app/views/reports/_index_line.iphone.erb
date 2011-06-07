@@ -1,0 +1,12 @@
+<%= report.tag %>
+<br/>
+<div class=<%= "#{report.submitted ? 'index_submitted' : 'index_not_submitted'}" %>   >
+Date: 
+<%= report.event_date %>
+<br />
+Time: 
+<%= report.event_time %>
+<br/>
+Building: 
+<%= report.building.name %>
+</div>

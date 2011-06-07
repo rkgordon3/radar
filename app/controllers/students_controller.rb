@@ -5,7 +5,12 @@ class StudentsController < ApplicationController
   before_filter :ra_authorize_view_access
  
   def index
-    @students = Student.order(params[:sort])
+    if params[:sort]=="building"
+      @students = Student.joins(:building).order("name ASC")
+    else
+      @students = Student.order(params[:sort])
+    end
+    
     @numRows = 0
     respond_to do |format|
       format.html # index.html.erb

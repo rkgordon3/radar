@@ -1,0 +1,25 @@
+<h1>Listing staff_areas</h1>
+
+<table>
+  <tr>
+    <th>Staff</th>
+    <th>Area</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @staff_areas.each do |staff_area| %>
+  <tr>
+    <td><%= staff_area.staff_id %></td>
+    <td><%= staff_area.area_id %></td>
+    <td><%= link_to 'Show', staff_area %></td>
+    <td><%= link_to 'Edit', edit_staff_area_path(staff_area) %></td>
+    <td><%= link_to 'Destroy', staff_area, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Staff area', new_staff_area_path %>

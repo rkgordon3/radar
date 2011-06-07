@@ -17,6 +17,10 @@ class Report < ActiveRecord::Base
   	  type == "Note"
   end
   
+  def can_submit_from_mobile?
+    false
+  end
+  
   def annotation_text
     annotation != nil ? annotation.text : nil
   end
@@ -36,7 +40,7 @@ class Report < ActiveRecord::Base
     logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
-    self.approach_time = params[:approach_time]
+    self.approach_time = params[:approach_time] || Time.now
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
     annotation_text = params[:annotation]
