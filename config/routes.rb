@@ -1,6 +1,8 @@
 Radar::Application.routes.draw do
 
-  resources :task_assignments  resources  :tests
+  resources :task_assignments  
+  
+  resources  :tests
   
   get "tests/xxxx"
   match "tests/xxxx" => "tests#xxxx"
