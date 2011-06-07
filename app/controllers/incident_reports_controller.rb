@@ -148,7 +148,7 @@ class IncidentReportsController < ReportsController
     session[:report] = nil
   end
  
-  def unsubmitted_index
+  def on_duty_index
 	super
   end
   
