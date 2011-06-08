@@ -6,6 +6,13 @@ class Staff < ActiveRecord::Base
   before_save :lower_email
   after_initialize :set_active
   
+ 
+  def devise_creation_param_handler(params)
+    logger.debug("************* #{params}")
+    logger.debug("*************** #{params[:staff_areas]}")
+    params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
+  end
+  
   def lower_email
     self.email = email.downcase
   end
@@ -26,7 +33,7 @@ class Staff < ActiveRecord::Base
  
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active 
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active, :staff_areas 
 
  
   
@@ -48,6 +55,7 @@ class Staff < ActiveRecord::Base
     sa = StaffArea.where(:staff_id => self.id).first
     sa.area_id = staff[:staff_areas]
     sa.save
+    staff[:staff_areas] = [sa]
     super(staff)
   end
   
