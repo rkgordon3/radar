@@ -26,8 +26,9 @@ class Staff < ActiveRecord::Base
  
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active 
-  
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active 
+
+ 
   
   
   def set_active
@@ -43,5 +44,11 @@ class Staff < ActiveRecord::Base
     Shift.find(self.current_shift.id).task_assignments rescue []
   end
   
+  def update_attributes(staff)
+    sa = StaffArea.where(:staff_id => self.id).first
+    sa.area_id = staff[:staff_areas]
+    sa.save
+    super(staff)
+  end
   
 end

@@ -1,0 +1,30 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(@staff, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <p><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></p>
+  
+  <p><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></p>
+  
+  <p><%= f.label :email %><br />
+  <%= f.text_field :email %></p>
+
+  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></p>
+  
+  <p><%= f.label :role %><br />
+  <%= f.select :access_level, options_for_select([["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]], @staff.access_level) %></p>
+  
+  <p><%= f.label :area %><br />
+  	<%= f.select( :staff_areas, options_for_select(Area.where("name <> 'Unspecified'").order(:name).collect{|p| [p.name, p.id]}, @staff.staff_areas.first.area.id ), {} ) %></p>
+  
+  <%= f.hidden_field :id, :value => @staff.id %>
+
+  <p><%= f.submit "Update" %></p>
+<% end %>

@@ -32,6 +32,7 @@ class Devise::RegistrationsController < ApplicationController
 
   # PUT /resource
   def update
+    logger.debug "*********#{params}*********"
     params[resource_name].delete(:password) if params[resource_name][:password].blank?
     params[resource_name].delete(:password_confirmation) if params[resource_name][:password_confirmation].blank?
     @staff = Staff.find(params[resource_name][:id])
