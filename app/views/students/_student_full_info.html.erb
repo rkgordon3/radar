@@ -9,6 +9,7 @@
     <td><%= student.building.name %></td>
     <td><%= student.room_number %></td>
 	<td><%= student.extension %></td>
+    <td><%= student.email %></td>
 	<% if student.birthday > -21.years.from_now %>
 		<td><font color="CC3333"><%= student.birthday != nil ? student.birthday.to_s(:short_date_only) : "" %></font></td>
 	<% else %>
