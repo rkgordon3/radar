@@ -23,7 +23,7 @@
   </div>
   <div class="field">
     <%= f.label :area %><br />
-  	<%= f.collection_select( :staff_areas, Area.where("name <> 'Unspecified'").order(:name), :id, :name) %>
+  	<%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => 1}) %>
   </div>
   
   </br>
