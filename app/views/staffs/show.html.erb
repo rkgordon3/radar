@@ -25,4 +25,9 @@
   <%= @staff.staff_areas.first.area.name rescue "Unknown" %>
 </p>
 
+<p>
+  <b>Organization:</b>
+  <%= @staff.staff_organizations.first.organization.display_name rescue "Unknown" %>
+</p>
+
 </div>

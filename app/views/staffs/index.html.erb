@@ -6,7 +6,7 @@
     <th>E-mail</th>
     <th>Role</th>
     <th>Area</th>
-    <th></th>
+    <th>Organization</th>
     <th></th>
     <th></th>
   </tr>
@@ -23,6 +23,7 @@
     <td><%= staff.email %></td>
     <td><%= Authorize.string_for_access_level(staff.access_level) %></td>
     <td><%= staff.staff_areas[0].area.name rescue 'Unassigned' %>
+    <td><%= staff.staff_organizations[0].organization.display_name rescue 'Unassigned' %>
     <td><%= link_to 'Show', staff %></td>
     <td><%= link_to 'Edit', "/staffs/#{staff.id}/edit" %></td>
     <td><%= link_to 'Destroy', staff, :confirm => 'Are you sure?', :method => :delete %></td>

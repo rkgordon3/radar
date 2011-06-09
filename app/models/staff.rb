@@ -1,7 +1,8 @@
 class Staff < ActiveRecord::Base
-  has_many :organizations
+  has_many :staff_organizations
   has_many :staff_areas
   belongs_to :area
+  belongs_to :organization
   has_many :notification_preferences
   before_save :lower_email
   after_initialize :set_active
@@ -11,6 +12,7 @@ class Staff < ActiveRecord::Base
     logger.debug("************* #{params}")
     logger.debug("*************** #{params[:staff_areas]}")
     params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
+    params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
   end
   
   def lower_email
@@ -33,7 +35,7 @@ class Staff < ActiveRecord::Base
  
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active, :staff_areas 
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active, :staff_areas, :staff_organizations 
 
  
   
@@ -55,7 +57,11 @@ class Staff < ActiveRecord::Base
     sa = StaffArea.where(:staff_id => self.id).first
     sa.area_id = staff[:staff_areas]
     sa.save
+    so = StaffOrganization.where(:staff_id => self.id).first
+    so.organization_id = staff[:staff_organizations]
+    so.save
     staff[:staff_areas] = [sa]
+    staff[:staff_organizations] = [so]
     super(staff)
   end
   
