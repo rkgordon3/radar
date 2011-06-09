@@ -3,7 +3,14 @@
 <b>Details</b>
 <div id="details_div_<%= participant.id %>" style="display: none;" >
 	<div style="margin-left: 15px;">
-		<span style="font-style: italic;">Date of Birth: </span>
+		<span style="font-style: italic;">Student ID #: </span> 
+		<% if (participant.student_id != nil) %>
+			<%=  "#{participant.student_id}" %><br/>
+		<% else %>
+			<%=  "Unknown" %><br/>
+		<% end %>
+        
+        <span style="font-style: italic;">Date of Birth: </span>
 		<% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
 			<font color="CC3333"><%= participant.birthday.strftime("%m/%d/%Y") %></font>
 		<%  elsif (participant.birthday != nil) %>
