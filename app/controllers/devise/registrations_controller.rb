@@ -6,7 +6,6 @@ class Devise::RegistrationsController < ApplicationController
 
   # GET /resource/sign_up
   def new
-    logger.debug("asdfadfadfadf")
     build_resource({})
     
   

@@ -5,6 +5,21 @@
   <%= @task.title %>
 </p>
 
+<p>
+  <b>Note:</b>
+  <%= @task.note %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%= @task.area.name %>
+</p>
+
+<p>
+  <b>Date Range:</b>
+  <%= @task.date_range %>
+</p>
+
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
