@@ -98,10 +98,13 @@ class ShiftsController < ApplicationController
   end
   
   def start_shift
-    @shift = Shift.new(:staff_id => current_staff.id, :area_id => current_staff.staff_areas.first.area_id)
-    Task.all.each do |task|
-      @shift.add_task(task)
+    area_id = current_staff.staff_areas.first.area_id
+    @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
+    
+    Task.get_by_constraints(area_id, Time.now).each do |task|
+      @shift.add_task(task) 
     end
+    
     @shift.save
     
     respond_to do |format|
