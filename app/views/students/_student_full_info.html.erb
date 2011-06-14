@@ -1,5 +1,5 @@
 
-    <td><%= image_tag(student.getImageUrl, :border=> 0, :width => 50)  %></td>
+    <td><%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %></td>
 	<%if current_staff.access_level > Authorize.ra_access_level %>
     	<td><%= student.student_id %></td>
 	<% end %>
@@ -9,6 +9,7 @@
     <td><%= student.building.name %></td>
     <td><%= student.room_number %></td>
 	<td><%= student.extension %></td>
+    <td><%= student.email %></td>
 	<% if student.birthday > -21.years.from_now %>
 		<td><font color="CC3333"><%= student.birthday != nil ? student.birthday.to_s(:short_date_only) : "" %></font></td>
 	<% else %>

@@ -22,6 +22,10 @@
       <%= f.select :access_level, options_for_select([["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]]) %>
   </div>
   <div class="field">
+    <%= f.label :Organization %><br />
+  	<%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => 1}) %>
+  </div>
+  <div class="field">
     <%= f.label :area %><br />
   	<%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => 1}) %>
   </div>

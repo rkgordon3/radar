@@ -21,6 +21,9 @@
   <p><%= f.label :role %><br />
   <%= f.select :access_level, options_for_select([["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]], @staff.access_level) %></p>
   
+  <p><%= f.label :organization %><br />
+  	<%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %></p>
+  
   <p><%= f.label :area %><br />
   	<%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
   

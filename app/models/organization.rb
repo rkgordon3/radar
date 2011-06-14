@@ -1,5 +1,3 @@
 class Organization < ActiveRecord::Base
-  
-  belongs_to :staff
-  
+  attr_accessible :name,:abbreviation,:display_name  
 end

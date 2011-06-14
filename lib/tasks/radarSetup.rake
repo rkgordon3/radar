@@ -11,13 +11,10 @@ namespace :radar do
     end
     
     Rake::Task['db:sessions:clear'].invoke
-    rake_system('devisepost.bat')
-    puts "devise done"
   end
   task :precommit do
     Rake::Task['db:sessions:clear'].invoke
     Rake::Task['db:data:dump'].invoke
-    rake_system('devisepre.bat')
   end
 
   namespace :test do
