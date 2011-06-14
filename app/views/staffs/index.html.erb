@@ -1,4 +1,4 @@
-<div id="inside_container" class="inside_container"><h1>Listing Staff Members</h1>
+<div id="inside_container" class="inside_container"><h1>All Staff Members</h1>
 
 <table>
   <tr>
@@ -10,25 +10,9 @@
     <th></th>
     <th></th>
   </tr>
+  
+<%= render :partial => "staffs/staff_table_row", :locals => { :staffs => @staffs, :num_rows=>0 } %>
 
-<% @staffs.each do |staff| %>
- <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
-    <tr>
-  <% end %>
-    <td><%= "#{staff.last_name}, #{staff.first_name}" %></td>
-    <td><%= staff.email %></td>
-    <td><%= Authorize.string_for_access_level(staff.access_level) %></td>
-    <td><%= staff.staff_areas[0].area.name rescue 'Unassigned' %>
-    <td><%= staff.staff_organizations[0].organization.display_name rescue 'Unassigned' %>
-    <td><%= link_to 'Show', staff %></td>
-    <td><%= link_to 'Edit', "/staffs/#{staff.id}/edit" %></td>
-    <td><%= link_to 'Destroy', staff, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />

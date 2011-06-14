@@ -101,7 +101,7 @@ class ShiftsController < ApplicationController
     area_id = current_staff.staff_areas.first.area_id
     @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
     
-    Task.get_by_constraints(area_id, Time.now).each do |task|
+    Task.get_active_by_area(area_id).each do |task|
       @shift.add_task(task) 
     end
     

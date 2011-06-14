@@ -9,8 +9,6 @@ class Staff < ActiveRecord::Base
   
  
   def devise_creation_param_handler(params)
-    logger.debug("************* #{params}")
-    logger.debug("*************** #{params[:staff_areas]}")
     params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
   end

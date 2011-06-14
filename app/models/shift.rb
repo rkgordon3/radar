@@ -17,10 +17,10 @@ class Shift < ActiveRecord::Base
   end
   
   def tasks_completed? 
-  logger.debug("TASKS COMPLETED? #{ TaskAssignment.where(:shift_id => self.id, :done => false).length}")
-   TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
+    logger.debug("TASKS COMPLETED? #{ TaskAssignment.where(:shift_id => self.id, :done => false).length}")
+    TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
   end
- 
+  
   
   def start_time
     created_at.to_s(:time_only)
@@ -39,17 +39,14 @@ class Shift < ActiveRecord::Base
   end
   
   def Shift.sort(data,key)
-    new_data = data.order("created_at DESC")
-    if key=="time_in"
-      #default already sorted by start date
-    elsif key=="time_out"
-      new_data = data.order("time_out DESC")
+    if key=="time_out"
+      return data.order("time_out DESC")
     elsif key=="area"
-      new_data=data.joins(:area).order("name ASC")
+      return data.joins(:area).order("name ASC")
     elsif key=="submitter"
-      new_data=data.joins(:staff).order("last_name ASC")
+      return data.joins(:staff).order("last_name ASC")
     end
-    return new_data
+    return data.order("created_at DESC")
   end
   
 end
