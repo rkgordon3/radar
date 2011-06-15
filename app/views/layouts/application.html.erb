@@ -100,7 +100,7 @@
 			</ul>
 		</li>
 		<% if current_staff.access_level > Authorize.ra_access_level %>
-			<li><a href="/">Duty Logs</a>
+			<li><a href="/shifts">Duty Logs</a>
 				<ul>
 					<li><%= link_to "List Duty Logs", "/shifts" %></li>
 					<li><a href="/">Search Duty Logs</a></li>
@@ -113,6 +113,7 @@
 				<li><%= link_to("Buildings", "/buildings")%></li>
 				<li><%= link_to("Areas", "/areas")%></li>
 				<li><%= link_to("Staff Members", "/staffs")%></li>
+				<li><%= link_to("Tasks", "/tasks")%></li>
 			</ul>
 		</li>
 		<% end %>

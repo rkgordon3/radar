@@ -1,33 +1,27 @@
 class Task < ActiveRecord::Base
   belongs_to :area
+  scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", MyTime.now, MyTime.now, false )
+  scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", MyTime.now, false )
+  scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", MyTime.now, true )
   
-  def Task.sort(data,key)
+  
+  def Task.sort(key)
     if key=="title"
-      return data.order("title ASC")
+      return Task.order("title ASC").all
     elsif key=="note"
-      return data.order("note ASC")
+      return Task.order("note ASC").all
     elsif key=="start_date"
-      return data.order("start_date ASC, expires DESC, end_date ASC")
+      return Task.order("start_date ASC, expires DESC, end_date ASC").all
     elsif key=="end_date"
-      return data.order("expires DESC, end_date ASC")
+      return Task.order("expires DESC, end_date ASC").all
+    elsif key=="area"
+    return Task.joins(:area).order("name ASC").all
     end
-    return data.joins(:area).order("name ASC")
+    return Task.active.order("expires DESC, end_date ASC").all + Task.scheduled.order("start_date ASC, expires DESC, end_date ASC").all + Task.expired.order("expires DESC, end_date ASC").all
   end
   
   def Task.get_active_by_area(area_id)
-    return Task.where("(area_id = ? OR area_id = ?) AND start_date < ? AND (end_date > ? OR expires = ?)", 1, area_id, Time.now, Time.now, false)
-  end
-  
-  def Task.get_expired
-    return Task.where("end_date < ? AND expires = ?)", Time.now, true)
-  end
-  
-  def Task.get_active
-    return Task.where("start_date < ? AND (end_date > ? OR expires = ?)", Time.now, Time.now, false)
-  end
-  
-  def Task.get_future
-    return Task.where("start_date > ? AND (end_date > ? OR expires = ?)", Time.now, Time.now, false)
+    return Task.active.where("area_id = ? OR area_id = ?", 1, area_id)
   end
   
   def expires_string
@@ -36,6 +30,17 @@ class Task < ActiveRecord::Base
     else
       return "no"
     end
+  end
+  
+  def status
+    if Task.active.exists?(self.id)
+      return "Active"
+    elsif Task.scheduled.exists?(self.id)
+      return "Scheduled"
+    else
+      return "Expired"
+    end
+    
   end
   
   def date_range
