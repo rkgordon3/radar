@@ -162,7 +162,7 @@ class ShiftsController < ApplicationController
   def update_todo
     task_list = params[:task]
     TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
-      assignment.done = task_list[assignment.task_id.to_s] != nil
+      assignment.done = task_list[assignment.id.to_s] != nil
 	  assignment.save
     end
   
