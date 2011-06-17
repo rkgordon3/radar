@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614180806) do
+ActiveRecord::Schema.define(:version => 20110617173348) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(:version => 20110614180806) do
     t.datetime "updated_at"
     t.integer  "area_id"
     t.string   "abbreviation"
+  end
+
+  create_table "interested_parties", :force => true do |t|
+    t.string   "email"
+    t.integer  "report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "authorized_by_id"
   end
 
   create_table "notification_preferences", :force => true do |t|
@@ -109,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20110614180806) do
     t.boolean  "submitted"
     t.integer  "annotation_id"
     t.string   "tag"
+    t.datetime "contact_duration"
   end
 
   create_table "rounds", :force => true do |t|

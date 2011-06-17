@@ -1,0 +1,52 @@
+
+<ul>
+		<%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
+		<li><a href="/students">Students</a>
+			<ul>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><a href = "/students">List Students</a></li>
+				<% end %>
+				<li><a href = "/students/search_students">Search Students</a></li>
+			</ul>
+		</li>
+		<li><a href="/incident_reports/new">Incident Reports</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li><%= link_to "New Incident Report", "/incident_reports/new" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Incident Reports", "/incident_reports" %></li>
+					<li><%= link_to "Search Incident Reports", "/reports_query/search" %></li>
+				<% end %>
+			</ul>
+		</li>
+		<li><a href=" /maintenance_reports/new">Maintenance Requests</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Maintenence Requests", "/maintenance_reports" %></li>
+					<li><a href="/">Search Maintenence Requests</a></li>
+				<% end %>
+			</ul>
+		</li>
+		<% if current_staff.access_level > Authorize.ra_access_level %>
+			<li><a href="/">Duty Logs</a>
+				<ul>
+					<li><%= link_to "List Duty Logs", "/shifts" %></li>
+					<li><a href="/">Search Duty Logs</a></li>
+				</ul>
+			</li>
+		<% end %>
+		<% if current_staff.access_level == Authorize.super_admin_access_level %>
+		<li><a href="/">Miscellaneous</a>
+			<ul>
+				<li><%= link_to("Buildings", "/buildings")%></li>
+				<li><%= link_to("Areas", "/areas")%></li>
+				<li><%= link_to("Staff Members", "/staffs")%></li>
+			</ul>
+		</li>
+		<% end %>
+		
+	</ul>

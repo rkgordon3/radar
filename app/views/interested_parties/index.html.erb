@@ -1,0 +1,25 @@
+<h1>Listing interested_parties</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Report</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @interested_parties.each do |interested_party| %>
+  <tr>
+    <td><%= interested_party.email %></td>
+    <td><%= interested_party.report_id %></td>
+    <td><%= link_to 'Show', interested_party %></td>
+    <td><%= link_to 'Edit', edit_interested_party_path(interested_party) %></td>
+    <td><%= link_to 'Destroy', interested_party, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Interested party', new_interested_party_path %>

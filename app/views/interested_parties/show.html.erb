@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @interested_party.email %>
+</p>
+
+<p>
+  <b>Report:</b>
+  <%= @interested_party.report_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_interested_party_path(@interested_party) %> |
+<%= link_to 'Back', interested_parties_path %>

@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :interested_parties
+
   resources :task_assignments  
   
   resources  :tests
