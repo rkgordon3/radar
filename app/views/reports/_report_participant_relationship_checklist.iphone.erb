@@ -14,7 +14,7 @@
                 Infractions:
             </Legend>
             <div id="<%= participant.id %>-infractions">
-                <% infractions = RelationshipToReport.all %>
+                <% infractions = RelationshipToReport.for(report) %>
                 <ul>
                     <% infractions.each do |infraction| %>
                     <li>
