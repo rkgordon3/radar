@@ -15,6 +15,8 @@ Radar::Application.routes.draw do
 
   resources :tasks
   
+  resources :tutor_logs
+  
   resources :notes do
    get :on_duty_index, :on => :collection
   end

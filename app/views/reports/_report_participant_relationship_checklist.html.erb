@@ -6,7 +6,7 @@
  
   	<b>Infraction</b>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
-  			<% infractions = RelationshipToReport.all %>
+  			<% infractions = RelationshipToReport.for(report) %>
   			<% infractions.each do |infraction| %>
   		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 

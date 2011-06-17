@@ -18,6 +18,12 @@
        <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
      <% end %>
   </div>
+  
+
+   <div style="display:none;" >
+   <%= render :partial => "reports/report_common_relationship_checklist" , :locals => { :report => @report } %>
+   </div>
+ 
 <div class="field">
     <b>  <%= t "annotation" %></b><br />
     <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
