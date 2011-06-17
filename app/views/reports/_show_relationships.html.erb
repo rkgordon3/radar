@@ -27,11 +27,15 @@
   			<% else %>
   				<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.middle_initial %> <%= b.participant.last_name %> </a>
   			<% end %>
+            <br />
+        <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
  	<% end %>
   		<br />
   		<b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b> 
   		<%= b.relationship_to_report.description %>
+        
   	<% end %>
+    
 	
  <%end %>
 
