@@ -1,9 +1,8 @@
 class Task < ActiveRecord::Base
   belongs_to :area
-  scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", MyTime.now, MyTime.now, false )
-  scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", MyTime.now, false )
-  scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", MyTime.now, true )
-  
+  scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", Time.now.at_beginning_of_day , Time.now.at_beginning_of_day, false )
+  scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", Time.now.at_beginning_of_day, false )
+  scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", Time.now.at_beginning_of_day, true )
   
   def Task.sort(key)
     if key=="title"
@@ -15,7 +14,7 @@ class Task < ActiveRecord::Base
     elsif key=="end_date"
       return Task.order("expires DESC, end_date ASC").all
     elsif key=="area"
-    return Task.joins(:area).order("name ASC").all
+      return Task.joins(:area).order("name ASC").all
     end
     return Task.active.order("expires DESC, end_date ASC").all + Task.scheduled.order("start_date ASC, expires DESC, end_date ASC").all + Task.expired.order("expires DESC, end_date ASC").all
   end
@@ -24,12 +23,32 @@ class Task < ActiveRecord::Base
     return Task.active.where("area_id = ? OR area_id = ?", 1, area_id)
   end
   
-  def expires_string
-    if self.expires
-      return "yes"
-    else
-      return "no"
+  def time_string
+    if self.time == -1
+      return "anytime"
     end
+    hour = self.time/60
+    minute = self.time%60
+    if hour < 12
+      return "" + hour.to_s + ":" + minute.to_s + "am"
+    end
+    hour -= 12
+    return "" + hour.to_s + ":" + minute.to_s + "pm"
+  end
+  
+  def info
+    if self.note != nil
+      if self.note.length != 0
+        if self.time != -1
+          return "@" + self.time_string + ", " + self.note
+        end
+        return self.note
+      end
+    end
+    if self.time != -1
+      return "@" + self.time_string
+    end
+    return ""
   end
   
   def status
@@ -44,11 +63,7 @@ class Task < ActiveRecord::Base
   end
   
   def date_range
-    range = self.start_date.to_s(:short_date_only)
-    if self.expires
-      return range + " - " + self.end_date.to_s(:short_date_only)
-    end
-    return range + " - (does not expire)"
+    return start_date_short + " - " + end_date_short
   end
   
   def start_date_short

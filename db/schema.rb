@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614180806) do
+ActiveRecord::Schema.define(:version => 20110616154716) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20110614180806) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.boolean  "expires"
+    t.integer  "time"
   end
 
   create_table "url_for_ids", :force => true do |t|

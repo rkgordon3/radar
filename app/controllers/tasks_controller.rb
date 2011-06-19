@@ -13,17 +13,6 @@ class TasksController < ApplicationController
     end
   end
   
-  # GET /tasks/1
-  # GET /tasks/1.xml
-  def show
-    @task = Task.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @task }
-    end
-  end
-  
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
@@ -43,7 +32,14 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.xml
   def create
+    
+    params[:task][:time] = parse_task_time(params[:task][:time])
     @task = Task.new(params[:task])
+    
+    # unless the following 2 commands are executed, the time is saved in the wrong time zone
+    @task.start_date = @task.start_date.advance({:hours=>0})
+    @task.end_date = @task.end_date.advance({:hours=>0})
+    # can't understand why...
     
     respond_to do |format|
       if @task.save
@@ -82,5 +78,14 @@ class TasksController < ApplicationController
       format.html { redirect_to(tasks_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def parse_task_time(time)
+    if time == "Any Time"
+      return -1
+    end
+    time = Time.parse(time)
+    time = (time.hour*60) + time.min
   end
 end
