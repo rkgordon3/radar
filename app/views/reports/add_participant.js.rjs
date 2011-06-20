@@ -1,3 +1,6 @@
-page.replace_html("new-part-div", "")
-page.select("input#full_name").first.clear
-page.insert_html(:top, "s-i-form", :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant })
+if !@report.associated?(@participant)
+	page.replace_html("new-part-div", "")
+	page.select("input#full_name").first.clear
+	page.show 'common-reasons-container'
+	page.insert_html(:top, "s-i-form", :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant })
+end

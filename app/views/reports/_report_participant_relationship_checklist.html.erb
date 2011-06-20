@@ -4,7 +4,7 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	<b>Infraction</b>
+  	<b><%= t "#{params[:controller]}.reasons" %></b>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
   			<% infractions = RelationshipToReport.for(report) %>
   			<% infractions.each do |infraction| %>

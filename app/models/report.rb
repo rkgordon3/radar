@@ -137,17 +137,18 @@ class Report < ActiveRecord::Base
     return nil
   end
   
-  
-  
-  def participant_ids
-    p  = get_all_participants
-    logger.debug("report has #{p.count} participants")
-    p
+  #return true if participant is associated with report
+  def associated?(participant) 
+  logger.debug("TEST associated for #{participant.id} current participants #{participant_ids} RESULT #{participant_ids.include?(participant.id)}")
+	participant != nil && participant_ids.include?(participant.id)
   end
   
+  def empty_of_participants?
+	participant_ids.size == 0
+  end
   
-  
-  def get_all_participants
+  # Return id of all participants associated with report
+  def participant_ids
     partic_relationships = Array.new
     
     # populate the old reported infractions array with the report's infractions
@@ -223,10 +224,8 @@ class Report < ActiveRecord::Base
   
   
   
-  def tag
-  	
+  def tag	
   	  tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s 
- 
   end
   
 
@@ -265,8 +264,7 @@ def Report.sort(data,key)
   def display_name
     return ReportType.find_by_name(self.class.name).display_name
   end
-  
-  
+   
   
   def process_participant_params_string_from_student_search(participants_string)
     if participants_string !=nil

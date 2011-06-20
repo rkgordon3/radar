@@ -101,8 +101,7 @@ class ReportsController < ApplicationController
   def add_participant
     @participant = Participant.get_participant_for_full_name(params[:full_name])
     @report = session[:report]
-    logger.debug "Participant = #{@participant}"
-    logger.debug "Report = #{@report}"
+
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
       firstName = name_tokens[0].capitalize
@@ -118,7 +117,7 @@ class ReportsController < ApplicationController
         }
       end
     else
-      @report.add_default_relationship_for_participant(@participant.id)
+    
       respond_to do |format|
         format.js
         format.iphone {
@@ -130,6 +129,7 @@ class ReportsController < ApplicationController
         }
       end 
     end
+	@report.add_default_relationship_for_participant(@participant.id)
   end
   
   def remove_participant
@@ -164,8 +164,6 @@ class ReportsController < ApplicationController
     @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
-    logger.debug "Partipant birthday = #{@participant.birthday}"
-    logger.debug "ID = #{@participant.id}"
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
   
