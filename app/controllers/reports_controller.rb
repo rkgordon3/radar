@@ -122,9 +122,11 @@ class ReportsController < ApplicationController
         format.js
         format.iphone {
           render :update do |page|
-            page.select("input#full_name").first.clear
-            page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-            page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))  
+			if !@report.associated?(@participant)
+				page.select("input#full_name").first.clear
+				page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+				page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
+			end
           end
         }
       end 
