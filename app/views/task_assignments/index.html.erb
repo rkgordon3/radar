@@ -1,27 +1,30 @@
-<h1>Listing task_assignments</h1>
+<h1>To Do List for <%= "#{current_staff.first_name} #{current_staff.last_name}" %></h1>
 
-<table>
-  <tr>
-    <th>Shift</th>
-    <th>Task</th>
-    <th>Done</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @task_assignments.each do |task_assignment| %>
-  <tr>
-    <td><%= task_assignment.shift_id %></td>
-    <td><%= task_assignment.task_id %></td>
-    <td><%= task_assignment.done %></td>
-    <td><%= link_to 'Show', task_assignment %></td>
-    <td><%= link_to 'Edit', edit_task_assignment_path(task_assignment) %></td>
-    <td><%= link_to 'Destroy', task_assignment, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+
+<% if !current_staff.on_duty? %>
+  <h3>You must go on duty to be assigned tasks</h3>
+<% else %>
+  <% if @task_assignments != nil %>
+    <% if @task_assignments.length > 0 %>
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Note</th>
+          <th>Done</th>
+        </tr>
+        <% @task_assignments.each do |ta| %>
+          <tr>
+            <td><%= ta.task.title %></td>
+            <td><%= ta.task.info %></td>
+            <td><%= ta.done_string %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <h3>You have no tasks to complete during your shift</h3>
+    <% end %>
+  <% else %>
+    <h3>You have no tasks to complete during your shift</h3>
+  <% end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Task assignment', new_task_assignment_path %>

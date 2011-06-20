@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(:version => 20110617173348) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.boolean  "expires"
+    t.integer  "time"
   end
 
   create_table "url_for_ids", :force => true do |t|
