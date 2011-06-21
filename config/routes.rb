@@ -1,6 +1,10 @@
 Radar::Application.routes.draw do
 
   resources :interested_parties
+  
+  resources :imports
+  
+  match "/imports/proc/:id" => "imports#proc_csv"
 
   resources :task_assignments  
   
