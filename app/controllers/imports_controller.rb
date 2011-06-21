@@ -77,10 +77,16 @@ private
         params[:student]["emergency_contact_name"] = line[10] + " " + line[9]
         params[:student]["emContact"] = line[14]
         params[:student]["affiliation"] = "SMU"
-        url = UrlForId.new()
-        url.id = line[0]
-        url.url = line[16][34..line[16].length]
-        url.save
+        url = UrlForId.where(:id => line[0]).first
+        if url != nil
+            url.url = line[16][34..line[16].length]
+            url.save
+        else
+            url = UrlForId.new()
+            url.id = line[0]
+            url.url = line[16][34..line[16].length]
+            url.save
+        end    
         student = Student.where(:student_id => params[:student]["student_id"]).first
         student.update_attributes(params[:student]) rescue Student.create(params[:student])
     end
