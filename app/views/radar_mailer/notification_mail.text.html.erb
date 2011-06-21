@@ -12,7 +12,7 @@
 		<%  @loc = @loc.match(/Unspecified/)? "an unspecified location" : @loc.strip %>
 		<% @report_url = "http://#{report_host_ip}/"+r.class.name.tableize+"/"+r.id.to_s %>
 			
-		<p><%= r.display_name.match(/^[AaEeIiOoUu]/)? "An":"A" %> <a href="<%= @report_url %>"><%= r.display_name %></a> has been submitted by <%= Staff.find(r.staff_id).first_name%> <%= Staff.find(r.staff_id).last_name%> regarding <%= @loc %> at <%= r.created_at %>.</p>
+		<p><%= r.display_name.match(/^[AaEeIiOoUu]/)? "An":"A" %> <a href="<%= @report_url %>"><%= r.display_name %></a> has been submitted by <%= Staff.find(r.staff_id).first_name%> <%= Staff.find(r.staff_id).last_name%> regarding <%= @loc %> on <%= r.created_at.to_s(:my_time) %>.</p>
   
 	<% end %>
   <% end %>

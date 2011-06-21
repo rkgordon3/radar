@@ -11,7 +11,7 @@ class RadarMailer < ActionMailer::Base
 	@first_name = staff.first_name
 	@last_name = staff.last_name	
 	
-	  mail(:to => staff.email, :subject => "RADAR Update: "+ Time.now.to_s) 
+	  mail(:to => staff.email, :subject => "RADAR Update: "+ Time.now.to_s(:my_time)) 
   
 	
 	end
