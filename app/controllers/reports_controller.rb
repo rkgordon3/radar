@@ -126,6 +126,9 @@ class ReportsController < ApplicationController
 				page.select("input#full_name").first.clear
 				page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
 				page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
+				if @report.participant_ids.size > 0
+					page.show 'common-reasons-link'
+				end
 			end
           end
         }
@@ -178,6 +181,13 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}
     end
+  end
+  
+  def update_common_reasons
+	logger.debug("*******************************update_common_reasons")
+	respond_to do |format|
+		format.js { render  :nothing => true }
+	end
   end
   
 end

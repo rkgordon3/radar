@@ -6,8 +6,6 @@ Radar::Application.routes.draw do
   
   resources  :tests
   
-  get "tests/xxxx"
-  match "tests/xxxx" => "tests#xxxx"
   
   resources :staff_organizations
 
@@ -46,6 +44,7 @@ Radar::Application.routes.draw do
   
   get "reports_query/reports_query"
   
+  match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/add_participant/" => "reports#add_participant"
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"

@@ -1,9 +1,11 @@
-    <div class="iPanel">
+
+<div class="iPanel">
         <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
     </div>
      <%= form_for(@report) do |f| %>
         <div id="iGroup">
-            <div class="iLayer" id="waHome" title="Home">
+		  
+            <div class="iLayer" id="waIncidentReport" title="Incident Report">
                 <div class="iPanel">
                     <div id="s-i-form">
                         <% @report.participant_ids.each  do |pid| %>
@@ -11,7 +13,12 @@
                         <% end %>
                     </div>
                     <fieldset>
-
+					  
+							<legend></legend>
+							<ul  class='iArrow'  id="common-reasons-link"  style="display:block;" ><li>
+								<a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a>
+							</li></ul>
+						
                         <legend>
                             <%= t "building" %>
                         </legend>
@@ -57,9 +64,15 @@
             </div>
             <div id="s-i-checkbox">
                 <% @report.participant_ids.each  do |pid| %>
-                <%= render :partial=> "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => Participant.find(pid) } %>
+                 <%= render :partial=> "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => Participant.find(pid) } %>
                 <% end %>
             </div>
+			<div class="iLayer" id="waCommonInfractions" >
+				<a href="#_IncidentReport" rel="back">Back</a>
+				<div class="iPanel">
+					<%= render :partial=>"reports/report_common_relationship_checklist", :locals => { :report => @report } %>
+				</div>
+			</div>
         </div>
     <% end %>
 
