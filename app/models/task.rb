@@ -23,17 +23,13 @@ class Task < ActiveRecord::Base
     return Task.active.where("area_id = ? OR area_id = ?", 1, area_id)
   end
   
+  #this method 
   def time_string
     if self.time == -1
       return "anytime"
     end
-    hour = self.time/60
-    minute = self.time%60
-    if hour < 12
-      return "" + hour.to_s + ":" + minute.to_s + "am"
-    end
-    hour -= 12
-    return "" + hour.to_s + ":" + minute.to_s + "pm"
+    t=Time.new(0).advance({:minutes=>self.time})
+    return t.to_s(:time_only)
   end
   
   def info
