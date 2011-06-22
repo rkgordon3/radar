@@ -73,4 +73,14 @@ class Task < ActiveRecord::Base
     return "does not expire"
   end
   
+  def update_attributes(task)
+    if !super
+      return false
+    end
+    self.start_date = self.start_date.advance({:hours=>0})
+    self.end_date = self.end_date.advance({:hours=>0})
+    self.save
+    return true
+  end
+  
 end

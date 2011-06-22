@@ -56,6 +56,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1.xml
   def update
     @task = Task.find(params[:id])
+    params[:task][:time] = parse_task_time(params[:task][:time])
     
     respond_to do |format|
       if @task.update_attributes(params[:task])
