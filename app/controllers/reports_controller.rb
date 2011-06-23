@@ -134,14 +134,14 @@ class ReportsController < ApplicationController
         }
       end 
     end
-	@report.add_default_relationship_for_participant(@participant.id)
+	@report.add_default_contact_reason(@participant.id)
   end
   
   def remove_participant
     logger.debug "In remove method #{params}"
     @report = session[:report]
     @participant_id = Integer(params[:id])
-    infractions = @report.get_report_participant_relationships_for_participant(@participant_id)
+    infractions = @report.contact_reasons_for(@participant_id)
     logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
     infractions.each do |ri|
       @report.report_participant_relationships.delete(ri)
@@ -184,16 +184,36 @@ class ReportsController < ApplicationController
   end
   
   def update_common_reasons
-  
+    report = session[:report]
 	checked = params[:checked]
+	
+	participant_ids = report.participant_ids
+	reasons = {}
+	
 	params.each do |key, value|
 		if /common_reasons_(\d+)/.match(value) != nil
 			logger.debug("update reason #{$1} to #{checked}")
+			participant_ids.each do |pid|
+				logger.debug("update reason for #{pid}")
+				checked ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
+			end
+			reasons[$1] = checked
 		end
 	end
-	logger.debug("*******************************update_common_reasons")
+	logger.debug("reasons #{reasons}")
 	respond_to do |format|
-		format.js { render  :nothing => true }
+		format.iphone {
+		logger.debug("****************iphone FORMAT")
+		   render :update do |page|
+		      participant_ids.each do |p|
+				reasons.each do |reason, checked |
+					id = "#{p}_#{reason}"
+					logger.debug("checking #{checked} for reason  #{reason} for participant #{p}")
+					checked ? page[id].set_attribute('checked', checked) : page[id].checked = 'false'
+				end
+			  end
+		   end
+		   }
 	end
   end
   
