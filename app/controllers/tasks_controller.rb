@@ -56,6 +56,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1.xml
   def update
     @task = Task.find(params[:id])
+    params[:task][:time] = parse_task_time(params[:task][:time])
     
     respond_to do |format|
       if @task.update_attributes(params[:task])
@@ -81,11 +82,12 @@ class TasksController < ApplicationController
   end
   
   private
+  #this method converts a time from hours and minutes to just total minutes past midnight
   def parse_task_time(time)
     if time == "Any Time"
       return -1
     end
     time = Time.parse(time)
-    time = (time.hour*60) + time.min
+    return (time.hour*60) + time.min
   end
 end

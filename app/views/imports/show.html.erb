@@ -1,0 +1,15 @@
+<div id="inside_container" class="inside_container">
+<h2>Results of your CSV Upload</h2>
+
+<%= @import.csv.path %>
+
+<% if @import.processed > 0 %>
+
+Success! This import contained <%=  @import.processed %> records
+
+<% else %>
+
+<%= link_to "process", "/imports/proc/#{@import.id}" %>
+
+<% end %>
+</div>

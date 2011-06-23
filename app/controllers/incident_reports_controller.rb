@@ -24,7 +24,7 @@ class IncidentReportsController < ReportsController
     end
   end
   
-
+  
   
   
   # GET /incident_reports/1
@@ -33,6 +33,12 @@ class IncidentReportsController < ReportsController
   def show
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
+    if params[:emails] != nil
+      forward_as_mail(params[:emails])
+      return
+    end
+    # get the interested parties to email for this report type
+    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
     if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level == Authorize.ra_access_level) || (@report.staff != current_staff && current_staff.access_level == Authorize.ra_access_level)
       flash[:notice] = "Unauthorized Access"
@@ -144,9 +150,9 @@ class IncidentReportsController < ReportsController
     # clear everything out of the sesson
     session[:report] = nil
   end
- 
+  
   def on_duty_index
-	super
+    super
   end
   
   

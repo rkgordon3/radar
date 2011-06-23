@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110617173348) do
+ActiveRecord::Schema.define(:version => 20110622191530) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -33,12 +33,22 @@ ActiveRecord::Schema.define(:version => 20110617173348) do
     t.string   "abbreviation"
   end
 
+  create_table "imports", :force => true do |t|
+    t.string   "datatype"
+    t.integer  "processed",        :default => 0
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "interested_parties", :force => true do |t|
     t.string   "email"
-    t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "authorized_by_id"
+    t.integer  "report_type_id"
   end
 
   create_table "notification_preferences", :force => true do |t|

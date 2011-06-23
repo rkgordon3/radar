@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
   scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", Time.now.at_beginning_of_day , Time.now.at_beginning_of_day, false )
   scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", Time.now.at_beginning_of_day, false )
   scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", Time.now.at_beginning_of_day, true )
+  ANYTIME = -1
   
   def Task.sort(key)
     if key=="title"
@@ -23,29 +24,25 @@ class Task < ActiveRecord::Base
     return Task.active.where("area_id = ? OR area_id = ?", 1, area_id)
   end
   
+  #this method 
   def time_string
-    if self.time == -1
+    if self.time == ANYTIME
       return "anytime"
     end
-    hour = self.time/60
-    minute = self.time%60
-    if hour < 12
-      return "" + hour.to_s + ":" + minute.to_s + "am"
-    end
-    hour -= 12
-    return "" + hour.to_s + ":" + minute.to_s + "pm"
+    t=Time.new(0).advance({:minutes=>self.time})
+    return t.to_s(:time_only)
   end
   
   def info
     if self.note != nil
       if self.note.length != 0
-        if self.time != -1
+        if self.time != ANYTIME
           return "@" + self.time_string + ", " + self.note
         end
         return self.note
       end
     end
-    if self.time != -1
+    if self.time > ANYTIME
       return "@" + self.time_string
     end
     return ""
@@ -75,6 +72,16 @@ class Task < ActiveRecord::Base
       return self.end_date.to_s(:short_date_only)
     end
     return "does not expire"
+  end
+  
+  def update_attributes(task)
+    if !super(task)
+      return false
+    end
+    self.start_date = self.start_date.advance({:hours=>0})
+    self.end_date = self.end_date.advance({:hours=>0})
+    self.save
+    return true
   end
   
 end
