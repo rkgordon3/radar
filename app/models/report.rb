@@ -21,6 +21,10 @@ class Report < ActiveRecord::Base
     false
   end
   
+  def type_id
+    ReportType.find_by_name(self.type).id
+  end
+  
   def can_edit_from_mobile?
 	false
   end

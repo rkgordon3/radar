@@ -74,7 +74,7 @@ class Task < ActiveRecord::Base
   end
   
   def update_attributes(task)
-    if !super
+    if !super(task)
       return false
     end
     self.start_date = self.start_date.advance({:hours=>0})

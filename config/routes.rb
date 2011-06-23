@@ -36,6 +36,9 @@ Radar::Application.routes.draw do
   get "shifts/start_shift"
   match "/shifts/start_shift" => "shifts#start_shift"
   
+  match "/maintenance_reports/:id" => "reports#show", :via => :post
+  match "/incident_reports/:id" => "incident_reports#show", :via => :post
+  
   get "shifts/duty_log"  
   match "/shifts/duty_log" => "shifts#duty_log"  
   

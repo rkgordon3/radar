@@ -20,6 +20,13 @@ class ReportsController < ApplicationController
   # GET /reports/1.xml
   def show
     @report = Report.find(params[:id])
+    if params[:emails] != nil
+      forward_as_mail(params[:emails])
+      return
+    end
+    
+    # get the interested parties to email for this report type
+    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +44,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @report }
-	  format.iphone { render :layout => 'mobile_application' }
+      format.iphone { render :layout => 'mobile_application' }
     end
   end
   
@@ -78,7 +85,7 @@ class ReportsController < ApplicationController
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
         format.xml  { head :ok }
-		format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
+        format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
@@ -101,13 +108,13 @@ class ReportsController < ApplicationController
   def add_participant
     @participant = Participant.get_participant_for_full_name(params[:full_name])
     @report = session[:report]
-
+    
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
       firstName = name_tokens[0].capitalize
       lastName = name_tokens[2].capitalize
-	  middleInitial = name_tokens[1].capitalize
-
+      middleInitial = name_tokens[1].capitalize
+      
       respond_to do |format|
         format.js{
           render :update do |page|
@@ -117,21 +124,21 @@ class ReportsController < ApplicationController
         }
       end
     else
-    
+      
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
-			if !@report.associated?(@participant)
-				page.select("input#full_name").first.clear
-				page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-				page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
-			end
+            if !@report.associated?(@participant)
+              page.select("input#full_name").first.clear
+              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
+            end
           end
         }
       end 
     end
-	@report.add_default_relationship_for_participant(@participant.id)
+    @report.add_default_relationship_for_participant(@participant.id)
   end
   
   def remove_participant
@@ -169,12 +176,21 @@ class ReportsController < ApplicationController
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
   
-    # Used only by iphone view
+  def forward_as_mail(emails)
+    emails.delete_if {|key, value| value != "1" }
+    RadarMailer.report_mail(@report,emails.keys)
+    
+    respond_to do |format|
+      format.html { redirect_to(@report, :notice => 'Report was forwarded.') }
+    end  
+  end
+  
+  # Used only by iphone view
   def on_duty_index
     model_name = params[:controller].chomp('_controller').camelize.singularize
-	shift_start_time = current_staff.current_shift.created_at
+    shift_start_time = current_staff.current_shift.created_at
     @reports = Kernel.const_get(model_name).where("created_at > '#{shift_start_time}' and staff_id = ? and type = '#{model_name}' ",  current_staff.id).order(:approach_time)
-	
+    
     respond_to do |format|
       format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}
     end
