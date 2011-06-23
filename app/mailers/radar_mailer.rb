@@ -14,15 +14,17 @@ class RadarMailer < ActionMailer::Base
     mail(:to => staff.email, :subject => "RADAR Update: "+ Time.now.to_s(:my_time)) 
   end
   
-  def report_mail(report, emails)
+  def report_mail(report, emails, staff)
     @report = report
+    @first_name = staff.first_name
+    @last_name = staff.last_name
     
-    mail(:to => emails.join(", "), :subject => "RADAR Report: " + @report.tag) do |format|
+    mail(:to => "#{emails.join(", ")}", :subject => "RADAR Report: " + @report.tag) do |format|
       if @report.type == "IncidentReport"
-        format.text {render 'incident_report_mail'}
+        #format.text {render 'incident_report_mail'}
         format.html {render 'incident_report_mail'}
       elsif @report.type == "MaintenanceReport"
-        format.text {render 'maintenance_report_mail'}
+        #format.text {render 'maintenance_report_mail'}
         format.html {render 'maintenance_report_mail'}
       elsif @report.type == "Note"
         # Do Something...
@@ -31,4 +33,6 @@ class RadarMailer < ActionMailer::Base
       end
     end
   end
+  
+  
 end

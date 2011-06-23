@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621193603) do
+ActiveRecord::Schema.define(:version => 20110622191530) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(:version => 20110621193603) do
 
   create_table "interested_parties", :force => true do |t|
     t.string   "email"
-    t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "authorized_by_id"
+    t.integer  "report_type_id"
   end
 
   create_table "notification_preferences", :force => true do |t|

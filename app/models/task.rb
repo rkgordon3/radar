@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
   scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", Time.now.at_beginning_of_day , Time.now.at_beginning_of_day, false )
   scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", Time.now.at_beginning_of_day, false )
   scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", Time.now.at_beginning_of_day, true )
+  ANYTIME = -1
   
   def Task.sort(key)
     if key=="title"
@@ -25,7 +26,7 @@ class Task < ActiveRecord::Base
   
   #this method 
   def time_string
-    if self.time == -1
+    if self.time == ANYTIME
       return "anytime"
     end
     t=Time.new(0).advance({:minutes=>self.time})
@@ -35,13 +36,13 @@ class Task < ActiveRecord::Base
   def info
     if self.note != nil
       if self.note.length != 0
-        if self.time != -1
+        if self.time != ANYTIME
           return "@" + self.time_string + ", " + self.note
         end
         return self.note
       end
     end
-    if self.time != -1
+    if self.time > ANYTIME
       return "@" + self.time_string
     end
     return ""

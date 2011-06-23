@@ -178,10 +178,15 @@ class ReportsController < ApplicationController
   
   def forward_as_mail(emails)
     emails.delete_if {|key, value| value != "1" }
-    RadarMailer.report_mail(@report,emails.keys)
+    mail = RadarMailer.report_mail(@report, emails.keys, current_staff)
+    
+    begin
+      mail.deliver
+    rescue 
+    end
     
     respond_to do |format|
-      format.html { redirect_to(@report, :notice => 'Report was forwarded.') }
+      format.html { redirect_to(@report, :notice => "Report was forwarded to " + emails.keys.join(", ") + ".") }
     end  
   end
   
