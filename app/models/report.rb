@@ -105,41 +105,24 @@ class Report < ActiveRecord::Base
   
   
   
-  def get_report_participant_relationships_for_participant(participant_id)
-    logger.debug "In get_report_participant_relationships_for_participant id:#{participant_id}"
-    found_relationships = Array.new
-    self.report_participant_relationships.each do |ri|
-      logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
-      if ri.participant_id == participant_id
-        found_relationships << ri
-        
-      end
-    end
-    return found_relationships
+  def contact_reasons_for(participant_id)
+    self.report_participant_relationships.select { |ri| ri.participant_id == participant_id } 
   end
   
-  
-  
+ 
   def destroy_participants
     report_participant_relationships.each do |ri|
       ri.destroy
     end
   end
   
-  
-  
-  def get_specific_report_student_relationship(participant_id, relationship_id)
-    self.report_participant_relationships.each do |ri|
-      if ri.participant_id == participant_id && ri.relationship_to_report_id == relationship_id
-        return ri
-      end
-    end
-    return nil
+  def get_contact_reason_for_participant(participant_id, reason_id)
+    self.report_participant_relationships.select { |ri|
+                     ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
   
   #return true if participant is associated with report
   def associated?(participant) 
-  logger.debug("TEST associated for #{participant.id} current participants #{participant_ids} RESULT #{participant_ids.include?(participant.id)}")
 	participant != nil && participant_ids.include?(participant.id)
   end
   
@@ -181,9 +164,9 @@ class Report < ActiveRecord::Base
   
   
   
-  def add_default_relationship_for_participant(participant_id)
+  def add_default_contact_reason(participant_id)
     # only want to add if fyi doesn't already exist
-    all_relationships_for_participant = get_report_participant_relationships_for_participant(participant_id)
+    all_relationships_for_participant = contact_reasons_for(participant_id)
     
     # only want to add if no relationships exist
     if all_relationships_for_participant.count == 0
@@ -193,35 +176,31 @@ class Report < ActiveRecord::Base
       end
       self.report_participant_relationships << ri
     else
-      ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
+      ri = get_contact_reason_for_participant(participant_id, RelationshipToReport.fyi) 
     end
     return ri
   end
   
   
   
-  def add_specific_relationship_to_report_for_participant(participant_id, relationship_id)
-    ri = get_specific_report_student_relationship(participant_id, relationship_id) 
+  def add_contact_reason_for(participant_id, reason_id)
+    ri = get_contact_reason_for_participant(participant_id, reason_id) 
     
     if ri == nil
-      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => relationship_id)
+      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
       self.report_participant_relationships << ri
     end
     
     return ri
   end
   
-  
-  
-  def add_default_report_student_relationships_for_participant_array(participants)    
-    if participants != nil
-      # go through the students and add fyi relationships
-      participants.each do |s|
-        add_default_relationship_for_participant(s.id)
-      end
-    end
+  def remove_contact_reason_for(participant_id, reason_id)
+	self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
   end
   
+  def get_relationship(participant_id, reason_id)
+    report_participant_relationships.select { |r| r.participant_id == participant_id && r.relationship_to_report_id == reason_id }
+  end
   
   
   def tag	
@@ -270,7 +249,7 @@ def Report.sort(data,key)
     if participants_string !=nil
       participants = participants_string.split(/,/)
       participants.each do |p|
-        self.add_default_relationship_for_participant(Integer(p))
+        self.add_default_contact_reason(Integer(p))
       end
     end
   end
