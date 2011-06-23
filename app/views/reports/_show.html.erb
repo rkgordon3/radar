@@ -1,5 +1,26 @@
 <div id="inside_container" class="inside_container">
-<%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %>
+<%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br>
+<div style="float:right;">
+<%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",  
+                     :onclick => "plusMinusToggle('forward_div', 'forward_img');" %>
+Forward this Page
+<div id="forward_div" style="display: none;">
+<%= form_for(:emails) do |f| %>
+<% @interested_parties.each do |ip| %>
+            <div style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
+              <%= f.check_box :"#{ip.email}" %>
+              <%= f.label "#{ip.email}" %>     
+            </div>
+        <% end %>
+<div class="actions">
+          <p>
+            <%= submit_tag "Send", { :name => "forward_as_mail" } %>
+          </p>
+
+  </div>
+</div>
+<% end %>
+</div>
 <div class="report_title" >
 <%= @report.display_name %> <%= @report.tag %>
 </div>
