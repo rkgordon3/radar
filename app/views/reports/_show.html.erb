@@ -1,34 +1,35 @@
 <div id="inside_container" class="inside_container">
-<%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br>
-<div style="float:right;">
-<%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('forward_div', 'forward_img');" %>
-Forward this Page
-<div id="forward_div" style="display: none;">
-<%= form_for(:emails) do |f| %>
-<% @interested_parties.each do |ip| %>
+  <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
+  <div style="float:right;">
+    <% if ReportType.find_by_name(@report.type).forwardable? %>
+      <%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('forward_div', 'forward_img');" %>
+      Forward this Page
+      <div id="forward_div" style="display: none;">
+        <%= form_for(:emails) do |f| %>
+          <% @interested_parties.each do |ip| %>
             <div style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
               <%= f.check_box :"#{ip.email}" %>
-              <%= f.label "#{ip.email}" %>     
+              <%= f.label "#{ip.email}" %>
             </div>
-        <% end %>
-<div class="actions">
-          <p>
-            <%= submit_tag "Send", { :name => "forward_as_mail" } %>
-          </p>
+          <% end %>
+          <div class="actions">
+            <p>
+              <%= submit_tag "Send", { :name => "forward_as_mail" } %>
+            </p>
 
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
-</div>
-<% end %>
-</div>
-<div class="report_title" >
-<%= @report.display_name %> <%= @report.tag %>
-</div>
-    <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
-    <%= render :partial => "reports/show_generic" %>
-</p>
+  <div class="report_title" >
+    <%= @report.display_name %> <%= @report.tag %>
+  </div>
+  <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
+  <%= render :partial => "reports/show_generic" %>
 
-<%if Authorize.not_admin_assistant_authorize(current_staff) && !(Authorize.ra_authorize(current_staff) && @report.submitted)%>
-<%= link_to 'Edit', edit_report_path(@report) %> 
-<%end%>
+  <%if Authorize.not_admin_assistant_authorize(current_staff) && !(Authorize.ra_authorize(current_staff) && @report.submitted)%>
+    <%= link_to 'Edit', edit_report_path(@report) %>
+  <%end%>
 </div>
