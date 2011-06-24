@@ -1,15 +1,15 @@
 <tr>
-	<th><%= link_to "Approach Date", :sort => "date" %></th>
-    <th><%= link_to "Time", :sort => "date" %></th>
-    <th><%= link_to "Type", :sort => "type" %></th>
-    <th><%= link_to "Area", :sort => "area" %></th>
-    <th><%= link_to "Building Name", :sort => "building" %></th>
-    <th><%= link_to "Specific Location", :sort => "location" %></th>
-    <th><%= link_to "Submitter", :sort => "submitter" %></th>
-    <th><%= link_to "Tag", :sort => "tag" %></th>
-	
-	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-		<td></td>
-		<td></td>
-	<% end %>
+  <th><%= link_to "Approach Date", :sort => "date" %></th>
+  <th><%= link_to "Time", :sort => "date" %></th>
+  <th><%= link_to "Type", :sort => "type" %></th>
+  <th><%= link_to "Area", :sort => "area" %></th>
+  <th><%= link_to "Building Name", :sort => "building" %></th>
+  <th><%= link_to "Specific Location", :sort => "location" %></th>
+  <th><%= link_to "Submitter", :sort => "submitter" %></th>
+  <th><%= link_to "Tag", :sort => "tag" %></th>
+
+  <% if Authorize.not_admin_assistant_authorize(current_staff) %>
+    <td></td>
+    <td></td>
+  <% end %>
 </tr>

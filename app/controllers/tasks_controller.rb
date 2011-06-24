@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
-  
+  before_filter :authenticate_staff!
+  before_filter :ra_authorize_view_access
+
   # GET /tasks
   # GET /tasks.xml
   def index
