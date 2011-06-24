@@ -7,11 +7,16 @@
   	<b><%= t "#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
   			<% infractions = RelationshipToReport.for(report) %>
+			<% rf =  remote_function( :update => nil,
+											:url => { :controller => 'reports', :action => :update_common_reasons },
+											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
   			<% infractions.each do |infraction| %>
   		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "common_reasons[#{infraction.id}]", 
   				       infraction.description,
-  				       false %>
+					    false,
+					   :onclick => "#{rf}"
+  				       %>
   				    <%= infraction.description %>			 				
   				  </div>
   			<% end %>

@@ -223,19 +223,22 @@ class ReportsController < ApplicationController
 	end
 	logger.debug("reasons #{reasons}")
 	respond_to do |format|
-		format.iphone {
-		logger.debug("****************iphone FORMAT")
-		   render :update do |page|
+		format.js { render_common_reasons_update(participant_ids, reasons) }
+		format.iphone { render_common_reasons_update(participant_ids, reasons) }
+	end
+  end
+  
+  private
+	def render_common_reasons_update(participant_ids, reasons)
+			render :update do |page|
 		      participant_ids.each do |p|
 				reasons.each do |reason, checked |
 					id = "#{p}_#{reason}"
 					logger.debug("checking #{checked} for reason  #{reason} for participant #{p}")
-					checked ? page[id].set_attribute('checked', checked) : page[id].checked = 'false'
+					page[id].remove_attribute('checked')
 				end
 			  end
 		   end
-		   }
 	end
-  end
   
 end
