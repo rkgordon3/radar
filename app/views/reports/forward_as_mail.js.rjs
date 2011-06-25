@@ -1,0 +1,2 @@
+page["flash_notice"].show
+page.replace_html("flash_notice", "Report was forwarded to " + emails + ".")

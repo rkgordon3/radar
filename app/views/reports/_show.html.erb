@@ -6,7 +6,8 @@
         :onclick => "plusMinusToggle('forward_div', 'forward_img');" %>
       Forward this Page
       <div id="forward_div" style="display: none;">
-        <%= form_for(:emails) do |f| %>
+        <%= form_for(:emails, :remote => true,  :url => { :controller => 'reports',
+            :action => :forward_as_mail, :report => @report} ) do |f| %>
           <% @interested_parties.each do |ip| %>
             <div style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
               <%= f.check_box :"#{ip.email}" %>
@@ -15,7 +16,7 @@
           <% end %>
           <div class="actions">
             <p>
-              <%= submit_tag "Send", { :name => "forward_as_mail" } %>
+              <%= f.submit "Send" %>
             </p>
 
           </div>

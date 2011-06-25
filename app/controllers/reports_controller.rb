@@ -20,10 +20,6 @@ class ReportsController < ApplicationController
   # GET /reports/1.xml
   def show
     @report = Report.find(params[:id])
-    if params[:emails] != nil
-      forward_as_mail(params[:emails])
-      return
-    end
     
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
@@ -176,18 +172,21 @@ class ReportsController < ApplicationController
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
   
-  def forward_as_mail(emails)
+  def forward_as_mail
+    emails = params[:emails]
     emails.delete_if {|key, value| value != "1" }
-    mail = RadarMailer.report_mail(@report, emails.keys, current_staff)
+    emails = emails.keys.join(", ")
+    mail = RadarMailer.report_mail(Report.find(params[:report]), emails, current_staff)
     
     begin
       mail.deliver
     rescue 
     end
     
+    logger.debug "*****#{emails}************"
     respond_to do |format|
-      format.html { redirect_to(@report, :notice => "Report was forwarded to " + emails.keys.join(", ") + ".") }
-    end  
+      format.js { render :locals => { :emails => emails } }
+    end
   end
   
   # Used only by iphone view
