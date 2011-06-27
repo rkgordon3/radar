@@ -25,16 +25,19 @@
   </div>
   <div class="field">
     <%= f.label :time %><br />
-    <%= f.text_field :time, :id => "time", :value => "Any Time" %>
+    <%= radio_button "anytime", "anytime", false, {:checked => @task.expires != -1 } %>
+    <%= f.text_field :time, :id => "time", :value => "#{Time.now}" %><br />
+    <%= radio_button "anytime", "anytime", true, {:checked => @task.time == -1 } %>
+    <%= f.label :time, "Any Time"%>
   </div>
   <div class="field">
     <b>Date Range</b><br />
     &nbsp &nbsp &nbsp From:
     <%= f.text_field :start_date, :id => "start_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-    &nbsp &nbsp &nbsp To:
+    &nbsp &nbsp &nbsp To:<%= f.radio_button :expires, true, {:checked => @task.expires==true } %>
     <%= f.text_field :end_date, :id => "end_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-    &nbsp &nbsp &nbsp<%= f.check_box :expires %>
-    <%= f.label :expires, "Let Task Expire After Selected Date" %>
+    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<%= f.radio_button :expires, false, {:checked => @task.expires==false } %>
+    <%= f.label :expires, "No Expiration"%>
   </div>
   <div class="actions">
     <%= f.submit %>

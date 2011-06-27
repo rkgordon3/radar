@@ -35,7 +35,7 @@ class TasksController < ApplicationController
   # POST /tasks.xml
   def create
     
-    params[:task][:time] = parse_task_time(params[:task][:time])
+    params[:task][:time] = parse_task_time(params[:task][:time],params[:anytime][:anytime])
     @task = Task.new(params[:task])
     
     # unless the following 2 commands are executed, the time is saved in the wrong time zone
@@ -85,8 +85,8 @@ class TasksController < ApplicationController
   
   private
   #this method converts a time from hours and minutes to just total minutes past midnight
-  def parse_task_time(time)
-    if time == "Any Time"
+  def parse_task_time(time,anytime)
+    if anytime == "true"
       return -1
     end
     time = Time.parse(time)
