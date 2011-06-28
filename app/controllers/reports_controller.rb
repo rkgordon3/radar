@@ -234,7 +234,7 @@ class ReportsController < ApplicationController
 				reasons.each do |reason, checked |
 					id = "#{p}_#{reason}"
 					logger.debug("checking #{checked} for reason  #{reason} for participant #{p}")
-					page[id].remove_attribute('checked')
+					checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
 				end
 			  end
 		   end
