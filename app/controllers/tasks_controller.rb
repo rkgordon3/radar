@@ -18,8 +18,8 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
-    @task = Task.new
-    @task.expires = true
+    @task = Task.new(:expires => true, :time => -1, :start_date => Time.now.at_beginning_of_day, :end_date => Time.now.at_beginning_of_day)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @task }
@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1.xml
   def update
     @task = Task.find(params[:id])
-    params[:task][:time] = parse_task_time(params[:task][:time])
+    params[:task][:time] = parse_task_time(params[:task][:time],params[:anytime][:anytime])
     
     respond_to do |format|
       if @task.update_attributes(params[:task])
