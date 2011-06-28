@@ -2216,6 +2216,7 @@ report_types:
   - display_name
   - abbreviation
   - organization_id
+  - forwardable
   records: 
 
   - - 1
@@ -2225,6 +2226,7 @@ report_types:
     - Incident Report
     - IR
     - 1
+    - false
   - - 2
     - MaintenanceReport
     - '2011-04-15 06:24:48.163000'
@@ -2232,6 +2234,7 @@ report_types:
     - Maintenance Request
     - MR
     - 1
+    - true
   - - 3
     - Report
     - '2011-04-15 06:24:03.664000'
@@ -2239,6 +2242,7 @@ report_types:
     - FYI
     - FYI
     - 1
+    - false
   - - 4
     - Note
     - !!null 
@@ -2246,6 +2250,7 @@ report_types:
     - Note
     - N
     - 1
+    - false
   - - 5
     - TutorLog
     - !!null 
@@ -2253,6 +2258,7 @@ report_types:
     - Tutor Log
     - TL
     - 3
+    - false
 
 ---
 reports:
@@ -3262,13 +3268,13 @@ staffs:
     - !!null 
     - !!null 
     - !!null 
-    - 24
-    - '2011-06-23 17:07:34.512400'
-    - '2011-06-22 15:42:24.657800'
+    - 27
+    - '2011-06-24 19:05:38.924000'
+    - '2011-06-24 17:24:22.548000'
     - 127.0.0.1
     - 127.0.0.1
     - '2011-05-16 16:08:42.781173'
-    - '2011-06-23 17:07:34.512400'
+    - '2011-06-24 19:05:38.924000'
     - Lyric
     - Hupp
     - 5

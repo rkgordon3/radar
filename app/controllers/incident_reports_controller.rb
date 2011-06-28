@@ -33,10 +33,6 @@ class IncidentReportsController < ReportsController
   def show
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
-    if params[:emails] != nil
-      forward_as_mail(params[:emails])
-      return
-    end
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     

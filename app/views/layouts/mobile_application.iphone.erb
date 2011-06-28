@@ -23,12 +23,13 @@
 
     	<div id="iHeader" style="background-color: #b22222">
            
-			<div id="toolbar"> 
-				<div sytle="position:absolute;left=10px;top:10px;" >
-				    <a href = "/home/landingpage" class="iPush" >
+			<div> 
+				<div style="position:right;left:0%; top:0%;">
+				    <a href = "/home/landingpage">
 				     <%=image_tag 'WebApp/radar_circle_logo_mobile.png', :align=>"right", :style=>"padding-right:1px; padding-top:1px; "%>
 			        </a>
 				</div>
+                
 				<% if staff_signed_in? %>
 					<div id = "round_button" style="position:absolute;left:60px; top:0px;">
 						<% if current_staff.on_duty? %>
@@ -45,7 +46,7 @@
     	</div>
    
     <%= yield %>
-     </div>
+    </div>
   </body>
   <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>

@@ -20,7 +20,7 @@ Radar::Application.routes.draw do
   resources :tutor_logs
   
   resources :notes do
-   get :on_duty_index, :on => :collection
+    get :on_duty_index, :on => :collection
   end
 
   resources :report_types
@@ -34,8 +34,7 @@ Radar::Application.routes.draw do
   get "shifts/start_shift"
   match "/shifts/start_shift" => "shifts#start_shift"
   
-  match "/maintenance_reports/:id" => "reports#show", :via => :post
-  match "/incident_reports/:id" => "incident_reports#show", :via => :post
+  match "/reports/forward_as_mail" => "reports#forward_as_mail"
   
   get "shifts/duty_log"  
   match "/shifts/duty_log" => "shifts#duty_log"  
@@ -84,12 +83,12 @@ Radar::Application.routes.draw do
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
 
- resources :incident_reports do
-  get :on_duty_index, :on => :collection
+  resources :incident_reports do
+    get :on_duty_index, :on => :collection
   end
 
- resources :maintenance_reports do
-  get :on_duty_index, :on => :collection
+  resources :maintenance_reports do
+    get :on_duty_index, :on => :collection
   end
 
   
@@ -129,11 +128,11 @@ Radar::Application.routes.draw do
   resources :report_locations
 
   resources :buildings  do
-  	  get :select, :on => :collection
+    get :select, :on => :collection
   end
  
   resources :areas  do
-  	  get :add_building, :on => :collection
+    get :add_building, :on => :collection
   end
   resources :student_infractions
 
@@ -143,7 +142,7 @@ Radar::Application.routes.draw do
 
   resources :reports  do
  	  get :on_duty_index, :on => :collection
- end
+  end
 
   resources :students
   

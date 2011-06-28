@@ -1,54 +1,57 @@
 <%= form_for(@task) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-<h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-<% end %>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
-</div>
-<% end %>
+    </div>
+  <% end %>
 
   <div class="field">
-<%= f.label :title %><br />
+    <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
-<div class="field">
-<%= f.label :note %><br />
+  <div class="field">
+    <%= f.label :note %><br />
     <%= f.text_field :note %>
   </div>
-<div class="field">
-<%= f.label :area %><br />
-  	<%= f.collection_select( :area_id, Area.order(:name), :id, :name, {:selected => 1}) %>
+  <div class="field">
+    <%= f.label :area %><br />
+    <%= f.collection_select( :area_id, Area.order(:name), :id, :name, {:selected => 1}) %>
   </div>
   <div class="field">
-<%= f.label :time %><br />
-    <%= f.text_field :time, :id => "time", :value => "Any Time" %>
+    <%= f.label :time %><br />
+    <%= radio_button "anytime", "anytime", false, {:checked => @task.expires != -1 } %>
+    <%= f.text_field :time, :id => "time", :value => "#{Time.now}" %><br />
+    <%= radio_button "anytime", "anytime", true, {:checked => @task.time == -1 } %>
+    <%= f.label :time, "Any Time"%>
   </div>
-<div class="field">
-<b>Date Range</b><br />
-&nbsp &nbsp &nbsp From:
-<%= f.text_field :start_date, :id => "start_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-&nbsp &nbsp &nbsp To:
-<%= f.text_field :end_date, :id => "end_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-&nbsp &nbsp &nbsp<%= f.check_box :expires %>
-    <%= f.label :expires, "Let Task Expire After Selected Date" %>
+  <div class="field">
+    <b>Date Range</b><br />
+    &nbsp &nbsp &nbsp From:
+    <%= f.text_field :start_date, :id => "start_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
+    &nbsp &nbsp &nbsp To:<%= f.radio_button :expires, true, {:checked => @task.expires==true } %>
+    <%= f.text_field :end_date, :id => "end_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
+    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<%= f.radio_button :expires, false, {:checked => @task.expires==false } %>
+    <%= f.label :expires, "No Expiration"%>
   </div>
-<div class="actions">
-<%= f.submit %>
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
 <script type="text/javascript">
-AnyTime.picker( "start_date",
-{ format: "%b %D, %z", firstDOW: 0 } );
+  AnyTime.picker( "start_date",
+  { format: "%b %D, %z", firstDOW: 0 } );
 </script>
 <script type="text/javascript">
-AnyTime.picker( "end_date",
-{ format: "%b %D, %z", firstDOW: 0 } );
+  AnyTime.picker( "end_date",
+  { format: "%b %D, %z", firstDOW: 0 } );
 </script>
 <script type="text/javascript">
-AnyTime.picker( "time",
-{ format: "%I:%i%p", firstDOW: 0 } );
+  AnyTime.picker( "time",
+  { format: "%I:%i%p", firstDOW: 0 } );
 </script>
