@@ -8,8 +8,6 @@ gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
 
-gem 'paperclip'
-
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

@@ -125,23 +125,26 @@ class ReportsController < ApplicationController
         format.js
         format.iphone {
           render :update do |page|
-            if !@report.associated?(@participant)
-              page.select("input#full_name").first.clear
-              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
-            end
+			if !@report.associated?(@participant)
+				page.select("input#full_name").first.clear
+				page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+				page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
+				if @report.participant_ids.size > 0
+					page.show 'common-reasons-link'
+				end
+			end
           end
         }
       end 
     end
-    @report.add_default_relationship_for_participant(@participant.id)
+	@report.add_default_contact_reason(@participant.id)
   end
   
   def remove_participant
     logger.debug "In remove method #{params}"
     @report = session[:report]
     @participant_id = Integer(params[:id])
-    infractions = @report.get_report_participant_relationships_for_participant(@participant_id)
+    infractions = @report.contact_reasons_for(@participant_id)
     logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
     infractions.each do |ri|
       @report.report_participant_relationships.delete(ri)
@@ -194,10 +197,47 @@ class ReportsController < ApplicationController
     model_name = params[:controller].chomp('_controller').camelize.singularize
     shift_start_time = current_staff.current_shift.created_at
     @reports = Kernel.const_get(model_name).where("created_at > '#{shift_start_time}' and staff_id = ? and type = '#{model_name}' ",  current_staff.id).order(:approach_time)
-    
+
     respond_to do |format|
       format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}
     end
   end
+  
+  def update_common_reasons
+    report = session[:report]
+	checked = params[:checked]
+	
+	participant_ids = report.participant_ids
+	reasons = {}
+	
+	params.each do |key, value|
+		if /common_reasons_(\d+)/.match(value) != nil
+			logger.debug("update reason #{$1} to #{checked}")
+			participant_ids.each do |pid|
+				logger.debug("update reason for #{pid}")
+				checked ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
+			end
+			reasons[$1] = checked
+		end
+	end
+	logger.debug("reasons #{reasons}")
+	respond_to do |format|
+		format.js { render_common_reasons_update(participant_ids, reasons) }
+		format.iphone { render_common_reasons_update(participant_ids, reasons) }
+	end
+  end
+  
+  private
+	def render_common_reasons_update(participant_ids, reasons)
+			render :update do |page|
+		      participant_ids.each do |p|
+				reasons.each do |reason, checked |
+					id = "#{p}_#{reason}"
+					logger.debug("checking #{checked} for reason  #{reason} for participant #{p}")
+					checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
+				end
+			  end
+		   end
+	end
   
 end
