@@ -37,13 +37,7 @@ class IncidentReport < Report
 				}
         end
       #end
-	  
-		if (common_reasons != nil && common_reasons.size > 0)
-			common_reasons.each_key do |reason|
-				any_relationship_to_report_found_for_participant = true
-				new_ris << add_contact_reason_for(p, reason.to_i)
-			end
-		end
+
       
       # if there are no checkboxes checked for particpant
       if any_relationship_to_report_found_for_participant == false

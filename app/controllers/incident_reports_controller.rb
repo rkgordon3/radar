@@ -90,7 +90,6 @@ class IncidentReportsController < ReportsController
   # PUT /incident_reports/1
   # PUT /incident_reports/1.xml
   def update
-    logger.debug("IR update")
     @report = session[:report]
     # process check boxes to update reported infractions
     @report.add_contact_reason(params)   

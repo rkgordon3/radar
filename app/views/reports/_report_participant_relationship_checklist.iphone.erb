@@ -17,11 +17,16 @@
                 <% infractions = RelationshipToReport.for(report) %>
                 <ul>
                     <% infractions.each do |infraction| %>
+					<% rf =  remote_function( :update => nil,
+											:url => { :controller => 'reports', :action => :update_reason },
+											:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
                     <li>
                         <%= check_box_tag "#{participant.id}[#{infraction.id}]",
-                        infraction.description,
-                        report.get_contact_reason_for_participant(participant.id, infraction.id) != nil,
-                        :class=>"iToggle", :title=>"YES|NO" %>
+							infraction.description,
+							report.get_contact_reason_for_participant(participant.id, infraction.id) != nil,
+							:onclick => "#{rf}",
+							:class=> "iToggle",
+							:title=>"YES|NO" %>
                         <%= label_tag infraction.description %>
                     </li>
                     <%end %>
