@@ -3,9 +3,9 @@
   <div id="forward_div" style="float:right;">
     <% if ReportType.find_by_name(@report.type).forwardable? %>
       <%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",
-        :onclick => "plusMinusToggle('forward_div', 'forward_img');" %>
+        :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');" %>
       Forward this Page
-      <div id="forward_div" style="display: none;">
+      <div id="forward_emails_div" style="display: none;">
         <%= form_for(:emails, :remote => true,  :url => { :controller => 'reports',
             :action => :forward_as_mail, :report => @report} ) do |f| %>
           <% @interested_parties.each do |ip| %>

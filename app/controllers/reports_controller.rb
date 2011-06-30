@@ -115,9 +115,9 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :mInitial => middleInitial, :lName => lastName })
 			
-			if @report.participant_ids.size > 0
-				page.show 'common-reasons-container'
-			end	
+            if @report.participant_ids.size > 0
+              page.show 'common-reasons-container'
+            end
           end
         }
       end
@@ -127,19 +127,19 @@ class ReportsController < ApplicationController
         format.js
         format.iphone {
           render :update do |page|
-			if !@report.associated?(@participant)
-				page.select("input#full_name").first.clear
-				page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-				page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
-				if @report.participant_ids.size > 0
-					page.show 'common-reasons-link'
-				end
-			end
+            if !@report.associated?(@participant)
+              page.select("input#full_name").first.clear
+              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+              if @report.participant_ids.size > 0
+                page.show 'common-reasons-link'
+              end
+            end
           end
         }
       end 
     end
-	@report.add_default_contact_reason(@participant.id)
+    @report.add_default_contact_reason(@participant.id)
   end
   
   def remove_participant
@@ -180,7 +180,10 @@ class ReportsController < ApplicationController
   def forward_as_mail
     emails = params[:emails]
     emails.delete_if {|key, value| value != "1" }
+    emails_for_notice = emails.keys.join(", ")
     emails = emails.keys.join(", ")
+    emails_for_notice.gsub!("<","(")
+    emails_for_notice.gsub!(">",")")
     mail = RadarMailer.report_mail(Report.find(params[:report]), emails, current_staff)
     
     begin
@@ -189,7 +192,7 @@ class ReportsController < ApplicationController
     end
    
     respond_to do |format|
-      format.js { render :locals => { :emails => emails } }
+      format.js { render :locals => { :emails => emails, :emails_for_notice => emails_for_notice } }
     end
   end
   
@@ -205,40 +208,40 @@ class ReportsController < ApplicationController
   end
   
   def update_reason
-	pid = params[:participant]
-	id = params[:reason]
-	reason = /\d+_(\d+)/.match(id)[1]
-	checked = params[:checked]
-	report = session[:report]
-	checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)	
-	respond_to do |format|
-		format.js { render_set_reason(id, checked, false)	}
-		format.iphone { render_set_reason(id, checked, true) }
-	end
+    pid = params[:participant]
+    id = params[:reason]
+    reason = /\d+_(\d+)/.match(id)[1]
+    checked = params[:checked]
+    report = session[:report]
+    checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
+    respond_to do |format|
+      format.js { render_set_reason(id, checked, false)	}
+      format.iphone { render_set_reason(id, checked, true) }
+    end
   end
   
   def update_common_reasons
     report = session[:report]
-	checked = params[:checked]
+    checked = params[:checked]
 	
-	participant_ids = report.participant_ids
-	reasons = {}
+    participant_ids = report.participant_ids
+    reasons = {}
 	
-	params.each do |key, value|
-		if /common_reasons_(\d+)/.match(value) != nil
-			logger.debug("update reason #{$1} to #{checked}")
-			participant_ids.each do |pid|
-				logger.debug("update reason for #{pid}")
-				checked.downcase == "true" ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
-			end
-			reasons[$1] = checked
-		end
-	end
-	logger.debug("reasons #{reasons}")
-	respond_to do |format|
-		format.js { render_common_reasons_update(participant_ids, reasons, false) }
-		format.iphone { render_common_reasons_update(participant_ids, reasons, true) }
-	end
+    params.each do |key, value|
+      if /common_reasons_(\d+)/.match(value) != nil
+        logger.debug("update reason #{$1} to #{checked}")
+        participant_ids.each do |pid|
+          logger.debug("update reason for #{pid}")
+          checked.downcase == "true" ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
+        end
+        reasons[$1] = checked
+      end
+    end
+    logger.debug("reasons #{reasons}")
+    respond_to do |format|
+      format.js { render_common_reasons_update(participant_ids, reasons, false) }
+      format.iphone { render_common_reasons_update(participant_ids, reasons, true) }
+    end
   end
   
 	private
@@ -252,23 +255,23 @@ class ReportsController < ApplicationController
 		end
 	end
 	def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
-			render :update do |page|
-				participant_ids.each do |p|
-					reasons.each do |reason, checked |
-						id = "#{p}_#{reason}"
-						checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
-						checked.downcase == "true" ? page << "$('#{id}').checked = true" : 
-												     page << "$('#{id}').checked = false"
-					end
-				end
-				if (webapp_refresh) 
-					participant_ids.each do |p|
-						reasons.each do |reason, checked |
-							page << "WebApp.Refresh('#{p}_#{reason}');"
-						end
-					end
-				end
-		   end
+    render :update do |page|
+      participant_ids.each do |p|
+        reasons.each do |reason, checked |
+          id = "#{p}_#{reason}"
+          checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
+          checked.downcase == "true" ? page << "$('#{id}').checked = true" :
+            page << "$('#{id}').checked = false"
+        end
+      end
+      if (webapp_refresh)
+        participant_ids.each do |p|
+          reasons.each do |reason, checked |
+            page << "WebApp.Refresh('#{p}_#{reason}');"
+          end
+        end
+      end
+    end
 	end
   
 end
