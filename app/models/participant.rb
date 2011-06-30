@@ -53,4 +53,8 @@ class Participant < ActiveRecord::Base
      end
      nil
    end	
+   
+	def dob
+		birthday.strftime("%m/%d/%Y")
+	end
 end
