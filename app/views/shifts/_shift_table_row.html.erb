@@ -1,18 +1,20 @@
 <% shifts.each do |shift| %>
- 
-  	<% if @numRows == 0 %>
-  		<% @numRows = @numRows + 1 %>
-  		<tr class="shaded">
-  	<% else %>
-  		<% @numRows = 0 %> 
-  		<tr>
-  	<% end %>
 
-	<td><%= "#{shift.start_date}, #{shift.start_time}" %></td>
-  	<td><%= "#{shift.end_date}, #{shift.end_time}" rescue "In Progress" %></td>
-  	<td><%= shift.area.name rescue "Unknown" %></td>
-  	<td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
-  	<td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td> 
-  	</tr>
+  <% if @numRows == 0 %>
+    <% @numRows = @numRows + 1 %>
+    <tr class="shaded">
+    <% else %>
+      <% @numRows = 0 %>
+    <tr>
+    <% end %>
+
+    <td><%= "#{shift.start_date}, #{shift.start_time}" %></td>
+    <td><%= "#{shift.end_date}, #{shift.end_time}" rescue "In Progress" %></td>
+    <td><%= shift.area.name rescue "Unknown" %></td>
+    <td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
+    <% if shift.time_out != nil %>
+      <td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td>
+    <% end %>
+  </tr>
 
 <% end %>

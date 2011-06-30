@@ -25,18 +25,25 @@
   </div>
   <div class="field">
     <%= f.label :time %><br />
-    <%= radio_button "anytime", "anytime", false, {:checked => @task.expires != -1 } %>
-    <%= f.text_field :time, :id => "time", :value => "#{Time.now}" %><br />
+    <%= radio_button "anytime", "anytime", false, {:checked => @task.time != -1 } %>
+    <% if @task.time != -1 %>
+      <%= f.text_field :time, :id => "time", :value => @task.time_string %>
+    <% else %>
+      <%= f.text_field :time, :id => "time", :value => Time.now.at_beginning_of_day.to_s(:time_only) %>
+    <% end %>
+    <br />
     <%= radio_button "anytime", "anytime", true, {:checked => @task.time == -1 } %>
     <%= f.label :time, "Any Time"%>
   </div>
   <div class="field">
-    <b>Date Range</b><br />
-    &nbsp &nbsp &nbsp From:
-    <%= f.text_field :start_date, :id => "start_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-    &nbsp &nbsp &nbsp To:<%= f.radio_button :expires, true, {:checked => @task.expires==true } %>
-    <%= f.text_field :end_date, :id => "end_date", :value => "#{Time.now.at_beginning_of_day}" %><br />
-    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<%= f.radio_button :expires, false, {:checked => @task.expires==false } %>
+    <%= f.label :start_date %><br />
+    <%= f.text_field :start_date, :id => "start_date", :value => @task.start_date.to_s(:date_only) %><br />
+  </div>
+  <div class="field">
+    <%= f.label :end_date, "Expiration"%><br />
+    <%= f.radio_button :expires, true, {:checked => @task.expires==true } %>
+    <%= f.text_field :end_date, :id => "end_date", :value => @task.end_date.to_s(:date_only) %><br />
+    <%= f.radio_button :expires, false, {:checked => @task.expires==false } %>
     <%= f.label :expires, "No Expiration"%>
   </div>
   <div class="actions">
