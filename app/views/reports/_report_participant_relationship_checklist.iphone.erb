@@ -1,5 +1,7 @@
 <div class="iLayer" id="wa<%=participant.id%>" title="<%= participant.full_name%>">
+	<a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Incident Report</a>
     <div class="iPanel">
+	
         <% if report.class.name == "IncidentReport" %>
         <div align="center">
             <img src="<%=participant.getImageUrl%>"></img>
@@ -32,6 +34,7 @@
                     <%end %>
                 </ul>
             </div>
+			
         </fieldset>
         <% end %>
     </div>
