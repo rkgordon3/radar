@@ -110,6 +110,8 @@ Radar::Application.routes.draw do
   
   match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
   "/students/use_search_results_to_create_new_report"
+    
+  match "/index_search" => "reports#index_search"
   
   resources :shifts
   

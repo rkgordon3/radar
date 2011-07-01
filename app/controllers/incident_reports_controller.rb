@@ -14,9 +14,8 @@ class IncidentReportsController < ReportsController
     # but maybe "back" button was pushed on a new report or edit page
     
     # get all submitted reports so view can display them (in order of approach time)
-    @reports = IncidentReport.where(:submitted => true)
+    @reports = IncidentReport.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now)
     @reports=Report.sort(@reports,params[:sort])
-    
     respond_to do |format|
       format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }

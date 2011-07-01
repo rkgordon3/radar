@@ -1,4 +1,73 @@
 <table>
-<%= render :partial => "reports/report_table_row_linked_labels" %>
-<%= render :partial => "reports/report_table_row", :locals => { :reports => @reports, :num_rows=>0 } %>
+    <tr>
+        <td valign=top>
+            <%= form_tag 'index_search', :remote => true %>
+                <table>
+                    <tr>
+                        <td valign=top>
+                            <b>Building:</b><br />
+                            <select id="building_id" name="building_id">
+                                <% Building.all.each do |b| %>
+                                        <option value="<%= b.id %>"><%= b.name %></option>
+                                    <% end %>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign=top>
+                            <b>Area:</b><br />
+                            <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified }%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign=top>
+                            <b>Student:</b><br />  
+                            <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% report_type_id = ReportType.where(:name => @report_type).first.id %>
+                            <b><%= t "#{@report_type.tableize}.reasons" %>:</b><br />
+                            <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
+                                <option value="0" selected="selected">Select An Infraction</option>
+                                <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
+                                    <option value="<%= i.id %>"><%= i.description %></option>
+                                <% end %>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign=top>
+                            <b>Approached Before:</b><br />
+                            <input type="text" id="submitted_before" name="submitted_before"></input>	
+                            <br />
+                            <b>Approached After:</b><br />
+                            <input type="text" id="submitted_after" name="submitted_after"></input>	
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%= hidden_field_tag 'type', @report_type %>
+                            <input id="submit" name="submit" type="submit" value="Update" />
+                        </td>
+                    </tr>
+                </table>    
+            </form>
+        </td>
+        <td valign=top>
+            <br />
+            <div id="results">
+                <%= render :partial => 'reports/report_table_row', :locals => { :reports => @reports, :num_rows => 0} %>
+            </div>
+            <br />
+        </td>
+    </tr>    
 </table>
+
+<script type="text/javascript">
+        AnyTime.picker( "submitted_before",
+            { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+        AnyTime.picker( "submitted_after",
+            { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+</script>

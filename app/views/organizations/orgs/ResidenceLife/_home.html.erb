@@ -15,7 +15,7 @@
 					<li><%= link_to "New Incident Report", "/incident_reports/new" %></li>
 				<% end %>
 				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li><%= link_to "List Incident Reports", "/incident_reports" %></li>
+					<li><%= link_to "List Incident Reports", "/reports?report=IncidentReport" %></li>
 					<li><%= link_to "Search Incident Reports", "/reports_query/search" %></li>
 				<% end %>
 			</ul>
@@ -26,7 +26,7 @@
 				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
 				<% end %>
 				<% if current_staff.access_level > Authorize.ra_access_level %>
-					<li><%= link_to "List Maintenence Requests", "/maintenance_reports" %></li>
+					<li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" %></li>
 					<li><a href="/">Search Maintenence Requests</a></li>
 				<% end %>
 			</ul>
