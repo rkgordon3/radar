@@ -18,8 +18,8 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
-    @task = Task.new
-    @task.expires = true
+    @task = Task.new(:expires => true, :time => -1, :start_date => Time.now.at_beginning_of_day, :end_date => Time.now.at_beginning_of_day)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @task }

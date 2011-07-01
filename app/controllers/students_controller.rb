@@ -5,7 +5,9 @@ class StudentsController < ApplicationController
   before_filter :ra_authorize_view_access
  
   def index
-    if params[:sort]=="building"
+    if params[:sort] == nil
+      @students = Student.order(:last_name)
+    elsif params[:sort]=="building"
       @students = Student.joins(:building).order("name ASC")
     else
       @students = Student.order(params[:sort])
@@ -102,7 +104,7 @@ class StudentsController < ApplicationController
   # POST 
   def search_results
   				
-  				logger.debug("IN SEARCH RESULTS")
+    logger.debug("IN SEARCH RESULTS")
     @students = nil
     student = nil
     
