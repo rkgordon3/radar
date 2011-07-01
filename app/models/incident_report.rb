@@ -33,21 +33,15 @@ class IncidentReport < Report
         if params[p.to_s()] != nil
 				params[p.to_s()].each_key { |key| 
 					any_relationship_to_report_found_for_participant = true
-					new_ris << add_specific_relationship_to_report_for_participant(p, key.to_i)
+					new_ris << add_contact_reason_for(p, key.to_i)
 				}
         end
       #end
-	  
-		if (common_reasons != nil && common_reasons.size > 0)
-			common_reasons.each_key do |reason|
-				any_relationship_to_report_found_for_participant = true
-				new_ris << add_specific_relationship_to_report_for_participant(p, reason.to_i)
-			end
-		end
+
       
       # if there are no checkboxes checked for particpant
       if any_relationship_to_report_found_for_participant == false
-        new_ris << add_default_relationship_for_participant(p)
+        new_ris << add_default_contact_reason(p)
       end
     end
     

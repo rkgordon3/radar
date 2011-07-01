@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
-  
+  before_filter :authenticate_staff!
+  before_filter :ra_authorize_view_access
+
   # GET /tasks
   # GET /tasks.xml
   def index
@@ -16,8 +18,8 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
-    @task = Task.new
-    @task.expires = true
+    @task = Task.new(:expires => true, :time => -1, :start_date => Time.now.at_beginning_of_day, :end_date => Time.now.at_beginning_of_day)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @task }
@@ -33,7 +35,7 @@ class TasksController < ApplicationController
   # POST /tasks.xml
   def create
     
-    params[:task][:time] = parse_task_time(params[:task][:time])
+    params[:task][:time] = parse_task_time(params[:task][:time],params[:anytime][:anytime])
     @task = Task.new(params[:task])
     
     # unless the following 2 commands are executed, the time is saved in the wrong time zone
@@ -83,8 +85,8 @@ class TasksController < ApplicationController
   
   private
   #this method converts a time from hours and minutes to just total minutes past midnight
-  def parse_task_time(time)
-    if time == "Any Time"
+  def parse_task_time(time,anytime)
+    if anytime == "true"
       return -1
     end
     time = Time.parse(time)

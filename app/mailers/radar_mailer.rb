@@ -18,8 +18,7 @@ class RadarMailer < ActionMailer::Base
     @report = report
     @first_name = staff.first_name
     @last_name = staff.last_name
-    
-    mail(:to => "#{emails.join(", ")}", :subject => "RADAR Report: " + @report.tag) do |format|
+    mail(:to => "#{emails}", :subject => "RADAR Report: " + @report.tag) do |format|
       if @report.type == "IncidentReport"
         #format.text {render 'incident_report_mail'}
         format.html {render 'incident_report_mail'}

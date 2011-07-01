@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "RADAR" %></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
     <%= stylesheet_link_tag "application" %>
     <%= stylesheet_link_tag "radar", :media => :screen %>
     <%= stylesheet_link_tag "radar_print", :media => :print %>

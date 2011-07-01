@@ -1,22 +1,22 @@
 <div id="inside_container" class="inside_container"><h1>All Tasks</h1>
 
-<table>
-  <tr>
-    <th><%= link_to "Title", :sort => "title" %></th>
-    <th><%= link_to "Note", :sort => "note" %></th>
-    <th><%= link_to "Area", :sort => "area" %></th>
-    <th><%= link_to "Start Date", :sort => "start_date" %></th>
-    <th><%= link_to "End Date", :sort => "end_date" %></th>
-    <th><%= link_to "Status", :sort => "status" %></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table>
+    <tr>
+      <th><%= link_to "Title", :sort => "title" %></th>
+      <th><%= link_to "Note", :sort => "note" %></th>
+      <th><%= link_to "Area", :sort => "area" %></th>
+      <th><%= link_to "Start Date", :sort => "start_date" %></th>
+      <th><%= link_to "End Date", :sort => "end_date" %></th>
+      <th><%= link_to "Status", :sort => "status" %></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-	<%= render :partial => "tasks/task_table_row", :locals => { :tasks => @tasks, :num_rows=>0 } %>
+    <%= render :partial => "tasks/task_table_row", :locals => { :tasks => @tasks, :num_rows=>0 } %>
 
-</table>
+  </table>
 
-<br />
+  <br />
 
-<%= link_to 'New Task', new_task_path %>
+  <%= link_to 'New Task', new_task_path %>
 </div>

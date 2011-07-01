@@ -32,10 +32,6 @@ class IncidentReportsController < ReportsController
   def show
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
-    if params[:emails] != nil
-      forward_as_mail(params[:emails])
-      return
-    end
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
@@ -93,7 +89,6 @@ class IncidentReportsController < ReportsController
   # PUT /incident_reports/1
   # PUT /incident_reports/1.xml
   def update
-    logger.debug("IR update")
     @report = session[:report]
     # process check boxes to update reported infractions
     @report.add_contact_reason(params)   

@@ -1,0 +1,27 @@
+<% if report.supports_selectable_contact_reasons? %>
+
+<div class="common-relationship-checklist">
+
+  	<div id="common-reasons">
+		<fieldset>
+		<ul>
+  			<% infractions = RelationshipToReport.for(report) %>
+  			<% infractions.each do |infraction| %>
+  		  		<li><% rf =  remote_function( :update => nil,
+											:url => { :controller => 'reports', :action => :update_common_reasons },
+											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
+					<%= check_box_tag "common_reasons[#{infraction.id}]", 
+						infraction.description,
+						false ,
+						:onclick => "#{rf}",
+						:class=>:"iToggle", 
+						:title=>"YES|NO" %>
+  				    <%= infraction.description %>			 				
+  				</li>
+  			<% end %>
+		</ul>
+	
+		</fieldset>
+  	</div>
+</div>
+<% end %>

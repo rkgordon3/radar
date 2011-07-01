@@ -1,43 +1,45 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-details_img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('details_div_#{participant.id}', '#{participant.id}-details_img');" %>
+  :onclick => "plusMinusToggle('details_div_#{participant.id}', '#{participant.id}-details_img');" %>
 <b>Details</b>
 <div id="details_div_<%= participant.id %>" class="participant_detail">
-	<div style="margin-left: 15px;">
-		<span style="font-style: italic;">Student ID #: </span> 
-		<% if (participant.student_id != nil) %>
-			<%=  "#{participant.student_id}" %><br/>
-		<% else %>
-			<%=  "Unknown" %><br/>
-		<% end %>
-        
-        <span style="font-style: italic;">Date of Birth: </span>
-		<% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
-			<font color="CC3333"><%= participant.birthday.strftime("%m/%d/%Y") %></font>
-		<%  elsif (participant.birthday != nil) %>
-			<%=  "#{participant.birthday.strftime("%m/%d/%Y")}" %>
-		<%  else %>
-			<%=  "Unknown" %>
-		<% end %> <br/>
-		
-		<span style="font-style: italic;">Residence: </span> 
-		<% if (participant.building_id != nil) %>
-			<%=  "#{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
-		<% else %>
-			<%=  "Unknown" %><br/>
-		<% end %>
-		
-		<span style="font-style: italic;">Emergency Contact Information: </span>
-		<% if (participant.emergency_contact_name !=nil) %>
-			<%=  "#{participant.emergency_contact_name}" %>
-		<% else %>
-			<%=  "Unknown" %>
-		<% end %>
-		<span style="font-style: italic;"> @ </span>
-		<% if (participant.emContact !=nil) %>
-			<%=  "#{participant.emContact}" %>
-		<% else %>
-			<%=  "Unknown" %>
-		<% end %>                
-	</div>
+  <div style="margin-left: 15px;">
+    <span style="font-style: italic;">Student ID #: </span>
+    <% if (participant.student_id != nil) %>
+      <%=  "#{participant.student_id}" %><br/>
+    <% else %>
+      <%=  "Unknown" %><br/>
+    <% end %>
+
+    <span style="font-style: italic;">Date of Birth: </span>
+    <% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
+      <font color="CC3333"><%= participant.birthday.strftime("%m/%d/%Y") %></font>
+    <%  elsif (participant.birthday != nil) %>
+      <%=  "#{participant.birthday.strftime("%m/%d/%Y")}" %>
+    <%  else %>
+      <%=  "Unknown" %>
+    <% end %> <br/>
+
+    <span style="font-style: italic;">Residence: </span>
+    <% if (participant.building_id != nil) %>
+      <%=  "#{participant.room_number} #{Building.find(participant.building_id).name}" %><br/>
+    <% else %>
+      <%=  "Unknown" %><br/>
+    <% end %>
+
+    <div id="emergency_contact">
+      <span style="font-style: italic;">Emergency Contact Information: </span>
+      <% if (participant.emergency_contact_name !=nil) %>
+        <%=  "#{participant.emergency_contact_name}" %>
+      <% else %>
+        <%=  "Unknown" %>
+      <% end %>
+      <span style="font-style: italic;"> @ </span>
+      <% if (participant.emContact !=nil) %>
+        <%=  "#{participant.emContact}" %>
+      <% else %>
+        <%=  "Unknown" %>
+      <% end %>
+    </div>
+  </div>
 </div>
 

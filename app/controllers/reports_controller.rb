@@ -122,6 +122,10 @@ class ReportsController < ApplicationController
           render :update do |page|
             page.select("input#full_name").first.clear
             page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :mInitial => middleInitial, :lName => lastName })
+			
+            if @report.participant_ids.size > 0
+              page.show 'common-reasons-container'
+            end
           end
         }
       end
@@ -134,20 +138,23 @@ class ReportsController < ApplicationController
             if !@report.associated?(@participant)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant })) 
+              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+              if @report.participant_ids.size > 0
+                page.show 'common-reasons-link'
+              end
             end
           end
         }
       end 
     end
-    @report.add_default_relationship_for_participant(@participant.id)
+    @report.add_default_contact_reason(@participant.id)
   end
   
   def remove_participant
     logger.debug "In remove method #{params}"
     @report = session[:report]
     @participant_id = Integer(params[:id])
-    infractions = @report.get_report_participant_relationships_for_participant(@participant_id)
+    infractions = @report.contact_reasons_for(@participant_id)
     logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
     infractions.each do |ri|
       @report.report_participant_relationships.delete(ri)
@@ -178,18 +185,23 @@ class ReportsController < ApplicationController
     redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
   end
   
-  def forward_as_mail(emails)
+  def forward_as_mail
+    emails = params[:emails]
     emails.delete_if {|key, value| value != "1" }
-    mail = RadarMailer.report_mail(@report, emails.keys, current_staff)
+    emails_for_notice = emails.keys.join(", ")
+    emails = emails.keys.join(", ")
+    emails_for_notice.gsub!("<","(")
+    emails_for_notice.gsub!(">",")")
+    mail = RadarMailer.report_mail(Report.find(params[:report]), emails, current_staff)
     
     begin
       mail.deliver
     rescue 
     end
-    
+   
     respond_to do |format|
-      format.html { redirect_to(@report, :notice => "Report was forwarded to " + emails.keys.join(", ") + ".") }
-    end  
+      format.js { render :locals => { :emails => emails, :emails_for_notice => emails_for_notice } }
+    end
   end
   
   # Used only by iphone view
@@ -197,106 +209,173 @@ class ReportsController < ApplicationController
     model_name = params[:controller].chomp('_controller').camelize.singularize
     shift_start_time = current_staff.current_shift.created_at
     @reports = Kernel.const_get(model_name).where("created_at > '#{shift_start_time}' and staff_id = ? and type = '#{model_name}' ",  current_staff.id).order(:approach_time)
-    
+
     respond_to do |format|
       format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}
     end
   end
   
-  def index_search
-    @reports = nil
-    report_ids = Array.new
-    student = nil
-    # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 3 # arbitrary number
-      # get the student for the string entered
-      student = Participant.get_participant_for_full_name(params[:full_name])
-      
-      # get all reported infractions for that student
-      reported_inf = ReportParticipantRelationship.where(:participant_id => student.id)
-      
-      # get all of the report ids from the reported infractions
-      reported_inf.each do |ri|
-        report_ids << ri.report_id
-      end
-      
-      # get the incident reports with those ids
-      @reports = Report.where(:id => report_ids, :type => params[:type])
-    end
-    
-    #-----------------
-    # if a particular infraction was selected, get all reports w/ that infraction
-    if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
-      # get reported infractions all with that infraction
-      reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
-      
-      # if a student was selected, limit to only those infractions by that student
-      if student != nil
-        reported_inf = reported_inf.where(:participant_id => student.id)
-        report_ids = Array.new
-      end
-      
-      # collect the report_ids from the reported infractions into an array
-      reported_inf.each do |ri|
-        report_ids << ri.report_id
-      end
-      
-      # get the reports with ids in the array
-      @reports = Report.where(:id => report_ids, :type => params[:type])
-    end
-    
-    #----------------
-    # if no student or infraction was selected, select all 
-    if @reports == nil
-      @reports = Report.where(:submitted => true, :type => params[:type])
-    end
-    
-    
-    #-----------------
-    # if a building was selected, get reports in that building
-    if Integer(params[:building_id]) != Building.unspecified 
-      @reports = @reports.where(:building_id => params[:building_id])
-    end
-    
-    #-----------------
-    # if an area was selected, get reports in that area
-    if Integer(params[:area_id]) != Area.unspecified 
-      buildings = Building.where(:area_id => params[:area_id])
-      @reports = @reports.where(:building_id => buildings)
-      
-    end
-    
-    #-----------------
-    # if a date was provided, find all before that date
-    if params[:submitted_before] != "" 
-      # all incident reports should take place in this century
-      # be careful of time zones - all need to be in GMT to match the DB
-      min = Time.parse("01/01/2000").gmtime
-      max = Time.parse(params[:submitted_before]).gmtime
-      
-      @reports = @reports.where(:approach_time => min..max )
-    end
-    
-    #-----------------
-    # if a date was provided, find all after that date
-    if params[:submitted_after] != "" 
-      # all incident reports should take place before right now (ignoring daylight savings)
-      # be careful of time zones - all need to be in GMT to match the DB
-      min = Time.parse(params[:submitted_after]).gmtime
-      max = Time.now.gmtime
-      
-      @reports = @reports.where(:approach_time => min..max )
-    end
-    
-    
-    # finishing touches...
-    @reports = @reports.where(:submitted => true)
-    params[:sort] ||= "approach_time"
-    @reports = Report.sort(@reports,params[:sort]).paginate(:per_page => 30, :page => params[:id])
-    
-    @num_reports = @reports.count
+    def update_reason
+    pid = params[:participant]
+    id = params[:reason]
+    reason = /\d+_(\d+)/.match(id)[1]
+    checked = params[:checked]
+    report = session[:report]
+    checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
     respond_to do |format|
-        format.js
+      format.js { render_set_reason(id, checked, false)	}
+      format.iphone { render_set_reason(id, checked, true) }
     end
+  end
+  
+  def update_common_reasons
+    report = session[:report]
+    checked = params[:checked]
+	
+    participant_ids = report.participant_ids
+    reasons = {}
+	
+    params.each do |key, value|
+      if /common_reasons_(\d+)/.match(value) != nil
+        logger.debug("update reason #{$1} to #{checked}")
+        participant_ids.each do |pid|
+          logger.debug("update reason for #{pid}")
+          checked.downcase == "true" ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
+        end
+        reasons[$1] = checked
+      end
+    end
+    logger.debug("reasons #{reasons}")
+    respond_to do |format|
+      format.js { render_common_reasons_update(participant_ids, reasons, false) }
+      format.iphone { render_common_reasons_update(participant_ids, reasons, true) }
+    end
+  end
+  
+    def index_search
+        @reports = nil
+        report_ids = Array.new
+        student = nil
+        # if a student's name was entered, find all reports with that student
+        if params[:full_name].length > 3 # arbitrary number
+          # get the student for the string entered
+          student = Participant.get_participant_for_full_name(params[:full_name])
+          
+          # get all reported infractions for that student
+          reported_inf = ReportParticipantRelationship.where(:participant_id => student.id)
+          
+          # get all of the report ids from the reported infractions
+          reported_inf.each do |ri|
+            report_ids << ri.report_id
+          end
+          
+          # get the incident reports with those ids
+          @reports = Report.where(:id => report_ids, :type => params[:type])
+        end
+        
+        #-----------------
+        # if a particular infraction was selected, get all reports w/ that infraction
+        if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
+          # get reported infractions all with that infraction
+          reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
+          
+          # if a student was selected, limit to only those infractions by that student
+          if student != nil
+            reported_inf = reported_inf.where(:participant_id => student.id)
+            report_ids = Array.new
+          end
+          
+          # collect the report_ids from the reported infractions into an array
+          reported_inf.each do |ri|
+            report_ids << ri.report_id
+          end
+          
+          # get the reports with ids in the array
+          @reports = Report.where(:id => report_ids, :type => params[:type])
+        end
+        
+        #----------------
+        # if no student or infraction was selected, select all 
+        if @reports == nil
+          @reports = Report.where(:submitted => true, :type => params[:type])
+        end
+        
+        
+        #-----------------
+        # if a building was selected, get reports in that building
+        if Integer(params[:building_id]) != Building.unspecified 
+          @reports = @reports.where(:building_id => params[:building_id])
+        end
+        
+        #-----------------
+        # if an area was selected, get reports in that area
+        if Integer(params[:area_id]) != Area.unspecified 
+          buildings = Building.where(:area_id => params[:area_id])
+          @reports = @reports.where(:building_id => buildings)
+          
+        end
+        
+        #-----------------
+        # if a date was provided, find all before that date
+        if params[:submitted_before] != "" 
+          # all incident reports should take place in this century
+          # be careful of time zones - all need to be in GMT to match the DB
+          min = Time.parse("01/01/2000").gmtime
+          max = Time.parse(params[:submitted_before]).gmtime
+          
+          @reports = @reports.where(:approach_time => min..max )
+        end
+        
+        #-----------------
+        # if a date was provided, find all after that date
+        if params[:submitted_after] != "" 
+          # all incident reports should take place before right now (ignoring daylight savings)
+          # be careful of time zones - all need to be in GMT to match the DB
+          min = Time.parse(params[:submitted_after]).gmtime
+          max = Time.now.gmtime
+          
+          @reports = @reports.where(:approach_time => min..max )
+        end
+        
+        
+        # finishing touches...
+        @reports = @reports.where(:submitted => true)
+        params[:sort] ||= "approach_time"
+        @reports = Report.sort(@reports,params[:sort]).paginate(:per_page => 30, :page => params[:id])
+        
+        @num_reports = @reports.count
+        respond_to do |format|
+            format.js
+        end
   end  
+  
+	private
+	def render_set_reason(id, checked, webapp_refresh)
+		render :update do |page|
+			checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
+			page << "$('#{id}').checked = #{checked.downcase}"
+			if (webapp_refresh)
+				page << "WebApp.Refresh('#{pid}_#{reason}')"
+			end
+		end
+	end
+	def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
+    render :update do |page|
+      participant_ids.each do |p|
+        reasons.each do |reason, checked |
+          id = "#{p}_#{reason}"
+          checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
+          checked.downcase == "true" ? page << "$('#{id}').checked = true" :
+            page << "$('#{id}').checked = false"
+        end
+      end
+      if (webapp_refresh)
+        participant_ids.each do |p|
+          reasons.each do |reason, checked |
+            page << "WebApp.Refresh('#{p}_#{reason}');"
+          end
+        end
+      end
+    end
 end
+end  
