@@ -11,9 +11,9 @@
 	<td><%= student.extension %></td>
     <td><%= student.email %></td>
 	<% if student.birthday > -21.years.from_now %>
-		<td><font color="CC3333"><%= student.birthday != nil ? student.birthday.to_s(:short_date_only) : "" %></font></td>
+		<td><font color="CC3333"><%= student.birthday != nil ? student.birthday_short : "" %></font></td>
 	<% else %>
-		<td><%= student.birthday != nil ? student.birthday.to_s(:short_date_only) : "" %></td>
+		<td><%= student.birthday != nil ? student.birthday_short : "" %></td>
 	<% end %>
     
     <td><%= link_to 'Show', student %></td>

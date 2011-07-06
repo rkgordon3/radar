@@ -10,13 +10,25 @@ class Report < ActiveRecord::Base
   
   # return true if report is a generic report, ie FYI
   def is_generic? 
-  	  type == nil
+    type == nil
   end
   
   def is_note?
-  	  type == "Note"
+    type == "Note"
   end
   
+  def created_at_string
+    self.created_at.to_s(:my_time)
+  end
+
+  def created_at_string
+    self.created_at.to_s(:my_time)
+  end
+
+  def updated_at_string
+    self.updated_at.to_s(:my_time)
+  end
+
   def can_submit_from_mobile?
     false
   end
@@ -26,7 +38,7 @@ class Report < ActiveRecord::Base
   end
   
   def can_edit_from_mobile?
-	false
+    false
   end
   
   def annotation_text
@@ -122,16 +134,16 @@ class Report < ActiveRecord::Base
   
   def get_contact_reason_for_participant(participant_id, reason_id)
     self.report_participant_relationships.select { |ri|
-                     ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
+      ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
   
   #return true if participant is associated with report
   def associated?(participant) 
-	participant != nil && participant_ids.include?(participant.id)
+    participant != nil && participant_ids.include?(participant.id)
   end
   
   def empty_of_participants?
-	participant_ids.size == 0
+    participant_ids.size == 0
   end
   
   # Return id of all participants associated with report
@@ -199,7 +211,7 @@ class Report < ActiveRecord::Base
   end
   
   def remove_contact_reason_for(participant_id, reason_id)
-	self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
+    self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
   end
   
   def get_relationship(participant_id, reason_id)
@@ -208,20 +220,20 @@ class Report < ActiveRecord::Base
   
   
   def tag	
-  	  tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s 
+    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s
   end
   
 
   
- def event_time
-  	  (approach_time != nil ? approach_time : created_at).to_s(:time_only)
- end
+  def event_time
+    (approach_time != nil ? approach_time : created_at).to_s(:time_only)
+  end
  
- def event_date
+  def event_date
  	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
- end
+  end
  
-def Report.sort(data,key)
+  def Report.sort(data,key)
     new_data = data.order("approach_time DESC")
     if key=="time"
       #default already sorted by time
@@ -258,9 +270,9 @@ def Report.sort(data,key)
     end
   end
   
-   private
-   def tag_datetime
-  	   (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
+  private
+  def tag_datetime
+    (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
   
 end
