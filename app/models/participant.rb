@@ -5,7 +5,7 @@ class Participant < ActiveRecord::Base
   end
 		
 	def Participant.get_participant_for_full_name(name_string)
-	  logger.debug "IN GET PARTICIPANT"
+	  # removed log output; should not be seen in master branch
     message= name_string
     split_up = message.split(/, /)
 	
