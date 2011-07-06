@@ -40,9 +40,9 @@
 <p>
   <b>Date of Birth:</b>
   <% if @student.birthday > -21.years.from_now %>
-	<font color="CC3333"><%= @student.birthday != nil ? @student.birthday.to_s(:short_date_only) : "" %></font>
+	<font color="CC3333"><%= @student.birthday != nil ? @student.birthday_string : "" %></font>
   <% else %>
-	<%= @student.birthday != nil ? @student.birthday.to_s(:short_date_only) : "" %>
+	<%= @student.birthday != nil ? @student.birthday_string : "" %>
   <% end %>
 </p>
 

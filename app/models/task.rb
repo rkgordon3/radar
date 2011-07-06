@@ -58,6 +58,14 @@ class Task < ActiveRecord::Base
     end
     
   end
+
+  def start_date_only
+    self.start_date.to_s(:date_only)
+  end
+
+  def end_date_only
+    self.end_date.to_s(:date_only)
+  end
   
   def date_range
     return start_date_short + " - " + end_date_short
