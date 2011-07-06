@@ -12,11 +12,9 @@
         
         <span style="font-style: italic;">Date of Birth: </span>
 		<% if (participant.birthday != nil) and (participant.birthday > -21.year.from_now) %>
-			<font color="CC3333"><%= participant.dob %></font>
-		<%  elsif (participant.birthday != nil) %>
-			<%=  "#{participant.dob}" %>
-		<%  else %>
-			<%=  "Unknown" %>
+			<font color="CC3333"><%= participant.birthday_string %></font>
+		<%  else  %>
+			<%=  "#{participant.birthday_string}" %>
 		<% end %> <br/>
 		
 		<span style="font-style: italic;">Residence: </span> 
