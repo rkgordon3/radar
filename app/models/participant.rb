@@ -5,7 +5,6 @@ class Participant < ActiveRecord::Base
   end
 		
 	def Participant.get_participant_for_full_name(name_string)
-	  # removed log output; should not be seen in master branch
     message= name_string
     split_up = message.split(/, /)
 	
@@ -15,8 +14,7 @@ class Participant < ActiveRecord::Base
     #print s_building_id
     room_number = split_up[2]
     #print s_room_number
-	
-    # rkg why query database twice to get id?
+
 
     participant = Participant.get_participant_from_name_building_room(long_name,building_id,room_number)
 	  if participant == nil
