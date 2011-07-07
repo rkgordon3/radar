@@ -1,0 +1,4 @@
+@rounds.each  do |round|
+  page.replace_html "round #{round.id}-reports-div", :partial => 'reports/report_table_row', :locals => { :reports => report_map[round], :num_rows => 0}
+  page.replace_html "round #{round.id}-notes-div", :partial => 'reports/report_table_row', :locals => { :reports => note_map[round], :num_rows => 0}
+end

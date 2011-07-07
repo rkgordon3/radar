@@ -1,39 +1,38 @@
 <table>
-<% if reports.length > 0 %>
+  <% if reports.length > 0 %>
     <%= render :partial => "reports/report_table_row_linked_labels" %>
-<% else %>
-    <%= "No Reports Match These Criteria" %>
-<% end %>    
-<% reports.each do |report| %>
-
-<% if num_rows == 0 %>
-    <% num_rows = num_rows + 1 %>
-    <tr class="shaded">
   <% else %>
-    <% num_rows = 0 %> 
-    <tr>
+    <%= "No Reports Match These Criteria" %>
   <% end %>
-  
-<td><%= report.event_date %></td>
-<td><%= report.event_time %></td>
-<td><%= report.type %></td>
-<td><%= report.building.area.abbreviation %></td>
-<td><%= report.building.name %></td>
-<td><%= report.room_number %></td>
-<td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
-<td><%= link_to report.tag, report %></td>
+  <% reports.each do |report| %>
 
-<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-	<td><%= link_to 'Edit', edit_report_path(report) %></td>
-<% end %>
-<% if report.type == "MaintenanceReport" %>
-    <% if Authorize.hd_authorize(current_staff) %>
-        <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-<% end %>
+    <% if num_rows == 0 %>
+      <% num_rows = num_rows + 1 %>
+      <tr class="shaded">
+      <% else %>
+        <% num_rows = 0 %>
+      <tr>
+      <% end %>
 
-</tr>
-<% end %>
+      <td><%= report.event_date %></td>
+      <td><%= report.event_time %></td>
+      <td><%= report.type %></td>
+      <td><%= report.building.area.abbreviation %></td>
+      <td><%= report.building.name %></td>
+      <td><%= report.room_number %></td>
+      <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
+      <td><%= link_to report.tag, report %></td>
+
+      <% if Authorize.not_admin_assistant_authorize(current_staff) %>
+        <td><%= link_to 'Edit', edit_report_path(report) %></td>
+      <% end %>
+      <% if report.type == "MaintenanceReport" %>
+        <% if Authorize.hd_authorize(current_staff) %>
+          <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+        <% end %>
+      <% end %>
+
+    </tr>
+  <% end %>
 </tr>
 </table>
-<%= will_paginate @reports %>

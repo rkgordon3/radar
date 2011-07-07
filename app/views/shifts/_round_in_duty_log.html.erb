@@ -1,38 +1,36 @@
 <div>
-<h3><%= "Round #{round_count}" %>: 
-  	    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
-	<div>
-		<h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
- 
+  <h3><%= "Round #{round_count}" %>:
+    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
+  <div>
+    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
+
   	    Reports</h4>
-  		<div id="<%= round.id %>-reports" style="display: none;" >
-  			<% if reports.length > 0 %>
-  				<table>
-					<%= render :partial => "reports/report_table_row_labels" %>
-					<%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
-				</table>
-			<% else %>
-			
-				<p>No Reports For This Round</p>
-			<% end %>
-  		</div>
-  	</div>
-  	<div>
-		<h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
- 
+    <div id="<%= round.id %>-reports" style="display: none;" >
+      <% if reports.length > 0 %>
+        <div id="round <%= round.id %>-reports-div" >
+          <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
+        </div>
+      <% else %>
+
+        <p>No Reports For This Round</p>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
+
   	    Notes</h4>
-  	    <div id="<%= round.id %>-notes" style="display: none;">
-  			<% if notes.length > 0 %>
-  				<table>
-					<%= render :partial => "reports/report_table_row_labels" %>
-					<%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
-				</table>
-			<% else %>
-			
-				<p>No Notes For This Round</p>
-			<% end %>
-  		</div>
-  	</div>
+    <div id="<%= round.id %>-notes" style="display: none;">
+      <% if notes.length > 0 %>
+        <div id="round <%= round.id %>-notes-div" >
+          <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
+        </div>
+      <% else %>
+
+        <p>No Notes For This Round</p>
+      <% end %>
+    </div>
+  </div>
 </div>

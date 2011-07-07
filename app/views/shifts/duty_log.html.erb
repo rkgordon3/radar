@@ -1,40 +1,41 @@
 <div id="inside_container" class="inside_container">
-<h1>RA: <%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></h1>
-<h2>On Duty: <%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></h2>
-<h2>Area: <%= "#{@shift.area.name rescue "Unknown"}" %></h2>
+  <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
+  <h1>RA: <%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></h1>
+  <h2>On Duty: <%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></h2>
+  <h2>Area: <%= "#{@shift.area.name rescue "Unknown"}" %></h2>
 
-<div>
-	<h3><%= link_to image_tag("/images/add_icon.gif", :id => "rounds-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('rounds', 'rounds-img');" %>
+  <div>
+    <h3><%= link_to image_tag("/images/add_icon.gif", :id => "rounds-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('rounds', 'rounds-img');" %>
 	Rounds</h3>
-	<div id='rounds' style="display: none;">       
-	<% round_count = 0 %>
-	<% if @rounds.length > 0 %>
-     	<%  @rounds.each  do |round|  %>    
-     		<% round_count = round_count + 1 %>
-       	<%= render :partial=> "shifts/round_in_duty_log", :locals => 
-       	{ :round_count => round_count, :round => round, :reports =>report_map[round], :notes => note_map[round] } %>
-     	<% end %>
-     <% else %>
-     	<p>No Rounds Completed For This Shift</p>
-     <% end %>
- 	</div>
- </div>
- 
- <div>
-	<h3><%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
+    <div id='rounds' style="display: none;">
+      <% round_count = 0 %>
+      <% if @rounds.length > 0 %>
+        <%  @rounds.each  do |round|  %>
+          <% round_count = round_count + 1 %>
+          <%= render :partial=> "shifts/round_in_duty_log", :locals =>
+                { :round_count => round_count, :round => round, :reports =>report_map[round], :notes => note_map[round] } %>
+        <% end %>
+      <% else %>
+        <p>No Rounds Completed For This Shift</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3><%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
 	Tasks</h3>
-	<div id='tasks' style="display: none;" >       
-		<% if @task_assignments.length > 0 %>
-  				<table>
-					<%= render :partial => "task_assignments/task_assignments_table_row_labels" %>
-					<%= render :partial => "task_assignments/task_assignments_table_row", :locals => { :task_assignments => @task_assignments, :num_rows=>0 } %>
-				</table>
-		<% else %>
-			
-				<p>No Tasks Assigned For This Shift</p>
-		<% end %>
- 	</div>
- </div>
+    <div id='tasks' style="display: none;" >
+      <% if @task_assignments.length > 0 %>
+        <table>
+          <%= render :partial => "task_assignments/task_assignments_table_row_labels" %>
+          <%= render :partial => "task_assignments/task_assignments_table_row", :locals => { :task_assignments => @task_assignments, :num_rows=>0 } %>
+        </table>
+      <% else %>
+
+        <p>No Tasks Assigned For This Shift</p>
+      <% end %>
+    </div>
+  </div>
 </div>
