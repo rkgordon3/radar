@@ -30,7 +30,7 @@
                             <% report_type_id = ReportType.where(:name => @report_type).first.id %>
                             <b><%= t "#{@report_type.tableize}.reasons" %>:</b><br />
                             <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
-                                <option value="0" selected="selected">Select An Infraction</option>
+                                <option value="0" selected="selected"> </option>
                                 <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
                                     <option value="<%= i.id %>"><%= i.description %></option>
                                 <% end %>

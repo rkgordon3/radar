@@ -341,7 +341,7 @@ class ReportsController < ApplicationController
     # finishing touches...
     @reports = @reports.where(:submitted => true)
     params[:sort] ||= "approach_time"
-    @reports = Report.sort(@reports,params[:sort]).paginate(:per_page => 30, :page => params[:id])
+    @reports = Report.sort(@reports,params[:sort])
         
     @num_reports = @reports.count
     respond_to do |format|
