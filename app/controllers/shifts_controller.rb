@@ -1,7 +1,6 @@
 class ShiftsController < ApplicationController
   
   
-  #testing branches
   # GET /shifts
   # GET /shifts.xml
   before_filter :authenticate_staff!
