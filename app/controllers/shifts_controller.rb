@@ -1,7 +1,7 @@
 class ShiftsController < ApplicationController
   
   
-  
+  # hello
   # GET /shifts
   # GET /shifts.xml
   helper_method :report_map
