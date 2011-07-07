@@ -113,10 +113,11 @@ class ShiftsController < ApplicationController
     
     @shift = Shift.find(params[:id])
     @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
-    round_time_start = @shift.created_at
     @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
+
     report_map ||= Hash.new
     note_map ||= Hash.new
+    round_time_start = @shift.created_at
     @rounds.each do |round|
       round_time_end=round.end_time
       reports = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
