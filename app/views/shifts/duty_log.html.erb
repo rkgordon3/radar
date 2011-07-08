@@ -8,7 +8,7 @@
     <h3><%= link_to image_tag("/images/add_icon.gif", :id => "rounds-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('rounds', 'rounds-img');" %>
 	Rounds</h3>
-    <div id='rounds' style="display: none;">
+    <div id='rounds' class='duty_log_div' style="display: none;">
       <% round_count = 0 %>
       <% if @rounds.length > 0 %>
         <%  @rounds.each  do |round|  %>
@@ -26,7 +26,7 @@
     <h3><%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
 	Tasks</h3>
-    <div id='tasks' style="display: none;" >
+    <div id='tasks' class='duty_log_div' style="display: none;" >
       <% if @task_assignments.length > 0 %>
         <table>
           <%= render :partial => "task_assignments/task_assignments_table_row_labels" %>
