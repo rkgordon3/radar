@@ -1,26 +1,26 @@
 
-    <td><%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %></td>
-	<%if current_staff.access_level > Authorize.ra_access_level %>
-    	<td><%= student.student_id %></td>
-	<% end %>
-    <td><%= student.first_name %></td>
-    <td><%= student.middle_initial %></td>
-    <td><%= student.last_name %></td>
-    <td><%= student.building.name %></td>
-    <td><%= student.room_number %></td>
-	<td><%= student.extension %></td>
-    <td><%= student.email %></td>
-	<% if student.birthday > -21.years.from_now %>
-		<td><font color="CC3333"><%= student.birthday != nil ? student.birthday_short : "" %></font></td>
-	<% else %>
-		<td><%= student.birthday != nil ? student.birthday_short : "" %></td>
-	<% end %>
-    
-    <td><%= link_to 'Show', student %></td>
-	<%if staff_signed_in? %>
-		<%if current_staff.access_level > Authorize.admin_assistant_access_level %>
-    		<td><%= link_to 'Edit', edit_student_path(student) %></td>
-    		<td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
-		<% end %>
-	<% end %>
+<td><%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %></td>
+<%if current_staff.access_level > Authorize.ra_access_level %>
+  <td><%= student.student_id %></td>
+<% end %>
+<td><%= student.first_name %></td>
+<td><%= student.middle_initial %></td>
+<td><%= student.last_name %></td>
+<td><%= student.building.name %></td>
+<td><%= student.room_number %></td>
+<td><%= student.extension %></td>
+<td><%= student.email %></td>
+<% if student.birthday > -21.years.from_now %>
+  <td><font color="CC3333"><%= student.birthday != nil ? student.birthday_string : "" %></font></td>
+<% else %>
+  <td><%= student.birthday != nil ? student.birthday_string : "" %></td>
+<% end %>
+
+<td><%= link_to 'Show', student %></td>
+<%if staff_signed_in? %>
+  <%if current_staff.access_level > Authorize.admin_assistant_access_level %>
+    <td><%= link_to 'Edit', edit_student_path(student) %></td>
+    <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
+  <% end %>
+<% end %>
 </tr>
