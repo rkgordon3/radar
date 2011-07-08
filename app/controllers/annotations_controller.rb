@@ -2,6 +2,7 @@ class AnnotationsController < ApplicationController
   before_filter :authenticate_staff!
   before_filter :super_admin_authorize_view_access
 
+  # messing around
   # GET /annotations
   # GET /annotations.xml
   def index
