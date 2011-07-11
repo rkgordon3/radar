@@ -16,7 +16,7 @@
                 Infractions:
             </Legend>
             <div id="<%= participant.id %>-infractions">
-                <% infractions = RelationshipToReport.for(report) %>
+                <% infractions = report.reasons %>
                 <ul>
                     <% infractions.each do |infraction| %>
 					<% rf =  remote_function( :update => nil,

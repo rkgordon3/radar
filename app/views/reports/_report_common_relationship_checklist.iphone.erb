@@ -5,7 +5,7 @@
   	<div id="common-reasons">
 		<fieldset>
 		<ul>
-  			<% infractions = RelationshipToReport.for(report) %>
+  			<% infractions =report.reasons %>
   			<% infractions.each do |infraction| %>
   		  		<li><% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },

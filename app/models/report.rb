@@ -55,6 +55,10 @@ class Report < ActiveRecord::Base
     false
   end
   
+  def reasons
+	RelationshipToReport.for(self) 
+  end
+  
   
   def update_attributes_without_saving(params)
     logger.debug "IN REPORT.update attributes  params #{params}"
