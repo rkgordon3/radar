@@ -276,24 +276,26 @@ class ReportsController < ApplicationController
         
     #-----------------
     # if a particular infraction was selected, get all reports w/ that infraction
-    if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
-      # get reported infractions all with that infraction
-      reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
-          
-      # if a student was selected, limit to only those infractions by that student
-      if student != nil
-        reported_inf = reported_inf.where(:participant_id => student.id)
-        report_ids = Array.new
-      end
-          
-      # collect the report_ids from the reported infractions into an array
-      reported_inf.each do |ri|
-        report_ids << ri.report_id
-      end
-          
-      # get the reports with ids in the array
-      @reports = Report.where(:id => report_ids, :type => params[:type])
-    end
+	if (params[:infraction_id] != nil)
+		if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
+		  # get reported infractions all with that infraction
+		  reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
+			  
+		  # if a student was selected, limit to only those infractions by that student
+		  if student != nil
+			reported_inf = reported_inf.where(:participant_id => student.id)
+			report_ids = Array.new
+		  end
+			  
+		  # collect the report_ids from the reported infractions into an array
+		  reported_inf.each do |ri|
+			report_ids << ri.report_id
+		  end
+			  
+		  # get the reports with ids in the array
+		  @reports = Report.where(:id => report_ids, :type => params[:type])
+		end
+	end
         
     #----------------
     # if no student or infraction was selected, select all
