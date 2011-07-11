@@ -4,6 +4,7 @@
 en:
   annotation: Description
   location: Specific Location
+  contact_reason_prompt: Select Contact Reason(s)
   building: Building
   incident_reports:
      help: Add students involved in incident
