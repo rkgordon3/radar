@@ -24,11 +24,11 @@
       <td><%= link_to report.tag, report %></td>
 
       <% if Authorize.not_admin_assistant_authorize(current_staff) %>
-        <td><%= link_to 'Edit', edit_report_path(report) %></td>
+        <td><%= link_to 'Edit', edit_report_path(report), :id=>'edit_destroy_link' %></td>
       <% end %>
       <% if report.type == "MaintenanceReport" %>
         <% if Authorize.hd_authorize(current_staff) %>
-          <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete %></td>
+          <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id=>'edit_destroy_link' %></td>
         <% end %>
       <% end %>
 

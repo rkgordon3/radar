@@ -6,7 +6,7 @@
         :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
 
   	    Reports</h4>
-    <div id="<%= round.id %>-reports" style="display: none;" >
+    <div id="<%= round.id %>-reports" style="display: none;" class='duty_log_div' >
       <% if reports.length > 0 %>
         <div id="round <%= round.id %>-reports-div" >
           <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
@@ -22,7 +22,7 @@
         :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
 
   	    Notes</h4>
-    <div id="<%= round.id %>-notes" style="display: none;">
+    <div id="<%= round.id %>-notes" class='duty_log_div' style="display: none;">
       <% if notes.length > 0 %>
         <div id="round <%= round.id %>-notes-div" >
           <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
