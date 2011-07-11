@@ -8,6 +8,7 @@ class ReportsController < ApplicationController
   def index
     @reports = Report.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now, :type => params[:report])
     @report_type = params[:report]
+	  
     params[:sort] ||= "approach_time"
     logger.debug params[:sort]
     @reports = Report.sort(@reports,params[:sort]).paginate(:per_page => 30, :page => params[:id])

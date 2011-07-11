@@ -1,5 +1,11 @@
 Radar::Application.routes.draw do
 
+  resources :writing_center_contacts
+
+  resources :study_tables
+  
+  resources :tutor_contacts
+
   resources :interested_parties
   
   resources :imports
