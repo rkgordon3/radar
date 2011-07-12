@@ -17,73 +17,17 @@ class ApplicationController < ActionController::Base
 
 	def is_iphone_request?
 		#true
-	   request.user_agent =~ /(Mobile\/.+Safari)/	
+    request.user_agent =~ /(Mobile\/.+Safari)/
 	end  
 	
 	def is_android_request?
 		request.user_agent =~ /(Android)/
 	end
-	
 
-	
-  def ra_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.ra_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
+  private
   
-  def admin_assistant_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.admin_assistant_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
-  
-   def not_admin_assistant_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.not_admin_assistant_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
-  
-  def hd_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.hd_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
-  
-  def admin_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.admin_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
-  
-  def super_admin_authorize_view_access
-    if staff_signed_in?
-      unless Authorize.super_admin_authorize(current_staff)
-        flash[:notice] = "Unauthorized Access"
-        redirect_to "/home/landingpage"
-        false
-      end
-    end 
-  end 
+  def current_ability
+    @current_ability ||= Ability.new(current_staff)
+  end
   
 end
