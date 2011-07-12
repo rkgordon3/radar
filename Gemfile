@@ -7,6 +7,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
+gem "cancan"
 
 gem 'paperclip'
 # Bundle edge Rails instead:

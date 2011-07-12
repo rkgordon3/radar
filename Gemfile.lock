@@ -32,6 +32,7 @@ GEM
     arel (2.0.9)
     bcrypt-ruby (2.1.4-x86-mingw32)
     builder (2.1.2)
+    cancan (1.6.5)
     composite_primary_keys (3.1.0)
       activerecord (>= 3.0.3)
     devise (1.1.7)
@@ -89,6 +90,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  cancan
   composite_primary_keys (= 3.1.0)
   devise
   nifty-generators
