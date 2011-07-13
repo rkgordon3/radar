@@ -1,14 +1,11 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-	
-	def general_authorize
-		unless staff_signed_in?
-			flash[:notice] = "Unauthorized Access"
-			redirect_to "/staffs/sign_in"
-			false
-		end
-	end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:notice] = "Unauthorized Access"
+    redirect_to "/staffs/sign_in"
+  end
+  
 	def set_iphone_format
 		if is_iphone_request? || is_android_request?
 			request.format = :iphone

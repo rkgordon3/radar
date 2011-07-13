@@ -1,6 +1,7 @@
 class Staff < ActiveRecord::Base
   has_many :staff_organizations
   has_many :staff_areas
+  belongs_to :access_level
   belongs_to :area
   belongs_to :organization
   has_many :notification_preferences
@@ -12,7 +13,11 @@ class Staff < ActiveRecord::Base
     params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
   end
-  
+
+  def access_level?(access_level)
+    return self.access_level.name == access_level.to_s.camelize
+  end
+
   def lower_email
     self.email = email.downcase
   end

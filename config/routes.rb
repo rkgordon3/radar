@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :access_levels
+
   resources :writing_center_contacts
 
   resources :study_tables

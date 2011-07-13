@@ -47,7 +47,7 @@
 			<% end %></div></td>			
 			
 			<td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
-			<% if current_staff.access_level > Authorize.ra_access_level %>
+			<% if can? :update_user_preferences, current_staff.notification_preferences %>
 				<td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
 			<% end %>
 		</tr>
