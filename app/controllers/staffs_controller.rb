@@ -2,10 +2,8 @@ class StaffsController < Devise::RegistrationsController
   # GET /staffs
   # GET /staffs.xml
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access
   
   def index
-    @staffs = Staff.all
     @numRows = 0
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +14,6 @@ class StaffsController < Devise::RegistrationsController
   # GET /staffs/1
   # GET /staffs/1.xml
   def show
-    @staff = Staff.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @staff }
@@ -25,7 +21,7 @@ class StaffsController < Devise::RegistrationsController
   end
   
   def edit
-    @staff = Staff.find(params[:id])
+    # @staff automatically loaded by CanCan
   end
 
   # GET /staffs/new
@@ -44,7 +40,6 @@ class StaffsController < Devise::RegistrationsController
   # DELETE /staffs/1
   # DELETE /staffs/1.xml
   def destroy
-    @staff = Staff.find(params[:id])
     @staff.destroy
 
     respond_to do |format|
@@ -54,8 +49,6 @@ class StaffsController < Devise::RegistrationsController
   end
   
   def update
-    @staff = Staff.find(params[:id])
-    
     respond_to do |format|
       if @staff.update_attributes(params[:staff])
         format.html { redirect_to(@staff, :notice => 'Staff was successfully updated.') }

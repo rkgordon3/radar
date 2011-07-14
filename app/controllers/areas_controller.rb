@@ -2,11 +2,8 @@ class AreasController < ApplicationController
   # GET /areas
   # GET /areas.xml
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access, :except => [:show, :index]
-  before_filter :admin_assistant_authorize_view_access
 
   def index
-    @areas = Area.all
     @numRows = 0
 
     respond_to do |format|
@@ -18,8 +15,6 @@ class AreasController < ApplicationController
   # GET /areas/1
   # GET /areas/1.xml
   def show
-    @area = Area.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @area }
@@ -29,8 +24,6 @@ class AreasController < ApplicationController
   # GET /areas/new
   # GET /areas/new.xml
   def new
-    @area = Area.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @area }
@@ -39,14 +32,12 @@ class AreasController < ApplicationController
 
   # GET /areas/1/edit
   def edit
-    @area = Area.find(params[:id])
+    # @area automatically set by CanCan
   end
 
   # POST /areas
   # POST /areas.xml
   def create
-    @area = Area.new(params[:area])
-
     respond_to do |format|
       if @area.save
         format.html { redirect_to(@area, :notice => 'Area was successfully created.') }
@@ -61,8 +52,6 @@ class AreasController < ApplicationController
   # PUT /areas/1
   # PUT /areas/1.xml
   def update
-    @area = Area.find(params[:id])
-
     respond_to do |format|
       if @area.update_attributes(params[:area])
         format.html { redirect_to(@area, :notice => 'Area was successfully updated.') }
@@ -77,7 +66,6 @@ class AreasController < ApplicationController
   # DELETE /areas/1
   # DELETE /areas/1.xml
   def destroy
-    @area = Area.find(params[:id])
     @area.destroy
 
     respond_to do |format|

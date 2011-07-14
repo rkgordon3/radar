@@ -2,8 +2,6 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.xml
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access
-  
   
   def index
     @reports = Report.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now, :type => params[:report])
@@ -22,7 +20,6 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
-    @report = Report.find(params[:id])
     if params[:emails] != nil
       forward_as_mail(params[:emails])
       return
@@ -53,18 +50,13 @@ class ReportsController < ApplicationController
   
   # GET /reports/1/edit
   def edit
-    @report = Report.find(params[:id])
     session[:report]=@report
   end
   
   # POST /reports
   # POST /reports.xml
   def create
-    logger.debug("IN REPORT CREATE params: #{params}")
-    
     @report = session[:report]
-    logger.debug("IN REPORT CREATE report:  #{@report}")
-    
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
@@ -81,9 +73,6 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
-    logger.debug("Report update")
-    @report = Report.find(params[:id])
-    
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
@@ -99,7 +88,6 @@ class ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.xml
   def destroy
-    @report = Report.find(params[:id])
     @report.destroy
     
     respond_to do |format|
@@ -152,11 +140,9 @@ class ReportsController < ApplicationController
   end
   
   def remove_participant
-    logger.debug "In remove method #{params}"
     @report = session[:report]
     @participant_id = Integer(params[:id])
     infractions = @report.contact_reasons_for(@participant_id)
-    logger.debug "ID: #{@participant_id} reported infractions: #{infractions}"
     infractions.each do |ri|
       @report.report_participant_relationships.delete(ri)
       ri.destroy		
@@ -175,7 +161,6 @@ class ReportsController < ApplicationController
   
   def create_participant_and_add_to_report
     @participant = Participant.create
-    logger.debug "Parameters = #{params}"
     @participant.first_name = params[:first_name]
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
@@ -276,26 +261,26 @@ class ReportsController < ApplicationController
         
     #-----------------
     # if a particular infraction was selected, get all reports w/ that infraction
-	if (params[:infraction_id] != nil)
-		if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
-		  # get reported infractions all with that infraction
-		  reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
+    if (params[:infraction_id] != nil)
+      if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
+        # get reported infractions all with that infraction
+        reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
 			  
-		  # if a student was selected, limit to only those infractions by that student
-		  if student != nil
-			reported_inf = reported_inf.where(:participant_id => student.id)
-			report_ids = Array.new
-		  end
+        # if a student was selected, limit to only those infractions by that student
+        if student != nil
+          reported_inf = reported_inf.where(:participant_id => student.id)
+          report_ids = Array.new
+        end
 			  
-		  # collect the report_ids from the reported infractions into an array
-		  reported_inf.each do |ri|
-			report_ids << ri.report_id
-		  end
+        # collect the report_ids from the reported infractions into an array
+        reported_inf.each do |ri|
+          report_ids << ri.report_id
+        end
 			  
-		  # get the reports with ids in the array
-		  @reports = Report.where(:id => report_ids, :type => params[:type])
-		end
-	end
+        # get the reports with ids in the array
+        @reports = Report.where(:id => report_ids, :type => params[:type])
+      end
+    end
         
     #----------------
     # if no student or infraction was selected, select all

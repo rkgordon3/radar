@@ -4,14 +4,11 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.xml
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access
   skip_before_filter :verify_authenticity_token
   
   
   def index
-    
     @shifts = Shift.sort(Shift,params[:sort])
-    
     @numRows = 0
     
     respond_to do |format|
@@ -23,9 +20,6 @@ class ShiftsController < ApplicationController
   # GET /shifts/1
   # GET /shifts/1.xml
   def show
-    @shift = Shift.find(params[:id])
-    
-    
     respond_to do |format|
       
       format.html # show.html.erb
@@ -36,25 +30,17 @@ class ShiftsController < ApplicationController
   # GET /shifts/new
   # GET /shifts/new.xml
   def new
-    #@shift = Shift.new(:staff_id => current_staff.id)
-    
-    #redirect_to request.path_parameters
-    #respond_to do |format|
-    # format.html # new.html.erb
-    #format.xml  { render :nothing => true }
-    #end
+    # @shifts automatically loaded by CanCan
   end
   
   # GET /shifts/1/edit
   def edit
-    @shift = Shift.find(params[:id])
+    # @shifts automatically loaded by CanCan
   end
   
   # POST /shifts
   # POST /shifts.xml
   def create
-    @shift = Shift.new(params[:shift])
-    
     respond_to do |format|
       if @shift.save
         format.html { redirect_to(@shift, :notice => 'Shift was successfully created.') }
@@ -69,23 +55,12 @@ class ShiftsController < ApplicationController
   # PUT /shifts/1
   # PUT /shifts/1.xml
   def update
-    @shift = Shift.find(params[:id])
-    
-    #respond_to do |format|
-    # if @shift.update_attributes(params[:shift])
-    #  format.html { redirect_to(@shift, :notice => 'Shift was successfully updated.') }
-    # format.xml  { head :ok }
-    #else
-    #  format.html { render :action => "edit" }
-    # format.xml  { render :xml => @shift.errors, :status => :unprocessable_entity }
-    #end
-    #end
+    # @report_type automatically loaded by CanCan
   end
   
   # DELETE /shifts/1
   # DELETE /shifts/1.xml
   def destroy
-    @shift = Shift.find(params[:id])
     @shift.destroy
     
     respond_to do |format|
@@ -110,8 +85,6 @@ class ShiftsController < ApplicationController
   end
   
   def duty_log
-    
-    @shift = Shift.find(params[:id])
     @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
     @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
 

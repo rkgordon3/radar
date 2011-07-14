@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-  rescue_from CanCan::AccessDenied do |exception|
+  enable_authorization 
+
+  enable_authorization do |exception|
     flash[:notice] = "Unauthorized Access"
     redirect_to "/staffs/sign_in"
   end
@@ -21,8 +23,6 @@ class ApplicationController < ActionController::Base
 		request.user_agent =~ /(Android)/
 	end
 
-  private
-  
   def current_ability
     @current_ability ||= Ability.new(current_staff)
   end

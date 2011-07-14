@@ -2,7 +2,6 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access
  
   def index
     if params[:sort] == nil
@@ -34,8 +33,6 @@ class StudentsController < ApplicationController
   # GET /students/new
   # GET /students/new.xml
   def new
-    @student = Student.new
-    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @student }
@@ -44,14 +41,12 @@ class StudentsController < ApplicationController
   
   # GET /students/1/edit
   def edit
-    @student = Student.find(params[:id])
+    # @student automatically loaded by CanCan
   end
   
   # POST /students
   # POST /students.xml
   def create
-    @student = Student.new(params[:student])
-    
     respond_to do |format|
       if @student.save
         format.html { redirect_to(@student, :notice => 'Student was successfully created.') }
@@ -66,8 +61,6 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.xml
   def update
-    @student = Student.find(params[:id])
-    
     respond_to do |format|
       if @student.update_attributes(params[:student])
         format.html { redirect_to(@student, :notice => 'Student was successfully updated.') }
@@ -82,7 +75,6 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.xml
   def destroy
-    @student = Student.find(params[:id])
     @student.destroy
     
     respond_to do |format|
@@ -93,9 +85,6 @@ class StudentsController < ApplicationController
   
   
   def show_details
-    logger.debug "IN SHOW DETAILS"
-    @id = params[:id]
-    @student = Student.find(@id)
     respond_to do |format|
       format.js
     end
@@ -103,9 +92,7 @@ class StudentsController < ApplicationController
   
   # POST 
   def search_results
-  				
-    logger.debug("IN SEARCH RESULTS")
-    @students = nil
+  	@students = nil
     student = nil
     
     # if a student's name was entered, find all reports with that student

@@ -1,11 +1,9 @@
 class RelationshipToReportsController < ApplicationController
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access
   
   # GET /infractions
   # GET /infractions.xml
   def index
-    @relationship_to_reports = RelationshipToReport.all
     @numRows = 0
 
     respond_to do |format|
@@ -17,8 +15,6 @@ class RelationshipToReportsController < ApplicationController
   # GET /infractions/1
   # GET /infractions/1.xml
   def show
-    @relationship_to_report = RelationshipToReport.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @relationship_to_report }
@@ -28,8 +24,6 @@ class RelationshipToReportsController < ApplicationController
   # GET /infractions/new
   # GET /infractions/new.xml
   def new
-    @relationship_to_report = RelationshipToReport.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @relationship_to_report }
@@ -38,14 +32,12 @@ class RelationshipToReportsController < ApplicationController
 
   # GET /infractions/1/edit
   def edit
-    @relationship_to_report = RelationshipToReport.find(params[:id])
+    # @relationship_to_report automatically loaded by CanCan
   end
 
   # POST /infractions
   # POST /infractions.xml
   def create
-    @relationship_to_report = RelationshipToReport.new(params[:relationship_to_report])
-
     respond_to do |format|
       if @relationship_to_report.save
         format.html { redirect_to(@relationship_to_report, :notice => 'Relationship to report was successfully created.') }
@@ -60,8 +52,6 @@ class RelationshipToReportsController < ApplicationController
   # PUT /infractions/1
   # PUT /infractions/1.xml
   def update
-    @relationship_to_report = RelationshipToReport.find(params[:id])
-
     respond_to do |format|
       if @relationship_to_report.update_attributes(params[:relationship_to_report])
         format.html { redirect_to(@relationship_to_report, :notice => 'Relationship to report was successfully updated.') }
@@ -76,8 +66,7 @@ class RelationshipToReportsController < ApplicationController
   # DELETE /infractions/1
   # DELETE /infractions/1.xml
   def destroy
-    @infraction = RelationshipToReport.find(params[:id])
-    @infraction.destroy
+    @relationship_to_report.destroy
 
     respond_to do |format|
       format.html { redirect_to(relationship_to_reports_url) }

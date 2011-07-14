@@ -15,6 +15,10 @@ class Staff < ActiveRecord::Base
   end
 
   def access_level?(access_level)
+    if self.access_level == nil
+      return false
+    end
+    
     return self.access_level.name == access_level.to_s.camelize
   end
 
@@ -27,13 +31,13 @@ class Staff < ActiveRecord::Base
   end
   
   def on_round?
-   (Round.where(:shift_id => current_shift.id, :end_time => nil).first != nil) rescue false	
+    (Round.where(:shift_id => current_shift.id, :end_time => nil).first != nil) rescue false
   end
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
   
  
   

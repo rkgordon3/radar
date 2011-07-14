@@ -1,14 +1,11 @@
 class ImportsController < ApplicationController
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access
 
   def new
-    @import = Import.new
+    # @import automatically loaded by CanCan
 	end
 
 	def create
-    @import = Import.new(params[:import])
-
     respond_to do |format|
       if @import.save!
         flash[:notice] = 'CSV data was successfully imported.'
@@ -21,11 +18,10 @@ class ImportsController < ApplicationController
 	end
 
 	def show
-    @import = Import.find(params[:id])
+    # @import automatically loaded by CanCan
 	end
 
 	def proc_csv
-    @import = Import.find(params[:id])
     lines = parse_csv_file(@import.csv.path)
     lines.shift #comment this line out if your CSV file doesn't contain a header row
     lines.shift

@@ -2,10 +2,8 @@ class BuildingsController < ApplicationController
   # GET /buildings
   # GET /buildings.xml  before_filter :super_admin_authorize_view_access, :except => [:show, :index]
   before_filter :authenticate_staff!
-  before_filter :admin_assistant_authorize_view_access
 
   def index
-    @buildings = Building.all
     @numRows = 0
 
     respond_to do |format|
@@ -17,8 +15,6 @@ class BuildingsController < ApplicationController
   # GET /buildings/1
   # GET /buildings/1.xml
   def show
-    @building = Building.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @building }
@@ -32,8 +28,6 @@ class BuildingsController < ApplicationController
   # GET /buildings/new
   # GET /buildings/new.xml
   def new
-    @building = Building.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @building }
@@ -42,14 +36,12 @@ class BuildingsController < ApplicationController
 
   # GET /buildings/1/edit
   def edit
-    @building = Building.find(params[:id])
+    # @building automatically loaded by CanCan
   end
 
   # POST /buildings
   # POST /buildings.xml
   def create
-    @building = Building.new(params[:building])
-
     respond_to do |format|
       if @building.save
         format.html { redirect_to(@building, :notice => 'Building was successfully created.') }
@@ -64,8 +56,6 @@ class BuildingsController < ApplicationController
   # PUT /buildings/1
   # PUT /buildings/1.xml
   def update
-    @building = Building.find(params[:id])
-
     respond_to do |format|
       if @building.update_attributes(params[:building])
         format.html { redirect_to(@building, :notice => 'Building was successfully updated.') }
@@ -80,7 +70,6 @@ class BuildingsController < ApplicationController
   # DELETE /buildings/1
   # DELETE /buildings/1.xml
   def destroy
-    @building = Building.find(params[:id])
     @building.destroy
 
     respond_to do |format|
