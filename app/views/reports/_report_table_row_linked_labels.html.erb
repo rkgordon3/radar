@@ -8,8 +8,10 @@
   <th><%= link_to "Submitter", params.merge(:sort => "submitter"), :remote => true %></th>
   <th><%= link_to "Tag", params.merge(:sort => "tag"), :remote => true %></th>
 
-  <% if Authorize.not_admin_assistant_authorize(current_staff) %>
+  <% if can? :edit, Report %>
     <td></td>
+  <% end %>
+  <% if can? :destroy, Report %>
     <td></td>
   <% end %>
 </tr>

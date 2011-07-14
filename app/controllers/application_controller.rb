@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-  enable_authorization 
-
-  enable_authorization do |exception|
+  rescue_from CanCan::AccessDenied do |exception|
     flash[:notice] = "Unauthorized Access"
     redirect_to "/staffs/sign_in"
   end

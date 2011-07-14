@@ -1,7 +1,6 @@
 class ParticipantsController < ApplicationController
-  # GET /participants
-  # GET /participants.xml
   before_filter :authenticate_staff!
+  load_and_authorize_resource
   
   def index
     @numRows = 0

@@ -1,4 +1,6 @@
 class StaffOrganizationsController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /staff_organizations
   # GET /staff_organizations.xml
   def index

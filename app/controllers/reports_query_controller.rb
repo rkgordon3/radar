@@ -1,5 +1,6 @@
 class ReportsQueryController < ApplicationController
   before_filter :authenticate_staff!
+  load_and_authorize_resource
   
   
   def reports_query

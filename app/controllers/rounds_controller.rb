@@ -1,10 +1,8 @@
 class RoundsController < ApplicationController
-  # GET /rounds
-  # GET /rounds.xml
-  
   before_filter :authenticate_staff!
   skip_before_filter :verify_authenticity_token
-  
+  load_and_authorize_resource
+
   def index
     respond_to do |format|
       format.html # index.html.erb

@@ -1,5 +1,6 @@
 class AnnotationsController < ApplicationController
   before_filter :authenticate_staff!
+  load_and_authorize_resource
 
   # GET /annotations
   # GET /annotations.xml

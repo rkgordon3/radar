@@ -1,8 +1,9 @@
 class StaffsController < Devise::RegistrationsController
+  before_filter :authenticate_staff!
+  load_and_authorize_resource
+  
   # GET /staffs
   # GET /staffs.xml
-  before_filter :authenticate_staff!
-  
   def index
     @numRows = 0
     respond_to do |format|

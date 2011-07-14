@@ -2,6 +2,7 @@ class IncidentReportsController < ReportsController
   
   before_filter :authenticate_staff!
   skip_before_filter :verify_authenticity_token
+  load_and_authorize_resource
   
   
   
@@ -33,7 +34,7 @@ class IncidentReportsController < ReportsController
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
-    if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level == Authorize.ra_access_level) || (@report.staff != current_staff && current_staff.access_level == Authorize.ra_access_level)
+    if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level?(:resident_assistant)) || (@report.staff != current_staff && current_staff.access_level?(:resident_assistant))
       flash[:notice] = "Unauthorized Access"
       redirect_to "/home/landingpage"
       return
@@ -57,7 +58,7 @@ class IncidentReportsController < ReportsController
     # get the report and annotation for the view to edit
     @report = IncidentReport.find(params[:id])
     
-    if (@report.submitted? && current_staff.access_level == Authorize.ra_access_level) || (!@report.submitted? && current_staff.access_level == Authorize.ra_access_level && @report.staff != current_staff)
+    if (@report.submitted? && current_staff.access_level?(:resident_assistant)) || (!@report.submitted? && current_staff.access_level?(:resident_assistant) && @report.staff != current_staff)
       flash[:notice] = "Unauthorized Access"
       redirect_to "/home/landingpage"
       return
@@ -101,7 +102,7 @@ class IncidentReportsController < ReportsController
     @report = IncidentReport.find(params[:id])
     
     # check authorization
-    if(Authorize.ra_authorize(current_staff) && current_staff != @report.staff) || (Authorize.ra_authorize(current_staff) && current_staff == @report.staff && @report.submitted)
+    if(current_staff.access_level?(:resident_assistant) && current_staff != @report.staff) || (current_staff.access_level?(:resident_assistant) && current_staff == @report.staff && @report.submitted)
       flash[:notice] = "Unauthorized Access"
       redirect_to "/home/landingpage"
       return

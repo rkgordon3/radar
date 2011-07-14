@@ -1,33 +1,33 @@
 <div id="inside_container" class="inside_container"><h1>Showing Staff Member <%= "#{@staff.first_name} #{@staff.last_name}" %></h1>
 
-<p>
-  <b>First name:</b>
-  <%= @staff.first_name %>
-</p>
+  <p>
+    <b>First name:</b>
+    <%= @staff.first_name %>
+  </p>
 
-<p>
-  <b>Last name:</b>
-  <%= @staff.last_name %>
-</p>
+  <p>
+    <b>Last name:</b>
+    <%= @staff.last_name %>
+  </p>
 
-<p>
-  <b>User name:</b>
-  <%= @staff.email %>
-</p>
+  <p>
+    <b>User name:</b>
+    <%= @staff.email %>
+  </p>
 
-<p>
-  <b>Role:</b>
-  <%= Authorize.string_for_access_level(@staff.access_level) %>
-</p>
+  <p>
+    <b>Role:</b>
+    <%= @staff.access_level.display_name %>
+  </p>
 
-<p>
-  <b>Area:</b>
-  <%= @staff.staff_areas.first.area.name rescue "Unknown" %>
-</p>
+  <p>
+    <b>Area:</b>
+    <%= @staff.staff_areas.first.area.name rescue "Unknown" %>
+  </p>
 
-<p>
-  <b>Organization:</b>
-  <%= @staff.staff_organizations.first.organization.display_name rescue "Unknown" %>
-</p>
+  <p>
+    <b>Organization:</b>
+    <%= @staff.staff_organizations.first.organization.display_name rescue "Unknown" %>
+  </p>
 
 </div>

@@ -1,28 +1,25 @@
 <div id="inside_container" class="inside_container">
-<h1>Showing Area <%= @area.name %></h1>
+  <h1>Showing Area <%= @area.name %></h1>
 
 
-<p>
-  <b>Name:</b>
-  <%= @area.name %><br/>
-</p>
-<p>
-  <b>Abbreviation:</b>
-  <%= @area.abbreviation %><br/>
-</p>
-<p>
-  <b>Buildings:</b>
- 
+  <p>
+    <b>Name:</b>
+    <%= @area.name %><br/>
+  </p>
+  <p>
+    <b>Abbreviation:</b>
+    <%= @area.abbreviation %><br/>
+  </p>
+  <p>
+    <b>Buildings:</b>
+
   <table>
-   <%  @area.buildings.each  do |b| %>
-       <tr><td>&nbsp;&nbsp;<%= b.name %></td><td><%= b.abbreviation %></td></tr>
-       <% end %>
+    <%  @area.buildings.each  do |b| %>
+      <tr><td>&nbsp;&nbsp;<%= b.name %></td><td><%= b.abbreviation %></td></tr>
+    <% end %>
   </table>
 </p>
 <p/>
 
-
-<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-	<%= link_to 'Edit', edit_area_path(@area) %>
-<% end %>
+<%= link_to 'Edit', edit_area_path(@area) if can? :edit, @area %>
 </div>

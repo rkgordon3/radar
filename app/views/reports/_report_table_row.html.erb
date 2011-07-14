@@ -22,14 +22,9 @@
       <td><%= report.room_number %></td>
       <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
       <td><%= link_to report.tag, report %></td>
-
-      <% if Authorize.not_admin_assistant_authorize(current_staff) %>
-        <td><%= link_to 'Edit', edit_report_path(report), :id=>'edit_destroy_link' %></td>
-      <% end %>
+      <td><%= link_to 'Edit', edit_report_path(report), :id=>'edit_destroy_link' if can? :edit, report %></td>
       <% if report.type == "MaintenanceReport" %>
-        <% if Authorize.hd_authorize(current_staff) %>
-          <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id=>'edit_destroy_link' %></td>
-        <% end %>
+        <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id=>'edit_destroy_link' if can? :destroy, report %></td>
       <% end %>
 
     </tr>

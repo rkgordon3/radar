@@ -1,8 +1,9 @@
 class StudentsController < ApplicationController
+  before_filter :authenticate_staff!
+  load_and_authorize_resource
+  
   # GET /students
   # GET /students.xml
-  before_filter :authenticate_staff!
- 
   def index
     if params[:sort] == nil
       @students = Student.order(:last_name)

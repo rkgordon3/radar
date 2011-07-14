@@ -1,44 +1,42 @@
 <div id="inside_container" class="inside_container"><h1>Listing Participants</h1>
 
-<table>
-  <tr>
-    <th>Particpant ID</th>
-    <th>First name</th>
-    <th>MI</th>
-    <th>Last name</th>
-    <th>Type</th>
-    <th>Affiliation</th>
-    <th>Age</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @participants.each do |participant| %>
-  <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
+  <table>
     <tr>
-  <% end %>
-    <td><%= participant.id %></td>
-    <td><%= participant.first_name %></td>
-    <td><%= participant.middle_initial %></td>
-    <td><%= participant.last_name %></td>
-    <td><%= participant.type %></td>
-    <td><%= participant.affiliation %></td>
-    <td><%= participant.birthday %></td>
-    <td><%= link_to 'Show', participant %></td>
-	<% if Authorize.not_admin_assistant_authorize(current_staff) %> 
-	    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    	<td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
-  	<% end %>
-  </tr>
-<% end %>
-</table>
+      <th>Particpant ID</th>
+      <th>First name</th>
+      <th>MI</th>
+      <th>Last name</th>
+      <th>Type</th>
+      <th>Affiliation</th>
+      <th>Age</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<br />
+    <% @participants.each do |participant| %>
+      <% if @numRows == 0 %>
+        <% @numRows = @numRows + 1 %>
+        <tr class="shaded">
+        <% else %>
+          <% @numRows = 0 %>
+        <tr>
+        <% end %>
+        <td><%= participant.id %></td>
+        <td><%= participant.first_name %></td>
+        <td><%= participant.middle_initial %></td>
+        <td><%= participant.last_name %></td>
+        <td><%= participant.type %></td>
+        <td><%= participant.affiliation %></td>
+        <td><%= participant.birthday %></td>
+        <td><%= link_to 'Show', participant %></td>
+        <td><%= link_to 'Edit', edit_participant_path(participant) if can? :edit, participant %></td>
+        <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete if can? :destroy, participant %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<%= link_to 'New Participant', new_participant_path %>
+  <br />
+
+  <%= link_to 'New Participant', new_participant_path %>
 </div>

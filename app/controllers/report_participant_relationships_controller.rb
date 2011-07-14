@@ -1,7 +1,6 @@
 class ReportParticipantRelationshipsController < ApplicationController
-  # GET /reported_infractions
-  # GET /reported_infractions.xml
   before_filter :authenticate_staff!
+  load_and_authorize_resource
   
   def index
     @numRows = 0

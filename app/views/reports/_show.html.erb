@@ -30,7 +30,7 @@
   <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
   <%= render :partial => "reports/show_generic" %>
 
-  <%if Authorize.not_admin_assistant_authorize(current_staff) && !(Authorize.ra_authorize(current_staff) && @report.submitted)%>
-    <%= link_to 'Edit', edit_report_path(@report) %>
-  <%end%>
+  <%if !@report.submitted)%>
+  <%= link_to 'Edit', edit_report_path(@report) if can? :edit, @report %>
+<%end%>
 </div>

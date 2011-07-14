@@ -1,42 +1,40 @@
 <div id="inside_container" class="inside_container">
-<h1>Listing Buildings</h1>
+  <h1>Listing Buildings</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Abbreviation</th>
-    <th>Area</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @buildings.each do |building| %>
-  <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
+  <table>
     <tr>
-  <% end %>
-    <td><%= building.name %></td>
-    <td><%= building.abbreviation %></td>
-    <% area = Area.where(:id =>building.area_id.to_i).first %>
-    <td>
-    <% if area != nil %>
-    <%= area.name %>
+      <th>Name</th>
+      <th>Abbreviation</th>
+      <th>Area</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @buildings.each do |building| %>
+      <% if @numRows == 0 %>
+        <% @numRows = @numRows + 1 %>
+        <tr class="shaded">
+        <% else %>
+          <% @numRows = 0 %>
+        <tr>
+        <% end %>
+        <td><%= building.name %></td>
+        <td><%= building.abbreviation %></td>
+        <% area = Area.where(:id =>building.area_id.to_i).first %>
+        <td>
+          <% if area != nil %>
+            <%= area.name %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', building %></td>
+        <td><%= link_to 'Edit', edit_building_path(building) if can? :edit, building %></td>
+        <td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete if can? :destroy, building %></td>
+      </tr>
     <% end %>
-    </td>
-    <td><%= link_to 'Show', building %></td>
-	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-        <td><%= link_to 'Edit', edit_building_path(building) %></td>
-    	<td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete %></td>
-  	<% end %>
-  </tr>
-<% end %>
-</table>
+  </table>
 
-<br />
+  <br />
 
-<%= link_to 'New Building', new_building_path %>
+  <%= link_to 'New Building', new_building_path %>
 </div>

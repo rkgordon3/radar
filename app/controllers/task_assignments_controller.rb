@@ -1,4 +1,5 @@
 class TaskAssignmentsController < ApplicationController
+  load_and_authorize_resource
   
   # GET /task_assignments
   # GET /task_assignments.xml

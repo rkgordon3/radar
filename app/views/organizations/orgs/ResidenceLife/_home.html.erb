@@ -1,64 +1,41 @@
 
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
-  <li><a href="/students">Students</a>
+  <li><%= link_to "Students", "/students" if can? :index, Student %>
     <ul>
-      <% if can? :index, Student.new %>
-        <li><a href = "/students">List Students</a></li>
-      <% end %>
-      <li><a href = "/students/search_students">Search Students</a></li>
+      <li><%= link_to "List Students", "/students" if can? :index, Student %></li>
+      <li><%= link_to "Search Students", "/students/search_students" if can? :index, Student %></li>
     </ul>
   </li>
-  <li><a href="/incident_reports/new">Incident Reports</a>
+  <li><%= link_to "Incident Reports", "/incident_reports/new" if can? :create, IncidentReport %>
     <ul>
-      <% if can? :create, IncidentReport.new %>
-        <li><%= link_to "New Incident Report", "/incident_reports/new" %></li>
-      <% end %>
-      <% if can? :index, IncidentReport.new %>
-        <li><%= link_to "List Incident Reports", "/reports?report=IncidentReport" %></li>
-      <% end %>
+      <li><%= link_to "New Incident Report", "/incident_reports/new" if can? :create, IncidentReport %></li>
+      <li><%= link_to "List Incident Reports", "/reports?report=IncidentReport" if can? :index, IncidentReport %></li>
     </ul>
   </li>
-  <li><a href=" /maintenance_reports/new">Maintenance Requests</a>
+  <li><%= link_to "Maintenance Requests", "/maintenance_reports/new" if can? :create, MaintenanceReport %>
     <ul>
-      <% if can? :create, MaintenanceReport.new%>
-        <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
-      <% end %>
-      <% if can? :index, MaintenanceReport.new %>
-        <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" %></li>
-      <% end %>
+      <li><%= link_to "New Incident Report", "/maintenance_reports/new" if can? :create, MaintenanceReport %></li>
+      <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" if can? :index, MaintenanceReport %></li>
     </ul>
   </li>
-  <% if can? :index, Shift.new %>
-    <li><a href="/shifts">Duty Logs</a>
-      <ul>
-        <li><%= link_to "List Duty Logs", "/shifts" %></li>
-      </ul>
-    </li>
-  <% end %>
-  <% if can? :index, Task.new %>
-    <li><a href="/tasks">Tasks</a>
-      <ul>
-        <li><%= link_to "New Task", "/tasks/new" %></li>
-        <li><%= link_to "List Tasks", "/tasks" %></li>
-      </ul>
-    </li>
-  <% end %>
-
+  <li><%= link_to "Duty Logs", "/shifts" if can? :index, Shift %>
+    <ul>
+      <li><%= link_to "List Duty Logs", "/shifts" if can? :index, Shift %></li>
+    </ul>
+  </li>
+  <li><%= link_to "Tasks", "/tasks" if can? :index, Task %>
+    <ul>
+      <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
+      <li><%= link_to "List Tasks", "/tasks" %></li>
+    </ul>
+  </li>
   <li><a href="/">Miscellaneous</a>
     <ul>
-      <% if can? :index, Building.new %>
-        <li><%= link_to("Buildings", "/buildings")%></li>
-      <% end %>
-      <% if can? :index, Area.new %>
-        <li><%= link_to("Areas", "/areas")%></li>
-      <% end %>
-      <% if can? :index, Staff.new %>
-        <li><%= link_to("Staff Members", "/staffs")%></li>
-      <% end %>
-      <% if can? :create, Import.new %>
-        <li><%= link_to("Update Student Data", "/imports/new") %></li>
-      <% end %>
+      <li><%= link_to "Buildings", "/buildings" if can? :index, Building %></li>
+      <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
+      <li><%= link_to "Staff Members", "/staffs" if can? :index, Staff %></li>
+      <li><%= link_to "Update Student Data", "/imports/new" if can? :create, Import %></li>
     </ul>
   </li>
 

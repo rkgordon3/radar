@@ -2,6 +2,7 @@ class AreasController < ApplicationController
   # GET /areas
   # GET /areas.xml
   before_filter :authenticate_staff!
+  load_and_authorize_resource
 
   def index
     @numRows = 0

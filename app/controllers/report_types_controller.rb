@@ -1,7 +1,6 @@
 class ReportTypesController < ApplicationController
-  # GET /report_types
-  # GET /report_types.xml
   before_filter :authenticate_staff!
+  load_and_authorize_resource
   
   def index
     respond_to do |format|

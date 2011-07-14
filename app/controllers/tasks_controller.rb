@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_staff!
+  load_and_authorize_resource
 
   # GET /tasks
   # GET /tasks.xml

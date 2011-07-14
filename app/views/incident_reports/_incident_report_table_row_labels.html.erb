@@ -1,14 +1,16 @@
 <tr>
-	<th>Tag</th>
-	<th>Approach Date</th>
-	<th>Time</th>
-	<th>Building Name</th>
-	<th>Specific Loc.</th>
-	<th>Submitter</th>
-	<th></th>
-	
-	<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-		<td></td>
-		<td></td>
-	<% end %>
+  <th>Tag</th>
+  <th>Approach Date</th>
+  <th>Time</th>
+  <th>Building Name</th>
+  <th>Specific Loc.</th>
+  <th>Submitter</th>
+  <th></th>
+
+  <% if can? :edit, IncidentReport.new %>
+    <td></td>
+  <% end %>
+  <% if can? :destroy, IncidentReport.new %>
+    <td></td>
+  <% end %>
 </tr>

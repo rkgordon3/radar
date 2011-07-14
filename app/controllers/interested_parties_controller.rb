@@ -1,4 +1,6 @@
 class InterestedPartiesController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /interested_parties
   # GET /interested_parties.xml
   def index

@@ -1,5 +1,6 @@
 class ImportsController < ApplicationController
   before_filter :authenticate_staff!
+  load_and_authorize_resource
 
   def new
     # @import automatically loaded by CanCan

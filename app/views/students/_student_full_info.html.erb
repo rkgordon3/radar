@@ -1,6 +1,6 @@
 
 <td><%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %></td>
-<%if current_staff.access_level > Authorize.ra_access_level %>
+<%if can? :view_student_id, student %>
   <td><%= student.student_id %></td>
 <% end %>
 <td><%= student.first_name %></td>
@@ -18,9 +18,7 @@
 
 <td><%= link_to 'Show', student %></td>
 <%if staff_signed_in? %>
-  <%if current_staff.access_level > Authorize.admin_assistant_access_level %>
-    <td><%= link_to 'Edit', edit_student_path(student) %></td>
-    <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete %></td>
-  <% end %>
+  <td><%= link_to 'Edit', edit_student_path(student) if can? :edit, student %></td>
+  <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete if can? :destroy, student %></td>
 <% end %>
 </tr>

@@ -1,22 +1,18 @@
 <% if num_rows == 0 %>
-  	<% num_rows = num_rows + 1 %>
-	<tr class="shaded">
-<% else %>
-  	<% num_rows = 0 %> 
-  	<tr>
-<% end %>
+  <% num_rows = num_rows + 1 %>
+  <tr class="shaded">
+  <% else %>
+    <% num_rows = 0 %>
+  <tr>
+  <% end %>
 
-<td><%= incident_report.tag %></td>
-<td><%= incident_report.event_date %></td>
-<td><%= incident_report.event_time %></td>
-<td><%= incident_report.building.name %></td>
-<td><%= incident_report.room_number %></td>
-<td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>
-<td><%= link_to 'Show', incident_report %></td>
-
-<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-	<td><%= link_to 'Edit', edit_incident_report_path(incident_report) %></td>
-	<td><%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete %></td>
-<% end %>
-
+  <td><%= incident_report.tag %></td>
+  <td><%= incident_report.event_date %></td>
+  <td><%= incident_report.event_time %></td>
+  <td><%= incident_report.building.name %></td>
+  <td><%= incident_report.room_number %></td>
+  <td><%= incident_report.staff.first_name %> <%= incident_report.staff.last_name %></td>
+  <td><%= link_to 'Show', incident_report %></td>
+  <td><%= link_to 'Edit', edit_incident_report_path(incident_report) if can? :edit, incident_report %></td>
+  <td><%= link_to 'Destroy', incident_report, :confirm => 'Are you sure?', :method => :delete if can? :destroy, incident_report %></td>
 </tr>

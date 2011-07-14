@@ -1,7 +1,6 @@
 class ReportsController < ApplicationController
-  # GET /reports
-  # GET /reports.xml
   before_filter :authenticate_staff!
+  load_and_authorize_resource
   
   def index
     @reports = Report.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now, :type => params[:report])

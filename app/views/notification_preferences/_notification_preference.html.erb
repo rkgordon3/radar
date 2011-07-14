@@ -1,24 +1,17 @@
 <tr>
-	<td>
-		<%= notification_preference.report_type %>
-	</td>
-
-	<td>
-		<%= radio_button(notification_preference.id, :frequency, 0, :onclick => "Element.hide('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 0) %><label>Never</label><br>
-		<%= radio_button(notification_preference.id, :frequency, 1, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 1) %><label>Immediately</label><br>
-		<%= radio_button(notification_preference.id, :frequency, 2, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 2) %><label>Daily</label><br>
-		<%= radio_button(notification_preference.id, :frequency, 3, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 3) %><label>Weekly</label></td>
-	
-	<% if current_staff.access_level > Authorize.ra_access_level %>
-	<td>		
-		<div id="scope_<%= notification_preference.report_type %>">
-			<% if current_staff.access_level < Authorize.admin_access_level %> 
-			<%= radio_button(notification_preference.id, :scope, 0, :checked =>"checked") %><label>Building</label><br>
-			<% end %>
-			<%= radio_button(notification_preference.id, :scope, 1, :checked =>notification_preference.scope == 1) %><label>Area</label><br>
-			<%= radio_button(notification_preference.id, :scope, 2, :checked =>notification_preference.scope == 2) %><label>All</label>
-			
-		</div>
-	</td>
-	<% end %>
+  <td>
+    <%= notification_preference.report_type %>
+  </td>
+  <td>
+    <%= radio_button(notification_preference.id, :frequency, 0, :onclick => "Element.hide('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 0) %><label>Never</label><br>
+    <%= radio_button(notification_preference.id, :frequency, 1, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 1) %><label>Immediately</label><br>
+    <%= radio_button(notification_preference.id, :frequency, 2, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 2) %><label>Daily</label><br>
+    <%= radio_button(notification_preference.id, :frequency, 3, :onclick => "Element.show('scope_#{notification_preference.report_type}');", :checked =>notification_preference.frequency == 3) %><label>Weekly</label></td>
+  <td>
+    <div id="scope_<%= notification_preference.report_type %>">
+      <%= radio_button(notification_preference.id, :scope, 0, :checked =>"checked") %><label>Building</label><br>
+      <%= radio_button(notification_preference.id, :scope, 1, :checked =>notification_preference.scope == 1) %><label>Area</label><br>
+      <%= radio_button(notification_preference.id, :scope, 2, :checked =>notification_preference.scope == 2) %><label>All</label>
+    </div>
+  </td>
 </tr>
