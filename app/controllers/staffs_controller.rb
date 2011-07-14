@@ -1,6 +1,7 @@
 class StaffsController < Devise::RegistrationsController
   before_filter :authenticate_staff!
-  load_and_authorize_resource
+  load_resource :except => :destroy
+  authorize_resource
   
   # GET /staffs
   # GET /staffs.xml
@@ -41,6 +42,7 @@ class StaffsController < Devise::RegistrationsController
   # DELETE /staffs/1
   # DELETE /staffs/1.xml
   def destroy
+    @staff = Staff.find(params[:id])
     @staff.destroy
 
     respond_to do |format|
@@ -52,6 +54,8 @@ class StaffsController < Devise::RegistrationsController
   def update
     respond_to do |format|
       if @staff.update_attributes(params[:staff])
+        @current_ability = nil
+        @current_staff = nil
         format.html { redirect_to(@staff, :notice => 'Staff was successfully updated.') }
         format.xml  { head :ok }
       else

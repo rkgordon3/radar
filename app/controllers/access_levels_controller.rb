@@ -1,7 +1,6 @@
 class AccessLevelsController < ApplicationController
-  # GET /access_levels
-  # GET /access_levels.xml
-  load_and_authorize_resource
+  load_resource :except => :destroy
+  authorize_resource
 
   def index
 

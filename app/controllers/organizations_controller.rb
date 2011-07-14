@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
-  load_and_authorize_resource
+  load_resource :except => :destroy
+  authorize_resource
   
   # GET /organizations
   # GET /organizations.xml

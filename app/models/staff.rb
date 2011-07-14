@@ -1,6 +1,6 @@
 class Staff < ActiveRecord::Base
-  has_many :staff_organizations
-  has_many :staff_areas
+  has_many :staff_organizations, :dependent => :destroy
+  has_many :staff_areas, :dependent => :destroy
   belongs_to :access_level
   belongs_to :area
   belongs_to :organization
@@ -18,8 +18,16 @@ class Staff < ActiveRecord::Base
     if self.access_level == nil
       return false
     end
-    
+
     return self.access_level.name == access_level.to_s.camelize
+  end
+
+   def organization?(organization)
+    if self.staff_organizations.first == nil
+      return false
+    end
+    
+    return self.staff_organizations.first.organization.name == organization.to_s.camelize
   end
 
   def lower_email
@@ -42,7 +50,7 @@ class Staff < ActiveRecord::Base
  
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level, :active, :staff_areas, :staff_organizations 
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
 
  
   

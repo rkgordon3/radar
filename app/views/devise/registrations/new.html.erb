@@ -18,8 +18,8 @@
     <%= f.password_field :password %>
   </div>
   <div class="field">
-      <%= f.label :role %><br />
-      <%= f.select :access_level, options_for_select([["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]]) %>
+      <p><%= f.label :access_level %><br />
+  <%= f.collection_select( :access_level_id, AccessLevel.all, :id, :display_name ) %></p>
   </div>
   <div class="field">
     <%= f.label :Organization %><br />

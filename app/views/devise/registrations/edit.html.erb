@@ -4,29 +4,33 @@
   <%= devise_error_messages! %>
 
   <p><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></p>
-  
+    <%= f.text_field :first_name %></p>
+
   <p><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></p>
-  
+    <%= f.text_field :last_name %></p>
+
   <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+    <%= f.text_field :email %></p>
 
   <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+    <%= f.password_field :password %></p>
 
   <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-  
-  <p><%= f.label :access_level %><br />
-  <%= f.collection_select( :access_level, AccessLevel, :id, :display_name, {:selected => @staff.access_level.id} ) %></p>
-  
-  <p><%= f.label :organization %><br />
-  	<%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %></p>
-  
+    <%= f.password_field :password_confirmation %></p>
+
+  <% if can? :update_access_level, @staff %>
+    <p><%= f.label :access_level %><br />
+      <%= f.collection_select( :access_level_id, AccessLevel.all, :id, :display_name, {:selected => @staff.access_level.id} ) %></p>
+  <% end %>
+
+  <% if can? :update_organization, @staff %>
+    <p><%= f.label :organization %><br />
+      <%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %></p>
+  <% end %>
+
   <p><%= f.label :area %><br />
-  	<%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
-  
+    <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
+
   <%= f.hidden_field :id, :value => @staff.id %>
 
   <p><%= f.submit "Update" %></p>
