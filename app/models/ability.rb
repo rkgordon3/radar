@@ -3,10 +3,13 @@ class Ability
 
   def initialize(staff)
     staff ||= Staff.new
+
     if staff.organization? :residence_life
+      #set all actions for residence life
       can :manage, :all
       if staff.access_level? :system_administrator
-        #don't remove any privileges
+        cannot :update_organization, Staff
+
       elsif staff.access_level? :administrator
         trim_residence_life_privileges_to(:administrator)
       elsif staff.access_level? :hall_director
@@ -22,8 +25,9 @@ class Ability
         trim_residence_life_privileges_to(:administrative_assistant)
         trim_residence_life_privileges_to(:resident_assistant)
       end
-      can :update, Staff, :id => staff.id
-      cannot :destroy, Staff, :id => staff.id
+
+      can [:update, :show], Staff, :id => staff.id
+      cannot [:destroy,:update_access_level,:update_organization], Staff, :id => staff.id
     elsif staff.organization? :academic_skills_center
       # trim or build privileges for each Academic Skills access_level here
       
@@ -33,18 +37,18 @@ class Ability
     end
   end
 
+  # removes specific residence life privileges for the specified access level
   def trim_residence_life_privileges_to(access_level)
     if access_level == :administrator
-      cannot [:destroy, :update], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
+      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
     elsif access_level == :hall_director
-      cannot [:destroy, :update], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => "Hall Director"}
     elsif access_level == :administrative_assistant
-      cannot [:destroy, :update], Staff, :access_level => {:display_name => "Administrative Assistant"}
+      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => "Administrative Assistant"}
     elsif access_level == :resident_assistant
-      cannot [:destroy, :update], Staff, :access_level => {:display_name => "Resident Assistant"}
-      cannot [:show,:update,:destroy], [Report, Student, Task, Staff]
+      cannot [:show, :update, :destroy], [Report, Student, Task, Staff]
+      cannot [:create], Staff
       cannot [:view_student_id, :view_contact_info], Participant
-      cannot [:update_access_level, :update_organization], Staff
     end
   end
 

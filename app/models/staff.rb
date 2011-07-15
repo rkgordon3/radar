@@ -14,6 +14,16 @@ class Staff < ActiveRecord::Base
     params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
   end
 
+  def get_registerable_access_levels
+    if self.access_level_id > 1
+      #can only register access levels below current level
+      return AccessLevel.where(:id=> 1..(self.access_level_id-1))
+    else
+      #if level 1, can register as level 1 (only to be used when updating self)
+      return AccessLevel.where(:id=> self.access_level_id)
+    end
+  end
+
   def access_level?(access_level)
     if self.access_level == nil
       return false
@@ -22,7 +32,16 @@ class Staff < ActiveRecord::Base
     return self.access_level.name == access_level.to_s.camelize
   end
 
-   def organization?(organization)
+  def get_registerable_organizations
+    reg_org_ids = Array.new
+    self.staff_organizations.each do |staff_org|
+      reg_org_ids << staff_org.organization.id
+    end
+    
+    return Organization.where(:id=>reg_org_ids).order(:name)
+  end
+
+  def organization?(organization)
     if self.staff_organizations.first == nil
       return false
     end

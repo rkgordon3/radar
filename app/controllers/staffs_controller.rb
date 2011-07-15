@@ -21,10 +21,6 @@ class StaffsController < Devise::RegistrationsController
       format.xml  { render :xml => @staff }
     end
   end
-  
-  def edit
-    # @staff automatically loaded by CanCan
-  end
 
   # GET /staffs/new
   # GET /staffs/new.xml

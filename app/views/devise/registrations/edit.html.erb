@@ -18,15 +18,21 @@
   <p><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %></p>
 
-  <% if can? :update_access_level, @staff %>
-    <p><%= f.label :access_level %><br />
-      <%= f.collection_select( :access_level_id, AccessLevel.all, :id, :display_name, {:selected => @staff.access_level.id} ) %></p>
-  <% end %>
 
-  <% if can? :update_organization, @staff %>
-    <p><%= f.label :organization %><br />
-      <%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %></p>
-  <% end %>
+  <p><%= f.label :organization %><br />
+    <% if can? :update_organization, @staff %>
+      <%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %>
+    <% else %>
+      <b><%= @staff.staff_organizations.first.organization.display_name %></b>
+    <% end %></p>
+
+  <p><%= f.label :access_level %><br />
+    <% if can? :update_access_level, @staff %>
+      <%= f.collection_select( :access_level_id, @access_levels, :id, :display_name, {:selected => @staff.access_level.id} ) %>
+    <% else %>
+      <b><%= @staff.access_level.display_name %></b>
+    <% end %></p>
+
 
   <p><%= f.label :area %><br />
     <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
