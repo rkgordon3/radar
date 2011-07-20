@@ -20,7 +20,7 @@
         <% end %>
         <td><%= area.name %></td>
         <td><%= area.abbreviation %></td>
-        <td><%= link_to 'Show', area %></td>
+        <td><%= link_to 'Show', area if can? :show, area %></td>
         <td><%= link_to 'Edit', edit_area_path(area) if can? :edit, area %></td>
         <td><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete if can? :destroy, area %></td>
       <% end %>

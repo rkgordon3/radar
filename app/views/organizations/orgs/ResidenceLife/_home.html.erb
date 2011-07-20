@@ -27,7 +27,7 @@
   <li><%= link_to "Tasks", "/tasks" if can? :index, Task %>
     <ul>
       <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
-      <li><%= link_to "List Tasks", "/tasks" %></li>
+      <li><%= link_to "List Tasks", "/tasks" if can? :index, Task%></li>
     </ul>
   </li>
   <li><a href="/">Miscellaneous</a>

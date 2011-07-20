@@ -16,7 +16,7 @@
   <td><%= student.birthday != nil ? student.birthday_string : "" %></td>
 <% end %>
 
-<td><%= link_to 'Show', student %></td>
+<td><%= link_to 'Show', student if can? :show, student %></td>
 <%if staff_signed_in? %>
   <td><%= link_to 'Edit', edit_student_path(student) if can? :edit, student %></td>
   <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete if can? :destroy, student %></td>

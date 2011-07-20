@@ -27,7 +27,7 @@
             <%= area.name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', building %></td>
+        <td><%= link_to 'Show', building if can? :show, building %></td>
         <td><%= link_to 'Edit', edit_building_path(building) if can? :edit, building %></td>
         <td><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete if can? :destroy, building %></td>
       </tr>
