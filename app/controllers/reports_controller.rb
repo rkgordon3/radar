@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @report_type = params[:report]
 	  
     params[:sort] ||= "approach_time"
-    logger.debug params[:sort]
+    
     @reports = Report.sort(@reports,params[:sort])
     respond_to do |format|
       format.html { render :locals => { :reports => @reports } }
@@ -58,7 +58,11 @@ class ReportsController < ApplicationController
     @report = session[:report]
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
-        format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
+        if can? :show, @report
+          format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
+        else
+          format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully created.') }
+        end
         format.xml  { render :xml => @report, :status => :created, :location => @report }
         format.iphone {redirect_to(@report)}
       else
@@ -74,7 +78,11 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
-        format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
+        if can? :show, @report
+          format.html { redirect_to(@report, :notice => 'Report was successfully updated.') }
+        else
+          format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully updated.') }
+        end
         format.xml  { head :ok }
         format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
       else
@@ -133,7 +141,7 @@ class ReportsController < ApplicationController
             end
           end
         }
-      end 
+      end
     end
     @report.add_default_contact_reason(@participant.id)
   end
@@ -144,7 +152,7 @@ class ReportsController < ApplicationController
     infractions = @report.contact_reasons_for(@participant_id)
     infractions.each do |ri|
       @report.report_participant_relationships.delete(ri)
-      ri.destroy		
+      ri.destroy
     end
     @divid = "p-in-report-#{@participant_id}"
     
@@ -155,7 +163,7 @@ class ReportsController < ApplicationController
           page.remove("#{@divid}")
         end
       }
-    end 
+    end
   end
   
   def create_participant_and_add_to_report
@@ -181,7 +189,7 @@ class ReportsController < ApplicationController
     
     begin
       mail.deliver
-    rescue 
+    rescue
     end
    
     respond_to do |format|
@@ -333,19 +341,19 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.js
     end
-  end  
+  end
   
-	private
-	def render_set_reason(id, checked, webapp_refresh)
-		render :update do |page|
-			checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
-			page << "$('#{id}').checked = #{checked.downcase}"
-			if (webapp_refresh)
-				page << "WebApp.Refresh('#{pid}_#{reason}')"
-			end
-		end
-	end
-	def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
+  private
+  def render_set_reason(id, checked, webapp_refresh)
+    render :update do |page|
+      checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
+      page << "$('#{id}').checked = #{checked.downcase}"
+      if (webapp_refresh)
+        page << "WebApp.Refresh('#{pid}_#{reason}')"
+      end
+    end
+  end
+  def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
     render :update do |page|
       participant_ids.each do |p|
         reasons.each do |reason, checked |
