@@ -34,12 +34,6 @@ class IncidentReportsController < ReportsController
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
-    if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level?(:resident_assistant)) || (@report.staff != current_staff && current_staff.access_level?(:resident_assistant))
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      return
-    end
-    
     
     self.clear_session #probably not necessary, but good practice anyway
     
@@ -57,12 +51,6 @@ class IncidentReportsController < ReportsController
     
     # get the report and annotation for the view to edit
     @report = IncidentReport.find(params[:id])
-    
-    if (@report.submitted? && current_staff.access_level?(:resident_assistant)) || (!@report.submitted? && current_staff.access_level?(:resident_assistant) && @report.staff != current_staff)
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      return
-    end
     
     # save the report and annotation into the session
     session[:report] = @report
@@ -99,14 +87,7 @@ class IncidentReportsController < ReportsController
   # DELETE /incident_reports/1.xml
   def destroy
     # get the report
-    @report = IncidentReport.find(params[:id])
-    
-    # check authorization
-    if(current_staff.access_level?(:resident_assistant) && current_staff != @report.staff) || (current_staff.access_level?(:resident_assistant) && current_staff == @report.staff && @report.submitted)
-      flash[:notice] = "Unauthorized Access"
-      redirect_to "/home/landingpage"
-      return
-    end
+    @report = IncidentReport.find(params[:id])end
     # destroy the report
     @report.destroy
     

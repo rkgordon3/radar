@@ -12,6 +12,11 @@ class Report < ActiveRecord::Base
   def is_generic? 
     type == nil
   end
+
+  def submitter?(staff)
+    staff||=Staff.new
+    return staff.id==self.staff.id
+  end
   
   def is_note?
     type == "Note"
@@ -56,7 +61,7 @@ class Report < ActiveRecord::Base
   end
   
   def reasons
-	RelationshipToReport.for(self) 
+    RelationshipToReport.for(self)
   end
   
   
