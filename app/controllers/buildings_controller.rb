@@ -1,6 +1,5 @@
 class BuildingsController < ApplicationController
   # GET /buildings
-  # GET /buildings.xml  before_filter :super_admin_authorize_view_access, :except => [:show, :index]
   before_filter :authenticate_staff!
   load_and_authorize_resource
 

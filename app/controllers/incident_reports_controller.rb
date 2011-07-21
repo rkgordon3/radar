@@ -87,7 +87,7 @@ class IncidentReportsController < ReportsController
   # DELETE /incident_reports/1.xml
   def destroy
     # get the report
-    @report = IncidentReport.find(params[:id])end
+    @report = IncidentReport.find(params[:id])
     # destroy the report
     @report.destroy
     

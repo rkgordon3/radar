@@ -47,12 +47,13 @@ class Ability
     
     elsif access_level_symbol == :administrative_assistant
       cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => "Administrative Assistant"}
+      cannot :update, IncidentReport
     
     elsif access_level_symbol == :resident_assistant
       cannot [:show, :update, :destroy], [Task, Staff]
-      cannot [:show, :update], IncidentReport
+      cannot :show, IncidentReport
       can [:show, :update], IncidentReport, :staff_id => staff.id, :submitted => false
-      cannot [:create], Staff
+      cannot :create, Staff
       cannot [:view_student_id, :view_contact_info], Student
     end
   end
