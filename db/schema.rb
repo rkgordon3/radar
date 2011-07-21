@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607220858) do
+ActiveRecord::Schema.define(:version => 20110721191946) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20110607220858) do
     t.integer  "report_type_id"
   end
 
-  create_table "report_participant_relationships", :force => true do |t|
+  create_table "report_participants", :force => true do |t|
     t.integer  "relationship_to_report_id"
     t.datetime "created_at"
     t.datetime "updated_at"

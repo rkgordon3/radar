@@ -1178,7 +1178,7 @@ relationship_to_reports:
     - 2
 
 --- 
-report_participant_relationships: 
+report_participants: 
   columns: 
   - id
   - relationship_to_report_id
