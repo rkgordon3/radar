@@ -1,0 +1,25 @@
+<%= form_for(@interested_party) do |f| %>
+  <% if @interested_party.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interested_party.errors.count, "error") %> prohibited this interested_party from being saved:</h2>
+
+      <ul>
+      <% @interested_party.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :report_id %><br />
+    <%= f.text_field :report_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

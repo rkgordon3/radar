@@ -1,5 +1,5 @@
 <%= @first_name %> <%= @last_name %>,
 
-A(n) <%= @report.display_name %> has been submitted by <%= Staff.find(@report.staff_id).first_name%> <%= Staff.find(@report.staff_id).last_name%> regarding <%= Building.find(@report.building_id).name %> at <%= @report.created_at %>.
+A(n) <%= @report.display_name %> has been submitted by <%= Staff.find(@report.staff_id).first_name%> <%= Staff.find(@report.staff_id).last_name%> regarding <%= Building.find(@report.building_id).name %> on <%= @report.created_at_string %>.
 
 To view the report follow this link: <%= @report_url %>

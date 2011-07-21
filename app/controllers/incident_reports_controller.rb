@@ -14,9 +14,8 @@ class IncidentReportsController < ReportsController
     # but maybe "back" button was pushed on a new report or edit page
     
     # get all submitted reports so view can display them (in order of approach time)
-    @reports = IncidentReport.where(:submitted => true)
+    @reports = IncidentReport.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now)
     @reports=Report.sort(@reports,params[:sort])
-    
     respond_to do |format|
       format.html { render :locals => { :reports => @reports } }
       format.xml  { render :xml => @reports }
@@ -24,7 +23,7 @@ class IncidentReportsController < ReportsController
     end
   end
   
-
+  
   
   
   # GET /incident_reports/1
@@ -33,6 +32,8 @@ class IncidentReportsController < ReportsController
   def show
     # get the report for the view to show
     @report = IncidentReport.find(params[:id])
+    # get the interested parties to email for this report type
+    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
     if (@report.submitted? && @report.updated_at + 1.minutes < Time.now && current_staff.access_level == Authorize.ra_access_level) || (@report.staff != current_staff && current_staff.access_level == Authorize.ra_access_level)
       flash[:notice] = "Unauthorized Access"
@@ -82,19 +83,15 @@ class IncidentReportsController < ReportsController
     @report = session[:report]
     # process parameters into reported infractions
     @report.add_contact_reason(params)   
-    super
-    
-    
+    super  
   end
   
   # PUT /incident_reports/1
   # PUT /incident_reports/1.xml
   def update
-    logger.debug("IR update")
     @report = session[:report]
     # process check boxes to update reported infractions
-    @report.add_contact_reason(params)
-    
+    @report.add_contact_reason(params)   
     super
   end
   
@@ -147,9 +144,9 @@ class IncidentReportsController < ReportsController
     # clear everything out of the sesson
     session[:report] = nil
   end
- 
+  
   def on_duty_index
-	super
+    super
   end
   
   

@@ -1,11 +1,8 @@
 class ShiftsController < ApplicationController
   
   
-  
   # GET /shifts
   # GET /shifts.xml
-  helper_method :report_map
-  helper_method :note_map
   before_filter :authenticate_staff!
   before_filter :ra_authorize_view_access
   skip_before_filter :verify_authenticity_token
@@ -101,7 +98,7 @@ class ShiftsController < ApplicationController
     area_id = current_staff.staff_areas.first.area_id
     @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
     
-    Task.get_by_constraints(area_id, Time.now).each do |task|
+    Task.get_active_by_area(area_id).each do |task|
       @shift.add_task(task) 
     end
     
@@ -116,21 +113,27 @@ class ShiftsController < ApplicationController
     
     @shift = Shift.find(params[:id])
     @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
-    round_time_start = @shift.created_at
     @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
+
+    report_map ||= Hash.new
+    note_map ||= Hash.new
+    round_time_start = @shift.created_at
     @rounds.each do |round|
       round_time_end=round.end_time
-      report=Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
-      note=report.where(:type=>"Note").order(:approach_time)
-      report=report.where(:type=>["IncidentReport","MaintenanceReport"]).order(:approach_time)
-      report_map[round] = report
-      note_map[round] = note
-      round_time_start=round_time_end
+      reports = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
+      notes = reports.where(:type=>"Note")
+      notes = Report.sort(notes,params[:sort])
+      reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
+      reports = Report.sort(reports,params[:sort])
+      report_map[round] = reports
+      note_map[round] = notes
+      round_time_start = round_time_end
     end
     
     respond_to do |format|
-      format.html
-      format.xml
+      format.html { render :locals => { :report_map => report_map, :note_map => note_map } }
+      format.xml  { render :locals => { :report_map => report_map, :note_map => note_map } }
+      format.js   { render :locals => { :report_map => report_map, :note_map => note_map } }
     end
   end
   
@@ -150,9 +153,9 @@ class ShiftsController < ApplicationController
       @notice = "You are now off duty."		
     end
 	
-	if !@shift.tasks_completed?
-	   @notice = @notice + "...but some tasks were not completed!"
-	end
+    if !@shift.tasks_completed?
+      @notice = @notice + "...but some tasks were not completed!"
+    end
     
     respond_to do |format|
       format.js 
@@ -162,23 +165,13 @@ class ShiftsController < ApplicationController
   def update_todo
     task_list = params[:task]
     TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
-	logger.debug("Assignment #{task_list[assignment.task_id]}")
-      assignment.done = task_list[assignment.task_id.to_s] != nil
-	  assignment.save
+      assignment.done = task_list[assignment.id.to_s] != nil
+      assignment.save
     end
   
-	respond_to do |format|
-	  format.iphone { render :nothing => true }
-	end
-  end
-  
-  private
-  def report_map
-    @report_map ||= Hash.new
-  end
-  
-  def note_map
-    @note_map ||= Hash.new
+    respond_to do |format|
+      format.iphone { render :nothing => true }
+    end
   end
   
 end

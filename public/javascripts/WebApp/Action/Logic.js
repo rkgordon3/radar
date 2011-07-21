@@ -114,7 +114,19 @@ var WebApp = (function(){
                     }
                     else 
                         if (o.type == "checkbox") {
+//console.log("parent = " + o.parentNode);
+						//console.log(o);
+						//console.log(o.previousSibling);
+						//console.log("o.previousSibling tag = " + o.previousSibling.tagName);
+						//for(var i=0; i<o.parentNode.childNodes.length; i++)
+//{
+
+    // n = o.parentNode.childNodes[i];
+  //console.log("child[" + i + "] = " +  n + " title = "  + n.title + " tagName = " + n.tagName);
+//}
+						   if  (o.previousSibling.tagName == 'B') {
                             _DD(o.previousSibling, 1)
+							}
                         }
             }
             _AA();
@@ -1159,6 +1171,7 @@ var WebApp = (function(){
         _D(1)
     }
     function _DD(o, dontChange){
+	
         var c = o, i = $(c.title);
         var txt = i.title.split("|");
         if (!dontChange) {

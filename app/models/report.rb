@@ -10,19 +10,35 @@ class Report < ActiveRecord::Base
   
   # return true if report is a generic report, ie FYI
   def is_generic? 
-  	  type == nil
+    type == nil
   end
   
   def is_note?
-  	  type == "Note"
+    type == "Note"
   end
   
+  def created_at_string
+    self.created_at.to_s(:my_time)
+  end
+
+  def created_at_string
+    self.created_at.to_s(:my_time)
+  end
+
+  def updated_at_string
+    self.updated_at.to_s(:my_time)
+  end
+
   def can_submit_from_mobile?
     false
   end
   
+  def type_id
+    ReportType.find_by_name(self.type).id
+  end
+  
   def can_edit_from_mobile?
-	false
+    false
   end
   
   def annotation_text
@@ -37,6 +53,10 @@ class Report < ActiveRecord::Base
   
   def supports_selectable_contact_reasons?
     false
+  end
+  
+  def reasons
+	RelationshipToReport.for(self) 
   end
   
   
@@ -105,49 +125,33 @@ class Report < ActiveRecord::Base
   
   
   
-  def get_report_participant_relationships_for_participant(participant_id)
-    logger.debug "In get_report_participant_relationships_for_participant id:#{participant_id}"
-    found_relationships = Array.new
-    self.report_participant_relationships.each do |ri|
-      logger.debug "COMPARING #{ri.participant_id} TO #{participant_id}"
-      if ri.participant_id == participant_id
-        found_relationships << ri
-        
-      end
-    end
-    return found_relationships
+  def contact_reasons_for(participant_id)
+    self.report_participant_relationships.select { |ri| ri.participant_id == participant_id } 
   end
   
-  
-  
+ 
   def destroy_participants
     report_participant_relationships.each do |ri|
       ri.destroy
     end
   end
   
-  
-  
-  def get_specific_report_student_relationship(participant_id, relationship_id)
-    self.report_participant_relationships.each do |ri|
-      if ri.participant_id == participant_id && ri.relationship_to_report_id == relationship_id
-        return ri
-      end
-    end
-    return nil
+  def get_contact_reason_for_participant(participant_id, reason_id)
+    self.report_participant_relationships.select { |ri|
+      ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
   
+  #return true if participant is associated with report
+  def associated?(participant) 
+    participant != nil && participant_ids.include?(participant.id)
+  end
   
+  def empty_of_participants?
+    participant_ids.size == 0
+  end
   
+  # Return id of all participants associated with report
   def participant_ids
-    p  = get_all_participants
-    logger.debug("report has #{p.count} participants")
-    p
-  end
-  
-  
-  
-  def get_all_participants
     partic_relationships = Array.new
     
     # populate the old reported infractions array with the report's infractions
@@ -180,9 +184,9 @@ class Report < ActiveRecord::Base
   
   
   
-  def add_default_relationship_for_participant(participant_id)
+  def add_default_contact_reason(participant_id)
     # only want to add if fyi doesn't already exist
-    all_relationships_for_participant = get_report_participant_relationships_for_participant(participant_id)
+    all_relationships_for_participant = contact_reasons_for(participant_id)
     
     # only want to add if no relationships exist
     if all_relationships_for_participant.count == 0
@@ -192,54 +196,48 @@ class Report < ActiveRecord::Base
       end
       self.report_participant_relationships << ri
     else
-      ri = get_specific_report_student_relationship(participant_id, RelationshipToReport.fyi) 
+      ri = get_contact_reason_for_participant(participant_id, RelationshipToReport.fyi) 
     end
     return ri
   end
   
   
   
-  def add_specific_relationship_to_report_for_participant(participant_id, relationship_id)
-    ri = get_specific_report_student_relationship(participant_id, relationship_id) 
+  def add_contact_reason_for(participant_id, reason_id)
+    ri = get_contact_reason_for_participant(participant_id, reason_id) 
     
     if ri == nil
-      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => relationship_id)
+      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
       self.report_participant_relationships << ri
     end
     
     return ri
   end
   
+  def remove_contact_reason_for(participant_id, reason_id)
+    self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
+  end
   
-  
-  def add_default_report_student_relationships_for_participant_array(participants)    
-    if participants != nil
-      # go through the students and add fyi relationships
-      participants.each do |s|
-        add_default_relationship_for_participant(s.id)
-      end
-    end
+  def get_relationship(participant_id, reason_id)
+    report_participant_relationships.select { |r| r.participant_id == participant_id && r.relationship_to_report_id == reason_id }
   end
   
   
-  
-  def tag
-  	
-  	  tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s 
- 
+  def tag	
+    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s
   end
   
 
   
- def event_time
-  	  (approach_time != nil ? approach_time : created_at).to_s(:time_only)
- end
+  def event_time
+    (approach_time != nil ? approach_time : created_at).to_s(:time_only)
+  end
  
- def event_date
+  def event_date
  	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
- end
+  end
  
-def Report.sort(data,key)
+  def Report.sort(data,key)
     new_data = data.order("approach_time DESC")
     if key=="time"
       #default already sorted by time
@@ -265,21 +263,20 @@ def Report.sort(data,key)
   def display_name
     return ReportType.find_by_name(self.class.name).display_name
   end
-  
-  
+   
   
   def process_participant_params_string_from_student_search(participants_string)
     if participants_string !=nil
       participants = participants_string.split(/,/)
       participants.each do |p|
-        self.add_default_relationship_for_participant(Integer(p))
+        self.add_default_contact_reason(Integer(p))
       end
     end
   end
   
-   private
-   def tag_datetime
-  	   (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
+  private
+  def tag_datetime
+    (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
   
 end

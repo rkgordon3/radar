@@ -1,23 +1,22 @@
-<h1>Listing tasks</h1>
+<div id="inside_container" class="inside_container"><h1>All Tasks</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table>
+    <tr>
+      <th><%= link_to "Title", :sort => "title" %></th>
+      <th><%= link_to "Note", :sort => "note" %></th>
+      <th><%= link_to "Area", :sort => "area" %></th>
+      <th><%= link_to "Start Date", :sort => "start_date" %></th>
+      <th><%= link_to "End Date", :sort => "end_date" %></th>
+      <th><%= link_to "Status", :sort => "status" %></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.title %></td>
-    <td><%= link_to 'Show', task %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+    <%= render :partial => "tasks/task_table_row", :locals => { :tasks => @tasks, :num_rows=>0 } %>
 
-<br />
+  </table>
 
-<%= link_to 'New Task', new_task_path %>
+  <br />
+
+  <%= link_to 'New Task', new_task_path %>
+</div>

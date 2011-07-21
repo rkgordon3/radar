@@ -10,7 +10,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+ActiveRecord::Schema.define(:version => 20110607220858) do
 ActiveRecord::Schema.define(:version => 20110721191946) do
+ActiveRecord::Schema.define(:version => 20110624180722) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -31,6 +33,24 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.datetime "updated_at"
     t.integer  "area_id"
     t.string   "abbreviation"
+  end
+
+  create_table "imports", :force => true do |t|
+    t.string   "datatype"
+    t.integer  "processed",        :default => 0
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "interested_parties", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "authorized_by_id"
+    t.integer  "report_type_id"
   end
 
   create_table "notification_preferences", :force => true do |t|
@@ -96,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.string   "display_name"
     t.string   "abbreviation"
     t.integer  "organization_id"
+    t.boolean  "forwardable"
   end
 
   create_table "reports", :force => true do |t|
@@ -109,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.boolean  "submitted"
     t.integer  "annotation_id"
     t.string   "tag"
+    t.datetime "contact_duration"
   end
 
   create_table "rounds", :force => true do |t|
@@ -189,6 +211,8 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.integer  "area_id"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.boolean  "expires"
+    t.integer  "time"
   end
 
   create_table "url_for_ids", :force => true do |t|

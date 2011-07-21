@@ -1,0 +1,58 @@
+
+<ul>
+		<%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
+		<li><a href="/students">Students</a>
+			<ul>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><a href = "/students">List Students</a></li>
+				<% end %>
+				<li><a href = "/students/search_students">Search Students</a></li>
+			</ul>
+		</li>
+		<li><a href="/incident_reports/new">Incident Reports</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+					<li><%= link_to "New Incident Report", "/incident_reports/new" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Incident Reports", "/reports?report=IncidentReport" %></li>
+				<% end %>
+			</ul>
+		</li>
+		<li><a href=" /maintenance_reports/new">Maintenance Requests</a>
+			<ul>
+				<% if current_staff.access_level != Authorize.admin_assistant_access_level%>
+				  <li>	<%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li>
+				<% end %>
+				<% if current_staff.access_level > Authorize.ra_access_level %>
+					<li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" %></li>
+				<% end %>
+			</ul>
+		</li>
+		<% if current_staff.access_level > Authorize.ra_access_level %>
+			<li><a href="/shifts">Duty Logs</a>
+				<ul>
+					<li><%= link_to "List Duty Logs", "/shifts" %></li>
+				</ul>
+			</li>
+		<% end %>
+  <% if current_staff.access_level > Authorize.ra_access_level %>
+    <li><a href="/tasks">Tasks</a>
+      <ul>
+        <li><%= link_to "New Task", "/tasks/new" %></li>
+        <li><%= link_to "List Tasks", "/tasks" %></li>
+      </ul>
+    </li>
+  <% end %>
+  <% if current_staff.access_level == Authorize.super_admin_access_level %>
+    <li><a href="/">Miscellaneous</a>
+      <ul>
+        <li><%= link_to("Buildings", "/buildings")%></li>
+        <li><%= link_to("Areas", "/areas")%></li>
+        <li><%= link_to("Staff Members", "/staffs")%></li>
+        <li><%= link_to("Update Student Data", "/imports/new") %></li>
+      </ul>
+    </li>
+  <% end %>
+
+</ul>

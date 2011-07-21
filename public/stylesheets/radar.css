@@ -45,6 +45,10 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
   font-family: Arial;
 
 }
+.participant_detail {
+    display: none; 
+    
+}
 
 #toolbar{ 
 width:90%; 

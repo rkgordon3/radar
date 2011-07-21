@@ -1,0 +1,20 @@
+<% @tasks.each do |task| %>
+
+  <% if @numRows == 0 %>
+    <% @numRows = @numRows + 1 %>
+    <tr class="shaded">
+    <% else %>
+      <% @numRows = 0 %>
+    <tr>
+    <% end %>
+
+    <td><%= task.title %></td>
+    <td><%= task.info %></td>
+    <td><%= task.area.name %></td>
+    <td><%= task.start_date_short %></td>
+    <td><%= task.end_date_short %></td>
+    <td><%= task.status %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %></td>
+    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
