@@ -12,9 +12,11 @@
     <td><%= "#{shift.end_date}, #{shift.end_time}" rescue "In Progress" %></td>
     <td><%= shift.area.name rescue "Unknown" %></td>
     <td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
-    <% if shift.time_out != nil %>
-      <td><%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %></td>
-    <% end %>
+    <td>
+      <% if shift.time_out != nil %>
+        <%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %>
+      <% end %>
+    </td>
   </tr>
 
 <% end %>
