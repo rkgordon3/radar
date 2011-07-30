@@ -12,17 +12,17 @@ class Ability
 
       elsif staff.access_level? :administrator
         trim_residence_life_privileges_to(:administrator, staff)
-      elsif staff.access_level? :hall_director
-        trim_residence_life_privileges_to(:administrator, staff)
-        trim_residence_life_privileges_to(:hall_director, staff)
       elsif staff.access_level? :administrative_assistant
         trim_residence_life_privileges_to(:administrator, staff)
-        trim_residence_life_privileges_to(:hall_director, staff)
         trim_residence_life_privileges_to(:administrative_assistant, staff)
+      elsif staff.access_level? :hall_director
+        trim_residence_life_privileges_to(:administrator, staff)
+        trim_residence_life_privileges_to(:administrative_assistant, staff)
+        trim_residence_life_privileges_to(:hall_director, staff)
       elsif staff.access_level? :resident_assistant
         trim_residence_life_privileges_to(:administrator, staff)
-        trim_residence_life_privileges_to(:hall_director, staff)
         trim_residence_life_privileges_to(:administrative_assistant, staff)
+        trim_residence_life_privileges_to(:hall_director, staff)
         trim_residence_life_privileges_to(:resident_assistant, staff)
       end
 
@@ -40,21 +40,23 @@ class Ability
   # removes specific residence life privileges for the specified access level
   def trim_residence_life_privileges_to(access_level_symbol, staff)
     if access_level_symbol == :administrator
-      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
-    
-    elsif access_level_symbol == :hall_director
-      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot [:update, :show], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
+      cannot :destroy, :all
+      can :destroy, Task
     
     elsif access_level_symbol == :administrative_assistant
-      cannot [:destroy, :update, :show], Staff, :access_level => {:display_name => "Administrative Assistant"}
-      cannot :update, IncidentReport
+      cannot [:update, :show], Staff, :access_level => {:display_name => "Administrative Assistant"}
+    
+    elsif access_level_symbol == :hall_director
+      cannot [:update, :show], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot [:update], MaintenanceReport
     
     elsif access_level_symbol == :resident_assistant
-      cannot [:show, :update, :destroy], [Task, Staff]
-      cannot :show, IncidentReport
-      can [:show, :update], IncidentReport, :staff_id => staff.id, :submitted => false
+      cannot [:show, :update], [Staff, Report]
+      can [:show, :update], Report, :staff_id => staff.id, :submitted => false
       cannot :create, Staff
-      cannot [:view_student_id, :view_contact_info], Student
+      cannot [:show, :view_student_id, :view_contact_info], Student
+      cannot :manage, [Shift, Task]
     end
   end
   
