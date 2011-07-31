@@ -1,7 +1,7 @@
 <fieldset>
 <ul>
 <li>
-<%= "Birthday: #{participant.dob}" %>
+  <%= "Birthday: #{participant.birthday_string}" %>
 </li>
 <li>
 <%= "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>

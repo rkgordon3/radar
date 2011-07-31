@@ -53,10 +53,11 @@ class Ability
     
     elsif access_level_symbol == :resident_assistant
       cannot [:show, :update], [Staff, Report]
-      can [:show, :update], Report, :staff_id => staff.id, :submitted => false
       cannot :create, Staff
       cannot [:show, :view_student_id, :view_contact_info], Student
-      cannot :manage, [Shift, Task]
+      cannot :index, Shift
+      cannot :manage, Task
+      can [:show, :update], Report, :staff_id => staff.id, :submitted => false
     end
   end
   

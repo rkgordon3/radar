@@ -19,15 +19,16 @@
       <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" if can? :index, MaintenanceReport %></li>
     </ul>
   </li>
+  <li><%= link_to "Tasks", "/task_assignments" %>
+    <ul>
+      <li><%= link_to "My To Do List", "/task_assignments" %></li>
+      <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
+      <li><%= link_to "List Tasks", "/tasks" if can? :index, Task%></li>
+    </ul>
+  </li>
   <li><%= link_to "Duty Logs", "/shifts" if can? :index, Shift %>
     <ul>
       <li><%= link_to "List Duty Logs", "/shifts" if can? :index, Shift %></li>
-    </ul>
-  </li>
-  <li><%= link_to "Tasks", "/tasks" if can? :index, Task %>
-    <ul>
-      <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
-      <li><%= link_to "List Tasks", "/tasks" if can? :index, Task%></li>
     </ul>
   </li>
   <li><a href="/">Miscellaneous</a>

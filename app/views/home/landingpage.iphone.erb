@@ -1,112 +1,112 @@
 <%= javascript_tag <<-RUBY
 function update_todo()
 {
- var submit_button="submit_button";
- var form_name="update_todo";
- // here you can build the form, or modify form parameters
- $(submit_button).click();
+var submit_button="submit_button";
+var form_name="update_todo";
+// here you can build the form, or modify form parameters
+$(submit_button).click();
 }
 RUBY
 %>
-    <div id="iGroup">
-        <div class="iLayer" id="waHome" title="Home">
-        	
-        
-                <div id = "user_nav">
-                             <div class="iMenu">       	
-                    <% if staff_signed_in? %>
+<div id="iGroup">
+  <div class="iLayer" id="waHome" title="Home">
 
-                        <ul>
-                            <li>
-                                <a href='<%=destroy_staff_session_path%>' class="iButton iBAction" style="max-width:30%">Sign Out</a>
-                                <a>Hi, <%= current_staff.first_name %></a>
-                            </li>
-                        </ul>
-                   
-                    <% else %>
-                    <p>
-					
-                        <a href='<%=new_staff_session_path%>' class="iPush iBClassic" style="width:100%">Sign In</a>
 
-					</p>
-                    <% end %>
-					 </div>
-                </div>
-                <% if staff_signed_in? %>
-                <p>
-                <div class="iPanel">
-                	<fieldset>
-						<ul class="iArrow">
-						<li>
-							<a href = "/incident_reports/new">New Incident Report</a>
-						</li>
-						<li>
-							<a href = "/maintenance_reports/new">New Maintenance Request</a>
-						</li>
-						<li>
-							<a href = "/notes/new">Make a Note</a>
-						</li>
-						<% if current_staff.on_duty? %>
-						<li>
-							<a href = "#_Checklist">To Do List</a>
-						</li>
-						<% end %>
-						<li>
-							<a href = "#_Reports">View Reports</a>
-						</li>
-						</ul>
-					</fieldset>
-				</div>
-                <% end %>
-         
-        </div>
-		<div class="iLayer" id="waReports" >
-			<a href="#_Home" rel="back">Back</a>
-			<div class="iPanel">
-				<fieldset>
-				<ul class="iArrow">
-					<li>
-						<a href = "/incident_reports/on_duty_index">Incident Reports</a>
-					</li>
-					<li>
-						<a href = "/maintenance_reports/on_duty_index">Maintenance Request</a>
-					</li>
-					<li>
-						<a href = "/notes/on_duty_index">Notes</a>
-					</li>
-				</ul>
-				</fieldset>
-			</div>
-		</div>
-		<% if staff_signed_in? %>
-		<div class="iLayer" id="waChecklist" >
-			<a href="#_Home" rel="back">Back</a>
-			<div class="iPanel">
-				<fieldset>
-				<Legend>
-				  To Do List
-				</Legend>
-				<%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
-				<ul class="iArrow">
-					<% current_staff.currently_assigned_tasks.each do | t | %>
-					<li>
-					<%= check_box_tag "task[#{t.id}]",
-                        t.task.title,
-                        t.done,
-						:onclick => "javascript: update_todo();",
-                        :class=>"iToggle", :title=>"Yes|No" %>
-						<%= t.task.title %>
-					</li>
-					
-					<% end %>
-					<div id="foo"></div>
-				</ul>
-				<%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
-			    <% end -%>
-				</fieldset>
-			</div>
-		</div>
-		<% end %>
+    <div id = "user_nav">
+      <div class="iMenu">
+        <% if staff_signed_in? %>
+
+          <ul>
+            <li>
+              <a href='<%=destroy_staff_session_path%>' class="iButton iBAction" style="max-width:30%">Sign Out</a>
+              <a>Hi, <%= current_staff.first_name %></a>
+            </li>
+          </ul>
+
+        <% else %>
+          <p>
+
+            <a href='<%=new_staff_session_path%>' class="iPush iBClassic" style="width:100%">Sign In</a>
+
+          </p>
+        <% end %>
+      </div>
     </div>
+    <% if staff_signed_in? %>
+      <p>
+      <div class="iPanel">
+        <fieldset>
+          <ul class="iArrow">
+            <li>
+              <a href = "/incident_reports/new">New Incident Report</a>
+            </li>
+            <li>
+              <a href = "/maintenance_reports/new">New Maintenance Request</a>
+            </li>
+            <li>
+              <a href = "/notes/new">Make a Note</a>
+            </li>
+            <% if current_staff.on_duty? %>
+              <li>
+                <a href = "#_Checklist">To Do List</a>
+              </li>
+              <li>
+                <a href = "#_Reports">View Reports</a>
+              </li>
+            <% end %>
+          </ul>
+        </fieldset>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="iLayer" id="waReports" >
+    <a href="#_Home" rel="back">Back</a>
+    <div class="iPanel">
+      <fieldset>
+        <ul class="iArrow">
+          <li>
+            <a href = "/incident_reports/on_duty_index">Incident Reports</a>
+          </li>
+          <li>
+            <a href = "/maintenance_reports/on_duty_index">Maintenance Request</a>
+          </li>
+          <li>
+            <a href = "/notes/on_duty_index">Notes</a>
+          </li>
+        </ul>
+      </fieldset>
+    </div>
+  </div>
+  <% if staff_signed_in? %>
+    <div class="iLayer" id="waChecklist" >
+      <a href="#_Home" rel="back">Back</a>
+      <div class="iPanel">
+        <fieldset>
+          <Legend>
+            To Do List
+          </Legend>
+          <%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
+            <ul class="iArrow">
+              <% current_staff.currently_assigned_tasks.each do | t | %>
+                <li>
+                  <%= check_box_tag "task[#{t.id}]",
+                    t.task.title,
+                    t.done,
+                    :onclick => "javascript: update_todo();",
+                    :class=>"iToggle", :title=>"Yes|No" %>
+                  <%= t.task.title %>
+                </li>
+
+              <% end %>
+              <div id="foo"></div>
+            </ul>
+            <%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
+          <% end -%>
+        </fieldset>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 
