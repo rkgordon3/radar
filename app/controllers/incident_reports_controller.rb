@@ -23,47 +23,6 @@ class IncidentReportsController < ReportsController
   end
   
   
-  
-  
-  # GET /incident_reports/1
-  # GET /incident_reports/1.xml
-  
-  def show
-    # get the report for the view to show
-    @report = IncidentReport.find(params[:id])
-    # get the interested parties to email for this report type
-    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-    
-    
-    self.clear_session #probably not necessary, but good practice anyway
-    
-    
-    respond_to do |format|
-      format.html 
-      format.xml  { render :xml => @report }
-      #format.iphone {render :layout => false}
-      format.iphone {render :layout => 'mobile_application'}
-    end
-  end
-  
-  # GET /incident_reports/1/edit
-  def edit
-    
-    # get the report and annotation for the view to edit
-    @report = IncidentReport.find(params[:id])
-    
-    # save the report and annotation into the session
-    session[:report] = @report
-    
-    
-    respond_to do |format|
-      format.html 
-      format.iphone {render :layout => 'mobile_application'}
-    end
-    
-  end
-  
-  
   # POST /incident_reports
   # POST /incident_reports.xml
   def create
@@ -98,37 +57,18 @@ class IncidentReportsController < ReportsController
     end
   end
   
-  
   # GET /incident_reports/new
   # GET /incident_reports/new.xml
   def new
-    
-    @report = IncidentReport.new(:staff_id => current_staff.id)               # new report
-    
+    @report = IncidentReport.new(:staff_id => current_staff.id)    # new report
     @report.process_participant_params_string_from_student_search(params[:participants])
-    
-    session[:report] = @report
-    
-    # logger.debug "in new report, these are my session saved reported infractions " 
-    # logger.debug session[:report].report_participant_relationships
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @report }
-      format.iphone {render :layout => 'mobile_application'}
-    end 
-    return
-  end
-  
-  
-  def clear_session
-    # clear everything out of the sesson
-    session[:report] = nil
-  end
-  
-  def on_duty_index
     super
   end
   
+  def clear_session
+    # clear everything out of the session
+    session[:report] = nil
+  end
   
 end
 

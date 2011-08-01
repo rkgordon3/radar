@@ -23,10 +23,4 @@ class MaintenanceReportsController < ReportsController
       format.iphone {render :layout => 'mobile_application'}
     end
   end
-  
-  def edit
-    respond_to do |format|
-      format.html { render :text => "Edit of Maintenance Requests not supported. Shucks." }
-    end
-  end
 end

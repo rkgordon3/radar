@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
       forward_as_mail(params[:emails])
       return
     end
-    
+    @report = Report.find(params[:id])
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    @report = Report.new(:staff_id =>  current_staff.id )
+    @report ||= Report.new(:staff_id =>  current_staff.id )
     session[:report] = @report
     
     respond_to do |format|
@@ -49,7 +49,13 @@ class ReportsController < ApplicationController
   
   # GET /reports/1/edit
   def edit
+    @report = Report.find(params[:id])
     session[:report]=@report
+
+    respond_to do |format|
+      format.html
+      format.iphone {render :layout => 'mobile_application'}
+    end
   end
   
   # POST /reports
@@ -76,6 +82,7 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
+    @report = Report.find(params[:id])
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report

@@ -5,18 +5,8 @@
     <% if @task_assignments != nil %>
       <% if @task_assignments.length > 0 %>
         <table>
-          <tr>
-            <th>Title</th>
-            <th>Note</th>
-            <th>Done</th>
-          </tr>
-          <% @task_assignments.each do |ta| %>
-            <tr>
-              <td><%= ta.task.title %></td>
-              <td><%= ta.task.info %></td>
-              <td><%= ta.done_string %></td>
-            </tr>
-          <% end %>
+           <%= render :partial => "task_assignments/task_assignments_table_row_labels" %>
+           <%= render :partial => "task_assignments/task_assignments_table_row", :locals => { :task_assignments => @task_assignments, :num_rows => 0} %>
         </table>
       <% else %>
         <h3>You have no tasks to complete during your shift</h3>

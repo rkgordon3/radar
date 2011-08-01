@@ -9,6 +9,7 @@ class Ability
       can :manage, :all
       if staff.access_level? :system_administrator
         cannot :update_organization, Staff
+        cannot [:update, :destroy], IncidentReport, :submitted => true
 
       elsif staff.access_level? :administrator
         trim_residence_life_privileges_to(:administrator, staff)
