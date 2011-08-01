@@ -28,9 +28,8 @@ class ReportsController < ApplicationController
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @report }
-      format.iphone {render :layout => 'mobile_application'}
+      format.html { render 'reports/show' }
+      format.iphone { render 'reports/show', :layout => 'mobile_application' }
     end
   end
   
@@ -41,9 +40,8 @@ class ReportsController < ApplicationController
     session[:report] = @report
     
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @report }
-      format.iphone { render :layout => 'mobile_application' }
+      format.html { render "reports/new" }
+      format.iphone { render "reports/new", :layout => 'mobile_application' }
     end
   end
   
@@ -53,8 +51,8 @@ class ReportsController < ApplicationController
     session[:report]=@report
 
     respond_to do |format|
-      format.html
-      format.iphone {render :layout => 'mobile_application'}
+      format.html { render 'reports/edit' }
+      format.iphone { render "reports/edit", :layout => 'mobile_application' }
     end
   end
   
