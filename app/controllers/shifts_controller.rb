@@ -71,10 +71,11 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
     
     Task.get_active_by_area(area_id).each do |task|
-      @shift.add_task(task) 
+      @shift.assign_task(task)
     end
     
     @shift.save
+    @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
     
     respond_to do |format|
       format.js

@@ -4,7 +4,7 @@ class Shift < ActiveRecord::Base
   belongs_to :area
   has_many :task_assignments
   
-  def add_task (task)
+  def assign_task (task)
     ta = TaskAssignment.new(:shift_id => self.id, :task_id => task.id, :done => false)
     self.task_assignments << ta
   end
