@@ -82,6 +82,10 @@ class Staff < ActiveRecord::Base
   def current_shift
     Shift.where(:staff_id => self.id, :time_out => nil).first 
   end
+
+  def current_round
+    Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
+  end
   
   def currently_assigned_tasks
     Shift.find(self.current_shift.id).task_assignments rescue []
