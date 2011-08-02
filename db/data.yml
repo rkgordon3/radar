@@ -1,294 +1,39 @@
 
 ---
-annotations:
+access_levels:
   columns:
   - id
+  - name
   - created_at
   - updated_at
-  - text
+  - display_name
   records: 
 
   - - 1
-    - '2011-02-24 07:35:36.807000'
-    - '2011-02-24 07:35:36.807000'
-    - This is a report. It will be pretty long. There were probably some interesting
-      things that happened. Amanda handled them very well I am sure. She is a great
-      RA. I believe that she will be a great teacher as well. She is an education
-      major. I like her a lot. But there were probably people disrepsecting her. Or
-      maybe the students were compliant. I have not decided yet. I have not made the
-      reported infraction table yet, so I have not chosen whose wrongdoing caused
-      this report. Is this long enough yet? I hope it is getting to be long enough.
-      I am not sure how many more thoughts are going to come through my fingers to
-      this screen...
+    - ResidentAssistant
+    - !!null 
+    - !!null 
+    - Resident Assistant
   - - 2
-    - '2011-02-24 07:35:36.807000'
-    - '2011-05-12 15:58:40.280400'
-    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The
-      story follows the main character Elizabeth Bennet as she deals with issues of
-      manners, upbringing, morality, education and marriage in the society of the
-      landed gentry of early 19th-century England. Elizabeth is the second of five
-      daughters of a country gentleman, living near the fictional town of Meryton
-      in Hertfordshire, near London.Though the story is set at the turn of the 19th
-      century, it retains a fascination for modern readers, continuing near the top
-      of lists of most loved books such as The Big Read. It has become one of the
-      most popular novels in English literature, and receives considerable attention
-      from literary scholars. Modern interest in the book has resulted in a number
-      of dramatic adaptations and an abundance of novels and stories imitating Austens
-      memorable characters or themes. To date, the book has sold some 20 million copies
-      worldwide.
+    - AdministrativeAssistant
+    - !!null 
+    - !!null 
+    - Administrative Assistant
   - - 3
-    - '2011-02-24 07:35:36.807000'
-    - '2011-02-24 07:35:36.807000'
-    - ! 'The plot of the novel is driven by a particular situation of the Bennet family:
-      The Longbourn estate where they reside is entailed to one of Mr Bennets collateral
-      relatives - male only in this case - by the legal terms of fee tail. Having
-      had no sons, this means that if Mr Bennet dies soon, his wife and five daughters
-      will be left without home or income. Mrs Bennet worries about this predicament,
-      and wishes to find husbands for her five daughters quickly. The father doesnt
-      seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young
-      gentleman and a very eligible bachelor, renting a country estate near the Bennets
-      called Netherfield. He arrives accompanied by his fashionable sisters and his
-      good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well
-      received in the community, while Darcy begins his acquaintance with smug condescension
-      and proud distaste for all the country locals. After Darcys haughty rejection
-      of her at the dance, Elizabeth resolves to match his coldness and pride, his
-      prejudice against country people, with her own prideful anger - in biting wit
-      and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition
-      leads her into prejudices regarding Darcy and others, such that she is unable
-      to sketch their characters accurately. Soon, Bingley and Elizabeths older sister
-      Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane
-      should show her affection to Bingley more openly, as he may not realise that
-      she is indeed interested in him. Elizabeth flippantly dismisses the opinion
-      - replying that Jane is shy and modest, and that if Bingley cant see how she
-      feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later
-      Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long
-      personal acquaintance with Darcy - they grew up together. Wickham tells her
-      he has been seriously mistreated by the proud man; Elizabeth seizes on this
-      news as further reason to dislike Darcy. Ironically, Darcy begins to find himself
-      drawn to Elizabeth, unbeknownst to her.'
+    - HallDirector
+    - !!null 
+    - !!null 
+    - Hall Director
   - - 4
-    - '2011-02-24 07:36:25.252000'
-    - '2011-02-24 07:36:25.252000'
-    - ! 'Jane pays a visit to the Bingley mansion. On her journey to the house she
-      is caught in a downpour and catches ill, forcing her to stay at Netherfield
-      for several days. In order to tend to Jane, Elizabeth hikes through muddy fields
-      and arrives with a spattered dress, much to the disdain of the snobbish Miss
-      Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she
-      notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth.
-      Mr Collins, the male relative who is to inherit Longbourn, makes an appearance
-      and stays with the Bennets. Recently ordained a clergyman, he is employed as
-      parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent.
-      Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour.
-      Though his stated reason for visiting is to reconcile with the Bennets, Collins
-      soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet
-      sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her
-      eldest daughter is soon likely to be engaged, and redirects his attentions to
-      Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen
-      her acquaintance with Mr Wickham, who, however, fails to appear. She is asked
-      to dance by Mr Darcy; here she raises Wickhams fate with him, causing their
-      harmonious dance to fall into a testy discussion. The ball proceeds as spectacle:
-      the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and
-      a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks
-      loudly and indiscreetly of her expectation of marriage between Jane and Bingley,
-      and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth
-      - combine in a public display of poor manners and upbringing that clearly disgusts
-      Darcy and embarrasses Elizabeth.'
+    - Administrator
+    - !!null 
+    - !!null 
+    - Administrator
   - - 5
-    - '2011-02-24 07:37:12.279000'
-    - '2011-02-24 07:37:12.279000'
-    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him,
-      much to her mothers distress. Collins handily recovers and, within three days,
-      proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts.
-      Once marriage arrangements are settled, Charlotte persuades Elizabeth to come
-      for an extended visit to her new bridal home. Though appearing at the point
-      of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns
-      to London, leaving the lady confused and upset. Elizabeth is convinced that
-      Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the
-      spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent
-      to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt
-      - where Elizabeth and her hosts are frequently invited to socialize. After Mr
-      Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth
-      renews her project of teasing Darcy - while his admiration for her grows in
-      spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that
-      Darcy prides himself on having separated Bingley from Jane; and, with the poorest
-      of timing, Darcy chooses this moment to admit his love for Elizabeth, and he
-      proposes to her. Incensed by his high-handed and insulting manner, she abruptly
-      refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him
-      with his sabotage of Jane and Bingleys budding relationship and with Wickhams
-      account of Darcys mistreatment of him, among other complaints.
-  - - 6
-    - '2011-02-24 07:37:51.609000'
-    - '2011-02-24 07:37:51.609000'
-    - ! 'Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a
-      letter which reveals the true history between Wickham and himself. Wickham had
-      renounced his legacy - a clergymans living in Darcys patronage - for a cash
-      payment; only to return after gambling away the money to again claim the position.
-      After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old
-      sister Georgiana, and thereby secure her part of the Darcy family fortune. He
-      was found out and stopped only a day before the intended elopement. Regarding
-      Bingley and Jane, Darcy justifies his interference: he had observed in Jane
-      no reciprocal interest for Bingley; thus he aimed to separate them to protect
-      his friend from heartache. In the letter Darcy admits his repugnance for the
-      total want of propriety of her (Elizabeths) family, especially her mother and
-      three younger sisters. After reading the letter, Elizabeth begins to question
-      both her familys behaviour and Wickhams credibility. She also concludes: Wickham
-      is not as trustworthy as his easy manners would indicate; that he had lied to
-      her previously; and that her early impressions of Darcys character might not
-      have been accurate. Soon, Elizabeth returns home.'
-  - - 7
-    - '2011-02-24 07:38:20.457000'
-    - '2011-02-24 07:38:20.457000'
-    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle
-      Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper
-      has known Darcy since childhood, and presents a flattering and benevolent impression
-      of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy
-      unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious
-      effort to be gracious and welcoming, and treats the Gardiners - whom before
-      he would have dismissed as socially inferior - with remarkable politeness. Later
-      he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth
-      is surprised and hopeful of a possible new beginning with Darcy.
-  - - 8
-    - '2011-02-24 07:38:51.863000'
-    - '2011-02-24 07:38:51.863000'
-    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her
-      youngest (and most frivolous) sister, has run away with Wickham. Initiallythe
-      family (wishfully) believe they have eloped, but they soon learn that Wickham
-      has no plans to marry Lydia. Lydias antics threaten her family - especially
-      the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and
-      uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy
-      will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia
-      and Wickham are found and married. Afterwards, they visit Longbourn; while bragging
-      to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised,Elizabeth
-      sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible
-      for both finding the couple and arranging their marriage, at great expense to
-      himself.
-  - - 9
-    - '2011-02-24 07:39:19.437000'
-    - '2011-02-24 07:39:19.437000'
-    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts.
-      Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth
-      she has heard rumours of Darcy proposing to her; she came with determined resolution
-      to confront Elizabeth and to demand that she never accept such a proposal because
-      Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines
-      demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy
-      - which convinces him that Elizabeths opinion of him may have changed. He now
-      visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the
-      two become engaged.
-  - - 10
-    - '2011-02-24 07:39:59.173000'
-    - '2011-02-24 07:39:59.173000'
-    - ! 'The novels final chapters establish the futures of the characters: Elizabeth
-      and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains
-      frivolous and silly - she often visits the new Mrs Bingley and talks of the
-      new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in
-      Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced
-      by Lydia better social graces, and Mary who had been the most reclusive learns
-      to mix more with the outside world at Meryton. Lydia and Wickham continue a
-      life of frivolity which keeps them from accumulating any wealth and leads them
-      to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley,
-      Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful
-      treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine
-      holds out, indignant and abusive, over her nephews marriage, but eventually
-      Darcy is prevailed upon to reconcile with her sufficiently that she condescends
-      to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner -
-      the agents of their reconciling and uniting.'
-  - - 11
-    - '2011-04-27 00:26:55.266564'
-    - '2011-04-27 00:26:55.331570'
-    - test
-  - - 12
-    - '2011-04-27 17:59:14.887326'
-    - '2011-04-27 17:59:15.241347'
-    - Hi
-  - - 13
-    - '2011-05-18 19:43:03.536000'
-    - '2011-05-18 19:43:03.566000'
-    - dfhgjhkk
-  - - 14
-    - '2011-05-18 19:43:23.254000'
-    - '2011-05-18 19:43:23.378000'
-    - kiunhgf
-  - - 15
-    - '2011-05-18 19:43:44.575000'
-    - '2011-05-18 19:43:44.839000'
-    - okpesoemf
-  - - 16
-    - '2011-05-18 19:44:24.883000'
-    - '2011-05-18 19:44:24.911000'
-    - unhjksad
-  - - 17
-    - '2011-05-18 19:44:53.027000'
-    - '2011-05-18 19:44:53.257000'
-    - jnksad
-  - - 18
-    - '2011-05-18 19:45:29.566000'
-    - '2011-05-18 19:45:29.632000'
-    - asd
-  - - 19
-    - '2011-05-18 19:45:56.532000'
-    - '2011-05-18 19:45:56.662000'
-    - wer
-  - - 20
-    - '2011-05-18 19:46:09.915000'
-    - '2011-05-18 19:46:10.033000'
-    - eqwe
-  - - 21
-    - '2011-05-18 19:46:32.250000'
-    - '2011-05-18 19:46:32.466000'
-    - adwdw
-  - - 22
-    - '2011-06-02 17:39:35.223000'
-    - '2011-06-02 17:43:25.684000'
-    - axssca
-  - - 23
-    - '2011-06-09 16:11:15.672200'
-    - '2011-06-23 20:09:06.676200'
-    - TP in bathroom. vdcfvgbyuigbyjuhybgyujyhbgbuhbghuhghuhgyuibghyuhbvfgbhbgvhbyhubgbyhbghbhybvfgbhybghbuibghbyhuybgvbyhubvgbyhbgvgbyhibghhgbyhbgygvfgbyhbgvfgbgyuvfvbyugbvfgbyubvf
-      gybgvfvgbygvfgyugvybvgfgbgygvfggvfybgv
-  - - 24
-    - '2011-06-09 16:12:39.576200'
-    - '2011-06-09 16:12:39.725200'
-    - Rob... Oxygen
-  - - 25
-    - '2011-06-15 15:30:20.906800'
-    - '2011-06-15 15:30:21.028800'
-    - wefwffe
-  - - 26
-    - '2011-06-17 19:53:30.907191'
-    - '2011-06-17 19:53:30.907191'
-    - asdfasdfadfasdf
-  - - 27
-    - '2011-06-17 19:56:23.268050'
-    - '2011-06-17 19:56:23.268050'
-    - asdfasdfadfasdf
-  - - 28
-    - '2011-06-22 21:11:18.736000'
-    - '2011-06-22 21:11:18.736000'
-    - hi
-  - - 29
-    - '2011-06-22 21:11:58.351000'
-    - '2011-06-22 21:11:58.351000'
-    - hi
-  - - 30
-    - '2011-06-22 21:19:15.422000'
-    - '2011-06-22 21:19:15.580000'
-    - hi
-  - - 31
-    - '2011-06-22 21:20:52.042000'
-    - '2011-06-22 21:20:52.125000'
-    - hi
-  - - 32
-    - '2011-06-23 18:10:53.344400'
-    - '2011-06-23 18:10:53.438000'
-    - this is my report
-  - - 33
-    - '2011-06-23 18:14:42.602000'
-    - '2011-06-23 18:14:42.633200'
-    - hi
-  - - 34
-    - '2011-06-23 19:08:26.425200'
-    - '2011-06-23 19:08:26.688200'
-    - these guys were all drunk.
+    - SystemAdministrator
+    - !!null 
+    - !!null 
+    - System Administrator
 
 ---
 areas:
@@ -1457,7 +1202,7 @@ participants:
     - '312'
     - 3
     - '07777777'
-    - !!null 
+    - Lyric L Hupp
     - '1984-07-04 05:00:00.000000'
     - !!null 
     - !!null 
@@ -2253,6 +1998,198 @@ report_participant_relationships:
     - '2011-06-23 20:09:06.702200'
     - 8
     - '29'
+  - - 116
+    - 6
+    - '2011-07-31 23:11:04.433348'
+    - '2011-08-01 19:30:41.976000'
+    - 18
+    - '51'
+  - - 117
+    - 7
+    - '2011-07-31 23:11:04.443348'
+    - '2011-08-01 19:30:41.981000'
+    - 18
+    - '51'
+  - - 118
+    - 3
+    - '2011-08-01 18:19:38.404000'
+    - '2011-08-01 19:25:04.195000'
+    - 18
+    - '52'
+  - - 119
+    - 3
+    - '2011-08-01 18:19:38.412000'
+    - '2011-08-01 19:25:04.200000'
+    - 6
+    - '52'
+  - - 120
+    - 5
+    - '2011-08-01 18:19:38.413000'
+    - '2011-08-01 19:25:04.201000'
+    - 18
+    - '52'
+  - - 121
+    - 5
+    - '2011-08-01 18:19:38.414000'
+    - '2011-08-01 19:25:04.201000'
+    - 6
+    - '52'
+  - - 122
+    - 11
+    - '2011-08-01 18:19:38.415000'
+    - '2011-08-01 19:25:04.202000'
+    - 18
+    - '52'
+  - - 123
+    - 11
+    - '2011-08-01 18:19:38.415000'
+    - '2011-08-01 19:25:04.203000'
+    - 6
+    - '52'
+  - - 124
+    - 15
+    - '2011-08-01 18:19:38.416000'
+    - '2011-08-01 19:25:04.203000'
+    - 18
+    - '52'
+  - - 125
+    - 15
+    - '2011-08-01 18:19:38.417000'
+    - '2011-08-01 19:25:04.204000'
+    - 6
+    - '52'
+  - - 126
+    - 3
+    - '2011-08-01 18:19:38.417000'
+    - '2011-08-01 19:25:04.204000'
+    - 9
+    - '52'
+  - - 127
+    - 23
+    - '2011-08-01 18:21:29.894000'
+    - '2011-08-01 19:31:29.772000'
+    - 18
+    - '53'
+  - - 128
+    - 23
+    - '2011-08-01 18:21:29.903000'
+    - '2011-08-01 19:31:29.777000'
+    - 3
+    - '53'
+  - - 129
+    - 23
+    - '2011-08-01 18:38:16.833000'
+    - '2011-08-01 18:38:16.833000'
+    - 10
+    - '54'
+  - - 130
+    - 23
+    - '2011-08-01 18:38:16.842000'
+    - '2011-08-01 18:38:16.842000'
+    - 4
+    - '54'
+  - - 131
+    - 22
+    - '2011-08-02 19:59:28.288000'
+    - '2011-08-02 20:08:34.674000'
+    - 6
+    - '58'
+  - - 132
+    - 23
+    - '2011-08-02 20:00:50.157000'
+    - '2011-08-02 20:00:50.157000'
+    - 3
+    - '59'
+  - - 133
+    - 23
+    - '2011-08-02 20:00:50.166000'
+    - '2011-08-02 20:00:50.166000'
+    - 10
+    - '59'
+  - - 134
+    - 22
+    - '2011-08-02 20:02:42.730000'
+    - '2011-08-02 20:02:42.730000'
+    - 5
+    - '60'
+  - - 135
+    - 22
+    - '2011-08-02 20:02:42.740000'
+    - '2011-08-02 20:02:42.740000'
+    - 4
+    - '60'
+  - - 136
+    - 3
+    - '2011-08-02 20:06:43.225000'
+    - '2011-08-02 20:08:03.596000'
+    - 2
+    - '62'
+  - - 137
+    - 3
+    - '2011-08-02 20:06:43.234000'
+    - '2011-08-02 20:08:03.602000'
+    - 18
+    - '62'
+  - - 138
+    - 5
+    - '2011-08-02 20:06:43.235000'
+    - '2011-08-02 20:08:03.603000'
+    - 2
+    - '62'
+  - - 139
+    - 5
+    - '2011-08-02 20:06:43.236000'
+    - '2011-08-02 20:08:03.603000'
+    - 18
+    - '62'
+  - - 140
+    - 4
+    - '2011-08-02 20:06:43.236000'
+    - '2011-08-02 20:08:03.604000'
+    - 2
+    - '62'
+  - - 141
+    - 4
+    - '2011-08-02 20:06:43.237000'
+    - '2011-08-02 20:08:03.604000'
+    - 18
+    - '62'
+  - - 142
+    - 6
+    - '2011-08-02 20:06:43.238000'
+    - '2011-08-02 20:08:03.605000'
+    - 2
+    - '62'
+  - - 143
+    - 6
+    - '2011-08-02 20:06:43.238000'
+    - '2011-08-02 20:08:03.606000'
+    - 18
+    - '62'
+  - - 144
+    - 7
+    - '2011-08-02 20:06:43.239000'
+    - '2011-08-02 20:08:03.606000'
+    - 2
+    - '62'
+  - - 145
+    - 7
+    - '2011-08-02 20:06:43.240000'
+    - '2011-08-02 20:08:03.607000'
+    - 18
+    - '62'
+  - - 146
+    - 8
+    - '2011-08-02 20:06:43.241000'
+    - '2011-08-02 20:08:03.608000'
+    - 2
+    - '62'
+  - - 147
+    - 8
+    - '2011-08-02 20:06:43.241000'
+    - '2011-08-02 20:08:03.609000'
+    - 18
+    - '62'
 
 ---
 report_types:
@@ -2925,6 +2862,162 @@ reports:
     - 34
     - IR-20110623-1406-12
     - !!null 
+  - - 51
+    - '2011-07-31 23:11:04.416348'
+    - '2011-08-01 19:30:41.964000'
+    - 5
+    - '2011-08-01 04:11:04.000000'
+    - ''
+    - IncidentReport
+    - 12
+    - true
+    - !!null 
+    - IR-20110731-1810-12
+    - !!null 
+  - - 52
+    - '2011-08-01 18:19:38.389000'
+    - '2011-08-01 19:25:04.182000'
+    - 3
+    - '2011-08-01 23:19:38.000000'
+    - ''
+    - IncidentReport
+    - 12
+    - true
+    - 35
+    - IR-20110801-1316-12
+    - !!null 
+  - - 53
+    - '2011-08-01 18:21:29.880000'
+    - '2011-08-01 19:31:29.707000'
+    - 3
+    - '2011-08-01 19:31:00.000000'
+    - ''
+    - MaintenanceReport
+    - 12
+    - true
+    - 36
+    - MR-20110801-1320-12
+    - !!null 
+  - - 54
+    - '2011-08-01 18:38:16.817000'
+    - '2011-08-01 18:38:16.817000'
+    - 1
+    - '2011-08-01 18:38:16.000000'
+    - ''
+    - MaintenanceReport
+    - 12
+    - true
+    - 37
+    - MR-20110801-1337-12
+    - !!null 
+  - - 55
+    - '2011-08-01 21:27:08.210000'
+    - '2011-08-02 20:08:19.209000'
+    - 1
+    - '2011-08-01 21:26:58.000000'
+    - ''
+    - IncidentReport
+    - 12
+    - true
+    - 38
+    - IR-20110801-1626-12
+    - !!null 
+  - - 56
+    - '2011-08-01 21:46:44.943000'
+    - '2011-08-01 21:56:25.157000'
+    - 1
+    - '2011-08-01 21:56:25.000000'
+    - ''
+    - MaintenanceReport
+    - 12
+    - true
+    - 39
+    - MR-20110801-1646-12
+    - !!null 
+  - - 57
+    - '2011-08-01 22:01:37.748000'
+    - '2011-08-01 22:01:37.748000'
+    - 1
+    - '2011-08-01 22:01:37.000000'
+    - Hey dude was a cool show
+    - MaintenanceReport
+    - 12
+    - true
+    - !!null 
+    - MR-20110801-1701-12
+    - !!null 
+  - - 58
+    - '2011-08-02 19:59:28.273000'
+    - '2011-08-02 20:08:34.660000'
+    - 2
+    - '2011-08-02 19:59:28.000000'
+    - ''
+    - IncidentReport
+    - 12
+    - true
+    - 40
+    - IR-20110802-1458-12
+    - !!null 
+  - - 59
+    - '2011-08-02 20:00:50.143000'
+    - '2011-08-02 20:00:50.143000'
+    - 4
+    - '2011-08-02 20:00:49.000000'
+    - ''
+    - MaintenanceReport
+    - 12
+    - true
+    - 41
+    - MR-20110802-1459-12
+    - !!null 
+  - - 60
+    - '2011-08-02 20:02:42.675000'
+    - '2011-08-02 20:02:42.675000'
+    - 1
+    - '2011-08-02 20:02:42.000000'
+    - ''
+    - Note
+    - 12
+    - true
+    - 42
+    - N-20110802-1501-12
+    - !!null 
+  - - 61
+    - '2011-08-02 20:03:40.928000'
+    - '2011-08-02 20:03:40.928000'
+    - 3
+    - '2011-08-02 20:03:40.000000'
+    - ''
+    - MaintenanceReport
+    - 12
+    - true
+    - 43
+    - MR-20110802-1503-12
+    - !!null 
+  - - 62
+    - '2011-08-02 20:06:43.209000'
+    - '2011-08-02 20:08:03.582000'
+    - 7
+    - '2011-08-02 20:06:42.000000'
+    - ''
+    - IncidentReport
+    - 12
+    - true
+    - 44
+    - IR-20110802-1504-12
+    - !!null 
+  - - 63
+    - '2011-08-02 20:11:50.576000'
+    - '2011-08-02 20:11:50.576000'
+    - 1
+    - '2011-08-02 20:11:50.000000'
+    - ''
+    - Note
+    - 12
+    - true
+    - 45
+    - N-20110802-1511-12
+    - !!null 
 
 ---
 rounds:
@@ -2991,6 +3084,56 @@ rounds:
     - '2011-06-09 17:05:53.964000'
     - 12
     - '2011-06-09 17:05:53.958000'
+  - - 12
+    - '2011-07-31 23:35:59.484348'
+    - '2011-07-31 23:36:03.452348'
+    - 33
+    - '2011-07-31 23:36:03.446348'
+  - - 13
+    - '2011-07-31 23:36:00.248348'
+    - '2011-07-31 23:38:24.518348'
+    - 33
+    - '2011-07-31 23:38:24.512348'
+  - - 14
+    - '2011-07-31 23:36:00.958348'
+    - '2011-07-31 23:38:30.562348'
+    - 33
+    - '2011-07-31 23:38:30.556348'
+  - - 15
+    - '2011-07-31 23:36:01.812348'
+    - '2011-07-31 23:43:21.426348'
+    - 33
+    - '2011-07-31 23:43:21.420348'
+  - - 16
+    - '2011-07-31 23:36:02.651348'
+    - '2011-07-31 23:36:02.651348'
+    - 33
+    - !!null 
+  - - 17
+    - '2011-07-31 23:38:05.019348'
+    - '2011-07-31 23:38:05.019348'
+    - 33
+    - !!null 
+  - - 18
+    - '2011-07-31 23:38:14.948348'
+    - '2011-07-31 23:38:14.948348'
+    - 33
+    - !!null 
+  - - 19
+    - '2011-07-31 23:38:27.379348'
+    - '2011-07-31 23:38:27.379348'
+    - 33
+    - !!null 
+  - - 22
+    - '2011-08-02 19:59:47.076000'
+    - '2011-08-02 20:01:18.253000'
+    - 45
+    - '2011-08-02 20:01:18.246000'
+  - - 23
+    - '2011-08-02 20:03:07.251000'
+    - '2011-08-02 20:04:26.579000'
+    - 45
+    - '2011-08-02 20:04:26.573000'
 
 ---
 shifts:
@@ -3056,6 +3199,78 @@ shifts:
     - '2011-06-16 19:38:53.506209'
     - 4
     - !!null 
+    - 2
+  - - 32
+    - '2011-07-31 23:20:14.595348'
+    - '2011-07-31 23:22:02.655348'
+    - 12
+    - '2011-07-31 23:22:02.611348'
+    - 2
+  - - 33
+    - '2011-07-31 23:22:59.860348'
+    - '2011-07-31 23:43:21.342348'
+    - 12
+    - '2011-07-31 23:43:21.298348'
+    - 2
+  - - 34
+    - '2011-07-31 23:43:57.074348'
+    - '2011-07-31 23:44:20.998348'
+    - 12
+    - '2011-07-31 23:44:20.866348'
+    - 2
+  - - 35
+    - '2011-07-31 23:47:22.447348'
+    - '2011-07-31 23:47:56.727348'
+    - 12
+    - '2011-07-31 23:47:56.681348'
+    - 2
+  - - 36
+    - '2011-07-31 23:52:26.262348'
+    - '2011-07-31 23:52:32.758348'
+    - 12
+    - '2011-07-31 23:52:32.714348'
+    - 2
+  - - 37
+    - '2011-08-01 14:59:19.377800'
+    - '2011-08-01 15:06:52.947800'
+    - 12
+    - '2011-08-01 15:06:52.901000'
+    - 2
+  - - 38
+    - '2011-08-01 15:13:49.655000'
+    - '2011-08-01 15:13:53.898200'
+    - 12
+    - '2011-08-01 15:13:53.851400'
+    - 2
+  - - 39
+    - '2011-08-01 15:13:56.487800'
+    - '2011-08-01 15:14:00.980600'
+    - 12
+    - '2011-08-01 15:14:00.902600'
+    - 2
+  - - 40
+    - '2011-08-01 15:14:25.316600'
+    - '2011-08-01 15:19:04.522600'
+    - 12
+    - '2011-08-01 15:19:04.477600'
+    - 2
+  - - 41
+    - '2011-08-01 15:47:01.955600'
+    - '2011-08-01 15:47:09.813600'
+    - 12
+    - '2011-08-01 15:47:09.659600'
+    - 2
+  - - 43
+    - '2011-08-01 21:22:18.394000'
+    - '2011-08-01 21:22:37.710000'
+    - 12
+    - '2011-08-01 21:22:37.621000'
+    - 2
+  - - 45
+    - '2011-08-02 19:57:21.201000'
+    - '2011-08-02 20:08:44.177000'
+    - 12
+    - '2011-08-02 20:08:44.130000'
     - 2
 
 ---
@@ -3159,6 +3374,174 @@ staff_organizations:
     - 1
     - !!null 
     - !!null 
+
+---
+staffs:
+  columns:
+  - id
+  - email
+  - encrypted_password
+  - password_salt
+  - reset_password_token
+  - remember_token
+  - remember_created_at
+  - sign_in_count
+  - current_sign_in_at
+  - last_sign_in_at
+  - current_sign_in_ip
+  - last_sign_in_ip
+  - created_at
+  - updated_at
+  - first_name
+  - last_name
+  - access_level_id
+  - active
+  records: 
+
+  - - 1
+    - slvale07@smumn1.edu
+    - $2a$10$BlJV0WF/UwxowHTG9loTd.Fpi4ftK5C2RtoJdx1PQXT08WlYYtbOa
+    - $2a$10$BlJV0WF/UwxowHTG9loTd.
+    - ''
+    - ''
+    - !!null 
+    - 21
+    - '2011-04-27 00:15:24.157460'
+    - '2011-04-26 20:47:14.379000'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-02-21 19:50:31.608750'
+    - '2011-04-27 00:15:24.157460'
+    - Stephanie
+    - Valentine
+    - 1
+    - true
+  - - 2
+    - cmenge07@smumn1.edu
+    - $2a$10$xtB4X92zxIJjHNrvOMD9budOF.hV2QdYakr17zCiKrxinmfPZKghG
+    - $2a$10$xtB4X92zxIJjHNrvOMD9bu
+    - !!null 
+    - !!null 
+    - !!null 
+    - 4
+    - '2011-04-27 17:58:44.565734'
+    - '2011-04-14 16:18:05.898934'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-02-21 20:12:33.968125'
+    - '2011-04-27 17:58:44.567735'
+    - Christopher
+    - Engesser
+    - 4
+    - true
+  - - 3
+    - cmengesser@gmail1.com
+    - $2a$10$5TsKc.XDucVwRxktphv7julDXOoa7Fh7eF65cSYWSqKcxxHMMfOcK
+    - $2a$10$5TsKc.XDucVwRxktphv7ju
+    - !!null 
+    - !!null 
+    - '2011-04-15 06:43:35.183000'
+    - 22
+    - '2011-05-12 14:33:58.968400'
+    - '2011-04-14 17:02:58.407000'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-02-21 20:57:00.733750'
+    - '2011-05-12 14:33:58.968400'
+    - Brendan
+    - Dolan
+    - 3
+    - true
+  - - 4
+    - rgordon@smumn.edu
+    - $2a$10$bF8iK3K4DJU86cqUkSw99.oI2tW/xvM4QIImLK77hiksZ1Fe0oh2q
+    - $2a$10$bF8iK3K4DJU86cqUkSw99.
+    - !!null 
+    - !!null 
+    - '2011-04-15 06:43:55.364000'
+    - 11
+    - '2011-06-17 20:23:14.891229'
+    - '2011-06-17 19:52:15.523880'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-02-21 21:04:14.171250'
+    - '2011-06-17 20:23:14.891229'
+    - Rob
+    - Gordon
+    - 3
+    - true
+  - - 5
+    - asmith@smumn1.edu
+    - $2a$10$GdREgm3v/bjGswqfoxW/bOV8sD3/jpeUEs/aYd.YddxavOa/lVbR.
+    - $2a$10$GdREgm3v/bjGswqfoxW/bO
+    - !!null 
+    - !!null 
+    - '2011-04-15 06:44:05.430000'
+    - 4
+    - '2011-04-03 20:11:31.261800'
+    - '2011-04-01 07:46:57.096000'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-02-21 21:09:10.327500'
+    - '2011-04-15 06:44:06.834000'
+    - Ann
+    - Smith
+    - 2
+    - true
+  - - 10
+    - radar.system.admin@smumn.edu
+    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276
+    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe
+    - !!null 
+    - !!null 
+    - !!null 
+    - 16
+    - '2011-06-21 23:12:05.860939'
+    - '2011-06-21 19:45:49.291431'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-04-03 19:49:31.971800'
+    - '2011-06-21 23:12:05.860939'
+    - System
+    - Administrator
+    - 5
+    - true
+  - - 11
+    - mjmay08@smumn.edu
+    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCuaz8j8UrB3HzlIi/q2SjYo9OKIKDey12
+    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCu
+    - !!null 
+    - !!null 
+    - '2011-04-15 06:44:29.992000'
+    - 7
+    - '2011-06-21 23:11:41.926546'
+    - '2011-06-21 19:03:28.691431'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2011-04-12 16:38:36.922620'
+    - '2011-06-21 23:11:41.927546'
+    - Mitchell
+    - May
+    - 4
+    - true
+  - - 12
+    - llhupp09@smumn.edu
+    - $2a$10$eOdJDk9mzfmgNt7u.1aoNue2cDaEKwCm2u3sQcwBufh4byJ4VH8zC
+    - $2a$10$eOdJDk9mzfmgNt7u.1aoNu
+    - !!null 
+    - !!null 
+    - !!null 
+    - 38
+    - '2011-08-02 20:11:33.668000'
+    - '2011-08-02 20:07:41.621000'
+    - 140.190.145.137
+    - 127.0.0.1
+    - '2011-05-16 16:08:42.781173'
+    - '2011-08-02 20:11:33.669000'
+    - Lyric
+    - Hupp
+    - 5
+    - true
 
 ---
 task_assignments:
@@ -3699,6 +4082,942 @@ task_assignments:
     - false
     - '2011-06-16 19:38:53.466207'
     - '2011-06-16 19:38:53.533211'
+  - - 196
+    - 32
+    - 1
+    - true
+    - '2011-07-31 23:20:14.420348'
+    - '2011-07-31 23:21:31.390348'
+  - - 197
+    - 32
+    - 2
+    - false
+    - '2011-07-31 23:20:14.484348'
+    - '2011-07-31 23:20:14.603348'
+  - - 198
+    - 32
+    - 3
+    - true
+    - '2011-07-31 23:20:14.493348'
+    - '2011-07-31 23:21:32.147348'
+  - - 199
+    - 32
+    - 4
+    - true
+    - '2011-07-31 23:20:14.502348'
+    - '2011-07-31 23:21:32.850348'
+  - - 200
+    - 32
+    - 5
+    - false
+    - '2011-07-31 23:20:14.511348'
+    - '2011-07-31 23:20:14.605348'
+  - - 201
+    - 32
+    - 6
+    - false
+    - '2011-07-31 23:20:14.522348'
+    - '2011-07-31 23:20:14.606348'
+  - - 202
+    - 32
+    - 7
+    - false
+    - '2011-07-31 23:20:14.530348'
+    - '2011-07-31 23:20:14.606348'
+  - - 203
+    - 32
+    - 8
+    - false
+    - '2011-07-31 23:20:14.539348'
+    - '2011-07-31 23:20:14.607348'
+  - - 204
+    - 32
+    - 9
+    - false
+    - '2011-07-31 23:20:14.548348'
+    - '2011-07-31 23:20:14.607348'
+  - - 205
+    - 32
+    - 10
+    - false
+    - '2011-07-31 23:20:14.560348'
+    - '2011-07-31 23:20:14.608348'
+  - - 206
+    - 32
+    - 11
+    - false
+    - '2011-07-31 23:20:14.568348'
+    - '2011-07-31 23:20:14.608348'
+  - - 207
+    - 32
+    - 13
+    - false
+    - '2011-07-31 23:20:14.577348'
+    - '2011-07-31 23:20:14.609348'
+  - - 208
+    - 32
+    - 19
+    - false
+    - '2011-07-31 23:20:14.586348'
+    - '2011-07-31 23:20:14.610348'
+  - - 209
+    - 33
+    - 1
+    - false
+    - '2011-07-31 23:22:59.634348'
+    - '2011-07-31 23:22:59.868348'
+  - - 210
+    - 33
+    - 2
+    - false
+    - '2011-07-31 23:22:59.747348'
+    - '2011-07-31 23:22:59.869348'
+  - - 211
+    - 33
+    - 3
+    - false
+    - '2011-07-31 23:22:59.756348'
+    - '2011-07-31 23:22:59.870348'
+  - - 212
+    - 33
+    - 4
+    - false
+    - '2011-07-31 23:22:59.765348'
+    - '2011-07-31 23:22:59.871348'
+  - - 213
+    - 33
+    - 5
+    - false
+    - '2011-07-31 23:22:59.774348'
+    - '2011-07-31 23:22:59.871348'
+  - - 214
+    - 33
+    - 6
+    - false
+    - '2011-07-31 23:22:59.784348'
+    - '2011-07-31 23:22:59.872348'
+  - - 215
+    - 33
+    - 7
+    - false
+    - '2011-07-31 23:22:59.793348'
+    - '2011-07-31 23:22:59.873348'
+  - - 216
+    - 33
+    - 8
+    - false
+    - '2011-07-31 23:22:59.804348'
+    - '2011-07-31 23:22:59.873348'
+  - - 217
+    - 33
+    - 9
+    - false
+    - '2011-07-31 23:22:59.814348'
+    - '2011-07-31 23:22:59.874348'
+  - - 218
+    - 33
+    - 10
+    - false
+    - '2011-07-31 23:22:59.825348'
+    - '2011-07-31 23:22:59.874348'
+  - - 219
+    - 33
+    - 11
+    - false
+    - '2011-07-31 23:22:59.834348'
+    - '2011-07-31 23:22:59.875348'
+  - - 220
+    - 33
+    - 13
+    - false
+    - '2011-07-31 23:22:59.842348'
+    - '2011-07-31 23:22:59.875348'
+  - - 221
+    - 33
+    - 19
+    - false
+    - '2011-07-31 23:22:59.851348'
+    - '2011-07-31 23:22:59.876348'
+  - - 222
+    - 34
+    - 1
+    - false
+    - '2011-07-31 23:43:56.883348'
+    - '2011-07-31 23:43:57.082348'
+  - - 223
+    - 34
+    - 2
+    - false
+    - '2011-07-31 23:43:56.950348'
+    - '2011-07-31 23:43:57.083348'
+  - - 224
+    - 34
+    - 3
+    - false
+    - '2011-07-31 23:43:56.959348'
+    - '2011-07-31 23:43:57.083348'
+  - - 225
+    - 34
+    - 4
+    - false
+    - '2011-07-31 23:43:56.968348'
+    - '2011-07-31 23:43:57.084348'
+  - - 226
+    - 34
+    - 5
+    - false
+    - '2011-07-31 23:43:56.979348'
+    - '2011-07-31 23:43:57.084348'
+  - - 227
+    - 34
+    - 6
+    - false
+    - '2011-07-31 23:43:56.992348'
+    - '2011-07-31 23:43:57.085348'
+  - - 228
+    - 34
+    - 7
+    - false
+    - '2011-07-31 23:43:57.003348'
+    - '2011-07-31 23:43:57.085348'
+  - - 229
+    - 34
+    - 8
+    - false
+    - '2011-07-31 23:43:57.016348'
+    - '2011-07-31 23:43:57.086348'
+  - - 230
+    - 34
+    - 9
+    - false
+    - '2011-07-31 23:43:57.027348'
+    - '2011-07-31 23:43:57.087348'
+  - - 231
+    - 34
+    - 10
+    - false
+    - '2011-07-31 23:43:57.037348'
+    - '2011-07-31 23:43:57.087348'
+  - - 232
+    - 34
+    - 11
+    - false
+    - '2011-07-31 23:43:57.046348'
+    - '2011-07-31 23:43:57.088348'
+  - - 233
+    - 34
+    - 13
+    - false
+    - '2011-07-31 23:43:57.055348'
+    - '2011-07-31 23:43:57.089348'
+  - - 234
+    - 34
+    - 19
+    - false
+    - '2011-07-31 23:43:57.065348'
+    - '2011-07-31 23:43:57.089348'
+  - - 235
+    - 35
+    - 1
+    - false
+    - '2011-07-31 23:47:22.234348'
+    - '2011-07-31 23:47:22.455348'
+  - - 236
+    - 35
+    - 2
+    - false
+    - '2011-07-31 23:47:22.294348'
+    - '2011-07-31 23:47:22.456348'
+  - - 237
+    - 35
+    - 3
+    - false
+    - '2011-07-31 23:47:22.344348'
+    - '2011-07-31 23:47:22.456348'
+  - - 238
+    - 35
+    - 4
+    - false
+    - '2011-07-31 23:47:22.353348'
+    - '2011-07-31 23:47:22.457348'
+  - - 239
+    - 35
+    - 5
+    - false
+    - '2011-07-31 23:47:22.362348'
+    - '2011-07-31 23:47:22.458348'
+  - - 240
+    - 35
+    - 6
+    - false
+    - '2011-07-31 23:47:22.370348'
+    - '2011-07-31 23:47:22.458348'
+  - - 241
+    - 35
+    - 7
+    - false
+    - '2011-07-31 23:47:22.379348'
+    - '2011-07-31 23:47:22.459348'
+  - - 242
+    - 35
+    - 8
+    - false
+    - '2011-07-31 23:47:22.389348'
+    - '2011-07-31 23:47:22.460348'
+  - - 243
+    - 35
+    - 9
+    - false
+    - '2011-07-31 23:47:22.398348'
+    - '2011-07-31 23:47:22.460348'
+  - - 244
+    - 35
+    - 10
+    - false
+    - '2011-07-31 23:47:22.407348'
+    - '2011-07-31 23:47:22.461348'
+  - - 245
+    - 35
+    - 11
+    - false
+    - '2011-07-31 23:47:22.417348'
+    - '2011-07-31 23:47:22.462348'
+  - - 246
+    - 35
+    - 13
+    - false
+    - '2011-07-31 23:47:22.427348'
+    - '2011-07-31 23:47:22.463348'
+  - - 247
+    - 35
+    - 19
+    - false
+    - '2011-07-31 23:47:22.437348'
+    - '2011-07-31 23:47:22.463348'
+  - - 248
+    - 36
+    - 1
+    - false
+    - '2011-07-31 23:52:26.080348'
+    - '2011-07-31 23:52:26.270348'
+  - - 249
+    - 36
+    - 2
+    - false
+    - '2011-07-31 23:52:26.143348'
+    - '2011-07-31 23:52:26.271348'
+  - - 250
+    - 36
+    - 3
+    - false
+    - '2011-07-31 23:52:26.154348'
+    - '2011-07-31 23:52:26.272348'
+  - - 251
+    - 36
+    - 4
+    - false
+    - '2011-07-31 23:52:26.164348'
+    - '2011-07-31 23:52:26.273348'
+  - - 252
+    - 36
+    - 5
+    - false
+    - '2011-07-31 23:52:26.174348'
+    - '2011-07-31 23:52:26.273348'
+  - - 253
+    - 36
+    - 6
+    - false
+    - '2011-07-31 23:52:26.183348'
+    - '2011-07-31 23:52:26.274348'
+  - - 254
+    - 36
+    - 7
+    - false
+    - '2011-07-31 23:52:26.192348'
+    - '2011-07-31 23:52:26.274348'
+  - - 255
+    - 36
+    - 8
+    - false
+    - '2011-07-31 23:52:26.201348'
+    - '2011-07-31 23:52:26.275348'
+  - - 256
+    - 36
+    - 9
+    - false
+    - '2011-07-31 23:52:26.210348'
+    - '2011-07-31 23:52:26.275348'
+  - - 257
+    - 36
+    - 10
+    - false
+    - '2011-07-31 23:52:26.219348'
+    - '2011-07-31 23:52:26.276348'
+  - - 258
+    - 36
+    - 11
+    - false
+    - '2011-07-31 23:52:26.228348'
+    - '2011-07-31 23:52:26.277348'
+  - - 259
+    - 36
+    - 13
+    - false
+    - '2011-07-31 23:52:26.240348'
+    - '2011-07-31 23:52:26.277348'
+  - - 260
+    - 36
+    - 19
+    - false
+    - '2011-07-31 23:52:26.250348'
+    - '2011-07-31 23:52:26.278348'
+  - - 261
+    - 37
+    - 1
+    - false
+    - '2011-08-01 14:59:19.190600'
+    - '2011-08-01 14:59:19.393400'
+  - - 262
+    - 37
+    - 2
+    - false
+    - '2011-08-01 14:59:19.253000'
+    - '2011-08-01 14:59:19.393400'
+  - - 263
+    - 37
+    - 3
+    - false
+    - '2011-08-01 14:59:19.299800'
+    - '2011-08-01 14:59:19.393400'
+  - - 264
+    - 37
+    - 4
+    - false
+    - '2011-08-01 14:59:19.299800'
+    - '2011-08-01 14:59:19.393400'
+  - - 265
+    - 37
+    - 5
+    - false
+    - '2011-08-01 14:59:19.331000'
+    - '2011-08-01 14:59:19.393400'
+  - - 266
+    - 37
+    - 6
+    - false
+    - '2011-08-01 14:59:19.346600'
+    - '2011-08-01 14:59:19.393400'
+  - - 267
+    - 37
+    - 7
+    - false
+    - '2011-08-01 14:59:19.346600'
+    - '2011-08-01 14:59:19.393400'
+  - - 268
+    - 37
+    - 8
+    - false
+    - '2011-08-01 14:59:19.346600'
+    - '2011-08-01 14:59:19.393400'
+  - - 269
+    - 37
+    - 9
+    - false
+    - '2011-08-01 14:59:19.362200'
+    - '2011-08-01 14:59:19.393400'
+  - - 270
+    - 37
+    - 10
+    - false
+    - '2011-08-01 14:59:19.362200'
+    - '2011-08-01 14:59:19.393400'
+  - - 271
+    - 37
+    - 11
+    - false
+    - '2011-08-01 14:59:19.362200'
+    - '2011-08-01 14:59:19.393400'
+  - - 272
+    - 37
+    - 13
+    - false
+    - '2011-08-01 14:59:19.377800'
+    - '2011-08-01 14:59:19.393400'
+  - - 273
+    - 37
+    - 19
+    - false
+    - '2011-08-01 14:59:19.377800'
+    - '2011-08-01 14:59:19.393400'
+  - - 274
+    - 38
+    - 1
+    - false
+    - '2011-08-01 15:13:49.374200'
+    - '2011-08-01 15:13:49.670600'
+  - - 275
+    - 38
+    - 2
+    - false
+    - '2011-08-01 15:13:49.389800'
+    - '2011-08-01 15:13:49.670600'
+  - - 276
+    - 38
+    - 3
+    - false
+    - '2011-08-01 15:13:49.389800'
+    - '2011-08-01 15:13:49.670600'
+  - - 277
+    - 38
+    - 4
+    - false
+    - '2011-08-01 15:13:49.405400'
+    - '2011-08-01 15:13:49.670600'
+  - - 278
+    - 38
+    - 5
+    - false
+    - '2011-08-01 15:13:49.405400'
+    - '2011-08-01 15:13:49.670600'
+  - - 279
+    - 38
+    - 6
+    - false
+    - '2011-08-01 15:13:49.405400'
+    - '2011-08-01 15:13:49.670600'
+  - - 280
+    - 38
+    - 7
+    - false
+    - '2011-08-01 15:13:49.421000'
+    - '2011-08-01 15:13:49.670600'
+  - - 281
+    - 38
+    - 8
+    - false
+    - '2011-08-01 15:13:49.421000'
+    - '2011-08-01 15:13:49.670600'
+  - - 282
+    - 38
+    - 9
+    - false
+    - '2011-08-01 15:13:49.421000'
+    - '2011-08-01 15:13:49.670600'
+  - - 283
+    - 38
+    - 10
+    - false
+    - '2011-08-01 15:13:49.592600'
+    - '2011-08-01 15:13:49.670600'
+  - - 284
+    - 38
+    - 11
+    - false
+    - '2011-08-01 15:13:49.608200'
+    - '2011-08-01 15:13:49.670600'
+  - - 285
+    - 38
+    - 13
+    - false
+    - '2011-08-01 15:13:49.655000'
+    - '2011-08-01 15:13:49.670600'
+  - - 286
+    - 38
+    - 19
+    - false
+    - '2011-08-01 15:13:49.655000'
+    - '2011-08-01 15:13:49.670600'
+  - - 287
+    - 39
+    - 1
+    - false
+    - '2011-08-01 15:13:56.316200'
+    - '2011-08-01 15:13:56.503400'
+  - - 288
+    - 39
+    - 2
+    - false
+    - '2011-08-01 15:13:56.378600'
+    - '2011-08-01 15:13:56.503400'
+  - - 289
+    - 39
+    - 3
+    - false
+    - '2011-08-01 15:13:56.425400'
+    - '2011-08-01 15:13:56.503400'
+  - - 290
+    - 39
+    - 4
+    - false
+    - '2011-08-01 15:13:56.425400'
+    - '2011-08-01 15:13:56.503400'
+  - - 291
+    - 39
+    - 5
+    - false
+    - '2011-08-01 15:13:56.425400'
+    - '2011-08-01 15:13:56.503400'
+  - - 292
+    - 39
+    - 6
+    - false
+    - '2011-08-01 15:13:56.441000'
+    - '2011-08-01 15:13:56.503400'
+  - - 293
+    - 39
+    - 7
+    - false
+    - '2011-08-01 15:13:56.441000'
+    - '2011-08-01 15:13:56.503400'
+  - - 294
+    - 39
+    - 8
+    - false
+    - '2011-08-01 15:13:56.456600'
+    - '2011-08-01 15:13:56.503400'
+  - - 295
+    - 39
+    - 9
+    - false
+    - '2011-08-01 15:13:56.456600'
+    - '2011-08-01 15:13:56.503400'
+  - - 296
+    - 39
+    - 10
+    - false
+    - '2011-08-01 15:13:56.456600'
+    - '2011-08-01 15:13:56.503400'
+  - - 297
+    - 39
+    - 11
+    - false
+    - '2011-08-01 15:13:56.472200'
+    - '2011-08-01 15:13:56.503400'
+  - - 298
+    - 39
+    - 13
+    - false
+    - '2011-08-01 15:13:56.472200'
+    - '2011-08-01 15:13:56.503400'
+  - - 299
+    - 39
+    - 19
+    - false
+    - '2011-08-01 15:13:56.487800'
+    - '2011-08-01 15:13:56.503400'
+  - - 300
+    - 40
+    - 1
+    - false
+    - '2011-08-01 15:14:25.129400'
+    - '2011-08-01 15:14:25.316600'
+  - - 301
+    - 40
+    - 2
+    - false
+    - '2011-08-01 15:14:25.238600'
+    - '2011-08-01 15:14:25.316600'
+  - - 302
+    - 40
+    - 3
+    - false
+    - '2011-08-01 15:14:25.238600'
+    - '2011-08-01 15:14:25.316600'
+  - - 303
+    - 40
+    - 4
+    - false
+    - '2011-08-01 15:14:25.238600'
+    - '2011-08-01 15:14:25.316600'
+  - - 304
+    - 40
+    - 5
+    - false
+    - '2011-08-01 15:14:25.254200'
+    - '2011-08-01 15:14:25.316600'
+  - - 305
+    - 40
+    - 6
+    - false
+    - '2011-08-01 15:14:25.254200'
+    - '2011-08-01 15:14:25.316600'
+  - - 306
+    - 40
+    - 7
+    - false
+    - '2011-08-01 15:14:25.269800'
+    - '2011-08-01 15:14:25.316600'
+  - - 307
+    - 40
+    - 8
+    - false
+    - '2011-08-01 15:14:25.269800'
+    - '2011-08-01 15:14:25.316600'
+  - - 308
+    - 40
+    - 9
+    - false
+    - '2011-08-01 15:14:25.285400'
+    - '2011-08-01 15:14:25.316600'
+  - - 309
+    - 40
+    - 10
+    - false
+    - '2011-08-01 15:14:25.285400'
+    - '2011-08-01 15:14:25.316600'
+  - - 310
+    - 40
+    - 11
+    - false
+    - '2011-08-01 15:14:25.285400'
+    - '2011-08-01 15:14:25.316600'
+  - - 311
+    - 40
+    - 13
+    - false
+    - '2011-08-01 15:14:25.301000'
+    - '2011-08-01 15:14:25.316600'
+  - - 312
+    - 40
+    - 19
+    - false
+    - '2011-08-01 15:14:25.301000'
+    - '2011-08-01 15:14:25.316600'
+  - - 313
+    - 41
+    - 1
+    - false
+    - '2011-08-01 15:47:01.828600'
+    - '2011-08-01 15:47:01.962600'
+  - - 314
+    - 41
+    - 2
+    - false
+    - '2011-08-01 15:47:01.884600'
+    - '2011-08-01 15:47:01.963600'
+  - - 315
+    - 41
+    - 3
+    - false
+    - '2011-08-01 15:47:01.890600'
+    - '2011-08-01 15:47:01.964600'
+  - - 316
+    - 41
+    - 4
+    - false
+    - '2011-08-01 15:47:01.895600'
+    - '2011-08-01 15:47:01.964600'
+  - - 317
+    - 41
+    - 5
+    - false
+    - '2011-08-01 15:47:01.900600'
+    - '2011-08-01 15:47:01.965600'
+  - - 318
+    - 41
+    - 6
+    - false
+    - '2011-08-01 15:47:01.905600'
+    - '2011-08-01 15:47:01.965600'
+  - - 319
+    - 41
+    - 7
+    - false
+    - '2011-08-01 15:47:01.912600'
+    - '2011-08-01 15:47:01.966600'
+  - - 320
+    - 41
+    - 8
+    - false
+    - '2011-08-01 15:47:01.917600'
+    - '2011-08-01 15:47:01.967600'
+  - - 321
+    - 41
+    - 9
+    - false
+    - '2011-08-01 15:47:01.923600'
+    - '2011-08-01 15:47:01.967600'
+  - - 322
+    - 41
+    - 10
+    - false
+    - '2011-08-01 15:47:01.931600'
+    - '2011-08-01 15:47:01.968600'
+  - - 323
+    - 41
+    - 11
+    - false
+    - '2011-08-01 15:47:01.937600'
+    - '2011-08-01 15:47:01.968600'
+  - - 324
+    - 41
+    - 13
+    - false
+    - '2011-08-01 15:47:01.943600'
+    - '2011-08-01 15:47:01.969600'
+  - - 325
+    - 41
+    - 19
+    - false
+    - '2011-08-01 15:47:01.949600'
+    - '2011-08-01 15:47:01.969600'
+  - - 339
+    - 43
+    - 1
+    - false
+    - '2011-08-01 21:22:18.179000'
+    - '2011-08-01 21:22:18.398000'
+  - - 340
+    - 43
+    - 2
+    - false
+    - '2011-08-01 21:22:18.235000'
+    - '2011-08-01 21:22:18.399000'
+  - - 341
+    - 43
+    - 3
+    - false
+    - '2011-08-01 21:22:18.324000'
+    - '2011-08-01 21:22:18.400000'
+  - - 342
+    - 43
+    - 4
+    - false
+    - '2011-08-01 21:22:18.330000'
+    - '2011-08-01 21:22:18.400000'
+  - - 343
+    - 43
+    - 5
+    - false
+    - '2011-08-01 21:22:18.335000'
+    - '2011-08-01 21:22:18.401000'
+  - - 344
+    - 43
+    - 6
+    - false
+    - '2011-08-01 21:22:18.340000'
+    - '2011-08-01 21:22:18.401000'
+  - - 345
+    - 43
+    - 7
+    - false
+    - '2011-08-01 21:22:18.347000'
+    - '2011-08-01 21:22:18.402000'
+  - - 346
+    - 43
+    - 8
+    - false
+    - '2011-08-01 21:22:18.352000'
+    - '2011-08-01 21:22:18.403000'
+  - - 347
+    - 43
+    - 9
+    - false
+    - '2011-08-01 21:22:18.358000'
+    - '2011-08-01 21:22:18.403000'
+  - - 348
+    - 43
+    - 10
+    - false
+    - '2011-08-01 21:22:18.364000'
+    - '2011-08-01 21:22:18.404000'
+  - - 349
+    - 43
+    - 11
+    - false
+    - '2011-08-01 21:22:18.372000'
+    - '2011-08-01 21:22:18.404000'
+  - - 350
+    - 43
+    - 13
+    - false
+    - '2011-08-01 21:22:18.379000'
+    - '2011-08-01 21:22:18.405000'
+  - - 351
+    - 43
+    - 19
+    - false
+    - '2011-08-01 21:22:18.385000'
+    - '2011-08-01 21:22:18.406000'
+  - - 365
+    - 45
+    - 1
+    - false
+    - '2011-08-02 19:57:20.480000'
+    - '2011-08-02 19:57:21.206000'
+  - - 366
+    - 45
+    - 2
+    - false
+    - '2011-08-02 19:57:20.634000'
+    - '2011-08-02 19:57:21.207000'
+  - - 367
+    - 45
+    - 3
+    - false
+    - '2011-08-02 19:57:20.642000'
+    - '2011-08-02 19:57:21.207000'
+  - - 368
+    - 45
+    - 4
+    - false
+    - '2011-08-02 19:57:20.740000'
+    - '2011-08-02 19:57:21.208000'
+  - - 369
+    - 45
+    - 5
+    - false
+    - '2011-08-02 19:57:20.840000'
+    - '2011-08-02 19:57:21.209000'
+  - - 370
+    - 45
+    - 6
+    - false
+    - '2011-08-02 19:57:20.938000'
+    - '2011-08-02 19:57:21.209000'
+  - - 371
+    - 45
+    - 7
+    - false
+    - '2011-08-02 19:57:21.041000'
+    - '2011-08-02 19:57:21.210000'
+  - - 372
+    - 45
+    - 8
+    - false
+    - '2011-08-02 19:57:21.115000'
+    - '2011-08-02 19:57:21.211000'
+  - - 373
+    - 45
+    - 9
+    - false
+    - '2011-08-02 19:57:21.125000'
+    - '2011-08-02 19:57:21.211000'
+  - - 374
+    - 45
+    - 10
+    - false
+    - '2011-08-02 19:57:21.142000'
+    - '2011-08-02 19:57:21.212000'
+  - - 375
+    - 45
+    - 11
+    - false
+    - '2011-08-02 19:57:21.152000'
+    - '2011-08-02 19:57:21.213000'
+  - - 376
+    - 45
+    - 13
+    - false
+    - '2011-08-02 19:57:21.169000'
+    - '2011-08-02 19:57:21.213000'
+  - - 377
+    - 45
+    - 19
+    - false
+    - '2011-08-02 19:57:21.184000'
+    - '2011-08-02 19:57:21.214000'
 
 ---
 tasks:
@@ -3977,205 +5296,336 @@ tasks:
     - !!null 
 
 ---
-access_levels:
+annotations:
   columns:
   - id
-  - name
   - created_at
   - updated_at
-  - display_name
+  - text
   records: 
 
   - - 1
-    - ResidentAssistant
-    - !!null 
-    - !!null 
-    - Resident Assistant
+    - '2011-02-24 07:35:36.807000'
+    - '2011-02-24 07:35:36.807000'
+    - This is a report. It will be pretty long. There were probably some interesting
+      things that happened. Amanda handled them very well I am sure. She is a great
+      RA. I believe that she will be a great teacher as well. She is an education
+      major. I like her a lot. But there were probably people disrepsecting her. Or
+      maybe the students were compliant. I have not decided yet. I have not made the
+      reported infraction table yet, so I have not chosen whose wrongdoing caused
+      this report. Is this long enough yet? I hope it is getting to be long enough.
+      I am not sure how many more thoughts are going to come through my fingers to
+      this screen...
   - - 2
-    - AdministrativeAssistant
-    - !!null 
-    - !!null 
-    - Administrative Assistant
+    - '2011-02-24 07:35:36.807000'
+    - '2011-05-12 15:58:40.280400'
+    - Pride and Prejudice is a novel by Jane Austen, first published in 1813. The
+      story follows the main character Elizabeth Bennet as she deals with issues of
+      manners, upbringing, morality, education and marriage in the society of the
+      landed gentry of early 19th-century England. Elizabeth is the second of five
+      daughters of a country gentleman, living near the fictional town of Meryton
+      in Hertfordshire, near London.Though the story is set at the turn of the 19th
+      century, it retains a fascination for modern readers, continuing near the top
+      of lists of most loved books such as The Big Read. It has become one of the
+      most popular novels in English literature, and receives considerable attention
+      from literary scholars. Modern interest in the book has resulted in a number
+      of dramatic adaptations and an abundance of novels and stories imitating Austens
+      memorable characters or themes. To date, the book has sold some 20 million copies
+      worldwide.
   - - 3
-    - HallDirector
-    - !!null 
-    - !!null 
-    - Hall Director
+    - '2011-02-24 07:35:36.807000'
+    - '2011-02-24 07:35:36.807000'
+    - ! 'The plot of the novel is driven by a particular situation of the Bennet family:
+      The Longbourn estate where they reside is entailed to one of Mr Bennets collateral
+      relatives - male only in this case - by the legal terms of fee tail. Having
+      had no sons, this means that if Mr Bennet dies soon, his wife and five daughters
+      will be left without home or income. Mrs Bennet worries about this predicament,
+      and wishes to find husbands for her five daughters quickly. The father doesnt
+      seem to be worried at all. The narrative opens with Mr Bingley, a wealthy young
+      gentleman and a very eligible bachelor, renting a country estate near the Bennets
+      called Netherfield. He arrives accompanied by his fashionable sisters and his
+      good friend, Mr Darcy. Attending the local assembly (dance) Bingley is well
+      received in the community, while Darcy begins his acquaintance with smug condescension
+      and proud distaste for all the country locals. After Darcys haughty rejection
+      of her at the dance, Elizabeth resolves to match his coldness and pride, his
+      prejudice against country people, with her own prideful anger - in biting wit
+      and sometimes sarcastic remarks - directed towards him. (Elizabeths disposition
+      leads her into prejudices regarding Darcy and others, such that she is unable
+      to sketch their characters accurately. Soon, Bingley and Elizabeths older sister
+      Jane begin to grow close. Elizabeths best friend, Charlotte, advises that Jane
+      should show her affection to Bingley more openly, as he may not realise that
+      she is indeed interested in him. Elizabeth flippantly dismisses the opinion
+      - replying that Jane is shy and modest, and that if Bingley cant see how she
+      feels, he is a simpleton - and she doesnt tell Jane of Charlottes warning. Later
+      Elizabeth begins a friendship with Mr Wickham, a militia officer who is of long
+      personal acquaintance with Darcy - they grew up together. Wickham tells her
+      he has been seriously mistreated by the proud man; Elizabeth seizes on this
+      news as further reason to dislike Darcy. Ironically, Darcy begins to find himself
+      drawn to Elizabeth, unbeknownst to her.'
   - - 4
-    - Administrator
-    - !!null 
-    - !!null 
-    - Administrator
+    - '2011-02-24 07:36:25.252000'
+    - '2011-02-24 07:36:25.252000'
+    - ! 'Jane pays a visit to the Bingley mansion. On her journey to the house she
+      is caught in a downpour and catches ill, forcing her to stay at Netherfield
+      for several days. In order to tend to Jane, Elizabeth hikes through muddy fields
+      and arrives with a spattered dress, much to the disdain of the snobbish Miss
+      Bingley, Charles Bingleys sister. Miss Bingleys spite only increases when she
+      notices that Darcy, whom she is pursuing, pays quite a bit of attention to Elizabeth.
+      Mr Collins, the male relative who is to inherit Longbourn, makes an appearance
+      and stays with the Bennets. Recently ordained a clergyman, he is employed as
+      parish rector by the wealthy and patronising Lady Catherine de Bourgh of Kent.
+      Mr Bennet and Elizabeth are amused by his self-important and pedantic behaviour.
+      Though his stated reason for visiting is to reconcile with the Bennets, Collins
+      soon confides to Mrs Bennet that he wishes to find a wife from among the Bennet
+      sisters. He first offers to pursue Jane; however, Mrs Bennet mentions that her
+      eldest daughter is soon likely to be engaged, and redirects his attentions to
+      Elizabeth. At a ball given by Bingley at Netherfield, Elizabeth intends to deepen
+      her acquaintance with Mr Wickham, who, however, fails to appear. She is asked
+      to dance by Mr Darcy; here she raises Wickhams fate with him, causing their
+      harmonious dance to fall into a testy discussion. The ball proceeds as spectacle:
+      the arriviste Sir William Lucas shocks Darcy, alluding to Jane and Bingley and
+      a certain desirable event; Mr. Collins behaves fatuously; now Mrs Bennet talks
+      loudly and indiscreetly of her expectation of marriage between Jane and Bingley,
+      and, in general, cousin Collins and the Bennet family - save Jane and Elizabeth
+      - combine in a public display of poor manners and upbringing that clearly disgusts
+      Darcy and embarrasses Elizabeth.'
   - - 5
-    - SystemAdministrator
-    - !!null 
-    - !!null 
-    - System Administrator
-
----
-staffs:
-  columns:
-  - id
-  - email
-  - encrypted_password
-  - password_salt
-  - reset_password_token
-  - remember_token
-  - remember_created_at
-  - sign_in_count
-  - current_sign_in_at
-  - last_sign_in_at
-  - current_sign_in_ip
-  - last_sign_in_ip
-  - created_at
-  - updated_at
-  - first_name
-  - last_name
-  - access_level_id
-  - active
-  records: 
-
-  - - 1
-    - slvale07@smumn1.edu
-    - $2a$10$BlJV0WF/UwxowHTG9loTd.Fpi4ftK5C2RtoJdx1PQXT08WlYYtbOa
-    - $2a$10$BlJV0WF/UwxowHTG9loTd.
-    - ''
-    - ''
-    - !!null 
-    - 21
-    - '2011-04-27 00:15:24.157460'
-    - '2011-04-26 20:47:14.379000'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-02-21 19:50:31.608750'
-    - '2011-04-27 00:15:24.157460'
-    - Stephanie
-    - Valentine
-    - 1
-    - true
-  - - 2
-    - cmenge07@smumn1.edu
-    - $2a$10$xtB4X92zxIJjHNrvOMD9budOF.hV2QdYakr17zCiKrxinmfPZKghG
-    - $2a$10$xtB4X92zxIJjHNrvOMD9bu
-    - !!null 
-    - !!null 
-    - !!null 
-    - 4
-    - '2011-04-27 17:58:44.565734'
-    - '2011-04-14 16:18:05.898934'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-02-21 20:12:33.968125'
-    - '2011-04-27 17:58:44.567735'
-    - Christopher
-    - Engesser
-    - 4
-    - true
-  - - 3
-    - cmengesser@gmail1.com
-    - $2a$10$5TsKc.XDucVwRxktphv7julDXOoa7Fh7eF65cSYWSqKcxxHMMfOcK
-    - $2a$10$5TsKc.XDucVwRxktphv7ju
-    - !!null 
-    - !!null 
-    - '2011-04-15 06:43:35.183000'
-    - 22
-    - '2011-05-12 14:33:58.968400'
-    - '2011-04-14 17:02:58.407000'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-02-21 20:57:00.733750'
-    - '2011-05-12 14:33:58.968400'
-    - Brendan
-    - Dolan
-    - 3
-    - true
-  - - 4
-    - rgordon@smumn.edu
-    - $2a$10$bF8iK3K4DJU86cqUkSw99.oI2tW/xvM4QIImLK77hiksZ1Fe0oh2q
-    - $2a$10$bF8iK3K4DJU86cqUkSw99.
-    - !!null 
-    - !!null 
-    - '2011-04-15 06:43:55.364000'
-    - 11
-    - '2011-06-17 20:23:14.891229'
-    - '2011-06-17 19:52:15.523880'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-02-21 21:04:14.171250'
-    - '2011-06-17 20:23:14.891229'
-    - Rob
-    - Gordon
-    - 3
-    - true
-  - - 5
-    - asmith@smumn1.edu
-    - $2a$10$GdREgm3v/bjGswqfoxW/bOV8sD3/jpeUEs/aYd.YddxavOa/lVbR.
-    - $2a$10$GdREgm3v/bjGswqfoxW/bO
-    - !!null 
-    - !!null 
-    - '2011-04-15 06:44:05.430000'
-    - 4
-    - '2011-04-03 20:11:31.261800'
-    - '2011-04-01 07:46:57.096000'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-02-21 21:09:10.327500'
-    - '2011-04-15 06:44:06.834000'
-    - Ann
-    - Smith
-    - 2
-    - true
+    - '2011-02-24 07:37:12.279000'
+    - '2011-02-24 07:37:12.279000'
+    - The next morning, Mr Collins proposes marriage to Elizabeth, who refuses him,
+      much to her mothers distress. Collins handily recovers and, within three days,
+      proposes to Elizabeths close friend, Charlotte Lucas, who immediately accepts.
+      Once marriage arrangements are settled, Charlotte persuades Elizabeth to come
+      for an extended visit to her new bridal home. Though appearing at the point
+      of proposing marriage to Jane, Mr Bingley abruptly quits Netherfield and returns
+      to London, leaving the lady confused and upset. Elizabeth is convinced that
+      Darcy and Bingleys sister have conspired to separate Jane and Bingley. In the
+      spring, Elizabeth joins Charlotte and her cousin in Kent. The parsonage is adjacent
+      to Rosings Park - the grand manor of Lady Catherine de Bourgh, Mr Darcys aunt
+      - where Elizabeth and her hosts are frequently invited to socialize. After Mr
+      Darcy and his cousin Colonel Fitzwilliam arrive to visit Lady Catherine, Elizabeth
+      renews her project of teasing Darcy - while his admiration for her grows in
+      spite of his intentions otherwise. Now Elizabeth learns from Fitzwilliam that
+      Darcy prides himself on having separated Bingley from Jane; and, with the poorest
+      of timing, Darcy chooses this moment to admit his love for Elizabeth, and he
+      proposes to her. Incensed by his high-handed and insulting manner, she abruptly
+      refuses him. When he asks why - so uncivil her reply - Elizabeth confronts him
+      with his sabotage of Jane and Bingleys budding relationship and with Wickhams
+      account of Darcys mistreatment of him, among other complaints.
+  - - 6
+    - '2011-02-24 07:37:51.609000'
+    - '2011-02-24 07:37:51.609000'
+    - ! 'Deeply shaken by Elizabeths vehemence and accusations, Darcy writes her a
+      letter which reveals the true history between Wickham and himself. Wickham had
+      renounced his legacy - a clergymans living in Darcys patronage - for a cash
+      payment; only to return after gambling away the money to again claim the position.
+      After Darcy refused, Wickham attempted to elope with Darcys fifteen-year-old
+      sister Georgiana, and thereby secure her part of the Darcy family fortune. He
+      was found out and stopped only a day before the intended elopement. Regarding
+      Bingley and Jane, Darcy justifies his interference: he had observed in Jane
+      no reciprocal interest for Bingley; thus he aimed to separate them to protect
+      his friend from heartache. In the letter Darcy admits his repugnance for the
+      total want of propriety of her (Elizabeths) family, especially her mother and
+      three younger sisters. After reading the letter, Elizabeth begins to question
+      both her familys behaviour and Wickhams credibility. She also concludes: Wickham
+      is not as trustworthy as his easy manners would indicate; that he had lied to
+      her previously; and that her early impressions of Darcys character might not
+      have been accurate. Soon, Elizabeth returns home.'
+  - - 7
+    - '2011-02-24 07:38:20.457000'
+    - '2011-02-24 07:38:20.457000'
+    - Some months later, during a northern tour, Elizabeth and her Aunt and Uncle
+      Gardiner visit Pemberley, Darcys estate, while hes away. The elderly housekeeper
+      has known Darcy since childhood, and presents a flattering and benevolent impression
+      of his character to Elizabeth and the Gardiners. As they tour the grounds Darcy
+      unexpectedly returns home. Though shocked - as is Elizabeth - he makes an obvious
+      effort to be gracious and welcoming, and treats the Gardiners - whom before
+      he would have dismissed as socially inferior - with remarkable politeness. Later
+      he introduces Elizabeth to his sister, a high compliment to Elizabeth. Elizabeth
+      is surprised and hopeful of a possible new beginning with Darcy.
+  - - 8
+    - '2011-02-24 07:38:51.863000'
+    - '2011-02-24 07:38:51.863000'
+    - Elizabeth and Darcys renewed acquaintance is cut short by news that Lydia, her
+      youngest (and most frivolous) sister, has run away with Wickham. Initiallythe
+      family (wishfully) believe they have eloped, but they soon learn that Wickham
+      has no plans to marry Lydia. Lydias antics threaten her family - especially
+      the remaining Bennet sisters - with social ruin. Elizabeth and her aunt and
+      uncle hurriedly leave for home; Elizabeth is anguished, and convinced that Darcy
+      will avoid her from now on. Soon, thanks apparently to Elizabeths uncle, Lydia
+      and Wickham are found and married. Afterwards, they visit Longbourn; while bragging
+      to Elizabeth, Lydia discloses that Darcy was present at the wedding. Surprised,Elizabeth
+      sends an inquiry to her aunt, from whom she learns that Darcy himself was responsible
+      for both finding the couple and arranging their marriage, at great expense to
+      himself.
+  - - 9
+    - '2011-02-24 07:39:19.437000'
+    - '2011-02-24 07:39:19.437000'
+    - Bingley returns to Longbourn and proposes marriage to Jane who immediately accepts.
+      Now Lady Catherine surprisingly visits Longbourn. She sternly tells Elizabeth
+      she has heard rumours of Darcy proposing to her; she came with determined resolution
+      to confront Elizabeth and to demand that she never accept such a proposal because
+      Darcy is supposed to marry her daughter. Elizabeth refuses to bow to Lady Catherines
+      demands. Furious, Lady C charges off and tells Darcy of Elizabeths obstinacy
+      - which convinces him that Elizabeths opinion of him may have changed. He now
+      visits Longbourn, and once again proposes marriage. Elizabeth accepts, and the
+      two become engaged.
   - - 10
-    - radar.system.admin@smumn.edu
-    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276
-    - $2a$10$IghfYLOEKBMlPm4Z2dAGYe
-    - !!null 
-    - !!null 
-    - !!null 
-    - 16
-    - '2011-06-21 23:12:05.860939'
-    - '2011-06-21 19:45:49.291431'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-04-03 19:49:31.971800'
-    - '2011-06-21 23:12:05.860939'
-    - System
-    - Administrator
-    - 5
-    - true
+    - '2011-02-24 07:39:59.173000'
+    - '2011-02-24 07:39:59.173000'
+    - ! 'The novels final chapters establish the futures of the characters: Elizabeth
+      and Darcy settle at Pemberley, where Mr Bennet visits often; Mrs Bennet remains
+      frivolous and silly - she often visits the new Mrs Bingley and talks of the
+      new Mrs Darcy; Jane and Bingley eventually move to locate near the Darcys in
+      Derbyshire. Elizabeth and Jane teach Kitty who had always been badly influenced
+      by Lydia better social graces, and Mary who had been the most reclusive learns
+      to mix more with the outside world at Meryton. Lydia and Wickham continue a
+      life of frivolity which keeps them from accumulating any wealth and leads them
+      to have to move often, leaving debts for Jane and Elizabeth to pay. At Pemberley,
+      Elizabeth and Georgiana grow close; Georgiana is surprised by Elizabeths playful
+      treatment of Darcy, and she grows more comfortable with her brother. Lady Catherine
+      holds out, indignant and abusive, over her nephews marriage, but eventually
+      Darcy is prevailed upon to reconcile with her sufficiently that she condescends
+      to visit. Elizabeth and Darcy remain close to her Uncle and Aunt Gardiner -
+      the agents of their reconciling and uniting.'
   - - 11
-    - mjmay08@smumn.edu
-    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCuaz8j8UrB3HzlIi/q2SjYo9OKIKDey12
-    - $2a$10$6Z8ecWaBnw0oOiTqqBMhCu
-    - !!null 
-    - !!null 
-    - '2011-04-15 06:44:29.992000'
-    - 7
-    - '2011-06-21 23:11:41.926546'
-    - '2011-06-21 19:03:28.691431'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-04-12 16:38:36.922620'
-    - '2011-06-21 23:11:41.927546'
-    - Mitchell
-    - May
-    - 4
-    - true
+    - '2011-04-27 00:26:55.266564'
+    - '2011-04-27 00:26:55.331570'
+    - test
   - - 12
-    - llhupp09@smumn.edu
-    - $2a$10$eOdJDk9mzfmgNt7u.1aoNue2cDaEKwCm2u3sQcwBufh4byJ4VH8zC
-    - $2a$10$eOdJDk9mzfmgNt7u.1aoNu
-    - !!null 
-    - !!null 
-    - !!null 
-    - 28
-    - '2011-07-13 17:25:26.546400'
-    - '2011-06-24 19:05:38.924000'
-    - 127.0.0.1
-    - 127.0.0.1
-    - '2011-05-16 16:08:42.781173'
-    - '2011-07-13 17:25:26.546400'
-    - Lyric
-    - Hupp
-    - 5
-    - true
+    - '2011-04-27 17:59:14.887326'
+    - '2011-04-27 17:59:15.241347'
+    - Hi
+  - - 13
+    - '2011-05-18 19:43:03.536000'
+    - '2011-05-18 19:43:03.566000'
+    - dfhgjhkk
+  - - 14
+    - '2011-05-18 19:43:23.254000'
+    - '2011-05-18 19:43:23.378000'
+    - kiunhgf
+  - - 15
+    - '2011-05-18 19:43:44.575000'
+    - '2011-05-18 19:43:44.839000'
+    - okpesoemf
+  - - 16
+    - '2011-05-18 19:44:24.883000'
+    - '2011-05-18 19:44:24.911000'
+    - unhjksad
+  - - 17
+    - '2011-05-18 19:44:53.027000'
+    - '2011-05-18 19:44:53.257000'
+    - jnksad
+  - - 18
+    - '2011-05-18 19:45:29.566000'
+    - '2011-05-18 19:45:29.632000'
+    - asd
+  - - 19
+    - '2011-05-18 19:45:56.532000'
+    - '2011-05-18 19:45:56.662000'
+    - wer
+  - - 20
+    - '2011-05-18 19:46:09.915000'
+    - '2011-05-18 19:46:10.033000'
+    - eqwe
+  - - 21
+    - '2011-05-18 19:46:32.250000'
+    - '2011-05-18 19:46:32.466000'
+    - adwdw
+  - - 22
+    - '2011-06-02 17:39:35.223000'
+    - '2011-06-02 17:43:25.684000'
+    - axssca
+  - - 23
+    - '2011-06-09 16:11:15.672200'
+    - '2011-06-23 20:09:06.676200'
+    - TP in bathroom. vdcfvgbyuigbyjuhybgyujyhbgbuhbghuhghuhgyuibghyuhbvfgbhbgvhbyhubgbyhbghbhybvfgbhybghbuibghbyhuybgvbyhubvgbyhbgvgbyhibghhgbyhbgygvfgbyhbgvfgbgyuvfvbyugbvfgbyubvf
+      gybgvfvgbygvfgyugvybvgfgbgygvfggvfybgv
+  - - 24
+    - '2011-06-09 16:12:39.576200'
+    - '2011-06-09 16:12:39.725200'
+    - Rob... Oxygen
+  - - 25
+    - '2011-06-15 15:30:20.906800'
+    - '2011-06-15 15:30:21.028800'
+    - wefwffe
+  - - 26
+    - '2011-06-17 19:53:30.907191'
+    - '2011-06-17 19:53:30.907191'
+    - asdfasdfadfasdf
+  - - 27
+    - '2011-06-17 19:56:23.268050'
+    - '2011-06-17 19:56:23.268050'
+    - asdfasdfadfasdf
+  - - 28
+    - '2011-06-22 21:11:18.736000'
+    - '2011-06-22 21:11:18.736000'
+    - hi
+  - - 29
+    - '2011-06-22 21:11:58.351000'
+    - '2011-06-22 21:11:58.351000'
+    - hi
+  - - 30
+    - '2011-06-22 21:19:15.422000'
+    - '2011-06-22 21:19:15.580000'
+    - hi
+  - - 31
+    - '2011-06-22 21:20:52.042000'
+    - '2011-06-22 21:20:52.125000'
+    - hi
+  - - 32
+    - '2011-06-23 18:10:53.344400'
+    - '2011-06-23 18:10:53.438000'
+    - this is my report
+  - - 33
+    - '2011-06-23 18:14:42.602000'
+    - '2011-06-23 18:14:42.633200'
+    - hi
+  - - 34
+    - '2011-06-23 19:08:26.425200'
+    - '2011-06-23 19:08:26.688200'
+    - these guys were all drunk.
+  - - 35
+    - '2011-08-01 18:19:38.324000'
+    - '2011-08-01 19:25:04.184000'
+    - This was a big deal..
+  - - 36
+    - '2011-08-01 18:21:29.815000'
+    - '2011-08-01 19:31:29.709000'
+    - Common reasons is busted..
+  - - 37
+    - '2011-08-01 18:38:16.747000'
+    - '2011-08-01 18:38:16.843000'
+    - I'm making a report off round
+  - - 38
+    - '2011-08-01 21:27:08.187000'
+    - '2011-08-02 20:08:19.211000'
+    - stuff
+  - - 39
+    - '2011-08-01 21:46:44.797000'
+    - '2011-08-01 21:46:44.958000'
+    - Things
+  - - 40
+    - '2011-08-02 19:59:28.155000'
+    - '2011-08-02 20:08:34.662000'
+    - This report is not on a round
+  - - 41
+    - '2011-08-02 20:00:49.942000'
+    - '2011-08-02 20:00:50.207000'
+    - Round 1
+  - - 42
+    - '2011-08-02 20:02:42.594000'
+    - '2011-08-02 20:02:42.741000'
+    - I'm a not in between rounds
+  - - 43
+    - '2011-08-02 20:03:40.759000'
+    - '2011-08-02 20:03:40.943000'
+    - I'm in round 2
+  - - 44
+    - '2011-08-02 20:06:43.022000'
+    - '2011-08-02 20:08:03.584000'
+    - I'm a report after rounds
+  - - 45
+    - '2011-08-02 20:11:50.374000'
+    - '2011-08-02 20:11:50.591000'
+    - I'm a note

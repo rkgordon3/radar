@@ -59,6 +59,10 @@ class Report < ActiveRecord::Base
   def supports_selectable_contact_reasons?
     false
   end
+
+  def supports_common_reasons?
+    self.type == "IncidentReport"
+  end
   
   def reasons
     RelationshipToReport.for(self)
