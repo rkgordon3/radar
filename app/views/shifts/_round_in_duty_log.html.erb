@@ -1,36 +1,34 @@
-<div>
-  <h3><%= "Round #{round_count}" %>:
+<div id="inside_container" class="inside_container">
+  <h3><font color="595959"><%= "Round #{round_count}" %>:</font>
     <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
   <div>
     <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
 
-  	    Reports</h4>
+  	    Reports <font color="595959"><%= "(#{reports.length})" %></font></h4>
     <div id="<%= round.id %>-reports" style="display: none;" class='duty_log_div' >
-      <% if reports.length > 0 %>
-        <div id="round <%= round.id %>-reports-div" >
+      <div id="round <%= round.id %>-reports-div" >
+        <% if reports.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
-        </div>
-      <% else %>
-
-        <p>No Reports For This Round</p>
-      <% end %>
+        <% else %>
+          <p>No Reports For This Round</p>
+        <% end %>
+      </div>
     </div>
   </div>
   <div>
     <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
 
-  	    Notes</h4>
+  	    Notes <font color="595959"><%= "(#{notes.length})" %></font></h4>
     <div id="<%= round.id %>-notes" class='duty_log_div' style="display: none;">
-      <% if notes.length > 0 %>
-        <div id="round <%= round.id %>-notes-div" >
+      <div id="round <%= round.id %>-notes-div" >
+        <% if notes.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
-        </div>
-      <% else %>
-
-        <p>No Notes For This Round</p>
-      <% end %>
+        <% else %>
+          <p>No Notes For This Round</p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

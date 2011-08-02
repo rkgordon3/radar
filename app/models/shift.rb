@@ -1,8 +1,8 @@
 class Shift < ActiveRecord::Base
   belongs_to :staff
-  has_many :rounds
+  has_many :rounds, :dependent => :destroy
   belongs_to :area
-  has_many :task_assignments
+  has_many :task_assignments, :dependent => :destroy
   
   def assign_task (task)
     ta = TaskAssignment.new(:shift_id => self.id, :task_id => task.id, :done => false)

@@ -74,8 +74,7 @@ class RoundsController < ApplicationController
   
   def start_round
     shift = current_staff.current_shift
-    if (shift != nil)
-	
+    if shift != nil && current_staff.current_round == nil #staff is on duty but not on a round
       @round = Round.new
       @round.shift_id = shift.id
       @round.save
@@ -93,8 +92,8 @@ class RoundsController < ApplicationController
   
   def end_round
     shift = current_staff.current_shift
-    if (shift != nil)
-      @round = Round.where(:end_time => nil, :shift_id => shift.id).first
+    @round = current_staff.current_round
+    if shift != nil && @round != nil #staff is on duty and on a round
       @round.end_time = Time.now
       @round.save
       respond_to do |format|

@@ -67,69 +67,87 @@ class ShiftsController < ApplicationController
   end
   
   def start_shift
-    area_id = current_staff.staff_areas.first.area_id
-    @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
+    if !current_staff.on_duty?
+      area_id = current_staff.staff_areas.first.area_id
+      @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
     
-    Task.get_active_by_area(area_id).each do |task|
-      @shift.assign_task(task)
-    end
+      Task.get_active_by_area(area_id).each do |task|
+        @shift.assign_task(task)
+      end
     
-    @shift.save
-    @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
+      @shift.save
+      @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
     
-    respond_to do |format|
-      format.js
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
   def duty_log
     @rounds = Round.where("shift_id = ?",params[:id]).order(:end_time)
     @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
+    total_incomplete_task_assignments = @task_assignments.where(:done => false).length
 
-    report_map ||= Hash.new
-    note_map ||= Hash.new
-    round_time_start = @shift.created_at
+    on_round_report_map ||= Hash.new
+    on_round_note_map ||= Hash.new
+    off_round_reports = Array.new
+    round_time_end = @shift.created_at
+    total_on_round_reports = 0
+    total_on_round_notes = 0
+
     @rounds.each do |round|
-      round_time_end=round.end_time
-      reports = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
-      notes = reports.where(:type=>"Note")
+      round_time_start = round.created_at
+
+      off_round_reports += Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_end..round_time_start, :submitted=> true)
+      
+      round_time_end = round.end_time
+      reports = Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_start..round_time_end, :submitted=> true)
+      notes = reports.where(:type => "Note")
+      total_on_round_notes += notes.length
       notes = Report.sort(notes,params[:sort])
       reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
+      total_on_round_reports += reports.length
       reports = Report.sort(reports,params[:sort])
-      report_map[round] = reports
-      note_map[round] = notes
-      round_time_start = round_time_end
+      on_round_report_map[round] = reports
+      on_round_note_map[round] = notes
     end
+
+    off_round_reports += Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_end..@shift.time_out, :submitted=> true)
+
+    # off_round_reports = Report.sort(off_round_reports,params[:sort]) <<<<==== Report.sort does not work with Array class TODO: make off_round_reports instance of ActiveRecord::Relation class
     
     respond_to do |format|
-      format.html { render :locals => { :report_map => report_map, :note_map => note_map } }
-      format.xml  { render :locals => { :report_map => report_map, :note_map => note_map } }
-      format.js   { render :locals => { :report_map => report_map, :note_map => note_map } }
+      format.html { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_on_round_reports => total_on_round_reports, :total_on_round_notes => total_on_round_notes, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_reports => off_round_reports } }
+      format.xml  { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_on_round_reports => total_on_round_reports, :total_on_round_notes => total_on_round_notes, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_reports => off_round_reports } }
+      format.js   { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :off_round_reports => off_round_reports } }
     end
   end
   
-  def end_shift    
-    @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
-    if @shift == nil 
-      return
-    end
-    @shift.time_out = Time.now
-    @shift.save
-    @round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-    if @round != nil	    	
-      @round.end_time = Time.now
-      @round.save
-      @notice = "You are now off a round and off duty."
-    else
-      @notice = "You are now off duty."		
-    end
+  def end_shift
+    if current_staff.on_duty?
+      @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
+      if @shift == nil
+        return
+      end
+      @shift.time_out = Time.now
+      @shift.save
+      @round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+      if @round != nil
+        @round.end_time = Time.now
+        @round.save
+        @notice = "You are now off a round and off duty."
+      else
+        @notice = "You are now off duty."
+      end
 	
-    if !@shift.tasks_completed?
-      @notice = @notice + "...but some tasks were not completed!"
-    end
+      if !@shift.tasks_completed?
+        @notice = @notice + "...but some tasks were not completed!"
+      end
     
-    respond_to do |format|
-      format.js 
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
