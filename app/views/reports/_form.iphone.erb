@@ -4,7 +4,6 @@
 </div>
 <%= form_for(@report) do |f| %>
   <div id="iGroup">
-
     <div class="iLayer" id="waIncidentReport" title="Incident Report">
       <div class="iPanel">
         <div id="s-i-form">
@@ -16,7 +15,7 @@
 
           <legend></legend>
           <ul  class='iArrow'  id="common-reasons-link"  style="display:none;" >
-            <% if @report.supports_common_reasons? %>
+            <% if @report.supports_selectable_contact_reasons? %>
               <li><a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a></li>
             <% end %>
           </ul>
@@ -70,7 +69,7 @@
       <% end %>
     </div>
     <div class="iLayer" id="waCommonInfractions" >
-      <a href="#_IncidentReport" rel="back">Back</a>
+      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Incident Report</a>
       <div class="iPanel">
         <%= render :partial=>"reports/report_common_relationship_checklist", :locals => { :report => @report } %>
       </div>

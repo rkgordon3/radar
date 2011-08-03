@@ -61,7 +61,7 @@ RUBY
 
   </div>
   <div class="iLayer" id="waReports" >
-    <a href="#_Home" rel="back">Back</a>
+    <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
     <div class="iPanel">
       <fieldset>
         <ul class="iArrow">
@@ -80,7 +80,7 @@ RUBY
   </div>
   <% if staff_signed_in? %>
     <div class="iLayer" id="waChecklist" >
-      <a href="#_Home" rel="back">Back</a>
+      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
       <div class="iPanel">
         <fieldset>
           <Legend>
