@@ -12,10 +12,6 @@
     <th><%= link_to "Ext. #", :sort => "extension" %></th>
     <th><%= link_to "Email", :sort => "email" %></th>
     <th><%= link_to "Date of Birth", :sort => "birthday" %></th>
-    <%if can? [:edit,:destroy], Student %>
-      <th></th>
-      <th></th>
-    <% end %>
   </tr>
   <% num_rows = 0 %>
   <% students.each do |student| %>

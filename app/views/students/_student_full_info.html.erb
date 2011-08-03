@@ -1,5 +1,9 @@
 
-<td><%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %></td>
+<td><%  if can? :show, student %>
+    <%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %>
+  <%  else %>
+    <%= image_tag(student.getImageUrl, :border=> 0, :width => 50) %>
+  <% end %></td>
 <%if can? :view_student_id, student %>
   <td><%= student.student_id %></td>
 <% end %>
@@ -17,8 +21,4 @@
 <% end %>
 
 <td><%= link_to 'Show', student if can? :show, student %></td>
-<%if staff_signed_in? %>
-  <td><%= link_to 'Edit', edit_student_path(student) if can? :edit, student %></td>
-  <td><%= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete if can? :destroy, student %></td>
-<% end %>
 </tr>

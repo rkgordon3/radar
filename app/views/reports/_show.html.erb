@@ -30,7 +30,5 @@
   <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
   <%= render :partial => "reports/show_generic" %>
 
-  <%if !@report.submitted%>
-  <%= link_to 'Edit', edit_report_path(@report) if can? :edit, @report %>
-<%end%>
+  <%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, @report %>
 </div>

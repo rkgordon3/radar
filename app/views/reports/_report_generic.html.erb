@@ -49,12 +49,10 @@
 
   <div class="actions">
     <p>
-      <% if @report.submitted != true %>
+      <% if !@report.submitted %>
         <%= submit_tag "Save Report", { :name => "save_submit" } %>
       <% end %>
-      <% if !@report.is_note? %>
-        <%= submit_tag "Submit Report",  { :name=> "report[submitted]" } %>
-      <% end %>
+      <%= submit_tag "Submit Report",  { :name=> "report[submitted]" } %>
     </p>
 
   </div>
