@@ -9,9 +9,9 @@
       :onclick => "plusMinusToggle('rounds', 'rounds-img');" %>
     <b><font size="3">Rounds </font>
       <% if @rounds.length == 0 %>
-        <font color="B40D10" size="3">
+        <font color="595959" size="3">
         <% else %>
-          <font color="595959" size="3">
+          <font color="B40D10" size="3">
           <% end %>
           <%= "(#{@rounds.length}) " %></font></b>
     <% if total_on_round_reports == 0 %>
@@ -47,9 +47,9 @@
     :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
   <b><font size="3">Tasks </font>
     <% if @task_assignments.length == 0 %>
-      <font color="B40D10" size="3">
+      <font color="595959" size="3">
       <% else %>
-        <font color="595959" size="3">
+        <font color="B40D10" size="3">
         <% end %>
         <%= "(#{@task_assignments.length})" %></font></b>
   <% if total_incomplete_task_assignments == 0 %>
