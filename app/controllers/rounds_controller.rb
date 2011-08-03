@@ -78,15 +78,14 @@ class RoundsController < ApplicationController
       @round = Round.new
       @round.shift_id = shift.id
       @round.save
-		
-      respond_to do |format|
-        format.js
-        format.iphone {
-          render :update do |page|
-            page.replace_html("round_button", :partial=>"rounds/end_round_button")
-          end
-        }
-      end
+    end
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
+          page.replace_html("round_button", :partial=>"rounds/end_round_button")
+        end
+      }
     end
   end
   
@@ -96,14 +95,14 @@ class RoundsController < ApplicationController
     if shift != nil && @round != nil #staff is on duty and on a round
       @round.end_time = Time.now
       @round.save
-      respond_to do |format|
-        format.js
-        format.iphone {
-          render :update do |page|
-            page.replace_html("round_button", :partial=>"rounds/start_round_button")
-          end
-        }
-      end
+    end
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
+          page.replace_html("round_button", :partial=>"rounds/start_round_button")
+        end
+      }
     end
   end
 end
