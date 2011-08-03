@@ -55,7 +55,7 @@
           <legend>
             Time: <%=@report.approach_time%>
           </legend>
-          <% if @report.can_submit_from_mobile? %>
+          <% if @report.can_submit_from_mobile? || @report.submitted %>
             <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
           <%else %>
             <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
