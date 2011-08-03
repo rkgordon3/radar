@@ -30,5 +30,5 @@
   <%= render :partial => "reports/show_relationships", :locals => { :title => "Participants" } %>
   <%= render :partial => "reports/show_generic" %>
 
-  <%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, @report %>
+  <%= link_to 'Edit', :controller =>"#{@report.type.underscore.pluralize}", :action => "edit", :id => @report if can? :edit, @report %>
 </div>
