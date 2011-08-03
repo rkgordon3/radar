@@ -22,13 +22,12 @@
       <td><%= report.room_number %></td>
       <td><%= report.staff.first_name %> <%= report.staff.last_name %></td>
       <td><%= link_to report.tag, report if can? :show, report %><%= "#{report.tag}" if cannot? :show, report %></td>
-    <div id="edit_destroy_link">
-      <td><%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, report %></td>
+      <td id="edit_destroy_link"><%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, report %></td>
       <% if report.type == "MaintenanceReport" %>
-        <td><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id => report if can? :destroy, report %></td>
+        <td id="edit_destroy_link"><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id => report if can? :destroy, report %></td>
       <% end %>
-    </div>
-  </tr>
-<% end %>
+
+    </tr>
+  <% end %>
 </tr>
 </table>
