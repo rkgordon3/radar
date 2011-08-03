@@ -7,10 +7,10 @@ class Ability
     if staff.organization? :residence_life
       #set all actions for residence life
       can :manage, :all
+      cannot :update_organization, Staff
+      cannot :destroy, IncidentReport
       if staff.access_level? :system_administrator
-        cannot :update_organization, Staff
-        cannot [:update, :destroy], IncidentReport, :submitted => true
-
+        
       elsif staff.access_level? :administrator
         trim_residence_life_privileges_to(:administrator, staff)
       elsif staff.access_level? :administrative_assistant
