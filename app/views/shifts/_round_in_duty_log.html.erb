@@ -1,11 +1,11 @@
 <div id="inside_container" class="inside_container">
-  <h3><font color="595959"><%= "Round #{round_count}" %>:</font>
-    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
+  <b><font size ="2"><%= "Round #{round_count}" %></font></b><font size ="2" color="595959">
+    <%= "[#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}]" %></font><br />
   <div>
-    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
+    <b><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
 
-  	    Reports
+  	    Reports</b>
       <% if reports.length == 0 %>
         <font color="595959">
         <% else %>
@@ -17,16 +17,16 @@
         <% if reports.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
         <% else %>
-          <p>No Reports For This Round</p>
+          <p>No reports were submitted for this round.</p>
         <% end %>
       </div>
     </div>
   </div>
   <div>
-    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
+    <b><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
 
-  	    Notes
+  	    Notes</b>
       <% if notes.length == 0 %>
         <font color="595959">
         <% else %>
@@ -38,7 +38,7 @@
         <% if notes.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
         <% else %>
-          <p>No Notes For This Round</p>
+          <p>No notes were submitted for this round.</p>
         <% end %>
       </div>
     </div>

@@ -91,36 +91,39 @@ class ShiftsController < ApplicationController
 
     on_round_report_map ||= Hash.new
     on_round_note_map ||= Hash.new
-    off_round_reports = Array.new
+    off_round_reports ||= Array.new
+    off_round_notes ||= Array.new
     round_time_end = @shift.created_at
-    total_on_round_reports = 0
-    total_on_round_notes = 0
+    total_reports = 0
 
     @rounds.each do |round|
       round_time_start = round.created_at
 
-      off_round_reports += Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_end..round_time_start, :submitted=> true)
-      
+      off_round_reps = Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_end..round_time_start, :submitted=> true)
+      off_round_reports += off_round_reps.where(:type=>["IncidentReport","MaintenanceReport"])
+      off_round_notes += off_round_reps.where(:type => "Note")
       round_time_end = round.end_time
       reports = Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_start..round_time_end, :submitted=> true)
+      total_reports += reports.length
       notes = reports.where(:type => "Note")
-      total_on_round_notes += notes.length
       notes = Report.sort(notes,params[:sort])
       reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
-      total_on_round_reports += reports.length
+      
       reports = Report.sort(reports,params[:sort])
       on_round_report_map[round] = reports
       on_round_note_map[round] = notes
     end
 
     off_round_reports += Report.where(:staff_id=>@shift.staff_id, :created_at => round_time_end..@shift.time_out, :submitted=> true)
+    total_reports += off_round_reports.length
+    total_reports += off_round_notes.length
 
     # off_round_reports = Report.sort(off_round_reports,params[:sort]) <<<<==== Report.sort does not work with Array class TODO: make off_round_reports instance of ActiveRecord::Relation class
     
     respond_to do |format|
-      format.html { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_on_round_reports => total_on_round_reports, :total_on_round_notes => total_on_round_notes, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_reports => off_round_reports } }
-      format.xml  { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_on_round_reports => total_on_round_reports, :total_on_round_notes => total_on_round_notes, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_reports => off_round_reports } }
-      format.js   { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :off_round_reports => off_round_reports } }
+      format.html { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
+      format.xml  { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
+      format.js   { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :off_round_reports => off_round_reports, :off_round_notes => off_round_notes } }
     end
   end
   

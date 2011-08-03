@@ -4,3 +4,4 @@
   page.replace_html "round #{round.id}-notes-div", :partial => 'reports/report_table_row', :locals => { :reports => on_round_note_map[round], :num_rows => 0}
 end
 page.replace_html "off-round-reports-div", :partial => 'reports/report_table_row', :locals => { :reports => off_round_reports, :num_rows => 0}
+page.replace_html "off-round-notes-div", :partial => 'reports/report_table_row', :locals => { :reports => off_round_notes, :num_rows => 0}

@@ -1,32 +1,25 @@
 <div id="inside_container" class="inside_container">
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
-  <h1><font color="595959">RA:</font> <%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></h1>
-  <h2><font color="595959">On Duty:</font> <%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></h2>
-  <h2><font color="595959">Area:</font> <%= "#{@shift.area.name rescue "Unknown"}" %></h2>
+  <font size="4" color="595959"><b>RA: </b></font><font size="4"><%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></font><br />
+  <font size="4" color="595959"><b>On Duty: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
+  <font size="4" color="595959"><b>Area: </b></font><font size="4"><%= "#{@shift.area.name rescue "Unknown"}" %></font><br /><br />
 
   <p><div>
     <%= link_to image_tag("/images/add_icon.gif", :id => "rounds-img"), "javascript:void(0)",
       :onclick => "plusMinusToggle('rounds', 'rounds-img');" %>
-    <b><font size="3">Rounds </font>
-      <% if @rounds.length == 0 %>
+    <b><font size="3">Reports Submitted </font>
+      <% if total_reports == 0 %>
         <font color="595959" size="3">
         <% else %>
           <font color="B40D10" size="3">
           <% end %>
-          <%= "(#{@rounds.length}) " %></font></b>
-    <% if total_on_round_reports == 0 %>
-      <font color="595959"><%= "[no reports] " %></font>
-    <% elsif total_on_round_reports == 1 %>
-      <font color="B40D10"><%= "[1 report] " %></font>
-    <% elsif total_on_round_reports > 1 %>
-      <font color="B40D10"><%= "[#{total_on_round_reports} reports] " %></font>
-    <% end %>
-    <% if total_on_round_notes == 0 %>
-      <font color="595959"><%= "[no notes]" %></font>
-    <% elsif total_on_round_notes == 1 %>
-      <font color="B40D10"><%= "[1 note]" %></font>
-    <% elsif total_on_round_notes > 1 %>
-      <font color="B40D10"><%= "[#{total_on_round_notes} notes] " %></font>
+          <%= "(#{total_reports}) " %></font></b>
+    <% if @rounds.length == 0 %>
+      <font color="B40D10"><%= "[no rounds completed] " %></font>
+    <% elsif @rounds.length == 1 %>
+      <font color="595959"><%= "[1 round completed] " %></font>
+    <% elsif @rounds.length > 1 %>
+      <font color="595959"><%= "[#{@rounds.length} rounds completed] " %></font>
     <% end %>
     <div id='rounds' class='duty_log_div' style="display: none;">
       <% round_count = 0 %>
@@ -37,7 +30,17 @@
             { :round_count => round_count, :round => round, :reports =>on_round_report_map[round], :notes => on_round_note_map[round] } %>
         <% end %>
       <% else %>
-        <p>No Rounds Completed For This Shift</p>
+        <div id="inside_container" class="inside_container">
+          <font size="2" color="B40D10"><b>No rounds were completed for this shift.</b></font>
+        </div>
+      <% end %>
+      <% if off_round_notes.length > 0 || off_round_reports.length > 0 %>
+        <%= render :partial=> "shifts/off_round_in_duty_log", :locals =>
+          { :reports => off_round_reports, :notes => off_round_notes } %>
+      <% else %>
+        <div id="inside_container" class="inside_container">
+          <font size="2"><b>No submitted reports were created while not on a round.</b></font>
+        </div>
       <% end %>
     </div>
   </div></p>
@@ -45,7 +48,7 @@
 <p><div>
   <%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
     :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
-  <b><font size="3">Tasks </font>
+  <b><font size="3">Tasks Assigned </font>
     <% if @task_assignments.length == 0 %>
       <font color="595959" size="3">
       <% else %>
@@ -64,30 +67,11 @@
         <%= render :partial => "task_assignments/task_assignments_table_row", :locals => { :task_assignments => @task_assignments, :num_rows=>0 } %>
       </table>
     <% else %>
-      <p>No Tasks Assigned For This Shift</p>
+      <p>No tasks were assigned for this shift.</p>
     <% end %>
   </div>
 </div></p>
 
-<p><div>
-  <%= link_to image_tag("/images/add_icon.gif", :id => "off-round-reports-img"), "javascript:void(0)",
-    :onclick => "plusMinusToggle('off-round-reports', 'off-round-reports-img');" %>
-  <b><font size="3">Reports Created Off Round </font>
-    <% if off_round_reports.length == 0 %>
-      <font size="3" color="595959">
-    <% else %>
-      <font size="3" color="B40D10">
-    <% end %>
-        <%= "(#{off_round_reports.length})" %></font></b>
-  <div id='off-round-reports' class='duty_log_div' style="display: none;">
-    <div id="off-round-reports-div" >
-      <% if off_round_reports.length > 0 %>
-        <%= render :partial => "reports/report_table_row", :locals => { :reports => off_round_reports, :num_rows=>0 } %>
-      <% else %>
-        <p>No Reports Were Created While Not On A Round</p>
-      <% end %>
-    </div>
-  </div>
-</div></p>
+<p></p>
 
 </div>
