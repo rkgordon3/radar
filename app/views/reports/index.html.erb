@@ -1,7 +1,7 @@
 <div id="inside_container" class="inside_container"><h1>All Reports</h1>
   <%= render :partial => "reports/index_generic", :locals => { :reports => @reports } %>
   <div class="new_report_link">
-    <%= link_to 'New Report', new_report_path %>
+    <%= link_to 'New Report', new_report_path if can? :create, Report %>
     <div class="edit_link">
     </div>
   </div>

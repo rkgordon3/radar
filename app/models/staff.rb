@@ -15,9 +15,12 @@ class Staff < ActiveRecord::Base
   end
 
   def get_registerable_access_levels
-    if self.access_level_id > 1
+    if self.access_level_id > 1 && self.access_level_id < 5
       #can only register access levels below current level
       return AccessLevel.where(:id=> 1..(self.access_level_id-1))
+    elsif self.access_level_id == 5
+      #system admins can make other system admins
+      return AccessLevel.where(:id=> 1..self.access_level_id)
     else
       #if level 1, can register as level 1 (only to be used when updating self)
       return AccessLevel.where(:id=> self.access_level_id)
@@ -92,14 +95,19 @@ class Staff < ActiveRecord::Base
   end
   
   def update_attributes(staff)
-    sa = StaffArea.where(:staff_id => self.id).first
-    sa.area_id = staff[:staff_areas]
-    sa.save
-    so = StaffOrganization.where(:staff_id => self.id).first
-    so.organization_id = staff[:staff_organizations]
-    so.save
-    staff[:staff_areas] = [sa]
-    staff[:staff_organizations] = [so]
+    if staff[:staff_organizations] != nil
+      so = StaffOrganization.where(:staff_id => self.id).first
+      so.organization_id = staff[:staff_organizations]
+      so.save
+      staff[:staff_organizations] = [so]
+    end
+    if staff[:staff_areas] != nil
+      sa = StaffArea.where(:staff_id => self.id).first
+      sa.area_id = staff[:staff_areas]
+      sa.save
+      staff[:staff_areas] = [sa]
+    end
+    
     super(staff)
   end
   

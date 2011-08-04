@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Staff organization', new_staff_organization_path %>
+<%= link_to 'New Staff organization', new_staff_organization_path if can? :create, StaffOrganization %>

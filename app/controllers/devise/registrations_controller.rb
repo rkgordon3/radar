@@ -6,14 +6,18 @@ class Devise::RegistrationsController < ApplicationController
 
   # GET /resource/sign_up
   def new
+    authorize! :create, Staff
     build_resource({})
     @organizations = current_staff.get_registerable_organizations
+    logger.debug "*****#{@organizations.class}********"
     @access_levels = current_staff.get_registerable_access_levels
+    logger.debug "*****#{@access_levels.class}********"
     render_with_scope :new
   end
 
   # POST /resource
   def create
+    authorize! :create, Staff
     resource.devise_creation_param_handler(params[resource_name])
     build_resource
     
@@ -23,6 +27,8 @@ class Devise::RegistrationsController < ApplicationController
       redirect_to(resource)
     else
       clean_up_passwords(resource)
+      @organizations = current_staff.get_registerable_organizations
+      @access_levels = current_staff.get_registerable_access_levels
       render_with_scope :new
     end
   end
@@ -30,6 +36,7 @@ class Devise::RegistrationsController < ApplicationController
   # GET /resource/edit
   def edit
     @staff = Staff.find(params[:id])
+    authorize! :edit, @staff
     @organizations = current_staff.get_registerable_organizations
     @access_levels = current_staff.get_registerable_access_levels
     render_with_scope :edit
@@ -40,6 +47,7 @@ class Devise::RegistrationsController < ApplicationController
     params[resource_name].delete(:password) if params[resource_name][:password].blank?
     params[resource_name].delete(:password_confirmation) if params[resource_name][:password_confirmation].blank?
     @staff = Staff.find(params[resource_name][:id])
+    authorize! :update, @staff
     if resource.update_attributes(params[resource_name])
       @current_ability = nil
       @current_staff = nil

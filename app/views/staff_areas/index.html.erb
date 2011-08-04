@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Staff area', new_staff_area_path %>
+<%= link_to 'New Staff area', new_staff_area_path if can? :create, StaffArea %>

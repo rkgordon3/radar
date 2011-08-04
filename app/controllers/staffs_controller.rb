@@ -1,7 +1,6 @@
 class StaffsController < Devise::RegistrationsController
   before_filter :authenticate_staff!
-  load_resource :except => :destroy
-  authorize_resource
+  load_and_authorize_resource :except => :destroy
   
   # GET /staffs
   # GET /staffs.xml
@@ -39,6 +38,7 @@ class StaffsController < Devise::RegistrationsController
   # DELETE /staffs/1.xml
   def destroy
     @staff = Staff.find(params[:id])
+    authorize! :destroy, @staff
     @staff.destroy
 
     respond_to do |format|

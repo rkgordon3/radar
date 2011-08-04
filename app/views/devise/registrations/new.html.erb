@@ -18,7 +18,7 @@
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :Organization %><br />
+    <%= f.label :organization %><br />
     <%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:selected => 1}) %>
   </div>
   <div class="field">

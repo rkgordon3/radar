@@ -20,4 +20,4 @@
 
 <br />
 
-<%= link_to 'New Access level', new_access_level_path %>
+<%= link_to 'New Access level', new_access_level_path if can? :create, AccessLevel %>

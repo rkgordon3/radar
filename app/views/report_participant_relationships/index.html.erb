@@ -32,5 +32,5 @@
 
   <br />
 
-  <%= link_to 'New Report-participant relationship', new_report_participant_relationship_path %>
+  <%= link_to 'New Report-participant relationship', new_report_participant_relationship_path if can? :create, ReportParticipantRelationships %>
 </div>

@@ -19,5 +19,5 @@
 
 <br />
 
-<%= link_to 'New Annotation', new_annotation_path %>
+<%= link_to 'New Annotation', new_annotation_path if can? :create, Annotation %>
 </div>

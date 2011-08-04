@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Interested party', new_interested_party_path %>
+<%= link_to 'New Interested party', new_interested_party_path if can? :create, InterestedParty %>

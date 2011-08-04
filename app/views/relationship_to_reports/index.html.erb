@@ -28,5 +28,5 @@
 
 <br />
 
-<%= link_to 'New Relationship to Report', new_relationship_to_report_path %>
+<%= link_to 'New Relationship to Report', new_relationship_to_report_path if can? :create, RelationshipToReport %>
 </div>

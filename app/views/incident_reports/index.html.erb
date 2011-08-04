@@ -6,6 +6,6 @@
 		<p> No Incident Reports </p>
 	<% end %>
 <div class="new_report_link">
-<%= link_to 'New Incident Report', '/incident_reports/new' %>
+<%= link_to 'New Incident Report', '/incident_reports/new' if can? :create, IncidentReport %>
 </div>
 </div>

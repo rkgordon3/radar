@@ -20,5 +20,5 @@
 
 <br />
 
-<%= link_to 'New Report type', new_report_type_path %>
+<%= link_to 'New Report type', new_report_type_path if can? :create, ReportType %>
 </div>

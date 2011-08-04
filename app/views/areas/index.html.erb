@@ -28,5 +28,5 @@
 
   <br />
 
-  <%= link_to 'New Area', new_area_path %>
+  <%= link_to 'New Area', new_area_path if can? :create, Area %>
 </div>

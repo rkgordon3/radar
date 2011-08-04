@@ -18,5 +18,5 @@
 
 <br />
 
-<%= link_to 'New Round', new_round_path %>
+<%= link_to 'New Round', new_round_path if can? :create, Round %>
 </div>
