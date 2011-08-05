@@ -35,8 +35,11 @@
 
 
   <p><%= f.label :area %><br />
-    <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
-
+    <% if can? :update_area, @staff %>
+      <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
+  <% else %>
+    <b><%= @staff.staff_areas.first.area.name %></b>
+  <% end %></p>
   <%= f.hidden_field :id, :value => @staff.id %>
 
   <p><%= f.submit "Update" %></p>

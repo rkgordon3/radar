@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @reports = Report.where(:submitted => true, :approach_time => Time.now - 30.days .. Time.now, :type => params[:report])
+    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).where(:approach_time => Time.now - 30.days .. Time.now)
     @report_type = params[:report]
 	  
     params[:sort] ||= "approach_time"
@@ -23,10 +23,6 @@ class ReportsController < ApplicationController
       forward_as_mail(params[:emails])
       return
     end
-    @report ||= @incident_report
-    @report ||= @maintenance_report
-    @report ||= @note
-    @report ||= Report.find(params[:id])
     
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
@@ -40,7 +36,6 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    @report ||= Report.new(:staff_id =>  current_staff.id )
     session[:report] = @report
     
     respond_to do |format|
@@ -51,7 +46,6 @@ class ReportsController < ApplicationController
   
   # GET /reports/1/edit
   def edit
-    @report = Report.find(params[:id])
     session[:report]=@report
 
     respond_to do |format|
@@ -84,7 +78,7 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
-    @report = Report.find(params[:id])
+    
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report
@@ -255,6 +249,7 @@ class ReportsController < ApplicationController
   end
   
   def index_search
+    @reports = Kernel.const_get(params[:type]).accessible_by(current_ability)
     report_ids = Array.new
     student = nil
     # if a student's name was entered, find all reports with that student
@@ -271,7 +266,7 @@ class ReportsController < ApplicationController
       end
           
       # get the incident reports with those ids
-      @reports = @reports.where(:id => report_ids, :type => params[:type])
+      @reports = @reports.where(:id => report_ids)
     end
         
     #-----------------
@@ -293,28 +288,28 @@ class ReportsController < ApplicationController
         end
 			  
         # get the reports with ids in the array
-        @reports = Report.where(:id => report_ids, :type => params[:type])
+        @reports = @reports.where(:id => report_ids)
       end
     end
         
     #----------------
     # if no student or infraction was selected, select all
     if @reports == nil
-      @reports = Report.where(:submitted => true, :type => params[:type])
+      @reports = @reports.where(:submitted => true)
     end
         
         
     #-----------------
     # if a building was selected, get reports in that building
     if Integer(params[:building_id]) != Building.unspecified
-      @reports = @reports.where(:building_id => params[:building_id], :type => params[:type])
+      @reports = @reports.where(:building_id => params[:building_id])
     end
         
     #-----------------
     # if an area was selected, get reports in that area
     if Integer(params[:area_id]) != Area.unspecified
       buildings = Building.where(:area_id => params[:area_id])
-      @reports = @reports.where(:building_id => buildings, :type => params[:type])
+      @reports = @reports.where(:building_id => buildings)
           
     end
         
@@ -326,7 +321,7 @@ class ReportsController < ApplicationController
       min = Time.parse("01/01/2000").gmtime
       max = Time.parse(params[:submitted_before]).gmtime
           
-      @reports = @reports.where(:approach_time => min..max, :type => params[:type] )
+      @reports = @reports.where(:approach_time => min..max)
     end
         
     #-----------------
@@ -337,12 +332,12 @@ class ReportsController < ApplicationController
       min = Time.parse(params[:submitted_after]).gmtime
       max = Time.now.gmtime
           
-      @reports = @reports.where(:approach_time => min..max, :type => params[:type] )
+      @reports = @reports.where(:approach_time => min..max)
     end
         
         
     # finishing touches...
-    @reports = @reports.where(:submitted => true, :type => params[:type])
+    @reports = @reports.where(:submitted => true)
     params[:sort] ||= "approach_time"
     @reports = Report.sort(@reports,params[:sort])
         
@@ -381,4 +376,4 @@ class ReportsController < ApplicationController
       end
     end
   end
-end  
+end

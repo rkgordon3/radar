@@ -51,9 +51,11 @@ class Ability
     if access_level_symbol == :system_administrator
       can :manage, :all
       cannot [:index, :update, :create], :all
-      cannot [:show, :update, :destroy, :create], Report
+      cannot [:read, :update, :destroy, :create], Report
       can :index, Report
       can :manage, [IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Round, Area, Building]
+      cannot :read, Report, :submitted => false
+      can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
       cannot :update_organization, Staff
       cannot :destroy, IncidentReport
@@ -68,17 +70,17 @@ class Ability
     
     elsif access_level_symbol == :hall_director
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
-      cannot :update, MaintenanceReport
+      cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
     
     elsif access_level_symbol == :resident_assistant
-      cannot [:show, :update, :destroy], [Staff, IncidentReport, MaintenanceReport, Note]
-      can :update, [IncidentReport, MaintenanceReport], :staff_id => staff.id, :submitted => false
-      can :show, [IncidentReport, MaintenanceReport], :staff_id => staff.id
-
-      can [:show, :update], Note, :staff_id => staff.id
+      cannot [:read, :update, :destroy], [Staff, Report]
+      can [:read, :update], Report, :staff_id => staff.id
+      cannot :update, Report, :submitted => true
+      
       can :do, [Shift, Round]
-      cannot :create, Staff
+      can :index, Staff
+      cannot [:create, :update_area], Staff
       cannot :view_contact_info, Student
       cannot :index, Shift
       cannot :manage, Task

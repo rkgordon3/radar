@@ -29,6 +29,26 @@ class IncidentReportsController < ReportsController
     @report.process_participant_params_string_from_student_search(params[:participants])
     super
   end
+
+  def index
+    @report = @incident_report
+    super
+  end
+
+  def show
+    @report = @incident_report
+    super
+  end
+
+  def edit
+    @report = @incident_report
+    super
+  end
+
+  def destroy
+    @report = @incident_report
+    super
+  end
   
 end
 

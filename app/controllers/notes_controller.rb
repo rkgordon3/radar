@@ -7,4 +7,30 @@ class NotesController < ReportsController
     @report.process_participant_params_string_from_student_search(params[:participants])
     super
 	end
+
+  def index
+    @report = @note
+    super
+  end
+
+  def show
+    @report = @note
+    super
+  end
+
+  def edit
+    @report = @note
+    super
+  end
+
+  def update
+    @report = @note
+    super
+  end
+
+  def destroy
+    @report = @note
+    super
+  end
+
 end
