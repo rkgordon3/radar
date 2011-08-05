@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(staff)
+    alias_action :start_shift, :end_shift, :start_round, :end_round, :to => :do
+
     staff ||= Staff.new
 
     if staff.organization? :residence_life
@@ -51,29 +53,31 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:show, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Area, Building]
+      can :manage, [IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Round, Area, Building]
+      cannot :do, [Shift, Round]
       cannot :update_organization, Staff
       cannot :destroy, IncidentReport
 
     elsif access_level_symbol == :administrator
-      cannot [:update, :show], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :destroy, :all
-      can :destroy, Task
-    
+      can :destroy, [Staff, Task]
+      cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
+      
     elsif access_level_symbol == :administrative_assistant
-      cannot [:update, :show], Staff, :access_level => {:display_name => "Administrative Assistant"}
+      cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
     
     elsif access_level_symbol == :hall_director
-      cannot [:update, :show], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, MaintenanceReport
       cannot [:update, :create, :destroy], [Building, Area]
     
     elsif access_level_symbol == :resident_assistant
-      cannot [:show, :update], [Staff, IncidentReport, MaintenanceReport, Note]
+      cannot [:show, :update, :destroy], [Staff, IncidentReport, MaintenanceReport, Note]
       can [:show, :update], [IncidentReport, MaintenanceReport], :staff_id => staff.id, :submitted => false
       can [:show, :update], Note, :staff_id => staff.id
+      can :do, [Shift, Round]
       cannot :create, Staff
-      cannot [:show, :view_student_id, :view_contact_info], Student
+      cannot :view_contact_info, Student
       cannot :index, Shift
       cannot :manage, Task
     end

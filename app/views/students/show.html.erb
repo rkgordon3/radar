@@ -1,15 +1,14 @@
 <div id="inside_container" class="inside_container">
   <h1><%= "#{@student.first_name} #{@student.middle_initial} #{@student.last_name}" %></h1>
   <p id="notice"><%= notice %></p>
+  <p>
+    <%= link_to image_tag(@student.getImageUrl, :border=>0, :width => 150) %>
+  </p>
 
-  <%if staff_signed_in? %>
-    <%if can? :view_student_id, @student %>
-      <p>
-        <b>Student ID:</b>
-        <%= @student.student_id %>
-      </p>
-    <% end %>
-  <% end %>
+  <p>
+    <b>Student ID:</b>
+    <%= @student.student_id %>
+  </p>
 
   <p>
     <b>Residence:</b>
@@ -46,39 +45,31 @@
     <% end %>
   </p>
 
-  <%if staff_signed_in? %>
-    <%if can? :view_contact_info, @student %>
+  <%if can? :view_contact_info, @student %>
+    <p>
+      <b>Home Phone:</b>
+      <%= @student.home_phone %>
+    </p>
+    <p>
+      <b>Cell Phone:</b>
+      <%= @student.cell_phone %>
+    </p>
 
-      <p>
-        <b>Home Phone:</b>
-        <%= @student.home_phone %>
-      </p>
-      <p>
-        <b>Cell Phone:</b>
-        <%= @student.cell_phone %>
-      </p>
-
-      <p>
-        <b>Emergency Contact Information: </b>
-        <% if (@student.emergency_contact_name !=nil) %>
-          <%=  "#{@student.emergency_contact_name}" %>
-        <% else %>
-          <%=  "Unknown" %>
-        <% end %>
-        <b> @ </b>
-        <% if (@student.emContact !=nil) %>
-          <%=  "#{@student.emContact}" %>
-        <% else %>
-          <%=  "Unknown" %>
-        <% end %>
-      </p>
-
-    <% end %>
+    <p>
+      <b>Emergency Contact Information: </b>
+      <% if (@student.emergency_contact_name !=nil) %>
+        <%=  "#{@student.emergency_contact_name}" %>
+      <% else %>
+        <%=  "Unknown" %>
+      <% end %>
+      <b> @ </b>
+      <% if (@student.emContact !=nil) %>
+        <%=  "#{@student.emContact}" %>
+      <% else %>
+        <%=  "Unknown" %>
+      <% end %>
+    </p>
   <% end %>
-
-  <p>
-    <%= link_to image_tag(@student.getImageUrl, :border=>0, :width => 150) %>
-  </p>
 </div>
 
 

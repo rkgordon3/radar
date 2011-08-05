@@ -1,13 +1,20 @@
 <fieldset>
-<ul>
-<li>
-  <%= "Birthday: #{participant.birthday_string}" %>
-</li>
-<li>
-<%= "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
-</li>
-<li>
-<%= "Emergency Contact: #{participant.emergency_contact_name} @ #{participant.emContact}" %>
-</li>
-</ul>
+  <ul>
+    <li>
+      <%= "Birthday: " %>
+      <%= participant.birthday_string rescue "Unknown" %>
+    </li>
+    <li>
+      <%= "Room: " %>
+      <%= participant.room_number rescue "" %>
+      <%= " " %>
+      <%= participant.building.name rescue "Unknown" %>
+    </li>
+    <li>
+      <%= "Extension: " %>
+      <%= participant.emergency_contact_name rescue "Unkown Name" %>
+      <%= " @ " %>
+      <%= participant.emContact rescue "Unknown Number" %>
+    </li>
+  </ul>
 </fieldset> 

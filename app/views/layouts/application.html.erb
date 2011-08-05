@@ -25,26 +25,28 @@
             <td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
 
             <td style = "width: 150px;">
-              <% if current_staff.on_duty?  %>
-                <div id= "duty_button">
-                  <%= render :partial => "shifts/end_shift_button" %>
-                </div>
-              <% else %>
-                <div id= "duty_button">
-                  <%= render :partial => "shifts/start_shift_button" %>
-                </div>
-              <% end %></td>
+              <% if can? :do, Shift %>
+                <% if current_staff.on_duty? %>
+                  <div id= "duty_button">
+                    <%= render :partial => "shifts/end_shift_button" %>
+                  </div>
+                <% else %>
+                  <div id= "duty_button">
+                    <%= render :partial => "shifts/start_shift_button" %>
+                  </div>
+                <% end %></td>
 
-            <td style = "width: 170px;">
+              <td style = "width: 170px;">
 
-              <div id = "round_button">
-                <% if  current_staff.on_duty? %>
-                  <% if current_staff.on_round? %>
-                    <%= render :partial => "rounds/end_round_button" %>
-                  <% else %>
-                    <%= render :partial => "rounds/start_round_button" %>
-                  <% end %>
-                <% end %></div></td>
+                <div id = "round_button">
+                  <% if  current_staff.on_duty? %>
+                    <% if current_staff.on_round? %>
+                      <%= render :partial => "rounds/end_round_button" %>
+                    <% else %>
+                      <%= render :partial => "rounds/start_round_button" %>
+                    <% end %>
+                  <% end %></div></td>
+            <%  end %>
 
             <td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
             <td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" if can? :update, current_staff.notification_preferences %> </td>

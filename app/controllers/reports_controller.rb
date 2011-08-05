@@ -23,10 +23,11 @@ class ReportsController < ApplicationController
       forward_as_mail(params[:emails])
       return
     end
-    
     @report ||= @incident_report
     @report ||= @maintenance_report
+    @report ||= @note
     @report ||= Report.find(params[:id])
+    
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
