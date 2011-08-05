@@ -18,6 +18,15 @@
 
     <span style="font-style: italic;">Extension: </span>
     <%= participant.extension rescue "Unknown" %><br/>
+
+    <div id="emergency_contact">
+      <% if can? :view_contact_info, Student %>
+        <span style="font-style: italic;">Emergency Contact: </span>
+        <%= participant.emergency_contact_name rescue "" %>
+        <%= " @ " if participant.emergency_contact_name != nil && participant.emContact!=nil %>
+        <%= participant.emContact rescue "Unknown" %><br />
+      <% end %>
+    </div>
   </div>
 </div>
 

@@ -12,9 +12,15 @@
     </li>
     <li>
       <%= "Extension: " %>
-      <%= participant.emergency_contact_name rescue "Unkown Name" %>
-      <%= " @ " %>
-      <%= participant.emContact rescue "Unknown Number" %>
+      <%= participant.extension rescue "Unknown" %>
     </li>
+    <% if can? :view_contact_info, Student %>
+      <li>
+        <%= "Emergency Contact: " %>
+        <%= participant.emergency_contact_name rescue "" %>
+        <%= " @ " if participant.emergency_contact_name != nil && participant.emContact!=nil %>
+        <%= participant.emContact rescue "Unknown" %>
+      </li>
+    <% end %>
   </ul>
 </fieldset> 
