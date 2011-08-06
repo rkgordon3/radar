@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   
   def index
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).where(:approach_time => Time.now - 30.days .. Time.now)
-    @report_type = params[:report]
+    @report_type = ReportType.find_by_name(params[:report])
 	  
     params[:sort] ||= "approach_time"
     

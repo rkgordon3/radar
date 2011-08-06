@@ -27,8 +27,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <% report_type_id = ReportType.where(:name => @report_type).first.id %>
-                            <b><%= t "#{@report_type.tableize}.reasons" %>:</b><br />
+                            <% report_type_id = @report_type.id %>
+                            <b><%= t "#{@report_type.class}.reasons" %>:</b><br />
                             <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
                                
                                 <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
@@ -48,7 +48,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <%= hidden_field_tag 'type', @report_type %>
+                            <%= hidden_field_tag 'type', @report_type.name %>
                             <input id="submit" name="submit" type="submit" value="Update" />
                         </td>
                     </tr>
