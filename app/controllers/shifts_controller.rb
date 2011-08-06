@@ -5,22 +5,14 @@ class ShiftsController < ApplicationController
   
   
   def index
-    @shifts = Shift.sort(Shift,params[:sort])
+    @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name = ?", params[:access_level])
+    @shifts = Shift.sort(@shifts,params[:sort])
     @numRows = 0
+    access_level = AccessLevel.find_by_name(params[:access_level])
     
     respond_to do |format|
-      format.html { render :locals => { :shifts => @shifts } }
+      format.html { render :locals => { :shifts => @shifts, :access_level => access_level } }
       format.xml  { render :xml => @shifts }
-    end
-  end
-  
-  # GET /shifts/1
-  # GET /shifts/1.xml
-  def show
-    respond_to do |format|
-      
-      format.html # show.html.erb
-      format.xml  { render :xml => @shift }
     end
   end
   
@@ -38,9 +30,10 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.xml
   def create
+    @shift.area_id = current_staff.staff_areas.first.area.id
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to(@shift, :notice => 'Shift was successfully created.') }
+        format.html { redirect_to({:action => 'call_log', :controller => 'shifts'}, :notice => 'Shift was successfully created.') }
         format.xml  { render :xml => @shift, :status => :created, :location => @shift }
       else
         format.html { render :action => "new" }
@@ -52,7 +45,16 @@ class ShiftsController < ApplicationController
   # PUT /shifts/1
   # PUT /shifts/1.xml
   def update
-    # @report_type automatically loaded by CanCan
+    # @shift automatically loaded by CanCan
+    respond_to do |format|
+      if @shift.update_attributes(params[:report])
+        format.html { redirect_to({:action => 'call_log', :controller => 'shifts', :id => @shift.id}, :notice => 'Shift was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @shift.errors, :status => :unprocessable_entity }
+      end
+    end
   end
   
   # DELETE /shifts/1
@@ -82,6 +84,10 @@ class ShiftsController < ApplicationController
         format.js
       end
     end
+  end
+
+  def call_log
+    duty_log
   end
   
   def duty_log

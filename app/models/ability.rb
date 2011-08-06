@@ -57,6 +57,7 @@ class Ability
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
+      cannot :create, Shift
       cannot :update_organization, Staff
       cannot :destroy, IncidentReport
 
@@ -73,17 +74,24 @@ class Ability
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
       cannot :manage, Import
+
+      cannot :manage, Shift
+      can [:list_RA_duty_logs], Shift
+      can [:duty_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
+      can [:read, :create, :call_log, :update], Shift, :staff_id => staff.id
     
     elsif access_level_symbol == :resident_assistant
       cannot [:read, :update, :destroy], [Staff, Report]
       can [:read, :update], Report, :staff_id => staff.id
       cannot :update, Report, :submitted => true
-      
+
+      cannot :manage, Shift
       can :do, [Shift, Round]
+      can [:duty_log, :read], Shift, :staff_id => staff.id
+
       can :index, Staff
       cannot [:create, :update_area], Staff
       cannot :view_contact_info, Student
-      cannot :index, Shift
       cannot :manage, Task
     end
   end

@@ -23,12 +23,14 @@
     <ul>
       <li><%= link_to "My To Do List", "/task_assignments" if can? :do, Shift %></li>
       <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
-      <li><%= link_to "List Tasks", "/tasks" if can? :index, Task%></li>
+      <li><%= link_to "List Tasks", "/tasks" if can? :index, Task %></li>
     </ul>
   </li>
-  <li><%= link_to "Duty Logs", "/shifts" if can? :index, Shift %>
+  <li><%= link_to "Shifts/Duty Logs", "/shifts" if can? :index, Shift %>
     <ul>
-      <li><%= link_to "List Duty Logs", "/shifts" if can? :index, Shift %></li>
+      <li><%= link_to "New Shift", "/shifts/new" if can? :create, Shift %></li>
+      <li><%= link_to "List HD Duty Logs", "/shifts?access_level=HallDirector" if can? :list_HD_call_logs, Shift %></li>
+      <li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant" if can? :list_RA_duty_logs, Shift %></li>
     </ul>
   </li>
   <li><a href="/">Miscellaneous</a>
