@@ -15,13 +15,13 @@
   </li>
   <li><%= link_to "Maintenance Requests", "/maintenance_reports/new" if can? :create, MaintenanceReport %>
     <ul>
-      <li><%= link_to "New Incident Report", "/maintenance_reports/new" if can? :create, MaintenanceReport %></li>
+      <li><%= link_to "New Maintenence Report", "/maintenance_reports/new" if can? :create, MaintenanceReport %></li>
       <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" if can? :index, MaintenanceReport %></li>
     </ul>
   </li>
   <li><%= link_to "Tasks", "/task_assignments" %>
     <ul>
-      <li><%= link_to "My To Do List", "/task_assignments" %></li>
+      <li><%= link_to "My To Do List", "/task_assignments" if can? :do, Shift %></li>
       <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
       <li><%= link_to "List Tasks", "/tasks" if can? :index, Task%></li>
     </ul>
@@ -33,10 +33,11 @@
   </li>
   <li><a href="/">Miscellaneous</a>
     <ul>
-      <li><%= link_to "Buildings", "/buildings" if can? :index, Building %></li>
-      <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
+      <li><%= link_to "Make A Note", "/notes/new" if can? :create, Note %></li>
       <li><%= link_to "Staff Members", "/staffs" if can? :index, Staff %></li>
       <li><%= link_to "Update Student Data", "/imports/new" if can? :create, Import %></li>
+      <li><%= link_to "Buildings", "/buildings" if can? :index, Building %></li>
+      <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
     </ul>
   </li>
 

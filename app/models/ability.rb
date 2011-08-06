@@ -53,7 +53,7 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:read, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Round, Area, Building]
+      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Round, Area, Building]
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
@@ -72,6 +72,7 @@ class Ability
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
+      cannot :manage, Import
     
     elsif access_level_symbol == :resident_assistant
       cannot [:read, :update, :destroy], [Staff, Report]
