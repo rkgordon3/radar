@@ -26,10 +26,11 @@
       <li><%= link_to "List Tasks", "/tasks" if can? :index, Task %></li>
     </ul>
   </li>
-  <li><%= link_to "Shifts/Duty Logs", "/shifts" if can? :index, Shift %>
+  <li><%= link_to "Shifts/Logs", "/shifts?access_level=Any" if can? :index, Shift %>
     <ul>
       <li><%= link_to "New Shift", "/shifts/new" if can? :create, Shift %></li>
-      <li><%= link_to "List HD Duty Logs", "/shifts?access_level=HallDirector" if can? :list_HD_call_logs, Shift %></li>
+      <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}" if can? :index, Shift %></li>
+      <li><%= link_to "List HD Call Logs", "/shifts?access_level=HallDirector" if can? :list_HD_call_logs, Shift %></li>
       <li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant" if can? :list_RA_duty_logs, Shift %></li>
     </ul>
   </li>

@@ -2,11 +2,25 @@ class Shift < ActiveRecord::Base
   belongs_to :staff
   has_many :rounds, :dependent => :destroy
   belongs_to :area
+  belongs_to :annotation, :dependent => :destroy
   has_many :task_assignments, :dependent => :destroy
-  
+
+  def update_attributes(params)
+    ann = self.annotation
+    ann ||= Annotation.new
+    ann.text = params[:annotation]
+    ann.save
+    params[:annotation] = ann
+    super(params)
+  end
+
   def assign_task (task)
     ta = TaskAssignment.new(:shift_id => self.id, :task_id => task.id, :done => false)
     self.task_assignments << ta
+  end
+
+  def annotation_text
+    self.annotation != nil ? self.annotation.text : nil
   end
   
   def save

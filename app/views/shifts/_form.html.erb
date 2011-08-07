@@ -21,6 +21,11 @@
     <%= text_field(:shift, :time_out, :id => "time_out", :value => @shift.time_out) %>
   </div>
 
+<div class="field">
+    <b>  <%= t "summary:" %></b><br />
+    <%= text_area(:shift, :annotation,  :cols=> "60", :rows => "4", :value=> @shift.annotation_text) %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

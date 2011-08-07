@@ -1,14 +1,10 @@
 <div id="inside_container" class="inside_container">
-  <h1><% if access_level != nil %>
-      <% if access_level.display_name == "Hall Director" %>
-        Hall Director Call Logs
-      <% elsif access_level.display_name == "Resident Assistant" %>
-        Resident Assistant Duty Logs
-      <% else %>
-        All Logs
-      <% end %>
+  <h1><% if all_logs %>
+      All Shifts
+    <% elsif access_level != nil %>
+      <%= "#{access_level} #{log_type} Logs" %>
     <% else %>
-      All Logs
+      My Logs
     <% end %></h1>
   <% if shifts.length > 0 %>
     <%= render :partial => "shifts/index_generic", :locals => { :shifts => shifts } %>

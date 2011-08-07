@@ -2,29 +2,36 @@
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
   <font size="4" color="595959"><b>RA: </b></font><font size="4"><%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></font><br />
   <font size="4" color="595959"><b>On Call: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
-
   <p><div>
-    <%= link_to image_tag("/images/add_icon.gif", :id => "all-reports-img"), "javascript:void(0)",
-      :onclick => "plusMinusToggle('all-reports', 'all-reports-img');" %>
-    <b><font size="3">Reports Submitted </font>
-      <% if total_reports == 0 %>
-        <font color="595959" size="3">
-        <% else %>
-          <font color="B40D10" size="3">
-          <% end %>
-          <%= "(#{total_reports}) " %></font></b>
-    <% if total_incident_reports == 0 %>
-      <font color="595959"><%= "[no incident reports] " %></font>
-    <% elsif total_incident_reports == 1 %>
-      <font color="B40D10"><%= "[1 incident report] " %></font>
+    <b><font size="3">Summary</font></b><br />
+    <% if @shift.annotation.text.length > 0 %>
+      <%= @shift.annotation_text %>
     <% else %>
-      <font color="B40D10"><%= "[#{total_incident_reports} incident reports] " %></font>
+      No summary for this shift
     <% end %>
-    <div id='all-reports' class='call_log_div' style="display: none;">
-      <%= render :partial=> "shifts/reports_in_call_log", :locals =>
-        { :reports => reports, :notes => notes } %>
-    </div>
   </div></p>
+<p><div>
+  <%= link_to image_tag("/images/add_icon.gif", :id => "all-reports-img"), "javascript:void(0)",
+    :onclick => "plusMinusToggle('all-reports', 'all-reports-img');" %>
+  <b><font size="3">Reports Submitted </font>
+    <% if total_reports == 0 %>
+      <font color="595959" size="3">
+      <% else %>
+        <font color="B40D10" size="3">
+        <% end %>
+        <%= "(#{total_reports}) " %></font></b>
+  <% if total_incident_reports == 0 %>
+    <font color="595959"><%= "[no incident reports] " %></font>
+  <% elsif total_incident_reports == 1 %>
+    <font color="B40D10"><%= "[1 incident report] " %></font>
+  <% else %>
+    <font color="B40D10"><%= "[#{total_incident_reports} incident reports] " %></font>
+  <% end %>
+  <div id='all-reports' class='shift_log_div' style="display: none;">
+    <%= render :partial=> "shifts/reports_in_call_log", :locals =>
+      { :reports => reports, :notes => notes } %>
+  </div>
+</div></p>
 <p><div>
   <%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
     :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
@@ -40,11 +47,11 @@
   <% else %>
     <font color="B40D10"><%= "[#{total_incomplete_task_assignments} not done]" %></font>
   <% end %>
-  <div id='tasks' class='call_log_div' style="display: none;" >
+  <div id='tasks' class='shift_log_div' style="display: none;" >
     <div id="tasks-div" >
       <%= render :partial => "task_assignments/task_assignments_full_info_table" %>
     </div>
   </div>
 </div></p>
-<p></p>
+<%= link_to 'Edit', edit_shift_path(@shift) if can? :edit, @shift %>
 </div>

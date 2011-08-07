@@ -10,7 +10,7 @@ class TaskAssignment < ActiveRecord::Base
     elsif key=="done_time"
       return data.where(:done => true).order("updated_at DESC").all + data.where(:done => false).all
     elsif key=="staff"
-      return data.joins(:staff).order("last_name ASC").all
+      return data.joins(:shift=>:staff).order("last_name ASC").all
     else
       return data.order("created_at DESC").all
     end

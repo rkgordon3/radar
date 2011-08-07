@@ -8,7 +8,7 @@
       <font color="B40D10">
       <% end %>
       <%= " (#{reports.length})" %></font></h4>
-    <div id="reports" style="display: none;" class='call_log_div' >
+    <div id="reports" style="display: none;" class='shift_log_div' >
       <% if reports.length > 0 %>
         <div id="reports-div" >
           <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
@@ -27,7 +27,7 @@
           <font color="B40D10">
           <% end %>
           <%= " (#{notes.length})" %></font></h4>
-        <div id="notes" class='call_log_div' style="display: none;">
+        <div id="notes" class='shift_log_div' style="display: none;">
           <% if notes.length > 0 %>
             <div id="notes-div" >
               <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>

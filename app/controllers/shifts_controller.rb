@@ -5,13 +5,27 @@ class ShiftsController < ApplicationController
   
   
   def index
-    @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name = ?", params[:access_level])
+    all_logs = false
+    if params[:access_level] == "Any"
+      #don't filter shifts
+      all_logs = true
+
+    elsif params[:access_level] != nil
+      @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name = ?", params[:access_level])
+      access_level = AccessLevel.find_by_name(params[:access_level])
+      log_type = access_level.log_type
+      access_level = access_level.display_name
+    end
+
+    if params[:staff_id] != nil
+      @shifts = @shifts.where(:staff_id => params[:staff_id])
+    end
     @shifts = Shift.sort(@shifts,params[:sort])
     @numRows = 0
-    access_level = AccessLevel.find_by_name(params[:access_level])
+    
     
     respond_to do |format|
-      format.html { render :locals => { :shifts => @shifts, :access_level => access_level } }
+      format.html { render :locals => { :shifts => @shifts, :access_level => access_level, :log_type => log_type, :all_logs => all_logs } }
       format.xml  { render :xml => @shifts }
     end
   end
@@ -33,7 +47,7 @@ class ShiftsController < ApplicationController
     @shift.area_id = current_staff.staff_areas.first.area.id
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to({:action => 'call_log', :controller => 'shifts'}, :notice => 'Shift was successfully created.') }
+        format.html { redirect_to({:action => 'shift_log', :controller => 'shifts'}, :notice => 'Shift was successfully created.') }
         format.xml  { render :xml => @shift, :status => :created, :location => @shift }
       else
         format.html { render :action => "new" }
@@ -47,8 +61,8 @@ class ShiftsController < ApplicationController
   def update
     # @shift automatically loaded by CanCan
     respond_to do |format|
-      if @shift.update_attributes(params[:report])
-        format.html { redirect_to({:action => 'call_log', :controller => 'shifts', :id => @shift.id}, :notice => 'Shift was successfully updated.') }
+      if @shift.update_attributes(params[:shift])
+        format.html { redirect_to({:action => 'shift_log', :controller => 'shifts', :id => @shift.id}, :notice => 'Shift was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -86,6 +100,20 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def shift_log
+    if @shift.staff.access_level.log_type == 'Duty'
+      respond_to do |format|
+        format.html { redirect_to({:action => 'duty_log', :controller => 'shifts', :id => @shift.id})}
+        format.js { redirect_to({:action => 'duty_log', :controller => 'shifts', :id => @shift.id})}
+      end
+    elsif @shift.staff.access_level.log_type == 'Call'
+      respond_to do |format|
+        format.html { redirect_to({:action => 'call_log', :controller => 'shifts', :id => @shift.id})}
+        format.js { redirect_to({:action => 'call_log', :controller => 'shifts', :id => @shift.id})}
+      end
+    end
+  end
+
   def call_log
     #RA shifts included in HD call logs are defined as ones that ended while the HD was on duty
     ra_shifts = Shift.joins(:staff => :access_level ).where("access_levels.name = ?", "ResidentAssistant")
@@ -107,9 +135,9 @@ class ShiftsController < ApplicationController
     @task_assignments = TaskAssignment.sort(@task_assignments, params[:sort_tasks])
     
     respond_to do |format|
-      format.html { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
-      format.xml  { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
-      format.js   { render :locals => { :reports => reports, :notes => notes } }
+      format.html { render 'shifts/call_log', :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
+      format.xml  { render 'shifts/call_log', :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
+      format.js   { render 'shifts/call_log', :locals => { :reports => reports, :notes => notes } }
     end
 
   end
@@ -150,13 +178,14 @@ class ShiftsController < ApplicationController
     # off_round_reports = Report.sort(off_round_reports,params[:sort]) <<<<==== Report.sort does not work with Array class TODO: make off_round_reports instance of ActiveRecord::Relation class
     
     respond_to do |format|
-      format.html { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
-      format.xml  { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
-      format.js   { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :off_round_reports => off_round_reports, :off_round_notes => off_round_notes } }
+      format.html { render 'shifts/duty_log', :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
+      format.xml  { render 'shifts/duty_log', :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
+      format.js   { render 'shifts/duty_log', :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :off_round_reports => off_round_reports, :off_round_notes => off_round_notes } }
     end
   end
   
   def end_shift
+    #TODO: add annotation creation mechanism
     if current_staff.on_duty?
       @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
       if @shift == nil
