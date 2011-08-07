@@ -2,11 +2,11 @@ class AccessLevel < ActiveRecord::Base
 
   def log_type
     if self.name == "ResidentAssistant"
-      return "Duty"
+      return "duty"
     elsif self.name == "HallDirector"
-      return "Call"
+      return "call"
     end
-    return "No"
+    return "no"
   end
 
 end

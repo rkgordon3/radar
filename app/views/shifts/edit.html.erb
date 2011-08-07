@@ -1,5 +1,5 @@
 <div id="inside_container" class="inside_container"><h1>Editing shift</h1>
   <%= render 'form' %>
 
-  <%= link_to "Show #{@shift.staff.access_level.log_type} Log", :controller => "shifts", :action => "shift_log", :id => @shift if can? :shift_log, @shift%>
+  <%= link_to "Show #{@shift.staff.access_level.log_type.capitalize} Log", :controller => "shifts", :action => "#{@shift.staff.access_level.log_type}_log", :id => @shift if can? :shift_log, @shift%>
 </div>
