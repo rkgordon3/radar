@@ -1,7 +1,10 @@
 #this .js is necessary for the sorting links in the report tables to work
-@rounds.each  do |round|
-  page.replace_html "round #{round.id}-reports-div", :partial => 'reports/report_table_row', :locals => { :reports => on_round_report_map[round], :num_rows => 0}
-  page.replace_html "round #{round.id}-notes-div", :partial => 'reports/report_table_row', :locals => { :reports => on_round_note_map[round], :num_rows => 0}
+if reports.length > 0
+  page.replace_html "reports-div", :partial => 'reports/report_table_row', :locals => { :reports => reports, :num_rows => 0}
 end
-page.replace_html "off-round-reports-div", :partial => 'reports/report_table_row', :locals => { :reports => off_round_reports, :num_rows => 0}
-page.replace_html "off-round-notes-div", :partial => 'reports/report_table_row', :locals => { :reports => off_round_notes, :num_rows => 0}
+if notes.length > 0
+  page.replace_html "notes-div", :partial => 'reports/report_table_row', :locals => { :reports => notes, :num_rows => 0}
+end
+if @task_assignments.length > 0
+  page.replace_html "tasks-div", :partial => 'task_assignments/task_assignments_full_info_table', :locals => { :task_assignments => @task_assignments, :num_rows => 0}
+end

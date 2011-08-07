@@ -22,7 +22,7 @@ td {
     overflow: hidden;
 }
 
-#print_logo, div.duty_log_div { display:block !important; }
+#print_logo, div.duty_log_div, div.call_log_div { display:block !important; }
 
 #common-reasons-container, #emergency_contact, #forward_div, #edit_destroy_link { display:none; }
 

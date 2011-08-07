@@ -14,7 +14,11 @@
     <td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
     <td>
       <% if shift.time_out != nil %>
-        <%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %>
+        <% if shift.staff.access_level.name == "ResidentAssistant" %>
+          <%= link_to 'View Duty Log', :controller => "shifts", :action => "duty_log", :id => shift %>
+        <% elsif shift.staff.access_level.name == "HallDirector" %>
+          <%= link_to 'View Call Log', :controller => "shifts", :action => "call_log", :id => shift %>
+        <% end %>
       <% end %>
     </td>
   </tr>

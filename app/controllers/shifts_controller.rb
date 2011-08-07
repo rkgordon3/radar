@@ -87,7 +87,31 @@ class ShiftsController < ApplicationController
   end
 
   def call_log
-    duty_log
+    #RA shifts included in HD call logs are defined as ones that ended while the HD was on duty
+    ra_shifts = Shift.joins(:staff => :access_level ).where("access_levels.name = ?", "ResidentAssistant")
+    ra_shifts = ra_shifts.where("time_out >= ? AND time_out < ?", @shift.created_at, @shift.time_out)
+    ra_shift_ids = Array.new
+    ra_shifts.each do |ra_shift|
+      ra_shift_ids << ra_shift.id
+    end
+    reports = Report.where(:created_at => @shift.created_at..@shift.time_out, :submitted=> true)
+    total_reports = reports.length
+    total_incident_reports = reports.where(:type => "IncidentReport").length
+    notes = reports.where(:type => "Note")
+    notes = Report.sort(notes,params[:sort])
+    reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
+    reports = Report.sort(reports,params[:sort])
+
+    @task_assignments = TaskAssignment.where(:shift_id => ra_shift_ids)
+    total_incomplete_task_assignments = @task_assignments.where(:done => false).length
+    @task_assignments = TaskAssignment.sort(@task_assignments, params[:sort_tasks])
+    
+    respond_to do |format|
+      format.html { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
+      format.xml  { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
+      format.js   { render :locals => { :reports => reports, :notes => notes } }
+    end
+
   end
   
   def duty_log
@@ -114,7 +138,6 @@ class ShiftsController < ApplicationController
       notes = reports.where(:type => "Note")
       notes = Report.sort(notes,params[:sort])
       reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
-      
       reports = Report.sort(reports,params[:sort])
       on_round_report_map[round] = reports
       on_round_note_map[round] = notes

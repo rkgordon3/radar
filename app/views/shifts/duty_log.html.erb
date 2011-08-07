@@ -24,7 +24,7 @@
     <div id='rounds' class='duty_log_div' style="display: none;">
       <% round_count = 0 %>
       <% if @rounds.length > 0 %>
-        <%  @rounds.each  do |round|  %>
+        <%  @rounds.each  do |round| %>
           <% round_count = round_count + 1 %>
           <%= render :partial=> "shifts/round_in_duty_log", :locals =>
             { :round_count => round_count, :round => round, :reports =>on_round_report_map[round], :notes => on_round_note_map[round] } %>

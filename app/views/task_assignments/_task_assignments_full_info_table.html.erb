@@ -1,0 +1,13 @@
+<% if @task_assignments.length > 0 %>
+  <table>
+    <tr>
+      <th><%= link_to "Title", params.merge(:sort_tasks => "title"), :remote => true %></th>
+      <th><%= link_to "Time Assigned", params.merge(:sort_tasks => "start_time"), :remote => true %></th>
+      <th><%= link_to "Time Finished", params.merge(:sort_tasks => "done_time"), :remote => true %></th>
+      <th><%= link_to "RA", params.merge(:sort_tasks => "staff"), :remote => true %></th>
+    </tr>
+    <%= render :partial => "task_assignments/task_assignments_full_info_table_rows", :locals => { :task_assignments => @task_assignments, :num_rows=>0 } %>
+  </table>
+<% else %>
+  <p>No tasks were assigned during this shift.</p>
+<% end %>
