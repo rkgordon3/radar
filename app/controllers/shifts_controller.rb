@@ -196,7 +196,6 @@ class ShiftsController < ApplicationController
   end
   
   def end_shift
-    logger.debug "***********ending shift***********"
     @shift = current_staff.current_shift
     total_incomplete_task_assignments = TaskAssignment.where(:shift_id => @shift.id).where(:done => false).length
     

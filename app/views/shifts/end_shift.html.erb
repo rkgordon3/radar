@@ -1,4 +1,5 @@
-<div id="inside_container" class="inside_container"><h1>RA Shift Summary</h1>
-  <b><i> MUST SUBMIT in order to go off duty</i></b>
+<div id="inside_container" class="inside_container"><h1>Summarize Shift and Go Off Duty</h1>
+  <b><i> MUST CLICK UPDATE in order to finish going off duty.</i></b><br />
+  <font color="B40D10"><b><%= "You have #{total_incomplete_task_assignments} incomplete tasks." if total_incomplete_task_assignments.length > 0 %></b></font><br />
   <%= render 'form' %>
 </div>
