@@ -11,7 +11,7 @@
         <font color="B40D10">
         <% end %>
         <%= " (#{reports.length})" %></font></h4>
-      <div id="off-round-reports" style="display: none;" class='duty_log_div' >
+      <div id="off-round-reports" style="display: none;" class='shift_log_div' >
         <% if reports.length > 0 %>
           <div id="off-round-reports-div" >
             <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
@@ -31,7 +31,7 @@
         <font color="B40D10">
         <% end %>
         <%= " (#{notes.length})" %></font></h4>
-      <div id="off-round-notes" class='duty_log_div' style="display: none;">
+      <div id="off-round-notes" class='shift_log_div' style="display: none;">
         <% if notes.length > 0 %>
           <div id="off-round-notes-div" >
             <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
