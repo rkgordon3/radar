@@ -45,9 +45,11 @@ class ShiftsController < ApplicationController
   # POST /shifts.xml
   def create
     @shift.area_id = current_staff.staff_areas.first.area.id
+    @shift.annotation = Annotation.new(:text => params[:annotation][:text])
+
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts'}, :notice => 'Shift was successfully created.') }
+        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Shift was successfully created.') }
         format.xml  { render :xml => @shift, :status => :created, :location => @shift }
       else
         format.html { render :action => "new" }
@@ -60,6 +62,8 @@ class ShiftsController < ApplicationController
   # PUT /shifts/1.xml
   def update
     # @shift automatically loaded by CanCan
+    params[:shift][:annotation] = params[:annotation][:text]
+    
     respond_to do |format|
       if @shift.update_attributes(params[:shift])
         format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift.id}, :notice => 'Shift was successfully updated.') }

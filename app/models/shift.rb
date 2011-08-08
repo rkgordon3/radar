@@ -6,11 +6,8 @@ class Shift < ActiveRecord::Base
   has_many :task_assignments, :dependent => :destroy
 
   def update_attributes(params)
-    ann = self.annotation
-    ann ||= Annotation.new
-    ann.text = params[:annotation]
-    ann.save
-    params[:annotation] = ann
+    self.annotation.text = params[:annotation]
+    params[:annotation] = self.annotation
     super(params)
   end
 
@@ -27,6 +24,7 @@ class Shift < ActiveRecord::Base
     self.task_assignments.each do |ta|
       ta.save
     end
+    self.annotation.save
     super
   end
   
