@@ -46,11 +46,14 @@ class ShiftsController < ApplicationController
   def create
     @shift.area_id = current_staff.staff_areas.first.area.id
     @shift.annotation = Annotation.new(:text => params[:annotation][:text])
+    # unless the following 2 commands are executed, the time is saved in the wrong time zone
+    @shift.created_at = @shift.created_at.advance({:hours=>0})
+    @shift.time_out = @shift.time_out.advance({:hours=>0})
+    # can't understand why... but had to do it for tasks as well
 
     respond_to do |format|
       if @shift.save
         format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Shift was successfully created.') }
-        format.xml  { render :xml => @shift, :status => :created, :location => @shift }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @shift.errors, :status => :unprocessable_entity }

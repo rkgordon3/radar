@@ -9,6 +9,11 @@ class Shift < ActiveRecord::Base
     self.annotation.text = params[:annotation]
     params[:annotation] = self.annotation
     super(params)
+    # as in the controller, the following must be done to save the time in the correct time zone
+    self.created_at = self.created_at.advance({:hours=>0})
+    self.time_out = self.time_out.advance({:hours=>0})
+    self.save
+    # can't understand it
   end
 
   def assign_task (task)
