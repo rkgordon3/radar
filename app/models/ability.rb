@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(staff)
-    alias_action :start_shift, :end_shift, :start_round, :end_round, :to => :do
+    alias_action :start_shift, :end_shift, :start_round, :end_round, :update, :to => :do
     alias_action :call_log, :duty_log, :to => :shift_log
 
     staff ||= Staff.new
@@ -79,7 +79,7 @@ class Ability
       cannot :manage, Shift
       can [:list_RA_duty_logs], Shift
       can [:shift_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
-      can [:read, :create, :shift_log, :update], Shift, :staff_id => staff.id
+      can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     
     elsif access_level_symbol == :resident_assistant
       cannot [:read, :update, :destroy], [Staff, Report]

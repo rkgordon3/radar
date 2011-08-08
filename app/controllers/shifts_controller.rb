@@ -65,11 +65,28 @@ class ShiftsController < ApplicationController
   # PUT /shifts/1.xml
   def update
     # @shift automatically loaded by CanCan
+    params[:shift] ||= Hash.new
+    params[:shift][:time_out] ||= Time.now
     params[:shift][:annotation] = params[:annotation][:text]
+
+    round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+    if round != nil
+      round.end_time = Time.now
+      round.save
+      @notice = "You are now off a round and off duty."
+    else
+      @notice = "Your shift has been updated."
+    end
+
+    if !@shift.tasks_completed?
+      @notice = @notice + "..but some tasks were not completed!"
+    end
+
     
     respond_to do |format|
       if @shift.update_attributes(params[:shift])
-        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift.id}, :notice => 'Shift was successfully updated.') }
+        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift.id}, :notice => @notice) }
+        format.js { render 'shifts/end_shift' }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -90,6 +107,7 @@ class ShiftsController < ApplicationController
   end
   
   def start_shift
+    @shift = current_staff.current_shift
     if !current_staff.on_duty?
       area_id = current_staff.staff_areas.first.area_id
       @shift = Shift.new(:staff_id => current_staff.id, :area_id => area_id)
@@ -178,43 +196,24 @@ class ShiftsController < ApplicationController
   end
   
   def end_shift
-    #TODO: add annotation creation mechanism
-    if current_staff.on_duty?
-      @shift = Shift.where(:staff_id => current_staff.id, :time_out => nil).first
-      if @shift == nil
-        return
-      end
-      @shift.time_out = Time.now
-      @shift.save
-      @round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-      if @round != nil
-        @round.end_time = Time.now
-        @round.save
-        @notice = "You are now off a round and off duty."
-      else
-        @notice = "You are now off duty."
-      end
-	
-      if !@shift.tasks_completed?
-        @notice = @notice + "...but some tasks were not completed!"
-      end
+    logger.debug "***********ending shift***********"
+    @shift = current_staff.current_shift
+    total_incomplete_task_assignments = TaskAssignment.where(:shift_id => @shift.id).where(:done => false).length
     
-      respond_to do |format|
-        format.js
-      end
-    end
-  end
-  
-  def update_todo
-    task_list = params[:task]
-    TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
-      assignment.done = task_list[assignment.id.to_s] != nil
-      assignment.save
-    end
-  
     respond_to do |format|
-      format.iphone { render :nothing => true }
+      format.html {render :locals => {:total_incomplete_task_assignments => total_incomplete_task_assignments}}
     end
   end
+end
   
+def update_todo
+  task_list = params[:task]
+  TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
+    assignment.done = task_list[assignment.id.to_s] != nil
+    assignment.save
+  end
+  
+  respond_to do |format|
+    format.iphone { render :nothing => true }
+  end
 end

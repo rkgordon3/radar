@@ -43,6 +43,9 @@ Radar::Application.routes.draw do
   match "/shifts/start_shift" => "shifts#start_shift"
   
   match "/reports/forward_as_mail" => "reports#forward_as_mail"
+
+  get "shifts/end_shift"
+  match "/shifts/end_shift" => "shifts#end_shift"
   
   get "shifts/duty_log"
   match "/shifts/duty_log" => "shifts#duty_log"

@@ -29,12 +29,12 @@ class Shift < ActiveRecord::Base
     self.task_assignments.each do |ta|
       ta.save
     end
+    self.annotation ||= Annotation.new
     self.annotation.save
     super
   end
   
   def tasks_completed? 
-    logger.debug("TASKS COMPLETED? #{ TaskAssignment.where(:shift_id => self.id, :done => false).length}")
     TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
   end
   

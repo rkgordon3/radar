@@ -13,15 +13,23 @@
 
   <div class="field">
     <b><%= f.label :time_in %>:</b><br />
-    <%= text_field(:shift, :created_at, :id => "time_in", :value => @shift.created_at) %>
+    <% if can? :update_shift_times, @shift %>
+      <%= text_field(:shift, :created_at, :id => "time_in", :value => @shift.created_at) %>
+    <% else %>
+      <b><%= "#{@shift.start_time}, #{@shift.start_date}"  %></b>
+    <% end %>
   </div>
 
-<div class="field">
+  <div class="field">
     <b><%= f.label :time_out %>:</b><br />
-    <%= text_field(:shift, :time_out, :id => "time_out", :value => @shift.time_out) %>
+    <% if can? :update_shift_times, @shift %>
+      <%= text_field(:shift, :time_out, :id => "time_out", :value => @shift.time_out) %>
+    <% else %>
+    <b>Now</b>
+    <% end %>
   </div>
 
-<div class="field">
+  <div class="field">
     <b>  <%= t "summary:" %></b><br />
     <%= text_area(:annotation, :text,  :cols=> "60", :rows => "4", :value=> @shift.annotation_text) %>
   </div>
