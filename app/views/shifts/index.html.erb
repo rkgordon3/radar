@@ -2,7 +2,7 @@
   <h1><% if all_logs %>
       All Shifts
     <% elsif access_level != nil %>
-      <%= "#{access_level} #{log_type} Logs" %>
+      <%= "#{access_level} #{log_type.capitalize} Logs" %>
     <% else %>
       My Logs
     <% end %></h1>
