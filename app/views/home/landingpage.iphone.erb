@@ -91,11 +91,11 @@ RUBY
               <% current_staff.currently_assigned_tasks.each do | t | %>
                 <li>
                   <%= check_box_tag "task[#{t.id}]",
-                    t.task.title,
+                    t.task.title_time_string,
                     t.done,
                     :onclick => "javascript: update_todo();",
                     :class=>"iToggle", :title=>"Yes|No" %>
-                  <%= t.task.title %>
+                  <%= t.task.title_time_string %>
                 </li>
 
               <% end %>

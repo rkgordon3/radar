@@ -27,23 +27,27 @@ class Task < ActiveRecord::Base
   #this method 
   def time_string
     if self.time == ANYTIME
-      return "anytime"
+      return "@anytime"
     end
     t=Time.new(0).advance({:minutes=>self.time})
-    return t.to_s(:time_only)
+    return "@" + t.to_s(:time_only)
+  end
+
+  def title_time_string
+    return self.time_string + ", " + self.title
   end
   
   def info
     if self.note != nil
       if self.note.length != 0
         if self.time != ANYTIME
-          return "@" + self.time_string + ", " + self.note
+          return "" + self.time_string + ", " + self.note
         end
         return self.note
       end
     end
     if self.time > ANYTIME
-      return "@" + self.time_string
+      return self.time_string
     end
     return ""
   end

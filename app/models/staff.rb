@@ -104,7 +104,12 @@ class Staff < ActiveRecord::Base
   end
   
   def currently_assigned_tasks
-    Shift.find(self.current_shift.id).task_assignments rescue []
+    anytime = -1
+    timed_assignments = TaskAssignment.joins(:task).where( "shift_id = ? AND tasks.time > ?", self.current_shift.id, anytime ).order(:time).all
+    untimed_assignments = TaskAssignment.joins(:task).where( :shift_id => self.current_shift.id, :tasks => {:time => anytime }).all
+    timed_assignments ||= []
+    untimed_assignments ||= []
+    return timed_assignments + untimed_assignments
   end
   
   def update_attributes(staff)

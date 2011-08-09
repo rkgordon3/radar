@@ -5,7 +5,7 @@ class TaskAssignmentsController < ApplicationController
   # GET /task_assignments.xml
   def index
     if current_staff.on_duty?
-      @task_assignments = TaskAssignment.where(:shift_id => current_staff.current_shift.id)
+      @task_assignments = current_staff.currently_assigned_tasks
     end
     
     respond_to do |format|
