@@ -87,7 +87,8 @@ class Ability
       cannot :update, Report, :submitted => true
 
       cannot :manage, Shift
-      can :do, [Shift, Round]
+      can :do, Shift, :time_out => nil
+      can :do, Round, :end_time => nil
       can [:shift_log, :read], Shift, :staff_id => staff.id
 
       can :index, Staff
