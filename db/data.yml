@@ -8,8 +8,8 @@ annotations:
   - text
   records: 
   - - 1
-    - 2011-02-24 07:35:36.807000
-    - 2011-02-24 07:35:36.807000
+    - to_date('2011-02-24 07:35:36.80','YYYY-MM-DD HH24:MI:SS')
+    - to_date('2011-02-24 07:35:36.80','YYYY-MM-DD HH24:MI:SS')
     - This is a report. It will be pretty long. There were probably some interesting things that happened. Amanda handled them very well I am sure. She is a great RA. I believe that she will be a great teacher as well. She is an education major. I like her a lot. But there were probably people disrepsecting her. Or maybe the students were compliant. I have not decided yet. I have not made the reported infraction table yet, so I have not chosen whose wrongdoing caused this report. Is this long enough yet? I hope it is getting to be long enough. I am not sure how many more thoughts are going to come through my fingers to this screen...
   - - 2
     - 2011-02-24 07:35:36.807000

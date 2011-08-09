@@ -7,6 +7,11 @@ gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
+gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
+gem 'ruby-oci8', '>= 2.0.4'
+gem 'ruby-plsql'
+
+gem 'mongrel', '1.2.0.pre2'
 
 gem 'paperclip'
 # Bundle edge Rails instead:
