@@ -83,7 +83,7 @@ class RoundsController < ApplicationController
       format.js
       format.iphone {
         render :update do |page|
-          page.replace_html("round_button", :partial=>"rounds/end_round_button")
+          page.replace_html("round_button", :partial => "rounds/end_round_button")
         end
       }
     end

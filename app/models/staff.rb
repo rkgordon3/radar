@@ -35,6 +35,19 @@ class Staff < ActiveRecord::Base
     return self.access_level.name == access_level.to_s.camelize
   end
 
+  def sign_out_confirmation
+    confirmation = ""
+    if self.on_duty?
+      confirmation += "You are still on duty"
+
+      if self.on_round?
+        confirmation += " AND on a round"
+      end
+      confirmation += "!\n\n"
+    end
+    return confirmation + "Are you sure you want to sign out?"
+  end
+
   def get_registerable_organizations
     reg_org_ids = Array.new
     self.staff_organizations.each do |staff_org|

@@ -53,7 +53,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Shift was successfully created.') }
+        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Your shift has been logged.') }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @shift.errors, :status => :unprocessable_entity }
@@ -69,17 +69,22 @@ class ShiftsController < ApplicationController
     params[:shift][:time_out] ||= Time.now
     params[:shift][:annotation] = params[:annotation][:text]
 
-    round = Round.where(:end_time => nil, :shift_id => @shift.id).first
-    if round != nil
+    @notice = ""
+    if @shift.staff.on_duty?
+       round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+      @notice += "You are now off duty"
+      if round != nil
       round.end_time = Time.now
       round.save
-      @notice = "You are now off a round and off duty."
+      @notice += " and off a round"
+      end
+      @notice += ". Your shift has been logged."
     else
-      @notice = "Your shift has been updated."
+      @notice += "Your #{@shift.staff.access_level.log_type} log has been updated."
     end
 
     if !@shift.tasks_completed?
-      @notice = @notice + "..but some tasks were not completed!"
+      @notice += "..but some tasks were not completed!"
     end
 
     

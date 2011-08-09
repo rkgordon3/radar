@@ -48,7 +48,12 @@
                   <% end %></div></td>
             <%  end %>
 
-            <td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
+            <td width = "70%", nowrap>
+                <div id = "sign_out_link">
+                    <%= render :partial => "staffs/sign_out_link" %>
+              </div>
+            </td>
+            
             <td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" if can? :update, current_staff.notification_preferences %> </td>
           </tr>
         </table>
