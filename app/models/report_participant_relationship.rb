@@ -3,6 +3,7 @@ class ReportParticipantRelationship < ActiveRecord::Base
 	belongs_to :participant
 	belongs_to :relationship_to_report
   after_initialize :setup_defaults
+  def self.table_name() "report_participants" end
   
   def setup_defaults
     if self.id == nil && self.relationship_to_report_id == nil

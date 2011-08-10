@@ -33,3 +33,14 @@ function showDiv(divID){
 function displayBuilding(spanID,building){
 	document.getElementById(spanID).innerHTML=building;
 }
+
+Ajax.Responders.register({
+  onCreate: function() {
+    if($('busy') && Ajax.activeRequestCount>0)
+      Effect.Appear('busy',{duration:0.5,queue:'end'});
+  },
+  onComplete: function() {
+    if($('busy') && Ajax.activeRequestCount==0)
+      Effect.Fade('busy',{duration:0.5,queue:'end'});
+  }
+});

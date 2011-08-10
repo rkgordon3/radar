@@ -1357,9 +1357,9 @@ relationship_to_reports:
     - !!null 
     - 5
 
----
-report_participant_relationships:
-  columns:
+--- 
+report_participants: 
+  columns: 
   - id
   - relationship_to_report_id
   - created_at
