@@ -20,7 +20,7 @@ production:
   database: ecs4
   username: RADARCS1
   password: M8qr3n1zd0pa5
-  host: 140.190.69.58:1521
+  host: 140.190.69.56
 
 cucumber:
   <<: *test
