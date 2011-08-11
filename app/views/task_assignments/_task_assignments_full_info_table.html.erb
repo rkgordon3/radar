@@ -2,7 +2,7 @@
   <table>
     <tr>
       <th><%= link_to "Title", params.merge(:sort_tasks => "title"), :remote => true %></th>
-      <th><%= link_to "Time Assigned", params.merge(:sort_tasks => "start_time"), :remote => true %></th>
+      <th><%= link_to "Time Due", params.merge(:sort_tasks => "due_time"), :remote => true %></th>
       <th><%= link_to "Time Finished", params.merge(:sort_tasks => "done_time"), :remote => true %></th>
       <th><%= link_to "RA", params.merge(:sort_tasks => "staff"), :remote => true %></th>
     </tr>
