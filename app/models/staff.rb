@@ -41,7 +41,7 @@ class Staff < ActiveRecord::Base
       confirmation += "You are still on duty"
 
       if self.on_round?
-        confirmation += " AND on a round"
+        confirmation += " and on a round"
       end
       confirmation += "!\n\n"
     end
