@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110807171509) do
+ActiveRecord::Schema.define(:version => 20110811221027) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(:version => 20110807171509) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
+    t.string   "abbreviation"
+    t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "area_id"
-    t.string   "abbreviation"
   end
 
   create_table "imports", :force => true do |t|
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20110807171509) do
     t.integer  "report_type_id"
   end
 
-  create_table "report_participant_relationships", :force => true do |t|
+  create_table "report_participants", :force => true do |t|
     t.integer  "relationship_to_report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(:version => 20110807171509) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "display_name"
     t.string   "abbreviation"
+    t.string   "display_name"
     t.integer  "organization_id"
     t.boolean  "forwardable"
   end
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20110807171509) do
   end
 
 # Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd274880>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd2ec538>
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(:version => 20110807171509) do
   end
 
 # Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd0cd958>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd586e80>
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"
