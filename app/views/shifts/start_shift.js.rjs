@@ -2,3 +2,4 @@ page["flash_notice"].show
 page.replace_html("flash_notice", "You are now on duty.")
 page.replace_html("duty_button", :partial=>"shifts/end_shift_button" )
 page.replace_html("round_button", :partial=>"rounds/start_round_button" )
+page.replace_html("sign_out_link", :partial => "staffs/sign_out_link")
