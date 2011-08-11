@@ -145,8 +145,15 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.datetime "end_time"
   end
 
-# Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd2ec538>
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -171,8 +178,28 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd586e80>
+  create_table "staffs", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "access_level_id"
+    t.boolean  "active"
+  end
+
+  add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
+  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"
