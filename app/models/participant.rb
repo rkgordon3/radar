@@ -12,13 +12,13 @@ class Participant < ActiveRecord::Base
 	
     long_name = split_up[0]
     #print long_name
-    building_id = split_up[1]
+    building_abbreviation = split_up[1]
     #print s_building_id
     room_number = split_up[2]
     #print s_room_number
 
 
-    participant = Participant.get_participant_from_name_building_room(long_name,building_id,room_number)
+    participant = Participant.get_participant_from_name_building_room(long_name,building_abbreviation,room_number)
 	  if participant == nil
 	    return nil
 	  else
@@ -33,9 +33,9 @@ class Participant < ActiveRecord::Base
 	
 	# rkg why are inequalities used?
 	# Why get_id? You are getting student(s)?
-	def Participant.get_participant_from_name_building_room(f_name, building_id, room_number)
-		return Participant.where("full_name LIKE ? AND building_id = ? AND room_number = ?",
-			f_name, building_id, room_number)
+	def Participant.get_participant_from_name_building_room(f_name, building_abbreviation, room_number)
+		return Participant.joins(:building).where("full_name LIKE ? AND buildings.abbreviation = ? AND room_number = ?",
+			f_name, building_abbreviation, room_number)
 		
 		# rkg why not
 		# s = Student.where (...)
