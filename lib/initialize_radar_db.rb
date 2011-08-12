@@ -25,6 +25,8 @@ RelationshipToReport.create(:id=>17, :description=>"Weapon", :report_type_id=>ir
 RelationshipToReport.create(:id=>18, :description=>"Public Urination", :report_type_id=>ir.id)
 RelationshipToReport.create(:id=>19, :description=>"Physical Fight/Assault", :report_type_id=>ir.id)
 RelationshipToReport.create(:id=>20, :description=>"Threats/Harrassment", :report_type_id=>ir.id)
+RelationshipToReport.create(:id=>20, :description=>"FYI")
+RelationshipToReport.create(:id=>20, :description=>"Other")
 
 # Maintenance Report 
 mr = ReportType.create(:id=>2, :name=>"MaintenanceReport", :display_name=>"Maintenance Report", :abbreviation=>"MR", :organization_id=>reslife.id, :forwardable=>"t")
