@@ -15,12 +15,13 @@ class Staff < ActiveRecord::Base
   end
 
   def get_registerable_access_levels
-    if self.access_level_id > 1 && self.access_level_id < 5
+
+    if self.access_level_id > AccessLevel.numeric_level(:resident_assistant) && self.access_level_id < AccessLevel.numeric_level(:system_administrator)
       #can only register access levels below current level
-      return AccessLevel.where(:id=> 1..(self.access_level_id-1))
-    elsif self.access_level_id == 5
+      return AccessLevel.where(:id=> AccessLevel.numeric_level(:resident_assistant)..(self.access_level_id-1))
+    elsif self.access_level_id == AccessLevel.numeric_level(:system_administrator)
       #system admins can make other system admins
-      return AccessLevel.where(:id=> 1..self.access_level_id)
+      return AccessLevel.where(:id=> AccessLevel.where(:id=> AccessLevel.numeric_level(:resident_assistant)..self.access_level_id))
     else
       #if level 1, can register as level 1 (only to be used when updating self)
       return AccessLevel.where(:id=> self.access_level_id)
@@ -80,8 +81,8 @@ class Staff < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable,
-  :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable,
+    :timeoutable
   
  
   
@@ -97,7 +98,7 @@ class Staff < ActiveRecord::Base
   
   
   def current_shift
-    Shift.where(:staff_id => self.id, :time_out => nil).first 
+    Shift.where(:staff_id => self.id, :time_out => nil).first
   end
 
   def current_round
