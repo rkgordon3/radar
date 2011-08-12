@@ -34,7 +34,7 @@ class Participant < ActiveRecord::Base
 	# rkg why are inequalities used?
 	# Why get_id? You are getting student(s)?
 	def Participant.get_participant_from_name_building_room(f_name, building_id, room_number)
-		return Participant.where("full_name LIKE ? AND building_id <= ? AND room_number <= ?",
+		return Participant.where("full_name LIKE ? AND building_id = ? AND room_number = ?",
 			f_name, building_id, room_number)
 		
 		# rkg why not
