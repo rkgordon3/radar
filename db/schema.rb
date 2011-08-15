@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815185636) do
+ActiveRecord::Schema.define(:version => 20110815202142) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -126,6 +126,13 @@ ActiveRecord::Schema.define(:version => 20110815185636) do
     t.boolean  "forwardable",     :precision => 1,  :scale => 0
   end
 
+  create_table "report_view_logs", :force => true do |t|
+    t.integer  "staff_id",   :precision => 38, :scale => 0
+    t.integer  "report_id",  :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reports", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -153,7 +160,6 @@ ActiveRecord::Schema.define(:version => 20110815185636) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"

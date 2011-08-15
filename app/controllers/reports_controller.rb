@@ -23,7 +23,8 @@ class ReportsController < ApplicationController
       forward_as_mail(params[:emails])
       return
     end
-    
+	# add entry to view log if one does not exist for this staff/report combination
+    current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     
