@@ -8,6 +8,9 @@ class Staff < ActiveRecord::Base
   before_save :lower_email
   after_initialize :set_active
   
+  def last_login
+	self.last_sign_in_at
+  end
   # return true is I have seen given report
   def has_seen? (report)
    ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
