@@ -49,6 +49,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 .link-report-viewed-true { color: #003333; }
 
 .link-report-viewed-false { color: #CC3333; } 
+
 .participant_detail {
     display: none; 
     
