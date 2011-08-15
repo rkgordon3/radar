@@ -40,6 +40,8 @@ InterestedParty.create(:id=>2, :email=>"Maintenance <smoger@smumn.edu>", :report
 
 ReportType.create(:id=>3, :name=>"Report", :display_name=>"FYI", :abbreviation=>"FYI", :organization_id=>reslife.id, :forwardable=>"f")
 
+# Note 
+ReportType.create(:id=1, :name=>"Note", :display_name=> "Note", :abbreviation=>"N", :organization_id=>reslife.id, :forwardable=>"false")
 # Areas and Buildings
 
 ar = Area.create(:id=>1, :name=>"Unspecified", :abbreviation=>"NA")
