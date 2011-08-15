@@ -24,7 +24,6 @@ class Participant < ActiveRecord::Base
 	  else
 	    if participant.first == nil
         participant = Participant.where("full_name LIKE ?", long_name)
-        logger.debug "PARTICIPANT FULL NAME ONLY = #{participant.first}"
         return participant.first
       end
 	    return participant.first

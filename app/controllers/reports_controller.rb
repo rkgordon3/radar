@@ -112,15 +112,15 @@ class ReportsController < ApplicationController
     
     if @participant == nil
       name_tokens = params[:full_name].split(' ')
-      firstName = name_tokens[0].capitalize
-      lastName = name_tokens[2].capitalize
-      middleInitial = name_tokens[1].capitalize
+      first_name = name_tokens[0].capitalize
+      last_name = name_tokens[2].capitalize
+      middle_initial = name_tokens[1].capitalize
       
       respond_to do |format|
         format.js{
           render :update do |page|
             page.select("input#full_name").first.clear
-            page.replace_html("new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => firstName, :mInitial => middleInitial, :lName => lastName })
+            page.replace_html "new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
             if @report.participant_ids.size > 0
               page.show 'common-reasons-container'
@@ -129,7 +129,6 @@ class ReportsController < ApplicationController
         }
       end
     else
-      
       respond_to do |format|
         format.js
         format.iphone {
@@ -145,8 +144,8 @@ class ReportsController < ApplicationController
           end
         }
       end
+      @report.add_default_contact_reason(@participant.id)
     end
-    @report.add_default_contact_reason(@participant.id)
   end
   
   def remove_participant
