@@ -18,10 +18,12 @@ class Staff < ActiveRecord::Base
 
     if self.access_level_id > AccessLevel.numeric_level(:resident_assistant) && self.access_level_id < AccessLevel.numeric_level(:system_administrator)
       #can only register access levels below current level
-      return AccessLevel.where(:id=> AccessLevel.numeric_level(:resident_assistant)..(self.access_level_id-1))
+      level_array = AccessLevel.numeric_level(:resident_assistant)..(self.access_level_id-1)
+      return AccessLevel.where(:id=> level_array)
     elsif self.access_level_id == AccessLevel.numeric_level(:system_administrator)
       #system admins can make other system admins
-      return AccessLevel.where(:id=> AccessLevel.where(:id=> AccessLevel.numeric_level(:resident_assistant)..self.access_level_id))
+      level_array = AccessLevel.numeric_level(:resident_assistant)..self.access_level_id
+      return AccessLevel.where(:id=> level_array)
     else
       #if level 1, can register as level 1 (only to be used when updating self)
       return AccessLevel.where(:id=> self.access_level_id)
