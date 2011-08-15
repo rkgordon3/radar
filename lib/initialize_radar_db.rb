@@ -109,11 +109,11 @@ Task.create(:id=>13, :title=>"New Village/Old Village Path Walk Completed", :are
 Task.create(:id=>14, :title=>"Radio Sign Off", :area_id=>unspec_area.id, :start_date=>DateTime.now, :end_date=>DateTime.now, :expires=>"f", :time=>-1)
 
 # Access Levels
-AccessLevel.create(:name=>"ResidentAssistant", :display_name=> "Resident Assistant")
-AccessLevel.create(:name=>"HallDirector", :display_name=> "Hall Director")
-AccessLevel.create(:name=>"AdiministrativeAssistant", :display_name=> "Adiministrative Assistant")
-AccessLevel.create(:name=>"Adiministrator", :display_name=> "Adiministrator")
-sys_admin_al = AccessLevel.create(:name=>"SystemAdiministrator", :display_name=> "System Adiministrator")
+AccessLevel.create(:name=>"ResidentAssistant", :display_name=> "Resident Assistant", :numeric_level=>1)
+AccessLevel.create(:name=>"HallDirector", :display_name=> "Hall Director", :numeric_level=>2)
+AccessLevel.create(:name=>"AdiministrativeAssistant", :display_name=> "Adiministrative Assistant", :numeric_level=>3)
+AccessLevel.create(:name=>"Adiministrator", :display_name=> "Adiministrator", :numeric_level=>4)
+sys_admin_al = AccessLevel.create(:name=>"SystemAdiministrator", :display_name=> "System Adiministrator", :numeric_level=>5)
 
 # Staff (populate with system.admin)
 sys_admin = Staff.create(:email=>"reslife.system.admin@smumn.edu", 
