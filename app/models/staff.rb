@@ -15,15 +15,21 @@ class Staff < ActiveRecord::Base
   end
 
   def get_registerable_access_levels
-    if self.access_level_id > 1 && self.access_level_id < 5
+
+    res_life_level =  AccessLevel.find_by_name('ResidentAssistant').numeric_level
+    sys_admin_level = AccessLevel.find_by_name('SystemAdministrator').numeric_level
+
+    if self.access_level.numeric_level > res_life_level && self.access_level.numeric_level <  sys_admin_level
       #can only register access levels below current level
-      return AccessLevel.where(:id=> 1..(self.access_level_id-1))
-    elsif self.access_level_id == 5
+      level_array =  res_life_level..(self.access_level.numeric_level-1)
+      return AccessLevel.where(:numeric_level => level_array)
+    elsif self.access_level.numeric_level ==  sys_admin_level
       #system admins can make other system admins
-      return AccessLevel.where(:id=> 1..self.access_level_id)
+      level_array =  res_life_level..self.access_level.numeric_level
+      return AccessLevel.where(:numeric_level => level_array)
     else
       #if level 1, can register as level 1 (only to be used when updating self)
-      return AccessLevel.where(:id=> self.access_level_id)
+      return AccessLevel.where(:numeric_level => self.access_level.numeric_level)
     end
   end
 
@@ -80,8 +86,8 @@ class Staff < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable,
-  :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable,
+    :timeoutable
   
  
   
@@ -97,7 +103,7 @@ class Staff < ActiveRecord::Base
   
   
   def current_shift
-    Shift.where(:staff_id => self.id, :time_out => nil).first 
+    Shift.where(:staff_id => self.id, :time_out => nil).first
   end
 
   def current_round

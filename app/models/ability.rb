@@ -54,7 +54,7 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:read, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Student, Shift, Round, Area, Building]
+      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building]
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
@@ -93,7 +93,7 @@ class Ability
 
       can :index, Staff
       cannot [:create, :update_area], Staff
-      cannot :view_contact_info, Student
+      cannot :view_contact_info, Participant
       cannot :manage, Task
     end
   end
