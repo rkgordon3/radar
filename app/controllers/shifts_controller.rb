@@ -34,6 +34,18 @@ class ShiftsController < ApplicationController
   # GET /shifts/new.xml
   def new
     # @shifts automatically loaded by CanCan
+    if params[:shift] != nil
+      if params[:shift][:created_at] != nil
+        @shift.created_at = params[:shift][:created_at]
+      end
+      if params[:shift][:time_out] != nil
+        @shift.time_out = params[:shift][:time_out]
+      end
+    end
+    
+    if params[:annotation] != nil
+      @shift.annotation = Annotation.new(:text => params[:annotation])
+    end
   end
   
   # GET /shifts/1/edit
@@ -46,6 +58,14 @@ class ShiftsController < ApplicationController
   def create
     @shift.area_id = current_staff.staff_areas.first.area.id
     @shift.annotation = Annotation.new(:text => params[:annotation][:text])
+    
+    if @shift.created_at == nil || @shift.time_out == nil
+      respond_to do |format|
+        format.html { redirect_to({:action => "new", :shift => params[:shift], :annotation => params[:annotation][:text]}, :notice => "You must complete both the \"Time in\" and a \"Time out\" fields before submitting your shift.")}
+      end
+      return
+    end
+
     # unless the following 2 commands are executed, the time is saved in the wrong time zone
     @shift.created_at = @shift.created_at.advance({:hours=>0})
     @shift.time_out = @shift.time_out.advance({:hours=>0})
@@ -71,12 +91,12 @@ class ShiftsController < ApplicationController
 
     @notice = ""
     if @shift.staff.on_duty?
-       round = Round.where(:end_time => nil, :shift_id => @shift.id).first
+      round = Round.where(:end_time => nil, :shift_id => @shift.id).first
       @notice += "You are now off duty"
       if round != nil
-      round.end_time = Time.now
-      round.save
-      @notice += " and off a round"
+        round.end_time = Time.now
+        round.save
+        @notice += " and off a round"
       end
       @notice += ". Your shift has been logged."
     else
