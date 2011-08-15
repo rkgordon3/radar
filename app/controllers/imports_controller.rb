@@ -55,6 +55,7 @@ private
   end
 
     def new_student(line)
+	    logger.debug("Student line: " , line)
         params = Hash.new
         params[:student] = Hash.new
         params[:student]["student_id"] = line[0]
