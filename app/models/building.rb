@@ -1,12 +1,8 @@
 class Building < ActiveRecord::Base
   belongs_to :area
   
-  def Building.unspecified
-    return 1
+  def self.unspecified
+    Building.find_by_name("Unspecified").id rescue 0
   end
-  
-  def Building.end_of_res_hall_id
-    return 16
-  end
-  
+
 end

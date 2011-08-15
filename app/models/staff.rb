@@ -8,7 +8,14 @@ class Staff < ActiveRecord::Base
   before_save :lower_email
   after_initialize :set_active
   
- 
+  def last_login
+	self.last_sign_in_at
+  end
+  # return true is I have seen given report
+  def has_seen? (report)
+   ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
+  end
+  
   def devise_creation_param_handler(params)
     params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]

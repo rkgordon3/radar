@@ -10,20 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815151349) do
+ActiveRecord::Schema.define(:version => 20110815202142) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "display_name"
-    t.integer  "numeric_level"
+    t.integer  "numeric_level", :precision => 38, :scale => 0
   end
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "text",       :limit => 20480
+    t.text     "text"
   end
 
   create_table "areas", :force => true do |t|
@@ -35,18 +35,19 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
-    t.string   "abbreviation"
-    t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "area_id",      :precision => 38, :scale => 0
+    t.string   "abbreviation"
+    t.boolean  "is_residence", :precision => 1,  :scale => 0, :default => false
   end
 
   create_table "imports", :force => true do |t|
     t.string   "datatype"
-    t.integer  "processed",        :default => 0
+    t.integer  "processed",        :precision => 38, :scale => 0, :default => 0
     t.string   "csv_file_name"
     t.string   "csv_content_type"
-    t.integer  "csv_file_size"
+    t.integer  "csv_file_size",    :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,16 +56,16 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "authorized_by_id"
-    t.integer  "report_type_id"
+    t.integer  "authorized_by_id", :precision => 38, :scale => 0
+    t.integer  "report_type_id",   :precision => 38, :scale => 0
   end
 
   create_table "notification_preferences", :force => true do |t|
-    t.integer  "staff_id"
+    t.integer  "staff_id",      :precision => 38, :scale => 0
     t.string   "report_type"
-    t.integer  "frequency"
-    t.integer  "time_offset"
-    t.integer  "scope"
+    t.integer  "frequency",     :precision => 38, :scale => 0
+    t.integer  "time_offset",   :precision => 38, :scale => 0
+    t.integer  "scope",         :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_notified"
@@ -88,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "room_number"
-    t.integer  "building_id"
+    t.integer  "building_id",            :precision => 38, :scale => 0
     t.string   "student_id"
     t.string   "full_name"
     t.datetime "birthday"
@@ -104,14 +105,14 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "report_type_id"
+    t.integer  "report_type_id", :precision => 38, :scale => 0
   end
 
   create_table "report_participants", :force => true do |t|
-    t.integer  "relationship_to_report_id"
+    t.integer  "relationship_to_report_id", :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "participant_id"
+    t.integer  "participant_id",            :precision => 38, :scale => 0
     t.string   "report_id"
   end
 
@@ -119,22 +120,29 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "abbreviation"
     t.string   "display_name"
-    t.integer  "organization_id"
-    t.boolean  "forwardable"
+    t.string   "abbreviation"
+    t.integer  "organization_id", :precision => 38, :scale => 0
+    t.boolean  "forwardable",     :precision => 1,  :scale => 0
+  end
+
+  create_table "report_view_logs", :force => true do |t|
+    t.integer  "staff_id",   :precision => 38, :scale => 0
+    t.integer  "report_id",  :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reports", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "building_id"
+    t.integer  "building_id",      :precision => 38, :scale => 0
     t.datetime "approach_time"
     t.string   "room_number"
     t.string   "type"
-    t.integer  "staff_id"
-    t.boolean  "submitted"
-    t.integer  "annotation_id"
+    t.integer  "staff_id",         :precision => 38, :scale => 0
+    t.boolean  "submitted",        :precision => 1,  :scale => 0
+    t.integer  "annotation_id",    :precision => 38, :scale => 0
     t.string   "tag"
     t.datetime "contact_duration"
   end
@@ -142,43 +150,64 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
   create_table "rounds", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "shift_id"
+    t.integer  "shift_id",   :precision => 38, :scale => 0
     t.datetime "end_time"
   end
 
-# Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd531e90>
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "staff_id"
+    t.integer  "staff_id",      :precision => 38, :scale => 0
     t.datetime "time_out"
-    t.integer  "area_id"
-    t.integer  "annotation_id"
+    t.integer  "area_id",       :precision => 38, :scale => 0
+    t.integer  "annotation_id", :precision => 38, :scale => 0
   end
 
   create_table "staff_areas", :force => true do |t|
-    t.integer  "staff_id"
-    t.integer  "area_id"
+    t.integer  "staff_id",   :precision => 38, :scale => 0
+    t.integer  "area_id",    :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "staff_organizations", :force => true do |t|
-    t.integer  "staff_id"
-    t.integer  "organization_id"
+    t.integer  "staff_id",        :precision => 38, :scale => 0
+    t.integer  "organization_id", :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-# Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd2b2650>
+  create_table "staffs", :force => true do |t|
+    t.string   "email",                                                              :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128,                                :default => "", :null => false
+    t.string   "password_salt",                                                      :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :precision => 38, :scale => 0, :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "access_level_id",                     :precision => 38, :scale => 0
+    t.boolean  "active",                              :precision => 1,  :scale => 0
+  end
 
   create_table "task_assignments", :force => true do |t|
-    t.integer  "shift_id"
-    t.integer  "task_id"
-    t.boolean  "done"
+    t.integer  "shift_id",   :precision => 38, :scale => 0
+    t.integer  "task_id",    :precision => 38, :scale => 0
+    t.boolean  "done",       :precision => 1,  :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -188,11 +217,11 @@ ActiveRecord::Schema.define(:version => 20110815151349) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "note"
-    t.integer  "area_id"
+    t.integer  "area_id",    :precision => 38, :scale => 0
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "expires"
-    t.integer  "time"
+    t.boolean  "expires",    :precision => 1,  :scale => 0
+    t.integer  "time",       :precision => 38, :scale => 0
   end
 
   create_table "url_for_ids", :force => true do |t|
