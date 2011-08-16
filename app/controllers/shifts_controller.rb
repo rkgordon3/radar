@@ -228,16 +228,16 @@ class ShiftsController < ApplicationController
       format.html {render :locals => {:total_incomplete_task_assignments => total_incomplete_task_assignments}}
     end
   end
-end
   
-def update_todo
-  task_list = params[:task]
-  TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
-    assignment.done = task_list[assignment.id.to_s] != nil
-    assignment.save
-  end
+  def update_todo
+    task_list = params[:task]
+    TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
+      assignment.done = task_list[assignment.id.to_s] != nil
+      assignment.save
+    end
   
-  respond_to do |format|
-    format.iphone { render :nothing => true }
+    respond_to do |format|
+      format.iphone { render :nothing => true }
+    end
   end
 end
