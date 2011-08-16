@@ -1,21 +1,20 @@
 <div id="inside_container" class="inside_container"><h1>All Staff Members</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>E-mail</th>
-    <th>Role</th>
-    <th>Area</th>
-    <th>Organization</th>
-    <th></th>
-    <th></th>
-  </tr>
-  
-<%= render :partial => "staffs/staff_table_row", :locals => { :staffs => @staffs, :num_rows=>0 } %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>E-mail</th>
+      <th>Role</th>
+      <th>Organization</th>
+	  <th>Last Login</th>
+      <th></th>
+      <th></th>
+    </tr>
 
-</table>
+    <%= render :partial => "staffs/staff_table_row", :locals => { :staffs => @staffs, :num_rows=>0 } %>
 
-<br />
+  </table>
 
-<%= link_to 'New Staff Member', "/staffs/sign_up" %>
+  <br />
+  <%= link_to 'New Staff Member', "/staffs/sign_up" if can? :create, Staff %>
 </div>

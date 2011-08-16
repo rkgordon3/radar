@@ -1,23 +1,40 @@
 class Shift < ActiveRecord::Base
   belongs_to :staff
-  has_many :rounds
+  has_many :rounds, :dependent => :destroy
   belongs_to :area
-  has_many :task_assignments
-  
-  def add_task (task)
+  belongs_to :annotation, :dependent => :destroy
+  has_many :task_assignments, :dependent => :destroy
+
+  def update_attributes(params)
+    self.annotation.text = params[:annotation]
+    params[:annotation] = self.annotation
+    super(params)
+    # as in the controller, the following must be done to save the time in the correct time zone
+    self.created_at = self.created_at.advance({:hours=>0})
+    self.time_out = self.time_out.advance({:hours=>0})
+    self.save
+    # can't understand it
+  end
+
+  def assign_task (task)
     ta = TaskAssignment.new(:shift_id => self.id, :task_id => task.id, :done => false)
     self.task_assignments << ta
+  end
+
+  def annotation_text
+    self.annotation != nil ? self.annotation.text : nil
   end
   
   def save
     self.task_assignments.each do |ta|
       ta.save
     end
+    self.annotation ||= Annotation.new
+    self.annotation.save
     super
   end
   
   def tasks_completed? 
-    logger.debug("TASKS COMPLETED? #{ TaskAssignment.where(:shift_id => self.id, :done => false).length}")
     TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
   end
   

@@ -5,29 +5,42 @@
   <%= devise_error_messages! %>
 
   <p><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></p>
-  
+    <%= f.text_field :first_name %></p>
+
   <p><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></p>
-  
+    <%= f.text_field :last_name %></p>
+
   <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+    <%= f.text_field :email %></p>
 
   <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+    <%= f.password_field :password %></p>
 
   <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-  
-  <p><%= f.label :role %><br />
-  <%= f.select :access_level, options_for_select([["Resident Assistant", 1], ["Administrative Assistant", 2], ["Hall Director", 3], ["Administrator", 4], ["System Administrator", 5]], @staff.access_level) %></p>
-  
+    <%= f.password_field :password_confirmation %></p>
+
+
   <p><%= f.label :organization %><br />
-  	<%= f.collection_select( :staff_organizations, Organization.order(:name), :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %></p>
-  
+    <% if can? :update_organization, @staff %>
+      <%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %>
+    <% else %>
+      <b><%= @staff.staff_organizations.first.organization.display_name %></b>
+    <% end %></p>
+
+  <p><%= f.label :access_level %><br />
+    <% if can? :update_access_level, @staff %>
+      <%= f.collection_select( :access_level_id, @access_levels, :id, :display_name, {:selected => @staff.access_level.id} ) %>
+    <% else %>
+      <b><%= @staff.access_level.display_name %></b>
+    <% end %></p>
+
+
   <p><%= f.label :area %><br />
-  	<%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
-  
+    <% if can? :update_area, @staff %>
+      <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
+  <% else %>
+    <b><%= @staff.staff_areas.first.area.name %></b>
+  <% end %></p>
   <%= f.hidden_field :id, :value => @staff.id %>
 
   <p><%= f.submit "Update" %></p>

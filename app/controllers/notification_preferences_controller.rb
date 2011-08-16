@@ -1,8 +1,8 @@
 class NotificationPreferencesController < ApplicationController
   before_filter :authenticate_staff!
-  before_filter :hd_authorize_view_access  
   skip_before_filter :verify_authenticity_token
-  acts_as_iphone_controller = true 
+  acts_as_iphone_controller = true
+  load_and_authorize_resource
  
  # GET /notification_preferences
   # GET /notification_preferences.xml

@@ -1,42 +1,40 @@
 <div id="inside_container" class="inside_container">
-<div id = "user_nav">
-	<% if staff_signed_in? %>
-		
-	<% else %>
-		<%= link_to "Sign In", new_staff_session_path %>
-	<% end %>
+  <div id = "user_nav">
+    <% if staff_signed_in? %>
+
+    <% else %>
+      <%= link_to "Sign In", new_staff_session_path %>
+    <% end %>
 
 
 
-</div>
-<div id = "inside_container" class="inside_container">
+  </div>
+  <div id = "inside_container" class="inside_container">
 
-<% if staff_signed_in? %>
+    <% if staff_signed_in? %>
 
-	<h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
-	<% if @unsubmitted.length > 0 %>
+      <h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
+      <% if @unsubmitted.length > 0 %>
         <div id = "unsubmitted">
-			<%= render :partial => "reports/report_table_row", :locals => { :reports => @unsubmitted, :num_rows=>0 } %>
+          <%= render :partial => "reports/report_table_row", :locals => { :reports => @unsubmitted, :num_rows=>0 } %>
         </div>
-	<% else %>
+      <% else %>
         <div id = "unsubmitted">
-            <p> No Unsubmitted Reports </p>
+          <p> No Unsubmitted Reports </p>
         </div>
-	<% end %>
-	
-	<% if Authorize.admin_assistant_authorize(current_staff) %>
-		<hr >
-		<h3>Recent Reports</h3>
-		<% if @recent.length > 0 %>
-                <div id= "recent">
-                    <%= render :partial => "reports/report_table_row", :locals => { :reports => @recent, :num_rows=>0 } %>
-                </div>
-			<% else %>
-                <div id = "recent">
-                    <p> No Recent Reports </p>
-                </div>
-			<% end %>
-	<% end %>	
-<% end %>
-</div>
+      <% end %>
+
+      <hr >
+      <h3>Recent Reports</h3>
+      <% if @recent.length > 0 %>
+        <div id= "recent">
+          <%= render :partial => "reports/report_table_row", :locals => { :reports => @recent, :num_rows=>0 } %>
+        </div>
+      <% else %>
+        <div id = "recent">
+          <p> No Recent Reports </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

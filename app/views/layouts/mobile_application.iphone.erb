@@ -31,7 +31,7 @@
 				</div>
                 
 				<% if staff_signed_in? %>
-					<div id = "round_button" style="position:absolute;left:60px; top:0px;">
+					<div id = "round_button" style="position:absolute;left:80px; top:0px;">
 						<% if current_staff.on_duty? %>
 							<% if current_staff.on_round? == true %>					
 								<%= render :partial => "rounds/end_round_button" %>					

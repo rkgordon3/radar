@@ -1,12 +1,8 @@
 class ReportParticipantRelationshipsController < ApplicationController
-  # GET /reported_infractions
-  # GET /reported_infractions.xml
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access
+  load_and_authorize_resource
   
   def index
-    
-    @report_participant_relationships = ReportParticipantRelationship.all
     @numRows = 0
 
     respond_to do |format|
@@ -18,8 +14,6 @@ class ReportParticipantRelationshipsController < ApplicationController
   # GET /reported_infractions/1
   # GET /reported_infractions/1.xml
   def show
-    @report_participant_relationship = ReportParticipantRelationship.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @report_participant_relationship }
@@ -29,8 +23,6 @@ class ReportParticipantRelationshipsController < ApplicationController
   # GET /reported_infractions/new
   # GET /reported_infractions/new.xml
   def new
-    @report_participant_relationship = ReportParticipantRelationship.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @report_participant_relationship }
@@ -39,14 +31,12 @@ class ReportParticipantRelationshipsController < ApplicationController
 
   # GET /reported_infractions/1/edit
   def edit
-    @report_participant_relationship = ReportParticipantRelationship.find(params[:id])
+    # @report_participant_relationship automatically loaded by CanCan
   end
 
   # POST /reported_infractions
   # POST /reported_infractions.xml
   def create
-    @report_participant_relationship = ReportParticipantRelationship.new(params[:report_participant_relationship])
-
     respond_to do |format|
       if @report_participant_relationship.save
         format.html { redirect_to(@report_participant_relationship, :notice => 'Reported infraction was successfully created.') }
@@ -61,8 +51,6 @@ class ReportParticipantRelationshipsController < ApplicationController
   # PUT /reported_infractions/1
   # PUT /reported_infractions/1.xml
   def update
-    @report_participant_relationship = ReportParticipantRelationship.find(params[:id])
-
     respond_to do |format|
       if @report_participant_relationship.update_attributes(params[:report_participant_relationship])
         format.html { redirect_to(@report_participant_relationship, :notice => 'Report-participant relationship was successfully updated.') }
@@ -77,7 +65,6 @@ class ReportParticipantRelationshipsController < ApplicationController
   # DELETE /reported_infractions/1
   # DELETE /reported_infractions/1.xml
   def destroy
-    @report_participant_relationship = ReportParticipantRelationship.find(params[:id])
     @report_participant_relationship.destroy
 
     respond_to do |format|

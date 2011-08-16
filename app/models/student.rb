@@ -1,5 +1,4 @@
 class Student < Participant
-	belongs_to :building
 	
 	#self.view_name = "participant_view" 
 	

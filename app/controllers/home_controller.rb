@@ -1,17 +1,15 @@
 class HomeController < ApplicationController
-	
 
   
   def landingpage
-    @reports = Report.all
     if staff_signed_in?
-      @unsubmitted = IncidentReport.where("submitted = ? AND staff_id = ?", false, current_staff.id)
-      @recent = IncidentReport.where("Reports.created_at > ? AND submitted = ?", current_staff.last_sign_in_at, true)
+      @unsubmitted = IncidentReport.accessible_by(current_ability).where(:submitted => false, :staff_id => current_staff.id)
       @unsubmitted = Report.sort(@unsubmitted,params[:sort])
+      @recent = IncidentReport.accessible_by(current_ability).where(:created_at => (current_staff.last_sign_in_at)..(Time.now), :submitted => true)
       @recent = Report.sort(@recent,params[:sort])
     end
   
-   respond_to do |format|
+    respond_to do |format|
       format.html
       format.xml
       format.iphone {render :layout => 'mobile_application'}

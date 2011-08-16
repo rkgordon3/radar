@@ -1,29 +1,30 @@
 <div id="inside_container" class="inside_container"><h1>Search Results </h1>
 
-<% if @reports.length > 0 %>
-<% num_rows=0 %>	
-		<table>
-			<tr>
-			<th>Approach Date</th>
-    		<th>Time</th>
-    		<th>Type</th>
-    		<th>Area</th>
-    		<th>Building Name</th>
-    		<th>Specific Location</th>
-    		<th>Submitter</th>
-    		<th>Tag</th>
-	
-			<% if Authorize.not_admin_assistant_authorize(current_staff) %>
-			<td></td>
-			<td></td>
-	<% end %>
-</tr>
-			<%= render :partial => "reports/report_table_row", :locals => { :reports => @reports, :num_rows=>num_rows } %>
-		</table>
-	<% else %>
-		<p> No Incident Reports </p>
-	<% end %>
-<p>
+  <% if @reports.length > 0 %>
+    <% num_rows=0 %>
+    <table>
+      <tr>
+        <th>Approach Date</th>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Area</th>
+        <th>Building Name</th>
+        <th>Specific Location</th>
+        <th>Submitter</th>
+        <th>Tag</th>
+        <% if can? :edit, Report %>
+          <td></td>
+        <% end %>
+        <% if can? :destroy, Report %>
+          <td></td>
+        <% end %>
+      </tr>
+      <%= render :partial => "reports/report_table_row", :locals => { :reports => @reports, :num_rows=>num_rows } %>
+    </table>
+  <% else %>
+    <p> No Incident Reports </p>
+  <% end %>
+  <p>
 	Showing <%= @num_reports %> of <%= @num_reports %> results.
 
 </div>

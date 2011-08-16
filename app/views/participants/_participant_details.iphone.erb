@@ -1,13 +1,26 @@
 <fieldset>
-<ul>
-<li>
-<%= "Birthday: #{participant.dob}" %>
-</li>
-<li>
-<%= "Room : #{participant.room_number} #{Building.find(participant.building_id).name}" %>
-</li>
-<li>
-<%= "Emergency Contact: #{participant.emergency_contact_name} @ #{participant.emContact}" %>
-</li>
-</ul>
+  <ul>
+    <li>
+      <%= "Birthday: " %>
+      <%= participant.birthday_string rescue "Unknown" %>
+    </li>
+    <li>
+      <%= "Room: " %>
+      <%= participant.room_number rescue "" %>
+      <%= " " %>
+      <%= participant.building.name rescue "Unknown" %>
+    </li>
+    <li>
+      <%= "Extension: " %>
+      <%= participant.extension rescue "Unknown" %>
+    </li>
+    <% if can? :view_contact_info, Student %>
+      <li>
+        <%= "Emergency Contact: " %>
+        <%= participant.emergency_contact_name rescue "" %>
+        <%= " @ " if participant.emergency_contact_name != nil && participant.emContact!=nil %>
+        <%= participant.emContact rescue "Unknown" %>
+      </li>
+    <% end %>
+  </ul>
 </fieldset> 

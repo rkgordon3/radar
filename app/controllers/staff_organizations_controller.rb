@@ -1,4 +1,7 @@
 class StaffOrganizationsController < ApplicationController
+  load_resource :except => :destroy
+  authorize_resource
+  
   # GET /staff_organizations
   # GET /staff_organizations.xml
   def index

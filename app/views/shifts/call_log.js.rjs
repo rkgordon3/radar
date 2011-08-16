@@ -1,0 +1,10 @@
+#this .js is necessary for the sorting links in the report tables to work
+if reports.length > 0
+  page.replace_html "reports-div", :partial => 'reports/report_table_row', :locals => { :reports => reports, :num_rows => 0}
+end
+if notes.length > 0
+  page.replace_html "notes-div", :partial => 'reports/report_table_row', :locals => { :reports => notes, :num_rows => 0}
+end
+if @task_assignments.length > 0
+  page.replace_html "tasks-div", :partial => 'task_assignments/task_assignments_full_info_table', :locals => { :task_assignments => @task_assignments, :num_rows => 0}
+end

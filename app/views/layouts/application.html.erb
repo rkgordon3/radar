@@ -16,77 +16,82 @@
     <link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon' />
 
   </head>
-   
-  <body>
-  <% if staff_signed_in? %>
-	<div id="toolbar"> 
-		<table border="0">
-		<tr>
-			<td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
-			
-			<td style = "width: 150px;">
-			<% if current_staff.on_duty?  %>
-				<div id= "duty_button">
-					<%= render :partial => "shifts/end_shift_button" %>
-				</div>
-			<% else %>
-				<div id= "duty_button">
-					<%= render :partial => "shifts/start_shift_button" %>
-				</div>
-			<% end %></td>
-			
-			<td style = "width: 170px;">
-			
-			<div id = "round_button">
-			<% if  current_staff.on_duty? %>
-				<% if current_staff.on_round? %>					
-						<%= render :partial => "rounds/end_round_button" %>					
-				<% else %>					
-						<%= render :partial => "rounds/start_round_button" %>					
-				<% end %>
-			<% end %></div></td>			
-			
-			<td width = "70%", nowrap><p align="right"><b>Hi, <%= current_staff.first_name %> <%= current_staff.last_name %> | <%= link_to "Sign Out", destroy_staff_session_path %></b></p></td>
-			<% if current_staff.access_level > Authorize.ra_access_level %>
-				<td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" %> </td>
-			<% end %>
-		</tr>
-		</table>    
-	</div> 	
-	
 
-<% end %>
+  <body>
+    <% if staff_signed_in? %>
+      <div id="toolbar">
+        <table border="0">
+          <tr>
+            <td width = "0%"><%=link_to image_tag("StMarysLogo.png", :title=>"SMU Home"), "http://www.smumn.edu", :target=>"blank" %> </td>
+
+            <td style = "width: 150px;">
+              <% if can? :do, Shift %>
+                <% if current_staff.on_duty? %>
+                  <div id= "duty_button">
+                    <%= render :partial => "shifts/end_shift_button" %>
+                  </div>
+                <% else %>
+                  <div id= "duty_button">
+                    <%= render :partial => "shifts/start_shift_button" %>
+                  </div>
+                <% end %></td>
+
+              <td style = "width: 170px;">
+
+                <div id = "round_button">
+                  <% if  current_staff.on_duty? %>
+                    <% if current_staff.on_round? %>
+                      <%= render :partial => "rounds/end_round_button" %>
+                    <% else %>
+                      <%= render :partial => "rounds/start_round_button" %>
+                    <% end %>
+                  <% end %></div></td>
+            <%  end %>
+
+            <td width = "70%", nowrap>
+                <div id = "sign_out_link">
+                    <%= render :partial => "staffs/sign_out_link" %>
+              </div>
+            </td>
+            
+            <td width = "0%"><%=link_to image_tag("customize2.png", :size=> "35x35", :title=>"Preferences"), "/notification_preferences" if can? :update, current_staff.notification_preferences %> </td>
+          </tr>
+        </table>
+      </div>
+
+
+    <% end %>
 
     <div id="container">
-    
-    <div id="print_logo" >
-    	<img src="/images/radar_logo.png" align="left"><br/><br/><br/>
+
+      <div id="print_logo" >
+        <img src="/images/radar_logo.png" align="left"><br/><br/><br/>
+      </div>
+      <div id = "user_nav" class="menu">
+
+
+
+        <% if staff_signed_in? %>
+          <%= render  :partial => "organizations/orgs/#{current_staff.staff_organizations.first.organization.name}/home" %>
+        <% end %>
+
+
+      </div>
+      <div id="flash_notice", style="display:none">
     </div>
-<div id = "user_nav" class="menu">
-	
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+
+    <% end %>
+    <%= content_tag :h1, yield(:title) if show_title? %>
+    <%= yield %>
+
+    <div id="footer" class="footer"><br>
+      &nbsp;&copy; 2011 &nbsp;&#149;&nbsp; Created by Saint Mary's University of Minnesota &nbsp;&#149;&nbsp; Department of Computer Science<br><br></div>
+
+  </div>
 
 
-<% if staff_signed_in? %>
-	<%= render  :partial => "organizations/orgs/#{current_staff.staff_organizations.first.organization.name}/home" %>
-<% end %>
-
-
-</div>
-<div id="flash_notice", style="display:none">
-</div>
-
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-
-      <% end %>
-      <%= content_tag :h1, yield(:title) if show_title? %>
-      <%= yield %>
-
-<div id="footer" class="footer"><br>
-&nbsp;&copy; 2011 &nbsp;&#149;&nbsp; Created by Saint Mary's University of Minnesota &nbsp;&#149;&nbsp; Department of Computer Science<br><br></div>	  
-
-    </div>
-		
-
-  </body>
+</body>
 </html>

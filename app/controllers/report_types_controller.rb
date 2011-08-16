@@ -1,13 +1,8 @@
 class ReportTypesController < ApplicationController
-  # GET /report_types
-  # GET /report_types.xml
   before_filter :authenticate_staff!
-  before_filter :super_admin_authorize_view_access
-  
+  load_and_authorize_resource
   
   def index
-    @report_types = ReportType.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @report_types }
@@ -17,8 +12,6 @@ class ReportTypesController < ApplicationController
   # GET /report_types/1
   # GET /report_types/1.xml
   def show
-    @report_type = ReportType.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @report_type }
@@ -28,8 +21,6 @@ class ReportTypesController < ApplicationController
   # GET /report_types/new
   # GET /report_types/new.xml
   def new
-    @report_type = ReportType.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @report_type }
@@ -38,14 +29,12 @@ class ReportTypesController < ApplicationController
 
   # GET /report_types/1/edit
   def edit
-    @report_type = ReportType.find(params[:id])
+    # @report_type automatically loaded by CanCan
   end
 
   # POST /report_types
   # POST /report_types.xml
   def create
-    @report_type = ReportType.new(params[:report_type])
-
     respond_to do |format|
       if @report_type.save
         format.html { redirect_to(@report_type, :notice => 'Report type was successfully created.') }
@@ -60,8 +49,6 @@ class ReportTypesController < ApplicationController
   # PUT /report_types/1
   # PUT /report_types/1.xml
   def update
-    @report_type = ReportType.find(params[:id])
-
     respond_to do |format|
       if @report_type.update_attributes(params[:report_type])
         format.html { redirect_to(@report_type, :notice => 'Report type was successfully updated.') }
@@ -76,7 +63,6 @@ class ReportTypesController < ApplicationController
   # DELETE /report_types/1
   # DELETE /report_types/1.xml
   def destroy
-    @report_type = ReportType.find(params[:id])
     @report_type.destroy
 
     respond_to do |format|

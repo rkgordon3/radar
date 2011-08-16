@@ -4,10 +4,11 @@
     <th><%= link_to "Time Out", :sort => "time_out" %></th>
     <th><%= link_to "Area", :sort => "area" %></th>
     <th><%= link_to "Submitter", :sort => "submitter" %></th>
-	<th></th>
+    <th></th>
+    <th></th>
   </tr>
-  
+
   <%= render :partial => "shifts/shift_table_row", :locals => { :shifts => @shifts, :num_rows=>0 } %>
-  
+
 </table>
 

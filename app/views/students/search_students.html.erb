@@ -36,7 +36,7 @@
 		<td>
 			<div class="field">
     			<b>Building:</b><br />
-				<% res_halls = Building.where(:id => Building.unspecified..Building.end_of_res_hall_id) %>
+				<% res_halls = Building.where(:is_residence => true) %>
     			<%= select_tag "building_id", options_from_collection_for_select(res_halls, "id", "name") %>
 			</div>
 			<div class="field">

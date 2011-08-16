@@ -10,12 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110721191946) do
+ActiveRecord::Schema.define(:version => 20110815202142) do
+
+  create_table "access_levels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "display_name"
+    t.integer  "numeric_level", :precision => 38, :scale => 0
+  end
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "text"
+    t.text     "text"
   end
 
   create_table "areas", :force => true do |t|
@@ -31,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.datetime "updated_at"
     t.integer  "area_id",      :precision => 38, :scale => 0
     t.string   "abbreviation"
+    t.boolean  "is_residence", :precision => 1,  :scale => 0, :default => false
   end
 
   create_table "imports", :force => true do |t|
@@ -117,6 +126,13 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.boolean  "forwardable",     :precision => 1,  :scale => 0
   end
 
+  create_table "report_view_logs", :force => true do |t|
+    t.integer  "staff_id",   :precision => 38, :scale => 0
+    t.integer  "report_id",  :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reports", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -145,15 +161,13 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "staff_id",   :precision => 38, :scale => 0
+    t.integer  "staff_id",      :precision => 38, :scale => 0
     t.datetime "time_out"
-    t.integer  "area_id",    :precision => 38, :scale => 0
+    t.integer  "area_id",       :precision => 38, :scale => 0
+    t.integer  "annotation_id", :precision => 38, :scale => 0
   end
 
   create_table "staff_areas", :force => true do |t|
@@ -186,12 +200,9 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "access_level",                        :precision => 38, :scale => 0
+    t.integer  "access_level_id",                     :precision => 38, :scale => 0
     t.boolean  "active",                              :precision => 1,  :scale => 0
   end
-
-  add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
-  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_rpt"
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id",   :precision => 38, :scale => 0
@@ -207,8 +218,8 @@ ActiveRecord::Schema.define(:version => 20110721191946) do
     t.datetime "updated_at"
     t.string   "note"
     t.integer  "area_id",    :precision => 38, :scale => 0
-    t.date     "start_date"
-    t.date     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.boolean  "expires",    :precision => 1,  :scale => 0
     t.integer  "time",       :precision => 38, :scale => 0
   end

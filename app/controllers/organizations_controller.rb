@@ -1,4 +1,7 @@
 class OrganizationsController < ApplicationController
+  load_resource :except => :destroy
+  authorize_resource
+  
   # GET /organizations
   # GET /organizations.xml
   def index

@@ -1,3 +1,4 @@
 page["flash_notice"].show
 page.replace_html("flash_notice", "You are now off a round.")
 page.replace_html("round_button", :partial=>"rounds/start_round_button")
+page.replace_html("sign_out_link", :partial => "staffs/sign_out_link")

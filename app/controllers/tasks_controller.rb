@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access
+  load_and_authorize_resource
 
   # GET /tasks
   # GET /tasks.xml
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   
   # GET /tasks/1/edit
   def edit
-    @task = Task.find(params[:id])
+    # @task automatically loaded by CanCan
   end
   
   # POST /tasks
@@ -57,7 +57,6 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.xml
   def update
-    @task = Task.find(params[:id])
     params[:task][:time] = parse_task_time(params[:task][:time])
     
     respond_to do |format|

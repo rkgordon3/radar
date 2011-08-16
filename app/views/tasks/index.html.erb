@@ -4,6 +4,7 @@
     <tr>
       <th><%= link_to "Title", :sort => "title" %></th>
       <th><%= link_to "Note", :sort => "note" %></th>
+      <th><%= link_to "Time Due", :sort => "time" %></th>
       <th><%= link_to "Area", :sort => "area" %></th>
       <th><%= link_to "Start Date", :sort => "start_date" %></th>
       <th><%= link_to "End Date", :sort => "end_date" %></th>
@@ -17,6 +18,4 @@
   </table>
 
   <br />
-
-  <%= link_to 'New Task', new_task_path %>
 </div>

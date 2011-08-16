@@ -1,36 +1,46 @@
-<div>
-  <h3><%= "Round #{round_count}" %>:
-    <%= "#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}" %></h3>
+<div id="inside_container" class="inside_container">
+  <b><font size ="2"><%= "Round #{round_count}" %></font></b><font size ="2" color="595959">
+    <%= "[#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}]" %></font><br />
   <div>
-    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
+    <b><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
 
-  	    Reports</h4>
-    <div id="<%= round.id %>-reports" style="display: none;" class='duty_log_div' >
-      <% if reports.length > 0 %>
-        <div id="round <%= round.id %>-reports-div" >
+  	    Reports</b>
+      <% if reports.length == 0 %>
+        <font color="595959">
+        <% else %>
+          <font color="B40D10">
+          <% end %>
+          <%= " (#{reports.length})" %></font></h4>
+    <div id="<%= round.id %>-reports" style="display: none;" class='shift_log_div' >
+      <div id="round <%= round.id %>-reports-div" >
+        <% if reports.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
-        </div>
-      <% else %>
-
-        <p>No Reports For This Round</p>
-      <% end %>
+        <% else %>
+          <p>No reports were submitted for this round.</p>
+        <% end %>
+      </div>
     </div>
   </div>
   <div>
-    <h4><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
+    <b><%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
 
-  	    Notes</h4>
-    <div id="<%= round.id %>-notes" class='duty_log_div' style="display: none;">
-      <% if notes.length > 0 %>
-        <div id="round <%= round.id %>-notes-div" >
+  	    Notes</b>
+      <% if notes.length == 0 %>
+        <font color="595959">
+        <% else %>
+          <font color="B40D10">
+          <% end %>
+          <%= " (#{notes.length})" %></font></h4>
+    <div id="<%= round.id %>-notes" class='shift_log_div' style="display: none;">
+      <div id="round <%= round.id %>-notes-div" >
+        <% if notes.length > 0 %>
           <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
-        </div>
-      <% else %>
-
-        <p>No Notes For This Round</p>
-      <% end %>
+        <% else %>
+          <p>No notes were submitted for this round.</p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

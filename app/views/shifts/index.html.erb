@@ -1,4 +1,14 @@
-<div id="inside_container" class="inside_container"><h1>Duty Logs</h1>
-
-<%= render :partial => "shifts/index_generic", :locals => { :shifts => shifts } %>
+<div id="inside_container" class="inside_container">
+  <h1><% if all_logs %>
+      All Shifts
+    <% elsif access_level != nil %>
+      <%= "#{access_level} #{log_type.capitalize} Logs" %>
+    <% else %>
+      My Logs
+    <% end %></h1>
+  <% if shifts.length > 0 %>
+    <%= render :partial => "shifts/index_generic", :locals => { :shifts => shifts } %>
+  <% else %>
+    No Logs to display.
+  <% end %>
 </div>

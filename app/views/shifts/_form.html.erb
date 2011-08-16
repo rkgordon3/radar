@@ -1,17 +1,46 @@
-<%= form_for(@shift) do |f| %>
-  <% if @shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
-
-      <ul>
+<% if @shift.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+    <ul>
       <% @shift.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@shift) do |f| %>
+
+  <div class="field">
+    <b><%= f.label :time_in %>:</b><br />
+    <% if can? :update_shift_times, @shift %>
+      <%= text_field(:shift, :created_at, :id => "time_in", :value => @shift.created_at) %>
+    <% else %>
+      <b><%= "#{@shift.start_time}, #{@shift.start_date}"  %></b>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <b><%= f.label :time_out %>:</b><br />
+    <% if can? :update_shift_times, @shift %>
+      <%= text_field(:shift, :time_out, :id => "time_out", :value => @shift.time_out) %>
+    <% else %>
+    <b>Now</b>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <b>  <%= t "summary:" %></b><br />
+    <%= text_area(:annotation, :text,  :cols=> "60", :rows => "4", :value=> @shift.annotation_text) %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<script type="text/javascript">
+  AnyTime.picker( "time_in",
+  { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+  AnyTime.picker( "time_out",
+  { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+</script>

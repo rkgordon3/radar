@@ -8,6 +8,8 @@ class Task < ActiveRecord::Base
   def Task.sort(key)
     if key=="title"
       return Task.order("title ASC").all
+    elsif key=="time"
+      return Task.order("time DESC").all
     elsif key=="note"
       return Task.order("note ASC").all
     elsif key=="start_date"
@@ -21,31 +23,20 @@ class Task < ActiveRecord::Base
   end
   
   def Task.get_active_by_area(area_id)
-    return Task.active.where("area_id = ? OR area_id = ?", 1, area_id)
+    return Task.active.where("area_id = ? OR area_id = ?", Area.find_by_name(unspecified), area_id)
   end
   
   #this method 
   def time_string
     if self.time == ANYTIME
-      return "anytime"
+      return ""
     end
     t=Time.new(0).advance({:minutes=>self.time})
     return t.to_s(:time_only)
   end
-  
-  def info
-    if self.note != nil
-      if self.note.length != 0
-        if self.time != ANYTIME
-          return "@" + self.time_string + ", " + self.note
-        end
-        return self.note
-      end
-    end
-    if self.time > ANYTIME
-      return "@" + self.time_string
-    end
-    return ""
+
+  def title_time_string
+    return self.time_string + (time_string.length > 0 ? ", " : "") + self.title
   end
   
   def status

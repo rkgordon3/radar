@@ -1,0 +1,40 @@
+<div id="inside_container" class="inside_container">
+  <b><%= link_to image_tag("/images/add_icon.gif", :id => "reports-img"), "javascript:void(0)",
+      :onclick => "plusMinusToggle('reports', 'reports-img');" %>
+  	    Reports</b>
+  <% if reports.length == 0 %>
+    <font color="595959">
+    <% else %>
+      <font color="B40D10">
+      <% end %>
+      <%= " (#{reports.length})" %></font></h4>
+    <div id="reports" style="display: none;" class='shift_log_div' >
+      <% if reports.length > 0 %>
+        <div id="reports-div" >
+          <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
+        </div>
+      <% else %>
+        <p>No reports were submitted for this round.</p>
+      <% end %>
+    </div>
+    <div>
+      <b><%= link_to image_tag("/images/add_icon.gif", :id => "notes-img"), "javascript:void(0)",
+          :onclick => "plusMinusToggle('notes', 'notes-img');" %>
+  	    Notes</b>
+      <% if notes.length == 0 %>
+        <font color="595959">
+        <% else %>
+          <font color="B40D10">
+          <% end %>
+          <%= " (#{notes.length})" %></font></h4>
+        <div id="notes" class='shift_log_div' style="display: none;">
+          <% if notes.length > 0 %>
+            <div id="notes-div" >
+              <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
+            </div>
+          <% else %>
+            <p>No notes were submitted for this round.</p>
+          <% end %>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,17 @@
 <tr>
   <th><%= link_to "Approach Date", params.merge(:sort => "date"), :remote => true %></th>
   <th><%= link_to "Time", params.merge(:sort => "date"), :remote => true %></th>
-  <th><%= link_to "Type", params.merge(:sort => "type"), :remote => true %></th>
-  <th><%= link_to "Area", params.merge(:sort => "area"), :remote => true %></th>
+   <th><%= link_to "Tag", params.merge(:sort => "tag"), :remote => true %></th>
+     <th><%= link_to "Submitter", params.merge(:sort => "submitter"), :remote => true %></th>
   <th><%= link_to "Building Name", params.merge(:sort => "building"), :remote => true %></th>
   <th><%= link_to "Specific Location", params.merge(:sort => "location"), :remote => true %></th>
-  <th><%= link_to "Submitter", params.merge(:sort => "submitter"), :remote => true %></th>
-  <th><%= link_to "Tag", params.merge(:sort => "tag"), :remote => true %></th>
 
-  <% if Authorize.not_admin_assistant_authorize(current_staff) %>
+ 
+
+  <% if can? :edit, Report %>
     <td></td>
+  <% end %>
+  <% if can? :destroy, Report %>
     <td></td>
   <% end %>
 </tr>

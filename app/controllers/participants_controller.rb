@@ -1,11 +1,8 @@
 class ParticipantsController < ApplicationController
-  # GET /participants
-  # GET /participants.xml
   before_filter :authenticate_staff!
-  before_filter :admin_authorize_view_access
+  load_and_authorize_resource
   
   def index
-    @participants = Participant.all
     @numRows = 0
 
     respond_to do |format|
@@ -17,8 +14,6 @@ class ParticipantsController < ApplicationController
   # GET /participants/1
   # GET /participants/1.xml
   def show
-    @participant = Participant.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @participant }
@@ -28,8 +23,6 @@ class ParticipantsController < ApplicationController
   # GET /participants/new
   # GET /participants/new.xml
   def new
-    @participant = Participant.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @participant }
@@ -38,14 +31,12 @@ class ParticipantsController < ApplicationController
 
   # GET /participants/1/edit
   def edit
-    @participant = Participant.find(params[:id])
+    # @participant automatically loaded by CanCan
   end
 
   # POST /participants
   # POST /participants.xml
   def create
-    @participant = Participant.new(params[:participant])
-
     respond_to do |format|
       if @participant.save
         format.html { redirect_to(@participant, :notice => 'Participant was successfully created.') }
@@ -60,8 +51,6 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1
   # PUT /participants/1.xml
   def update
-    @participant = Participant.find(params[:id])
-
     respond_to do |format|
       if @participant.update_attributes(params[:participant])
         format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
@@ -76,7 +65,6 @@ class ParticipantsController < ApplicationController
   # DELETE /participants/1
   # DELETE /participants/1.xml
   def destroy
-    @participant = Participant.find(params[:id])
     @participant.destroy
 
     respond_to do |format|

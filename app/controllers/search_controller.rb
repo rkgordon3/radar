@@ -1,6 +1,5 @@
 class SearchController < ApplicationController
 	before_filter :authenticate_staff!
-	before_filter :ra_authorize_view_access
 	
   # autocomplete looks at the student table in the full name field, returns all values that match
 

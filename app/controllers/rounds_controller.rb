@@ -1,14 +1,9 @@
 class RoundsController < ApplicationController
-  # GET /rounds
-  # GET /rounds.xml
-  
   before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access 
   skip_before_filter :verify_authenticity_token
-  
-  def index
-    @rounds = Round.all
+  load_and_authorize_resource
 
+  def index
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @rounds }
@@ -18,8 +13,6 @@ class RoundsController < ApplicationController
   # GET /rounds/1
   # GET /rounds/1.xml
   def show
-    @round = Round.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @round }
@@ -29,8 +22,6 @@ class RoundsController < ApplicationController
   # GET /rounds/new
   # GET /rounds/new.xml
   def new
-    @round = Round.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @round }
@@ -39,14 +30,12 @@ class RoundsController < ApplicationController
 
   # GET /rounds/1/edit
   def edit
-    @round = Round.find(params[:id])
+    # @round automatically loaded by CanCan
   end
 
   # POST /rounds
   # POST /rounds.xml
   def create
-    @round = Round.new(params[:round])
-
     respond_to do |format|
       if @round.save
         format.html { redirect_to(@round, :notice => 'Round was successfully created.') }
@@ -61,8 +50,6 @@ class RoundsController < ApplicationController
   # PUT /rounds/1
   # PUT /rounds/1.xml
   def update
-    @round = Round.find(params[:id])
-
     respond_to do |format|
       if @round.update_attributes(params[:round])
         format.html { redirect_to(@round, :notice => 'Round was successfully updated.') }
@@ -77,7 +64,6 @@ class RoundsController < ApplicationController
   # DELETE /rounds/1
   # DELETE /rounds/1.xml
   def destroy
-    @round = Round.find(params[:id])
     @round.destroy
 
     respond_to do |format|
@@ -87,38 +73,36 @@ class RoundsController < ApplicationController
   end
   
   def start_round
-	shift = current_staff.current_shift
-	if (shift != nil) 
-	
-	  @round = Round.new
-	  @round.shift_id = shift.id
-	  @round.save
-		
-	  respond_to do |format|	
-		format.js
-		format.iphone {
-			render :update do |page|
-				page.replace_html("round_button", :partial=>"rounds/end_round_button")
-			end
-		}
-	  end
-	end
+    shift = current_staff.current_shift
+    if shift != nil && current_staff.current_round == nil #staff is on duty but not on a round
+      @round = Round.new
+      @round.shift_id = shift.id
+      @round.save
+    end
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
+          page.replace_html("round_button", :partial => "rounds/end_round_button")
+        end
+      }
+    end
   end
   
   def end_round
-	shift = current_staff.current_shift
-	if (shift != nil) 
-	  @round = Round.where(:end_time => nil, :shift_id => shift.id).first
-	  @round.end_time = Time.now
-	  @round.save
-	  respond_to do |format| 
-		format.js
-		format.iphone {
-			render :update do |page|
-				page.replace_html("round_button", :partial=>"rounds/start_round_button")
-			end
-		}
-	  end
-	end
+    shift = current_staff.current_shift
+    @round = current_staff.current_round
+    if shift != nil && @round != nil #staff is on duty and on a round
+      @round.end_time = Time.now
+      @round.save
+    end
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
+          page.replace_html("round_button", :partial=>"rounds/start_round_button")
+        end
+      }
+    end
   end
 end

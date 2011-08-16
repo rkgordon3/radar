@@ -1,9 +1,9 @@
 class StudentsController < ApplicationController
+  before_filter :authenticate_staff!
+  load_and_authorize_resource
+  
   # GET /students
   # GET /students.xml
-  before_filter :authenticate_staff!
-  before_filter :ra_authorize_view_access
- 
   def index
     if params[:sort] == nil
       @students = Student.order(:last_name)
@@ -31,71 +31,8 @@ class StudentsController < ApplicationController
     end
   end
   
-  # GET /students/new
-  # GET /students/new.xml
-  def new
-    @student = Student.new
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @student }
-    end
-  end
-  
-  # GET /students/1/edit
-  def edit
-    @student = Student.find(params[:id])
-  end
-  
-  # POST /students
-  # POST /students.xml
-  def create
-    @student = Student.new(params[:student])
-    
-    respond_to do |format|
-      if @student.save
-        format.html { redirect_to(@student, :notice => 'Student was successfully created.') }
-        format.xml  { render :xml => @student, :status => :created, :location => @student }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @student.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  # PUT /students/1
-  # PUT /students/1.xml
-  def update
-    @student = Student.find(params[:id])
-    
-    respond_to do |format|
-      if @student.update_attributes(params[:student])
-        format.html { redirect_to(@student, :notice => 'Student was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @student.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  # DELETE /students/1
-  # DELETE /students/1.xml
-  def destroy
-    @student = Student.find(params[:id])
-    @student.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to(students_url) }
-      format.xml  { head :ok }
-    end
-  end
-  
   
   def show_details
-    logger.debug "IN SHOW DETAILS"
-    @id = params[:id]
-    @student = Student.find(@id)
     respond_to do |format|
       format.js
     end
@@ -103,9 +40,7 @@ class StudentsController < ApplicationController
   
   # POST 
   def search_results
-  				
-    logger.debug("IN SEARCH RESULTS")
-    @students = nil
+  	@students = nil
     student = nil
     
     # if a student's name was entered, find all reports with that student
@@ -140,7 +75,7 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if a building was selected, get students in that building
-      if params[:building_id] != Building.unspecified.to_s
+      if params[:building_id] != Building.unspecified_id.to_s
         @students = @students.where(:building_id => params[:building_id])
         
         #-----------------
@@ -155,7 +90,7 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if an area was selected, get students in that area
-      if params[:area_id] != Area.unspecified.to_s && params[:building_id] == Building.unspecified.to_s
+      if params[:area_id] != Area.unspecified_id.to_s && params[:building_id] == Building.unspecified_id.to_s
         buildings = Building.where(:area_id => params[:area_id])
         @students = @students.where(:building_id => buildings)
         

@@ -12,6 +12,11 @@ class Report < ActiveRecord::Base
   def is_generic? 
     type == nil
   end
+
+  def submitter?(staff)
+    staff||=Staff.new
+    return staff.id==self.staff.id
+  end
   
   def is_note?
     type == "Note"
@@ -56,12 +61,10 @@ class Report < ActiveRecord::Base
   end
   
   def reasons
-	RelationshipToReport.for(self) 
+    RelationshipToReport.for(self)
   end
   
-  
   def update_attributes_without_saving(params)
-    logger.debug "IN REPORT.update attributes  params #{params}"
     self.building_id = params[:building_id]
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] || Time.now
@@ -79,18 +82,14 @@ class Report < ActiveRecord::Base
     
   end
   
-  
-  
   def setup_defaults
     if self.id == nil
-      self.building_id = Building.unspecified
+      self.building_id = Building.unspecified_id
       self.approach_time = Time.now
       self.submitted = false
       self.tag = tag
     end
   end
-  
-  
   
   def save
     if annotation != nil && annotation.save != nil 
@@ -98,8 +97,6 @@ class Report < ActiveRecord::Base
     end
     super
   end
-  
-  
   
   def save_everything
     # save each reported infraction to database  
@@ -114,8 +111,6 @@ class Report < ActiveRecord::Base
     end
   end
   
-  
-  
   def destroy_everything
     destroy_participants
     if annotation != nil
@@ -123,12 +118,9 @@ class Report < ActiveRecord::Base
     end
   end
   
-  
-  
   def contact_reasons_for(participant_id)
     self.report_participant_relationships.select { |ri| ri.participant_id == participant_id } 
   end
-  
  
   def destroy_participants
     report_participant_relationships.each do |ri|
@@ -182,8 +174,6 @@ class Report < ActiveRecord::Base
     return participants
   end
   
-  
-  
   def add_default_contact_reason(participant_id)
     # only want to add if fyi doesn't already exist
     all_relationships_for_participant = contact_reasons_for(participant_id)
@@ -200,9 +190,7 @@ class Report < ActiveRecord::Base
     end
     return ri
   end
-  
-  
-  
+   
   def add_contact_reason_for(participant_id, reason_id)
     ri = get_contact_reason_for_participant(participant_id, reason_id) 
     
@@ -222,12 +210,9 @@ class Report < ActiveRecord::Base
     report_participant_relationships.select { |r| r.participant_id == participant_id && r.relationship_to_report_id == reason_id }
   end
   
-  
   def tag	
     tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s
   end
-  
-
   
   def event_time
     (approach_time != nil ? approach_time : created_at).to_s(:time_only)
@@ -257,14 +242,10 @@ class Report < ActiveRecord::Base
     return new_data
   end
  
-  
-  
-  
   def display_name
     return ReportType.find_by_name(self.class.name).display_name
   end
    
-  
   def process_participant_params_string_from_student_search(participants_string)
     if participants_string !=nil
       participants = participants_string.split(/,/)
@@ -278,5 +259,4 @@ class Report < ActiveRecord::Base
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
-  
 end
