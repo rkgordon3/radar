@@ -42,9 +42,9 @@ ReportType.create(:id=>3, :name=>"Report", :display_name=>"FYI", :abbreviation=>
 
 # Areas and Buildings
 
-ar = Area.create(:id=>1, :name=>"Unspecified", :abbreviation=>"NA")
+ar = Area.create(:id=>1, :name=>unspecified, :abbreviation=>"NA")
 unspec_area = ar
-Building.create(:id=>1, :name=>"Unspecified", :area_id=>1, :abbreviation=>"NA")
+
 Building.create(:id=>16, :name=>"Off Campus", :area_id=>ar.id, :abbreviation=>"OC")
 Building.create(:id=>17, :name=>"Athletic Fields", :area_id=>ar.id, :abbreviation=>"ATHL")
 Building.create(:id=>18, :name=>"Jul Gernes Pool", :area_id=>ar.id, :abbreviation=>"POOL")

@@ -23,7 +23,7 @@ class Task < ActiveRecord::Base
   end
   
   def Task.get_active_by_area(area_id)
-    return Task.active.where("area_id = ? OR area_id = ?", Area.find_by_name('Unspecified'), area_id)
+    return Task.active.where("area_id = ? OR area_id = ?", Area.find_by_name(unspecified), area_id)
   end
   
   #this method 

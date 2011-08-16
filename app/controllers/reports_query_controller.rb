@@ -71,13 +71,13 @@ class ReportsQueryController < ApplicationController
     
     #-----------------
     # if a building was selected, get reports in that building
-    if Integer(params[:building_id]) != Building.unspecified 
+    if Integer(params[:building_id]) != Building.unspecified_id
       @reports = @reports.where(:building_id => params[:building_id])
     end
     
     #-----------------
     # if an area was selected, get reports in that area
-    if Integer(params[:area_id]) != Area.unspecified 
+    if Integer(params[:area_id]) != Area.unspecified_id
       buildings = Building.where(:area_id => params[:area_id])
       @reports = @reports.where(:building_id => buildings)
       

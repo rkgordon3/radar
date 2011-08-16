@@ -2,6 +2,15 @@
 require File.expand_path('../application', __FILE__)
 require 'socket'
 
+
+#useful global
+
+	def unspecified 
+	  "Unspecified"
+	end
+	
+
+
 # Gallery image path when Radar hosts images, as opposed to client
 #DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
 

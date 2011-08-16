@@ -84,7 +84,7 @@ class Report < ActiveRecord::Base
   
   def setup_defaults
     if self.id == nil
-      self.building_id = Building.unspecified
+      self.building_id = Building.unspecified_id
       self.approach_time = Time.now
       self.submitted = false
       self.tag = tag

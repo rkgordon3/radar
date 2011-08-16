@@ -75,7 +75,7 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if a building was selected, get students in that building
-      if params[:building_id] != Building.unspecified.to_s
+      if params[:building_id] != Building.unspecified_id.to_s
         @students = @students.where(:building_id => params[:building_id])
         
         #-----------------
@@ -90,7 +90,7 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if an area was selected, get students in that area
-      if params[:area_id] != Area.unspecified.to_s && params[:building_id] == Building.unspecified.to_s
+      if params[:area_id] != Area.unspecified_id.to_s && params[:building_id] == Building.unspecified_id.to_s
         buildings = Building.where(:area_id => params[:area_id])
         @students = @students.where(:building_id => buildings)
         
