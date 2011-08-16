@@ -6,13 +6,13 @@ class TaskAssignment < ActiveRecord::Base
     if key=="title"
       return data.joins(:task).order("title ASC").all
     elsif key=="due_time"
-      return data.joins(:task).order("date(task_assignments.created_at) DESC, tasks.time ASC").all
+      return data.joins(:task).order("task_assignments.created_at DESC, tasks.time ASC").all
     elsif key=="done_time"
       return data.where(:done => true).order("updated_at DESC").all + data.where(:done => false).all
     elsif key=="staff"
       return data.joins(:shift=>:staff).order("last_name ASC").all
     else
-      return data.joins(:task).order("date(task_assignments.created_at) DESC, tasks.time ASC").all
+      return data.joins(:task).order("task_assignments.created_at DESC, tasks.time ASC").all
     end
   end
   
