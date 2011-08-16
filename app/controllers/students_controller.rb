@@ -127,6 +127,7 @@ class StudentsController < ApplicationController
     
     respond_to do |format|
       format.html
+	  format.iphone  { render  :layout => 'mobile_application' }
     end
   end
   

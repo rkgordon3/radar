@@ -46,6 +46,7 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 
 }
 
+.inline  { display:inline; }
 
 .small-label { color: #595959;  font-weight: bold; }
 

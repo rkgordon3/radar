@@ -46,6 +46,9 @@ RUBY
             <li>
               <a href = "/notes/new">Make a Note</a>
             </li>
+			<li>
+			  <a href="#_SearchStudents">Search Students</a>
+			</li>
             <% if current_staff.on_duty? %>
               <li>
                 <a href = "#_Checklist">To Do List</a>
@@ -78,6 +81,13 @@ RUBY
       </fieldset>
     </div>
   </div>
+  <div class="iLayer" id="waSearchStudents" >
+   <a href="#" id="waBackButton" rel="back"  >Back</a>
+	<div class="iPanel">
+	  <%= render :partial=>"students/search_students" %>
+	</div>
+  </div>
+  
   <% if staff_signed_in? %>
     <div class="iLayer" id="waChecklist" >
       <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
