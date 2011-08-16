@@ -112,10 +112,14 @@ class ReportsController < ApplicationController
     @report = session[:report]
     
     if @participant == nil
+	
       name_tokens = params[:full_name].split(' ')
       first_name = name_tokens[0].capitalize
-      last_name = name_tokens[2].capitalize
-      middle_initial = name_tokens[1].capitalize
+	  if (name_tokens.length > 2) 
+		middle_initial = name_tokens[1].capitalize
+	  end
+      last_name = name_tokens[name_tokens.length-1].capitalize
+      
       
       respond_to do |format|
         format.js{
