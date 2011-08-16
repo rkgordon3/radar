@@ -25,13 +25,14 @@ class TaskAssignment < ActiveRecord::Base
   
   def done_time
     if self.done
-      return "" + self.updated_at.to_s(:time_only) + ", " + self.updated_at.to_s(:short_date_only)
+      return self.updated_at.to_s(:time_only) + ", " + self.updated_at.to_s(:short_date_only)  
     end
-      return "not done"
+      return ""
   end
 
   def due_time
-    return "" + self.task.time_string + ", " + self.created_at.to_s(:short_date_only)
+    ts = self.task.time_string
+    return  ts +  (ts.length > 0 ? ", " : "") + self.created_at.to_s(:short_date_only)
   end
   
 end

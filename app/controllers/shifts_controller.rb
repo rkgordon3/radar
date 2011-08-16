@@ -171,8 +171,8 @@ class ShiftsController < ApplicationController
     @task_assignments = TaskAssignment.sort(@task_assignments, params[:sort_tasks])
     
     respond_to do |format|
-      format.html { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
-      format.xml  { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes } }
+      format.html { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes, :ra_shifts => ra_shifts } }
+      format.xml  { render :locals => { :total_incident_reports => total_incident_reports, :reports => reports, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :notes => notes, :ra_shifts => ra_shifts } }
       format.js   { render :locals => { :reports => reports, :notes => notes } }
     end
 

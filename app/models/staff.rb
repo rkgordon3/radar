@@ -8,6 +8,22 @@ class Staff < ActiveRecord::Base
   before_save :lower_email
   after_initialize :set_active
   
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :trackable, :validatable,
+    :timeoutable
+  
+  
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+
+ 
+  def name
+    first_name + " " + last_name
+  end
+  
+  
   def last_login
 	self.last_sign_in_at
   end
@@ -90,19 +106,7 @@ class Staff < ActiveRecord::Base
     (Round.where(:shift_id => current_shift.id, :end_time => nil).first != nil) rescue false
   end
   
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :timeoutable
-  
- 
-  
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
 
- 
-  
   
   def set_active
     self.active = true

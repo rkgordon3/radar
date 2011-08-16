@@ -29,14 +29,14 @@ class Task < ActiveRecord::Base
   #this method 
   def time_string
     if self.time == ANYTIME
-      return "anytime"
+      return ""
     end
     t=Time.new(0).advance({:minutes=>self.time})
     return t.to_s(:time_only)
   end
 
   def title_time_string
-    return self.time_string + ", " + self.title
+    return self.time_string + (time_string.length > 0 ? ", " : "") + self.title
   end
   
   def status

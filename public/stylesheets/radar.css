@@ -46,6 +46,13 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 
 }
 
+
+.small-label { color: #595959;  font-weight: bold; }
+
+.tasks-by-shift {  margin-left: 40px; margin-top: 12px; }
+
+.shift-task-list { margin-left: 20px;  margin-top: 6px; }
+
 .link-report-viewed-true { color: #003333; }
 
 .link-report-viewed-false { color: #CC3333; } 
