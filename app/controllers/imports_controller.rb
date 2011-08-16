@@ -65,10 +65,10 @@ private
         if line[2].length > 0
             params[:student]["middle_initial"] = line[2][0]
         else
-            params[:student]["middle_initial"] = "X"
+            params[:student]["middle_initial"] = ""
         end
         params[:student]["last_name"] = line[3]
-        params[:student]["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "X" + " " + line[3]
+        params[:student]["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "" + " " + line[3]
         params[:student]["classification"] = line[4]
         params[:student]["room_number"] = line[5]
         params[:student]["building_id"] = Building.where(:abbreviation => line[6]).first.id
