@@ -4,7 +4,7 @@
   <% if @task_assignments != nil %>
     <% if @task_assignments.length > 0 %>
       <div id="inside_container" class="inside_container">
-        <h1>To Do List for <%= "#{current_staff.first_name} #{current_staff.last_name}" %></h1>
+        <h1>To Do List for <%= "#{current_staff.name}" %></h1>
         <div id="to_do_list">
           <%= render :partial => "task_assignments/to_do_list_generic" %>
         </div>
