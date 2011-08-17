@@ -25,7 +25,6 @@ class ImportsController < ApplicationController
 	def proc_csv
     lines = parse_csv_file(@import.csv.path)
     lines.shift #comment this line out if your CSV file doesn't contain a header row
-    lines.shift
     if lines.size > 0
       @import.processed = lines.size
       lines.each do |line|
@@ -55,36 +54,54 @@ private
   end
 
     def new_student(line)
-	    logger.debug("Student line: " , line)
+	    logger.debug("Student line: " + line[0])
         params = Hash.new
         params[:student] = Hash.new
         params[:student]["student_id"] = line[0]
         params[:student]["first_name"] = line[1]
-        if line[2].length > 0
+        if not line[2].nil?
             params[:student]["middle_initial"] = line[2][0]
         else
-            params[:student]["middle_initial"] = "X"
+            params[:student]["middle_initial"] = ""
         end
-        params[:student]["last_name"] = line[3]
-        params[:student]["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "X" + " " + line[3]
+        if not line[3].nil?
+            params[:student]["last_name"] = line[3]
+        end
+        params[:student]["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "" + " " + line[3]
         params[:student]["classification"] = line[4]
         params[:student]["room_number"] = line[5]
         params[:student]["building_id"] = Building.where(:abbreviation => line[6]).first.id
-        params[:student]["birthday"] = line[7][3..5] + line[7][0..2] + line[7][6..9] + " 8:00:00"
-        params[:student]["extension"] = line[8][3..7]
-        params[:student]["emergency_contact_name"] = line[10] + " " + line[9]
-        params[:student]["emContact"] = line[14]
+        if not line[7].nil?
+            birthday = line[7].split('/')
+            birthday[0] = birthday[0].rjust(2, '0')
+            birthday[1] = birthday[1].rjust(2, '0')
+            params[:student]["birthday"] = birthday[1] + "/" + birthday[0] + "/" + birthday[2] + " 8:00:00"
+        end
+        if not line[8].nil?
+            params[:student]["extension"] = line[8][3..7]
+        end
+        if not line[10].nil?
+            params[:student]["emergency_contact_name"] = line[10] + " " + line[9]
+        end
+        if not line[14].nil?
+            params[:student]["emContact"] = line[14]
+        end
         params[:student]["affiliation"] = "SMU"
-        url = UrlForId.where(:id => line[0]).first
-        if url != nil
-            url.url = line[16][34..line[16].length]
-            url.save
-        else
-            url = UrlForId.new()
-            url.id = line[0]
-            url.url = line[16][34..line[16].length]
-            url.save
-        end    
+        if not line[16].nil?
+            url = UrlForId.where(:id => line[0]).first
+            if url != nil
+                url.url = line[16][34..line[16].length]
+                url.save
+            else
+                url = UrlForId.new()
+                url.id = line[0]
+                url.url = line[16][34..line[16].length]
+                url.save
+            end
+        end
+        if not line[17].nil?
+            params[:student]["email"] = line[17]
+        end
         student = Student.where(:student_id => params[:student]["student_id"]).first
         student.update_attributes(params[:student]) rescue Student.create(params[:student])
     end
