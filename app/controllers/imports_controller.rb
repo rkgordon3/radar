@@ -9,7 +9,7 @@ class ImportsController < ApplicationController
 	def create
     respond_to do |format|
       if @import.save!
-        flash[:notice] = 'CSV data was successfully imported.'
+        flash[:notice] = 'CSV data was successfully uploaded.'
         format.html { redirect_to(@import) }
       else
         flash[:error] = 'CSV data import failed.'
@@ -41,17 +41,31 @@ class ImportsController < ApplicationController
       render :action => "show", :id => @import.id
     end
 	end
-
-	
 	  
-  def is_legal_id? (id)
-    (id != nil) && (id.length > 0) && ((id =~ /\D/) == nil)
-  end
+	def is_legal_id? (id)
+		(id != nil) && (id.length > 0) && ((id =~ /\D/) == nil)
+	end
   
-  def generate_image_url (raw)
-	prefix_length = IMAGE_PATH.length rescue 0
-	raw[prefix_length+1..raw.length]
-  end
+	def generate_image_url (raw)
+		prefix_length = IMAGE_PATH.length rescue 0
+		# sub any \ with / 
+		raw[prefix_length..raw.length].gsub(/\\/, "/")
+	end
+	
+	def update_url(id, input_url) 
+	    logger.debug "raw update url #{input_url}"
+		if not input_url.nil?
+            url = UrlForId.where(:id => id).first
+            if url == nil
+                url = UrlForId.new()
+                url.id = id
+            end
+			url.url = generate_image_url(input_url)
+			logger.debug "Translated #{url.url}"
+			logger.debug("IMPORT ASSIGN IMAGE  #{url.url} to #{id}")
+            url.save
+        end
+	end
 private
 
   def parse_csv_file(path_to_csv)
@@ -104,15 +118,9 @@ private
         end
         params[:student]["affiliation"] = CLIENT_AFFILIATION_TAG
 		
-        if not line[16].nil?
-            url = UrlForId.where(:id => line[0]).first
-            if url == nil
-                url = UrlForId.new()
-                url.id = line[0]
-            end
-			url.url = generate_image_url(line[16])
-            url.save
-        end
+		# id, url
+		update_url(line[0], line[16])
+       
         if not line[17].nil?
             params[:student]["email"] = line[17]
         end
