@@ -8,11 +8,11 @@
 <td><%= student.first_name %></td>
 <td><%= student.middle_initial %></td>
 <td><%= student.last_name %></td>
-<td><%= student.building.name %></td>
+<td><%= student.residence_hall %></td>
 <td><%= student.room_number %></td>
 <td><%= student.extension %></td>
 <td><%= student.email %></td>
-<% if student.birthday > -21.years.from_now %>
+<% if student.birthday %> -21.years.from_now %>
   <td><font color="CC3333"><%= student.birthday != nil ? student.birthday_string : "" %></font></td>
 <% else %>
   <td><%= student.birthday != nil ? student.birthday_string : "" %></td>

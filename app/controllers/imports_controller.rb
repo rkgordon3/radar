@@ -42,6 +42,16 @@ class ImportsController < ApplicationController
     end
 	end
 
+	
+	  
+  def is_legal_id? (id)
+    (id != nil) && (id.length > 0) && ((id =~ /\D/) == nil)
+  end
+  
+  def generate_image_url (raw)
+	prefix_length = IMAGE_PATH.length rescue 0
+	raw[prefix_length+1..raw.length]
+  end
 private
 
   def parse_csv_file(path_to_csv)
@@ -53,8 +63,13 @@ private
     lines
   end
 
+
     def new_student(line)
 	    logger.debug("Student line: " + line[0])
+	    if !is_legal_id?(line[0]) 
+		    logger.debug("IMPORT ERROR. Skipping record with bad ID : >>#{line[0]}<<")
+		    return
+		end
         params = Hash.new
         params[:student] = Hash.new
         params[:student]["student_id"] = line[0]
@@ -69,8 +84,9 @@ private
         end
         params[:student]["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "" + " " + line[3]
         params[:student]["classification"] = line[4]
-        params[:student]["room_number"] = line[5]
+        
         params[:student]["building_id"] = Building.where(:abbreviation => line[6]).first.id
+		params[:student]["room_number"] = line[5]
         if not line[7].nil?
             birthday = line[7].split('/')
             birthday[0] = birthday[0].rjust(2, '0')
@@ -86,18 +102,16 @@ private
         if not line[14].nil?
             params[:student]["emContact"] = line[14]
         end
-        params[:student]["affiliation"] = "SMU"
+        params[:student]["affiliation"] = CLIENT_AFFILIATION_TAG
+		
         if not line[16].nil?
             url = UrlForId.where(:id => line[0]).first
-            if url != nil
-                url.url = line[16][34..line[16].length]
-                url.save
-            else
+            if url == nil
                 url = UrlForId.new()
                 url.id = line[0]
-                url.url = line[16][34..line[16].length]
-                url.save
             end
+			url.url = generate_image_url(line[16])
+            url.save
         end
         if not line[17].nil?
             params[:student]["email"] = line[17]

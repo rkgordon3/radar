@@ -9,5 +9,9 @@ class Student < Participant
 	def get_id
 		"#{:id}"
 	end
+	
+	def residence_hall
+	  building.name rescue unspecified
+	end
   
 end

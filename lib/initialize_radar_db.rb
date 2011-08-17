@@ -45,7 +45,7 @@ ReportType.create(:id=>3, :name=>"Report", :display_name=>"FYI", :abbreviation=>
 ar = Area.create(:id=>1, :name=>unspecified, :abbreviation=>"NA")
 unspec_area = ar
 
-Building.create(:id=>16, :name=>"Off Campus", :area_id=>ar.id, :abbreviation=>"OC")
+Building.create(:id=>16, :name=>"Off Campus", :area_id=>ar.id, :abbreviation=>"OFFCAM")
 Building.create(:id=>17, :name=>"Athletic Fields", :area_id=>ar.id, :abbreviation=>"ATHL")
 Building.create(:id=>18, :name=>"Jul Gernes Pool", :area_id=>ar.id, :abbreviation=>"POOL")
 Building.create(:id=>19, :name=>"Gostomski Fieldhouse", :area_id=>ar.id, :abbreviation=>"GF")
@@ -82,11 +82,11 @@ willages_area = ar
 
 ar = Area.create(:id=>1, :name=>"Gilmore Creek, Benilde, St. Yon's", :abbreviation=>"GCBY")
 Building.create(:id=>10, :name=>"Gilmore Creek Hall", :area_id=>ar.id, :abbreviation=>"GC")
-Building.create(:id=>11, :name=>"St. Benilde Hall", :area_id=>ar.id, :abbreviation=>"SB")
+Building.create(:id=>11, :name=>"St. Benilde Hall", :area_id=>ar.id, :abbreviation=>"BN")
 Building.create(:id=>12, :name=>"St. Yons Hall", :area_id=>ar.id, :abbreviation=>"SY")
 
 ar = Area.create(:id=>1, :name=>"St. Joseph's, Pines, Hillside", :abbreviation=>"JPH")
-Building.create(:id=>13, :name=>"St. Joseph Hall", :area_id=>ar.id, :abbreviation=>"SJ")
+Building.create(:id=>13, :name=>"St. Joseph Hall", :area_id=>ar.id, :abbreviation=>"STJO")
 Building.create(:id=>14, :name=>"The Pines Hall", :area_id=>ar.id, :abbreviation=>"PI")
 Building.create(:id=>15, :name=>"Hillside Hall", :area_id=>ar.id, :abbreviation=>"HI")
 jph_area = ar

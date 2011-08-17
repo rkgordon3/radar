@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_iphone_request?
-		true
-   # request.user_agent =~ /(Mobile\/.+Safari)/
+		#true
+      request.user_agent =~ /(Mobile\/.+Safari)/
 	end  
 	
 	def is_android_request?
