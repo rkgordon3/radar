@@ -25,7 +25,6 @@ class ImportsController < ApplicationController
 	def proc_csv
     lines = parse_csv_file(@import.csv.path)
     lines.shift #comment this line out if your CSV file doesn't contain a header row
-    lines.shift
     if lines.size > 0
       @import.processed = lines.size
       lines.each do |line|
@@ -73,7 +72,10 @@ private
         params[:student]["room_number"] = line[5]
         params[:student]["building_id"] = Building.where(:abbreviation => line[6]).first.id
         if not line[7].nil?
-            params[:student]["birthday"] = line[7][3..5] + line[7][0..2] + line[7][6..9] + " 8:00:00"
+            birthday = line[7].split('/')
+            birthday[0] = birthday[0].rjust(2, '0')
+            birthday[1] = birthday[1].rjust(2, '0')
+            params[:student]["birthday"] = birthday[1] + "/" + birthday[0] + "/" + birthday[2] + " 8:00:00"
         end
         if not line[8].nil?
             params[:student]["extension"] = line[8][3..7]
@@ -96,6 +98,9 @@ private
                 url.url = line[16][34..line[16].length]
                 url.save
             end
+        end
+        if not line[17].nil?
+            params[:student]["email"] = line[17]
         end
         student = Student.where(:student_id => params[:student]["student_id"]).first
         student.update_attributes(params[:student]) rescue Student.create(params[:student])
