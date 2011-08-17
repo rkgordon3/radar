@@ -61,5 +61,9 @@ class Participant < ActiveRecord::Base
   def birthday_string
     self.birthday.to_s(:short_date_only)
   end
+  
+  def is_of_drinking_age? 
+     !self.birthday.nil? && self.birthday > (-drinking_age).years.from_now 
+  end
 
 end

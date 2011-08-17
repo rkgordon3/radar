@@ -5,7 +5,7 @@ development:
   database: db/development.sqlite3
   pool: 5
   timeout: 5000
-  adapter: oracle_enhanced
+  #adapter: oracle_enhanced
   #database: ecs4
   #username: RADARCS1
   #password: M8qr3n1zd0pa5

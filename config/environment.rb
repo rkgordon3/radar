@@ -8,6 +8,10 @@ require 'socket'
 	def unspecified 
 	  "Unspecified"
 	end
+	# set drinking age for your locale
+	def drinking_age
+	  21
+	end
 	
 
 # this value identifies default affiliation of participants 
