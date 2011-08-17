@@ -231,12 +231,15 @@ class ShiftsController < ApplicationController
   
   def update_todo
     task_list = params[:task]
-    TaskAssignment.where(:shift_id => current_staff.current_shift.id).each do | assignment |
+    task_list ||= Hash.new
+    @task_assignments = TaskAssignment.where(:shift_id => current_staff.current_shift.id)
+    @task_assignments.each do | assignment |
       assignment.done = task_list[assignment.id.to_s] != nil
       assignment.save
     end
   
     respond_to do |format|
+      format.js
       format.iphone { render :nothing => true }
     end
   end

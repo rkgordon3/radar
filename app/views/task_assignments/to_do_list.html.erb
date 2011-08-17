@@ -1,0 +1,18 @@
+<% if !current_staff.on_duty? %>
+  <h3>You must <%=image_tag("go_on_duty_sign.png", :size=> "35x35", :title=>"Go On Duty")%> on duty to be assigned tasks and then <%= link_to "refresh this page", "/to_do_list" %> to view them.</h3>
+<% else %>
+  <% if @task_assignments != nil %>
+    <% if @task_assignments.length > 0 %>
+      <div id="inside_container" class="inside_container">
+        <h1>To Do List for <%= "#{current_staff.name}" %></h1>
+        <div id="to_do_list">
+          <%= render :partial => "task_assignments/to_do_list_generic" %>
+        </div>
+      </div>
+    <% else %>
+      <h3>You have no tasks to complete during your shift</h3>
+    <% end %>
+  <% else %>
+    <h3>You have no tasks to complete during your shift</h3>
+  <% end %>
+<% end %>

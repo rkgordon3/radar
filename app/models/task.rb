@@ -70,7 +70,7 @@ class Task < ActiveRecord::Base
     if self.expires
       return self.end_date.to_s(:short_date_only)
     end
-    return "does not expire"
+    return ""
   end
   
   def update_attributes(task)

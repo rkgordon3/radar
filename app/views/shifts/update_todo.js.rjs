@@ -1,0 +1,1 @@
+page.replace_html "to_do_list", :partial => 'task_assignments/to_do_list_generic', :locals => { :task_assignments => @task_assignments }
