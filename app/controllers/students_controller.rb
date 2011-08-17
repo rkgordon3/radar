@@ -116,10 +116,7 @@ class StudentsController < ApplicationController
         max = Time.now.gmtime
         
         @students = @students.where(:birthday => min..max )
-      end
-      
-      
-      
+      end 
       @students = @students.order(:last_name)
     end
     
@@ -138,30 +135,16 @@ class StudentsController < ApplicationController
     else
       report_folder = "incident_reports/new"
     end
-    
-    keys = params.keys
-    participant_string = ""
-    
-    for key in keys
-      participant = Participant.where(:id => key)
-      
-      if participant.first != nil
-        if participant_string != ""
-          participant_string = participant_string + ","
-        end
-        
-        participant_string = participant_string + participant.first.id.to_s
-      end
-    end
-    
-       
+	qstring = ""
+	params[:participants].keys.each do |k|
+		qstring << "participants[]=#{k}&"
+	end
+         
     respond_to do |format|
-      format.html { redirect_to "/#{report_folder}?participants=#{participant_string}" }
+      format.html { redirect_to "/#{report_folder}?#{qstring}"  }
+	  format.iphone { redirect_to "/#{report_folder}?#{qstring}" }
     end
   
   end
-  
-  
-  
-  
+
 end
