@@ -28,7 +28,7 @@
   <% @students.each do |student| %>
 	    
 	  <%= content_tag :div, :class => "iLayer" , :id => "waStudentDetails_#{student.id}" do -%>
-	        <% content_tag :a, :href=>"#",  :id=>"waBackButton" , :rel=>"back" do -%>Back<% end -%> 
+	        <a href="#"  id="waBackButton" rel="back" >Back</a> 
 			<div    align="center" >
 				<% content_tag :img,   :src=>"#{student.getImageUrl}" do -%><br/><% end -%>
 				<%= "#{student.name}" %>
