@@ -20,8 +20,8 @@ DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
 # URL_FOR_ID table, which maps ID to participant specific piece of URL.
 # The student specific piece is appended to CLIENT_IMAGE_PATH to determine
 # location of student image.
-#CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
-CLIENT_IMAGE_PATH = nil
+CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
+#CLIENT_IMAGE_PATH = nil
 
 IMAGE_PATH = CLIENT_IMAGE_PATH || DEFAULT_IMAGE_PATH
 	
