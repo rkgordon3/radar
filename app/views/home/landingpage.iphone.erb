@@ -68,15 +68,17 @@ RUBY
     <div class="iPanel">
       <fieldset>
         <ul class="iArrow">
-          <li>
-            <a href = "/incident_reports/on_duty_index">Incident Reports</a>
-          </li>
-          <li>
-            <a href = "/maintenance_reports/on_duty_index">Maintenance Request</a>
-          </li>
-          <li>
-            <a href = "/notes/on_duty_index">Notes</a>
-          </li>
+          <% if current_staff.on_duty? %>
+            <li>
+              <a href = "/incident_reports/on_duty_index">Incident Reports</a>
+            </li>
+            <li>
+              <a href = "/maintenance_reports/on_duty_index">Maintenance Request</a>
+            </li>
+            <li>
+              <a href = "/notes/on_duty_index">Notes</a>
+            </li>
+          <% end %>
         </ul>
       </fieldset>
     </div>
@@ -92,28 +94,30 @@ RUBY
     <div class="iLayer" id="waChecklist" >
       <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
       <div class="iPanel">
-        <fieldset>
-          <Legend>
-            To Do List
-          </Legend>
-          <%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
-            <ul class="iArrow">
-              <% current_staff.currently_assigned_tasks.each do | t | %>
-                <li>
-                  <%= check_box_tag "task[#{t.id}]",
-                    t.task.title_time_string,
-                    t.done,
-                    :onclick => "javascript: update_todo();",
-                    :class=>"iToggle", :title=>"Yes|No" %>
-                  <%= t.task.title_time_string %>
-                </li>
+        <% if current_staff.on_duty? %>
+          <fieldset>
+            <Legend>
+              To Do List
+            </Legend>
+            <%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
+              <ul class="iArrow">
+                <% current_staff.currently_assigned_tasks.each do | t | %>
+                  <li>
+                    <%= check_box_tag "task[#{t.id}]",
+                      t.task.title_time_string,
+                      t.done,
+                      :onclick => "javascript: update_todo();",
+                      :class=>"iToggle", :title=>"Yes|No" %>
+                    <%= t.task.title_time_string %>
+                  </li>
 
-              <% end %>
-              <div id="foo"></div>
-            </ul>
-            <%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
-          <% end -%>
-        </fieldset>
+                <% end %>
+                <div id="foo"></div>
+              </ul>
+              <%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
+            <% end -%>
+          </fieldset>
+        <% end %>
       </div>
     </div>
   <% end %>

@@ -211,7 +211,7 @@ class ReportsController < ApplicationController
   def on_duty_index
     model_name = params[:controller].chomp('_controller').camelize.singularize
     shift_start_time = current_staff.current_shift.created_at
-    @reports = Kernel.const_get(model_name).where("created_at > '#{shift_start_time}' and staff_id = ? and type = '#{model_name}' ",  current_staff.id).order(:approach_time)
+    @reports = Kernel.const_get(model_name).where("created_at > ? and staff_id = ? and type = ? ", shift_start_time, current_staff.id, model_name).order(:approach_time)
 
     respond_to do |format|
       format.iphone {render :file => "reports/on_duty_index", :layout => 'mobile_application'}

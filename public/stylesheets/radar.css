@@ -25,7 +25,7 @@ td {
 #print_logo { display:none; }
 
 #container {
-  width: 90%;
+  width: 1000px;
   margin: 0 auto;
   background-color: #FFF;
   padding: 00px 0px;
