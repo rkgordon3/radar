@@ -1,15 +1,15 @@
 class TaskAssignmentsController < ApplicationController
   load_and_authorize_resource
   
-  # GET /task_assignments
-  # GET /task_assignments.xml
-  def index
+  # GET /to_do_list
+  # GET /to_do_list.xml
+  def to_do_list
     if current_staff.on_duty?
       @task_assignments = current_staff.currently_assigned_tasks
     end
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # to_do_list.html.erb
       format.xml  { render :xml => @task_assignments }
     end
   end

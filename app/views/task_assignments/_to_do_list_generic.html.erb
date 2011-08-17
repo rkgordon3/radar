@@ -1,0 +1,44 @@
+<%= javascript_tag <<-RUBY
+function update_todo()
+{
+var submit_button="submit_button";
+var form_name="update_todo";
+// here you can build the form, or modify form parameters
+$(submit_button).click();
+}
+RUBY
+%>
+<%= form_tag("/shifts/update_todo", :id => "update_todo" , :remote=> true, :format => "js")  do  -%>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Note</th>
+      <th>Time Due</th>
+      <th>Done</th>
+      <th>Time Finished</th>
+    </tr>
+
+    <% num_rows = 0 %>
+
+    <% @task_assignments.each do | assignment | %>
+      <% if num_rows == 0 %>
+        <% num_rows = num_rows + 1 %>
+        <tr class="shaded">
+        <% else %>
+          <% num_rows = 0 %>
+        <tr>
+        <% end %>
+        <td><%= assignment.task.title %></td>
+        <td><%= assignment.task.note %></td>
+        <td><%= assignment.due_time %></td>
+        <td><%= check_box_tag "task[#{assignment.id}]",
+            assignment.task.title_time_string,
+            assignment.done,
+            :onclick => "javascript: update_todo();",
+            :class=>"iToggle", :title=>"Yes|No" %></td>
+        <td><%= assignment.done_time %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag 'submit_button', :id =>"submit_button" , :style => "display: none" %>
+<% end -%>

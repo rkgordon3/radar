@@ -23,10 +23,10 @@
   <li><%  if can? :index, Task %>
       <%= link_to "Tasks", "/tasks" %>
     <% else %>
-      <%= link_to "Tasks", "/task_assignments" %>
+      <%= link_to "Tasks", "/to_do_list" %>
     <% end %>
     <ul>
-      <li><%= link_to "My To Do List", "/task_assignments" if can? :do, Shift %></li>
+      <li><%= link_to "My To Do List", "/to_do_list" if can? :do, Shift %></li>
       <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
       <li><%= link_to "List Tasks", "/tasks" if can? :index, Task %></li>
     </ul>
