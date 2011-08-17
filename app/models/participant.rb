@@ -7,8 +7,11 @@ class Participant < ActiveRecord::Base
   end
   
   def getImageUrl
-    url_for_id = UrlForId.find(self.student_id) rescue nil
-    IMAGE_PATH + ( (url_for_id != nil &&  url_for_id.url != nil ) ? url_for_id.url : (self.email.downcase rescue "unknown"))
+    url_for_id = UrlForId.find(self.student_id) rescue nil 
+	if ( url_for_id.nil? ||   url_for_id.url.nil?) 
+     	return "No image"
+	end
+    IMAGE_PATH + url_for_id.url 
   end
 		
 	def Participant.get_participant_for_full_name(name_string)
