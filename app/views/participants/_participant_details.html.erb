@@ -7,7 +7,7 @@
     <%=  participant.student_id rescue "Unknown" %><br/>
 
     <span style="font-style: italic;">Date of Birth: </span>
-    <% if participant.birthday > -21.year.from_now %>
+    <% if participant.is_of_drinking_age? %>
       <font color="CC3333"><%= participant.birthday_string %></font>
     <%  else  %>
       <%=  participant.birthday_string rescue "Unknown" %>

@@ -48,7 +48,7 @@
               <% end %>
 
               <span style="font-style: italic;">Date of Birth: </span>
-              <% if (b.participant.birthday != nil) and (b.participant.birthday > -21.year.from_now) %>
+              <% if b.participant.is_of_drinking_age? %>
                 <font color="CC3333"><%= b.participant.birthday_string %></font>
               <%  elsif (b.participant.birthday != nil) %>
                 <%=  "#{b.participant.birthday_string}" %>

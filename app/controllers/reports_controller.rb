@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
   def new
 	session[:report] = @report
     if (params[:participants] != nil)
-    	@report.add_participants(params[:participants] )
+    	@report.add_participants(params[:participants])
     end
       
     respond_to do |format|
