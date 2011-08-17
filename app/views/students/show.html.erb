@@ -29,7 +29,7 @@
   </p>
   <p>
     <b>Age:</b>
-    <% if @student.birthday > -21.years.from_now %>
+    <% if @student.is_of_drinking_age? %>
       <font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
     <% else %>
       <%= @student.getAge(@student.birthday) %>
@@ -38,7 +38,7 @@
 
   <p>
     <b>Date of Birth:</b>
-    <% if @student.birthday > -21.years.from_now %>
+    <% if @student.is_of_drinking_age? %>
       <font color="CC3333"><%= @student.birthday != nil ? @student.birthday_string : "" %></font>
     <% else %>
       <%= @student.birthday != nil ? @student.birthday_string : "" %>
