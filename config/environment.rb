@@ -12,7 +12,7 @@ require 'socket'
 
 
 # Gallery image path when Radar hosts images, as opposed to client
-#DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
+DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
 
 # When pulling images from webtools, uncomment this line. More generally,
 # when pulling from a vendor-specified image repository, uncomment this line
@@ -20,8 +20,8 @@ require 'socket'
 # URL_FOR_ID table, which maps ID to participant specific piece of URL.
 # The student specific piece is appended to CLIENT_IMAGE_PATH to determine
 # location of student image.
-CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
-#CLIENT_IMAGE_PATH = nil
+#CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
+CLIENT_IMAGE_PATH = nil
 
 IMAGE_PATH = CLIENT_IMAGE_PATH || DEFAULT_IMAGE_PATH
 	

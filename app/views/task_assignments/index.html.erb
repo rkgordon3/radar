@@ -1,4 +1,4 @@
 <div id="inside_container" class="inside_container">
-  <h1>To Do List for <%= "#{current_staff.first_name} #{current_staff.last_name}" %></h1>
+  <h1>To Do List for <%= "#{current_staff.name}" %></h1>
   <%= render :partial => "task_assignments/index_generic", :locals => { :task_assignments => @task_assignments } %>
 </div>

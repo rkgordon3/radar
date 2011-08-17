@@ -1,6 +1,6 @@
 <div id="inside_container" class="inside_container">
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
-  <font size="4" color="595959"><b><%= "#{@shift.staff.access_level.display_name}: " %></b></font><font size="4"><%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></font><br />
+  <font size="4" color="595959"><b><%= "#{@shift.staff.access_level.display_name}: " %></b></font><font size="4"><%= "#{@shift.staff.name}" %></font><br />
   <font size="4" color="595959"><b>On Duty: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
   <font size="4" color="595959"><b>Area: </b></font><font size="4"><%= "#{@shift.area.name rescue "Unknown"}" %></font><br /><br />
 

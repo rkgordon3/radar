@@ -13,7 +13,7 @@
 
     <% if staff_signed_in? %>
 
-      <h3><%= current_staff.first_name %> <%= current_staff.last_name %>'s Unsubmitted Reports</h3>
+      <h3><%= current_staff.name %>'s Unsubmitted Reports</h3>
       <% if @unsubmitted.length > 0 %>
         <div id = "unsubmitted">
           <%= render :partial => "reports/report_table_row", :locals => { :reports => @unsubmitted, :num_rows=>0 } %>

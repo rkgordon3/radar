@@ -10,7 +10,7 @@
 	<% else %>
 	   <ul>
 	     <li>
-	       <%=image_tag(participant.getImageUrl, :border=> 0, :width=>30) %><%= "#{participant.first_name} #{participant.middle_initial} #{participant.last_name}" %>
+	       <%=image_tag(participant.getImageUrl, :border=> 0, :width=>30) %><%= "#{participant.name}" %>
 	     </li>
        </ul>
 	<% end %>

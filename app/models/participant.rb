@@ -1,6 +1,11 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
 
+  
+  def name
+    first_name + " " + (middle_initial != nil ? (middle_initial + " ") : "") + last_name
+  end
+  
   def getImageUrl
     url_for_id = UrlForId.find(self.student_id) rescue nil
     IMAGE_PATH + (url_for_id != nil ? url_for_id.url : (self.email.downcase rescue "unknown"))

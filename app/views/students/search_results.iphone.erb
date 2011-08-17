@@ -8,8 +8,8 @@
 			
 			<td><h1>Search Results</h1></td>
 			<td style="width: 150px;"></td>
-			<td><%= submit_tag "Add To New Incident Report"%></td>
-			<td><%= submit_tag "Add To New Maintenance Request"%></td>
+			<td><%= submit_tag "Add To New Incident Report" %></td>
+			<td><%= submit_tag "Add To New Maintenance Request" %></td>
 <ul>
 			<% @students.each do |student| %>
 		     <li class="inline" >
@@ -17,7 +17,7 @@
 			
 			
 			 <%= content_tag :a, :href=>"#_StudentDetails_#{student.id}", :class=>"inline" do -%>
-				<%=image_tag(student.getImageUrl, :border=> 0, :width=>30, :class=>"inline") %><%= "#{student.first_name} #{student.middle_initial} #{student.last_name}" %>
+				<%=image_tag(student.getImageUrl, :border=> 0, :width=>30, :class=>"inline") %><%= "#{student.name}" %>
 			  <% end -%>
 		</li>
 			<% end %>

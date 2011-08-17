@@ -33,7 +33,7 @@
           <% if b.participant.type == "Student" %>
             <%= b.participant.last_name %>, <%= b.participant.first_name %> <%= b.participant.middle_initial %>
           <% else %>
-            <%= b.participant.first_name %> <%= b.participant.middle_initial %> <%= b.participant.last_name %>
+            <%= b.participant.name %>
           <% end %>
           <br />
 
