@@ -57,7 +57,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.xml
   def update
-    params[:task][:time] = parse_task_time(params[:task][:time])
+    params[:task][:time] = parse_task_time(params[:task][:time], params[:anytime][:anytime])
     
     respond_to do |format|
       if @task.update_attributes(params[:task])
