@@ -63,12 +63,13 @@ RUBY
     <% end %>
 
   </div>
+  <% if staff_signed_in? %>
   <div class="iLayer" id="waReports" >
     <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
     <div class="iPanel">
       <fieldset>
         <ul class="iArrow">
-          <% if current_staff.on_duty? %>
+          
             <li>
               <a href = "/incident_reports/on_duty_index">Incident Reports</a>
             </li>
@@ -78,7 +79,7 @@ RUBY
             <li>
               <a href = "/notes/on_duty_index">Notes</a>
             </li>
-          <% end %>
+         
         </ul>
       </fieldset>
     </div>
@@ -89,7 +90,7 @@ RUBY
 	  <%= render :partial=>"students/search_students" %>
 	</div>
   </div>
-  
+  <% end  %>
   <% if staff_signed_in? %>
     <div class="iLayer" id="waChecklist" >
       <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
