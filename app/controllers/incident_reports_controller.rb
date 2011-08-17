@@ -26,7 +26,6 @@ class IncidentReportsController < ReportsController
   # GET /incident_reports/new.xml
   def new
     @report = IncidentReport.new(:staff_id => current_staff.id)    # new report
-    @report.process_participant_params_string_from_student_search(params[:participants])
     super
   end
 

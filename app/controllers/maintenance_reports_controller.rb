@@ -3,7 +3,6 @@ class MaintenanceReportsController < ReportsController
   
   def new
     @report = MaintenanceReport.new(:staff_id => current_staff.id)
-    @report.process_participant_params_string_from_student_search(params[:participants])
     super
   end
 

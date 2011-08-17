@@ -122,6 +122,9 @@ class Staff < ActiveRecord::Base
   end
   
   def currently_assigned_tasks
+    if (current_shift == nil)
+	  return []
+	end
     anytime = -1
     timed_assignments = TaskAssignment.joins(:task).where( "shift_id = ? AND tasks.time > ?", self.current_shift.id, anytime ).order(:time).all
     untimed_assignments = TaskAssignment.joins(:task).where( :shift_id => self.current_shift.id, :tasks => {:time => anytime }).all

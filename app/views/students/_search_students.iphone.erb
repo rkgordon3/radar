@@ -1,0 +1,61 @@
+<div id="inside_container" class="inside_container">
+	<%= form_tag('/students/search_results', { :format => 'iphone' }  ) do -%>
+  
+	<h1>Student Search</h1>
+
+	<fieldset>
+        <legend>Student Name:</legend>
+		<ul>
+    	    <li>
+				<%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+			</li>
+		</ul>
+		
+    			
+				
+	   <legend>Student ID Number:</legend><br />
+		 <ul>
+    	   <li>
+    			<%= text_field_tag "student_id" %>
+  			</li>
+		</ul>
+	</fieldset>
+	<div class="actions">
+		<%= submit_tag "Submit" %>
+	</div>
+
+	<% end -%>
+<br />
+
+  	
+<h3>Search for multiple students</h3>
+
+	<fieldset>
+	
+    			<legend>Building:</legend>
+				<ul><li>
+				<% res_halls = Building.where(:is_residence => true) %>
+    			<%= select_tag "building_id", options_from_collection_for_select(res_halls, "id", "name") %>
+			     </li>
+				 </ul>
+			
+				<legend>Room Number:</legend>
+				<ul><li>
+				<%= text_field_tag "room_number" %> 
+				 </li>
+				 </ul>
+	
+    			<legend>Area:</legend>
+				<ul><li>
+					<%= select_tag "area_id", options_from_collection_for_select(Area.all,"id", "name") %>
+				</li>
+				 </ul>
+	
+
+
+	</fieldset>
+
+	<div class="actions">
+		<%= submit_tag "Submit" %>
+	</div>
+</div>

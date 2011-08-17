@@ -245,14 +245,11 @@ class Report < ActiveRecord::Base
   def display_name
     return ReportType.find_by_name(self.class.name).display_name
   end
-   
-  def process_participant_params_string_from_student_search(participants_string)
-    if participants_string !=nil
-      participants = participants_string.split(/,/)
-      participants.each do |p|
-        self.add_default_contact_reason(Integer(p))
+  # An array of participant IDs
+  def add_participants(participants)
+      participants.each do |id|
+        self.add_default_contact_reason(id)
       end
-    end
   end
   
   private

@@ -37,8 +37,11 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    session[:report] = @report
-    
+	session[:report] = @report
+    if (params[:participants] != nil)
+    	@report.add_participants(params[:participants] )
+    end
+      
     respond_to do |format|
       format.html { render "reports/new" }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
