@@ -46,11 +46,11 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 
 }
 
-.import-error-messages { margin-left: 60px; margin-top:20px; }
+.import-error-messages { background-color:#878787; width:600px; height:200px; overflow:auto; margin-left:20px; margin-top:10px; }
 
-.error-message {  font-size:10px; color:#aa0000 }
+.error-message {  font-size:10px; color:#aa0000; }
 
-.error-label { font-weight:bold; font-size:14px; color:#ff0000 }
+.error-label { font-weight:bold; font-size:14px; color:#ff0000; }
 
 .inline  { display:inline; }
 
@@ -114,7 +114,9 @@ position: relative;
   margin-bottom: 20px;
   background-color: #f0f0f0;
   font-size: 12px;
+  overflow:auto;
 }
+
 
 .error_messages h2 {
   text-align: left;

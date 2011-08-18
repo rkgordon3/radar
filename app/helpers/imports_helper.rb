@@ -134,9 +134,7 @@ module ImportsHelper
 		CSV.foreach(path_to_csv) do |row|
 			lines << row
 		end
-		if !Helpers.is_legal_id?(lines[0][0])
-		   lines.shift
-		end 
+		
 		lines
 	end
   

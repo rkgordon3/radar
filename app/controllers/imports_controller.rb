@@ -30,6 +30,10 @@ class ImportsController < ApplicationController
 		logger.debug "#{lines} read from #{@import.csv.path}"
         case @import.datatype
 			when "student"
+			    # skip first line if it looks like a header
+			    if !ImportsHelper::Helpers.is_legal_id?(lines[0][0])
+		          lines.shift
+				end 
 				@import.processed = ImportsHelper.load_students(lines)
 			end
 		 
