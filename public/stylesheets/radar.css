@@ -1,48 +1,48 @@
 body {
-background:#ffffff url('../images/background-tile2.jpg');
-  font-family: Verdana, Helvetica, Arial;
-  font-size: 12px;
+    background:#ffffff url('../images/background-tile2.jpg');
+    font-family: Verdana, Helvetica, Arial;
+    font-size: 12px;
 }
 
 a img {
-  border: none;
+    border: none;
 }
 
 a {
-  color: #CC3333;
+    color: #CC3333;
 }
 
 td {
-  padding: 5px;
+    padding: 5px;
 }
 
 .clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
+    clear: both;
+    height: 0;
+    overflow: hidden;
 }
 
 #print_logo { display:none; }
 
 #container {
-  width: 1100px;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 00px 0px;
-  border: solid 1px black;
-  margin-top: 0px;
-  box-shadow: 0px 0px 12px #878787;
--webkit-box-shadow: 0px 0px 12px #878787;
--moz-box-shadow: 0px 0px 12px #878787;
-filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true)
+    width: 1100px;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 00px 0px;
+    border: solid 1px black;
+    margin-top: 0px;
+    box-shadow: 0px 0px 12px #878787;
+    -webkit-box-shadow: 0px 0px 12px #878787;
+    -moz-box-shadow: 0px 0px 12px #878787;
+    filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true)
 }
 
 #inside_container {
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px;
-  margin-top: 0px;
-  font-family: Arial;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 20px;
+    margin-top: 0px;
+    font-family: Arial;
 
 }
 
@@ -60,187 +60,193 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 
 .participant_detail {
     display: none; 
-    
+
 }
 
-#toolbar{ 
-width:90%; 
-margin: 0 auto;
-padding: 0px 0px;
-margin-top: 20px;
-font-family: Arial;
-font-size: 1.188em;
-color: #B40D10;
-vertical-align: bottom;
-position: relative;
+#forward_email {
+    font-family: Arial;
+    font-size: 1.188em;
+    color: #B40D10;
+}
+
+#toolbar{
+    width:90%;
+    margin: 0 auto;
+    padding: 0px 0px;
+    margin-top: 20px;
+    font-family: Arial;
+    font-size: 1.188em;
+    color: #B40D10;
+    vertical-align: bottom;
+    position: relative;
 
 }
 
 #flash_notice, #flash_error, #flash_alert {
-  padding: 5px 8px;
-  margin: 10px 0;
+    padding: 5px 8px;
+    margin: 10px 0;
 }
 
 #flash_notice {
-  background-color: #94c0d9;
+    background-color: #94c0d9;
 }
 
 #flash_error, #flash_alert {
-  background-color: #f99;
-  border: solid 1px #C66;
+    background-color: #f99;
+    border: solid 1px #C66;
 }
 
 .fieldWithErrors {
-  display: inline;
+    display: inline;
 }
 
 .report_title {
-   margin-bottom: 10px;
-   margin-top: 10px;
-   font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 .error_messages {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  font-size: 12px;
+    width: 400px;
+    border: 2px solid #CF0000;
+    padding: 0px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    font-size: 12px;
 }
 
 .error_messages h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 10px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #b40d10;
-  color: #fff;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 0;
+    background-color: #b40d10;
+    color: #fff;
 }
 
 .error_messages p {
-  margin: 8px 10px;
+    margin: 8px 10px;
 }
 
 .error_messages ul {
-  margin: 0;
+    margin: 0;
 }
 
 .field {
-  padding: 7px;
+    padding: 7px;
 }
 
 .shaded {
-  background-color: #efefef;
-  border-color: #efefef;
-  border-style: solid;
-  border-width: 1px;
+    background-color: #efefef;
+    border-color: #efefef;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .box_shadow{
-box-shadow: 3px 3px 4px #818181;
--webkit-box-shadow: 3px 3px 4px #818181;
--moz-box-shadow: 3px 3px 4px #818181;
-filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true);
+    box-shadow: 3px 3px 4px #818181;
+    -webkit-box-shadow: 3px 3px 4px #818181;
+    -moz-box-shadow: 3px 3px 4px #818181;
+    filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true);
 }
 
-.menu{
-	border:none;
-	border:0px;
-	margin:0px;
-	padding:0px;
-	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-	font-size:12px;
-	font-weight:bold;
-	color: #595959;
-	}
+.menu, .forward_notice {
+    border:none;
+    border:0px;
+    margin:0px;
+    padding:0px;
+    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:bold;
+    color: #595959;
+}
 .menu ul{
-	background:#f1f1f1;
-	height:75px;
-	list-style:none;
-	margin:0;
-	padding:0px;
-	}
-	.menu li{
-		float:left;
-		padding:0px;
-		}
-	.menu li a{
-		background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
-		color:#595959;
-		font-weight:bold;
-		display:block;
-		font-weight:normal;
-		line-height:30px;
-		margin:0px;
-		padding:22px 11px;
-		text-align:center;
-		text-decoration:none;
-		}
-	
-	.menu li a:hover, .menu ul li:hover a{
-		background: #b40d10;
-		color:#FFFFFF;
-		text-decoration:none;
-			}
-	.menu li ul{
-		background:#5a99bd;
-		color:#fff;
-		font-weight:normal;
-		font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-		font-size: 12px;
-		display:none;
-		height:auto;
-		padding:0px;
-		margin:0px;
-		border:0px;
-		position:absolute;
-		width:200px;
-		z-index:200;
-		/*top:1em;
-		/*left:0;*/
-		}
-	.menu li:hover ul{
-		display:block;
-		
-		}
-	.menu li li {
-		background:url('../images/sub_sep.gif') bottom left no-repeat;
-		display:block;
-		float:none;
-		margin:0px;
-		padding:0px;
-		width:200px;
-		}
-	.menu li:hover li a{
-		background:none;
-		
-		}
-	.menu li ul a{
-		display:block;
-		height:35px;
-		font-size:12px;
-		font-style:normal;
-		margin:0px;
-		padding:0px 10px 0px 15px;
-		text-align:left;
-		}
-		.menu li ul a:hover, .menu li ul li:hover a{
-			background:#b40d10 url('../images/hover_sub.gif') center left no-repeat;
-			border:0px;
-			color:#ffffff;
-			text-decoration:none;
-			}
-	.menu p{
-		clear:left;
-		}	
+    background:#f1f1f1;
+    height:75px;
+    list-style:none;
+    margin:0;
+    padding:0px;
+}
+.menu li{
+    float:left;
+    padding:0px;
+}
+.menu li a{
+    background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
+    color:#595959;
+    font-weight:bold;
+    display:block;
+    font-weight:normal;
+    line-height:30px;
+    margin:0px;
+    padding:22px 11px;
+    text-align:center;
+    text-decoration:none;
+}
 
-	#print_link { display:block; float:right }
-	#footer{
-	  background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
-	  color:#fff;
-  	  height:1%;
-	  padding:10px;
-	  }
+.menu li a:hover, .menu ul li:hover a{
+    background: #b40d10;
+    color:#FFFFFF;
+    text-decoration:none;
+}
+.menu li ul{
+    background:#5a99bd;
+    color:#fff;
+    font-weight:normal;
+    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    display:none;
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:200px;
+    z-index:200;
+    /*top:1em;
+		/*left:0;*/
+}
+.menu li:hover ul{
+    display:block;
+
+}
+.menu li li {
+    background:url('../images/sub_sep.gif') bottom left no-repeat;
+    display:block;
+    float:none;
+    margin:0px;
+    padding:0px;
+    width:200px;
+}
+.menu li:hover li a{
+    background:none;
+
+}
+.menu li ul a{
+    display:block;
+    height:35px;
+    font-size:12px;
+    font-style:normal;
+    margin:0px;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+}
+.menu li ul a:hover, .menu li ul li:hover a{
+    background:#b40d10 url('../images/hover_sub.gif') center left no-repeat;
+    border:0px;
+    color:#ffffff;
+    text-decoration:none;
+}
+.menu p{
+    clear:left;
+}	
+
+#print_link { display:block; float:right }
+#footer{
+    background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
+    color:#fff;
+    height:1%;
+    padding:10px;
+}

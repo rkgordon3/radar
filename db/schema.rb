@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815202142) do
+ActiveRecord::Schema.define(:version => 20110818194314) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20110815202142) do
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "text"
+    t.text     "text",       :limit => 20480
   end
 
   create_table "areas", :force => true do |t|
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20110815202142) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
+    t.string   "abbreviation"
+    t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "area_id"
-    t.string   "abbreviation"
     t.boolean  "is_residence", :default => false
   end
 
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(:version => 20110815202142) do
     t.datetime "updated_at"
     t.integer  "authorized_by_id"
     t.integer  "report_type_id"
+  end
+
+  create_table "interested_party_reports", :force => true do |t|
+    t.integer  "interested_party_id"
+    t.integer  "report_id"
+    t.integer  "times_forwarded"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notification_preferences", :force => true do |t|
@@ -120,8 +128,8 @@ ActiveRecord::Schema.define(:version => 20110815202142) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "display_name"
     t.string   "abbreviation"
+    t.string   "display_name"
     t.integer  "organization_id"
     t.boolean  "forwardable"
   end

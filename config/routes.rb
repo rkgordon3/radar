@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :interested_party_reports
+
   resources :access_levels
 
   resources :writing_center_contacts
