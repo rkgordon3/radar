@@ -1,14 +1,14 @@
 <div id="inside_container" class="inside_container">
 <h2>Upload a CSV file to import into the database</h2>
+<p>
+This is a two-step process. First you will upload the file to server. Then you will need to import data into Radar database.</p>
 
-<% form_for @import, :html => { :multipart => true } do |f| %>
+	<% form_for @import, :html => { :multipart => true } do |f| %>
+		<%= f.file_field :csv %>
+		<select name="import[datatype]" size="1">
+			<option value="student"> Students </option>
+		</select>
 
-  <%= f.file_field :csv %>
-<select name="import[datatype]" size="1">
-  <option value="student"> Students </option>
-  </select>
-
-    <%= f.submit "Import" %>
-
-<% end %>
+		<%= f.submit "Upload" %>
+	<% end %>
 </div>

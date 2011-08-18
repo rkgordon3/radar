@@ -1,15 +1,25 @@
 <div id="inside_container" class="inside_container">
 <h2>Results of your CSV Upload</h2>
 
-<%= @import.csv.path %>
+<span class="small-label"><%= "Importing #{@import.csv.path}" %><br/></spam>
 
-<% if @import.processed > 0 %>
+<%  if @import.processed > 0 %>
 
-Success! This import contained <%=  @import.processed %> records
+
+    <% if  session[:import_errors].size > 0 %>
+	    <span class="error-label">Import Errors</span><br/>
+        <div class='error_messages' >
+		<% session[:import_errors].each do |d| %>
+			<span class="error-message"><%= d %></span><br/>
+		<% end %>
+		</div>
+	<% end %>
+
 
 <% else %>
-
-<%= link_to "Import Records", "/imports/proc/#{@import.id}" %>
+<% db_name =  ActiveRecord::Base.connection.instance_variable_get(:@config)[:database].split('/').last rescue
+              ActiveRecord::Base.connection.current_database %>
+<%= link_to "Import Records to #{db_name}", "/imports/proc/#{@import.id}"  %>
 
 <% end %>
 </div>

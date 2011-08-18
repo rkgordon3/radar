@@ -115,11 +115,13 @@ AccessLevel.create(:name=>"AdiministrativeAssistant", :display_name=> "Adiminist
 AccessLevel.create(:name=>"Adiministrator", :display_name=> "Adiministrator", :numeric_level=>4)
 sys_admin_al = AccessLevel.create(:name=>"SystemAdiministrator", :display_name=> "System Adiministrator", :numeric_level=>5)
 
+=begin
+# This does not work for some reason
 # Staff (populate with system.admin)
 sys_admin = Staff.create(:email=>"reslife.system.admin@smumn.edu", 
              :encrypted_password=>"$2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276",
              :password_salt=>"$2a$10$IghfYLOEKBMlPm4Z2dAGYe",
-             :access_level_id=>sys_admin_al.id,
+             :access_level_id=>sys_admin_al.numeric_level,
              :active=>true)
              
 # Staff_Organizations (add radar.system.admin)
@@ -127,4 +129,5 @@ StaffOrganization.create(:staff_id=>sys_admin.id, :organization_id=>reslife.id)
 
 # StaffArea (put system.admin in area)
 StaffArea.create(:staff_id=>sys_admin.id, :area_id=>unspec_area.id)
+=end
    
