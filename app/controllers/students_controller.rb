@@ -5,12 +5,14 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
+    # @students loaded by CanCan
+    @students = @students.paginate(:page => params[:page], :per_page => 30)
     if params[:sort] == nil
-      @students = Student.order(:last_name)
+      @students = @students.order(:last_name)
     elsif params[:sort]=="building"
-      @students = Student.joins(:building).order("name ASC")
+      @students = @students.joins(:building).order("name ASC")
     else
-      @students = Student.order(params[:sort])
+      @students = @students.order(params[:sort])
     end
     
     @numRows = 0

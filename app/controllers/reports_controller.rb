@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).where(:approach_time => Time.now - 30.days .. Time.now)
+    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     @report_type = ReportType.find_by_name(params[:report])
 	  
     params[:sort] ||= "approach_time"
@@ -344,7 +344,7 @@ class ReportsController < ApplicationController
         
         
     # finishing touches...
-    @reports = @reports.where(:submitted => true)
+    @reports = @reports.where(:submitted => true).paginate(:page => params[:page], :per_page => 30)
     params[:sort] ||= "approach_time"
     @reports = Report.sort(@reports,params[:sort])
         
