@@ -26,7 +26,7 @@ module ImportsHelper
 	
 	
 		def self.update_url(id, input_url) 
-			if not input_url.nil?
+			if (not input_url.nil?) && input_url.length > IMAGE_PATH.length
 				url = UrlForId.where(:id => id).first
 				if url == nil
 					url = UrlForId.new()
@@ -64,7 +64,7 @@ module ImportsHelper
 			
 			params["building_id"] = Building.where(:abbreviation => line[6]).first.id
 			params["room_number"] = line[5]
-			if not line[7].nil?
+			if (not line[7].nil?) && line[7].length > 0
 				birthday = line[7].split('/')
 				birthday[0] = birthday[0].rjust(2, '0')
 				birthday[1] = birthday[1].rjust(2, '0')
@@ -92,13 +92,11 @@ module ImportsHelper
 		
 		# create/update student from params hash
 		def self.update_student(params)
-			puts "Update student #{params}"
 			student = Student.where(:student_id => params["student_id"]).first
 			if not student.nil?  
 				raise "Error updating #{params[:student_id]}" if !student.update_attributes(params)
 				#student.save
 			else 
-				puts "error Creating new student record for #{params[:student_id]}"
 				raise "Error creating #{params[:student_id]}" if Student.create(params).nil? 
 			end
 		end
@@ -109,18 +107,20 @@ module ImportsHelper
 	# array, one entry for each column in CSV.
 	# Returns number of successful imports
 	def ImportsHelper.load_students(lines)
+		record_cnt = 0
 		Helpers.error_messages.clear
 		successful_lines = 0
 
 		lines.each do |line|
 			begin 
+			    raise  "Empty record" if line.nil? || line.empty?
 				params = Helpers.build_student_params(line)
 				Helpers.update_student(params)
 				successful_lines += 1
 			rescue 
-				Helpers.add_error_message( $!)
+				Helpers.add_error_message( "Record #{record_cnt} : #{$!}")
 			end
-			
+			record_cnt += 1
 		end
 		successful_lines
 	end
