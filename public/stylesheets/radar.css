@@ -46,6 +46,12 @@ filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY
 
 }
 
+.import-error-messages { margin-left: 60px; margin-top:20px; }
+
+.error-message {  font-size:10px; color:#aa0000 }
+
+.error-label { font-weight:bold; font-size:14px; color:#ff0000 }
+
 .inline  { display:inline; }
 
 .small-label { color: #595959;  font-weight: bold; }

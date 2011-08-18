@@ -1,13 +1,22 @@
 <div id="inside_container" class="inside_container">
 <h2>Results of your CSV Upload</h2>
 
-<%= @import.csv.path %>
+<%= @import.csv.path %><br/>
 
-<% if @import.processed > 0 %>
+<%  if @import.processed > 0 %>
 
-Success! This import contained <%=  @import.processed %> records
+<div id='import-error-messages' >
+    <% if  session[:import_errors].size > 0 %>
+	    <span class="error-label">Import Errors</span>
+		<% session[:import_errors].each do |d| %>
+			<span class="error-message"><%= d %></span><br/>
+		<% end %>
+	<% end %>
+</div>
+<%=  @import.processed %> records imported
 
 <% else %>
+
 
 <%= link_to "Import Records", "/imports/proc/#{@import.id}" %>
 
