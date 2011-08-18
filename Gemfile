@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
 gem 'ruby-oci8', '>= 2.0.4'
 gem 'ruby-plsql'
+gem 'will_paginate', '~> 3.0.pre4'
 
 gem 'mongrel', '1.2.0.pre2'
 
