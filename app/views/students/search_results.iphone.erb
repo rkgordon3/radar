@@ -1,22 +1,26 @@
 <div id="iGroup">
   <div class="iLayer" id="waSearchResults" title="Search Results">
-    <a href="#" id="waSearchStudents" rel="back"  >Back</a>
+    <a href="#" href="/students/search_students"  style="{-webkit-border-image: url(Img/button-back-touch.png) 0 10 0 15}" >Back</a>
     <div class="iPanel">
 
 		<%= form_tag ("/students/use_search_results_to_create_new_report")  do -%>
 			<fieldset>
 			
-				<td><h1>Search Results</h1></td>
-				<td style="width: 150px;"></td>
-				<td><%= submit_tag "Add To New Incident Report" %></td>
-				<td><%= submit_tag "Add To New Maintenance Request" %></td>
+				<h1>Search Results</h1>
+				
+				<%= submit_tag "Add To New Incident Report" %>
+				<%= submit_tag "Add To New Maintenance Request" %>
+			
 				<ul>
 				<% @students.each do |student| %>
-					<li class="inline" >
-						<% content_tag :input,  :type=>"checkbox", :name=>"participants[#{student.id}]", :id=>"participants[#{student.id}]"  do -%><% end -%>
-						<%= content_tag :a, :href=>"#_StudentDetails_#{student.id}", :class=>"inline" do -%>
-							<%=image_tag(student.getImageUrl, :border=> 0, :width=>30, :class=>"inline") %><%= "#{student.name}" %>
+					<li >
+					
+					<% content_tag :input,  :type=>"checkbox", :name=>"participants[#{student.id}]", :id=>"participants[#{student.id}]", :class=>"iToggle" do -%><% end -%>		
+					<div style="position:relative;left:60px;top:-10px;">
+					   <%= content_tag :a, :href=>"#_StudentDetails_#{student.id}" do -%>
+							<%=image_tag(student.getImageUrl, :border=> 0, :width=>30) %><%= "#{student.name}" %>
 						<% end -%>
+					</div>
 					</li>
 				<% end %>
 				</ul>
