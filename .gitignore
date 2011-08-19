@@ -11,3 +11,4 @@ tmp/**/*
 /nbproject/project.xml
 /nbproject/private/private.xml
 /nbproject/private/config.properties
+/config/database.yml
