@@ -54,7 +54,7 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:read, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building]
+      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
@@ -64,7 +64,7 @@ class Ability
 
     elsif access_level_symbol == :administrator
       cannot :destroy, :all
-      can :destroy, [Staff, Task]
+      can :destroy, [Task]
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
       
@@ -95,6 +95,7 @@ class Ability
       cannot [:create, :update_area], Staff
       cannot :view_contact_info, Participant
       cannot :manage, Task
+      cannot :manage, NotificationPreference
     end
   end
   

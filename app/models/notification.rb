@@ -2,6 +2,44 @@ class Notification
 IMMEDIATE_NOTIFICATION = 1
 DAILY_NOTIFICATION = 2
 WEEKLY_NOTIFICATION = 3
+
+  def Notification.never
+    0
+  end
+
+  def Notification.immediate
+    1
+  end
+
+  def Notification.daily
+    2
+  end
+
+  def Notification.weekly
+    3
+  end
+
+  def Notification.building_only
+    0
+  end
+
+  def Notification.area_only
+    1
+  end
+
+  def Notification.all_areas
+    2
+  end
+
+  def Notification.get_time_offset_for_frequency(f)
+    if(f > IMMEDIATE_NOTIFICATION)
+			return 360
+		end
+    if(f < DAILY_NOTIFICATION)
+			return -1
+    end
+  end
+
 	def Notification.immediate_notify(id)
 		notify_prefs = Array.new
 		
