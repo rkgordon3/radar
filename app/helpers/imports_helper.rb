@@ -40,6 +40,10 @@ module ImportsHelper
 		def self.is_legal_id? (id)
 			(id != nil) && (id.length > 0) && ((id =~ /\D/) == nil)
 		end
+		
+		def self.is_legal_dob? (dob)
+		  (not dob.nil?) && ((dob =~ /^(0?[1-9]|1[012])\/(0?[1-9]|[12][1-9]|3[01])\/(19|2[0-9])\d\d$/) == 0)
+		end
 
 		# Create/update a student from an array 
 		def self.build_student_params(line)
@@ -64,7 +68,7 @@ module ImportsHelper
 			
 			params["building_id"] = Building.where(:abbreviation => line[6]).first.id
 			params["room_number"] = line[5]
-			if (not line[7].nil?) && line[7].length > 0
+			if is_legal_dob?(line[7])
 				birthday = line[7].split('/')
 				birthday[0] = birthday[0].rjust(2, '0')
 				birthday[1] = birthday[1].rjust(2, '0')
