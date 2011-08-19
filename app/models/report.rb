@@ -1,6 +1,7 @@
 class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
+  has_many      :interested_party_reports
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
@@ -11,6 +12,10 @@ class Report < ActiveRecord::Base
   # return true if report is a generic report, ie FYI
   def is_generic? 
     type == nil
+  end
+
+  def times_forwarded_to(interested_party)
+    InterestedPartyReport.where(:report_id => self.id, :interested_party_id => interested_party.id).length
   end
 
   def submitter?(staff)

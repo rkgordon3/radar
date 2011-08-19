@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
       forward_as_mail(params[:emails])
       return
     end
-	# add entry to view log if one does not exist for this staff/report combination
+    # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-	session[:report] = @report
+    session[:report] = @report
     if (params[:participants] != nil)
     	@report.add_participants(params[:participants])
     end
@@ -118,9 +118,9 @@ class ReportsController < ApplicationController
 	
       name_tokens = params[:full_name].split(' ')
       first_name = name_tokens[0].capitalize
-	  if (name_tokens.length > 2) 
-		middle_initial = name_tokens[1].capitalize
-	  end
+      if (name_tokens.length > 2)
+        middle_initial = name_tokens[1].capitalize
+      end
       last_name = name_tokens[name_tokens.length-1].capitalize
       
       
@@ -189,21 +189,35 @@ class ReportsController < ApplicationController
   end
   
   def forward_as_mail
-    emails = params[:emails]
-    emails.delete_if {|key, value| value != "1" }
-    emails_for_notice = emails.keys.join(", ")
-    emails = emails.keys.join(", ")
+    parties = params[:parties]
+    parties.delete_if {|key, value| value != "1" }
+    parties = InterestedParty.where(:id => parties.keys)
+    emails = Array.new
+    emails_for_notice = Array.new
+    parties.each do |p|
+      emails << p.email
+    end
+    emails_for_notice = emails.join(", ")
+    emails = emails.join(", ")
     emails_for_notice.gsub!("<","(")
     emails_for_notice.gsub!(">",")")
-    mail = RadarMailer.report_mail(Report.find(params[:report]), emails, current_staff)
-    
+    report = Report.find(params[:report])
+    mail = RadarMailer.report_mail(report, emails, current_staff)
+
     begin
       mail.deliver
+      
+      parties.each do |p|
+        iprs = InterestedPartyReport.find_by_interested_party_id_and_report_id(p.id, report.id)
+        iprs ||= InterestedPartyReport.create(:interested_party_id => p.id ,:report_id => report.id ,:times_forwarded => 0)
+        iprs.times_forwarded += 1
+        iprs.save
+      end
+
+      respond_to do |format|
+        format.js { render :locals => { :emails_for_notice => emails_for_notice } }
+      end
     rescue
-    end
-   
-    respond_to do |format|
-      format.js { render :locals => { :emails => emails, :emails_for_notice => emails_for_notice } }
     end
   end
   

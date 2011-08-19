@@ -66,6 +66,7 @@ class Ability
       cannot :destroy, :all
       can :destroy, [Staff, Task]
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
+      cannot :manage, Import
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
@@ -74,7 +75,6 @@ class Ability
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
-      cannot :manage, Import
 
       cannot :manage, Shift
       can [:list_RA_duty_logs], Shift

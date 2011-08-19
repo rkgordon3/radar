@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  interested_party_id: 1
+  report_id: 1
+  times_forwarded: 1
+
+two:
+  interested_party_id: 1
+  report_id: 1
+  times_forwarded: 1
