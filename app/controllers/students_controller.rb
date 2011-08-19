@@ -45,8 +45,8 @@ class StudentsController < ApplicationController
   	@students = nil
     student = nil
     
-    # if a student's name was entered, find all reports with that student
-    if params[:student_id]!= "" # arbitrary number
+    # if a student's name was entered
+    if param_value_present(params[:student_id])
       # get the student by his/her ID
       search_string = "\"student_id\" LIKE \"" + params[:student_id] + "%\""
       student = Student.where(search_string)
@@ -55,7 +55,7 @@ class StudentsController < ApplicationController
     end
     
     # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 0 # arbitrary number
+    if param_value_present(params[:full_name]) # arbitrary number
       # get the student for the string entered
       student = Participant.get_participant_for_full_name(params[:full_name])
       if student != nil
@@ -77,13 +77,13 @@ class StudentsController < ApplicationController
       
       #-----------------
       # if a building was selected, get students in that building
-      if params[:building_id] != Building.unspecified_id.to_s
+      if param_value_present(params[:building_id]) && (params[:building_id] != Building.unspecified_id.to_s)
         @students = @students.where(:building_id => params[:building_id])
         
         #-----------------
         # if a building was selected, get students in that building
        
-        if params[:room_number].length > 0
+        if param_value_present(params[:room_number])
           @students = @students.where(:room_number => params[:room_number])
         end
       end
@@ -97,11 +97,11 @@ class StudentsController < ApplicationController
         @students = @students.where(:building_id => buildings)
         
       end
-      if (not params[:student].nil?) && (not params[:student].empty?)
+      if param_value_present(params[:student])
 		  #-----------------
 		  # if a date was provided, find all before that date
 		  before_dob1i = params[:student][:"before_birthdate(1i)"]
-		  if (not before_dob1i.nil?) && (before_dob1i.length) >  0   
+		  if param_value_present(before_dob1i)  
 			# be careful of time zones - all need to be in GMT to match the DB
 			date = "#{before_dob1i.to_i}/#{params[:student][:"before_birthdate(2i)"].to_i}/#{params[:student][:"before_birthdate(3i)"].to_i}"
 			min = Time.parse("01/01/1970").gmtime
@@ -113,7 +113,7 @@ class StudentsController < ApplicationController
 		  #-----------------
 		  # if a date was provided, find all after that date
 		  after_dob1i = params[:student][:"after_birthdate(1i)"]
-		  if  (not after_dob1i.nil?) && (after_dob1i.length > 0)  
+		  if  param_value_present(after_dob1i)  
 			# be careful of time zones - all need to be in GMT to match the DB
 			date = "#{after_dob1i.to_i}/#{params[:student][:"after_birthdate(2i)"].to_i}/#{params[:student][:"after_birthdate(3i)"].to_i}"
 			min = Time.parse(date).gmtime
