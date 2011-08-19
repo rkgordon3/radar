@@ -91,6 +91,7 @@ GEM
     whenever (0.6.7)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
+    will_paginate (3.0.0)
 
 PLATFORMS
   x86-mingw32
@@ -109,3 +110,4 @@ DEPENDENCIES
   ruby-plsql
   sqlite3-ruby
   whenever
+  will_paginate (~> 3.0.pre4)
