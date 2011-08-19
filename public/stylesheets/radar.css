@@ -22,6 +22,8 @@ td {
     overflow: hidden;
 }
 
+.help {  width:100%; color:#008787; margin:20px;}
+
 #print_logo { display:none; }
 
 #container {

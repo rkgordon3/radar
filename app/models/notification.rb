@@ -1,7 +1,4 @@
 class Notification
-IMMEDIATE_NOTIFICATION = 1
-DAILY_NOTIFICATION = 2
-WEEKLY_NOTIFICATION = 3
 
   def Notification.never
     0
@@ -32,10 +29,10 @@ WEEKLY_NOTIFICATION = 3
   end
 
   def Notification.get_time_offset_for_frequency(f)
-    if(f > IMMEDIATE_NOTIFICATION)
+    if(f > immediate)
 			return 360
 		end
-    if(f < DAILY_NOTIFICATION)
+    if(f < daily)
 			return -1
     end
   end
@@ -47,7 +44,7 @@ WEEKLY_NOTIFICATION = 3
 		
 		report = Report.find(id)
 		# Remove this reference to constant 1. WTF does it mean? Give me a name, baby!
-		notify_prefs = NotificationPreference.where(:frequency => IMMEDIATE_NOTIFICATION, :report_type => report.type).all
+		notify_prefs = NotificationPreference.where(:frequency => immediate, :report_type => report.type).all
 		
 		notify_prefs.each do |np|
 			
@@ -63,7 +60,7 @@ WEEKLY_NOTIFICATION = 3
 		end	
 		
 		#staff_list.each do |staff|
-		#	mail = RadarMailer.immediate_notification_mail(report, staff)
+		#	mail = RadarMailer.immediate_mail(report, staff)
 		#	mail.deliver
 		#end	
 	end
@@ -74,7 +71,7 @@ WEEKLY_NOTIFICATION = 3
 		
 		staff_ids.each do |s|
 			reports = Hash.new
-			plist = NotificationPreference.where(:staff_id => s.staff_id, :frequency =>(DAILY_NOTIFICATION..WEEKLY_NOTIFICATION))
+			plist = NotificationPreference.where(:staff_id => s.staff_id, :frequency =>(daily..weekly))
 			notify = false
 			plist.each do |p|
 			notify = Notification.should_notify(p)
@@ -96,7 +93,7 @@ WEEKLY_NOTIFICATION = 3
 	end
 	
 	def Notification.should_notify(preference)
-		if preference.frequency == WEEKLY_NOTIFICATION
+		if preference.frequency == weekly
 			base_time = Time.now.beginning_of_week
 		else 
 			base_time = Time.now.beginning_of_day
