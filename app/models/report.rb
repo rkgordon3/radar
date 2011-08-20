@@ -15,7 +15,11 @@ class Report < ActiveRecord::Base
   end
 
   def times_forwarded_to(interested_party)
-    InterestedPartyReport.where(:report_id => self.id, :interested_party_id => interested_party.id).length
+    ip = InterestedPartyReport.find_by_interested_party_id_and_report_id(interested_party.id, self.id)
+    if ip == nil
+      return 0
+    end
+    return ip.times_forwarded
   end
 
   def submitter?(staff)
@@ -252,9 +256,9 @@ class Report < ActiveRecord::Base
   end
   # An array of participant IDs
   def add_participants(participants)
-      participants.each do |id|
-        self.add_default_contact_reason(id)
-      end
+    participants.each do |id|
+      self.add_default_contact_reason(id)
+    end
   end
   
   private
