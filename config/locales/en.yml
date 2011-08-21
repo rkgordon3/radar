@@ -2,8 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  unknown: Unknown
+  submitter: Submitter
+  room_number: Room Number
   annotation: Description
   location: Specific Location
+  forward_this_report: Forward this Report
   contact_reason_prompt: Select Contact Reason(s)
   building: Building
   incident_reports:

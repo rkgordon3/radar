@@ -14,7 +14,7 @@
     <% end %> <br/>
 
     <span style="font-style: italic;">Residence: </span>
-    <%=  participant.room_number rescue "" %> <%  Building.find(participant.building_id).name rescue "Unknown" %><br/>
+    <%=  participant.room_number rescue "" %> <%=  Building.find(participant.building_id).name rescue "Unknown" %><br/>
 
     <span style="font-style: italic;">Extension: </span>
     <%= participant.extension rescue "Unknown" %><br/>

@@ -6,11 +6,11 @@
   <%= @report.event_time %><br/><br />
   <b><%= t "location" %></b>
   <%= @report.building.name %><br/><br />
-  <b>Room Number:</b>
+  <b><%= t :room_number %></b>
   <%= @report.room_number %><br/><br />
   <b> <%= t "annotation" %></b>
   <%= @report.annotation_text %><br/><br />
-  <b>Submitter:</b>
+  <b><%= t :submitter %></b>
   <%= @report.staff.name %><br/><br />
   
   <b>Submitted:</b>

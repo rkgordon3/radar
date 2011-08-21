@@ -4,14 +4,14 @@
     <% if ReportType.find_by_name(@report.type).forwardable? %>
       <%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');" %>
-      Forward this Page
+      <%= t :forward_this_report %>
       <div id="forward_emails_div" style="display: none;">
         <%= form_for(:parties, :remote => true,  :url => { :controller => 'reports',
             :action => :forward_as_mail, :report => @report} ) do |f| %>
           <% @interested_parties.each do |ip| %>
             <div style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" id="forward_email" >
               <%= f.check_box :"#{ip.id}" %>
-                <%= f.label "#{ip.email}" %><br />
+                <%= f.label "#{ip.email}", :class=>"small-label" %><br />
               <div class="forward_notice">
                 <% if @report.times_forwarded_to(ip) > 0 %>
                   <%= "forwarded #{@report.times_forwarded_to(ip)} " %>

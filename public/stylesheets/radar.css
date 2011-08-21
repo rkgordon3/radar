@@ -56,7 +56,7 @@ td {
 
 .inline  { display:inline; }
 
-.small-label { color: #595959;  font-weight: bold; }
+.small-label { color: #595959;  font-weight: bold;  font-size:12px;}
 
 .tasks-by-shift {  margin-left: 40px; margin-top: 12px; }
 
