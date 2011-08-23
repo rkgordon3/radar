@@ -11,7 +11,7 @@ en:
   contact_reason_prompt: Select Contact Reason(s)
   building: Building
   incident_reports:
-     help: Add students involved in incident
+     help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
      common_reasons: Common Infractions
      reasons: Infractions
   maintenance_reports:

@@ -3,3 +3,4 @@ lines.shift
 puts "Import #{lines.size} records"
 scnt = ImportsHelper.load_students(lines)
 puts "Successfully imported #{scnt} records. #{lines.size-scnt} failures."
+puts ImportsHelper::Helpers.stats

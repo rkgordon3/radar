@@ -2,9 +2,19 @@ module ImportsHelper
 	
 	
 	class Helpers
+		@@error_messages = []
+		@@update_count = 0
+		@@new_count = 0
+		def self.stats
+		  "Update Count #{@@update_count} New Count #{@@new_count}"	  
+		end
 		
-		
-	    @@error_messages = []
+		def self.reset
+			@@error_messages = []
+			@@update_count = 0
+			@@new_count = 0
+		end
+
 		
 		def self.error_messages=(arg)
 		   @@error_messages = arg
@@ -80,9 +90,17 @@ module ImportsHelper
 			if not line[10].nil?
 				params["emergency_contact_name"] = line[10] + " " + line[9]
 			end
-			if not line[14].nil?
-				params["emContact"] = line[14]
+			emphone = ""
+			if (not line[13].nil?) && (line[13].strip.length > 0)
+				emphone << "C:#{line[13]}"
 			end
+			if (not line[14].nil?) && (line[14].strip.length > 0)
+				emphone << " D:#{line[14]}" 
+			end
+			emphone << line[15] if emphone.strip.length == 0
+			
+			params["emContact"] = emphone
+			
 			params["affiliation"] = CLIENT_AFFILIATION_TAG
 			
 			# id, url
@@ -99,9 +117,12 @@ module ImportsHelper
 			student = Student.where(:student_id => params["student_id"]).first
 			if not student.nil?  
 				raise "Error updating #{params[:student_id]}" if !student.update_attributes(params)
+				
+				@@update_count += 1
 				#student.save
 			else 
 				raise "Error creating #{params[:student_id]}" if Student.create(params).nil? 
+				@@new_count += 1
 			end
 		end
 	end
@@ -112,7 +133,7 @@ module ImportsHelper
 	# Returns number of successful imports
 	def ImportsHelper.load_students(lines)
 		record_cnt = 0
-		Helpers.error_messages.clear
+		Helpers.reset
 		successful_lines = 0
 
 		lines.each do |line|
@@ -121,6 +142,8 @@ module ImportsHelper
 				params = Helpers.build_student_params(line)
 				Helpers.update_student(params)
 				successful_lines += 1
+				
+				puts "...success"
 			rescue 
 				Helpers.add_error_message( "Record #{record_cnt} : #{$!}")
 			end
