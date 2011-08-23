@@ -1,9 +1,17 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
 
+  
+  def name
+    first_name + " " + (middle_initial != nil ? (middle_initial + " ") : "") + last_name
+  end
+  
   def getImageUrl
-    url_for_id = UrlForId.find(self.student_id) rescue nil
-    IMAGE_PATH + (url_for_id != nil ? url_for_id.url : (self.email.downcase rescue "unknown"))
+    url_for_id = UrlForId.find(self.student_id) rescue nil 
+	if ( url_for_id.nil? ||   url_for_id.url.nil?) 
+     	return "No image"
+	end
+    IMAGE_PATH + url_for_id.url 
   end
 		
 	def Participant.get_participant_for_full_name(name_string)
@@ -55,6 +63,10 @@ class Participant < ActiveRecord::Base
 
   def birthday_string
     self.birthday.to_s(:short_date_only)
+  end
+  
+  def is_of_drinking_age? 
+     !self.birthday.nil? && self.birthday > (-drinking_age).years.from_now 
   end
 
 end

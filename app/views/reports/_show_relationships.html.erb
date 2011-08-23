@@ -25,7 +25,7 @@
 			<% if b.participant.type == "Student" %>
   				<a href="../students/<%= b.participant.id %>" target="blank"><%= b.participant.last_name %>, <%= b.participant.first_name %> <%= b.participant.middle_initial %></a>
   			<% else %>
-  				<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.first_name %> <%= b.participant.middle_initial %> <%= b.participant.last_name %> </a>
+  				<a href="../participants/<%= b.participant.id %>" target="blank"> <%= b.participant.name %></a>
   			<% end %>
             <br />
         <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>

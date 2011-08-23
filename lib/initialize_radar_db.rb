@@ -44,10 +44,10 @@ ReportType.create(:id=>3, :name=>"Report", :display_name=>"FYI", :abbreviation=>
 ReportType.create(:id=1, :name=>"Note", :display_name=> "Note", :abbreviation=>"N", :organization_id=>reslife.id, :forwardable=>"false")
 # Areas and Buildings
 
-ar = Area.create(:id=>1, :name=>"Unspecified", :abbreviation=>"NA")
+ar = Area.create(:id=>1, :name=>unspecified, :abbreviation=>"NA")
 unspec_area = ar
-Building.create(:id=>1, :name=>"Unspecified", :area_id=>1, :abbreviation=>"NA")
-Building.create(:id=>16, :name=>"Off Campus", :area_id=>ar.id, :abbreviation=>"OC")
+
+Building.create(:id=>16, :name=>"Off Campus", :area_id=>ar.id, :abbreviation=>"OFFCAM")
 Building.create(:id=>17, :name=>"Athletic Fields", :area_id=>ar.id, :abbreviation=>"ATHL")
 Building.create(:id=>18, :name=>"Jul Gernes Pool", :area_id=>ar.id, :abbreviation=>"POOL")
 Building.create(:id=>19, :name=>"Gostomski Fieldhouse", :area_id=>ar.id, :abbreviation=>"GF")
@@ -84,11 +84,11 @@ willages_area = ar
 
 ar = Area.create(:id=>1, :name=>"Gilmore Creek, Benilde, St. Yon's", :abbreviation=>"GCBY")
 Building.create(:id=>10, :name=>"Gilmore Creek Hall", :area_id=>ar.id, :abbreviation=>"GC")
-Building.create(:id=>11, :name=>"St. Benilde Hall", :area_id=>ar.id, :abbreviation=>"SB")
+Building.create(:id=>11, :name=>"St. Benilde Hall", :area_id=>ar.id, :abbreviation=>"BN")
 Building.create(:id=>12, :name=>"St. Yons Hall", :area_id=>ar.id, :abbreviation=>"SY")
 
 ar = Area.create(:id=>1, :name=>"St. Joseph's, Pines, Hillside", :abbreviation=>"JPH")
-Building.create(:id=>13, :name=>"St. Joseph Hall", :area_id=>ar.id, :abbreviation=>"SJ")
+Building.create(:id=>13, :name=>"St. Joseph Hall", :area_id=>ar.id, :abbreviation=>"STJO")
 Building.create(:id=>14, :name=>"The Pines Hall", :area_id=>ar.id, :abbreviation=>"PI")
 Building.create(:id=>15, :name=>"Hillside Hall", :area_id=>ar.id, :abbreviation=>"HI")
 jph_area = ar
@@ -117,11 +117,13 @@ AccessLevel.create(:name=>"AdiministrativeAssistant", :display_name=> "Adiminist
 AccessLevel.create(:name=>"Adiministrator", :display_name=> "Adiministrator", :numeric_level=>4)
 sys_admin_al = AccessLevel.create(:name=>"SystemAdiministrator", :display_name=> "System Adiministrator", :numeric_level=>5)
 
+=begin
+# This does not work for some reason
 # Staff (populate with system.admin)
 sys_admin = Staff.create(:email=>"reslife.system.admin@smumn.edu", 
              :encrypted_password=>"$2a$10$IghfYLOEKBMlPm4Z2dAGYe.r.65gmWIpDSyjMc7WMLNIJGKa3K276",
              :password_salt=>"$2a$10$IghfYLOEKBMlPm4Z2dAGYe",
-             :access_level_id=>sys_admin_al.id,
+             :access_level_id=>sys_admin_al.numeric_level,
              :active=>true)
              
 # Staff_Organizations (add radar.system.admin)
@@ -129,4 +131,5 @@ StaffOrganization.create(:staff_id=>sys_admin.id, :organization_id=>reslife.id)
 
 # StaffArea (put system.admin in area)
 StaffArea.create(:staff_id=>sys_admin.id, :area_id=>unspec_area.id)
+=end
    

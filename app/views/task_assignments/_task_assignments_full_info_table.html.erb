@@ -1,13 +1,20 @@
-<% if @task_assignments.length > 0 %>
+<div class="tasks-by-shift" >
+  <span class="small-label" >RA: </span><%= shift.staff.name %> <br/>
+  <table>
+  <tr><td>
+  <span class="small-label" >Start : </span><%= shift.start_time %> <%= shift.start_date %>
+  </td><td>
+  <span class="small-label" >End : </span><%= shift.end_time %> <%= shift.end_date %>
+  </td>
+  </table>  
+  <div class="shift-task-list">
   <table>
     <tr>
       <th><%= link_to "Title", params.merge(:sort_tasks => "title"), :remote => true %></th>
       <th><%= link_to "Time Due", params.merge(:sort_tasks => "due_time"), :remote => true %></th>
       <th><%= link_to "Time Finished", params.merge(:sort_tasks => "done_time"), :remote => true %></th>
-      <th><%= link_to "RA", params.merge(:sort_tasks => "staff"), :remote => true %></th>
     </tr>
-    <%= render :partial => "task_assignments/task_assignments_full_info_table_rows", :locals => { :task_assignments => @task_assignments, :num_rows=>0 } %>
+    <%= render :partial => "task_assignments/task_assignments_full_info_table_rows", :locals => { :task_assignments => TaskAssignment.where(:shift_id => shift.id), :num_rows=>0 } %>
   </table>
-<% else %>
-  <p>No tasks were assigned during this shift.</p>
-<% end %>
+ </div>
+</div>

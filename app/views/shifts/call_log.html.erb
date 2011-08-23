@@ -1,6 +1,6 @@
 <div id="inside_container" class="inside_container">
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
-  <font size="4" color="595959"><b><%= "#{@shift.staff.access_level.display_name}: " %></b></font><font size="4"><%= "#{@shift.staff.first_name} #{@shift.staff.last_name}" %></font><br />
+  <font size="4" color="595959"><b>Call Log for: </b></font><font size="4"><%= "#{@shift.staff.name}" %></font><br />
   <font size="4" color="595959"><b>On Call: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
   <p><div>
     <b><font size="3">Summary</font></b><br />
@@ -34,23 +34,18 @@
 </div></p>
 <p><div>
   <%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
-    :onclick => "plusMinusToggle('tasks', 'tasks-img');" %>
-  <b><font size="3">Tasks Assigned </font>
-    <% if @task_assignments.length == 0 %>
-      <font color="595959" size="3">
-      <% else %>
+    :onclick => "plusMinusToggle('tasks-for-log', 'tasks-img');" %>
+  <b><font size="3">Shift Task Logs</font>
+    
         <font color="B40D10" size="3">
-        <% end %>
-        <%= "(#{@task_assignments.length})" %></font></b>
-  <% if total_incomplete_task_assignments == 0 %>
-    <font color="595959"><%= "[all done]" %></font>
-  <% else %>
-    <font color="B40D10"><%= "[#{total_incomplete_task_assignments} not done]" %></font>
-  <% end %>
-  <div id='tasks' class='shift_log_div' style="display: none;" >
-    <div id="tasks-div" >
-      <%= render :partial => "task_assignments/task_assignments_full_info_table" %>
-    </div>
+        <%= "(#{ra_shifts.length})" %></font></b>
+ 
+  <div id='tasks-for-log' class='shift_log_div' style="display: none;" >
+
+	   <% ra_shifts.each do |shift| %>
+			<%= render :partial => "task_assignments/task_assignments_full_info_table", :locals => { :shift => shift } %>
+	   <% end %>
+ 
   </div>
 </div></p>
 <%= link_to 'Edit', edit_shift_path(@shift) if can? :edit, @shift %>

@@ -2,14 +2,14 @@ class NotificationPreferencesController < ApplicationController
   before_filter :authenticate_staff!
   skip_before_filter :verify_authenticity_token
   acts_as_iphone_controller = true
-  load_and_authorize_resource
+  authorize_resource
  
  # GET /notification_preferences
   # GET /notification_preferences.xml
   def index
   	@notification_preferences = Array.new
 	ReportType.find(:all).collect.each do |r|
-		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
+		pref = NotificationPreference.find_by_staff_id_and_report_type(current_staff.id,r.name) rescue nil
 		if(pref == nil)
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
             pref.frequency = 1
@@ -25,27 +25,15 @@ class NotificationPreferencesController < ApplicationController
   # PUT
   def update_user_preferences
 	ReportType.find(:all).collect.each do |r|
-		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
+    pref = NotificationPreference.find_by_staff_id_and_report_type(current_staff.id,r.name) rescue nil
 		if(pref == nil)
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
 		end
-		pref.update_attributes(params["#{current_staff.id},#{r.name}"])
-		pref = NotificationPreference.find(current_staff.id,r.name) rescue nil
-		if(pref.frequency == 2)
-			logger.debug "2"
-			pref.time_offset = 360
-		end
-		if(pref.frequency == 3)
-			logger.debug "3"
-			pref.time_offset = 360
-		end
-		if(pref.frequency == 1)
-			pref.time_offset = -1
-		end
-		pref.save
-		if(pref.frequency == 0)
-			pref.delete
-		end
+    pref.update_attributes(params[r.name.to_sym])
+    pref = NotificationPreference.find_by_staff_id_and_report_type(current_staff.id,r.name) rescue nil
+		pref.time_offset = Notification.get_time_offset_for_frequency(pref.frequency)
+
+    pref.save
 	end
 
     respond_to do |format|

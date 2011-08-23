@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(staff)
-    alias_action :start_shift, :end_shift, :start_round, :end_round, :update, :to => :do
+    alias_action :start_shift, :end_shift, :update_todo, :start_round, :end_round, :update, :to => :do
     alias_action :call_log, :duty_log, :to => :shift_log
 
     staff ||= Staff.new
@@ -54,7 +54,7 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:read, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building]
+      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
@@ -64,8 +64,9 @@ class Ability
 
     elsif access_level_symbol == :administrator
       cannot :destroy, :all
-      can :destroy, [Staff, Task]
+      can :destroy, [Task]
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
+      cannot :manage, Import
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
@@ -74,7 +75,6 @@ class Ability
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
-      cannot :manage, Import
 
       cannot :manage, Shift
       can [:list_RA_duty_logs], Shift
@@ -95,6 +95,7 @@ class Ability
       cannot [:create, :update_area], Staff
       cannot :view_contact_info, Participant
       cannot :manage, Task
+      cannot :manage, NotificationPreference
     end
   end
   

@@ -1,6 +1,6 @@
 
 <ul>
-  <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left">
+  <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %><img src="/images/seperator.gif" align="left" />
   <li><%= link_to "Students", "/students" if can? :index, Student %>
     <ul>
       <li><%= link_to "List Students", "/students" if can? :index, Student %></li>
@@ -19,16 +19,26 @@
       <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" if can? :index, MaintenanceReport %></li>
     </ul>
   </li>
-  <li><%= link_to "Tasks", "/task_assignments" %>
+  <li><%= link_to "Notes", "/notes/new" if can? :create, Note %>
     <ul>
-      <li><%= link_to "My To Do List", "/task_assignments" if can? :do, Shift %></li>
+      <li><%= link_to "New Note", "/notes/new" if can? :create, Note %></li>
+      <li><%= link_to "List Notes", "/reports?report=Note" if can? :index, Note %></li>
+    </ul>
+  </li>
+  <li><%  if can? :index, Task %>
+      <%= link_to "Tasks", "/tasks" %>
+    <% else %>
+      <%= link_to "Tasks", "/to_do_list" %>
+    <% end %>
+    <ul>
+      <li><%= link_to "My To Do List", "/to_do_list" if can? :do, Shift %></li>
       <li><%= link_to "New Task", "/tasks/new" if can? :create, Task %></li>
       <li><%= link_to "List Tasks", "/tasks" if can? :index, Task %></li>
     </ul>
   </li>
   <li><%= link_to "Shifts/Logs", "/shifts?access_level=Any" if can? :index, Shift %>
     <ul>
-      <li><%= link_to "New Shift", "/shifts/new" if can? :create, Shift %></li>
+      <li><%= link_to "Record Shift", "/shifts/new" if can? :create, Shift %></li>
       <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}" if can? :index, Shift %></li>
       <li><%= link_to "List HD Call Logs", "/shifts?access_level=HallDirector" if can? :list_HD_call_logs, Shift %></li>
       <li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant" if can? :list_RA_duty_logs, Shift %></li>
@@ -36,13 +46,10 @@
   </li>
   <li><a href="/">Miscellaneous</a>
     <ul>
-      <li><%= link_to "Make A Note", "/notes/new" if can? :create, Note %></li>
       <li><%= link_to "Staff Members", "/staffs" if can? :index, Staff %></li>
       <li><%= link_to "Update Student Data", "/imports/new" if can? :create, Import %></li>
       <li><%= link_to "Buildings", "/buildings" if can? :index, Building %></li>
       <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
     </ul>
   </li>
-
-
 </ul>

@@ -1,5 +1,5 @@
 <div id="inside_container" class="inside_container">
-  <h1><%= "#{@student.first_name} #{@student.middle_initial} #{@student.last_name}" %></h1>
+  <h1><%= "#{@student.name}" %></h1>
   <p id="notice"><%= notice %></p>
   <p>
     <%= link_to image_tag(@student.getImageUrl, :border=>0, :width => 150) %>
@@ -12,7 +12,7 @@
 
   <p>
     <b>Residence:</b>
-    <%= "#{@student.room_number} #{@student.building.name}" %>
+    <%= "#{@student.room_number} #{@student.residence_hall}" %>
   </p>
 
   <p>
@@ -29,7 +29,7 @@
   </p>
   <p>
     <b>Age:</b>
-    <% if @student.birthday > -21.years.from_now %>
+    <% if @student.is_of_drinking_age? %>
       <font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
     <% else %>
       <%= @student.getAge(@student.birthday) %>
@@ -38,7 +38,7 @@
 
   <p>
     <b>Date of Birth:</b>
-    <% if @student.birthday > -21.years.from_now %>
+    <% if @student.is_of_drinking_age? %>
       <font color="CC3333"><%= @student.birthday != nil ? @student.birthday_string : "" %></font>
     <% else %>
       <%= @student.birthday != nil ? @student.birthday_string : "" %>

@@ -2,8 +2,23 @@
 require File.expand_path('../application', __FILE__)
 require 'socket'
 
+
+#useful global
+
+	def unspecified 
+	  "Unspecified"
+	end
+	# set drinking age for your locale
+	def drinking_age
+	  21
+	end
+	
+
+# this value identifies default affiliation of participants 
+	CLIENT_AFFILIATION_TAG = "SMU"
+	
 # Gallery image path when Radar hosts images, as opposed to client
-#DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
+DEFAULT_IMAGE_PATH = "http://140.190.65.61:1337/gallery3/var/resizes/edu.smumn."
 
 # When pulling images from webtools, uncomment this line. More generally,
 # when pulling from a vendor-specified image repository, uncomment this line

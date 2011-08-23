@@ -8,7 +8,30 @@ class Staff < ActiveRecord::Base
   before_save :lower_email
   after_initialize :set_active
   
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :trackable, :validatable,
+    :timeoutable
+  
+  
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+
  
+  def name
+    first_name + " " + last_name
+  end
+  
+  
+  def last_login
+	self.last_sign_in_at
+  end
+  # return true is I have seen given report
+  def has_seen? (report)
+   ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
+  end
+  
   def devise_creation_param_handler(params)
     params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
@@ -83,19 +106,7 @@ class Staff < ActiveRecord::Base
     (Round.where(:shift_id => current_shift.id, :end_time => nil).first != nil) rescue false
   end
   
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :timeoutable
-  
- 
-  
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
 
- 
-  
   
   def set_active
     self.active = true
@@ -111,6 +122,9 @@ class Staff < ActiveRecord::Base
   end
   
   def currently_assigned_tasks
+    if (current_shift == nil)
+	  return []
+	end
     anytime = -1
     timed_assignments = TaskAssignment.joins(:task).where( "shift_id = ? AND tasks.time > ?", self.current_shift.id, anytime ).order(:time).all
     untimed_assignments = TaskAssignment.joins(:task).where( :shift_id => self.current_shift.id, :tasks => {:time => anytime }).all

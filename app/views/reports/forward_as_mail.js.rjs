@@ -1,2 +1,3 @@
 page["flash_notice"].show
 page.replace_html("flash_notice", "Report was forwarded to " + emails_for_notice + ".")
+page.replace_html 'forward_div', :partial => 'reports/forward_as_mail', :locals => {:display => "display: block;"}

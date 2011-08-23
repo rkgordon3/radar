@@ -10,19 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110811221027) do
+ActiveRecord::Schema.define(:version => 20110818194314) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "display_name"
+    t.integer  "numeric_level"
   end
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "text",       :limit => 20480
+    t.text     "text"
   end
 
   create_table "areas", :force => true do |t|
@@ -34,10 +35,11 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
-    t.string   "abbreviation"
-    t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "area_id"
+    t.string   "abbreviation"
+    t.boolean  "is_residence", :default => false
   end
 
   create_table "imports", :force => true do |t|
@@ -56,6 +58,14 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.datetime "updated_at"
     t.integer  "authorized_by_id"
     t.integer  "report_type_id"
+  end
+
+  create_table "interested_party_reports", :force => true do |t|
+    t.integer  "interested_party_id"
+    t.integer  "report_id"
+    t.integer  "times_forwarded"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notification_preferences", :force => true do |t|
@@ -118,10 +128,17 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "abbreviation"
     t.string   "display_name"
+    t.string   "abbreviation"
     t.integer  "organization_id"
     t.boolean  "forwardable"
+  end
+
+  create_table "report_view_logs", :force => true do |t|
+    t.integer  "staff_id"
+    t.integer  "report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reports", :force => true do |t|
@@ -151,9 +168,6 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -197,9 +211,6 @@ ActiveRecord::Schema.define(:version => 20110811221027) do
     t.integer  "access_level_id"
     t.boolean  "active"
   end
-
-  add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
-  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"

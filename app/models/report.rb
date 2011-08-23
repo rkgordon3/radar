@@ -1,6 +1,7 @@
 class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
+  has_many      :interested_party_reports
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
@@ -11,6 +12,14 @@ class Report < ActiveRecord::Base
   # return true if report is a generic report, ie FYI
   def is_generic? 
     type == nil
+  end
+
+  def times_forwarded_to(interested_party)
+    ip = InterestedPartyReport.find_by_interested_party_id_and_report_id(interested_party.id, self.id)
+    if ip == nil
+      return 0
+    end
+    return ip.times_forwarded
   end
 
   def submitter?(staff)
@@ -84,7 +93,7 @@ class Report < ActiveRecord::Base
   
   def setup_defaults
     if self.id == nil
-      self.building_id = Building.unspecified
+      self.building_id = Building.unspecified_id
       self.approach_time = Time.now
       self.submitted = false
       self.tag = tag
@@ -245,13 +254,10 @@ class Report < ActiveRecord::Base
   def display_name
     return ReportType.find_by_name(self.class.name).display_name
   end
-   
-  def process_participant_params_string_from_student_search(participants_string)
-    if participants_string !=nil
-      participants = participants_string.split(/,/)
-      participants.each do |p|
-        self.add_default_contact_reason(Integer(p))
-      end
+  # An array of participant IDs
+  def add_participants(participants)
+    participants.each do |id|
+      self.add_default_contact_reason(id)
     end
   end
   

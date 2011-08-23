@@ -18,11 +18,11 @@
       <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
     <% end %>
   </div>
-
-
-  <div id="common-reasons-container" style="display:none;" >
+  
+  <% common_reasons_state = @report.participant_ids.size > 1 ? "block" : "none" %>
+  <% content_tag :div, :id=>"common-reasons-container", :style=>"display:#{common_reasons_state}" do -%>
     <%= render :partial => "reports/report_common_relationship_checklist" , :locals => { :report => @report } %>
-  </div>
+  <% end -%>
 
   <div class="field">
     <b>  <%= t "annotation" %></b><br />

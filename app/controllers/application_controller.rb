@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_iphone_request?
-		#true
-    request.user_agent =~ /(Mobile\/.+Safari)/
+	  #true
+      request.user_agent =~ /(Mobile\/.+Safari)/
 	end  
 	
 	def is_android_request?
@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_staff)
+  end
+  
+  def param_value_present(param)
+    (not param.nil?) && (not param.empty?)
   end
   
 end

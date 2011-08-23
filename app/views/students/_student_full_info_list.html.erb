@@ -1,3 +1,6 @@
+<% if students.respond_to?('total_pages') %>
+  <%= will_paginate students %>
+<% end %>
 <table>
   <tr>
     <th></th>

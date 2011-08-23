@@ -1,2 +1,2 @@
-<td><%= check_box_tag student.id %></td>
+<td><%= check_box_tag "participants[#{student.id}]" %></td>
 <%= render :partial => "/students/student_full_info", :locals => { :student => student} %>

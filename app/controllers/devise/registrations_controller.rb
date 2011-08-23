@@ -9,9 +9,7 @@ class Devise::RegistrationsController < ApplicationController
     authorize! :create, Staff
     build_resource({})
     @organizations = current_staff.get_registerable_organizations
-    logger.debug "*****#{@organizations.class}********"
     @access_levels = current_staff.get_registerable_access_levels
-    logger.debug "*****#{@access_levels.class}********"
     render_with_scope :new
   end
 

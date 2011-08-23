@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :interested_party_reports
+
   resources :access_levels
 
   resources :writing_center_contacts
@@ -63,7 +65,8 @@ Radar::Application.routes.draw do
   match "/rounds/end_round" => "rounds#end_round"
   
   get "reports_query/reports_query"
-  
+
+  match "/to_do_list" => "task_assignments#to_do_list"
   match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/update_reason" => "reports#update_reason"
   match "/reports/add_participant/" => "reports#add_participant"
