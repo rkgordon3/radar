@@ -201,23 +201,24 @@ class ReportsController < ApplicationController
     emails = emails.join(", ")
     emails_for_notice.gsub!("<","(")
     emails_for_notice.gsub!(">",")")
-    report = Report.find(params[:report])
-    mail = RadarMailer.report_mail(report, emails, current_staff)
+    @report = Report.find(params[:report])
+    mail = RadarMailer.report_mail(@report, emails, current_staff)
+    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
 
+    
     begin
       mail.deliver
-      
       parties.each do |p|
-        iprs = InterestedPartyReport.find_by_interested_party_id_and_report_id(p.id, report.id)
-        iprs ||= InterestedPartyReport.create(:interested_party_id => p.id ,:report_id => report.id ,:times_forwarded => 0)
+        iprs = InterestedPartyReport.find_by_interested_party_id_and_report_id(p.id, @report.id)
+        iprs ||= InterestedPartyReport.create(:interested_party_id => p.id ,:report_id => @report.id ,:times_forwarded => 0)
         iprs.times_forwarded += 1
         iprs.save
       end
-
       respond_to do |format|
         format.js { render :locals => { :emails_for_notice => emails_for_notice } }
       end
     rescue
+      logger.debug "*********not delivered**********"
     end
   end
   
