@@ -76,7 +76,7 @@ ar = Area.create(:id=>1, :name=>"St. Edward's, Vlazny", :abbreviation=>"VLEDS")
 Building.create(:id=>5, :name=>"St. Edward Hall", :area_id=>ar.id, :abbreviation=>"SE")
 Building.create(:id=>6, :name=>"Vlazny Hall", :area_id=>ar.id, :abbreviation=>"VL")
 
-ar = Area.create(:id=>1, :name=>"Waters, Ek Village, New Village", :abbreviation=>"WILLAGES")
+ar = Area.create(:id=>1, :name=>"Watters, Ek Village, New Village", :abbreviation=>"WILLAGES")
 Building.create(:id=>7, :name=>"Watters Hall", :area_id=>ar.id, :abbreviation=>"WT")
 Building.create(:id=>8, :name=>"Ek Village", :area_id=>ar.id, :abbreviation=>"EV")
 Building.create(:id=>9, :name=>"New Village", :area_id=>ar.id, :abbreviation=>"NV")
