@@ -1,2 +1,2 @@
-ftp -s:ftp_students.txt
+rem ftp -s:ftp_students.txt
 ruby load_students.rb

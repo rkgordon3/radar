@@ -57,7 +57,7 @@ module ImportsHelper
 
 		# Create/update a student from an array 
 		def self.build_student_params(line)
-			puts ("Student line: " + line[0])
+			#puts ("Student line: " + line[0])
 			if !is_legal_id?(line[0]) 
 				raise ArgumentError, "IMPORT Bad ID #{line[0]}"
 			end
@@ -143,12 +143,13 @@ module ImportsHelper
 				Helpers.update_student(params)
 				successful_lines += 1
 				
-				puts "...success"
 			rescue 
 				Helpers.add_error_message( "Record #{record_cnt} : #{$!}")
 			end
 			record_cnt += 1
+            print "."
 		end
+        puts
 		successful_lines
 	end
 	
