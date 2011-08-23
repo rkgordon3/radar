@@ -6,7 +6,7 @@ class StudentsController < ApplicationController
   # GET /students.xml
   def index
     # @students loaded by CanCan
-    @students = @students.paginate(:page => params[:page], :per_page => 30)
+    @students = @students.where(:is_active => true).paginate(:page => params[:page], :per_page => 30)
     if params[:sort] == nil
       @students = @students.order(:last_name)
     elsif params[:sort]=="building"
