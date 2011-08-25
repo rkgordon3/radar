@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   before_filter :authenticate_staff!
-  load_and_authorize_resource
+  load_resource :except => :remove_participant
+  authorize_resource
   
   def index
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
