@@ -17,13 +17,23 @@ require "building.rb"
 gem "ruby-oci8", ">=2.0.4"
 require "oci8"
 require "activerecord-oracle_enhanced-adapter"
+require "YAML"
+
+configurations = YAML::load(File.open("../config/database.yml"))
+database=nil
+
+if ["development","production","test"].include?(ARGV.first)
+  database = configurations[ARGV.first]
+else
+  database = configurations["development"]
+end
 
 ActiveRecord::Base.establish_connection(
-  :adapter  => 'oracle_enhanced',
-  :database => 'ecs4',
-  :username => 'RADARCS1',
-  :password => 'G2VBVs3pfkF',
-  :host     => '140.190.69.56')
+  :adapter  => database["adapter"],
+  :database => database["database"],
+  :username => database["username"],
+  :password => database["password"],
+  :host     => database["host"])
 
 lines = ImportsHelper.parse_csv_file(File.expand_path("./shradar.csv"))
 lines.shift
