@@ -12,3 +12,5 @@ tmp/**/*
 /nbproject/private/private.xml
 /nbproject/private/config.properties
 /config/database.yml
+/script/ftp_students.txt
+/script/load_students.rb
