@@ -73,7 +73,7 @@ module ImportsHelper
 			if not line[3].nil?
 				params["last_name"] = line[3]
 			end
-			params["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "" + " " + line[3]
+			params["full_name"] = line[1] + " " + line[3]
 			params["classification"] = line[4]
 			
 			params["building_id"] = Building.where(:abbreviation => line[6]).first.id
