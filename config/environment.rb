@@ -32,7 +32,7 @@ CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
 IMAGE_PATH = CLIENT_IMAGE_PATH || DEFAULT_IMAGE_PATH
 	
 def report_host_ip
- Socket.getaddrinfo(Socket.gethostname,nil).select{|t| t[0] == 'AF_INET'}[0][3]
+ "radar.smumn.edu"
 end
 
 # Initialize the rails application

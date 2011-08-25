@@ -48,8 +48,8 @@ class StudentsController < ApplicationController
     # if a student's name was entered
     if param_value_present(params[:student_id])
       # get the student by his/her ID
-      search_string = "\"student_id\" LIKE \"" + params[:student_id] + "%\""
-      student = Student.where(search_string)
+      #search_string = "\"student_id\" LIKE " + params[:student_id] + "%"
+      student = Student.where("student_id LIKE ?", "%#{params[:student_id]}%")
       
       @students = student
     end
