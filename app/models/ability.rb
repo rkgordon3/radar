@@ -85,8 +85,9 @@ class Ability
     elsif access_level_symbol == :resident_assistant
       cannot [:read, :update, :destroy], [Staff, Report]
       can [:read, :update], Report, :staff_id => staff.id
+      cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
+      cannot :show, IncidentReport, :submitted => true
       cannot [:print, :forward], Report
-      cannot :update, Report, :submitted => true
 
       cannot :manage, Shift
       can :do, Shift, :time_out => nil
