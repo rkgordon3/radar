@@ -8,7 +8,7 @@
 
     <span style="font-style: italic;">Date of Birth: </span>
     <% if participant.is_of_drinking_age? %>
-      <font color="CC3333"><%= participant.birthday_string %></font>
+      <span class="underage"><%= participant.birthday_string %></span>
     <%  else  %>
       <%=  participant.birthday_string rescue "Unknown" %>
     <% end %> <br/>

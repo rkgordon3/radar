@@ -49,7 +49,7 @@
 
               <span style="font-style: italic;">Date of Birth: </span>
               <% if b.participant.is_of_drinking_age? %>
-                <font color="CC3333"><%= b.participant.birthday_string %></font>
+                <span class="underage"><%= b.participant.birthday_string %></span>
               <%  elsif (b.participant.birthday != nil) %>
                 <%=  "#{b.participant.birthday_string}" %>
               <%  else %>

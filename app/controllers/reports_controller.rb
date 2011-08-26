@@ -186,6 +186,7 @@ class ReportsController < ApplicationController
     @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
+
 	@report = session[:report]
 	# This redirect presents a problem for https
     #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
