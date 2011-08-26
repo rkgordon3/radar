@@ -13,7 +13,7 @@
 <td><%= student.extension %></td>
 <td><%= student.email %></td>
 <% if student.is_of_drinking_age? %>
-  <td><font color="CC3333"><%= student.birthday != nil ? student.birthday_string : "" %></font></td>
+  <td><span class="underage"><%= student.birthday != nil ? student.birthday_string : "" %></span></td>
 <% else %>
   <td><%= student.birthday != nil ? student.birthday_string : "" %></td>
 <% end %>

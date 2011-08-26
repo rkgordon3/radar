@@ -39,7 +39,7 @@
   <p>
     <b>Date of Birth:</b>
     <% if @student.is_of_drinking_age? %>
-      <font color="CC3333"><%= @student.birthday != nil ? @student.birthday_string : "" %></font>
+      <span class="underage"><%= @student.birthday != nil ? @student.birthday_string : "" %></span>
     <% else %>
       <%= @student.birthday != nil ? @student.birthday_string : "" %>
     <% end %>
