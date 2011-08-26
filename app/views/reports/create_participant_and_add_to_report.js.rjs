@@ -1,7 +1,8 @@
-# This file is a duplidate of create_participant_add_and_to_report.js.rjs
-# See comment in that file for reason for duplication
+# This file is a duplidate of add_participant.js.rjs
+# It is (hopefully) a temporary fix to solve http cross-domain problem 
+# caused by old redirect in create_participant_add_add_to_report action
 #
-# IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO create_participant_add_and_to_report.js.rjs ALSO
+# IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO add_pariticpant.js.rjs ALSO
 #
 if !@report.associated?(@participant)
 	page.replace_html("new-part-div", "")
