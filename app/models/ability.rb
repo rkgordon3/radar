@@ -64,8 +64,6 @@ class Ability
       cannot :destroy, IncidentReport
 
     elsif access_level_symbol == :administrator
-      cannot :destroy, :all
-      can :destroy, [Task]
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
       
@@ -73,7 +71,8 @@ class Ability
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
     
     elsif access_level_symbol == :hall_director
-      cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot :destroy, Staff
+      cannot [:update, :show], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
 
@@ -83,6 +82,7 @@ class Ability
       can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     
     elsif access_level_symbol == :resident_assistant
+      cannot :destroy, :all
       cannot [:read, :update, :destroy], [Staff, Report]
       can [:read, :update], Report, :staff_id => staff.id
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
