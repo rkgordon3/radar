@@ -186,10 +186,26 @@ class ReportsController < ApplicationController
     @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
-    respond_to do |format|
-      format.js{redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js}
-    end
-    
+
+	@report = session[:report]
+	# This redirect presents a problem for https
+    #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+	 respond_to do |format|
+        format.js 
+        format.iphone {
+          render :update do |page|
+            if !@report.associated?(@participant)
+              page.select("input#full_name").first.clear
+              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+              if @report.participant_ids.size > 0
+                page.show 'common-reasons-link'
+              end
+            end
+          end
+        }
+      end
+      @report.add_default_contact_reason(@participant.id)
   end
   
   def forward_as_mail
