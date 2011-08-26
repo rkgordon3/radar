@@ -186,7 +186,10 @@ class ReportsController < ApplicationController
     @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
-    redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+    respond_to do |format|
+      format.js{redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js}
+    end
+    
   end
   
   def forward_as_mail
