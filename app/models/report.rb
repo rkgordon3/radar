@@ -6,6 +6,7 @@ class Report < ActiveRecord::Base
   has_many      :report_participant_relationships
   belongs_to    :annotation
   after_initialize :setup_defaults
+  after_find	:cache_submitted
   after_save       :save_everything
   before_destroy   :destroy_everything
   
@@ -106,11 +107,13 @@ class Report < ActiveRecord::Base
   end
   
   def save
-    if annotation != nil && annotation.save != nil 
+    if (not annotation.nil?) && annotation.save != nil 
       self.annotation_id = annotation.id
     end
+	
     super
   end
+
   
   def save_everything
     # save each reported infraction to database  
@@ -120,7 +123,8 @@ class Report < ActiveRecord::Base
         ri.save		# actually save
       end
     end
-    if (self.submitted) 
+
+	if generate_immediate_notification?
       Notification.immediate_notify(self.id)
     end
   end
@@ -264,9 +268,22 @@ class Report < ActiveRecord::Base
     participants.each do |id|
       self.add_default_contact_reason(id)
     end
+  end 
+   
+  private  
+  
+  	# after_find (load) we cache submitted value so we can
+	# test here to see if immediate notification is warranted
+	# if resource is new, @submitted_value_on_load
+	# will not be defined.
+  def generate_immediate_notification?
+     (not defined? @submitted_value_on_load) ||  ((not @submitted_value_on_load) && submitted)
+  end
+
+  def cache_submitted
+    @submitted_value_on_load = self.submitted
   end
   
-  private
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
