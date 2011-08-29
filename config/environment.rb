@@ -8,6 +8,10 @@ require 'socket'
 	def unspecified 
 	  "Unspecified"
 	end
+	
+	def unknown 
+	  "Unknown"
+	end
 	# set drinking age for your locale
 	def drinking_age
 	  21

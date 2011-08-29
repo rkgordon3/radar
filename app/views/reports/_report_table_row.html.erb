@@ -19,6 +19,7 @@
 
       <td><%= report.event_date %></td>
       <td><%= report.event_time %></td>
+
       <td>
         <% if can? :show, report %>
           <%= link_to report.tag, report, :class => "link-report-viewed-#{current_staff.has_seen?(report)}" %>
@@ -26,16 +27,27 @@
           <%= "#{report.tag}" %>
         <% end %>
       </td>
-      <td><%= report.staff.name %></td>
+      <td><%= report.staff.last_name rescue unknown %></td>
 
       <td><%= report.building.name %></td>
-      <td><%= report.room_number %></td>
+      <td  style="overflow:hidden; width:80px;" ><%= report.room_number %></td>
 
-
+	  <% if report.forwardable? %>
+	     <td bgcolor="white" >
+		 <% if report.forwarded?  %>
+		     <%= image_tag( "check_mark.jpg", :height=>16, :width=> 16) %>
+		 <% end %>
+		 </td>
+	  <% end %>
+	  
+      <% if can? :edit, report %>
       <td id="edit_destroy_link"><%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, report %></td>
-      <% if report.type == "MaintenanceReport" %>
-        <td id="edit_destroy_link"><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id => report if can? :destroy, report %></td>
       <% end %>
+	  <% if can? :destroy, report %>
+	    <% if report.type == "MaintenanceReport" %>
+			<td id="edit_destroy_link"><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id => report if can? :destroy, report %></td>
+		<% end %>
+	  <% end %>
 
     </tr>
   <% end %>

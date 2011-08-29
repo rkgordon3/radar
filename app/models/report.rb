@@ -16,10 +16,15 @@ class Report < ActiveRecord::Base
 
   def times_forwarded_to(interested_party)
     ip = InterestedPartyReport.find_by_interested_party_id_and_report_id(interested_party.id, self.id)
-    if ip == nil
-      return 0
-    end
-    return ip.times_forwarded
+    ip.times_forwarded rescue 0
+  end
+  
+  def forwarded?
+    not InterestedPartyReport.find_by_report_id(self.id).nil?
+  end
+  
+  def forwardable?
+	false
   end
 
   def submitter?(staff)

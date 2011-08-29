@@ -3,6 +3,7 @@
 
 en:
   unknown: Unknown
+  forwarded: Forwarded?
   submitter: Submitter
   room_number: Room Number
   annotation: Description
