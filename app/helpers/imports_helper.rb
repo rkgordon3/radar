@@ -109,6 +109,8 @@ module ImportsHelper
 			if not line[17].nil?
 				params["email"] = line[17]
 			end
+			
+			params["is_active"] = true
 			params
 		end
 		
