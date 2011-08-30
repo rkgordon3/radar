@@ -33,8 +33,11 @@ class Staff < ActiveRecord::Base
   end
   
   def devise_creation_param_handler(params)
-    params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
-    params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
+  logger.debug("*******devise_creation_param_handler: staff_id = #{self.id} ")
+   # params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
+   # params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
+	params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
+    params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
 
   def get_registerable_access_levels
