@@ -3,6 +3,7 @@
 
 en:
   unknown: Unknown
+  ignore_dob: Ignore Birthdate
   forwarded: Forwarded?
   submitter: Submitter
   room_number: Room Number
