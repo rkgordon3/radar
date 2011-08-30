@@ -183,7 +183,10 @@ class ReportsController < ApplicationController
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
-    @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
+	logger.debug("DOB #{params[:ignore_dob]} for #{@participant.first_name}")
+	if params[:ignore_dob].nil?
+       @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
+	end
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 

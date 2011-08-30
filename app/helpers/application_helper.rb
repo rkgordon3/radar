@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+
+def unknown_date
+  Date.civil(0,1,1)
+end
 				
 module Helpers
     module UrlHelper
