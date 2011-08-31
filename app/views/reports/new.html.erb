@@ -1,3 +1,4 @@
-<div id="inside_container" class="inside_container"><h1>New <%= "#{ReportType.find(@report.type_id).display_name}" %></h1>
+<div id="inside_container" class="inside_container">
+<div class="form_header">New <%= "#{ReportType.find(@report.type_id).display_name}" %></div>
 <%= render 'reports/form' %>
 </div>

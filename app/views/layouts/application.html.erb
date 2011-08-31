@@ -64,9 +64,7 @@
 
     <div id="container">
 
-      <div id="print_logo" >
-        <img src="/images/radar_logo.png" align="left"><br/><br/><br/>
-      </div>
+    
       <div id = "user_nav" class="menu">
 
 
@@ -84,7 +82,7 @@
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
 
     <% end %>
-    <%= content_tag :h1, yield(:title) if show_title? %>
+	<%= content_tag :h1, yield(:title) if show_title? %>
     <%= yield %>
 
     <div id="footer" class="footer"><br>

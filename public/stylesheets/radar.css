@@ -24,6 +24,10 @@ td {
 
 .help {  width:100%; font-size:14px; margin:20px;}
 
+
+.form_header  {  margin-left:40px; margin-top:10px; margin-bottom:10px; font-weight:bold; font-size:20px; } 
+
+
 #print_logo { display:none; }
 
 #container {
@@ -42,7 +46,7 @@ td {
 #inside_container {
     margin: 0 auto;
     background-color: #FFF;
-    padding: 20px;
+    padding: 10px;
     margin-top: 0px;
     font-family: Arial;
 
@@ -115,15 +119,6 @@ td {
 }
 
 .error_messages {
-<<<<<<< HEAD
-    width: 400px;
-    border: 2px solid #CF0000;
-    padding: 0px;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    font-size: 12px;
-=======
   width: 400px;
   border: 2px solid #CF0000;
   padding: 0px;
@@ -132,7 +127,7 @@ td {
   background-color: #f0f0f0;
   font-size: 12px;
   overflow:auto;
->>>>>>> c549e05a56989a0f68f21fbc6708d3392898145d
+
 }
 
 
@@ -184,7 +179,7 @@ td {
 }
 .menu ul{
     background:#f1f1f1;
-    height:75px;
+    height:45px;
     list-style:none;
     margin:0;
     padding:0px;
@@ -194,14 +189,14 @@ td {
     padding:0px;
 }
 .menu li a{
-    background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
+    
     color:#595959;
     font-weight:bold;
     display:block;
     font-weight:normal;
     line-height:30px;
     margin:0px;
-    padding:22px 11px;
+    padding:11px 11px;
     text-align:center;
     text-decoration:none;
 }
@@ -262,6 +257,8 @@ td {
 .menu p{
     clear:left;
 }	
+
+#page_title { font-weight:bold; }
 
 #print_link { display:block; float:right }
 #footer{
