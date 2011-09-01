@@ -258,6 +258,8 @@ td {
     clear:left;
 }	
 
+label { font-weight:bold; }
+
 #page_title { font-weight:bold; }
 
 #print_link { display:block; float:right }
