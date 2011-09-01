@@ -160,6 +160,10 @@ class Report < ActiveRecord::Base
     participant_ids.size == 0
   end
   
+  def number_of_participants
+    participant_ids.size
+  end
+  
   # Return id of all participants associated with report
   def participant_ids
     partic_relationships = Array.new

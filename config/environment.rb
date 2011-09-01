@@ -3,19 +3,7 @@ require File.expand_path('../application', __FILE__)
 require 'socket'
 
 
-#useful global
 
-	def unspecified 
-	  "Unspecified"
-	end
-	
-	def unknown 
-	  "Unknown"
-	end
-	# set drinking age for your locale
-	def drinking_age
-	  21
-	end
 	
 
 # this value identifies default affiliation of participants 
@@ -34,6 +22,21 @@ CLIENT_IMAGE_PATH = "https://webtools.smumn.edu/images/"
 #CLIENT_IMAGE_PATH = nil
 
 IMAGE_PATH = CLIENT_IMAGE_PATH || DEFAULT_IMAGE_PATH
+
+#useful globals
+
+
+	def unspecified 
+	  "Unspecified"
+	end
+	
+	def unknown 
+	  "Unknown"
+	end
+	# set drinking age for your locale
+	def drinking_age
+	  21
+	end
 	
 def report_host_ip
  "radar.smumn.edu"
