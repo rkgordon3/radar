@@ -11,7 +11,11 @@ en:
   ignore_dob: Ignore Birthdate
   forwarded: Forwarded?
   submitter: Submitter
+  residence: Residence
+  grade_level: Class
+  birthday: Birthday
   room_number: Room Number
+  extension: Extension
   annotation: Description
   location: Specific Location
   forward_this_report: Forward this Report
