@@ -202,7 +202,7 @@ td {
 }
 
 .menu li a:hover, .menu ul li:hover a{
-    background: #b40d10;
+     background:#5a99bd;
     color:#FFFFFF;
     text-decoration:none;
 }
@@ -225,7 +225,6 @@ td {
 }
 .menu li:hover ul{
     display:block;
-
 }
 .menu li li {
     background:url('../images/sub_sep.gif') bottom left no-repeat;
