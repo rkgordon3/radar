@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	end  
 	
 	def is_android_request?
-		request.user_agent =~ /(Android)/
+		request.user_agent =~ /(Android)/ || request.user_agent =~ /AppleWebKit/
 	end
 
   def current_ability
