@@ -13,5 +13,9 @@ class Student < Participant
 	def residence_hall
 	  building.name rescue unspecified
 	end
+	
+	 def grade_level
+      (not classification.nil?) ? classification : unknown
+	end
   
 end

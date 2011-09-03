@@ -9,7 +9,7 @@ class Participant < ActiveRecord::Base
   def getImageUrl
     url_for_id = UrlForId.find(self.student_id) rescue nil 
 	if ( url_for_id.nil? ||   url_for_id.url.nil?) 
-     	return "No image"
+     	return ApplicationHelper::unknown_image
 	end
     IMAGE_PATH + url_for_id.url 
   end
@@ -62,7 +62,7 @@ class Participant < ActiveRecord::Base
   end
 
   def birthday_string
-    self.birthday.to_s(:short_date_only)
+    self.birthday.to_s(:short_date_only) rescue unknown
   end
   
   def is_of_drinking_age? 

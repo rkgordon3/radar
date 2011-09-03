@@ -12,19 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+    <b> <%= f.label :title %></b>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :note %><br />
+    <b><%= f.label :note %></b>
     <%= f.text_field :note %>
   </div>
   <div class="field">
-    <%= f.label :area %><br />
+    <b><%= f.label :area %>
     <%= f.collection_select( :area_id, Area.order(:name), :id, :name, {:selected => 1}) %>
   </div>
   <div class="field">
-    <%= f.label :time %><br />
+    <b><%= f.label :time %><b/><br />
     <%= radio_button "anytime", "anytime", false, {:checked => @task.time != -1 } %>
     <% if @task.time != -1 %>
       <%= f.text_field :time, :id => "time", :value => @task.time_string %>
@@ -36,11 +36,11 @@
     <%= f.label :time, "Any Time"%>
   </div>
   <div class="field">
-    <%= f.label :start_date %><br />
+   <b> <%= f.label :start_date %><b/><br />
     <%= f.text_field :start_date, :id => "start_date", :value => @task.start_date_only %><br />
   </div>
   <div class="field">
-    <%= f.label :end_date, "Expiration"%><br />
+    <b><%= f.label :end_date, "Expiration"%><b/><br />
     <%= f.radio_button :expires, true, {:checked => @task.expires==true } %>
     <%= f.text_field :end_date, :id => "end_date", :value => @task.end_date_only %><br />
     <%= f.radio_button :expires, false, {:checked => @task.expires==false } %>

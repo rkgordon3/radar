@@ -1,5 +1,20 @@
 module ImportsHelper
-	
+	STUDENT_ID_INDEX = 0
+	FN_INDEX = 1
+	MI_INDEX = 2
+	LN_INDEX = 3
+	CLASS_INDEX = 4
+	ROOM_INDEX = 5
+	BUILDING_INDEX = 6
+	DOB_INDEX = 7
+	EXT_INDEX = 8
+	EMERG_CONTACT_LN_INDEX = 9
+	EMERG_CONTACT_FN_INDEX = 10
+	EMERG_CELL_INDEX = 13
+	DAY_PHONE_INDEX = 14
+	NIGHT_PHONE_INDEX = 15
+	IMAGE_URL_INDEX = 16
+	EMAIL_INDEX = 17
 	
 	class Helpers
 		@@error_messages = []
@@ -58,60 +73,82 @@ module ImportsHelper
 		# Create/update a student from an array 
 		def self.build_student_params(line)
 			#puts ("Student line: " + line[0])
-			if !is_legal_id?(line[0]) 
-				raise ArgumentError, "IMPORT Bad ID #{line[0]}"
+			if !is_legal_id?(line[STUDENT_ID_INDEX]) 
+				raise ArgumentError, "IMPORT Bad ID #{line[STUDENT_ID_INDEX]}"
 			end
 
 			params = Hash.new
-			params["student_id"] = line[0]
-			params["first_name"] = line[1]
-			if not line[2].nil?
-				params["middle_initial"] = line[2][0]
+			params["student_id"] = line[STUDENT_ID_INDEX]
+			
+			return params if line.length == FN_INDEX
+			
+			params["first_name"] = line[FN_INDEX] 
+			
+			return params if line.length == MI_INDEX
+			
+			if not line[MI_INDEX].nil?
+				params["middle_initial"] = line[MI_INDEX][0]
 			else
 				params["middle_initial"] = ""
 			end
-			if not line[3].nil?
-				params["last_name"] = line[3]
-			end
-			params["full_name"] = line[1] + " " + line[2][0] + " " + line[3] rescue line[1] + " " + "" + " " + line[3]
-			params["classification"] = line[4]
 			
-			params["building_id"] = Building.where(:abbreviation => line[6]).first.id
-			params["room_number"] = line[5]
-			if is_legal_dob?(line[7])
-				birthday = line[7].split('/')
+			return params if line.length == LN_INDEX
+			
+			if not line[LN_INDEX].nil?
+				params["last_name"] = line[LN_INDEX]
+			end
+			params["full_name"] = params["first_name"] + " " + line[2][0] + " " + params["last_name"] rescue params["first_name"]  + " " + params["last_name"]
+			params["classification"] = line[CLASS_INDEX]
+			
+			params["building_id"] = Building.where(:abbreviation => line[BUILDING_INDEX]).first.id
+			params["room_number"] = line[ROOM_INDEX]
+			if is_legal_dob?(line[DOB_INDEX])
+				birthday = line[DOB_INDEX].split('/')
 				birthday[0] = birthday[0].rjust(2, '0')
 				birthday[1] = birthday[1].rjust(2, '0')
 				params["birthday"] = birthday[1] + "/" + birthday[0] + "/" + birthday[2] + " 8:00:00"
 			end
-			if not line[8].nil?
-				params["extension"] = line[8][3..7]
+			if not line[EXT_INDEX].nil? && line[EXT_INDEX].length > 7
+				params["extension"] = line[EXT_INDEX][3..7]
 			end
-			if not line[10].nil?
-				params["emergency_contact_name"] = line[10] + " " + line[9]
+			if not line[EMERG_CONTACT_FN_INDEX].nil?
+				params["emergency_contact_name"] = line[EMERG_CONTACT_FN_INDEX] + " " + line[EMERG_CONTACT_LN_INDEX]
 			end
 			emphone = ""
-			if (not line[13].nil?) && (line[13].strip.length > 0)
-				emphone << "C:#{line[13]}"
+			if (not line[EMERG_CELL_INDEX].nil?) && (line[EMERG_CELL_INDEX].strip.length > 0)
+				emphone << "C:#{line[EMERG_CELL_INDEX]}"
 			end
-			if (not line[14].nil?) && (line[14].strip.length > 0)
-				emphone << " D:#{line[14]}" 
+			if (not line[DAY_PHONE_INDEX].nil?) && (line[DAY_PHONE_INDEX].strip.length > 0)
+				emphone << " D:#{line[DAY_PHONE_INDEX]}" 
 			end
-			emphone << line[15] if emphone.strip.length == 0
+			emphone << line[NIGHT_PHONE_INDEX] if emphone.strip.length == 0
 			
 			params["emContact"] = emphone
 			
 			params["affiliation"] = CLIENT_AFFILIATION_TAG
 			
 			# id, url
-			update_url(line[0], line[16])
+			update_url(params["student_id"], line[IMAGE_URL_INDEX])
 		   
-			if not line[17].nil?
-				params["email"] = line[17]
+			if not line[EMAIL_INDEX].nil?
+				params["email"] = line[EMAIL_INDEX]
 			end
+			
+			params["is_active"] = true
 			params
 		end
 		
+		
+		def self.deactivate_student(params)
+			student = Student.where(:student_id => params["student_id"]).first
+			 puts " FOUND #{student.student_id}"  unless student.nil?
+			if not student.nil?
+			  
+				student.is_active = false
+				student.save
+		    end
+			student
+		end
 		# create/update student from params hash
 		def self.update_student(params)
 			student = Student.where(:student_id => params["student_id"]).first
@@ -119,11 +156,11 @@ module ImportsHelper
 				raise "Error updating #{params[:student_id]}" if !student.update_attributes(params)
 				
 				@@update_count += 1
-				#student.save
 			else 
 				raise "Error creating #{params[:student_id]}" if Student.create(params).nil? 
 				@@new_count += 1
 			end
+			student
 		end
 	end
 	
@@ -132,28 +169,43 @@ module ImportsHelper
 	# array, one entry for each column in CSV.
 	# Returns number of successful imports
 	def ImportsHelper.load_students(lines)
-		record_cnt = 0
-		Helpers.reset
-		successful_lines = 0
+		reset
 
 		lines.each do |line|
 			begin 
 			    raise  "Empty record" if line.nil? || line.empty?
 				params = Helpers.build_student_params(line)
 				Helpers.update_student(params)
-				successful_lines += 1
-				
+				@@successful_lines += 1				
 			rescue 
-				Helpers.add_error_message( "Record #{record_cnt} : #{$!}")
+				Helpers.add_error_message( "Record #{@@record_cnt} : #{$!}")
 			end
-			record_cnt += 1
+			@@record_cnt += 1
             print "."
 		end
         puts
-		successful_lines
+		@@successful_lines
 	end
 	
 
+	def ImportsHelper.deactivate_students(lines)
+	puts "*** IN deactivate #{lines}"
+		reset
+		lines.each do |line|
+			begin
+				raise  "Empty record" if line.nil? || line.empty?
+				params = Helpers.build_student_params(line)				
+				Helpers.deactivate_student(params)
+				@@successful_lines += 1
+			rescue
+				Helpers.add_error_message( "Record #{@@record_cnt} : #{$!}")
+			end 
+			@@record_cnt += 1
+			print "."
+		end
+		puts
+		@@successful_lines
+	end
 	
 	# Read from CSV file at given path and return an array of arrays.
 	def ImportsHelper.parse_csv_file(path_to_csv)
@@ -165,6 +217,34 @@ module ImportsHelper
 		
 		lines
 	end
+	
+	# each_student { |x| Helpers.deactivate_student(x) }
+	
+	def ImportsHelper.each_student (lines, &code)
+		reset
+		lines.each do |line|
+			begin
+				raise  "Empty record" if line.nil? || line.empty?
+				params = Helpers.build_student_params(line)				
+				yield params
+				successful_lines += 1
+			rescue
+				Helpers.add_error_message( "Record #{@@record_cnt} : #{$!}")
+			end 
+			@@record_cnt += 1
+			print "."
+		end
+		puts
+		@@successful_lines
+	end
+	
+	private
+	def ImportsHelper.reset 
+		@@record_cnt = 0
+		Helpers.reset
+		@@successful_lines = 0
+    end
+	
   
 	
 end

@@ -1,6 +1,6 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
+<div class="form_header"><%= t :new_staff %></div>
   <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>

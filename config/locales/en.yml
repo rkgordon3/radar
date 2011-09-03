@@ -3,8 +3,19 @@
 
 en:
   unknown: Unknown
+  new_staff: New Staff Member
+  staff_member_list: Staff Members
+  student_search_results: Student Search Results
+  student_index: Student List
+  student_search: Student Search
+  ignore_dob: Ignore Birthdate
+  forwarded: Forwarded?
   submitter: Submitter
+  residence: Residence
+  grade_level: Class
+  birthday: Birthday
   room_number: Room Number
+  extension: Extension
   annotation: Description
   location: Specific Location
   forward_this_report: Forward this Report
