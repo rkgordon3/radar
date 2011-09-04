@@ -4,6 +4,9 @@ class ReportsController < ApplicationController
   authorize_resource
   
   def index
+    if (params[:report].nil?) 
+		params[:report] = "Report"
+	end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     @report_type = ReportType.find_by_name(params[:report])
 	  
