@@ -1,6 +1,6 @@
- <div class="generic_show_report" >
- <br/>
- <b>Approach Date:</b>
+<div class="generic_show_report" >
+  <br/>
+  <b>Approach Date:</b>
   <%= @report.event_date %><br/><br />
   <b>Approach Time:</b>
   <%= @report.event_time %><br/><br />
@@ -12,12 +12,15 @@
   <%= @report.annotation_text %><br/><br />
   <b><%= t :submitter %></b>
   <%= @report.staff.name %><br/><br />
-  
+  <% if @report.report_adjuncts.length > 0 %>
+    <b><%= "Secondary Submitter(s)" %></b>
+    <%= @report.secondary_submitters_string %><br/><br />
+  <% end %>
   <b>Submitted:</b>
   <%= @report.submitted %><br/><br />
   <b>Created at:</b>
   <%= @report.created_at_string %><br/><br />
   <b>Updated at:</b>
   <%= @report.updated_at_string %><br>
-  
-  </div>
+
+</div>

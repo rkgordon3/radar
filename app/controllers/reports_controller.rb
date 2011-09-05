@@ -31,7 +31,9 @@ class ReportsController < ApplicationController
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-    
+    #get secondary submitters
+    @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
+
     respond_to do |format|
       format.html { render 'reports/show' }
       format.iphone { render 'reports/show', :layout => 'mobile_application' }
@@ -45,7 +47,7 @@ class ReportsController < ApplicationController
     if (params[:participants] != nil)
     	@report.add_participants(params[:participants])
     end
-      
+
     respond_to do |format|
       format.html { render "reports/new" }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
@@ -55,6 +57,8 @@ class ReportsController < ApplicationController
   # GET /reports/1/edit
   def edit
     session[:report]=@report
+
+    @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
 
     respond_to do |format|
       format.html { render 'reports/edit' }
@@ -66,6 +70,8 @@ class ReportsController < ApplicationController
   # POST /reports.xml
   def create
     @report = session[:report]
+    params[:report][:report_adjuncts] = params[:report_adjuncts]
+
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report
@@ -86,7 +92,8 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
-    
+    params[:report][:report_adjuncts] = params[:report_adjuncts]
+
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report

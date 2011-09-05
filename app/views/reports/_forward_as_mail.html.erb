@@ -1,7 +1,9 @@
 <% if ReportType.find_by_name(@report.type).forwardable? %>
   <div style="text-align: right;">
-    <%= link_to('Forward this Page', "javascript:void(0)",
-      :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');") if can? :forward, @report %>
+    <%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');" if can? :forward, @report %>
+      <%= link_to('Forward this Page', "javascript:void(0)",
+        :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');") if can? :forward, @report %>
   </div>
   <div id="forward_emails_div" style="<%= display %>">
     <%= form_for(:parties, :remote => true,  :url => { :controller => 'reports',
