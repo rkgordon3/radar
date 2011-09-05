@@ -13,5 +13,3 @@ tmp/**/*
 /nbproject/private/config.properties
 /config/database.yml
 /script/ftp_students.txt
-/nbproject/configs/production.properties
-/nbproject/private/configs/production.properties

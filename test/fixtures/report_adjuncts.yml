@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  report_id: 1
-  staff_id: 1
-
-two:
-  report_id: 1
-  staff_id: 1

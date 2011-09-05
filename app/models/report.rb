@@ -2,7 +2,6 @@ class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
   has_many      :interested_party_reports
-  has_many      :report_adjuncts
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
@@ -26,7 +25,7 @@ class Report < ActiveRecord::Base
   end
   
   def forwardable?
-    false
+	false
   end
 
   def submitter?(staff)
@@ -36,10 +35,6 @@ class Report < ActiveRecord::Base
   
   def is_note?
     type == "Note"
-  end
-
-  def includes_secondary_submitter?(staff)
-    ReportAdjunct.find_by_report_id_and_staff_id(self.id, staff.id) != nil
   end
   
   def created_at_string
@@ -91,7 +86,7 @@ class Report < ActiveRecord::Base
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
     annotation_text = params[:annotation]
-
+    
     if annotation_text != nil && annotation_text.length > 0 
       if self.annotation == nil
         self.annotation = Annotation.new(:text => annotation_text)
@@ -99,14 +94,7 @@ class Report < ActiveRecord::Base
         self.annotation.text = annotation_text
       end
     end
-
-    self.report_adjuncts.each do |ra|
-      ra.destroy
-    end
-    params[:report_adjuncts].delete_if {|key, value| value != "1" }
-    params[:report_adjuncts].keys.each do |sid|
-      self.report_adjuncts << ReportAdjunct.new(:staff_id => sid)
-    end
+    
   end
   
   def setup_defaults
@@ -122,6 +110,7 @@ class Report < ActiveRecord::Base
     if (not annotation.nil?) && annotation.save != nil 
       self.annotation_id = annotation.id
     end
+	
     super
   end
 
@@ -135,16 +124,13 @@ class Report < ActiveRecord::Base
       end
     end
 
-    if generate_immediate_notification?
+	if generate_immediate_notification?
       Notification.immediate_notify(self.id)
     end
   end
   
   def destroy_everything
     destroy_participants
-    report_adjuncts.each do |ra|
-      ra.destroy
-    end
     if annotation != nil
       annotation.destroy
     end
@@ -257,15 +243,6 @@ class Report < ActiveRecord::Base
   def event_date
  	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
   end
-
-  def secondary_submitters_string
-    s=""
-    self.report_adjuncts.joins(:staff).order(:last_name).each do |ra|
-      s += "#{ra.staff.first_name} #{ra.staff.last_name}, "
-    end
-    s = s.chop
-    s.chop
-  end
  
   def Report.sort(data,key)
     new_data = data.order("approach_time DESC")
@@ -299,12 +276,12 @@ class Report < ActiveRecord::Base
    
   private  
   
-  # after_find (load) we cache submitted value so we can
+  	# after_find (load) we cache submitted value so we can
 	# test here to see if immediate notification is warranted
 	# if resource is new, @submitted_value_on_load
 	# will not be defined.
   def generate_immediate_notification?
-    (not defined? @submitted_value_on_load) ||  ((not @submitted_value_on_load) && submitted)
+     (not defined? @submitted_value_on_load) ||  ((not @submitted_value_on_load) && submitted)
   end
 
   def cache_submitted
