@@ -280,8 +280,8 @@ class Report < ActiveRecord::Base
 	# test here to see if immediate notification is warranted
 	# if resource is new, @submitted_value_on_load
 	# will not be defined.
-  def generate_immediate_notification?
-     (not defined? @submitted_value_on_load) ||  ((not @submitted_value_on_load) && submitted)
+  def generate_immediate_notification? 
+	  submitted && ((not defined? @submitted_value_on_load) || (not @submitted_value_on_load) )
   end
 
   def cache_submitted
