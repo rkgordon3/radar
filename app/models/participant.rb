@@ -51,14 +51,15 @@ class Participant < ActiveRecord::Base
 		# but both approaches assume only one match. Is this safe assumption?
 	end
 	
-	def getAge(dob)
+	def age
+	dob = self.birthday
     unless dob.nil?
       a = Date.today.year - dob.year
       b = Date.new(Date.today.year, dob.month, dob.day)
       a = a-1 if b > Date.today
-      return a
+      return a.to_s
     end
-    nil
+    unknown
   end
 
   def birthday_string
@@ -66,7 +67,7 @@ class Participant < ActiveRecord::Base
   end
   
   def is_of_drinking_age? 
-     !self.birthday.nil? && self.birthday > (-drinking_age).years.from_now 
+     !self.birthday.nil? && self.birthday < (-drinking_age).years.from_now 
   end
 
 end

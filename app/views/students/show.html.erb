@@ -25,24 +25,16 @@
   </p>
   <p>
     <b>Grade:</b>
-    <%= @student.classification %>
+    <%= @student.grade_level %>
   </p>
   <p>
-    <b>Age:</b>
-    <% if @student.is_of_drinking_age? %>
-      <font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
-    <% else %>
-      <%= @student.getAge(@student.birthday) %>
-    <% end %>
+    <%= render :partial=>"participants/age", :locals=> { :participant => @student, :pclass=>"show_label" } %>
   </p>
 
   <p>
-    <b>Date of Birth:</b>
-    <% if @student.is_of_drinking_age? %>
-      <span class="underage"><%= @student.birthday != nil ? @student.birthday_string : "" %></span>
-    <% else %>
-      <%= @student.birthday != nil ? @student.birthday_string : "" %>
-    <% end %>
+  
+  <%= render :partial=>"participants/birthday", :locals=> { :participant => @student, :pclass=>"show_label" } %>
+    
   </p>
 
   <%if can? :view_contact_info, @student %>

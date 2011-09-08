@@ -1,0 +1,5 @@
+<% if participant.is_of_drinking_age? %>
+     <%= participant.age %> 
+<% else %>
+	 <font color="#CC3333"><%= participant.age %> </font>
+<% end %>

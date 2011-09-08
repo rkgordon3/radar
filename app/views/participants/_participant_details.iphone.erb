@@ -4,9 +4,13 @@
 	   <%= t :grade_level %>
 	   <%= participant.grade_level rescue unknown %>
 	</li>
+	<li>
+	  <%= t :age %>
+	  <%= render :partial=>"participants/unlabelled_age", :locals=> { :participant=>participant} %>
+	</li>
     <li>
-      <%= t :birthday %>
-      <%= participant.birthday_string  %>
+	   <%= t :birthday %>
+       <%= render :partial=>"participants/unlabelled_birthday", :locals=> { :participant=>participant } %>
     </li>
     <li>
       <%= "Room: " %>
