@@ -28,6 +28,9 @@ else
   database = configurations["development"]
 end
 
+
+puts "Using host #{database["host"]} "
+
 ActiveRecord::Base.establish_connection(
   :adapter  => database["adapter"],
   :database => database["database"],
