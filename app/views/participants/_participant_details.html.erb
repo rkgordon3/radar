@@ -5,7 +5,7 @@
   <div style="margin-left: 15px;">
     <span class="detail_label">Student ID #: </span>
     <%=  participant.student_id rescue "Unknown" %><br/>
-	<span class="detail_label"><%= t :class %> </span><%= participant.grade_level rescue unknown %></br>
+	<span class="detail_label"><%= t :class %> </span><%= participant.grade_level rescue unknown %><br/>
     <span class="detail_label"><%= t :birthday %> </span>
     <% if participant.is_of_drinking_age? %>
       <span class="underage"><%= participant.birthday_string %></span>
