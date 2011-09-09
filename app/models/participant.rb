@@ -18,7 +18,9 @@ class Participant < ActiveRecord::Base
     message= name_string
     split_up = message.split(/, /)
 	
-    long_name = split_up[0]
+	# The gsub is a kludge to fix extra space in long name for those 
+	# names without middle initial
+    long_name = split_up[0].gsub("  ", " ")
     #print long_name
     building_abbreviation = split_up[1]
     #print s_building_id
