@@ -5,13 +5,10 @@
   <div style="margin-left: 15px;">
     <span class="detail_label">Student ID #: </span>
     <%=  participant.student_id rescue "Unknown" %><br/>
-	<span class="detail_label"><%= t :class %> </span><%= participant.grade_level rescue unknown %></br>
-    <span class="detail_label"><%= t :birthday %> </span>
-    <% if participant.is_of_drinking_age? %>
-      <span class="underage"><%= participant.birthday_string %></span>
-    <%  else  %>
-      <%=  participant.birthday_string  %>
-    <% end %> <br/>
+	<span class="detail_label"><%= t :class %> </span><%= participant.grade_level rescue unknown %><br/>
+    <%= render :partial=>"participants/age", :locals=> { :participant=>participant, :pclass=>"detail_label" } %><br/>
+	<%= render :partial=>"participants/birthday", :locals=> { :participant=>participant, :pclass=>"detail_label" } %>
+    <br/>
 
     <span class="detail_label"><%= t :residence %> </span>
     <%=  participant.room_number rescue "" %> <%=  participant.residence_hall rescue unknown %><br/>

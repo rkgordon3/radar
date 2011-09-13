@@ -12,13 +12,12 @@
           <% end %>
         </div>
         <fieldset>
-
         
-		  <% if @report.supports_selectable_contact_reasons? && @report.participant_ids.size > 1 %>
-          <ul  class='iArrow'  id="common-reasons-link"  style="display:visible;" >
+		  
+          <ul  class='iArrow'  id="common-reasons-link"  style="display:none;" >
               <li><a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a></li>
           </ul>
-		  <% end %>
+		  
 
           <legend>
             <%= t "building" %>

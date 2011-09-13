@@ -1,0 +1,5 @@
+<% if participant.is_of_drinking_age? %>
+     <%= participant.age %>
+<% else %>
+	 <span class="underage"><%= participant.age %></span>
+<% end %>

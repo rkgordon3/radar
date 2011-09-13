@@ -14,6 +14,7 @@ en:
   residence: Residence
   grade_level: Class
   birthday: Birthday
+  age: Age
   room_number: Room Number
   extension: Extension
   annotation: Description

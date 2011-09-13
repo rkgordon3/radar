@@ -18,7 +18,9 @@ class Participant < ActiveRecord::Base
     message= name_string
     split_up = message.split(/, /)
 	
-    long_name = split_up[0]
+	# The gsub is a kludge to fix extra space in long name for those 
+	# names without middle initial
+    long_name = split_up[0].gsub("  ", " ")
     #print long_name
     building_abbreviation = split_up[1]
     #print s_building_id
@@ -51,14 +53,15 @@ class Participant < ActiveRecord::Base
 		# but both approaches assume only one match. Is this safe assumption?
 	end
 	
-	def getAge(dob)
+	def age
+	dob = self.birthday
     unless dob.nil?
       a = Date.today.year - dob.year
       b = Date.new(Date.today.year, dob.month, dob.day)
       a = a-1 if b > Date.today
-      return a
+      return a.to_s
     end
-    nil
+    unknown
   end
 
   def birthday_string
@@ -66,7 +69,7 @@ class Participant < ActiveRecord::Base
   end
   
   def is_of_drinking_age? 
-     !self.birthday.nil? && self.birthday > (-drinking_age).years.from_now 
+     !self.birthday.nil? && self.birthday < (-drinking_age).years.from_now 
   end
 
 end
