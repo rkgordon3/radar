@@ -2,7 +2,7 @@ class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
   has_many      :interested_party_reports
-  has_many      :report_adjuncts
+  has_many     	:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
@@ -100,12 +100,12 @@ class Report < ActiveRecord::Base
       end
     end
 
-    self.report_adjuncts.each do |ra|
+    self.adjunct_submitters.each do |ra|
       ra.destroy
     end
     params[:report_adjuncts].delete_if {|key, value| value != "1" }
     params[:report_adjuncts].keys.each do |sid|
-      self.report_adjuncts << ReportAdjunct.new(:staff_id => sid)
+      self.adjunct_submitters << ReportAdjunct.new(:staff_id => sid)
     end
   end
   
@@ -142,7 +142,7 @@ class Report < ActiveRecord::Base
   
   def destroy_everything
     destroy_participants
-    report_adjuncts.each do |ra|
+    adjunct_submitters.each do |ra|
       ra.destroy
     end
     if annotation != nil
@@ -247,7 +247,7 @@ class Report < ActiveRecord::Base
   end
   
   def tag	
-    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s
+    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + id.to_s
   end
   
   def event_time
@@ -255,12 +255,15 @@ class Report < ActiveRecord::Base
   end
  
   def event_date
- 	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
+ 	  #(approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
+	   (approach_time != nil ? approach_time : created_at).to_s(:date_only)
   end
+  
+ 
 
   def secondary_submitters_string
     s=""
-    self.report_adjuncts.joins(:staff).order(:last_name).each do |ra|
+    self.adjunct_submitters.joins(:staff).order(:last_name).each do |ra|
       s += "#{ra.staff.first_name} #{ra.staff.last_name}, "
     end
     s = s.chop

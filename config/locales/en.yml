@@ -11,6 +11,7 @@ en:
   ignore_dob: Ignore Birthdate
   forwarded: Forwarded?
   submitter: Submitter
+  submitted: Submitted
   residence: Residence
   grade_level: Class
   birthday: Birthday

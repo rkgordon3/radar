@@ -116,10 +116,14 @@ td {
     display: inline;
 }
 
-.report_title {
+.report_title  {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
+}
+
+.report_date  {
+   font-size: 18px;
 }
 
 .error_messages {

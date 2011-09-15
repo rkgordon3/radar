@@ -1,22 +1,22 @@
 <div class="generic_show_report" >
-  <br/>
-  <b>Approach Date:</b>
-  <%= @report.event_date %><br/><br />
   <b>Approach Time:</b>
   <%= @report.event_time %><br/><br />
-  <b><%= t "location" %></b>
+  <b><%= t "location" %>:</b>
   <%= @report.building.name %><br/><br />
-  <b><%= t :room_number %></b>
+  <b><%= t :room_number %>:</b>
   <%= @report.room_number %><br/><br />
-  <b> <%= t "annotation" %></b>
+  <b> <%= t "annotation" %>:</b>
   <%= @report.annotation_text %><br/><br />
-  <b><%= t :submitter %></b>
+  <b><%= t :submitter %>:</b>
   <%= @report.staff.name %><br/><br />
-  <% if @report.report_adjuncts.length > 0 %>
-    <b><%= "Secondary Submitter(s)" %></b>
-    <%= @report.secondary_submitters_string %><br/><br />
+  <% if @report.adjunct_submitters.length > 0 %>
+    <b><%= "Secondary Submitter(s):" %></b>
+	<% @report.adjunct_submitters.each do |a| -%>
+	    <%= a.staff.last_name %>
+	<% end -%>
+   <br/><br/>
   <% end %>
-  <b>Submitted:</b>
+  <b><%= t :submitted %>:</b>
   <%= @report.submitted %><br/><br />
   <b>Created at:</b>
   <%= @report.created_at_string %><br/><br />

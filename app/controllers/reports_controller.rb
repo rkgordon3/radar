@@ -32,7 +32,37 @@ class ReportsController < ApplicationController
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
     #get secondary submitters
-    @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
+=begin
+tthat
+
+@report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
+
+and
+
+    @report_adjuncts = @report.report_adjuncts
+
+are functionally equivalent and by using first case you
+a) doing more work than you have to (re-doing what rails does for you)  and
+b) exposing details of relationship that do not need to be exposed.
+
+The reason you declare:
+
+class Report
+
+   has_many :report_adjuncts
+
+...
+end
+
+is so that you do not have to do first case above.
+
+The interesting thing is that you do second case in view! (_show_generic)
+
+Rob
+=end
+
+    #@report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
+	#@report_adjuncts = @report.report_adjuncts
 
     respond_to do |format|
       format.html { render 'reports/show' }
