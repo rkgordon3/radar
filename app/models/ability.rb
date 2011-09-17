@@ -60,8 +60,8 @@ class Ability
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
       cannot :create, Shift
-      cannot :update_organization, Staff
-      cannot :destroy, IncidentReport
+      cannot [:update_organization, :destroy], Staff
+      cannot :destroy, [IncidentReport, Task]
 
     elsif access_level_symbol == :administrator
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
