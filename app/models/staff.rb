@@ -93,6 +93,10 @@ class Staff < ActiveRecord::Base
     
     return self.staff_organizations.first.organization.name == organization.to_s.camelize
   end
+  
+  def organization
+    return self.staff_organizations.first.organization.name
+  end
 
   def lower_email
     self.email = email.downcase

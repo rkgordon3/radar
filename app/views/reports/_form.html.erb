@@ -1,5 +1,5 @@
 <div class="help" >
-  <%= t "#{params[:controller]}.help" %>
+  <%= t "#{current_staff.organization}.#{params[:controller]}.help" %>
 <br/>
 </div>
 <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
