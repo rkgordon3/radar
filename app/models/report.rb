@@ -103,10 +103,7 @@ class Report < ActiveRecord::Base
     self.adjunct_submitters.each do |ra|
       ra.destroy
     end
-    params[:report_adjuncts].delete_if {|key, value| value != "1" }
-    params[:report_adjuncts].keys.each do |sid|
-      self.adjunct_submitters << ReportAdjunct.new(:staff_id => sid)
-    end
+    params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" }
   end
   
   def setup_defaults

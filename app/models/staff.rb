@@ -23,6 +23,9 @@ class Staff < ActiveRecord::Base
     first_name + " " + last_name
   end
   
+  def last_name_first_initial
+    last_name + ( ", #{first_name[0]}" rescue "")
+  end
   
   def last_login
 	self.last_sign_in_at

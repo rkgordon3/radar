@@ -12,7 +12,7 @@
   <% if @report.adjunct_submitters.length > 0 %>
     <b><%= "Secondary Submitter(s):" %></b>
 	<% @report.adjunct_submitters.each do |a| -%>
-	    <%= a.staff.last_name %>
+	    <%= a.staff.last_name_first_initial %>
 	<% end -%>
    <br/><br/>
   <% end %>

@@ -22,6 +22,8 @@ td {
     overflow: hidden;
 }
 
+.toggle-link  { color: black; font-weight: bold; }
+
 .help {  width:100%; font-size:14px; margin:20px;}
 
 
