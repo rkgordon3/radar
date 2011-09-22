@@ -1,5 +1,11 @@
 Radar::Application.routes.draw do
 
+  resources :enrollments
+
+  resources :courses
+
+  resources :tutor_reports
+
   resources :interested_party_reports
 
   resources :access_levels

@@ -16,12 +16,12 @@
         
 		  <% if @report.supports_selectable_contact_reasons? && @report.participant_ids.size > 1 %>
           <ul  class='iArrow'  id="common-reasons-link"  style="display:visible;" >
-              <li><a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a></li>
+              <li><a href = "#_CommonInfractions"><%= t "#{current_staff.organization}.#{params[:controller]}.common_reasons" %></a></li>
           </ul>
 		  <% end %>
 
           <legend>
-            <%= t "building" %>
+            <%= t "#{current_staff.organization}.building" %>
           </legend>
           <ul>
 
@@ -37,7 +37,7 @@
           </ul>
 
           <legend>
-            <%= t "location" %>
+            <%= t "#{current_staff.organization}.location" %>
           </legend>
           <ul>
             <li>
@@ -45,7 +45,7 @@
             </li>
           </ul>
           <legend>
-            <%= t "annotation" %>
+            <%= t "#{current_staff.organization}.annotation" %>
           </legend>
           <ul>
             <li>

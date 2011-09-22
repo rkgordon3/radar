@@ -36,7 +36,7 @@ class Ability
       can [:update, :show], Staff, :id => staff.id
       cannot [:destroy,:update_access_level,:update_organization], Staff, :id => staff.id
       
-    elsif staff.organization? :academic_skills_center
+    elsif staff.organization? :academic_skills
       # trim or build privileges for each Academic Skills access_level here
       if staff.access_level? :system_administrator
         trim_academic_skills_center_privileges_to(:system_administrator, staff)
@@ -103,9 +103,16 @@ class Ability
   def trim_academic_skills_center_privileges_to(access_level_symbol, staff)
     if access_level_symbol == :system_administrator
       can :manage, :all
-      cannot :manage, Report
-      can :manage, TutorLog
+      cannot [:index, :update, :create], :all
+      cannot [:read, :update, :destroy, :create], Report
+      can :index, Report
+      can :manage, [Import, TutorReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
+      cannot :read, Report, :submitted => false
+      can :read, Report, :staff_id => staff.id
+      cannot :do, [Shift, Round]
+      cannot :create, Shift
       cannot :update_organization, Staff
+      cannot :destroy, TutorReport
     end
   end
 

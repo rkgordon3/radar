@@ -25,7 +25,7 @@
   <% end -%>
 
   <div class="field">
-    <b>  <%= t "annotation" %></b><br />
+    <b>  <%= t "#{current_staff.organization}.annotation" %></b><br />
     <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
   </div>
 

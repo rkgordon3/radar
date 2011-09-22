@@ -21,5 +21,8 @@ en:
          help: Add students to FYI Report
         notes:
          help: Add students related to rounds note
-    WellnessCenter:
+    AcademicSkills:
+        tutor_reports:
+            help: Add students to the tutor report.
+            reasons: Courses
         

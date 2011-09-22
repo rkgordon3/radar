@@ -14,6 +14,5 @@ class RelationshipToReport < ActiveRecord::Base
   def RelationshipToReport.for (report)
     where(:report_type_id => ReportType.find_by_name(report.type).id)
   end
-  
-  
+    
 end

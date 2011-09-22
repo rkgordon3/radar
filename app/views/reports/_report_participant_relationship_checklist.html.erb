@@ -4,9 +4,9 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	<b><%= t "#{params[:controller]}.reasons" %></b>
+  	<b><%= t "#{current_staff.organization}.#{params[:controller]}.reasons" %></b>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
-  			<% infractions = report.reasons%>
+  			<% infractions = report.reasons(participant)%>
   			<% infractions.each do |infraction| %>
 			<% rf =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_reason },

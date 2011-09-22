@@ -69,7 +69,7 @@ class Report < ActiveRecord::Base
     false
   end
   
-  def reasons
+  def reasons(student = nil)
     RelationshipToReport.for(self)
   end
   

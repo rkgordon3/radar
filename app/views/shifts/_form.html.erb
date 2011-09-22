@@ -30,7 +30,7 @@
   </div>
 
   <div class="field">
-    <b>  <%= t "summary:" %></b><br />
+    <b>  <%= t "#{current_staff.organization}.summary:" %></b><br />
     <%= text_area(:annotation, :text,  :cols=> "60", :rows => "4", :value=> @shift.annotation_text) %>
   </div>
 
