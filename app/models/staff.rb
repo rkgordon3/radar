@@ -36,10 +36,12 @@ class Staff < ActiveRecord::Base
    ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
   end
   
+  # return an array of Areas for those areas with which staff member is associated
   def areas
     Area.joins(:staff_areas).where("staff_id = ?", self.id)
   end
   
+  # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
 	Staff.joins(:staff_areas).where('staff_areas.area_id' =>  areas.collect { |a| a.id } ).where("staff_areas.staff_id != ?", self.id)
   end

@@ -228,25 +228,21 @@ class ReportsController < ApplicationController
     parties = params[:parties]
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
-    emails = Array.new
-    parties.each do |p|
-      emails << p.email
-    end
-  
-    #@report = Report.find(params[:report])
+    emails = parties.collect { |p| p.email }
+
 	@report = session[:report]
     
     begin
 	  RadarMailer.report_mail(@report, emails, current_staff).deliver
 	  InterestedPartyReport.log_forwards(@report, parties)
-      flash.now[:notice] = "Report ${@report.tag} was forwarded to "+ emails.join(",")
+      msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
     rescue => e
 	logger.debug(e.backtrace.join("\n"))
-	  flash.now[:error] = "Unable to deliver mail. #{$!}"
+	  msg = "Unable to deliver mail. #{$!}"
 	  logger.debug("Failed to send mail #{$!}")
     end
 	 respond_to do |format|
-        format.js 
+        format.js { render :locals => { :flash_notice => msg } }
      end
   end
   
