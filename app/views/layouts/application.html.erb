@@ -76,17 +76,12 @@
 
 
       </div>
-	   <% if flash[:notice] %>
-			<p class="notice"><%= flash[:notice] %></p>
+
+	<div id="flash_notice"  style="display:none;">
+		<% flash.each do |name, msg| %>
+			<%= content_tag :div, msg, :id => "flash_#{name}" %>
 		<% end %>
-		<% if flash[:error] %>
-			<p class="error"><%= flash[:error] %></p>
-		<% end %>
-      <div id="flash_notice"  style="display:none">
-	   <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <% end %>
-    </div>
+	</div>
 
    
 	<%= content_tag :h1, yield(:title) if show_title? %>
