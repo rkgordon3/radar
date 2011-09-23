@@ -18,7 +18,7 @@ class Report < ActiveRecord::Base
 
   def times_forwarded_to(interested_party)
 	ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
-	ipforwards.size
+	ipforwards.first.times_forwarded rescue 0
   end
   
   def forwarded?
@@ -50,7 +50,6 @@ class Report < ActiveRecord::Base
   end
 
   def created_at_string
-  logger.debug("Report #{self.id} created_at_string : #{self.created_at}")
     self.created_at.to_s(:my_time)
   end
 

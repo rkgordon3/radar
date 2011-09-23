@@ -1,31 +1,11 @@
 
   <div style="text-align: right;">
     <%= link_to image_tag("/images/add_icon.gif", :id => "forward_img"), "javascript:void(0)",
-        :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');" if can? :forward, @report %>
-      <%= link_to('Forward this Page', "javascript:void(0)",
-        :onclick => "plusMinusToggle('forward_emails_div', 'forward_img');") if can? :forward, @report %>
+        :onclick => "plusMinusToggle('interested_party_list_div', 'forward_img');" if can? :forward, @report %>
+      Forward this Report
   </div>
-  <div id="forward_emails_div" style="<%= display %>">
-    <%= form_for(:parties, :remote => true,  :url => { :controller => 'reports',
-        :action => :forward_as_mail, :report => @report} ) do |f| %>
-      <% InterestedParty.where(:report_type_id=>@report.type_id).each do |ip| %>
-        <div class ="small-label" style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
-          <%= f.check_box :"#{ip.id}" %>
-          <%= f.label "#{ip.email}" %><br />
-        </div>
-        <div>
-          <% tf = @report.times_forwarded_to(ip) %>
-          <% if tf > 0 %>
-            <%= "Forwarded #{tf} " %>
-            <%= tf > 1 ? "times." : "time." %>
-          <% end %>
-          <hr />
-        </div>
-      <% end %>
-      <div class="actions">
-        <p>
-          <%= f.submit "Send" %>
-        </p>
-      </div>
-    </div>
-  <% end %>
+  <div id="interested_party_list_div" style="display:none;">
+	<%= render :partial=>"reports/interested_party_list", :locals=>{ :report => @report} %>
+  </div>
+  
+  
