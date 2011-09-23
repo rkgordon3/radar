@@ -1,7 +1,7 @@
 class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
-  has_many      :interested_party_reports
+  has_many      :forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
   has_many     	:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_one		    :annotation
   has_many      :report_participant_relationships
@@ -17,16 +17,17 @@ class Report < ActiveRecord::Base
   end
 
   def times_forwarded_to(interested_party)
-    ip = InterestedPartyReport.find_by_interested_party_id_and_report_id(interested_party.id, self.id)
-    ip.times_forwarded rescue 0
+	ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
+	ipforwards.size
   end
   
   def forwarded?
-    not InterestedPartyReport.find_by_report_id(self.id).nil?
+    #not InterestedPartyReport.find_by_report_id(self.id).nil?
+	forwards.size > 0 
   end
   
   def forwardable?
-    false
+    ReportType.find_by_name(self.type).forwardable?
   end
 
   def submitter?(staff)
@@ -42,11 +43,15 @@ class Report < ActiveRecord::Base
     ReportAdjunct.find_by_report_id_and_staff_id(self.id, staff.id) != nil
   end
   
-  def created_at_string
-    self.created_at.to_s(:my_time)
+  def is_adjunct?(ss)
+    adjunct_submitters.each do |a|
+     return true if a.staff_id == ss.id
+    end
+    false
   end
 
   def created_at_string
+  logger.debug("Report #{self.id} created_at_string : #{self.created_at}")
     self.created_at.to_s(:my_time)
   end
 

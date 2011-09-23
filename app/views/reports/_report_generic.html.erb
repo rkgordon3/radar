@@ -57,7 +57,7 @@
     <div id="ss-div" style="display: none;">
       <% Staff.order(:last_name).all.each do |s| %>
         <div class ="small-label" style="margin-left: 8px; margin-top: 4px; margin-bottom: 0px;" >
-          <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.includes_secondary_submitter?(s) } %>
+          <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.is_adjunct?(s) } %>
           <%= "#{s.first_name} #{s.last_name}" %><br />
         </div>
       <% end %>
