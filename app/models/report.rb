@@ -22,7 +22,6 @@ class Report < ActiveRecord::Base
   end
   
   def forwarded?
-    #not InterestedPartyReport.find_by_report_id(self.id).nil?
 	forwards.size > 0 
   end
   
