@@ -15,6 +15,7 @@ en:
   residence: Residence
   grade_level: Class
   birthday: Birthday
+  separate_by_commmas: Separate emails by a comma, space or semi-colon
   affiliation: Affiliation
   age: Age
   room_number: Room Number

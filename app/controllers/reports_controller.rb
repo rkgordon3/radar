@@ -229,7 +229,8 @@ class ReportsController < ApplicationController
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
     emails = parties.collect { |p| p.email }
-
+	# add "other" forwarding emails
+    (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
 	@report = session[:report]
     
     begin
