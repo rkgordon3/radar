@@ -1,6 +1,6 @@
 class RadarMailer < ActionMailer::Base
   default :from => "radar@smumn.edu"
-  
+  # reports is a hash report_display_name => report
   def notification_mail(reports, staff)
     @reports = reports
     @reports_keys = reports.keys
@@ -8,7 +8,8 @@ class RadarMailer < ActionMailer::Base
     @first_name = staff.first_name
     @last_name = staff.last_name	
 	
-	subject = reports.size > 1 ? "Radar Digest" : "Radar #{reports[0].display_name} #{reports[0].tag}"
+	# This is an AF kludge...need to revisit
+	subject = reports.size > 1 ? "Radar Digest" : "Radar #{reports.first[1][0].display_name} #{reports.first[1][0].tag}"
     
     mail(:to => staff.email, :subject => "#{subject}: " + Time.now.to_s(:my_time)) 
   end
