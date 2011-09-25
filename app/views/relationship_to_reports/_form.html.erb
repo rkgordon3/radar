@@ -1,7 +1,7 @@
 <%= form_for(@relationship_to_report) do |f| %>
   <% if @relationship_to_report.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@relationship_to_report.errors.count, "error") %> prohibited this relationship to report from being saved:</h2>
+      <h2><%= pluralize(@relationship_to_report.errors.count, "error") %> prohibited this contact reason from being saved:</h2>
 
       <ul>
       <% @relationship_to_report.errors.full_messages.each do |msg| %>
@@ -16,6 +16,6 @@
     <%= f.text_field :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create" %>
   </div>
 <% end %>

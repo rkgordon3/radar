@@ -50,6 +50,7 @@
       <li><%= link_to "Update Student Data", "/imports/new" if can? :create, Import %></li>
       <li><%= link_to "Buildings", "/buildings" if can? :index, Building %></li>
       <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
+	  <li><%= link_to "Manage Contact Reasons", "/relationship_to_reports" if can? :index, RelationshipToReport %></li>
     </ul>
   </li>
 </ul>

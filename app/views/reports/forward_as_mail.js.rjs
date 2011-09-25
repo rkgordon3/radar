@@ -2,4 +2,4 @@ page["flash_notice"].show
 page.replace_html 'flash_notice', flash_notice
 page["interested_party_list_div"].hide
 page["forward_img"]['src'] = '/images/add_icon.gif'
-page.replace_html 'interested_party_list_div', :partial => 'reports/interested_party_list'
+page.replace_html 'interested_party_list_div', :partial => 'interested_parties/forward_list', :locals=>{ :report => @report} 

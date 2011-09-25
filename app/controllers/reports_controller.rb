@@ -235,7 +235,7 @@ class ReportsController < ApplicationController
     
     begin
 	  RadarMailer.report_mail(@report, emails, current_staff).deliver
-	  InterestedPartyReport.log_forwards(@report, parties)
+	  InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
       msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
     rescue => e
 	logger.debug(e.backtrace.join("\n"))
