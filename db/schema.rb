@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110905204140) do
+ActiveRecord::Schema.define(:version => 20110924224903) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(:version => 20110905204140) do
     t.integer  "times_forwarded"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
+    t.integer  "staff_id"
   end
 
   create_table "notification_preferences", :force => true do |t|
