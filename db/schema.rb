@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110922012404) do
+ActiveRecord::Schema.define(:version => 20110927153051) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20110922012404) do
     t.datetime "updated_at"
     t.integer  "participant_id"
     t.string   "report_id"
+    t.string   "context"
   end
 
   create_table "report_types", :force => true do |t|

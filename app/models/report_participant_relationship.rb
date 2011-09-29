@@ -11,4 +11,13 @@ class ReportParticipantRelationship < ActiveRecord::Base
     end
   end
   
+  def relationship_to_report
+    if self.context != nil
+        self.context.constantize.where(:id => self.relationship_to_report_id).first
+    else
+        #Need help
+        self.relationship_to_report
+    end
+  end
+  
 end
