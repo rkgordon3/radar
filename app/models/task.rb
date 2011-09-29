@@ -1,8 +1,8 @@
 class Task < ActiveRecord::Base
   belongs_to :area
-  scope :active, where("start_date <= ? AND (end_date >= ? OR expires = ?)", Time.now.at_beginning_of_day , Time.now.at_beginning_of_day, false )
-  scope :scheduled, where("start_date > ? AND (end_date > start_date OR expires = ?)", Time.now.at_beginning_of_day, false )
-  scope :expired, where("(start_date > end_date OR end_date < ?) AND expires = ?", Time.now.at_beginning_of_day, true )
+  scope :active, lambda {where("start_date <= ? AND (end_date >= ? OR expires = ?)", Time.now.at_beginning_of_day , Time.now.at_beginning_of_day, false )}
+  scope :scheduled, lambda {where("start_date > ? AND (end_date > start_date OR expires = ?)", Time.now.at_beginning_of_day, false )}
+  scope :expired, lambda {where("(start_date > end_date OR end_date < ?) AND expires = ?", Time.now.at_beginning_of_day, true )}
   ANYTIME = -1
   
   def Task.sort(key)

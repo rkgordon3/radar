@@ -4,6 +4,7 @@ class Ability
   def initialize(staff)
     alias_action :start_shift, :end_shift, :update_todo, :start_round, :end_round, :update, :to => :do
     alias_action :call_log, :duty_log, :to => :shift_log
+    alias_action :forward_as_mail => :forward
 
     staff ||= Staff.new
 
@@ -54,37 +55,42 @@ class Ability
       cannot [:index, :update, :create], :all
       cannot [:read, :update, :destroy, :create], Report
       can :index, Report
-      can :manage, [Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
+      can :manage, [RelationshipToReport, Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
       cannot :read, Report, :submitted => false
       can :read, Report, :staff_id => staff.id
       cannot :do, [Shift, Round]
       cannot :create, Shift
-      cannot :update_organization, Staff
-      cannot :destroy, IncidentReport
+      cannot [:update_organization, :destroy], Staff
+      cannot :destroy, [IncidentReport, Task, RelationshipToReport]
 
     elsif access_level_symbol == :administrator
-      cannot :destroy, :all
-      can :destroy, [Task]
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
+	  can :manage, RelationshipToReport
+	  cannot :destroy, RelationshipToReport
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
     
     elsif access_level_symbol == :hall_director
-      cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Hall Director"}
+      cannot :destroy, Staff
+      cannot [:update, :show], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot [:update, :create, :destroy], [Building, Area]
 
       cannot :manage, Shift
+
       can [:list_RA_duty_logs], Shift
       can [:shift_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
       can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     
     elsif access_level_symbol == :resident_assistant
+      cannot :destroy, :all
       cannot [:read, :update, :destroy], [Staff, Report]
       can [:read, :update], Report, :staff_id => staff.id
-      cannot :update, Report, :submitted => true
+      cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
+      cannot :show, IncidentReport, :submitted => true
+      cannot [:print, :forward], Report
 
       cannot :manage, Shift
       can :do, Shift, :time_out => nil

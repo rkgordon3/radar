@@ -1,6 +1,6 @@
 <div id="inside_container" class="inside_container"><h1>Summarize Shift and Go Off Duty</h1>
   <b>You must write a <u>Summary</u> and click the <u>Update Shift</u> button in order to finish going off duty.</b><br />
-  <font color="B40D10"><b><%= "You have #{total_incomplete_task_assignments} incomplete tasks." if total_incomplete_task_assignments > 0 %></b></font>
+  <span class="error-label"><%= "You have #{total_incomplete_task_assignments} incomplete tasks." if total_incomplete_task_assignments > 0 %></span>
   <br />
   <br />
   <%= render 'form' %>

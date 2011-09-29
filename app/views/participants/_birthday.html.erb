@@ -1,0 +1,6 @@
+<span class=<%= "'#{pclass}'" %> ><%= t :birthday %>: </span>
+<% if participant.is_of_drinking_age? %>
+	<%= participant.birthday_string %>    
+<% else %>
+    <span class="underage"><%=  participant.birthday_string %></span>
+<% end %>

@@ -29,10 +29,12 @@
   			<% end %>
             <br />
         <%= render :partial => "participants/participant_details", :locals => { :participant => b.participant } %>
+		<%= render :partial => "participants/participant_history", :locals => { :participant => b.participant, :history => b.participant.contact_history } %>
  	<% end %>
   		<br />
   		<b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b> 
-  		<%= b.relationship_to_report.description %>
+  		<%= b.relationship_to_report.description %><br/>
+		
         
   	<% end %>
     

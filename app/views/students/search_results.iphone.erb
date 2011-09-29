@@ -15,7 +15,7 @@
 				<% @students.each do |student| %>
 					<li >
 					
-					<% content_tag :input,  :type=>"checkbox", :name=>"participants[#{student.id}]", :id=>"participants[#{student.id}]", :class=>"iToggle" do -%><% end -%>		
+					<% content_tag :input,  :type=>"checkbox", :name=>"participants[#{student.id}]", :id=>"participants[#{student.id}]" do -%><% end -%>		
 					<div style="position:relative;left:60px;top:-10px;">
 					   <%= content_tag :a, :href=>"#_StudentDetails_#{student.id}" do -%>
 							<%=image_tag(student.getImageUrl, :border=> 0, :width=>30) %><%= "#{student.name}" %>

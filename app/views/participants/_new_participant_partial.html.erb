@@ -13,6 +13,7 @@
 	<%= label :participant, :affiliation %>
 	<%= text_field_tag 'affiliation', nil %>
 	<br />
+	<%= check_box_tag 'ignore_dob', 'ignore_dob', true %><%= t :ignore_dob %></br>
 	<%= label :participant, :birthday, "Date of Birth" %>
 	<%= date_select 'range', :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
 	<br />

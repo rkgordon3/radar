@@ -3,6 +3,7 @@ class Staff < ActiveRecord::Base
   has_many :staff_areas, :dependent => :destroy
   belongs_to :access_level
   belongs_to :area
+
   belongs_to :organization
   has_many :notification_preferences
   before_save :lower_email
@@ -23,6 +24,9 @@ class Staff < ActiveRecord::Base
     first_name + " " + last_name
   end
   
+  def last_name_first_initial
+    last_name + ( ", #{first_name[0]}" rescue "")
+  end
   
   def last_login
 	self.last_sign_in_at
@@ -32,9 +36,22 @@ class Staff < ActiveRecord::Base
    ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
   end
   
+  # return an array of Areas for those areas with which staff member is associated
+  def areas
+    Area.joins(:staff_areas).where("staff_id = ?", self.id)
+  end
+  
+  # return an array of staff associated with same areas that I am (current definition of 'adjunct')
+  def adjuncts
+	Staff.joins(:staff_areas).where('staff_areas.area_id' =>  areas.collect { |a| a.id } ).where("staff_areas.staff_id != ?", self.id)
+  end
+  
   def devise_creation_param_handler(params)
-    params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
-    params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
+  logger.debug("*******devise_creation_param_handler: staff_id = #{self.id} ")
+   # params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
+   # params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
+	params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
+    params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
 
   def get_registerable_access_levels

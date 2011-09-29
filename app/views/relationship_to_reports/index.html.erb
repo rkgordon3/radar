@@ -1,15 +1,18 @@
-<div id="inside_container" class="inside_container"><h1>Listing Relationships to Reports</h1>
+<div id="inside_container" class="inside_container"><h1>Contact Reasons</h1>
 
+<%= link_to 'New Contact Reason', new_relationship_to_report_path if can? :create, RelationshipToReport %>
+<br/>
+<br/>
 <table>
   <tr>
-  <th>R to R ID</th>  
+  <th>ID</th>  
   <th>Description</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @relationship_to_reports.each do |relationship| %>
+<% @relationship_to_reports.sort.each do |relationship| %>
   <% if @numRows == 0 %>
     <% @numRows = @numRows + 1 %>
     <tr class="shaded">
@@ -19,14 +22,12 @@
   <% end %>
     <td><%= relationship.id %></td>
     <td><%= relationship.description %></td>
-    <td><%= link_to 'Show', relationship %></td>
     <td><%= link_to 'Edit', edit_relationship_to_report_path(relationship) %></td>
-    <td><%= link_to 'Destroy', relationship, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', relationship, :confirm => 'Are you sure?', :method => :delete if can? :destroy, RelationshipToReport %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Relationship to Report', new_relationship_to_report_path if can? :create, RelationshipToReport %>
 </div>

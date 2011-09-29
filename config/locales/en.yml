@@ -2,27 +2,44 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-    ResidenceLife:
-        unknown: Unknown
-        submitter: Submitter
-        room_number: Room Number
-        annotation: Description
-        location: Specific Location
-        forward_this_report: Forward this Report
-        contact_reason_prompt: Select Contact Reason(s)
-        building: Building
-        incident_reports:
-         help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
-         common_reasons: Common Infractions
-         reasons: Infractions
-        maintenance_reports:
-         help: Add students reporting problem for Maintenance to contact for follow-up
-        reports:
-         help: Add students to FYI Report
-        notes:
-         help: Add students related to rounds note
-    AcademicSkills:
-        tutor_reports:
-            help: Add students to the tutor report.
-            reasons: Courses
-        
+  unknown: Unknown
+  new_staff: New Staff Member
+  staff_member_list: Staff Members
+  student_search_results: Student Search Results
+  student_index: Student List
+  student_search: Student Search
+  ignore_dob: Ignore Birthdate
+  forwarded: Forwarded?
+  submitter: Submitter
+  submitted: Submitted
+  residence: Residence
+  grade_level: Class
+  birthday: Birthday
+  separate_by_commmas: Separate emails by a comma, space or semi-colon
+  affiliation: Affiliation
+  age: Age
+  room_number: Room Number
+  date: Date
+  report: Report
+  extension: Extension
+  annotation: Description
+  location: Specific Location
+  details: Details
+  forward_this_report: Forward this Report
+  contact_reason_prompt: Select Contact Reason(s)
+  no_contact_history: No Contact History
+  building: Building
+  history: Contact History
+  incident_reports:
+     help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
+     common_reasons: Common Infractions
+     reasons: Infractions
+     reason: Infraction
+     history: Infraction History
+  maintenance_reports:
+     help: Add students reporting problem for Maintenance to contact for follow-up
+     history: Contact History
+  reports:
+     help: Add students to FYI Report
+  notes:
+     help: Add students related to rounds note

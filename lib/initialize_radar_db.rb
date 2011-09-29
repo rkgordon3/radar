@@ -113,9 +113,9 @@ Task.create(:id=>14, :title=>"Radio Sign Off", :area_id=>unspec_area.id, :start_
 # Access Levels
 AccessLevel.create(:name=>"ResidentAssistant", :display_name=> "Resident Assistant", :numeric_level=>1)
 AccessLevel.create(:name=>"HallDirector", :display_name=> "Hall Director", :numeric_level=>2)
-AccessLevel.create(:name=>"AdiministrativeAssistant", :display_name=> "Adiministrative Assistant", :numeric_level=>3)
-AccessLevel.create(:name=>"Adiministrator", :display_name=> "Adiministrator", :numeric_level=>4)
-sys_admin_al = AccessLevel.create(:name=>"SystemAdiministrator", :display_name=> "System Adiministrator", :numeric_level=>5)
+AccessLevel.create(:name=>"AdministrativeAssistant", :display_name=> "Administrative Assistant", :numeric_level=>3)
+AccessLevel.create(:name=>"Administrator", :display_name=> "Admnistrator", :numeric_level=>4)
+sys_admin_al = AccessLevel.create(:name=>"SystemAdministrator", :display_name=> "System Administrator", :numeric_level=>5)
 
 =begin
 # This does not work for some reason

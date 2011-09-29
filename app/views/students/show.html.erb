@@ -1,5 +1,6 @@
 <div id="inside_container" class="inside_container">
   <h1><%= "#{@student.name}" %></h1>
+  <%= render :partial=>"participants/participant_history", :locals=> { :participant => @student, :history => @student.contact_history } %>
   <p id="notice"><%= notice %></p>
   <p>
     <%= link_to image_tag(@student.getImageUrl, :border=>0, :width => 150) %>
@@ -25,24 +26,16 @@
   </p>
   <p>
     <b>Grade:</b>
-    <%= @student.classification %>
+    <%= @student.grade_level %>
   </p>
   <p>
-    <b>Age:</b>
-    <% if @student.is_of_drinking_age? %>
-      <font color="CC3333"><%= @student.getAge(@student.birthday) %> </font>
-    <% else %>
-      <%= @student.getAge(@student.birthday) %>
-    <% end %>
+    <%= render :partial=>"participants/age", :locals=> { :participant => @student, :pclass=>"show_label" } %>
   </p>
 
   <p>
-    <b>Date of Birth:</b>
-    <% if @student.is_of_drinking_age? %>
-      <font color="CC3333"><%= @student.birthday != nil ? @student.birthday_string : "" %></font>
-    <% else %>
-      <%= @student.birthday != nil ? @student.birthday_string : "" %>
-    <% end %>
+  
+  <%= render :partial=>"participants/birthday", :locals=> { :participant => @student, :pclass=>"show_label" } %>
+    
   </p>
 
   <%if can? :view_contact_info, @student %>

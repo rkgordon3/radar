@@ -47,14 +47,7 @@
                 <%=  "Unknown" %><br/>
               <% end %>
 
-              <span style="font-style: italic;">Date of Birth: </span>
-              <% if b.participant.is_of_drinking_age? %>
-                <font color="CC3333"><%= b.participant.birthday_string %></font>
-              <%  elsif (b.participant.birthday != nil) %>
-                <%=  "#{b.participant.birthday_string}" %>
-              <%  else %>
-                <%=  "Unknown" %>
-              <% end %> <br/>
+              <%= render :partial=>"participants/birthday", :locals=> { :participant=>b.participant, :pclass=>"detail_label" %> <br/>
 
               <span style="font-style: italic;">Residence: </span>
               <% if (b.participant.building_id != nil) %>

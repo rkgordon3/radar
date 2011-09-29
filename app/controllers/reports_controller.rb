@@ -2,8 +2,12 @@ class ReportsController < ApplicationController
   before_filter :authenticate_staff!
   load_resource :except => :remove_participant
   authorize_resource
+  rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
+    if (params[:report].nil?) 
+		params[:report] = "Report"
+	end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     @report_type = ReportType.find_by_name(params[:report])
 	  
@@ -20,15 +24,19 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
+    session[:report] = @report
+=begin
     if params[:emails] != nil
       forward_as_mail(params[:emails])
       return
     end
+=end
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-    
+
+
     respond_to do |format|
       format.html { render 'reports/show' }
       format.iphone { render 'reports/show', :layout => 'mobile_application' }
@@ -42,7 +50,7 @@ class ReportsController < ApplicationController
     if (params[:participants] != nil)
     	@report.add_participants(params[:participants])
     end
-      
+
     respond_to do |format|
       format.html { render "reports/new" }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
@@ -52,6 +60,8 @@ class ReportsController < ApplicationController
   # GET /reports/1/edit
   def edit
     session[:report]=@report
+
+    @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
 
     respond_to do |format|
       format.html { render 'reports/edit' }
@@ -63,6 +73,8 @@ class ReportsController < ApplicationController
   # POST /reports.xml
   def create
     @report = session[:report]
+    params[:report][:report_adjuncts] = params[:report_adjuncts]
+
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report
@@ -83,7 +95,8 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
-    
+    params[:report][:report_adjuncts] = params[:report_adjuncts]
+
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         if can? :show, @report
@@ -183,44 +196,55 @@ class ReportsController < ApplicationController
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
-    @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i)
+
+	if params[:ignore_dob].nil?
+       @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
+	end
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
-    redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+
+	@report = session[:report]
+	# This redirect presents a problem for https
+    #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+	 respond_to do |format|
+        format.js 
+        format.iphone {
+          render :update do |page|
+            if !@report.associated?(@participant)
+              page.select("input#full_name").first.clear
+              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+              if @report.participant_ids.size > 0
+                page.show 'common-reasons-link'
+              end
+            end
+          end
+        }
+      end
+      @report.add_default_contact_reason(@participant.id)
   end
   
   def forward_as_mail
     parties = params[:parties]
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
-    emails = Array.new
-    emails_for_notice = Array.new
-    parties.each do |p|
-      emails << p.email
-    end
-    emails_for_notice = emails.join(", ")
-    emails = emails.join(", ")
-    emails_for_notice.gsub!("<","(")
-    emails_for_notice.gsub!(">",")")
-    @report = Report.find(params[:report])
-    mail = RadarMailer.report_mail(@report, emails, current_staff)
-    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-
+    emails = parties.collect { |p| p.email }
+	# add "other" forwarding emails
+    (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
+	@report = session[:report]
     
     begin
-      mail.deliver
-      parties.each do |p|
-        iprs = InterestedPartyReport.find_by_interested_party_id_and_report_id(p.id, @report.id)
-        iprs ||= InterestedPartyReport.create(:interested_party_id => p.id ,:report_id => @report.id ,:times_forwarded => 0)
-        iprs.times_forwarded += 1
-        iprs.save
-      end
-      respond_to do |format|
-        format.js { render :locals => { :emails_for_notice => emails_for_notice } }
-      end
-    rescue
-      logger.debug "*********not delivered**********"
+	  RadarMailer.report_mail(@report, emails, current_staff).deliver
+	  InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
+      msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
+    rescue => e
+	logger.debug(e.backtrace.join("\n"))
+	  msg = "Unable to deliver mail. #{$!}"
+	  logger.debug("Failed to send mail #{$!}")
     end
+	 respond_to do |format|
+        format.js { render :locals => { :flash_notice => msg } }
+     end
   end
   
   # Used only by iphone view

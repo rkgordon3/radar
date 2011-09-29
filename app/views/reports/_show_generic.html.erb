@@ -2,8 +2,10 @@
  <br/>
  <b>Approach Date:</b>
   <%= @report.event_date %><br/><br />
+
   <b>Approach Time:</b>
   <%= @report.event_time %><br/><br />
+  <b><%= t "location" %></b>
   <b><%= t "#{current_staff.organization}.location" %></b>
   <%= @report.building.name %><br/><br />
   <b><%= t "#{current_staff.organization}.room_number" %></b>
@@ -12,8 +14,14 @@
   <%= @report.annotation_text %><br/><br />
   <b><%= t "#{current_staff.organization}.submitter" %></b>
   <%= @report.staff.name %><br/><br />
-  
-  <b>Submitted:</b>
+  <% if @report.adjunct_submitters.length > 0 %>
+    <b><%= "Secondary Submitter(s):" %></b>
+	<% @report.adjunct_submitters.each do |a| -%>
+	    <%= a.staff.last_name_first_initial %>
+	<% end -%>
+   <br/><br/>
+  <% end %>
+  <b><%= t :submitted %>:</b>
   <%= @report.submitted %><br/><br />
   <b>Created at:</b>
   <%= @report.created_at_string %><br/><br />
@@ -21,3 +29,5 @@
   <%= @report.updated_at_string %><br>
   
   </div>
+
+</div>

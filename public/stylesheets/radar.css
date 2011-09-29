@@ -22,7 +22,13 @@ td {
     overflow: hidden;
 }
 
+.toggle-link  { color: black; font-weight: bold; }
+
 .help {  width:100%; font-size:14px; margin:20px;}
+
+
+.form_header  {  margin-left:40px; margin-top:10px; margin-bottom:10px; font-weight:bold; font-size:20px; } 
+
 
 #print_logo { display:none; }
 
@@ -42,13 +48,17 @@ td {
 #inside_container {
     margin: 0 auto;
     background-color: #FFF;
-    padding: 20px;
+    padding: 10px;
     margin-top: 0px;
     font-family: Arial;
 
 }
 
+.detail_label {   font-style: italic; }
 
+.show_label { font-weight: bold; }
+
+.underage { color:#CC3333; }
 
 .error-message {  font-size:10px; color:#aa0000; }
 
@@ -108,22 +118,17 @@ td {
     display: inline;
 }
 
-.report_title {
+.report_title  {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
 }
 
+.report_date  {
+   font-size: 18px;
+}
+
 .error_messages {
-<<<<<<< HEAD
-    width: 400px;
-    border: 2px solid #CF0000;
-    padding: 0px;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    font-size: 12px;
-=======
   width: 400px;
   border: 2px solid #CF0000;
   padding: 0px;
@@ -132,7 +137,7 @@ td {
   background-color: #f0f0f0;
   font-size: 12px;
   overflow:auto;
->>>>>>> c549e05a56989a0f68f21fbc6708d3392898145d
+
 }
 
 
@@ -184,7 +189,7 @@ td {
 }
 .menu ul{
     background:#f1f1f1;
-    height:75px;
+    height:45px;
     list-style:none;
     margin:0;
     padding:0px;
@@ -194,20 +199,20 @@ td {
     padding:0px;
 }
 .menu li a{
-    background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
+    
     color:#595959;
     font-weight:bold;
     display:block;
     font-weight:normal;
     line-height:30px;
     margin:0px;
-    padding:22px 11px;
+    padding:11px 11px;
     text-align:center;
     text-decoration:none;
 }
 
 .menu li a:hover, .menu ul li:hover a{
-    background: #b40d10;
+     background:#5a99bd;
     color:#FFFFFF;
     text-decoration:none;
 }
@@ -230,7 +235,6 @@ td {
 }
 .menu li:hover ul{
     display:block;
-
 }
 .menu li li {
     background:url('../images/sub_sep.gif') bottom left no-repeat;
@@ -262,6 +266,10 @@ td {
 .menu p{
     clear:left;
 }	
+
+label { font-weight:bold; }
+
+#page_title { font-weight:bold; }
 
 #print_link { display:block; float:right }
 #footer{

@@ -18,7 +18,7 @@
       <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
     <% end %>
   </div>
-  
+
   <% common_reasons_state = @report.participant_ids.size > 1 ? "block" : "none" %>
   <% content_tag :div, :id=>"common-reasons-container", :style=>"display:#{common_reasons_state}" do -%>
     <%= render :partial => "reports/report_common_relationship_checklist" , :locals => { :report => @report } %>
@@ -33,12 +33,13 @@
   <div class="field">
     <b><%= f.label :building_id %>:<br /></b>
     <%= select :report,:building_id,Building.order(:name).collect{|p| [p.name, p.id]},{}%>
-
   </div>
+
   <div class="field">
     <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
     <%= text_field(:report, :room_number) %>
   </div>
+
   <% if !@report.is_note? %>
     <div class="field">
       <b><%= f.label :approach_time %>:</b><br />
@@ -46,6 +47,22 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <div>
+      <%= link_to image_tag("/images/add_icon.gif", :id => "ss-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('ss-div', 'ss-img');" %>
+      <%= link_to('Secondary Submitter(s)', "javascript:void(0)",
+        :onclick => "plusMinusToggle('ss-div', 'ss-img');" , :class=>"toggle-link") %>
+    </div>
+    <div id="ss-div" style="display: none;">
+      <% current_staff.adjuncts.each do |s| %>
+        <div class ="small-label" style="margin-left: 8px; margin-top: 4px; margin-bottom: 0px;" >
+          <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.is_adjunct?(s) } %>
+          <%= "#{s.first_name} #{s.last_name}" %><br />
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <div class="actions">
     <p>

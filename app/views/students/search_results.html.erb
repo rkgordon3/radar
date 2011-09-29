@@ -2,7 +2,7 @@
 <%= form_tag "/students/use_search_results_to_create_new_report" %>
 <table>
 	<tr>
-		<td><h1>Student Results</h1></td>
+		<td><div class="form_header"><%= t :student_search_results %></div></td>
 		<td style="width: 150px;"></td>
 		<td><%= submit_tag "Add To New Incident Report"%></td>
 		<td><%= submit_tag "Add To New Maintenance Request"%></td>

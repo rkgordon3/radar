@@ -1,11 +1,13 @@
 class Report < ActiveRecord::Base
   belongs_to  	:staff
   belongs_to    :building
-  has_many      :interested_party_reports
+  has_many      :forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
+  has_many     	:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
   after_initialize :setup_defaults
+  after_find	:cache_submitted
   after_save       :save_everything
   before_destroy   :destroy_everything
   
@@ -15,11 +17,16 @@ class Report < ActiveRecord::Base
   end
 
   def times_forwarded_to(interested_party)
-    ip = InterestedPartyReport.find_by_interested_party_id_and_report_id(interested_party.id, self.id)
-    if ip == nil
-      return 0
-    end
-    return ip.times_forwarded
+	ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
+	ipforwards.first.times_forwarded rescue 0
+  end
+  
+  def forwarded?
+	forwards.size > 0 
+  end
+  
+  def forwardable?
+    ReportType.find_by_name(self.type).forwardable?
   end
 
   def submitter?(staff)
@@ -30,9 +37,16 @@ class Report < ActiveRecord::Base
   def is_note?
     type == "Note"
   end
+
+  def includes_secondary_submitter?(staff)
+    ReportAdjunct.find_by_report_id_and_staff_id(self.id, staff.id) != nil
+  end
   
-  def created_at_string
-    self.created_at.to_s(:my_time)
+  def is_adjunct?(ss)
+    adjunct_submitters.each do |a|
+     return true if a.staff_id == ss.id
+    end
+    false
   end
 
   def created_at_string
@@ -80,7 +94,7 @@ class Report < ActiveRecord::Base
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
     annotation_text = params[:annotation]
-    
+
     if annotation_text != nil && annotation_text.length > 0 
       if self.annotation == nil
         self.annotation = Annotation.new(:text => annotation_text)
@@ -88,7 +102,11 @@ class Report < ActiveRecord::Base
         self.annotation.text = annotation_text
       end
     end
-    
+
+    self.adjunct_submitters.each do |ra|
+      ra.destroy
+    end
+    params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" }
   end
   
   def setup_defaults
@@ -101,11 +119,12 @@ class Report < ActiveRecord::Base
   end
   
   def save
-    if annotation != nil && annotation.save != nil 
+    if (not annotation.nil?) && annotation.save != nil 
       self.annotation_id = annotation.id
     end
     super
   end
+
   
   def save_everything
     # save each reported infraction to database  
@@ -116,13 +135,17 @@ class Report < ActiveRecord::Base
         ri.save		# actually save
       end
     end
-    if (self.submitted) 
+
+    if generate_immediate_notification?
       Notification.immediate_notify(self.id)
     end
   end
   
   def destroy_everything
     destroy_participants
+    adjunct_submitters.each do |ra|
+      ra.destroy
+    end
     if annotation != nil
       annotation.destroy
     end
@@ -150,6 +173,10 @@ class Report < ActiveRecord::Base
   
   def empty_of_participants?
     participant_ids.size == 0
+  end
+  
+  def number_of_participants
+    participant_ids.size
   end
   
   # Return id of all participants associated with report
@@ -221,7 +248,7 @@ class Report < ActiveRecord::Base
   end
   
   def tag	
-    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + tag_datetime + "-" + staff_id.to_s
+    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + id.to_s
   end
   
   def event_time
@@ -229,7 +256,19 @@ class Report < ActiveRecord::Base
   end
  
   def event_date
- 	  (approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
+ 	  #(approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
+	   (approach_time != nil ? approach_time : created_at).to_s(:date_only)
+  end
+  
+ 
+
+  def secondary_submitters_string
+    s=""
+    self.adjunct_submitters.joins(:staff).order(:last_name).each do |ra|
+      s += "#{ra.staff.first_name} #{ra.staff.last_name}, "
+    end
+    s = s.chop
+    s.chop
   end
  
   def Report.sort(data,key)
@@ -260,9 +299,22 @@ class Report < ActiveRecord::Base
     participants.each do |id|
       self.add_default_contact_reason(id)
     end
+  end 
+   
+  private  
+  
+  # after_find (load) we cache submitted value so we can
+	# test here to see if immediate notification is warranted
+	# if resource is new, @submitted_value_on_load
+	# will not be defined.
+  def generate_immediate_notification? 
+	  submitted && ((not defined? @submitted_value_on_load) || (not @submitted_value_on_load) )
+  end
+
+  def cache_submitted
+    @submitted_value_on_load = self.submitted
   end
   
-  private
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end

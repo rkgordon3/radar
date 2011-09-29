@@ -1,25 +1,37 @@
 <fieldset>
   <ul>
     <li>
-      <%= "Birthday: " %>
-      <%= participant.birthday_string rescue "Unknown" %>
+	   <%= t :grade_level %>
+	   <%= participant.grade_level rescue unknown %>
+	</li>
+	<li>
+	  <%= t :age %>
+	  <%= render :partial=>"participants/unlabelled_age", :locals=> { :participant=>participant} %>
+	</li>
+    <li>
+	   <%= t :birthday %>
+       <%= render :partial=>"participants/unlabelled_birthday", :locals=> { :participant=>participant } %>
     </li>
     <li>
       <%= "Room: " %>
-      <%= participant.room_number rescue "" %>
+      <%= participant.room_number rescue unknown %>
       <%= " " %>
-      <%= participant.building.name rescue "Unknown" %>
+      <%= participant.residence_hall rescue unknown %>
     </li>
     <li>
-      <%= "Extension: " %>
-      <%= participant.extension rescue "Unknown" %>
+      <%= t :extension %>
+      <%= participant.extension rescue unknown %>
     </li>
+	<li>
+		<%= t :affiliation %>
+		<%= participant.affiliation rescue unknown %>
+	</li>
     <% if can? :view_contact_info, Student %>
       <li>
         <%= "Emergency Contact: " %>
-        <%= participant.emergency_contact_name rescue "" %>
+        <%= participant.emergency_contact_name rescue unknown %>
         <%= " @ " if participant.emergency_contact_name != nil && participant.emContact!=nil %>
-        <%= participant.emContact rescue "Unknown" %>
+        <%= participant.emContact rescue unknown %>
       </li>
     <% end %>
   </ul>

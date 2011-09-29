@@ -37,11 +37,7 @@
           <%=image_tag(b.participant.getImageUrl, :width=> 50 ) %>
         </td>
         <td style="vertical-align: top;">
-          <% if b.participant.type == "Student" %>
-            <%= b.participant.last_name %>, <%= b.participant.first_name %> <%= b.participant.middle_initial %>
-          <% else %>
             <%= b.participant.name %>
-          <% end %>
           <br />
 
           <b>Details</b>
