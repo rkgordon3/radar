@@ -1,3 +1,5 @@
 page["flash_notice"].show
-page.replace_html("flash_notice", "Report was forwarded to " + emails_for_notice + ".")
-page.replace_html 'forward_div', :partial => 'reports/forward_as_mail', :locals => {:display => "display: block;"}
+page.replace_html 'flash_notice', flash_notice
+page["interested_party_list_div"].hide
+page["forward_img"]['src'] = '/images/add_icon.gif'
+page.replace_html 'interested_party_list_div', :partial => 'interested_parties/forward_list', :locals=>{ :report => @report} 

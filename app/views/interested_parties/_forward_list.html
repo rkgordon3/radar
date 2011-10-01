@@ -1,0 +1,24 @@
+
+    <%= form_for(:parties, :remote => true,  
+			:url => { :controller => 'reports',
+			:action => :forward_as_mail, :report => report} ) do |f| %>
+      <% InterestedParty.where(:report_type_id=>report.type_id).each do |ip| %>
+        <div class ="small-label" style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
+          <%= f.check_box :"#{ip.id}" %><%= f.label "#{ip.email}" %><br />
+        </div>
+        <div>
+          <% tf = report.times_forwarded_to(ip) %>
+          <% if tf > 0 %>
+            <%= "Forwarded #{tf} " %>
+            <%= tf > 1 ? "times." : "time." %>
+          <% end %>
+          <hr />
+        </div>
+      <% end %>
+	   <div class ="small-label" style="margin-right: 8px;margin-top: 4px; margin-bottom: 0px;" >
+          <%= check_box_tag :other %><%= text_field_tag 'other' %><br />
+       </div>
+	   <div style="font-size:8pt;"><%= t :separate_by_commmas %></div>
+      <div class="actions"><p><%= f.submit "Send" %></p></div>
+  
+	<% end %>

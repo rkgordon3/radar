@@ -1,5 +1,5 @@
 class ReportParticipantRelationship < ActiveRecord::Base
-	belongs_to :incident_report
+	belongs_to :report
 	belongs_to :participant
 	belongs_to :relationship_to_report
   after_initialize :setup_defaults

@@ -3,6 +3,7 @@ class Staff < ActiveRecord::Base
   has_many :staff_areas, :dependent => :destroy
   belongs_to :access_level
   belongs_to :area
+
   belongs_to :organization
   has_many :notification_preferences
   before_save :lower_email
@@ -23,6 +24,9 @@ class Staff < ActiveRecord::Base
     first_name + " " + last_name
   end
   
+  def last_name_first_initial
+    last_name + ( ", #{first_name[0]}" rescue "")
+  end
   
   def last_login
     self.last_sign_in_at
@@ -30,6 +34,16 @@ class Staff < ActiveRecord::Base
   # return true is I have seen given report
   def has_seen? (report)
     ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
+  end
+  
+  # return an array of Areas for those areas with which staff member is associated
+  def areas
+    Area.joins(:staff_areas).where("staff_id = ?", self.id)
+  end
+  
+  # return an array of staff associated with same areas that I am (current definition of 'adjunct')
+  def adjuncts
+	Staff.joins(:staff_areas).where('staff_areas.area_id' =>  areas.collect { |a| a.id } ).where("staff_areas.staff_id != ?", self.id)
   end
   
   def devise_creation_param_handler(params)

@@ -1,6 +1,16 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
 
+  def contact_history
+   rp = ReportParticipantRelationship.where("participant_id = ?", self.id).order(:created_at)
+   rp.collect { |rp| 
+     c = ParticipantsHelper::ContactSummary.new
+	 c.report = rp.report rescue unknown
+	 c.date = rp.report.approach_time.to_s(:my_time) rescue unknown
+	 c.reason = rp.relationship_to_report.description rescue unknown
+     c
+   }
+  end
   
   def name
     first_name + " " + (middle_initial != nil ? (middle_initial + " ") : "") + last_name

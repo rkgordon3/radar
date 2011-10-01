@@ -11,23 +11,34 @@ en:
   ignore_dob: Ignore Birthdate
   forwarded: Forwarded?
   submitter: Submitter
+  submitted: Submitted
   residence: Residence
   grade_level: Class
   birthday: Birthday
+  separate_by_commmas: Separate emails by a comma, space or semi-colon
+  affiliation: Affiliation
   age: Age
   room_number: Room Number
+  date: Date
+  report: Report
   extension: Extension
   annotation: Description
   location: Specific Location
+  details: Details
   forward_this_report: Forward this Report
   contact_reason_prompt: Select Contact Reason(s)
+  no_contact_history: No Contact History
   building: Building
+  history: Contact History
   incident_reports:
      help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
      common_reasons: Common Infractions
      reasons: Infractions
+     reason: Infraction
+     history: Infraction History
   maintenance_reports:
      help: Add students reporting problem for Maintenance to contact for follow-up
+     history: Contact History
   reports:
      help: Add students to FYI Report
   notes:

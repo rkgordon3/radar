@@ -15,5 +15,9 @@ class RelationshipToReport < ActiveRecord::Base
     where(:report_type_id => ReportType.find_by_name(report.type).id)
   end
   
+  def <=> other
+    self.description <=> other.description
+  end
+  
   
 end

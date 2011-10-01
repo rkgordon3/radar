@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_filter :authenticate_staff!
   load_resource :except => :remove_participant
   authorize_resource
+  rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
     if (params[:report].nil?) 
@@ -23,16 +24,18 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
+    session[:report] = @report
+=begin
     if params[:emails] != nil
       forward_as_mail(params[:emails])
       return
     end
+=end
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
     @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-    #get secondary submitters
-    @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
+
 
     respond_to do |format|
       format.html { render 'reports/show' }
@@ -193,7 +196,7 @@ class ReportsController < ApplicationController
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
-	logger.debug("DOB #{params[:ignore_dob]} for #{@participant.first_name}")
+
 	if params[:ignore_dob].nil?
        @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
 	end
@@ -225,34 +228,23 @@ class ReportsController < ApplicationController
     parties = params[:parties]
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
-    emails = Array.new
-    emails_for_notice = Array.new
-    parties.each do |p|
-      emails << p.email
-    end
-    emails_for_notice = emails.join(", ")
-    emails = emails.join(", ")
-    emails_for_notice.gsub!("<","(")
-    emails_for_notice.gsub!(">",")")
-    @report = Report.find(params[:report])
-    mail = RadarMailer.report_mail(@report, emails, current_staff)
-    @interested_parties = InterestedParty.where(:report_type_id=>@report.type_id)
-
+    emails = parties.collect { |p| p.email }
+	# add "other" forwarding emails
+    (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
+	@report = session[:report]
     
     begin
-      mail.deliver
-      parties.each do |p|
-        iprs = InterestedPartyReport.find_by_interested_party_id_and_report_id(p.id, @report.id)
-        iprs ||= InterestedPartyReport.create(:interested_party_id => p.id ,:report_id => @report.id ,:times_forwarded => 0)
-        iprs.times_forwarded += 1
-        iprs.save
-      end
-      respond_to do |format|
-        format.js { render :locals => { :emails_for_notice => emails_for_notice } }
-      end
-    rescue
-      logger.debug "*********not delivered**********"
+	  RadarMailer.report_mail(@report, emails, current_staff).deliver
+	  InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
+      msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
+    rescue => e
+	logger.debug(e.backtrace.join("\n"))
+	  msg = "Unable to deliver mail. #{$!}"
+	  logger.debug("Failed to send mail #{$!}")
     end
+	 respond_to do |format|
+        format.js { render :locals => { :flash_notice => msg } }
+     end
   end
   
   # Used only by iphone view

@@ -22,6 +22,8 @@ td {
     overflow: hidden;
 }
 
+.toggle-link  { color: black; font-weight: bold; }
+
 .help {  width:100%; font-size:14px; margin:20px;}
 
 
@@ -116,10 +118,14 @@ td {
     display: inline;
 }
 
-.report_title {
+.report_title  {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
+}
+
+.report_date  {
+   font-size: 18px;
 }
 
 .error_messages {

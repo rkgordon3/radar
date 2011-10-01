@@ -41,7 +41,7 @@ class RelationshipToReportsController < ApplicationController
   def create
     respond_to do |format|
       if @relationship_to_report.save
-        format.html { redirect_to(@relationship_to_report, :notice => 'Relationship to report was successfully created.') }
+        format.html { redirect_to(:action=> 'index', :notice => 'Contact reason was successfully created.') }
         format.xml  { render :xml => @relationship_to_report, :status => :created, :location => @relationship_to_report }
       else
         format.html { render :action => "new" }
@@ -55,7 +55,7 @@ class RelationshipToReportsController < ApplicationController
   def update
     respond_to do |format|
       if @relationship_to_report.update_attributes(params[:relationship_to_report])
-        format.html { redirect_to(@relationship_to_report, :notice => 'Relationship to report was successfully updated.') }
+        format.html { redirect_to(:action => 'index', :notice => 'Contact reason was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

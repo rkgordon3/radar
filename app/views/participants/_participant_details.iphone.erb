@@ -22,6 +22,10 @@
       <%= t :extension %>
       <%= participant.extension rescue unknown %>
     </li>
+	<li>
+		<%= t :affiliation %>
+		<%= participant.affiliation rescue unknown %>
+	</li>
     <% if can? :view_contact_info, Student %>
       <li>
         <%= "Emergency Contact: " %>
