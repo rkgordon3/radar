@@ -36,17 +36,16 @@
   <%= link_to image_tag("/images/add_icon.gif", :id => "tasks-img"), "javascript:void(0)",
     :onclick => "plusMinusToggle('tasks-for-log', 'tasks-img');" %>
   <b><font size="3">Shift Task Logs</font>
-    
-        <font color="B40D10" size="3">
-        <%= "(#{ra_shifts.length})" %></font></b>
- 
+
+    <font color="B40D10" size="3">
+      <%= "(#{ra_shifts.length})" %></font></b>
+
   <div id='tasks-for-log' class='shift_log_div' style="display: none;" >
 
-	   <% ra_shifts.each do |shift| %>
-			<%= render :partial => "task_assignments/task_assignments_full_info_table", :locals => { :shift => shift } %>
-	   <% end %>
- 
+    <% ra_shifts.each do |shift| %>
+      <%= render :partial => "task_assignments/task_assignments_full_info_table", :locals => { :shift => shift } %>
+    <% end %>
+
   </div>
 </div></p>
-<%= link_to 'Edit', edit_shift_path(@shift) if can? :edit, @shift %>
 </div>

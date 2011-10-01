@@ -119,7 +119,9 @@ class Staff < ActiveRecord::Base
   end
 
   def current_round
-    Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
+    if self.current_shift != nil
+      Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
+    end
   end
   
   def currently_assigned_tasks
