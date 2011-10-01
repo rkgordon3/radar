@@ -31,6 +31,13 @@ class Ability
         trim_residence_life_privileges_to(:administrative_assistant, staff)
         trim_residence_life_privileges_to(:hall_director, staff)
         trim_residence_life_privileges_to(:resident_assistant, staff)
+      elsif staff.access_level? :campus_safety
+        trim_residence_life_privileges_to(:system_administrator, staff)
+        trim_residence_life_privileges_to(:administrator, staff)
+        trim_residence_life_privileges_to(:administrative_assistant, staff)
+        trim_residence_life_privileges_to(:hall_director, staff)
+        trim_residence_life_privileges_to(:resident_assistant, staff)
+        trim_residence_life_privileges_to(:campus_safety, staff)
       end
 
       #these apply to all levels of ResLife
@@ -99,6 +106,11 @@ class Ability
       cannot :view_contact_info, Participant
       cannot :manage, Task
       cannot :manage, NotificationPreference
+
+    elsif access_level_symbol == :campus_safety
+      can :read, Report
+      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment, Building, Area]
+
     end
   end
   
