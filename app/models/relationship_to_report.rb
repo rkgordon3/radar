@@ -19,5 +19,4 @@ class RelationshipToReport < ActiveRecord::Base
     self.description <=> other.description
   end
   
-  
 end

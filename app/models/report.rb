@@ -83,8 +83,17 @@ class Report < ActiveRecord::Base
     false
   end
   
+  def report_type
+    ReportType.find_by_name(self.type)
+  end
+  
   def reasons(student = nil)
-    RelationshipToReport.for(self)
+    reason_context = report_type.reason_context
+    if (reason_context == nil)
+        RelationshipToReport.for(self)
+    else
+        reason_context.constantize.for(student)
+    end
   end
   
   def update_attributes_without_saving(params)
@@ -130,7 +139,7 @@ class Report < ActiveRecord::Base
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?   # make sure the reported infraction isn't frozen
-        ri.context = self.reason_context
+        ri.context = report_type.reason_context
         ri.report_id = self.id # establish connection
         ri.save		# actually save
       end

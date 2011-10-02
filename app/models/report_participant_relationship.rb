@@ -15,8 +15,7 @@ class ReportParticipantRelationship < ActiveRecord::Base
     if self.context != nil
         self.context.constantize.where(:id => self.relationship_to_report_id).first
     else
-        #Need help
-        self.relationship_to_report
+        RelationshipToReport.where(:id => self.relationship_to_report_id).first
     end
   end
   

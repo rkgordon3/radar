@@ -5,12 +5,7 @@ def supports_selectable_contact_reasons?
 
   def can_edit_from_mobile?
 	true
-  end
-  
-  def reasons(student = nil)
-    Enrollment.for(student)
-  end
-  
+  end  
   
  def add_contact_reason(params)
     # create arrays for the new reported infractions
