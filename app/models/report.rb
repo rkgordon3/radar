@@ -239,7 +239,6 @@ class Report < ActiveRecord::Base
    
   def add_contact_reason_for(participant_id, reason_id)
     ri = get_contact_reason_for_participant(participant_id, reason_id) 
-    
     if ri == nil
       ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
       self.report_participant_relationships << ri
@@ -250,6 +249,19 @@ class Report < ActiveRecord::Base
   
   def remove_contact_reason_for(participant_id, reason_id)
     self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
+  end
+  
+  def add_annotation_for(participant_id, reason, text)
+    annotation = Annotation.new(:text => text)
+    logger.debug participant_id
+    logger.debug reason
+    ri = ReportParticipantRelationship.for(:participant_id => participant_id).first
+    if ri == nil
+        logger.debug "FAIL!!!!!"
+    end
+    logger.debug "!!!!"
+    logger.debug ri.participant_id
+    logger.debug "!!!!"
   end
   
   def get_relationship(participant_id, reason_id)

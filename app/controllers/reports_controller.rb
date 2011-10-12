@@ -258,10 +258,23 @@ class ReportsController < ApplicationController
     end
   end
   
+  def update_annotation
+    text = params[:text]
+    pid = params[:participant]
+    reason = params[:reason]
+    report = session[:report]
+    report.add_annotation_for(pid, reason, text)
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
   def update_reason
     pid = params[:participant]
     id = params[:reason]
     reason = /\d+_(\d+)/.match(id)[1]
+    logger.debug "????????????????"
+    logger.debug reason
     checked = params[:checked]
     report = session[:report]
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)

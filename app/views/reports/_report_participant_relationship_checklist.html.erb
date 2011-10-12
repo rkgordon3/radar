@@ -15,9 +15,11 @@
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
   				       report.get_contact_reason_for_participant(participant.id, infraction.id) != nil, 
-					   :onclick => "#{rf}" %>
+					   :onclick => "#{rf}; if(this.checked){document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'none';} " %>
   				    <%= infraction.description %>			
-  				
+                    <div id="<%= participant.id %>_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">
+                        <%= render :partial => 'reports/contact_details', :locals => { :participant => participant, :infraction => infraction } %>
+                    </div>
   				  </div>
   			<% end %>
   	</div>
