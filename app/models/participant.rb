@@ -1,15 +1,20 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
 
-  def contact_history
-   rp = ReportParticipantRelationship.where("participant_id = ?", self.id).order(:created_at)
-   rp.collect { |rp| 
-     c = ParticipantsHelper::ContactSummary.new
-	 c.report = rp.report rescue unknown
-	 c.date = rp.report.approach_time.to_s(:my_time) rescue unknown
-	 c.reason = rp.relationship_to_report.description rescue unknown
-     c
-   }
+  def contact_history(report_type=nil)
+    if report_type != nil
+      rp = ReportParticipantRelationship.joins(:report).where("participant_id = ? AND type = ?", self.id, report_type.name).order(:created_at)
+    end
+
+    rp ||= ReportParticipantRelationship.joins(:report).where("participant_id = ?", self.id).order(:created_at)
+    
+    rp.collect { |rp|
+      c = ParticipantsHelper::ContactSummary.new
+      c.report = rp.report rescue unknown
+      c.date = rp.report.approach_time.to_s(:my_time) rescue unknown
+      c.reason = rp.relationship_to_report.description rescue unknown
+      c
+    }
   end
   
   def name
@@ -18,9 +23,9 @@ class Participant < ActiveRecord::Base
   
   def getImageUrl
     url_for_id = UrlForId.find(self.student_id) rescue nil 
-	if ( url_for_id.nil? ||   url_for_id.url.nil?) 
+    if ( url_for_id.nil? ||   url_for_id.url.nil?)
      	return ApplicationHelper::unknown_image
-	end
+    end
     IMAGE_PATH + url_for_id.url 
   end
 		
@@ -28,8 +33,8 @@ class Participant < ActiveRecord::Base
     message= name_string
     split_up = message.split(/, /)
 	
-	# The gsub is a kludge to fix extra space in long name for those 
-	# names without middle initial
+    # The gsub is a kludge to fix extra space in long name for those
+    # names without middle initial
     long_name = split_up[0].gsub("  ", " ")
     #print long_name
     building_abbreviation = split_up[1]
@@ -64,7 +69,7 @@ class Participant < ActiveRecord::Base
 	end
 	
 	def age
-	dob = self.birthday
+    dob = self.birthday
     unless dob.nil?
       a = Date.today.year - dob.year
       b = Date.new(Date.today.year, dob.month, dob.day)
@@ -79,7 +84,7 @@ class Participant < ActiveRecord::Base
   end
   
   def is_of_drinking_age? 
-     !self.birthday.nil? && self.birthday < (-drinking_age).years.from_now 
+    !self.birthday.nil? && self.birthday < (-drinking_age).years.from_now
   end
 
 end

@@ -73,8 +73,6 @@ class Ability
     elsif access_level_symbol == :administrator
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
-	  can :manage, RelationshipToReport
-	  cannot :destroy, RelationshipToReport
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
@@ -99,7 +97,7 @@ class Ability
       cannot :show, IncidentReport, :submitted => true
       cannot [:print, :forward], Report
 
-      cannot :manage, Shift
+      cannot :manage, [Shift, RelationshipToReport]
       can :do, Shift, :time_out => nil
       can :do, Round, :end_time => nil
       can [:shift_log, :read], Shift, :staff_id => staff.id
