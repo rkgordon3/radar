@@ -1,4 +1,4 @@
-page.remove ("#{@divid}")
+page.replace_html("s-i-form", :partial => "participants_in_report", :locals => { :width => 3, :report => @report, :participants => Participant.find(@report.participant_ids) })
 if @report.empty_of_participants?
   page.hide 'common-reasons-container'
 end

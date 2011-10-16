@@ -4,11 +4,9 @@
 #
 # IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO add_pariticpant.js.rjs ALSO
 #
-if !@report.associated?(@participant)
-	page.replace_html("new-part-div", "")
-	page.select("input#full_name").first.clear
-	if @report.participant_ids.size > 0
-		page.show 'common-reasons-container'
-	end
-	page.insert_html(:top, "s-i-form", :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant })
+page.replace_html("new-part-div", "")
+page.select("input#full_name").first.clear
+if @report.participant_ids.size > 0
+  page.show 'common-reasons-container'
 end
+page.replace_html("s-i-form", :partial => "participants_in_report", :locals => { :width => 3, :report => @report, :participants => Participant.find(@report.participant_ids) })

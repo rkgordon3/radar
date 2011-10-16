@@ -6,8 +6,8 @@ class ReportsController < ApplicationController
   
   def index
     if (params[:report].nil?) 
-		params[:report] = "Report"
-	end
+      params[:report] = "Report"
+    end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     @report_type = ReportType.find_by_name(params[:report])
 	  
@@ -151,11 +151,13 @@ class ReportsController < ApplicationController
         }
       end
     else
+      insert_new_participant_partial = !@report.associated?(@participant)
+      @report.add_default_contact_reason(@participant.id)
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
-            if !@report.associated?(@participant)
+            if insert_new_participant_partial
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -166,7 +168,6 @@ class ReportsController < ApplicationController
           end
         }
       end
-      @report.add_default_contact_reason(@participant.id)
     end
   end
   
@@ -178,13 +179,13 @@ class ReportsController < ApplicationController
       @report.report_participant_relationships.delete(ri)
       ri.destroy
     end
-    @divid = "p-in-report-#{@participant_id}"
+    @iphone_div_id = "p-in-report-#{@participant_id}"
     
     respond_to do |format|
       format.js
       format.iphone{
         render :update do |page|
-          page.remove("#{@divid}")
+          page.remove("#{@iphone_div_id}")
         end
       }
     end
@@ -197,31 +198,31 @@ class ReportsController < ApplicationController
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
 
-	if params[:ignore_dob].nil?
-       @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
-	end
+    if params[:ignore_dob].nil?
+      @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
+    end
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 
-	@report = session[:report]
-	# This redirect presents a problem for https
+    @report = session[:report]
+    # This redirect presents a problem for https
     #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
-	 respond_to do |format|
-        format.js 
-        format.iphone {
-          render :update do |page|
-            if !@report.associated?(@participant)
-              page.select("input#full_name").first.clear
-              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-              if @report.participant_ids.size > 0
-                page.show 'common-reasons-link'
-              end
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
+          if !@report.associated?(@participant)
+            page.select("input#full_name").first.clear
+            page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+            page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+            if @report.participant_ids.size > 0
+              page.show 'common-reasons-link'
             end
           end
-        }
-      end
-      @report.add_default_contact_reason(@participant.id)
+        end
+      }
+    end
+    @report.add_default_contact_reason(@participant.id)
   end
   
   def forward_as_mail
@@ -229,22 +230,22 @@ class ReportsController < ApplicationController
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
     emails = parties.collect { |p| p.email }
-	# add "other" forwarding emails
+    # add "other" forwarding emails
     (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
-	@report = session[:report]
+    @report = session[:report]
     
     begin
-	  RadarMailer.report_mail(@report, emails, current_staff).deliver
-	  InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
+      RadarMailer.report_mail(@report, emails, current_staff).deliver
+      InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
       msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
     rescue => e
-	logger.debug(e.backtrace.join("\n"))
-	  msg = "Unable to deliver mail. #{$!}"
-	  logger.debug("Failed to send mail #{$!}")
+      logger.debug(e.backtrace.join("\n"))
+      msg = "Unable to deliver mail. #{$!}"
+      logger.debug("Failed to send mail #{$!}")
     end
-	 respond_to do |format|
-        format.js { render :locals => { :flash_notice => msg } }
-     end
+    respond_to do |format|
+      format.js { render :locals => { :flash_notice => msg } }
+    end
   end
   
   # Used only by iphone view

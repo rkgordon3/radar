@@ -15,7 +15,7 @@
 
   <div id="s-i-form">
     <%  @report.participant_ids.each  do |pid|  %>
-      <%= render :partial=> "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) } %>
+      <%= render :partial=> "reports/participants_in_report", :locals => { :width => 3, :report => @report, :participants => Participant.find(@report.participant_ids) } %>
     <% end %>
   </div>
 
