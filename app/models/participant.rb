@@ -3,10 +3,10 @@ class Participant < ActiveRecord::Base
 
   def contact_history(report_type=nil)
     if report_type != nil
-      rp = ReportParticipantRelationship.joins(:report).where("participant_id = ? AND type = ?", self.id, report_type.name).order(:created_at)
+      rp = ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ? AND reports.type = ?", self.id, report_type.name).order("reports.approach_time")
     end
 
-    rp ||= ReportParticipantRelationship.joins(:report).where("participant_id = ?", self.id).order(:created_at)
+    rp ||= ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ?", self.id).order("reports.approach_time")
     
     rp.collect { |rp|
       c = ParticipantsHelper::ContactSummary.new
