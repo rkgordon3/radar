@@ -6,7 +6,7 @@
  
   	<b><%= t "#{current_staff.organization}.#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
-  			<% infractions = RelationshipToReport.for(report) %>
+  			<% infractions = report.common_reasons %>
 			<% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
@@ -17,7 +17,12 @@
 					    false,
 					   :onclick => "#{rf}"
   				       %>
-  				    <%= infraction.description %>			 				
+  				    <%= infraction.description %>
+                    <% if @report.supports_contact_reason_details? %>
+                        <div id="common_reasons_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">
+                            <%= render :partial => 'reports/contact_details', :locals => { :infraction => infraction } %>
+                        </div>
+                    <% end %>                    
   				  </div>
   			<% end %>
   	</div>

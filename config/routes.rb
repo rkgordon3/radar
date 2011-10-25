@@ -76,6 +76,7 @@ Radar::Application.routes.draw do
   match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/update_reason" => "reports#update_reason"
   match "/reports/update_annotation" => "reports#update_annotation"
+  match "/reports/update_duration" => "reports#update_duration"
   match "/reports/add_participant/" => "reports#add_participant"
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"

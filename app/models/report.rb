@@ -10,6 +10,7 @@ class Report < ActiveRecord::Base
   after_find	:cache_submitted
   after_save       :save_everything
   before_destroy   :destroy_everything
+  has_many      :participants, :through => :report_participant_relationships
   
   # return true if report is a generic report, ie FYI
   def is_generic? 
@@ -27,6 +28,10 @@ class Report < ActiveRecord::Base
   
   def forwardable?
     ReportType.find_by_name(self.type).forwardable?
+  end
+  
+  def supports_contact_reason_details?
+    ReportType.find_by_name(self.type).has_contact_reason_details?
   end
 
   def submitter?(staff)
@@ -89,10 +94,20 @@ class Report < ActiveRecord::Base
   
   def reasons(student = nil)
     reason_context = report_type.reason_context
-    if (reason_context == nil)
-        RelationshipToReport.for(self)
-    else
+    if (reason_context != nil && student != nil)
         reason_context.constantize.for(student)
+    else
+        RelationshipToReport.for(self)
+    end
+  end
+  
+  def common_reasons
+    reason_context = report_type.reason_context
+    if (reason_context != nil)
+        
+    else
+        logger.debug participants.length
+        RelationshipToReport.for(self)
     end
   end
   
@@ -253,15 +268,25 @@ class Report < ActiveRecord::Base
   
   def add_annotation_for(participant_id, reason, text)
     annotation = Annotation.new(:text => text)
-    logger.debug participant_id
-    logger.debug reason
-    ri = ReportParticipantRelationship.for(:participant_id => participant_id).first
-    if ri == nil
-        logger.debug "FAIL!!!!!"
+    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    if ri != nil
+        ri.annotation = annotation
     end
-    logger.debug "!!!!"
-    logger.debug ri.participant_id
-    logger.debug "!!!!"
+  end
+  
+  def remove_annotation_for(participant_id, reason, text)
+    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    if ri != nil
+        ri.annotation = nil
+    end
+  end
+  
+  def add_duration_for(participant_id, reason, minutes)
+    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    if ri != nil
+        logger.debug minutes
+        ri.contact_duration = minutes
+    end
   end
   
   def get_relationship(participant_id, reason_id)

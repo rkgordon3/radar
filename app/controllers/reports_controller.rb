@@ -263,7 +263,26 @@ class ReportsController < ApplicationController
     pid = params[:participant]
     reason = params[:reason]
     report = session[:report]
-    report.add_annotation_for(pid, reason, text)
+    if text.length == 0 or text == nil
+        report.remove_annotation_for(pid, reason, text)
+    else
+        report.add_annotation_for(pid, reason, text)
+    end
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
+  def update_duration
+    text = params[:text]
+    pid = params[:participant]
+    reason = params[:reason]
+    report = session[:report]
+    time_string = text.split(" ")
+    hours = time_string[0].to_i()
+    min = time_string[2].to_i()
+    minutes = (hours*60) + min
+    report.add_duration_for(pid, reason, minutes)
     respond_to do |format|
         format.js {render :nothing => true}
     end
@@ -273,8 +292,6 @@ class ReportsController < ApplicationController
     pid = params[:participant]
     id = params[:reason]
     reason = /\d+_(\d+)/.match(id)[1]
-    logger.debug "????????????????"
-    logger.debug reason
     checked = params[:checked]
     report = session[:report]
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)

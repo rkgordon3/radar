@@ -34,6 +34,16 @@
   		<br />
   		<b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b> 
   		<%= b.relationship_to_report.description %><br/>
+        <% if @report.supports_contact_reason_details? %>
+            <% if b.annotation != nil %>
+                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annotation:</b> 
+                <%= b.annotation.text %><br/>
+            <% end %>
+            <% if b.contact_duration != nil %>
+                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duration:</b> 
+                <%= b.contact_duration %> minutes<br/>
+            <% end %>
+        <% end %>
 		
         
   	<% end %>
