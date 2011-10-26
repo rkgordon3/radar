@@ -20,7 +20,7 @@
             <a href="../participants/<%= p.id %>" target="blank"> <%= p.name %></a>
           <% end %>
           <br />
-          <%= render :partial => "participants/participant_details", :locals => { :participant => p } %>
+          <%= render :partial => "participants/participant_details", :locals => { :participant => p } %><br/>
           <%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history } %>
           <br />
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
