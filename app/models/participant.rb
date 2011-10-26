@@ -3,11 +3,9 @@ class Participant < ActiveRecord::Base
 
   def contact_history(report_type=nil)
     if report_type != nil
-<<<<<<< HEAD
+
       rp = ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ? AND reports.type = ?", self.id, report_type).order("reports.approach_time")
-=======
-      rp = ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ? AND reports.type = ?", self.id, report_type.name).order("reports.approach_time")
->>>>>>> origin/master
+
     end
 
     rp ||= ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ?", self.id).order("reports.approach_time")
