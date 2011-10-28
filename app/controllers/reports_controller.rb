@@ -144,7 +144,7 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.replace_html "new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
-            if @report.participant_ids.size > 0
+            if @report.participant_ids.size > 1
               page.show 'common-reasons-container'
             end
           end
@@ -161,7 +161,7 @@ class ReportsController < ApplicationController
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-              if @report.participant_ids.size > 0
+              if @report.participant_ids.size > 1
                 page.show 'common-reasons-link'
               end
             end
@@ -207,6 +207,7 @@ class ReportsController < ApplicationController
     @report = session[:report]
     # This redirect presents a problem for https
     #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+    @report.add_default_contact_reason(@participant.id)
     respond_to do |format|
       format.js
       format.iphone {
@@ -215,14 +216,13 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
             page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-            if @report.participant_ids.size > 0
+            if @report.participant_ids.size > 1
               page.show 'common-reasons-link'
             end
           end
         end
       }
     end
-    @report.add_default_contact_reason(@participant.id)
   end
   
   def forward_as_mail
