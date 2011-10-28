@@ -15,3 +15,6 @@ tmp/**/*
 /script/ftp_students.txt
 /nbproject/configs/production.properties
 /nbproject/private/configs/production.properties
+/script/shradar.csv
+/script/shradarwdraw.csv
+/script/import.log

@@ -42,6 +42,10 @@ def report_host_ip
  "radar.smumn.edu"
 end
 
+def system_status_email
+  "radar-admin@smumn.edu"
+end
+
 # Initialize the rails application
 Radar::Application.initialize!
 ActionMailer::Base.raise_delivery_errors = true
