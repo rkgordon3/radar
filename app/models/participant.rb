@@ -1,5 +1,6 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
+  has_many :reports, :through => :relationship_to_report
 
   def contact_history
    rp = ReportParticipantRelationship.where("participant_id = ?", self.id).order(:created_at)

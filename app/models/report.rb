@@ -95,7 +95,9 @@ class Report < ActiveRecord::Base
   def reasons(student = nil)
     reason_context = report_type.reason_context
     if (reason_context != nil && student != nil)
-        reason_context.constantize.for(student)
+        students = Array.new
+        students << student
+        reason_context.constantize.for(students)
     else
         RelationshipToReport.for(self)
     end
@@ -103,10 +105,13 @@ class Report < ActiveRecord::Base
   
   def common_reasons
     reason_context = report_type.reason_context
-    if (reason_context != nil)
-        
+    participants = Participant.find_all_by_id(participant_ids)
+    participants.each do |p|
+        logger.debug p.first_name
+    end
+    if (reason_context != nil && participant_ids.size > 0)
+        reason_context.constantize.for(participants)
     else
-        logger.debug participants.length
         RelationshipToReport.for(self)
     end
   end
@@ -341,8 +346,8 @@ class Report < ActiveRecord::Base
     return ReportType.find_by_name(self.class.name).display_name
   end
   # An array of participant IDs
-  def add_participants(participants)
-    participants.each do |id|
+  def add_participants(participant_ids)
+    participant_ids.each do |id|
       self.add_default_contact_reason(id)
     end
   end

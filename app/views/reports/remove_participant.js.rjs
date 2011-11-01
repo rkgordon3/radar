@@ -1,4 +1,5 @@
 page.remove ("#{@divid}")
+page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
 if @report.empty_of_participants?
   page.hide 'common-reasons-container'
 end

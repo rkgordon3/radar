@@ -127,7 +127,7 @@ class ReportsController < ApplicationController
   def add_participant
     @participant = Participant.get_participant_for_full_name(params[:full_name])
     @report = session[:report]
-    
+
     if @participant == nil
 	
       name_tokens = params[:full_name].split(' ')
@@ -136,7 +136,6 @@ class ReportsController < ApplicationController
         middle_initial = name_tokens[1].capitalize
       end
       last_name = name_tokens[name_tokens.length-1].capitalize
-      
       
       respond_to do |format|
         format.js{
@@ -151,11 +150,13 @@ class ReportsController < ApplicationController
         }
       end
     else
+      
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
             if !@report.associated?(@participant)
+              @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -166,7 +167,7 @@ class ReportsController < ApplicationController
           end
         }
       end
-      @report.add_default_contact_reason(@participant.id)
+      
     end
   end
   
@@ -211,6 +212,7 @@ class ReportsController < ApplicationController
         format.iphone {
           render :update do |page|
             if !@report.associated?(@participant)
+              @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -221,7 +223,7 @@ class ReportsController < ApplicationController
           end
         }
       end
-      @report.add_default_contact_reason(@participant.id)
+      
   end
   
   def forward_as_mail

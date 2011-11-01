@@ -20,7 +20,7 @@
   				    <%= infraction.description %>
                     <% if @report.supports_contact_reason_details? %>
                         <div id="common_reasons_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">
-                            <%= render :partial => 'reports/contact_details', :locals => { :infraction => infraction } %>
+                            <%= render :partial => 'reports/common_contact_details', :locals => { :infraction => infraction } %>
                         </div>
                     <% end %>                    
   				  </div>
