@@ -40,6 +40,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { render 'reports/show' }
       format.iphone { render 'reports/show', :layout => 'mobile_application' }
+      format.pdf { render :pdf => "#{@report.tag}", :template=> "reports/show.pdf.erb", :stylesheets => ["radar_pdf"] }
     end
   end
   
@@ -48,7 +49,7 @@ class ReportsController < ApplicationController
   def new
     session[:report] = @report
     if (params[:participants] != nil)
-    	@report.add_participants(params[:participants])
+      @report.add_participants(params[:participants])
     end
 
     respond_to do |format|
