@@ -39,12 +39,30 @@ td {
 
 .participant_detail {
     display: block !important;
+	page-break-inside: avoid;
+	vertical-align:top;
+	float:right;
 }
+
+.detail_name { 
+	font-weight:bold; 
+}
+.participant_image { page-break-after:avoid; }
+
+.detail_label {}
 
 .contact_history {
     display: block !important;
 	margin-top: 8px;
 
+}
+
+.keep_image_with_details {
+	page-break-inside:avoid;
+}
+
+.contact_history_item {
+	page-break-inside:avoid;
 }
 
 .current_contact_reasons  {
@@ -54,6 +72,10 @@ td {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
+}
+
+.report_date  {
+   font-size: 16px;
 }
 
 .plus_minus_icon { display: none; }
