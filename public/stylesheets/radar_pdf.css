@@ -17,12 +17,16 @@ td {
     background-color: #FFF;
     border: solid 1px black;
     margin-left: -10%;
-	page: main;
+
 }
 
-@page main {
+@page {
     font-family: Verdana, Helvetica, Arial;
 	font-size:10px;
+}
+
+@page:left {
+
     @bottom-right {	    
         content: " Page " counter(page) " of " counter(pages); 
     }
@@ -34,6 +38,23 @@ td {
 		font-weight:bold; 
 	}
 	@top-right {
+	    content: string(approach_time) string(report_date);
+	}
+}
+
+@page:right {
+
+    @bottom-left {	    
+        content: " Page " counter(page) " of " counter(pages); 
+    }
+	@bottom-right {
+		content: "Submitter: " string(submitter_name);
+	}
+    @top-right {  
+		content:  string(report_title);
+		font-weight:bold; 
+	}
+	@top-left {
 	    content: string(approach_time) string(report_date);
 	}
 }
