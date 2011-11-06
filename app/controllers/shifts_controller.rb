@@ -207,7 +207,9 @@ class ShiftsController < ApplicationController
       on_round_note_map[round] = notes
     end
 
-    off_round_reports += Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_end..@shift.time_out, :submitted=> true)
+    off_round_reps = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_end..@shift.time_out, :submitted=> true)
+    off_round_reports += off_round_reps.where(:type=>["IncidentReport","MaintenanceReport"])
+    off_round_notes += off_round_reps.where(:type => "Note")
     total_reports += off_round_reports.length
     total_reports += off_round_notes.length
 
