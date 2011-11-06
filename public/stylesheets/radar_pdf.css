@@ -27,6 +27,8 @@ td {
 
 }
 
+.small-label { color: #595959;  font-weight: bold; }
+
 .show-title { 
 	margin-top:8px;
 	font-weight:bold;
