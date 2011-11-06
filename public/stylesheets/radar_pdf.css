@@ -3,10 +3,6 @@ body {
     font-size: 12px;
 }
 
-a img {
-    border: none;
-}
-
 a {
     color: #CC3333;
 }
@@ -15,30 +11,18 @@ td {
     padding: 5px;
 }
 
-.clear {
-    clear: both;
-    height: 0;
-    overflow: hidden;
-}
-
-#print_logo, div.shift_log_div { display:block !important; }
-
-#common-reasons-container, #emergency_contact, #forward_div, #edit_destroy_link { display:none; }
-
 #container {
-    width: 100%;
-    margin: 0 auto;
+    width: 120%;
+    height: 140%;
     background-color: #FFF;
-    padding: 00px 0px;
     border: solid 1px black;
-    margin-top: 0px;
-
+    margin-left: -10%;
 }
 
 #inside_container {
     margin: 0 auto;
     background-color: #FFF;
-    padding: 20px;
+    padding: 5px;
     margin-top: 0px;
 
 }
@@ -46,191 +30,8 @@ td {
     display: block !important;
 }
 
-#toolbar{
-    display:none;
-    width:90%;
-    margin: 0 auto;
-    padding: 0px 0px;
-    margin-top: 20px;
-    font-family: Arial;
-    font-size: 1.188em;
-    color: #B40D10;
-    vertical-align: bottom;
-
-}
-
-#flash_notice, #flash_error, #flash_alert {
-    display:none;
-    padding: 5px 8px;
-    margin: 10px 0;
-}
-
-#flash_notice {
-
-    background-color: #94c0d9;
-}
-
-#flash_error, #flash_alert {
-    background-color: #f99;
-    border: solid 1px #C66;
-}
-
 .report_title {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
-}
-
-.fieldWithErrors {
-    display: inline;
-}
-
-.error_messages {
-    width: 400px;
-    border: 2px solid #CF0000;
-    padding: 0px;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    font-size: 12px;
-}
-
-.error_messages h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 10px;
-    font-size: 12px;
-    margin: 0;
-    background-color: #b40d10;
-    color: #fff;
-}
-
-.error_messages p {
-    margin: 8px 10px;
-}
-
-.error_messages ul {
-    margin: 0;
-}
-
-.field {
-    padding: 7px;
-}
-
-.shaded {
-    background-color: #efefef;
-    border-color: #efefef;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.box_shadow{
-    box-shadow: 3px 3px 4px #818181;
-    -webkit-box-shadow: 3px 3px 4px #818181;
-    -moz-box-shadow: 3px 3px 4px #818181;
-    filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=3, offY=3, positive=true);
-}
-
-.menu{
-
-    border:none;
-    border:0px;
-    margin:0px;
-    padding:0px;
-    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-    font-size:12px;
-    font-weight:bold;
-    color: #595959;
-}
-.menu ul{
-    background:#f1f1f1;
-    height:75px;
-    list-style:none;
-    margin:0;
-    padding:0px;
-}
-.menu li{
-    float:left;
-    padding:0px;
-}
-.menu li a{
-    background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
-    color:#595959;
-    font-weight:bold;
-    display:block;
-    font-weight:normal;
-    line-height:30px;
-    margin:0px;
-    padding:22px 22px;
-    text-align:center;
-    text-decoration:none;
-}
-
-.menu li a:hover, .menu ul li:hover a{
-    background: #b40d10;
-    color:#FFFFFF;
-    text-decoration:none;
-}
-.menu li ul{
-    background:#5a99bd;
-    color:#fff;
-    font-weight:normal;
-    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-    font-size: 12px;
-    display:none;
-    height:auto;
-    padding:0px;
-    margin:0px;
-    border:0px;
-    position:absolute;
-    width:200px;
-    z-index:200;
-    /*top:1em;
-		/*left:0;*/
-}
-.menu li:hover ul{
-    display:block;
-
-}
-.menu li li {
-    background:url('../images/sub_sep.gif') bottom left no-repeat;
-    display:block;
-    float:none;
-    margin:0px;
-    padding:0px;
-    width:200px;
-}
-.menu li:hover li a{
-    background:none;
-
-}
-.menu li ul a{
-    display:block;
-    height:35px;
-    font-size:12px;
-    font-style:normal;
-    margin:0px;
-    padding:0px 10px 0px 15px;
-    text-align:left;
-}
-.menu li ul a:hover, .menu li ul li:hover a{
-    background:#b40d10 url('../images/hover_sub.gif') center left no-repeat;
-    border:0px;
-    color:#ffffff;
-    text-decoration:none;
-}
-.menu p{
-    clear:left;
-}
-
-#user_nav { display:none; }
-#print_link { display:none;  }
-
-
-#footer{
-    display:none;
-    background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
-    color:#fff;
-    height:1%;
-    padding:10px;
 }
