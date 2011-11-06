@@ -1,6 +1,6 @@
 body {
     font-family: Verdana, Helvetica, Arial;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 a {
@@ -26,12 +26,32 @@ td {
     margin-top: 0px;
 
 }
+
+.show-title { 
+	margin-top:8px;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.generic_show_report { font-size:12px; }
+
 .participant_detail {
     display: block !important;
 }
+
+.contact_history {
+    display: block !important;
+	margin-top: 8px;
+
+}
+
+.current_contact_reasons  {
+	margin-top:8px; }
 
 .report_title {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
 }
+
+.plus_minus_icon { display: none; }
