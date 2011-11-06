@@ -17,6 +17,25 @@ td {
     background-color: #FFF;
     border: solid 1px black;
     margin-left: -10%;
+	page: main;
+}
+
+@page main {
+    font-family: Verdana, Helvetica, Arial;
+	font-size:10px;
+    @bottom-right {	    
+        content: " Page " counter(page) " of " counter(pages); 
+    }
+	@bottom-left {
+		content: "Submitter: " string(submitter_name);
+	}
+    @top-left {  
+		content:  string(report_title);
+		font-weight:bold; 
+	}
+	@top-right {
+	    content: string(approach_time) string(report_date);
+	}
 }
 
 #inside_container {
@@ -66,16 +85,28 @@ td {
 }
 
 .current_contact_reasons  {
-	margin-top:8px; }
+	margin-top:8px; 
+	page-break-inside:avoid;
+}
 
 .report_title {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
+	string-set: report_title content();
+}
+
+#submitter_name {
+	string-set: submitter_name content();
+}
+
+#approach_time {
+	string-set: approach_time content();
 }
 
 .report_date  {
    font-size: 16px;
+   string-set: report_date content();
 }
 
 .plus_minus_icon { display: none; }
