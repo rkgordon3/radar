@@ -77,7 +77,7 @@
                   </div>
                 </div>
               </div>
-              <% if p.contact_history(@report.type).size == 0 %>
+              <% if p.contact_history(@report).size == 0 %>
                 <span class="small-label"><%= t :no_contact_history %></span>
               <% else %>
                 <%= link_to image_tag("/images/add_icon.gif", :id => "#{p.id}-history_img"), "javascript:void(0)",
@@ -88,7 +88,7 @@
                 <div id="history_div_<%= p.id %>" class="participant_detail">
                   <div style="margin-left: 15px;">
                     <table cellspacing="0" cellpadding="0">
-                      <% p.contact_history(@report.type).each  do |h| -%>
+                      <% p.contact_history(@report).each  do |h| -%>
 
                         <tr>
                         <span class="detail_label">
