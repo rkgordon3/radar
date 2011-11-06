@@ -9,13 +9,13 @@
     <br/>
     <div class="generic_show_report" >
       <b>Approach Time:</b>
-      <div id="approach_time"><%= @report.event_time %></div><br/>
+      <span id="approach_time"><%= @report.event_time %></span><br/>
       <b><%= t "location" %>:</b>
       <%= @report.building.name %><br/>
       <b><%= t :room_number %>:</b>
       <%= @report.room_number %><br/>
 	  <b><%= t :submitter %>:</b>
-      <div id="submitter_name"><%= @report.staff.name %></div><br/>
+      <span id="submitter_name"><%= @report.staff.name %></span><br/>
       <% if @report.adjunct_submitters.length > 0 %>
         <b><%= "Secondary Submitter(s):" %></b>
         <% @report.adjunct_submitters.each do |a| -%>
