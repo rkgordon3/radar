@@ -1,10 +1,13 @@
 <div id="inside_container" class="inside_container">
 
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') if can? :print, @report %><br />
-  <% if @report.forwardable? %>
-  <div id="forward_div" style="float:right;">
-    <%= render :partial => "reports/forward_as_mail", :locals => {:display => "display: none;", :plus_minus_button_path => "/images/add_icon.gif"}%>
+  <div id="pdf_div" style="float:right;">
+    <%= link_to 'View this page as PDF', "/#{@report.type.underscore.pluralize}/#{@report.id}.pdf" if can? :pdf, @report %>
   </div>
+  <% if @report.forwardable? %>
+    <div id="forward_div" style="float:right;">
+      <%= render :partial => "reports/forward_as_mail", :locals => {:display => "display: none;", :plus_minus_button_path => "/images/add_icon.gif"}%>
+    </div>
   <% end %>
   <div class="report_date" >
     <%= @report.event_date %>

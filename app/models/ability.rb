@@ -95,7 +95,7 @@ class Ability
       can [:read, :update], Report, :staff_id => staff.id
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
       cannot :show, IncidentReport, :submitted => true
-      cannot [:print, :forward], Report
+      cannot [:pdf, :print, :forward], Report
 
       cannot :manage, [Shift, RelationshipToReport]
       can :do, Shift, :time_out => nil

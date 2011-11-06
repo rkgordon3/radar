@@ -24,7 +24,7 @@ td {
 
 #print_logo, div.shift_log_div { display:block !important; }
 
-#common-reasons-container, #emergency_contact, #forward_div, #edit_destroy_link { display:none; }
+#common-reasons-container, #emergency_contact, #forward_div, #pdf_div, #edit_destroy_link { display:none; }
 
 #container {
     width: 90%;
