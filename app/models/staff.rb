@@ -29,11 +29,11 @@ class Staff < ActiveRecord::Base
   end
   
   def last_login
-	self.last_sign_in_at
+    self.last_sign_in_at
   end
   # return true is I have seen given report
   def has_seen? (report)
-   ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
+    ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
   end
   
   # return an array of Areas for those areas with which staff member is associated
@@ -47,29 +47,27 @@ class Staff < ActiveRecord::Base
   end
   
   def devise_creation_param_handler(params)
-  logger.debug("*******devise_creation_param_handler: staff_id = #{self.id} ")
-   # params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
-   # params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
-	params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
+    logger.debug("*******devise_creation_param_handler: staff_id = #{self.id} ")
+    # params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
+    # params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
+    params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
 
   def get_registerable_access_levels
 
-    res_life_level =  AccessLevel.find_by_name('ResidentAssistant').numeric_level
-    sys_admin_level = AccessLevel.find_by_name('SystemAdministrator').numeric_level
-
-    if self.access_level.numeric_level > res_life_level && self.access_level.numeric_level <  sys_admin_level
-      #can only register access levels below current level
-      level_array =  res_life_level..(self.access_level.numeric_level-1)
-      return AccessLevel.where(:numeric_level => level_array)
-    elsif self.access_level.numeric_level ==  sys_admin_level
-      #system admins can make other system admins
-      level_array =  res_life_level..self.access_level.numeric_level
-      return AccessLevel.where(:numeric_level => level_array)
-    else
-      #if level 1, can register as level 1 (only to be used when updating self)
-      return AccessLevel.where(:numeric_level => self.access_level.numeric_level)
+    if self.access_level? :system_administrator
+      return AccessLevel.all
+    elsif self.access_level? :administrator
+      return AccessLevel.where(:name => ['AdministrativeAssistant', 'HallDirector', 'ResidentAssistant'])
+    elsif self.access_level? :administrative_assistant
+      return AccessLevel.where(:name => ['HallDirector', 'ResidentAssistant'])
+    elsif self.access_level? :hall_director
+      return AccessLevel.where(:name => 'ResidentAssistant')
+    elsif self.access_level? :resident_assistant
+      return nil
+    elsif self.access_level? :campus_safety
+      return nil
     end
   end
 
@@ -139,13 +137,15 @@ class Staff < ActiveRecord::Base
   end
 
   def current_round
-    Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
+    if self.current_shift != nil
+      Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
+    end
   end
   
   def currently_assigned_tasks
     if (current_shift == nil)
-	  return []
-	end
+      return []
+    end
     anytime = -1
     timed_assignments = TaskAssignment.joins(:task).where( "shift_id = ? AND tasks.time > ?", self.current_shift.id, anytime ).order(:time).all
     untimed_assignments = TaskAssignment.joins(:task).where( :shift_id => self.current_shift.id, :tasks => {:time => anytime }).all

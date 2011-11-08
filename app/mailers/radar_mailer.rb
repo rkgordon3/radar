@@ -9,7 +9,7 @@ class RadarMailer < ActionMailer::Base
     @last_name = staff.last_name	
 	
 	# This is an AF kludge...need to revisit
-	subject = reports.size > 1 ? "Radar Digest" : "Radar #{reports.first[1][0].display_name} #{reports.first[1][0].tag}"
+	subject = reports.size > 1 ? "Radar Digest" : "Radar #{reports.first[1][0].display_name} #{reports.first[1][0].tag} (#{reports.first[1][0].staff.name})"
     
     mail(:to => staff.email, :subject => "#{subject}: " + Time.now.to_s(:my_time)) 
   end

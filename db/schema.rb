@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111013030631) do
+ActiveRecord::Schema.define(:version => 20111103034325) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20111013030631) do
     t.boolean  "submit_on_mobile"
     t.boolean  "selectable_contact_reasons"
     t.boolean  "has_contact_reason_details"
+    t.string   "path_to_reason_context"
   end
 
   create_table "report_view_logs", :force => true do |t|

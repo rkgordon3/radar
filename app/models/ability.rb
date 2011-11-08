@@ -31,6 +31,13 @@ class Ability
         trim_residence_life_privileges_to(:administrative_assistant, staff)
         trim_residence_life_privileges_to(:hall_director, staff)
         trim_residence_life_privileges_to(:resident_assistant, staff)
+      elsif staff.access_level? :campus_safety
+        trim_residence_life_privileges_to(:system_administrator, staff)
+        trim_residence_life_privileges_to(:administrator, staff)
+        trim_residence_life_privileges_to(:administrative_assistant, staff)
+        trim_residence_life_privileges_to(:hall_director, staff)
+        trim_residence_life_privileges_to(:resident_assistant, staff)
+        trim_residence_life_privileges_to(:campus_safety, staff)
       end
 
       #these apply to all levels of ResLife
@@ -66,8 +73,6 @@ class Ability
     elsif access_level_symbol == :administrator
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
-	  can :manage, RelationshipToReport
-	  cannot :destroy, RelationshipToReport
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
@@ -92,7 +97,7 @@ class Ability
       cannot :show, IncidentReport, :submitted => true
       cannot [:print, :forward], Report
 
-      cannot :manage, Shift
+      cannot :manage, [Shift, RelationshipToReport]
       can :do, Shift, :time_out => nil
       can :do, Round, :end_time => nil
       can [:shift_log, :read], Shift, :staff_id => staff.id
@@ -102,6 +107,11 @@ class Ability
       cannot :view_contact_info, Participant
       cannot :manage, Task
       cannot :manage, NotificationPreference
+
+    elsif access_level_symbol == :campus_safety
+      can :read, Report
+      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment, Building, Area]
+
     end
   end
   

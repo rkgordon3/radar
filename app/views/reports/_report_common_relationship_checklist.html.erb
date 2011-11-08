@@ -15,7 +15,7 @@
   						<%= check_box_tag "common_reasons[#{infraction.id}]", 
   				       infraction.description,
 					    false,
-					   :onclick => "#{rf}"
+					   :onclick => "#{rf}; if(this.checked){document.getElementById('common_reasons_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('common_reasons_#{infraction.id}_details').style.display = 'none';} "
   				       %>
   				    <%= infraction.description %>
                     <% if @report.supports_contact_reason_details? %>

@@ -93,24 +93,21 @@ class Report < ActiveRecord::Base
   end
   
   def reasons(student = nil)
-    reason_context = report_type.reason_context
-    if (reason_context != nil && student != nil)
+    path_to_reason_context = report_type.path_to_reason_context
+    if (path_to_reason_context != nil && student != nil)
         students = Array.new
         students << student
-        reason_context.constantize.for(students)
+        path_to_reason_context.constantize.for(students)
     else
         RelationshipToReport.for(self)
     end
   end
   
   def common_reasons
-    reason_context = report_type.reason_context
+    path_to_reason_context = report_type.path_to_reason_context
     participants = Participant.find_all_by_id(participant_ids)
-    participants.each do |p|
-        logger.debug p.first_name
-    end
-    if (reason_context != nil && participant_ids.size > 0)
-        reason_context.constantize.for(participants)
+    if (path_to_reason_context != nil && participant_ids.size > 0)
+        path_to_reason_context.constantize.for(participants)
     else
         RelationshipToReport.for(self)
     end
@@ -135,7 +132,9 @@ class Report < ActiveRecord::Base
     self.adjunct_submitters.each do |ra|
       ra.destroy
     end
-    params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" }
+    if params[:report_adjuncts] != nil
+        params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" }
+    end
   end
   
   def setup_defaults

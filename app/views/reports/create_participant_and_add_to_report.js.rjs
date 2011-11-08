@@ -4,13 +4,10 @@
 #
 # IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO add_pariticpant.js.rjs ALSO
 #
-if !@report.associated?(@participant)
-    @report.add_default_contact_reason(@participant.id)
-	page.replace_html("new-part-div", "")
-	page.select("input#full_name").first.clear
-	if @report.participant_ids.size > 1
-		page.show 'common-reasons-container'
-        page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
-	end
-	page.insert_html(:top, "s-i-form", :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant })
+page.replace_html("new-part-div", "")
+page.select("input#full_name").first.clear
+if @report.participant_ids.size > 1
+  page.show 'common-reasons-container'
+  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
 end
+page.replace_html("s-i-form", :partial => "participants_in_report", :locals => { :width => 3, :report => @report, :participants => Participant.where(:id => @report.participant_ids).order(:last_name) })

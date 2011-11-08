@@ -20,9 +20,8 @@ class Devise::RegistrationsController < ApplicationController
     build_resource
     
     if resource.save
-      set_flash_message :notice, :signed_up
       #sign_in_and_redirect(resource_name, resource)
-      redirect_to(resource)
+      redirect_to(staffs_url, :notice => "Account for #{resource.last_name_first_initial} was successfully created.")
     else
       clean_up_passwords(resource)
       @organizations = current_staff.get_registerable_organizations
@@ -49,8 +48,7 @@ class Devise::RegistrationsController < ApplicationController
     if resource.update_attributes(params[resource_name])
       @current_ability = nil
       @current_staff = nil
-      set_flash_message :notice, "Updated Account Successfully"
-      redirect_to (resource)
+      redirect_to(staffs_url, :notice => "Account for #{resource.last_name_first_initial} was successfully updated.")
     else
       clean_up_passwords(resource)
       render_with_scope :edit

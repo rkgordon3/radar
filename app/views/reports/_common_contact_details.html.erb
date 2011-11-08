@@ -4,10 +4,10 @@
 <div id="common_contact_details_<%= infraction.id %>" class="participant_detail">
   <div style="margin-left: 15px;">
     <% rf =  remote_function( :update => nil,
-							:url => { :controller => 'reports', :action => :update_annotation },
+							:url => { :controller => 'reports', :action => :update_common_annotation },
 							:with => "'reason=#{infraction.id}" + '&text=\' + this.value')  %>
     <% rf2 =  remote_function( :update => nil,
-							:url => { :controller => 'reports', :action => :update_duration },
+							:url => { :controller => 'reports', :action => :update_common_duration },
 							:with => "'reason=#{infraction.id}" + '&text=\' + this.value')  %>
     <%= "Annotation" %><br />
     <%= text_area_tag "common_annotation_#{infraction.id}", nil, :cols => 60, :rows => 2, :onblur => "#{rf}" %>

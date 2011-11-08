@@ -6,8 +6,8 @@ class ReportsController < ApplicationController
   
   def index
     if (params[:report].nil?) 
-		params[:report] = "Report"
-	end
+      params[:report] = "Report"
+    end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     @report_type = ReportType.find_by_name(params[:report])
 	  
@@ -150,12 +150,13 @@ class ReportsController < ApplicationController
         }
       end
     else
-      
+      insert_new_participant_partial = !@report.associated?(@participant)
+      @report.add_default_contact_reason(@participant.id)
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
-            if !@report.associated?(@participant)
+            if insert_new_participant_partial
               @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
@@ -167,7 +168,6 @@ class ReportsController < ApplicationController
           end
         }
       end
-      
     end
   end
   
@@ -179,13 +179,13 @@ class ReportsController < ApplicationController
       @report.report_participant_relationships.delete(ri)
       ri.destroy
     end
-    @divid = "p-in-report-#{@participant_id}"
+    @iphone_div_id = "p-in-report-#{@participant_id}"
     
     respond_to do |format|
       format.js
       format.iphone{
         render :update do |page|
-          page.remove("#{@divid}")
+          page.remove("#{@iphone_div_id}")
         end
       }
     end
@@ -198,19 +198,19 @@ class ReportsController < ApplicationController
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
 
-	if params[:ignore_dob].nil?
-       @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
-	end
+    if params[:ignore_dob].nil?
+      @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
+    end
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 
-	@report = session[:report]
-	# This redirect presents a problem for https
+    @report = session[:report]
+    # This redirect presents a problem for https
     #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
-	 respond_to do |format|
-        format.js 
-        format.iphone {
-          render :update do |page|
+    respond_to do |format|
+      format.js
+      format.iphone {
+        render :update do |page|
             if !@report.associated?(@participant)
               @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
@@ -231,22 +231,22 @@ class ReportsController < ApplicationController
     parties.delete_if {|key, value| value != "1" }
     parties = InterestedParty.where(:id => parties.keys)
     emails = parties.collect { |p| p.email }
-	# add "other" forwarding emails
+    # add "other" forwarding emails
     (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
-	@report = session[:report]
+    @report = session[:report]
     
     begin
-	  RadarMailer.report_mail(@report, emails, current_staff).deliver
-	  InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
+      RadarMailer.report_mail(@report, emails, current_staff).deliver
+      InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
       msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
     rescue => e
-	logger.debug(e.backtrace.join("\n"))
-	  msg = "Unable to deliver mail. #{$!}"
-	  logger.debug("Failed to send mail #{$!}")
+      logger.debug(e.backtrace.join("\n"))
+      msg = "Unable to deliver mail. #{$!}"
+      logger.debug("Failed to send mail #{$!}")
     end
-	 respond_to do |format|
-        format.js { render :locals => { :flash_notice => msg } }
-     end
+    respond_to do |format|
+      format.js { render :locals => { :flash_notice => msg } }
+    end
   end
   
   # Used only by iphone view
@@ -275,6 +275,23 @@ class ReportsController < ApplicationController
     end
   end
   
+  def update_common_annotation
+    text = params[:text]
+    reason = params[:reason]
+    report = session[:report]
+    pids = report.participant_ids
+    pids.each do |pid|
+        if text.length == 0 or text == nil
+            report.remove_annotation_for(pid, reason, text)
+        else
+            report.add_annotation_for(pid, reason, text)
+        end
+    end
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
   def update_duration
     text = params[:text]
     pid = params[:participant]
@@ -285,6 +302,23 @@ class ReportsController < ApplicationController
     min = time_string[2].to_i()
     minutes = (hours*60) + min
     report.add_duration_for(pid, reason, minutes)
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
+  def update_common_duration
+    text = params[:text]
+    reason = params[:reason]
+    report = session[:report]
+    pids = report.participant_ids
+    time_string = text.split(" ")
+    hours = time_string[0].to_i()
+    min = time_string[2].to_i()
+    minutes = (hours*60) + min
+    pids.each do |pid|
+        report.add_duration_for(pid, reason, minutes)
+    end
     respond_to do |format|
         format.js {render :nothing => true}
     end
