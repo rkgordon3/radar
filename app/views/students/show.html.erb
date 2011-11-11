@@ -1,68 +1,42 @@
 <div id="inside_container" class="inside_container">
-  <h1><%= "#{@student.name}" %></h1>
+  <h1><%= "#{@student.name}" " ID: #{@student.student_id}" %></h1>
   <%= render :partial=>"participants/participant_history", :locals=> { :participant => @student, :history => @student.contact_history } %>
   <p id="notice"><%= notice %></p>
-  <p>
+  <div style="display: inline-block;" >
+ 
     <%= link_to image_tag(@student.getImageUrl, :border=>0, :width => 150) %>
-  </p>
-
-  <p>
-    <b>Student ID:</b>
-    <%= @student.student_id %>
-  </p>
-
-  <p>
-    <b>Residence:</b>
+  </div>
+<div class="student_info" style="display: inline-block;vertical-align:top" >
+    <%= label_tag 'residence' do %><%= t 'residence' %>:<% end %>
     <%= "#{@student.room_number} #{@student.residence_hall}" %>
-  </p>
-
-  <p>
-    <b>Phone Extension:</b>
+<br/>
+    <%= label_tag 'extension' do %><%= t "extension" %>:<% end %>
     <%= @student.extension %>
-  </p>
-  <p>
-    <b>Email:</b>
+<br/>
+    <%= label_tag 'email' do %><%= t 'email' %>:<% end %>
     <%= @student.email %>
-  </p>
-  <p>
-    <b>Grade:</b>
+<br/>
+    <%= label_tag 'grade', do %><%= t 'grade_level' %>:<% end %>
     <%= @student.grade_level %>
-  </p>
-  <p>
+<br/>
     <%= render :partial=>"participants/age", :locals=> { :participant => @student, :pclass=>"show_label" } %>
-  </p>
-
-  <p>
-  
+<br/>
   <%= render :partial=>"participants/birthday", :locals=> { :participant => @student, :pclass=>"show_label" } %>
-    
-  </p>
-
+<br/>
   <%if can? :view_contact_info, @student %>
-    <p>
-      <b>Home Phone:</b>
+      <%= label_tag 'homePhone', 'Home Phone:' %>
       <%= @student.home_phone %>
-    </p>
-    <p>
-      <b>Cell Phone:</b>
+<br/>
+      <%= label_tag 'cellPhone', 'Cell Phone:' %>
       <%= @student.cell_phone %>
-    </p>
-
-    <p>
-      <b>Emergency Contact Information: </b>
-      <% if (@student.emergency_contact_name !=nil) %>
-        <%=  "#{@student.emergency_contact_name}" %>
-      <% else %>
-        <%=  "Unknown" %>
-      <% end %>
+<br/>
+      <%= label_tag 'contact' do %><%= t 'emergency_contact_info' %>:<% end %>
+      <%= @student.emergency_contact_name.nil? ? unknown : "#{@student.emergency_contact_name}" %>
       <b> @ </b>
-      <% if (@student.emContact !=nil) %>
-        <%=  "#{@student.emContact}" %>
-      <% else %>
-        <%=  "Unknown" %>
-      <% end %>
-    </p>
+      <%= @student.emContact.nil? ? unknown : "#{@student.emContact}" %>
   <% end %>
+  
+</div>
 </div>
 
 
