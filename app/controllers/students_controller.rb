@@ -100,27 +100,27 @@ class StudentsController < ApplicationController
       if param_value_present(params[:student])
 		  #-----------------
 		  # if a date was provided, find all before that date
-		  before_dob1i = params[:student][:"before_birthdate(1i)"]
-		  if param_value_present(before_dob1i)  
-			# be careful of time zones - all need to be in GMT to match the DB
-			date = "#{before_dob1i.to_i}/#{params[:student][:"before_birthdate(2i)"].to_i}/#{params[:student][:"before_birthdate(3i)"].to_i}"
-			min = Time.parse("01/01/1970").gmtime
-			max = Time.parse(date).gmtime
-			
-			@students = @students.where(:birthday => min..max )
+		  born_before = params[:student][:born_before]
+	      max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
+		  filter_by_date = false
+		  
+		  if param_value_present(born_before)  	
+			max = convert_arg_date(born_before) rescue nil
+			filter_by_date = true if !max.nil?
 		  end
+
 		  
 		  #-----------------
 		  # if a date was provided, find all after that date
-		  after_dob1i = params[:student][:"after_birthdate(1i)"]
-		  if  param_value_present(after_dob1i)  
-			# be careful of time zones - all need to be in GMT to match the DB
-			date = "#{after_dob1i.to_i}/#{params[:student][:"after_birthdate(2i)"].to_i}/#{params[:student][:"after_birthdate(3i)"].to_i}"
-			min = Time.parse(date).gmtime
-			max = Time.now.gmtime
-			
-			@students = @students.where(:birthday => min..max )
+		  born_after = params[:student][:born_after]
+
+		  if  param_value_present(born_after)  
+			dd,mm,yy = $1, $2, $3 if born_after =~ /(\d{2})-([A-Z|a-z]{3})-(\d{4})/
+			min = convert_arg_date(born_after) rescue nil
+			filter_by_date = true if !min.nil?
 		  end 
+		  logger.debug("max = #{max} min = #{min} filter = #{filter_by_date}")
+		  @students = @students.where(:birthday => min..max ) if filter_by_date
 	  end
       @students = @students.order(:last_name)
     end
@@ -151,5 +151,12 @@ class StudentsController < ApplicationController
     end
   
   end
+  
+  private
+	def convert_arg_date(date)
+		dd,mm,yy = $1, $2, $3 if date =~ /(\d+)-([A-Z|a-z]{3})-(\d{4})/
+		logger.debug("yy = #{yy} mm = #{mm} dd = #{dd}")
+		Time.mktime(yy, mm, dd).gmtime
+	end	
 
 end

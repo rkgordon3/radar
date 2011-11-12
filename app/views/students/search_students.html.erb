@@ -42,7 +42,6 @@
 			</div>
 		</td>
 		<td>
-			-or-
 		<td>
 			<div class="field">
     			<b>Area:</b><br />
@@ -54,16 +53,18 @@
 	<tr>
 		<td>
 			<div class="field">
-    			<b>Birthdate After Date:</b><br />
-				<%= date_select "student", "after_birthdate", :order => [:month, :day, :year], :start_year => 1940, :end_year => Time.now.year, :include_blank => true %>
+    			<b>Born After:</b>
+				
+				 <%= text_field(:student, :born_after, :id => "born_after",:size=>'12') %>
+<br />
 			</div>
 		</td>
 		<td>
 		</td>
 		<td>
 			<div class="field">
-    			<b>Birthdate Before Date:</b><br />
-    			<%= date_select "student", "before_birthdate", :order => [:month, :day, :year], :start_year => 1940, :end_year => Time.now.year, :include_blank => true %>
+    			<b>Born Before:</b>
+				<%= text_field(:student, :born_before, :id => "born_before" , :size=>'12') %><br/>
   			</div>
 		</td>
 	</tr>
@@ -73,3 +74,13 @@
     <%= submit_tag "Submit" %>
 </div>
 </div>
+
+<script type="text/javascript">
+  var rangeDemoFormat = "%e-%b-%Y";
+	AnyTime.picker("born_after",
+	{ format: rangeDemoFormat, firstDOW: 0 });
+
+   AnyTime.picker( "born_before",
+	{ format: rangeDemoFormat, firstDOW: 0 } );
+
+</script>

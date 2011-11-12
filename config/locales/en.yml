@@ -15,6 +15,7 @@ en:
   residence: Residence
   grade_level: Class
   birthday: Birthday
+  email: Email
   separate_by_commmas: Separate emails by a comma, space or semi-colon
   affiliation: Affiliation
   emergency_contact_info: Emergency Contact Information
