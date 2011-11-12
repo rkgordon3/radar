@@ -21,7 +21,20 @@ function plusMinusToggle(divID,imgID) {
 	            }
 }
 
-			
+function rowToggle(rowID) {
+
+    var row = document.getElementById(rowID);
+    var children = row.getElementsByTagName("div")
+
+    for(var i=0; i<children.length; i++){
+        var state = children[i].style.display;
+        if (state == 'block') {
+            children[i].style.display = 'none';
+        } else {
+            children[i].style.display = 'block';
+        }
+    }
+}
 
 
 function hideDiv(divID){
