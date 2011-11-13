@@ -13,7 +13,7 @@ class Report < ActiveRecord::Base
   has_many      :participants, :through => :report_participant_relationships
   
   # return true if report is a generic report, ie FYI
-  def is_generic? 
+  def is_generic?
     type == nil
   end
 
