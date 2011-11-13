@@ -4,39 +4,14 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @numRows = 0
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @buildings }
-    end
-  end
-
-  # GET /buildings/1
-  # GET /buildings/1.xml
-  def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @building }
     end
   end
   
   def select
-  	  @buildings = Building.all
-  end
-
-  # GET /buildings/new
-  # GET /buildings/new.xml
-  def new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @building }
-    end
-  end
-
-  # GET /buildings/1/edit
-  def edit
-    # @building automatically loaded by CanCan
+    @buildings = Building.all
   end
 
   # POST /buildings
@@ -58,12 +33,11 @@ class BuildingsController < ApplicationController
   def update
     respond_to do |format|
       if @building.update_attributes(params[:building])
-        format.html { redirect_to(@building, :notice => 'Building was successfully updated.') }
-        format.xml  { head :ok }
+        msg = "#{@building.name} updated successfully."
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @building.errors, :status => :unprocessable_entity }
+        msg = "Error: Building NOT updated!"
       end
+      format.js { render :locals => { :flash_notice => msg, :row_style=>params[:row][:style]} }
     end
   end
 

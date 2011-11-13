@@ -49,6 +49,9 @@ Radar::Application.routes.draw do
   get "shifts/end_shift"
   match "/shifts/end_shift" => "shifts#end_shift"
   
+  match "/buildings/:id" => "buildings#update", :via => :put
+  match "/buildings/:id" => "buildings#destroy", :via => :delete
+
   get "shifts/duty_log"
   match "/shifts/duty_log" => "shifts#duty_log"
 
