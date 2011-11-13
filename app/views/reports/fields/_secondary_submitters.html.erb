@@ -1,0 +1,16 @@
+<div class="field">
+    <div>
+      <%= link_to image_tag("/images/add_icon.gif", :id => "ss-img"), "javascript:void(0)",
+        :onclick => "plusMinusToggle('ss-div', 'ss-img');" %>
+      <%= link_to('Secondary Submitter(s)', "javascript:void(0)",
+        :onclick => "plusMinusToggle('ss-div', 'ss-img');" , :class=>"toggle-link") %>
+    </div>
+    <div id="ss-div" style="display: none;">
+      <% current_staff.adjuncts.each do |s| %>
+        <div class ="small-label" style="margin-left: 8px; margin-top: 4px; margin-bottom: 0px;" >
+          <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.is_adjunct?(s) } %>
+          <%= "#{s.first_name} #{s.last_name}" %><br />
+        </div>
+      <% end %>
+    </div>
+</div>

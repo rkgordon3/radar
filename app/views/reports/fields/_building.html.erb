@@ -1,0 +1,4 @@
+<div class="field">
+    <b><%= f.label :building_id %>:<br /></b>
+    <%= select :report,:building_id,Building.order(:name).collect{|p| [p.name, p.id]},{}%>
+</div>

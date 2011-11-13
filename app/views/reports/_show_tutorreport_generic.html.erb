@@ -1,0 +1,13 @@
+<div class="generic_show_report" >
+  <br/>
+  <b> <%= t "#{current_staff.organization}.annotation" %></b>
+  <%= @report.annotation_text %><br/><br />
+  <b><%= t "#{current_staff.organization}.submitter" %></b>
+  <%= @report.staff.name %><br/><br />
+  <b><%= t :submitted %>:</b>
+  <%= @report.submitted %><br/><br />
+  <b>Created at:</b>
+  <%= @report.created_at_string %><br/><br />
+  <b>Updated at:</b>
+  <%= @report.updated_at_string %><br>
+</div>
