@@ -99,7 +99,7 @@ class Ability
       cannot :show, IncidentReport, :submitted => true
       cannot [:pdf, :print, :forward], Report
 
-      cannot :manage, [Shift, RelationshipToReport]
+      cannot :manage, [Shift, RelationshipToReport, Task, NotificationPreference, Building, Area]
       can :do, Shift, :time_out => nil
       can :do, Round, :end_time => nil
       can [:shift_log, :read], Shift, :staff_id => staff.id
@@ -107,12 +107,10 @@ class Ability
       can :index, Staff
       cannot [:create, :update_area], Staff
       cannot :view_contact_info, Participant
-      cannot :manage, Task
-      cannot :manage, NotificationPreference
 
     elsif access_level_symbol == :campus_safety
       can :read, Report
-      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment, Building, Area]
+      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment]
 
     end
   end
