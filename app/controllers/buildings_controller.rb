@@ -4,8 +4,11 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @buildings = Building.sort(params[:sort])
+    
     respond_to do |format|
       format.html # index.html.erb
+      format.js
     end
   end
   

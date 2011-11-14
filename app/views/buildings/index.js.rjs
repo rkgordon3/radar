@@ -1,0 +1,1 @@
+page.replace "building_index", :partial => 'index_generic', :locals => {:buildings => @buildings}
