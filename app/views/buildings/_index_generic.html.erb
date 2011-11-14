@@ -1,18 +1,21 @@
-<table width="100%">
-  <th style="width:25%">Name</th>
-  <th style="width:10%">Abbreviation</th>
-  <th style="width:10%">Is Residence</th>
-  <th style="width:25%">Area</th>
-  <th></th>
-</table>
-<% num_rows = 0 %>
-<% buildings.each do |building| %>
-  <% if num_rows == 0 %>
-    <% num_rows = num_rows + 1 %>
-    <% row_style = "class='shaded'" %>
-  <% else %>
-    <% num_rows = 0 %>
-    <% row_style = "" %>
+<div id="building_index">
+  <table width="100%">
+    <th style="width:25%">Name</th>
+    <th style="width:10%">Abbreviation</th>
+    <th style="width:10%">Is Residence</th>
+    <th style="width:25%">Area</th>
+    <th></th>
+  </table>
+  <%= render :partial => 'new_generic', :locals => {:is_shaded => false}%>
+  <% num_rows = 0 %>
+  <% buildings.each do |building| %>
+    <% if num_rows == 0 %>
+      <% num_rows = num_rows + 1 %>
+      <% row_style = "class='shaded'" %>
+    <% else %>
+      <% num_rows = 0 %>
+      <% row_style = "" %>
+    <% end %>
+    <%= render :partial => 'index_row_generic', :locals => {:building => building, :row_style => row_style} %>
   <% end %>
-  <%= render :partial => 'show_generic', :locals => {:building => building, :row_style =>row_style} %>
-<% end %>
+</div>

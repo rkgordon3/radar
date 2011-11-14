@@ -4,7 +4,6 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -17,14 +16,23 @@ class BuildingsController < ApplicationController
   # POST /buildings
   # POST /buildings.xml
   def create
+    is_shaded = params[:is][:shaded]
+
+    if is_shaded == true
+      row_style = "class='shaded'"
+      is_shaded = false
+    else
+      row_style = ""
+      is_shaded = true
+    end
+    
     respond_to do |format|
       if @building.save
-        format.html { redirect_to(@building, :notice => 'Building was successfully created.') }
-        format.xml  { render :xml => @building, :status => :created, :location => @building }
+        msg = "#{@building.name} created successfully."
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @building.errors, :status => :unprocessable_entity }
+        msg = "Error: Building NOT created!"
       end
+      format.js { render :locals => { :flash_notice => msg, :row_style => row_style, :is_shaded => is_shaded } }
     end
   end
 
@@ -37,18 +45,19 @@ class BuildingsController < ApplicationController
       else
         msg = "Error: Building NOT updated!"
       end
-      format.js { render :locals => { :flash_notice => msg, :row_style=>params[:row][:style]} }
+      format.js { render :locals => { :flash_notice => msg, :row_style => params[:row][:style]} }
     end
   end
 
   # DELETE /buildings/1
   # DELETE /buildings/1.xml
   def destroy
+    msg = "#{@building.name} destroyed successfully."
+    id = @building.id
     @building.destroy
 
     respond_to do |format|
-      format.html { redirect_to(buildings_url) }
-      format.xml  { head :ok }
+      format.js { render :locals => { :flash_notice => msg, :id => id } }
     end
   end
 end
