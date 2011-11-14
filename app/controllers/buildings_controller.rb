@@ -4,11 +4,13 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @buildings = Building.sort(params[:sort])
-    
+    sort = params[:sort]
+    @buildings = Building.sort(sort)
+    msg = "Buildings are now sorted by #{sort}."
+
     respond_to do |format|
       format.html # index.html.erb
-      format.js
+      format.js { render :locals => { :flash_notice => msg }}
     end
   end
   
@@ -33,7 +35,7 @@ class BuildingsController < ApplicationController
     
     respond_to do |format|
       if @building.save
-        msg = "#{@building.name} created successfully."
+        msg = "#{@building.name} has been successfully created."
       else
         msg = "Error: Building NOT created!"
       end
@@ -46,7 +48,7 @@ class BuildingsController < ApplicationController
   def update
     respond_to do |format|
       if @building.update_attributes(params[:building])
-        msg = "#{@building.name} updated successfully."
+        msg = "#{@building.name} has been successfully updated."
       else
         msg = "Error: Building NOT updated!"
       end
@@ -57,7 +59,7 @@ class BuildingsController < ApplicationController
   # DELETE /buildings/1
   # DELETE /buildings/1.xml
   def destroy
-    msg = "#{@building.name} destroyed successfully."
+    msg = "#{@building.name} has been successfully destroyed."
     id = @building.id
     @building.destroy
 

@@ -10,7 +10,7 @@ class Building < ActiveRecord::Base
       return Building.order("name ASC").all
     elsif key=="abbreviation"
       return Building.order("abbreviation ASC").all
-    elsif key=="is_residence"
+    elsif key=="residence"
       return Building.order("is_residence DESC").all
     elsif key=="area"
       return Building.joins(:area).order("areas.name").all
