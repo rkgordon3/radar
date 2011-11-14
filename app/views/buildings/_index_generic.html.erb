@@ -6,15 +6,15 @@
     <th style="width:25%">Area</th>
     <th></th>
   </table>
-  <%= render :partial => 'new_generic', :locals => {:is_shaded => false}%>
-  <% num_rows = 0 %>
+  <% is_shaded = 0 %>
+  <%= render :partial => 'new_generic', :locals => {:is_shaded => is_shaded}%>
   <% buildings.each do |building| %>
-    <% if num_rows == 0 %>
-      <% num_rows = num_rows + 1 %>
+    <% if is_shaded == 0 %>
       <% row_style = "class='shaded'" %>
+      <% is_shaded = 1 %>
     <% else %>
-      <% num_rows = 0 %>
       <% row_style = "" %>
+      <% is_shaded = 0 %>
     <% end %>
     <%= render :partial => 'index_row_generic', :locals => {:building => building, :row_style => row_style} %>
   <% end %>
