@@ -14,6 +14,13 @@
   <div class="field">
     <%= f.label :description %><br />
     <%= f.text_field :description %>
+	
+  </div>
+  <div  class="field" >
+  <label><%= t 'select_a_report_for_infraction' %></label><br/>
+  <%= select(:relationship_to_report,
+		:report_type_id, ReportTypesHelper::for_select, 
+		html_options = { :selected => @relationship_to_report.report_type.nil? ? ReportTypesHelper::all_id : @relationship_to_report.report_type_id.to_s } )%>
   </div>
   <div class="actions">
     <%= f.submit "Create" %>
