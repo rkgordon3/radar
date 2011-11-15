@@ -68,11 +68,12 @@ class Ability
       cannot :do, [Shift, Round]
       cannot :create, Shift
       cannot [:update_organization, :destroy], Staff
-      cannot :destroy, [IncidentReport, Task, RelationshipToReport]
+      cannot :destroy, [IncidentReport, Task, RelationshipToReport, Building]
 
     elsif access_level_symbol == :administrator
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => ["System Administrator","Administrator"]}
       cannot :manage, Import
+      cannot [:update, :create, :destroy], Building
       
     elsif access_level_symbol == :administrative_assistant
       cannot [:update, :show, :destroy], Staff, :access_level => {:display_name => "Administrative Assistant"}
@@ -81,14 +82,15 @@ class Ability
       cannot :destroy, Staff
       cannot [:update, :show], Staff, :access_level => {:display_name => "Hall Director"}
       cannot :update, [IncidentReport, MaintenanceReport], :submitted => true
-      cannot [:update, :create, :destroy], [Building, Area]
+      cannot [:update, :create, :destroy], Area
 
       cannot :manage, Shift
 
       can [:list_RA_duty_logs], Shift
       can [:shift_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
       can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
-    
+      can :update, Building
+
     elsif access_level_symbol == :resident_assistant
       cannot :destroy, :all
       cannot [:read, :update, :destroy], [Staff, Report]
@@ -97,7 +99,7 @@ class Ability
       cannot :show, IncidentReport, :submitted => true
       cannot [:pdf, :print, :forward], Report
 
-      cannot :manage, [Shift, RelationshipToReport]
+      cannot :manage, [Shift, RelationshipToReport, Task, NotificationPreference, Building, Area]
       can :do, Shift, :time_out => nil
       can :do, Round, :end_time => nil
       can [:shift_log, :read], Shift, :staff_id => staff.id
@@ -105,12 +107,10 @@ class Ability
       can :index, Staff
       cannot [:create, :update_area], Staff
       cannot :view_contact_info, Participant
-      cannot :manage, Task
-      cannot :manage, NotificationPreference
 
     elsif access_level_symbol == :campus_safety
       can :read, Report
-      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment, Building, Area]
+      cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment]
 
     end
   end
