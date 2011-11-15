@@ -4,4 +4,6 @@ class ReportType < ActiveRecord::Base
   def controller_name
 	name.pluralize.underscore << "_controller"
   end
+    
+
 end

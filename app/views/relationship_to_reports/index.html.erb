@@ -1,13 +1,13 @@
-<div id="inside_container" class="inside_container"><h1>Contact Reasons</h1>
+<div id="inside_container" class="inside_container">
+<div class="form_header">Contact Reasons</div>
 
 <%= link_to 'New Contact Reason', new_relationship_to_report_path if can? :create, RelationshipToReport %>
 <br/>
 <br/>
 <table>
   <tr>
-  <th>ID</th>  
   <th>Description</th>
-    <th></th>
+    <th>Associated Report</th>
     <th></th>
     <th></th>
   </tr>
@@ -20,8 +20,8 @@
     <% @numRows = 0 %> 
     <tr>
   <% end %>
-    <td><%= relationship.id %></td>
     <td><%= relationship.description %></td>
+	<td><%= relationship.report_type.display_name rescue ReportTypesHelper::all_label %></td>
     <td><%= link_to 'Edit', edit_relationship_to_report_path(relationship) %></td>
     <td><%= link_to 'Destroy', relationship, :confirm => 'Are you sure?', :method => :delete if can? :destroy, RelationshipToReport %></td>
   </tr>
