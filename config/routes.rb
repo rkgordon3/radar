@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :report_fields
+
   resources :enrollments
 
   resources :courses

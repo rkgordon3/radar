@@ -1,4 +1,22 @@
-<div class="field">
-    <b><%= f.label :building_id %>:<br /></b>
-    <%= select :report,:building_id,Building.order(:name).collect{|p| [p.name, p.id]},{}%>
-</div>
+<% if(type == "edit") %>
+    <div class="field">
+        <b><%= f.label :building_id %>:<br /></b>
+        <%= select :report,:building_id,Building.order(:name).collect{|p| [p.name, p.id]},{}%>
+    </div>
+<% elsif(type == "search") %>
+    <b>Building:</b><br />
+    <select id="building_id" name="building_id">
+    <% Building.all.each do |b| %>
+            <option value="<%= b.id %>"><%= b.name %></option>
+        <% end %>
+    </select>
+<% elsif(type == "index") %>
+    <% if(part == "header") %>
+        <%= link_to "Building", params.merge(:sort => "building"), :remote => true %>
+    <% elsif(part == "data") %>
+        <%= report.building.name %>
+    <% end %>
+<% elsif(type == "show") %>
+    <b><%= t "#{current_staff.organization}.location" %></b>
+    <%= @report.building.name %>
+<% end %>

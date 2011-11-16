@@ -3,7 +3,7 @@
 <% end %>
 <table>
   <% if reports.length > 0 %>
-    <%= render :partial => "reports/report_table_row_linked_labels" %>
+    <%= render :partial => "reports/report_table_row_linked_labels", :locals => {:report_type => @report_type} %>
   <% else %>
     <%= "No Reports Match These Criteria" %>
   <% end %>
@@ -16,21 +16,12 @@
         <% num_rows = 0 %>
       <tr>
       <% end %>
-
-      <td><%= report.event_date %></td>
-      <td><%= report.event_time %></td>
-
-      <td>
-        <% if can? :show, report %>
-          <%= link_to report.tag, report, :class => "link-report-viewed-#{current_staff.has_seen?(report)}" %>
-        <% else %>
-          <%= "#{report.tag}" %>
-        <% end %>
-      </td>
-      <td><%= report.staff.last_name rescue unknown %></td>
-
-      <td><%= report.building.name %></td>
-      <td  style="overflow:hidden; width:80px;" ><%= report.room_number %></td>
+      
+      <% report.report_type.fields("index").each do |field| %>
+            <td>
+                <%= render :partial => "reports/fields/#{field.name}", :locals => {:report => report, :type => "index", :part => "data"} %>
+            </td>
+      <% end %>
 
 	  <% if report.forwardable? %>
 	     <td bgcolor="white" >

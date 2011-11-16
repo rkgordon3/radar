@@ -1,0 +1,18 @@
+<% if(type == "edit") %>
+    <div class="field">
+          <b><%= f.label :approach_time %>:</b><br />
+          <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time) %>
+    </div>
+<% elsif(type == "search") %>
+    <div class="field">
+      <b><%= label_tag :approach_time %>:</b><br />
+      <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time) %>
+    </div>
+<% elsif(type == "index") %>
+<% elsif(type == "show") %>
+<% end %>
+    
+<script type="text/javascript">
+  AnyTime.picker( "approach_time",
+  { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+</script>

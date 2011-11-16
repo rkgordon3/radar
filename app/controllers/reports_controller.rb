@@ -455,8 +455,9 @@ class ReportsController < ApplicationController
     @reports = Report.sort(@reports,params[:sort])
         
     @num_reports = @reports.count
+    @report_type = ReportType.find_by_name(params[:type])
     respond_to do |format|
-      format.js
+      format.js{ render :locals => { :report_type => @report_type } }
     end
   end
   

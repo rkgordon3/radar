@@ -1,0 +1,25 @@
+<h1>Listing report_fields</h1>
+
+<table>
+  <tr>
+    <th>Reporttypeid</th>
+    <th>Field</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @report_fields.each do |report_field| %>
+  <tr>
+    <td><%= report_field.ReportTypeId %></td>
+    <td><%= report_field.Field %></td>
+    <td><%= link_to 'Show', report_field %></td>
+    <td><%= link_to 'Edit', edit_report_field_path(report_field) %></td>
+    <td><%= link_to 'Destroy', report_field, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Report field', new_report_field_path %>

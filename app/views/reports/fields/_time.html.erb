@@ -1,0 +1,12 @@
+<% if(type == "edit") %>
+<% elsif(type == "search") %>
+<% elsif(type == "index") %>
+    <% if(part == "header") %>
+        <%= link_to "Time", params.merge(:sort => "date"), :remote => true %>
+    <% elsif(part == "data") %>
+        <%= report.event_time %>
+    <% end %> 
+<% elsif(type == "show") %>
+    <b>Approach Time:</b>
+    <%= @report.event_time %>
+<% end %>

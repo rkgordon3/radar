@@ -1,9 +1,7 @@
 <tr>
-  <th><%= link_to "Approach Date", params.merge(:sort => "date"), :remote => true %></th>
-  <th><%= link_to "Time", params.merge(:sort => "date"), :remote => true %></th>
-  
-   <th><%= link_to "Tag", params.merge(:sort => "tag"), :remote => true %></th>
-     <th><%= link_to "Staff", params.merge(:sort => "submitter"), :remote => true %></th>
-  <th><%= link_to "Building", params.merge(:sort => "building"), :remote => true %></th>
-  <th><%= link_to "Location", params.merge(:sort => "location"), :remote => true %></th>
+  <% report_type.fields("index").each do |field| %>
+            <th>
+                <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "index", :part => "header"} %>
+            </th>
+  <% end %>
 </tr>

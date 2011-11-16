@@ -3,40 +3,13 @@
         <td valign=top>
             <%= form_tag 'index_search', :remote => true %>
                 <table>
-                    <tr>
-                        <td valign=top>
-                            <b>Building:</b><br />
-                            <select id="building_id" name="building_id">
-                                <% Building.all.each do |b| %>
-                                        <option value="<%= b.id %>"><%= b.name %></option>
-                                    <% end %>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign=top>
-                            <b>Area:</b><br />
-                            <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified_id }%>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign=top>
-                            <b>Student:</b><br />  
-                            <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <% report_type_id = @report_type.id %>
-                            <b><%= t "#{current_staff.organization}.#{@report_type.class}.reasons" %>:</b><br />
-                            <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
-                               
-                                <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
-                                    <option value="<%= i.id %>"><%= i.description %></option>
-                                <% end %>
-                            </select>
-                        </td>
-                    </tr>
+                    <% @report_type.fields("search").each do |field| %>
+                            <tr>
+                                <td valign=top>
+                                    <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "search"} %>
+                                </td>
+                            </tr>
+                    <% end %>
                     <tr>
                         <td valign=top>
                             <b>Approached Before:</b><br />
