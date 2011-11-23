@@ -46,10 +46,9 @@
   </li>
   <li><a href="/">Miscellaneous</a>
     <ul>
-      <li><%= link_to "Staff Members", "/staffs" if can? :index, Staff %></li>
-      <li><%= link_to "Update Student Data", "/imports/new" if can? :create, Import %></li>
+      <li><%= link_to "Manage Staff Members", "/staffs" if can? :index, Staff %></li>
       <li><%= link_to "Manage Buildings", "/buildings" if can? :index, Building %></li>
-      <li><%= link_to "Areas", "/areas" if can? :index, Area %></li>
+      <li><%= link_to "Manage Areas", "/areas" if can? :index, Area %></li>
 	  <li><%= link_to "Manage Contact Reasons", "/relationship_to_reports" if can? :index, RelationshipToReport %></li>
     </ul>
   </li>
