@@ -15,7 +15,7 @@
   </li>
   <li><%= link_to "Maintenance Requests", "/maintenance_reports/new" if can? :create, MaintenanceReport %>
     <ul>
-      <li><%= link_to "New Maintenence Report", "/maintenance_reports/new" if can? :create, MaintenanceReport %></li>
+      <li><%= link_to "New Maintenence Request", "/maintenance_reports/new" if can? :create, MaintenanceReport %></li>
       <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport" if can? :index, MaintenanceReport %></li>
     </ul>
   </li>
