@@ -110,6 +110,7 @@ class Ability
 
     elsif access_level_symbol == :campus_safety
       can :read, Report
+	  can :manage, NotificationPreference
       cannot :manage, [MaintenanceReport, Note, Shift, Round, TaskAssignment]
 
     end
