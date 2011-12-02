@@ -1,0 +1,17 @@
+<td><%  if can? :show, student %>
+    <%= link_to image_tag(student.getImageUrl, :border=> 0, :width => 50), :action => 'show', :id => student.id  %>
+  <%  else %>
+    <%= image_tag(student.getImageUrl, :border=> 0, :width => 50) %>
+  <% end %></td>
+<td><%= student.student_id %></td>
+<td><%= student.first_name %></td>
+<td><%= student.middle_initial %></td>
+<td><%= student.last_name %></td>
+<td><%= student.residence_hall %></td>
+<td><%= student.room_number %></td>
+<td><%= student.extension %></td>
+<td><%= student.email %></td>
+<td>
+<%= render :partial=>"participants/unlabelled_birthday", :locals=> { :participant =>student } %>
+</td>
+<td><%= link_to 'Show', student if can? :show, student %></td>

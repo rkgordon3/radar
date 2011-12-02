@@ -1,0 +1,9 @@
+ 
+<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
+<%= hidden_field :participant, :id %>
+
+<script type="text/javascript">
+     Event.observe(window, 'load', function() { document.getElementById('full_name').focus(); });
+</script>
+  
+

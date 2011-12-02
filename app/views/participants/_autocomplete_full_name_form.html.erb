@@ -1,0 +1,9 @@
+<%= form_tag(target, :method => :get, :remote => true) do %>
+  <%= label_tag "Search Students" , nil, { :class => "bold_label" } %>
+  <%= render :partial => 'participants/autocomplete_full_name' %>
+  <%= submit_tag "Add" %>
+<% end %>
+  
+
+  
+
