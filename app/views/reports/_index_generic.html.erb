@@ -22,9 +22,10 @@
                     <tr>
                         <td valign=top>
                             <b>Student:</b><br />  
-                            <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+                           <%=  render :partial => 'participants/autocomplete_full_name' %>    
                         </td>
                     </tr>
+					<% if @report_type.name != "Note" %>
                     <tr>
                         <td>
                             <% report_type_id = @report_type.id %>
@@ -37,6 +38,7 @@
                             </select>
                         </td>
                     </tr>
+					<% end %>
                     <tr>
                         <td valign=top>
                             <b>Approached Before:</b><br />
