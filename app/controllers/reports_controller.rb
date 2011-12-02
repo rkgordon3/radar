@@ -126,10 +126,10 @@ class ReportsController < ApplicationController
   end
   
   def add_participant
-    @participant = Participant.get_participant_for_full_name(params[:full_name])
+    @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
     @report = session[:report]
     
-    if @participant == nil
+    if not defined? @participant
 	
       name_tokens = params[:full_name].split(' ')
       first_name = name_tokens[0].capitalize

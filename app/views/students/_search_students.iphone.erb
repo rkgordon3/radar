@@ -7,7 +7,7 @@
         <legend>Student Name:</legend>
 		<ul>
     	    <li>
-				<%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+				<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
 			</li>
 		</ul>
 		

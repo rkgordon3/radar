@@ -75,7 +75,6 @@ Radar::Application.routes.draw do
   match "/reports/add_participant/" => "reports#add_participant"
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
-  match "/search/update_result_list" => "search#update_result_list"
   match "/students/show_details/:id" => "students#show_details"
   
   match "/incident_reports/add_participant"         => "reports#add_participant"
@@ -90,16 +89,7 @@ Radar::Application.routes.draw do
   end
   
   get "home/landingpage"
-
-  get "search/search"
-  
   root :to => "home#landingpage"
-	
-  get "search/report_search"
-
-		
-  get 'search/autocomplete_student_full_name'
-
   
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
@@ -119,13 +109,10 @@ Radar::Application.routes.draw do
   match "/reports_query/search_results" => "reports_query#search_results" 
   get "/reports_query/search_results"
   
-  get "/students/search_students"
+ # get "/students/search_students"
   
   match "/students/process_search_parameters" => "students#process_search_parameters" 
   get "/students/process_search_parameters"
-  
-  match "/students/search_results" => "students#search_results" 
-  get "/students/search_results"
   
   match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
   "/students/use_search_results_to_create_new_report"
@@ -134,15 +121,15 @@ Radar::Application.routes.draw do
   
   resources :shifts
   
-  resources :rounds
-  
-  resources :search 
+  resources :rounds 		
   
   resources :photos
 
   resources :annotations
 
-  resources :participants
+  resources :participants do
+    get :autocomplete_participant_full_name, :on => :collection
+  end
   
   resources :reports_query
 
@@ -167,7 +154,10 @@ Radar::Application.routes.draw do
  	  get :on_duty_index, :on => :collection
   end
 
-  resources :students
+  resources :students do
+    get  'search', :on => :collection
+	post 'search' => :search_results, :on => :collection
+  end
   
   resources :temp_incident
     

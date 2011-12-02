@@ -5,7 +5,8 @@
         </legend>
 	  <ul>
 		<li>
-  			<%= text_field_tag 'full_name', '', :autocomplete => search_autocomplete_student_full_name_path, :placeholder => "Add Student" %> 
+			<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
+            <%= hidden_field :participant, :id %>
   		</li>
   	  </ul>
   

@@ -2,7 +2,7 @@
   <%= t "#{params[:controller]}.help" %>
 <br/>
 </div>
-<%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
+<%= render :partial => "participants/autocomplete_full_name_form", :locals => { :target => "/reports/add_participant" } %>
 <div id="new-part-div">
 </div>
 <%= render :partial => "reports/report_generic" %>
