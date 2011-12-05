@@ -1,0 +1,12 @@
+<%= @report.type_id %>
+<td style="vertical-align: top;" id=<%= "'p-in-report-#{participant.id}'" %>>
+    <%=  image_tag(participant.getImageUrl, :style=>"align:left;", :border=> 0, :width => 50) %>
+</td>
+<td style="vertical-align: top;" id=<%= "'p-in-report-#{participant.id}_details'" %>>
+     <%= link_to " #{participant.last_name}, #{participant.first_name} #{participant.middle_initial}", participant, :target=>"blank" %>
+     <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), { :controller => "reports",   
+        :action => 'remove_participant', :id => participant.id }, :remote => true %>
+     <br />
+     <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+     <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => participant } %>
+</td>

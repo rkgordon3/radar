@@ -381,7 +381,7 @@ class ReportsController < ApplicationController
       # get the incident reports with those ids
       @reports = @reports.where(:id => report_ids)
     end
-        
+    
     #-----------------
     # if a particular infraction was selected, get all reports w/ that infraction
     if (params[:infraction_id] != nil)
@@ -422,8 +422,7 @@ class ReportsController < ApplicationController
     # if an area was selected, get reports in that area
     if Integer(params[:area_id]) != Area.unspecified_id
       buildings = Building.where(:area_id => params[:area_id])
-      @reports = @reports.where(:building_id => buildings)
-          
+      @reports = @reports.where(:building_id => buildings) 
     end
         
     #-----------------
