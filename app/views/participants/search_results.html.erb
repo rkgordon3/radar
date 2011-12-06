@@ -1,0 +1,25 @@
+<div id="inside_container" class="inside_container">
+<%= form_tag new_with_participants_reports_path %>
+<table>
+	<tr>
+		<td><div class="form_header"><%= t :student_search_results %></div></td>
+		<td style="width: 150px;"></td>
+		<td><%= submit_tag "Add To New Incident Report" , :onclick => "xmit('IncidentReport')" %></td>
+		<td><%= submit_tag "Add To New Maintenance Request", :onclick => "xmit('MaintenanceReport')" %></td>
+	</tr>
+</table>
+
+  <%= render :partial => "/participants/selectable_full_info_list", :locals => { :participants => @participants} %>
+
+<p>
+	Showing <%= @num_results %> of <%= @num_results %> results.
+</p>
+<%= hidden_field_tag 'report_type' %>
+</div>
+
+<script>
+ function xmit(rtype) {
+	$('report_type').value = rtype
+	submit();
+  }
+</script>
