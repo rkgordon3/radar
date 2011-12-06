@@ -113,29 +113,24 @@ Radar::Application.routes.draw do
   
   match "/students/process_search_parameters" => "students#process_search_parameters" 
   get "/students/process_search_parameters"
-  
-  match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
-  "/students/use_search_results_to_create_new_report"
     
   match "/index_search" => "reports#index_search"
   
   resources :shifts
   
   resources :rounds 		
-  
-  resources :photos
 
   resources :annotations
 
   resources :participants do
-    get :autocomplete_participant_full_name, :on => :collection
+    get  :autocomplete_participant_full_name, :on => :collection
+	get  :search, :on => :collection
+	post 'search' => :search_results, :on => :collection
   end
   
   resources :reports_query
 
   resources :report_participant_relationships
-
-  resources :report_locations
 
   resources :buildings  do
     get :select, :on => :collection
@@ -147,20 +142,19 @@ Radar::Application.routes.draw do
   resources :student_infractions
 
   resources :relationship_to_reports
-
-  resources :locations
-
+  
   resources :reports  do
- 	  get :on_duty_index, :on => :collection
+	collection do
+ 	  get :on_duty_index
+	  post :new_with_participants
+	end
   end
 
   resources :students do
-    get  'search', :on => :collection
-	post 'search' => :search_results, :on => :collection
+   
   end
   
-  resources :temp_incident
-    
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

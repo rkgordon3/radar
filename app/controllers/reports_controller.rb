@@ -25,12 +25,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.xml
   def show
     session[:report] = @report
-=begin
-    if params[:emails] != nil
-      forward_as_mail(params[:emails])
-      return
-    end
-=end
+
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
@@ -44,13 +39,24 @@ class ReportsController < ApplicationController
     end
   end
   
-  # GET /reports/new
-  # GET /reports/new.xml
-  def new
+  def new_with_participants
+	report_name = params[:report_type]
+	@report = report_name.constantize.new(:staff_id => current_staff.id) 
     session[:report] = @report
     if (params[:participants] != nil)
       @report.add_participants(params[:participants])
     end
+	respond_to do |format|
+      format.html { render 'reports/new' }
+      format.iphone { render "reports/new", :layout => 'mobile_application' }
+    end 
+  end
+  
+  
+  # GET /reports/new
+  # GET /reports/new.xml
+  def new
+    session[:report] = @report
 
     respond_to do |format|
       format.html { render "reports/new" }
