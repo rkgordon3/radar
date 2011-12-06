@@ -18,6 +18,7 @@ en:
   grade_level: Class
   birthday: Birthday
   email: Email
+  phone: Phone
   separate_by_commmas: Separate emails by a comma, space or semi-colon
   affiliation: Affiliation
   emergency_contact_info: Emergency Contact Information
@@ -34,16 +35,16 @@ en:
   no_contact_history: No Contact History
   building: Building
   history: Contact History
-  incident_reports:
+  IncidentReport:
      help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
      common_reasons: Common Infractions
      reasons: Infractions
      reason: Infraction
      history: Infraction History
-  maintenance_reports:
+  MaintenanceReport:
      help: Add students reporting problem for Maintenance to contact for follow-up
      history: Contact History
-  reports:
+  Report:
      help: Add students to FYI Report
-  notes:
+  Note:
      help: Add students related to rounds note
