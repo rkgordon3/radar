@@ -1,13 +1,14 @@
 class Participant < ActiveRecord::Base
   belongs_to :building
-
+  has_many :report_participant_relationships
+  has_many :reports, :through => :report_participant_relationships
+  
   def contact_history(report=nil)
-    if report != nil
-      rp = ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ? AND reports.type = ? AND reports.id != ?", self.id, report.type, report.id).order("reports.approach_time")
-    end
-    
-    rp ||= ReportParticipantRelationship.joins(:report).where("report_participants.participant_id = ?", self.id).order("reports.approach_time")
-    
+	rp = report.nil? ? report_participant_relationships.select { |r| r.report.type == report.type } :
+                        report_participant_relationships
+	
+	rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
+
     rp.collect { |rp|
       c = ParticipantsHelper::ContactSummary.new
       c.report = rp.report rescue unknown
