@@ -1,5 +1,9 @@
 <td>
+  <%  if can? :show, participant %>
+    <%= link_to image_tag(participant.getImageUrl,  :border=> 0, :width => 50), participant_path(participant) %>
+  <%  else %>
     <%= image_tag(participant.getImageUrl, :border=> 0, :width => 50) %>
+  <% end %>
 </td>
 <td>&nbsp;</td>
 <td><%= participant.first_name %></td>
@@ -12,4 +16,3 @@
 <td>
 <%= render :partial=>"participants/unlabelled_birthday", :locals=> { :participant=>participant } %>
 </td>
-<td><%= link_to 'Show', participant if can? :show, participant %></td>
