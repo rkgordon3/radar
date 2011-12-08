@@ -82,13 +82,9 @@ class Report < ActiveRecord::Base
     valid?
     save
   end
-  
-  def supports_selectable_contact_reasons?
-    false
-  end
-  
+
   def reasons
-    RelationshipToReport.for(self)
+    report_type.associated_reasons
   end
   
   def update_attributes_without_saving(params)

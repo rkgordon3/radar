@@ -20,12 +20,10 @@ class RelationshipToReport < ActiveRecord::Base
     return mc_id.first.id
   end
   
-  def RelationshipToReport.for (report)
-    where(:report_type_id => ReportType.find_by_name(report.type).id)
-  end
-  
   def <=> other
-    self.description <=> other.description
+	return  1 if other.id == RelationshipToReport.fyi 
+	return -1 if self.id == RelationshipToReport.fyi
+	return self.description <=> other.description  
   end
   
   

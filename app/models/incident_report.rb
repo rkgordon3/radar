@@ -1,9 +1,5 @@
 class IncidentReport < Report
 
- def supports_selectable_contact_reasons?
-    true
-  end
-
   def can_edit_from_mobile?
 	true
   end

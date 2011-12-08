@@ -1,4 +1,4 @@
-<% if report.supports_selectable_contact_reasons? %>
+<% if report.reasons.size > 0 %>
 
 <div class="relationship-checklist">
 <%= link_to image_tag("/images/add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
@@ -6,7 +6,7 @@
  
   	<b><%= t "#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
-  			<% infractions = RelationshipToReport.for(report) %>
+  			<% infractions = report.reasons %>
 			<% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
