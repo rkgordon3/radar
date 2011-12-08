@@ -4,14 +4,14 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	<b><%= t "#{params[:controller]}.reasons" %></b>
+  	<span class="small-label"><%= t "#{params[:controller]}.reasons" %></span>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
   			<% infractions = report.reasons%>
   			<% infractions.each do |infraction| %>
 			<% rf =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_reason },
 							:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
-  		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
+  		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
   				       report.get_contact_reason_for_participant(participant.id, infraction.id) != nil, 

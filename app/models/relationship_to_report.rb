@@ -11,8 +11,8 @@ class RelationshipToReport < ActiveRecord::Base
   end
   
   def RelationshipToReport.fyi
-    fyi_id = RelationshipToReport.where(:description => "FYI")
-    return fyi_id.first.id
+    @@fyi_id = RelationshipToReport.where(:description => "FYI") if not defined?(@@fyi_id)
+    return @@fyi_id.first.id
   end
   
   def RelationshipToReport.maintenance_concern

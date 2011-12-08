@@ -1,6 +1,6 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-details_img"), "javascript:void(0)",  
   :onclick => "plusMinusToggle('details_div_#{participant.id}', '#{participant.id}-details_img');" %>
-<b><%= t :details %></b></br>
+<span class="small-label"><%= t :details %></span></br>
 <div id="details_div_<%= participant.id %>" class="participant_detail">
   <div style="margin-left: 15px;">
     <span class="detail_label">Student ID #: </span>
