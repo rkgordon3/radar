@@ -3,7 +3,8 @@ class ReportType < ActiveRecord::Base
   has_many :relationship_to_reports
   
   def ReportType.common_reasons
-	  RelationshipToReport.where("report_type_id is null")
+	  @@common_reasons = RelationshipToReport.where("report_type_id is null") if not defined?(@@common_reasons)
+	  @@common_reasons
   end
   
   def controller_name
