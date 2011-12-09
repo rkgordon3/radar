@@ -3,7 +3,7 @@ class ReportType < ActiveRecord::Base
   has_many :relationship_to_reports
   
   def ReportType.common_reasons
-	  @@common_reasons = RelationshipToReport.where("report_type_id is null") if not defined?(@@common_reasons)
+	  @@common_reasons = RelationshipToReport.where("report_type_id is null") if not defined?(@@common_reasons) or @@common_reasons.nil?
 	  @@common_reasons
   end
   
@@ -13,7 +13,7 @@ class ReportType < ActiveRecord::Base
  
   
   def associated_reasons
-	ReportType.common_reasons.concat(relationship_to_reports).sort 
+	(ReportType.common_reasons + relationship_to_reports).sort 
   end
 
 end
