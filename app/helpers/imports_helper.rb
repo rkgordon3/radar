@@ -97,10 +97,12 @@ module ImportsHelper
 			if not line[LN_INDEX].nil?
 				params["last_name"] = line[LN_INDEX]
 			end
-			params["full_name"] = params["first_name"] + " " + line[2][0] + " " + params["last_name"] rescue params["first_name"]  + " " + params["last_name"]
+			params["full_name"] = params["first_name"]  + " " + params["last_name"]
 			params["classification"] = line[CLASS_INDEX]
-			
-			params["building_id"] = Building.where(:abbreviation => line[BUILDING_INDEX]).first.id rescue Building.unspecified_id
+
+      building_index = "RSM" if line[BUILDING_INDEX] == "NV"
+      building_index ||= line[BUILDING_INDEX]
+			params["building_id"] = Building.where(:abbreviation => building_index).first.id rescue Building.unspecified_id
 			params["room_number"] = line[ROOM_INDEX]
 			if is_legal_dob?(line[DOB_INDEX])
 				birthday = line[DOB_INDEX].split('/')
