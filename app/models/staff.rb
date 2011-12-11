@@ -1,6 +1,7 @@
 class Staff < ActiveRecord::Base
   has_many :staff_organizations, :dependent => :destroy
   has_many :staff_areas, :dependent => :destroy
+  has_many :areas, :through => :staff_areas
   belongs_to :access_level
   belongs_to :area
 
@@ -36,10 +37,6 @@ class Staff < ActiveRecord::Base
     ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
   end
   
-  # return an array of Areas for those areas with which staff member is associated
-  def areas
-    Area.joins(:staff_areas).where("staff_id = ?", self.id)
-  end
   
   # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
