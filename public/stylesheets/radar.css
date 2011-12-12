@@ -12,6 +12,8 @@ a {
     color: #CC3333;
 }
 
+.generic_show_report { width:50%; }
+
 table {
     border-collapse:collapse
 }
