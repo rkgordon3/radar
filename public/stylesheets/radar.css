@@ -12,6 +12,12 @@ a {
     color: #CC3333;
 }
 
+.generic_show_report { width:50%; }
+
+table {
+    border-collapse:collapse
+}
+
 td {
     padding: 5px;
 }
@@ -127,19 +133,19 @@ td {
 }
 
 .report_date  {
-   font-size: 18px;
-   margin-top:8px;
+    font-size: 18px;
+    margin-top:8px;
 }
 
 .error_messages {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  font-size: 12px;
-  overflow:auto;
+    width: 400px;
+    border: 2px solid #CF0000;
+    padding: 0px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    font-size: 12px;
+    overflow:auto;
 
 }
 
@@ -202,7 +208,7 @@ td {
     padding:0px;
 }
 .menu li a{
-    
+
     color:#595959;
     font-weight:bold;
     display:block;
@@ -215,7 +221,7 @@ td {
 }
 
 .menu li a:hover, .menu ul li:hover a{
-     background:#5a99bd;
+    background:#5a99bd;
     color:#FFFFFF;
     text-decoration:none;
 }

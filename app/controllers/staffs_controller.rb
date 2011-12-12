@@ -12,15 +12,6 @@ class StaffsController < Devise::RegistrationsController
     end
   end
 
-  # GET /staffs/1
-  # GET /staffs/1.xml
-  def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @staff }
-    end
-  end
-
   # GET /staffs/new
   # GET /staffs/new.xml
   def new_old
