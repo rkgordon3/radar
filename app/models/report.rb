@@ -33,10 +33,11 @@ class Report < ActiveRecord::Base
     ReportType.find_by_name(self.type).forwardable?
   end
 
+=begin
   def submitter?(staff)
-    staff||=Staff.new
-    return staff.id==self.staff.id
+    return staff.nil? ? false : staff.id==self.staff.id
   end
+=end
   
   def is_note?
     type == "Note"
