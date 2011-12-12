@@ -1,6 +1,6 @@
 <div id="inside_container" class="inside_container">
   <h1><%= "#{@student.name}" " ID: #{@student.student_id}" %></h1>
-  <%= render :partial=>"participants/participant_history", :locals=> { :participant => @student, :history => @student.contact_history } %>
+  <%= render :partial=>"participants/participant_history", :locals=> { :participant => @student, :history => @student.contact_history } if can? :view_contact_history, @student %>
   <p id="notice"><%= notice %></p>
   <div style="display: inline-block;" >
  

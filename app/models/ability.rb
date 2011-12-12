@@ -106,7 +106,7 @@ class Ability
 
       can :index, Staff
       cannot [:create, :update_area], Staff
-      cannot :view_contact_info, Participant
+      cannot [:view_contact_info, :view_contact_history], Participant
 
     elsif access_level_symbol == :campus_safety
       can :read, Report

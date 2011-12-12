@@ -99,6 +99,7 @@
                    <%= rpr.relationship_to_report.description %><br/>
                 <% end %>
 			  </div>
+              <% if can? :view_contact_history, p %>
               <% history = p.contact_history(@report)%>
 			  <% if history.size == 0 %>
                 <span class="small-label"><%= t :no_contact_history %></span>
@@ -125,6 +126,7 @@
 
 					</div>
 				</div>
+              <% end %>
               <% end %>
               <br />
 
