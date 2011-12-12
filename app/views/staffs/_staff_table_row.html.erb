@@ -11,7 +11,6 @@
     <td><%= staff.access_level.display_name %></td>
     <td><%= staff.staff_organizations[0].organization.display_name rescue 'Unassigned' %>
 	<td><%= staff.last_login.to_s(:short_date_time) rescue "Not yet logged in" %>
-    <td><%= link_to 'Show', staff if can? :show, staff %></td>
     <td><%= link_to 'Edit', "/staffs/#{staff.id}/edit" if can? :edit, staff %></td>
     <td><%= link_to 'Destroy', staff, :confirm => 'Are you sure?', :method => :delete if can? :destroy, staff %></td>
   </tr>
