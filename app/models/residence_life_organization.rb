@@ -89,6 +89,7 @@ class ResidenceLifeOrganization < Organization
       ability.can :index, Staff
       ability.cannot [:create, :update_area], Staff
       ability.cannot :view_contact_info, Participant
+	  ability.cannot :view_contact_history, Participant
 
     elsif access_level_symbol == :campus_safety
       ability.can :read, Report
