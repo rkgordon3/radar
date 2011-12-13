@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115230656) do
+ActiveRecord::Schema.define(:version => 20111207042712) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20111115230656) do
     t.string   "course_number"
     t.string   "section"
     t.string   "semester"
+    t.integer  "year"
+    t.string   "term"
   end
 
   create_table "enrollments", :force => true do |t|

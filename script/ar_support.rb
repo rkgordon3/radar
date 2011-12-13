@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(File.expand_path("../app/controllers"))
 $LOAD_PATH.unshift(File.expand_path("../app/models"))
 $LOAD_PATH.unshift(File.expand_path("../config"))
 require "imports_helper.rb"
+require "courses_helper.rb"
+require "enrollments_helper.rb"
 require "environment"
 require "CSV"
 gem "actionpack", "=3.0.6"

@@ -3,7 +3,7 @@ class Enrollment < ActiveRecord::Base
         query = ""
         course_ids = Array.new
         students.each do |s|
-            query += "SELECT course_id FROM enrollments where student_id = #{s.student_id} group by course_id intersect "
+            query += "SELECT course_id FROM enrollments where student_id = '#{s.student_id}' group by course_id intersect "
         end
         results = ActiveRecord::Base.connection.execute(query[0..query.length-11])
         results.each do |r|
