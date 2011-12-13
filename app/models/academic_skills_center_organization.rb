@@ -11,6 +11,8 @@ class AcademicSkillsCenterOrganization < Organization
   def trim_privileges_to(ability, access_level_symbol, staff)
     if access_level_symbol == :system_administrator
       ability.can :manage, :all
+	  
+	  ability.can :register, Organization, :id => self.id
       ability.cannot :manage, Report
       ability.can :manage, TutorLog
       ability.cannot :update_organization, Staff

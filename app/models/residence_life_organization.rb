@@ -41,11 +41,14 @@ class ResidenceLifeOrganization < Organization
   def trim_privileges_to(ability, access_level_symbol, staff)
     if access_level_symbol == :system_administrator
       ability.can :manage, :all
-      ability.cannot [:index, :update, :create], :all
+	  ability.cannot :register, :all
+	  ability.can :register, Organization, :id => self.id
+      ability.cannot [ :index, :update, :create], :all
       ability.cannot [:read, :update, :destroy, :create], Report
       ability.can :index, Report
-      ability.can :manage, [RelationshipToReport, Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Staff, Participant, Shift, Round, Area, Building, NotificationPreference]
-      ability.cannot :read, Report, :submitted => false
+      ability.can :manage, [ RelationshipToReport, Import, IncidentReport, MaintenanceReport, Note, Task, TaskAssignment, Participant, Shift, Round, Area, Building, NotificationPreference]
+      ability.can :manage, Staff, :organizations => { :id => self.id }
+	  ability.cannot :read, Report, :submitted => false
       ability.can :read, Report, :staff_id => staff.id
       ability.cannot :do, [Shift, Round]
       ability.cannot :create, Shift

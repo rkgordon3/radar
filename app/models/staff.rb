@@ -87,8 +87,8 @@ class Staff < ActiveRecord::Base
   # ability to add users to a given organization. Code looks
   # something like commented code below.
   def registerable_organizations
-  # Organization.all.select { |org| if can? :create, Staff in org.id }
-    self.organizations
+   # Organization.all.select { |org| current_ability.can? :manage, StaffOrganization.find_by_organization_id_and_staff_id(org.id, self.id) }
+   self.organizations
   end
   
   # Organization in which user is currently acting
