@@ -2,27 +2,18 @@
     <tr>
         <td valign=top>
             <%= form_tag 'index_search', :remote => true %>
-                <table>
-                    <tr>
-                        <td valign=top>
-                            <b>Building:</b><br />
-                            <select id="building_id" name="building_id">
-                                <% Building.all.each do |b| %>
-                                        <option value="<%= b.id %>"><%= b.name %></option>
-                                    <% end %>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign=top>
-                            <b>Area:</b><br />
-                            <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified_id }%>
-                        </td>
-                    </tr>
-                    <tr>
+                <table> 
+					<tr>
                         <td valign=top>
                             <b>Student:</b><br />  
                            <%=  render :partial => 'participants/autocomplete_full_name' %>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign=top>
+                            <b>Building:</b><br />
+							<%= select_tag "building_id", options_from_collection_for_select(Building.all.sort, "id", "name")
+ %>                          
                         </td>
                     </tr>
 					<% if @report_type.name != "Note" %>
@@ -39,7 +30,7 @@
                         </td>
                     </tr>
 					<% end %>
-                    <tr>
+					<tr>
                         <td valign=top>
                             <b>Approached Before:</b><br />
                             <input type="text" id="submitted_before" name="submitted_before"></input>	
@@ -48,6 +39,15 @@
                             <input type="text" id="submitted_after" name="submitted_after"></input>	
                         </td>
                     </tr>
+                    <tr>
+                        <td valign=top>
+                            <b>Area:</b><br />
+                            <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified_id }%>
+                        </td>
+                    </tr>
+                   
+					
+                    
                     <tr>
                         <td>
                             <%= hidden_field_tag 'type', @report_type.name %>
