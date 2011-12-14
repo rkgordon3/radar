@@ -1,0 +1,4 @@
+page["flash_notice"].show
+page.replace_html 'flash_notice', flash_notice
+page.replace "new_building_div", :partial => 'index_row_generic', :locals => {:building => @building, :row_style => row_style}
+page.replace "new_building_link", :partial => 'new_generic', :locals => {:is_shaded => is_shaded}

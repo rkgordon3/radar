@@ -1,5 +1,0 @@
-	<%= form_tag("/search/1", :method => :put, :remote => true )  do %>
-			<%= render '/search/autocomplete_full_name' %>	
-  		<%= submit_tag "Select"  %>	
-  		<input id="options" type="button" value="Clear" onclick="full_name.value = ''"  />
-  <% end %>

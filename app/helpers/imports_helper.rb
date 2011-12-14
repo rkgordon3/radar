@@ -32,7 +32,7 @@ module ImportsHelper
 
 		
 		def self.error_messages=(arg)
-		   @@error_messages = arg
+      @@error_messages = arg
 		end
 		
 		def self.error_messages
@@ -97,10 +97,12 @@ module ImportsHelper
 			if not line[LN_INDEX].nil?
 				params["last_name"] = line[LN_INDEX]
 			end
-			params["full_name"] = params["first_name"] + " " + line[2][0] + " " + params["last_name"] rescue params["first_name"]  + " " + params["last_name"]
+			params["full_name"] = params["first_name"]  + " " + params["last_name"]
 			params["classification"] = line[CLASS_INDEX]
-			
-			params["building_id"] = Building.where(:abbreviation => line[BUILDING_INDEX]).first.id rescue Building.unspecified_id
+
+      building_index = "RSM" if line[BUILDING_INDEX] == "NV"
+      building_index ||= line[BUILDING_INDEX]
+			params["building_id"] = Building.where(:abbreviation => building_index).first.id rescue Building.unspecified_id
 			params["room_number"] = line[ROOM_INDEX]
 			if is_legal_dob?(line[DOB_INDEX])
 				birthday = line[DOB_INDEX].split('/')
@@ -141,12 +143,12 @@ module ImportsHelper
 		
 		def self.deactivate_student(params)
 			student = Student.where(:student_id => params["student_id"]).first
-			 puts " FOUND #{student.student_id}"  unless student.nil?
+      puts " FOUND #{student.student_id}"  unless student.nil?
 			if not student.nil?
 			  
 				student.is_active = false
 				student.save
-		    end
+      end
 			student
 		end
 		# create/update student from params hash
@@ -170,12 +172,12 @@ module ImportsHelper
 	# Returns number of successful imports
 	def ImportsHelper.load_students(lines)
 		reset
-        log = File.new("import.log", "a")
+    log = File.new("import.log", "a")
 		log.puts "**************Import logging session started at #{Time.now} "
 		lines.each do |line|
-		    log.puts "Processing #{line}"
+      log.puts "Processing #{line}"
 			begin 
-			    raise  "Empty record" if line.nil? || line.empty?
+        raise  "Empty record" if line.nil? || line.empty?
 				params = Helpers.build_student_params(line)
 				Helpers.update_student(params)
 				@@successful_lines += 1				
@@ -183,24 +185,40 @@ module ImportsHelper
 				Helpers.add_error_message( "Record #{@@record_cnt} : #{$!}")
 			end
 			@@record_cnt += 1
-            print "."
+      print "."
 		end
-        puts
+    puts
 		@@successful_lines
 		log.puts "Import #{lines.size} records"
 
 		log.puts "Successfully imported #{@@successful_lines} records. #{lines.size-@@successful_lines} failures."
 		log.puts ImportsHelper::Helpers.stats
 		log.puts "ERROR MESSAGES:"
-		log.puts ImportsHelper::Helpers.error_messages
-
+    log.puts ImportsHelper::Helpers.error_messages
+    
 		log.close
+
+    return "Successfully imported #{@@successful_lines} records. #{lines.size-@@successful_lines} failures."
+    
 	end
+
+  def ImportsHelper.mail_load_results(load_results)
+    message = load_results + "\n" + ImportsHelper::Helpers.stats
+    message = message + "\n" + "ERROR MESSAGES:"
+		message = message + "\n" + ImportsHelper::Helpers.error_messages.join("\n")
+
+    begin
+      RadarMailer.generic_mail("RADAR Import Results", message, system_status_email).deliver
+    rescue => e
+      puts e.backtrace.join("\n")
+      puts "Failed to send mail #{$!}"
+    end
+  end
 	
 
 	def ImportsHelper.deactivate_students(lines)
-	     log = File.new("import.log", "a")
-	    log.puts "**************Drop logging session started at #{Time.now} "
+    log = File.new("import.log", "a")
+    log.puts "**************Drop logging session started at #{Time.now} "
 		reset
 		lines.each do |line|
 			begin
@@ -229,12 +247,22 @@ module ImportsHelper
 	# Read from CSV file at given path and return an array of arrays.
 	def ImportsHelper.parse_csv_file(path_to_csv)
 		lines = []
-
-		CSV.foreach(path_to_csv) do |row|
+    
+    begin
+      CSV.foreach(path_to_csv) do |row|
 		    puts "Processing line #{lines.size}"
-			lines << row
-		end
-		
+        lines << row
+      end
+    rescue => e
+      begin
+        RadarMailer.generic_mail("RADAR Import CSV Parsing Error", "The CSV file failed to parse line #{lines.size}.", system_status_email).deliver
+      rescue => e
+        puts e.backtrace.join("\n")
+        puts "Failed to send mail #{$!}"
+      end
+      puts e.backtrace.join("\n")
+    end
+    
 		lines
 	end
 	
@@ -263,7 +291,7 @@ module ImportsHelper
 		@@record_cnt = 0
 		Helpers.reset
 		@@successful_lines = 0
-    end
+  end
 	
   
 	

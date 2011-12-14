@@ -1,0 +1,2 @@
+<td><%= check_box_tag "participants[]", participant.id %></td>
+<%= render :partial => "/#{participant.class.name.tableize}/full_info", :locals => { participant.class.name.downcase.intern => participant} %>

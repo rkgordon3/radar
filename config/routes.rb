@@ -57,6 +57,9 @@ Radar::Application.routes.draw do
   get "shifts/end_shift"
   match "/shifts/end_shift" => "shifts#end_shift"
   
+  match "/buildings/:id" => "buildings#update", :via => :put
+  match "/buildings/:id" => "buildings#destroy", :via => :delete
+
   get "shifts/duty_log"
   match "/shifts/duty_log" => "shifts#duty_log"
 
@@ -84,7 +87,6 @@ Radar::Application.routes.draw do
   match "/reports/add_participant/" => "reports#add_participant"
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
-  match "/search/update_result_list" => "search#update_result_list"
   match "/students/show_details/:id" => "students#show_details"
   
   match "/incident_reports/add_participant"         => "reports#add_participant"
@@ -99,16 +101,7 @@ Radar::Application.routes.draw do
   end
   
   get "home/landingpage"
-
-  get "search/search"
-  
   root :to => "home#landingpage"
-	
-  get "search/report_search"
-
-		
-  get 'search/autocomplete_student_full_name'
-
   
   match "/search/delete_student" => "search#delete_student"
   get "/search/delete_student"
@@ -128,36 +121,28 @@ Radar::Application.routes.draw do
   match "/reports_query/search_results" => "reports_query#search_results" 
   get "/reports_query/search_results"
   
-  get "/students/search_students"
+ # get "/students/search_students"
   
   match "/students/process_search_parameters" => "students#process_search_parameters" 
   get "/students/process_search_parameters"
-  
-  match "/students/search_results" => "students#search_results" 
-  get "/students/search_results"
-  
-  match "/students/use_search_results_to_create_new_report" => "students#use_search_results_to_create_new_report"
-  "/students/use_search_results_to_create_new_report"
     
   match "/index_search" => "reports#index_search"
   
   resources :shifts
   
-  resources :rounds
-  
-  resources :search 
-  
-  resources :photos
+  resources :rounds 		
 
   resources :annotations
 
-  resources :participants
+  resources :participants do
+    get  :autocomplete_participant_full_name, :on => :collection
+	get  :search, :on => :collection
+	post 'search' => :search_results, :on => :collection
+  end
   
   resources :reports_query
 
   resources :report_participant_relationships
-
-  resources :report_locations
 
   resources :buildings  do
     get :select, :on => :collection
@@ -169,17 +154,19 @@ Radar::Application.routes.draw do
   resources :student_infractions
 
   resources :relationship_to_reports
-
-  resources :locations
-
+  
   resources :reports  do
- 	  get :on_duty_index, :on => :collection
+	collection do
+ 	  get :on_duty_index
+	  post :new_with_participants
+	end
   end
 
-  resources :students
+  resources :students do
+   
+  end
   
-  resources :temp_incident
-    
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

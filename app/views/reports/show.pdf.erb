@@ -1,0 +1,145 @@
+<div id="container">
+  <div id="inside_container" class="inside_container">
+    <div class="report_title" >
+      <%= @report.display_name %> <%= @report.tag %>
+    </div>
+    <div class="report_date" >
+      <%= @report.event_date %>
+    </div>
+    <br/>
+    <div class="generic_show_report" >
+      <b>Approach Time:</b>
+      <span id="approach_time"><%= @report.event_time %></span><br/>
+      <b><%= t "location" %>:</b>
+      <%= @report.building.name %><br/>
+      <b><%= t :room_number %>:</b>
+      <%= @report.room_number %><br/>
+	  <b><%= t :submitter %>:</b>
+      <span id="submitter_name"><%= @report.staff.name %></span><br/>
+      <% if @report.adjunct_submitters.length > 0 %>
+        <b><%= "Secondary Submitter(s):" %></b>
+        <% @report.adjunct_submitters.each do |a| -%>
+          <%= a.staff.last_name_first_initial %>
+        <% end -%>
+        <br/>
+      <% end %>
+      <b>Updated at:</b>
+      <%= @report.updated_at_string %>
+    </div>
+    <% if @report.report_participant_relationships.count == 0  %>
+      <div class="show-title"><%= "No Participants" %></div>
+    <% else %>
+      <div class="show-title"><%= "Participants:" %></div>
+      <% num_parts = 0 %>
+      <table>
+        <tr>
+		
+          <% Participant.where(:id => @report.participant_ids).order(:last_name).each do |p| %>
+            <% if num_parts%2 == 0 %>
+            </tr>
+            <tr>
+			 
+            <% end %>
+		
+            <td style="vertical-align: top;">
+			 
+			  <div class="keep_image_with_details" >
+			  <table>
+			  <tr>
+			   
+			  <td style="vertical-align:top;" >
+			  
+              <%=image_tag(p.getImageUrl, :width=> "50" ) %>
+			  </td>
+			  <td>
+			  
+              <div id="details_div_<%= p.id %>" class="participant_detail">
+			  <hr/>
+			      <span class="detail_name"><%= p.name %></span><br/>
+                  <span class="detail_label">Student ID #: </span>
+                  <%=  p.student_id rescue "Unknown" %><br/>
+                  <span class="detail_label"><%= t :class %>: </span><%= p.grade_level rescue unknown %><br/>
+                  <span class="detail_label"><%= t :age %> :</span>
+                  <% if p.is_of_drinking_age? %>
+                    <%= p.age %><br/>
+                  <% else %>
+                    <span class="underage"><%= p.age %></span>
+                  <% end %>
+                  <span class="detail-label"><%= t :birthday %>: </span>
+                  <% if p.is_of_drinking_age? %>
+                    <%= p.birthday_string %>
+                  <% else %>
+                    <span class="underage"><%=  p.birthday_string %></span>
+                  <% end %>
+                  <br/>
+
+                  <span class="detail_label"><%= t :residence %>: </span>
+                  <%=  p.room_number rescue "" %> <%=  p.residence_hall rescue unknown %><br/>
+
+                  <span class="detail_label"><%= t :extension %>: </span>
+                  <%= p.extension rescue unknown %><br/>
+                  <span class="detail_label"><%= t :affiliation %>: </span>
+                  <%= p.affiliation rescue unknown %><br/>
+                  <div id="emergency_contact">
+                    <% if can? :view_contact_info, Student %>
+                      <span class="detail_label">Emergency Contact: </span>
+                      <%= p.emergency_contact_name rescue "" %>
+                      <%= " @ " if p.emergency_contact_name != nil && p.emContact!=nil %>
+                      <%= p.emContact rescue "Unknown" %><br />
+                    <% end %>
+                  </div>
+              </div>
+			  </td>
+			  </tr>
+			  </table>
+			  </div>
+			  <div class="current_contact_reasons" >
+			    <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
+                   <b>Reported:</b>
+                   <%= rpr.relationship_to_report.description %><br/>
+                <% end %>
+			  </div>
+              <% history = p.contact_history(@report)%>
+			  <% if history.size == 0 %>
+                <span class="small-label"><%= t :no_contact_history %></span>
+              <% else %>
+                <%= link_to image_tag("/images/add_icon.gif", :class => "plus_minus_icon", :id => "#{p.id}-history_img"), "javascript:void(0)",
+                  :onclick => "plusMinusToggle('history_div_#{p.id}', '#{p.id}-history_img');" %>
+                <div class="contact_history" >
+					<b><%= t :contact_history %></b>
+					<div id="history_div_<%= p.id %>" >
+						<div style="margin-left: 15px;">
+							<table cellspacing="0" cellpadding="0">
+								<% history.each  do |h| -%>
+									<tr>
+										<span class="contact_history_item">
+										<td><b><%=  h.report.tag %></b></td>
+										<td><%= h.date %></td>
+										<td><%= h.reason %></td>
+										</span>
+									</tr>
+								<% end -%>
+							</table>
+
+						</div>
+
+					</div>
+				</div>
+              <% end %>
+              <br />
+
+            </td>
+			
+            <% num_parts = num_parts + 1 %>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
+    <br/><br/>
+    <div class="generic_show_report" >
+      <b> <%= t "annotation" %>:</b>
+      <%= @report.annotation_text %><br/><br />
+     
+    </div>
+  </div>
+</div>

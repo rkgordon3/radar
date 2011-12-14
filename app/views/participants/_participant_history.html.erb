@@ -1,10 +1,9 @@
- <% if history.size == 0 %>
-   <span class="small-label"><%= t :no_contact_history %></span>
+ <% if history.size == 0 %>   <span class="small-label"><%= t :no_contact_history %></span>
  <% else %>
  <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-history_img"), "javascript:void(0)",  
   :onclick => "plusMinusToggle('history_div_#{participant.id}', '#{participant.id}-history_img');" %>
 
-   <b><%= t :history %></b>
+   <span class="small-label"><%= t :history %></span>
  
 <div id="history_div_<%= participant.id %>" class="participant_detail">
  <div style="margin-left: 15px;">

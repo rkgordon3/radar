@@ -25,12 +25,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.xml
   def show
     session[:report] = @report
-=begin
-    if params[:emails] != nil
-      forward_as_mail(params[:emails])
-      return
-    end
-=end
+
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
@@ -40,16 +35,28 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { render 'reports/show' }
       format.iphone { render 'reports/show', :layout => 'mobile_application' }
+      format.pdf { render :pdf => "#{@report.tag}", :template=> "reports/show.pdf.erb", :stylesheets => ["radar_pdf"] }
     end
   end
+  
+  def new_with_participants
+	report_name = params[:report_type]
+	@report = report_name.constantize.new(:staff_id => current_staff.id) 
+    session[:report] = @report
+    if (params[:participants] != nil)
+      @report.add_participants(params[:participants])
+    end
+	respond_to do |format|
+      format.html { render 'reports/new' }
+      format.iphone { render "reports/new", :layout => 'mobile_application' }
+    end 
+  end
+  
   
   # GET /reports/new
   # GET /reports/new.xml
   def new
     session[:report] = @report
-    if (params[:participants] != nil)
-    	@report.add_participants(params[:participants])
-    end
 
     respond_to do |format|
       format.html { render "reports/new" }
@@ -125,10 +132,10 @@ class ReportsController < ApplicationController
   end
   
   def add_participant
-    @participant = Participant.get_participant_for_full_name(params[:full_name])
+    @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
     @report = session[:report]
 
-    if @participant == nil
+    if not defined? @participant
 	
       name_tokens = params[:full_name].split(' ')
       first_name = name_tokens[0].capitalize
@@ -143,7 +150,7 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.replace_html "new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
-            if @report.participant_ids.size > 0
+            if @report.participant_ids.size > 1
               page.show 'common-reasons-container'
             end
           end
@@ -161,7 +168,7 @@ class ReportsController < ApplicationController
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-              if @report.participant_ids.size > 0
+              if @report.participant_ids.size > 1
                 page.show 'common-reasons-link'
               end
             end
@@ -207,23 +214,22 @@ class ReportsController < ApplicationController
     @report = session[:report]
     # This redirect presents a problem for https
     #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
+    @report.add_default_contact_reason(@participant.id)
     respond_to do |format|
       format.js
       format.iphone {
         render :update do |page|
-            if !@report.associated?(@participant)
-              @report.add_default_contact_reason(@participant.id)
-              page.select("input#full_name").first.clear
-              page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
-              page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-              if @report.participant_ids.size > 0
-                page.show 'common-reasons-link'
-              end
+          if !@report.associated?(@participant)
+            page.select("input#full_name").first.clear
+            page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
+            page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
+            if @report.participant_ids.size > 1
+              page.show 'common-reasons-link'
             end
           end
-        }
-      end
-      
+        end
+      }
+    end
   end
   
   def forward_as_mail

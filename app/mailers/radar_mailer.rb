@@ -22,6 +22,12 @@ class RadarMailer < ActionMailer::Base
 	    format.html { render @report.type.tableize.singularize.+"_mail" }
     end
   end
-  
+
+  def generic_mail(subject, message, email)
+    @message = message
+    mail(:to => email, :subject => subject) do |format|
+	    format.html { render "generic_mail" }
+    end
+  end
   
 end

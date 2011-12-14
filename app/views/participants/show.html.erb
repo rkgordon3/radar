@@ -1,29 +1,33 @@
-<div id="inside_container" class="inside_container"><h1><%= "#{@participant.name}" %></h1>
+<div id="inside_container" class="inside_container">
+  <h1><%= @participant.name %></h1>
+  <%= render :partial=>"participants/participant_history", :locals=> { :participant => @participant, :history => @participant.contact_history } %>
+  <p id="notice"><%= notice %></p>
+  <div style="display: inline-block;" >
+ 
+    <%= link_to image_tag(@participant.getImageUrl, :border=>0, :width => 150) %>
+  </div>
+<div class="student_info" style="display: inline-block;vertical-align:top" >
+    <%= label_tag 'residence' do %><%= t 'affiliation' %>:<% end %>
+    <%= @participant.affiliation %>
+<br/>
+    <%= label_tag 'extension' do %><%= t "phone" %>:<% end %>
+    <%= @participant.extension %>
+<br/>
+    <%= label_tag 'email' do %><%= t 'email' %>:<% end %>
+    <%= @participant.email %>
+<br/>
 
-<p>
-  <b>First name:</b>
-  <%= @participant.first_name %>
-</p>
+    <%= render :partial=>"participants/age", :locals=> { :participant => @participant, :pclass=>"show_label" } %>
+<br/>
+  <%= render :partial=>"participants/birthday", :locals=> { :participant => @participant, :pclass=>"show_label" } %>
+<br/>
 
-<p>
-  <b>Middle initial:</b>
-  <%= @participant.middle_initial %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @participant.last_name %>
-</p>
-
-<p>
-  <b>Affiliation:</b>
-  <%= @participant.affiliation %>
-</p>
-
-<p>
-  <b>Age:</b>
-  <%= @participant.age %>
-</p>
-
-<%= link_to 'Edit', edit_participant_path(@participant) %>
+  
 </div>
+</div>
+
+
+
+
+
+

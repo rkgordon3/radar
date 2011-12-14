@@ -56,7 +56,7 @@ td {
 
 .detail_label {   font-style: italic; }
 
-.show_label { font-weight: bold; }
+.show_label {  font-weight: bold; }
 
 .underage { color:#CC3333; }
 
@@ -80,6 +80,8 @@ td {
     display: none; 
 
 }
+
+.relationship-checklist { font-size: 8pt; }
 
 #forward_email {
     font-family: Arial;
@@ -126,6 +128,7 @@ td {
 
 .report_date  {
    font-size: 18px;
+   margin-top:8px;
 }
 
 .error_messages {
@@ -271,7 +274,7 @@ label { font-weight:bold; }
 
 #page_title { font-weight:bold; }
 
-#print_link { display:block; float:right }
+#print_link { display:block; float:left }
 #footer{
     background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
     color:#fff;

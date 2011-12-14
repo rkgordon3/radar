@@ -28,7 +28,7 @@
   	
   	<div class="field">
   		 <b>Student:</b><br />  
-		 <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+		 <%= autocomplete_field_tag 'full_name', '', search_autocomplete_participant_full_name_path, :id_element => 'student_id' %>  
 
   	</div>
   	

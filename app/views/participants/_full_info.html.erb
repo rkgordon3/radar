@@ -1,0 +1,18 @@
+<td>
+  <%  if can? :show, participant %>
+    <%= link_to image_tag(participant.getImageUrl,  :border=> 0, :width => 50), participant_path(participant) %>
+  <%  else %>
+    <%= image_tag(participant.getImageUrl, :border=> 0, :width => 50) %>
+  <% end %>
+</td>
+<td>&nbsp;</td>
+<td><%= participant.first_name %></td>
+<td><%= participant.middle_initial %></td>
+<td><%= participant.last_name %></td>
+<td><%= participant.affiliation %></td>
+<td></td>
+<td><%= participant.extension %></td>
+<td><%= participant.email %></td>
+<td>
+<%= render :partial=>"participants/unlabelled_birthday", :locals=> { :participant=>participant } %>
+</td>

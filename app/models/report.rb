@@ -17,6 +17,10 @@ class Report < ActiveRecord::Base
     type == nil
   end
 
+  def report_type
+    ReportType.find_by_name(self.type)
+  end
+
   def times_forwarded_to(interested_party)
 	ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
 	ipforwards.first.times_forwarded rescue 0
@@ -86,10 +90,6 @@ class Report < ActiveRecord::Base
   
   def supports_selectable_contact_reasons?
     ReportType.find_by_name(self.type).selectable_contact_reasons?
-  end
-  
-  def report_type
-    ReportType.find_by_name(self.type)
   end
   
   def reasons(student = nil)
