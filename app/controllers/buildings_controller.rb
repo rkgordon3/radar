@@ -23,7 +23,6 @@ class BuildingsController < ApplicationController
   def create
     is_shaded = params[:is][:shaded]
 
-    logger.debug "***old #{is_shaded}"
     if is_shaded == "1"
       row_style = "class='shaded'"
       is_shaded = 0
@@ -31,7 +30,6 @@ class BuildingsController < ApplicationController
       row_style = ""
       is_shaded = 1
     end
-    logger.debug "***new #{is_shaded}"
     
     respond_to do |format|
       if @building.save

@@ -172,13 +172,6 @@ td {
     padding: 7px;
 }
 
-.shaded {
-    background-color: #efefef;
-    border-color: #efefef;
-    border-style: solid;
-    border-width: 1px;
-}
-
 .box_shadow{
     box-shadow: 3px 3px 4px #818181;
     -webkit-box-shadow: 3px 3px 4px #818181;
