@@ -12,7 +12,7 @@ class ReportType < ActiveRecord::Base
   end
  
   
-  def associated_reasons
+  def ReportType.associated_reasons(student = nil)
 	(ReportType.common_reasons + relationship_to_reports).sort 
   end
 

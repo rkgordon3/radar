@@ -6,10 +6,10 @@ class Report < ActiveRecord::Base
   has_one		    :annotation
   has_many      :report_participant_relationships
   belongs_to    :annotation
-  after_initialize :setup_defaults
-  after_find	:cache_submitted
-  after_save       :save_everything
-  before_destroy   :destroy_everything
+  after_initialize 	:setup_defaults
+  after_find		:cache_submitted
+  after_save       	:save_everything
+  before_destroy   	:destroy_everything
   
   # return true if report is a generic report, ie FYI
   def is_generic? 
@@ -17,7 +17,7 @@ class Report < ActiveRecord::Base
   end
 
   def report_type
-    ReportType.find_by_name(self.type)
+    @report_type ||= ReportType.find_by_name(self.type)
   end
 
   def times_forwarded_to(interested_party)
@@ -30,7 +30,7 @@ class Report < ActiveRecord::Base
   end
   
   def forwardable?
-    ReportType.find_by_name(self.type).forwardable?
+    report_type.forwardable?
   end
 
 =begin
@@ -67,7 +67,7 @@ class Report < ActiveRecord::Base
   end
   
   def type_id
-    ReportType.find_by_name(self.type).id
+    report_type.id
   end
   
   def can_edit_from_mobile?
@@ -84,8 +84,8 @@ class Report < ActiveRecord::Base
     save
   end
 
-  def reasons
-    report_type.associated_reasons
+  def reasons(students = nil)
+	report_type.associated_reasons
   end
   
   def update_attributes_without_saving(params)
