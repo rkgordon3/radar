@@ -43,4 +43,12 @@ class Area < ActiveRecord::Base
   end
   
   # Setup accessible (or protected) attributes for your model
- attr_accessible :name,:abbreviation    def <=> other	return  1 if other == Area.unspecified	return -1 if self == Area.unspecified	return self.name <=> other.name    end  end
+  attr_accessible :name,:abbreviation
+
+  def <=> other
+    return  1 if other == Area.unspecified
+    return -1 if self == Area.unspecified
+    return self.name <=> other.name  
+  end
+  
+end
