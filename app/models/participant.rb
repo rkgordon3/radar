@@ -4,7 +4,7 @@ class Participant < ActiveRecord::Base
   has_many :reports, :through => :report_participant_relationships
   
   def contact_history(report=nil)
-	rp = report.nil? ? report_participant_relationships.select { |r| r.report.type == report.type } :
+	rp = (not report.nil?) ? report_participant_relationships.select { |r| r.report.type == report.type } :
                         report_participant_relationships
 	
 	rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 

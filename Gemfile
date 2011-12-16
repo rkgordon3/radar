@@ -2,14 +2,14 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.6'
 gem 'composite_primary_keys', '=3.1.0'
-gem 'rails3-jquery-autocomplete'
+gem 'rails3-jquery-autocomplete', '=0.6.1'
 
 gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
 gem 'cancan'
-gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
 gem 'ruby-oci8', '>= 2.0.4'
+gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
 gem 'ruby-plsql'
 gem 'will_paginate', '~> 3.0.pre4'
 
