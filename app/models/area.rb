@@ -7,11 +7,11 @@ class Area < ActiveRecord::Base
   end
   
   def Area.unspecified_id
-    Area.find_by_name(unspecified).id rescue 0
+    Area.unspecified.id rescue 0
   end
 
   def Area.sort(key)
-    a = Area.where("id <> ?", Area.unspecified_id)
+    a = Area.where("id <> ?", Area.unspecified.id)
     if key=="name"
       return a.order("name ASC").all
     elsif key=="abbreviation"
