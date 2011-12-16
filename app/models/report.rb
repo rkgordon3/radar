@@ -93,24 +93,11 @@ class Report < ActiveRecord::Base
   end
   
   def reasons(student = nil)
-    path_to_reason_context = report_type.path_to_reason_context
-    if (path_to_reason_context != nil && student != nil)
-        students = Array.new
-        students << student
-        path_to_reason_context.constantize.for(students)
-    else
-        RelationshipToReport.for(self)
-    end
+    report_type.associated_reasons(student)
   end
   
   def common_reasons
-    path_to_reason_context = report_type.path_to_reason_context
-    participants = Participant.find_all_by_id(participant_ids)
-    if (path_to_reason_context != nil && participant_ids.size > 0)
-        path_to_reason_context.constantize.for(participants)
-    else
-        RelationshipToReport.for(self)
-    end
+    report_type.common_reasons(participant_ids)
   end
   
   def update_attributes_without_saving(params)
