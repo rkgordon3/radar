@@ -1,30 +1,5 @@
 <div id="inside_container" class="inside_container">
-  <h1>Listing Areas</h1>
-
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Abbreviation</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-    <% @areas.each do |area| %>
-      <% if @numRows == 0 %>
-        <% @numRows = @numRows + 1 %>
-        <tr class="shaded">
-        <% else %>
-          <% @numRows = 0 %>
-        <tr>
-        <% end %>
-        <td><%= area.name %></td>
-        <td><%= area.abbreviation %></td>
-        <td><%= link_to 'Show', area if can? :show, area %></td>
-        <td><%= link_to 'Edit', edit_area_path(area) if can? :edit, area %></td>
-        <td><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete if can? :destroy, area %></td>
-      <% end %>
-  </table>
-
+  <div class="form_header"><%= t :area_list %></div>
+  <%= render :partial => 'index_generic', :locals => {:unassigned_buildings => unassigned_buildings} %>
   <br />
 </div>

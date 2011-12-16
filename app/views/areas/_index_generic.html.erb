@@ -1,0 +1,20 @@
+<div id="area_index">
+  <table width="100%">
+    <th style="width:25%"><%= link_to "Name", params.merge(:sort => "title"), :remote => true %></th>
+    <th style="width:10%"><%= link_to "Abbreviation", params.merge(:sort => "abbreviation"), :remote => true %></th>
+    <th style="width:25%"><%= link_to "Buildings", params.merge(:sort => "buildings"), :remote => true %></th>
+    <th></th>
+  </table>
+  <% is_shaded = 0 %>
+  <%= render :partial => 'new_generic', :locals => {:unassigned_buildings => unassigned_buildings, :is_shaded => is_shaded}%>
+  <% @areas.each do |area| %>
+    <% if is_shaded == 0 %>
+      <% row_style = "class='shaded'" %>
+      <% is_shaded = 1 %>
+    <% else %>
+      <% row_style = "" %>
+      <% is_shaded = 0 %>
+    <% end %>
+    <%= render :partial => 'index_row_generic', :locals => {:area => area, :unassigned_buildings => unassigned_buildings, :row_style => row_style} %>
+  <% end %>
+</div>

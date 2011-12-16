@@ -5,76 +5,67 @@ class AreasController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @numRows = 0
+    sort = params[:sort]
+    @areas = @areas.where("id <> ?", Area.unspecified_id)
+    #@areas = Area.sort(sort)
+    msg = "Buildings are now sorted by #{sort}."
+    unassigned_buildings = Building.where( :area_id => Area.unspecified_id )
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @areas }
+      format.html { render :locals => { :unassigned_buildings => unassigned_buildings } }
+      format.js { render :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg }}
     end
   end
 
-  # GET /areas/1
-  # GET /areas/1.xml
-  def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @area }
-    end
-  end
-
-  # GET /areas/new
-  # GET /areas/new.xml
-  def new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @area }
-    end
-  end
-
-  # GET /areas/1/edit
-  def edit
-    # @area automatically set by CanCan
-  end
-
-  # POST /areas
-  # POST /areas.xml
+  # POST /buildings
+  # POST /buildings.xml
   def create
+    @area.buildings = Building.find(params[:buildings])
+    authorize! :create, @area
+    @areas = Area.accessible_by(current_ability)
+    @areas = @areas.where("id <> ?", Area.unspecified_id)
+
     respond_to do |format|
       if @area.save
-        format.html { redirect_to(@area, :notice => 'Area was successfully created.') }
-        format.xml  { render :xml => @area, :status => :created, :location => @area }
+        msg = "#{@area.name} has been successfully created."
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @area.errors, :status => :unprocessable_entity }
+        msg = "Error: Area NOT created!"
       end
+      unassigned_buildings = Building.where( :area_id => Area.unspecified_id )
+      format.js { render "areas/index", :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
     end
   end
 
-  # PUT /areas/1
-  # PUT /areas/1.xml
+  # PUT /buildings/1
+  # PUT /buildings/1.xml
   def update
+    buildings_to_be_assigned = Building.find(params[:buildings])
+    @area.buildings =  buildings_to_be_assigned
+    authorize! :update, @area
+    @areas = Area.accessible_by(current_ability)
+    @areas = @areas.where("id <> ?", Area.unspecified_id)
     respond_to do |format|
       if @area.update_attributes(params[:area])
-        format.html { redirect_to(@area, :notice => 'Area was successfully updated.') }
-        format.xml  { head :ok }
+        msg = "#{@area.name} has been successfully updated."
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @area.errors, :status => :unprocessable_entity }
+        msg = "Error: Area NOT updated!"
       end
+      unassigned_buildings = Building.where( :area_id => Area.unspecified_id )
+      format.js { render "areas/index", :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
     end
   end
 
-  # DELETE /areas/1
-  # DELETE /areas/1.xml
+  # DELETE /buildings/1
+  # DELETE /buildings/1.xml
   def destroy
+    msg = "#{@area.name} has been successfully destroyed."
+    id = @area.id
     @area.destroy
-
+    unassigned_buildings = Building.where( :area_id => Area.unspecified_id )
+    @areas = Area.accessible_by(current_ability)
+    @areas = @areas.where("id <> ?", Area.unspecified_id)
     respond_to do |format|
-      format.html { redirect_to(areas_url) }
-      format.xml  { head :ok }
+      format.js { render "areas/index", :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
     end
-  end
-  
-  def add_building
   end
 end
