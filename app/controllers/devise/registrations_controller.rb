@@ -8,8 +8,10 @@ class Devise::RegistrationsController < ApplicationController
   def new
     authorize! :create, Staff
     build_resource({})
-    @organizations = current_staff.get_registerable_organizations
-    @access_levels = current_staff.get_registerable_access_levels
+    #@organizations = current_staff.registerable_organizations
+	logger.debug("############## of orgs : #{Organization.accessible_by(current_ability, :register).size}")
+	@organizations = Organization.accessible_by(current_ability, :register)
+    @access_levels = current_staff.registerable_access_levels
     render_with_scope :new
   end
 
@@ -24,8 +26,8 @@ class Devise::RegistrationsController < ApplicationController
       redirect_to(staffs_url, :notice => "Account for #{resource.last_name_first_initial} was successfully created.")
     else
       clean_up_passwords(resource)
-      @organizations = current_staff.get_registerable_organizations
-      @access_levels = current_staff.get_registerable_access_levels
+      @organizations = current_staff.registerable_organizations
+      @access_levels = current_staff.registerable_access_levels
       render_with_scope :new
     end
   end
@@ -34,8 +36,8 @@ class Devise::RegistrationsController < ApplicationController
   def edit
     @staff = Staff.find(params[:id])
     authorize! :edit, @staff
-    @organizations = current_staff.get_registerable_organizations
-    @access_levels = current_staff.get_registerable_access_levels
+    @organizations = current_staff.registerable_organizations
+    @access_levels = current_staff.registerable_access_levels
     render_with_scope :edit
   end
 

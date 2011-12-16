@@ -4,11 +4,11 @@ module ReportTypesHelper
     -1
   end
   #
-  # Present array iof [report name, id] plus placehold for "All" to view
+  # Present array of [report name, id] plus placehold for "All" to view
   #
   def self.for_select    
-    types = ReportType.all.collect { |rt| [ rt.display_name, rt.id ] }	
-	types << [self.all_label, self.all_id.to_s ]
+    @@types ||= ReportType.all.collect { |rt| [ rt.display_name, rt.id ] }	
+	@@types << [self.all_label, self.all_id.to_s ]
   end
   
   def self.all_label

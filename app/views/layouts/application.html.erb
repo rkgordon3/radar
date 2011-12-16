@@ -71,7 +71,7 @@
 
 
         <% if staff_signed_in? %>
-          <%= render  :partial => "organizations/orgs/#{current_staff.staff_organizations.first.organization.name}/home" %>
+          <%= render  :partial => "organizations/orgs/#{current_staff.organization_of_agency.type}/home" %>
         <% end %>
 
 

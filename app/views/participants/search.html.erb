@@ -33,8 +33,8 @@
 		<td>
 			<div class="field">
     			<b>Building:</b><br />
-				<% res_halls = Building.where(:is_residence => true) %>
-    			<%= select_tag "building_id", options_from_collection_for_select(res_halls, "id", "name") %>
+				
+    			<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::residence_halls, "id", "name") %>
 			</div>
 			<div class="field">
 				<b>Room Number:</b><br />
@@ -45,8 +45,8 @@
 		<td>
 			<div class="field">
     			<b>Area:</b><br />
-				<% areas = Area.all %>
-					<%= select_tag "area_id", options_from_collection_for_select(areas,"id", "name") %>
+				
+					<%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name") %>
 				</div>
 		</td>
 	</tr>

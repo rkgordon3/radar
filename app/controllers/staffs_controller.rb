@@ -6,6 +6,12 @@ class StaffsController < Devise::RegistrationsController
   # GET /staffs.xml
   def index
     @numRows = 0
+	@staffs = @staffs.uniq
+	# This will get me staff for orgs in which current_staff is in, but selection is NOT
+	# contrained by abilities. What I really want is orgs in which current_staff has ability
+	# to list/view/manage(?) staff
+	#@staffs = Staff.joins(:organizations).where(:organizations => { :id => current_staff.organization_ids } )
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @staffs }
