@@ -5,7 +5,7 @@
         <td valign="middle" style="width:25%"><%=h area.name %></td>
         <td valign="middle" style="width:10%"><%=h area.abbreviation %></td>
         <td valign="middle" style="width:25%">
-          <%  area.buildings.each  do |b| %>
+          <%  area.buildings.order("name ASC").each  do |b| %>
             <%= b.name %><br/>
           <% end %>
         </td>
@@ -22,7 +22,7 @@
           <td valign="middle" style="width:25%"><%= f.text_field :name, :size => 25 %></td>
           <td valign="middle" style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
           <td valign="middle" style="width:25%">
-            <% buildings = unassigned_buildings + area.buildings %>
+            <% buildings = area.buildings + unassigned_buildings %>
             <%= select_tag "buildings", options_from_collection_for_select(buildings, "id", "name", area.buildings.collect{|b| b.id}), :multiple => true, :class => 'form_input', :size => 5 %>
           </td>
           <td valign="middle"><%= f.submit "Save" %>
