@@ -34,7 +34,7 @@
 			<div class="field">
     			<b>Building:</b><br />
 				
-    			<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::residence_halls, "id", "name") %>
+    			<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::residence_halls, "id", "name"), :include_blank => true %>
 			</div>
 			<div class="field">
 				<b>Room Number:</b><br />
@@ -46,7 +46,7 @@
 			<div class="field">
     			<b>Area:</b><br />
 				
-					<%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name") %>
+					<%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name"), :include_blank => true %>
 				</div>
 		</td>
 	</tr>

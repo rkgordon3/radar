@@ -12,8 +12,7 @@
                     <tr>
                         <td valign=top>
                             <b>Building:</b><br />
-							<%= select_tag "building_id", options_from_collection_for_select(Building.all.sort, "id", "name")
- %>                          
+							<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>                          
                         </td>
                     </tr>
 					<% if @report_type.name != "Note" %>
@@ -42,7 +41,7 @@
                     <tr>
                         <td valign=top>
                             <b>Area:</b><br />
-                            <%= render :partial => "areas/all_areas_select_tag", :locals => {:selected_id => Area.unspecified_id }%>
+                            <%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name"), :include_blank => true %>
                         </td>
                     </tr>
                    
