@@ -1,32 +1,35 @@
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <%if can? :read, Participant, :student_id %>
-      <th>Student ID</th>
-    <% end %>
-    <th>First Name</th>
-    <th>MI</th>
-    <th>Last Name</th>
-    <th>Building</th>
-    <th>Room #</th>
-    <th>Phone</th>
-    <th>Email </th>
-    <th>Birthday</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% num_rows = 0 %>
-  <% participants.each do |p| %>
-
-    <% if num_rows == 0 %>
-      <% num_rows = num_rows + 1 %>
-      <tr class="shaded">
-      <% else %>
-        <% num_rows = 0 %>
-      <tr>
+<div id="selectable_full_info_list_div">
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+      <% p_ids = participants.collect{|p| p.id} %>
+      <%if can? :read, Participant, :student_id %>
+        <th><%= link_to "Student ID", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Student ID"}, :method => :post, :remote => true %></th>
       <% end %>
-      <%= render :partial => "selectable_full_info", :locals => { :participant => p} %>
-	  </tr>
+      <th><%= link_to "First Name", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "First Name"}, :remote => true %></th>
+      <th><%= link_to "MI", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Middle Initial"}, :remote => true %></th>
+      <th><%= link_to "Last Name", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Last Name"}, :remote => true %></th>
+      <th><%= link_to "Building", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Building"}, :remote => true %></th>
+      <th><%= link_to "Room #", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Room #"}, :remote => true %></th>
+      <th><%= link_to "Phone", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Extension"}, :remote => true %></th>
+      <th><%= link_to "Email", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Email"}, :remote => true %></th>
+      <th><%= link_to "Birthday", {:controller => "participants", :action => "sort_search_results", :participants => p_ids, :sort => "Birthday"}, :remote => true %></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% num_rows = 0 %>
+    <% participants.each do |p| %>
+
+      <% if num_rows == 0 %>
+        <% num_rows = num_rows + 1 %>
+        <tr class="shaded">
+        <% else %>
+          <% num_rows = 0 %>
+        <tr>
+        <% end %>
+        <%= render :partial => "selectable_full_info", :locals => { :participant => p} %>
+      </tr>
     <% end %>
-</table>
+  </table>
+</div>

@@ -75,21 +75,21 @@ class ParticipantsController < ApplicationController
     end
   end
   
- def search_results
+  def search_results
   	@participants = []
 
     @participants << Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
-	if @participants.empty?
-	  @participants = Participant.where("lower(full_name) like ?", "%#{params[:full_name].downcase}%") if (param_value_present(params[:full_name]) && @participants.empty?)
+    if @participants.empty?
+      @participants = Participant.where("lower(full_name) like ?", "%#{params[:full_name].downcase}%") if (param_value_present(params[:full_name]) && @participants.empty?)
     
       @participants = Participant.where("student_id like ?", "%#{params[:student_id]}%") if (param_value_present(params[:student_id]) && @participants.empty?)
 
-    #----------------
-    # if no student was selected, select all 
+      #----------------
+      # if no student was selected, select all
     
       @participants = Participant.where(:type => "Student") if @participants.empty?
     
-	#-----------------
+      #-----------------
       # if a building was selected, get students in that building
 
       if param_value_present(params[:building_id]) && (params[:building_id] != Building.unspecified_id.to_s)
@@ -114,40 +114,65 @@ class ParticipantsController < ApplicationController
       end
 
       if param_value_present(params[:participant])
-		  #-----------------
-		  # if a date was provided, find all before that date
-		  born_before = params[:participant][:born_before]
+        #-----------------
+        # if a date was provided, find all before that date
+        born_before = params[:participant][:born_before]
 	      max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
-		  filter_by_date = false
+        filter_by_date = false
 		  
-		  if param_value_present(born_before)  	
-			max = convert_arg_date(born_before) rescue nil
-			filter_by_date = true if !max.nil?
-		  end
+        if param_value_present(born_before)
+          max = convert_arg_date(born_before) rescue nil
+          filter_by_date = true if !max.nil?
+        end
 
 		  
-		  #-----------------
-		  # if a date was provided, find all after that date
-		  born_after = params[:participant][:born_after]
+        #-----------------
+        # if a date was provided, find all after that date
+        born_after = params[:participant][:born_after]
 
-		  if  param_value_present(born_after)  
-			dd,mm,yy = $1, $2, $3 if born_after =~ /(\d{2})-([A-Z|a-z]{3})-(\d{4})/
-			min = convert_arg_date(born_after) rescue nil
-			filter_by_date = true if !min.nil?
-		  end 
-		  logger.debug("max = #{max} min = #{min} filter = #{filter_by_date}")
-		  @participants = @participants.where(:birthday => min..max ) if filter_by_date
-	  end
-	  @participants = @participants.order(:last_name)
+        if  param_value_present(born_after)
+          dd,mm,yy = $1, $2, $3 if born_after =~ /(\d{2})-([A-Z|a-z]{3})-(\d{4})/
+          min = convert_arg_date(born_after) rescue nil
+          filter_by_date = true if !min.nil?
+        end
+        @participants = @participants.where(:birthday => min..max ) if filter_by_date
+      end
+      @participants = @participants.order(:last_name)
     end
     
     @num_results = @participants.count
-	
-	logger.debug("*********************Participants found #{@num_results}")
     
     respond_to do |format|
       format.html
-	  format.iphone  { render  :layout => 'mobile_application' }
+      format.iphone  { render  :layout => 'mobile_application' }
+    end
+  end
+
+  def sort_search_results
+    @participants = Participant.where(:id => params[:participants])
+    sort = params[:sort]
+    if sort == "First Name"
+      @participants = @participants.order("first_name ASC")
+    elsif sort == "Last Name"
+      @participants = @participants.order("last_name ASC")
+    elsif sort == "Middle Initial"
+      @participants = @participants.order("middle_initial ASC")
+    elsif sort == "Student ID"
+      @participants = @participants.order("student_id ASC")
+    elsif sort == "Building"
+      @participants = @participants.joins(:building).order("buildings.name ASC")
+    elsif sort == "Room #"
+      @participants = @participants.order("room_number ASC")
+    elsif sort == "Extension"
+      @participants = @participants.order("extension ASC")
+    elsif sort == "Email"
+      @participants = @participants.order("email ASC")
+    elsif sort == "Birthday"
+      @participants = @participants.order("birthday ASC")
+    end
+    msg = "Results are now sorted by #{sort}."
+    respond_to do |format|
+      format.js { render :locals => { :flash_notice => msg }}
     end
   end
   

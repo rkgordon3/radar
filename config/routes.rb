@@ -76,7 +76,8 @@ Radar::Application.routes.draw do
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/students/show_details/:id" => "students#show_details"
-  
+  match "/participants/sort_search_results" => "participants#sort_search_results"
+
   match "/incident_reports/add_participant"         => "reports#add_participant"
   match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
   
