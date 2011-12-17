@@ -1,8 +1,8 @@
 <div id="area_index">
   <table width="100%">
-    <th style="width:25%"><%= link_to "Name", "/areas?sort=title", :remote => true %></th>
-    <th style="width:10%"><%= link_to "Abbreviation", "/areas?sort=abbreviation", :remote => true %></th>
-    <th style="width:25%"><%= link_to "Buildings", "/areas?sort=buildings", :remote => true %></th>
+    <th style="width:25%"><%= link_to "Name", {:controller => "areas", :action => "index", :sort => "title"}, :remote => true %></th>
+    <th style="width:10%"><%= link_to "Abbreviation", {:controller => "areas", :action => "index", :sort => "abbreviation"}, :remote => true %></th>
+    <th style="width:25%"><%= link_to "Buildings", {:controller => "areas", :action => "index", :sort => "buildings"}, :remote => true %></th>
     <th></th>
   </table>
   <% is_shaded = 0 %>
