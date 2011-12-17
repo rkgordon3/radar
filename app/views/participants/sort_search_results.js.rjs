@@ -1,0 +1,3 @@
+page["flash_notice"].show
+page.replace_html 'flash_notice', flash_notice
+page.replace "selectable_full_info_list_div", :partial => 'selectable_full_info_list', :locals => {:participants => @participants}
