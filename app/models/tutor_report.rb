@@ -1,3 +1,2 @@
 class TutorReport < Report
-
 end

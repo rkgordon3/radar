@@ -105,7 +105,7 @@ DEPENDENCIES
   nifty-generators
   paperclip
   rails (= 3.0.6)
-  rails3-jquery-autocomplete
+  rails3-jquery-autocomplete (= 0.6.1)
   ruby-oci8 (>= 2.0.4)
   ruby-plsql
   sqlite3-ruby

@@ -1,6 +1,8 @@
 class Staff < ActiveRecord::Base
   has_many :staff_organizations, :dependent => :destroy
+  has_many :organizations, :through => :staff_organizations
   has_many :staff_areas, :dependent => :destroy
+  has_many :areas, :through => :staff_areas
   belongs_to :access_level
   belongs_to :area
 
@@ -36,10 +38,6 @@ class Staff < ActiveRecord::Base
     ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
   end
   
-  # return an array of Areas for those areas with which staff member is associated
-  def areas
-    Area.joins(:staff_areas).where("staff_id = ?", self.id)
-  end
   
   # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
@@ -47,15 +45,11 @@ class Staff < ActiveRecord::Base
   end
   
   def devise_creation_param_handler(params)
-    logger.debug("*******devise_creation_param_handler: staff_id = #{self.id} ")
-    # params[:staff_areas] = [ StaffArea.new(:staff_id => self.id, :area_id => params[:staff_areas]) ]
-    # params[:staff_organizations] = [ StaffOrganization.new(:staff_id => self.id, :organization_id => params[:staff_organizations]) ]
     params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
 
-  def get_registerable_access_levels
-
+  def registerable_access_levels
     if self.access_level? :system_administrator
       return AccessLevel.all
     elsif self.access_level? :administrator
@@ -72,11 +66,7 @@ class Staff < ActiveRecord::Base
   end
 
   def access_level?(access_level)
-    if self.access_level == nil
-      return false
-    end
-
-    return self.access_level.name == access_level.to_s.camelize
+    self.access_level.name == access_level.to_s.camelize rescue false
   end
 
   def sign_out_confirmation
@@ -92,25 +82,21 @@ class Staff < ActiveRecord::Base
     return confirmation + "Are you sure you want to sign out?"
   end
 
-  def get_registerable_organizations
-    reg_org_ids = Array.new
-    self.staff_organizations.each do |staff_org|
-      reg_org_ids << staff_org.organization.id
-    end
-    
-    return Organization.where(:id=>reg_org_ids).order(:name)
-  end
-
-  def organization?(organization)
-    if self.staff_organizations.first == nil
-      return false
-    end
-    
-    return self.staff_organizations.first.organization.name == organization.to_s.camelize
+  # Return those organizations for which I can add users
+  # NB: This method has to be written to comprehend staff's
+  # ability to add users to a given organization. Code looks
+  # something like commented code below.
+  def registerable_organizations
+   # Organization.all.select { |org| current_ability.can? :manage, StaffOrganization.find_by_organization_id_and_staff_id(org.id, self.id) }
+   self.organizations
   end
   
-  def organization
-    return self.staff_organizations.first.organization.name
+  # Organization in which user is currently acting
+  # NB: Degenerate case is 'first' from list of organizations to which
+  # user belongs. When full support for multiple orgs is in place, this
+  # method we have to be revisited.
+  def organization_of_agency
+    self.organizations.first
   end
 
   def lower_email

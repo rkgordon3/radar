@@ -21,7 +21,7 @@
           <% end %>
           <br />
           <%= render :partial => "participants/participant_details", :locals => { :participant => p } %><br/>
-          <%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(@report) } %>
+          <%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(@report) } if can? :view_contact_history, p %>
           <br />
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
             <b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b>

@@ -7,18 +7,19 @@ class Report < ActiveRecord::Base
   has_many      :report_participant_relationships
   belongs_to    :annotation
   after_initialize :setup_defaults
-  after_find	:cache_submitted
-  after_save       :save_everything
-  before_destroy   :destroy_everything
+  after_initialize 	:setup_defaults
+  after_find		:cache_submitted
+  after_save       	:save_everything
+  before_destroy   	:destroy_everything
   has_many      :participants, :through => :report_participant_relationships
-  
+  attr_accessible :type, :staff_id
   # return true if report is a generic report, ie FYI
   def is_generic?
     type == nil
   end
 
   def report_type
-    ReportType.find_by_name(self.type)
+    @report_type ||= ReportType.find_by_name(self.type)
   end
 
   def times_forwarded_to(interested_party)
@@ -31,17 +32,18 @@ class Report < ActiveRecord::Base
   end
   
   def forwardable?
-    ReportType.find_by_name(self.type).forwardable?
+    report_type.forwardable?
   end
   
   def supports_contact_reason_details?
     ReportType.find_by_name(self.type).has_contact_reason_details?
   end
 
+=begin
   def submitter?(staff)
-    staff||=Staff.new
-    return staff.id==self.staff.id
+    return staff.nil? ? false : staff.id==self.staff.id
   end
+=end
   
   def is_note?
     type == "Note"
@@ -71,7 +73,7 @@ class Report < ActiveRecord::Base
   end
   
   def type_id
-    ReportType.find_by_name(self.type).id
+    report_type.id
   end
   
   def can_edit_from_mobile?
@@ -119,9 +121,7 @@ class Report < ActiveRecord::Base
     self.adjunct_submitters.each do |ra|
       ra.destroy
     end
-    if params[:report_adjuncts] != nil
-        params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" }
-    end
+    params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
   end
   
   def setup_defaults
@@ -403,7 +403,5 @@ def add_contact_reason(params)
   
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
-  end
-  
-  
+  end 
 end

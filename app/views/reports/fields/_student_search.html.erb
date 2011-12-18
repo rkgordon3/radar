@@ -1,7 +1,7 @@
 <% if(type == "edit") %>
 <% elsif(type == "search") %>
     <b>Student:</b><br />  
-    <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %>
+    <%=  render :partial => 'participants/autocomplete_full_name' %>
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
 <% end %>

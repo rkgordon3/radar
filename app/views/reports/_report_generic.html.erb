@@ -12,7 +12,6 @@
 
 
 <%= form_for(@report) do |f| %>
-
     <table>
     <tbody id="s-i-form">
     </tbody>
@@ -31,6 +30,6 @@
   <% @report.report_type.fields("edit").each do |field| %>
         <%= render :partial => "reports/fields/#{field.name}", :locals => { :f => f, :type => "edit"} %>
   <% end %>
-  
+
   <%= render :partial => "reports/fields/submit_button" %>
 <% end %>

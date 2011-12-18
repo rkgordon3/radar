@@ -1,0 +1,2 @@
+class ByAppointment < TutorReport
+end

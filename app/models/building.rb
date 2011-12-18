@@ -2,7 +2,11 @@ class Building < ActiveRecord::Base
   belongs_to :area
   
   def Building.unspecified_id
-    Building.find_by_name(unspecified).id rescue 0
+    @@unspecified_id ||= Building.find_by_name(UNSPECIFIED_BUILDING).id rescue 0
+  end
+  
+  def Building.unspecified
+    @@unspecified ||= Building.find_by_name(UNSPECIFIED_BUILDING)
   end
 
   def Building.sort(key)
@@ -17,6 +21,12 @@ class Building < ActiveRecord::Base
     else
       return Building.order("name ASC").all
     end
+  end
+  
+  def <=> other
+	return  1 if other == Building.unspecified
+	return -1 if self == Building.unspecified
+	return self.name <=> other.name  
   end
 
 end

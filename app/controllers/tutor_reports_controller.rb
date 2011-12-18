@@ -25,7 +25,7 @@ class TutorReportsController < ReportsController
   # GET /incident_reports/new
   # GET /incident_reports/new.xml
   def new
-    @report = TutorReport.new(:staff_id => current_staff.id)    # new report
+    @report = TutorReport.new(:staff_id => current_staff.id, :type => params[:type])    # new report
     super
   end
 
@@ -35,6 +35,8 @@ class TutorReportsController < ReportsController
   end
 
   def show
+    logger.debug "!!!!!!!!!!!"
+    @tutor_report = Report.find(params[:id])
     @report = @tutor_report
     super
   end

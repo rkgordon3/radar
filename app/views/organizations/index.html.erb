@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Display name</th>
     <th>Abbreviation</th>
     <th></th>
     <th></th>
@@ -12,7 +11,6 @@
 
 <% @organizations.each do |organization| %>
   <tr>
-    <td><%= organization.name %></td>
     <td><%= organization.display_name %></td>
     <td><%= organization.abbreviation %></td>
     <td><%= link_to 'Show', organization %></td>

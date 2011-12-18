@@ -1,31 +1,31 @@
 <div id="inside_container" class="inside_container">
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
-  <font size="4" color="595959"><b>Call Log for: </b></font><font size="4"><%= "#{@shift.staff.name}" %></font><br />
-  <font size="4" color="595959"><b>On Call: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
+  <div class="form_header">Call Log for: <%= "#{@shift.staff.name}" %></div>
+  <div class="form_header2">On Call from <%= "#{@shift.start_date}, #{@shift.start_time} to #{@shift.end_date}, #{@shift.end_time}" %></div>
   <p><div>
     <b><font size="3">Summary</font></b><br />
-    <% if @shift.annotation.text.length > 0 %>
-      <%= @shift.annotation_text %>
-    <% else %>
-      No summary for this shift
-    <% end %>
+    <%= @shift.annotation.text.length rescue "No summary for this shift" %>
   </div></p>
 <p><div>
+   <% if total_reports == 0 %>
+      <b><font size="3">No Reports Submitted </font></b>
+   <% else %>
   <%= link_to image_tag("/images/add_icon.gif", :id => "all-reports-img"), "javascript:void(0)",
     :onclick => "plusMinusToggle('all-reports', 'all-reports-img');" %>
-  <b><font size="3">Reports Submitted </font>
+  <b><font size="3">Submitted Reports</font>
     <% if total_reports == 0 %>
       <font color="595959" size="3">
-      <% else %>
+    <% else %>
         <font color="B40D10" size="3">
-        <% end %>
-        <%= "(#{total_reports}) " %></font></b>
-  <% if total_incident_reports == 0 %>
-    <font color="595959"><%= "[no incident reports] " %></font>
-  <% elsif total_incident_reports == 1 %>
-    <font color="B40D10"><%= "[1 incident report] " %></font>
-  <% else %>
-    <font color="B40D10"><%= "[#{total_incident_reports} incident reports] " %></font>
+    <% end %>
+    <%= "(#{total_reports}) " %></font></b>
+    <% if total_incident_reports == 0 %>
+      <font color="595959"><%= "[no incident reports] " %></font>
+    <% elsif total_incident_reports == 1 %>
+      <font color="B40D10"><%= "[1 incident report] " %></font>
+    <% else %>
+      <font color="B40D10"><%= "[#{total_incident_reports} incident reports] " %></font>
+    <% end %>
   <% end %>
   <div id='all-reports' class='shift_log_div' style="display: none;">
     <%= render :partial=> "shifts/reports_in_call_log", :locals =>
