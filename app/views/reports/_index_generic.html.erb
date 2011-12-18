@@ -20,12 +20,7 @@
                         <td>
                             <% report_type_id = @report_type.id %>
                             <b><%= t "#{@report_type.class}.reasons" %>:</b><br />
-                            <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
-                               
-                                <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
-                                    <option value="<%= i.id %>"><%= i.description %></option>
-                                <% end %>
-                            </select>
+							<%= select_tag "infraction_id", options_from_collection_for_select(@report_type.associated_reasons, "id", "description"), :class=>"multi-select" , :multiple => true %>
                         </td>
                     </tr>
 					<% end %>
