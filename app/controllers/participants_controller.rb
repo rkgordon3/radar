@@ -87,13 +87,13 @@ class ParticipantsController < ApplicationController
       #----------------
       # if no student was selected, select all
     
-      @participants = Participant.where(:type => "Student") if @participants.empty?
+      #@participants = Participant.where(:type => "Student") if @participants.empty?
     
       #-----------------
       # if a building was selected, get students in that building
 
-      if param_value_present(params[:building_id]) && (params[:building_id] != Building.unspecified_id.to_s)
-        @participants = @participants.where(:building_id => params[:building_id])
+      if param_value_present(params[:building_id])
+        @participants = @participants.where(:building_id => params[:building_id]) rescue Participant.where(:building_id => params[:building_id])
         
         #-----------------
         # if a building was selected, get students in that building
@@ -107,7 +107,7 @@ class ParticipantsController < ApplicationController
       
       #-----------------
       # if an area was selected, get students in that area
-      if params[:area_id] != Area.unspecified_id.to_s && params[:building_id] == Building.unspecified_id.to_s
+      if param_value_present(params[:area_id]) && (not param_value_present(params[:building_id]))
         buildings = Building.where(:area_id => params[:area_id])
         @participants = @participants.where(:building_id => buildings)
         

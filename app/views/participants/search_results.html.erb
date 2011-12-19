@@ -1,4 +1,7 @@
 <div id="inside_container" class="inside_container">
+<% if @participants.count == 0 %>
+	No participants match search criteria.
+<% else %>
 <%= form_tag new_with_participants_reports_path %>
 <table>
 	<tr>
@@ -15,6 +18,8 @@
 	Showing <%= @num_results %> of <%= @num_results %> results.
 </p>
 <%= hidden_field_tag 'report_type' %>
+
+<% end %>
 </div>
 
 <script>
