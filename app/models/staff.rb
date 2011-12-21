@@ -50,7 +50,7 @@ class Staff < ActiveRecord::Base
   end
 
   def registerable_access_levels
-    if self.access_level? :system_administrator
+    if self.access_level? :system_administrator or self.access_level? :root
       return AccessLevel.all
     elsif self.access_level? :administrator
       return AccessLevel.where(:name => ['AdministrativeAssistant', 'HallDirector', 'ResidentAssistant'])

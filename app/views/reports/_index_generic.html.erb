@@ -2,29 +2,15 @@
     <tr>
         <td valign=top>
             <%= form_tag 'index_search', :remote => true %>
-                <table> 
-					<tr>
-                        <td valign=top>
-                            <b>Student:</b><br />  
-                           <%=  render :partial => 'participants/autocomplete_full_name' %>    
-                        </td>
-                    </tr>
+                <table>
+                    <% @report_type.fields("search").each do |field| %>
+                            <tr>
+                                <td valign=top>
+                                    <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "search"} %>
+                                </td>
+                            </tr>
+                    <% end %>
                     <tr>
-                        <td valign=top>
-                            <b>Building:</b><br />
-							<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>                          
-                        </td>
-                    </tr>
-					<% if @report_type.name != "Note" %>
-                    <tr>
-                        <td>
-                            <% report_type_id = @report_type.id %>
-                            <b><%= t "#{@report_type.class}.reasons" %>:</b><br />
-							<%= select_tag "infraction_id", options_from_collection_for_select(@report_type.associated_reasons, "id", "description"), :class=>"multi-select" , :multiple => true %>
-                        </td>
-                    </tr>
-					<% end %>
-					<tr>
                         <td valign=top>
                             <b>Approached Before:</b><br />
                             <input type="text" id="submitted_before" name="submitted_before"></input>	
@@ -33,15 +19,6 @@
                             <input type="text" id="submitted_after" name="submitted_after"></input>	
                         </td>
                     </tr>
-                    <tr>
-                        <td valign=top>
-                            <b>Area:</b><br />
-                            <%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name"), :include_blank => true %>
-                        </td>
-                    </tr>
-                   
-					
-                    
                     <tr>
                         <td>
                             <%= hidden_field_tag 'type', @report_type.name %>

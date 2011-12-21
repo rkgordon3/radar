@@ -1,0 +1,7 @@
+<tr>
+  <% report_type.fields("index").each do |field| %>
+            <th>
+                <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "index", :part => "header"} %>
+            </th>
+  <% end %>
+</tr>

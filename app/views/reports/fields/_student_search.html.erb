@@ -1,0 +1,7 @@
+<% if(type == "edit") %>
+<% elsif(type == "search") %>
+    <b>Student:</b><br />  
+    <%=  render :partial => 'participants/autocomplete_full_name' %>
+<% elsif(type == "index") %>
+<% elsif(type == "show") %>
+<% end %>

@@ -134,7 +134,7 @@ class ReportsController < ApplicationController
   def add_participant
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
     @report = session[:report]
-    
+
     if not defined? @participant
 	
       name_tokens = params[:full_name].split(' ')
@@ -143,7 +143,6 @@ class ReportsController < ApplicationController
         middle_initial = name_tokens[1].capitalize
       end
       last_name = name_tokens[name_tokens.length-1].capitalize
-      
       
       respond_to do |format|
         format.js{
@@ -165,6 +164,7 @@ class ReportsController < ApplicationController
         format.iphone {
           render :update do |page|
             if insert_new_participant_partial
+              @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -266,6 +266,70 @@ class ReportsController < ApplicationController
     end
   end
   
+  def update_annotation
+    text = params[:text]
+    pid = params[:participant]
+    reason = params[:reason]
+    report = session[:report]
+    if text.length == 0 or text == nil
+        report.remove_annotation_for(pid, reason, text)
+    else
+        report.add_annotation_for(pid, reason, text)
+    end
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
+  def update_common_annotation
+    text = params[:text]
+    reason = params[:reason]
+    report = session[:report]
+    pids = report.participant_ids
+    pids.each do |pid|
+        if text.length == 0 or text == nil
+            report.remove_annotation_for(pid, reason, text)
+        else
+            report.add_annotation_for(pid, reason, text)
+        end
+    end
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
+  def update_duration
+    text = params[:text]
+    pid = params[:participant]
+    reason = params[:reason]
+    report = session[:report]
+    time_string = text.split(" ")
+    hours = time_string[0].to_i()
+    min = time_string[2].to_i()
+    minutes = (hours*60) + min
+    report.add_duration_for(pid, reason, minutes)
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
+  def update_common_duration
+    text = params[:text]
+    reason = params[:reason]
+    report = session[:report]
+    pids = report.participant_ids
+    time_string = text.split(" ")
+    hours = time_string[0].to_i()
+    min = time_string[2].to_i()
+    minutes = (hours*60) + min
+    pids.each do |pid|
+        report.add_duration_for(pid, reason, minutes)
+    end
+    respond_to do |format|
+        format.js {render :nothing => true}
+    end
+  end
+  
   def update_reason
     pid = params[:participant]
     id = params[:reason]
@@ -323,7 +387,7 @@ class ReportsController < ApplicationController
       # get the incident reports with those ids
       @reports = @reports.where(:id => report_ids)
     end
-        
+    
     #-----------------
     # if a particular infraction was selected, get all reports w/ that infraction
     if (params[:infraction_id] != nil)
@@ -364,8 +428,7 @@ class ReportsController < ApplicationController
     # if an area was selected, get reports in that area
     if Integer(params[:area_id]) != Area.unspecified_id
       buildings = Building.where(:area_id => params[:area_id])
-      @reports = @reports.where(:building_id => buildings)
-          
+      @reports = @reports.where(:building_id => buildings) 
     end
         
     #-----------------
@@ -397,8 +460,9 @@ class ReportsController < ApplicationController
     @reports = Report.sort(@reports,params[:sort])
         
     @num_reports = @reports.count
+    @report_type = ReportType.find_by_name(params[:type])
     respond_to do |format|
-      format.js
+      format.js{ render :locals => { :report_type => @report_type } }
     end
   end
   

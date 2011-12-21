@@ -1,5 +1,13 @@
 Radar::Application.routes.draw do
 
+  resources :report_fields
+
+  resources :enrollments
+
+  resources :courses
+
+  resources :tutor_reports
+
   resources :interested_party_reports
 
   resources :access_levels
@@ -72,6 +80,10 @@ Radar::Application.routes.draw do
   match "/to_do_list" => "task_assignments#to_do_list"
   match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/update_reason" => "reports#update_reason"
+  match "/reports/update_annotation" => "reports#update_annotation"
+  match "/reports/update_duration" => "reports#update_duration"
+  match "/reports/update_common_annotation" => "reports#update_common_annotation"
+  match "/reports/update_common_duration" => "reports#update_common_duration"
   match "/reports/add_participant/" => "reports#add_participant"
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"

@@ -1,0 +1,24 @@
+<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}_#{infraction.id}-annotation_img"), "javascript:void(0)",  
+  :onclick => "plusMinusToggle('contact_details_#{participant.id}_#{infraction.id}', '#{participant.id}_#{infraction.id}-annotation_img');" %>
+<b><%= "Details" %></b></br>
+<div id="contact_details_<%= participant.id %>_<%= infraction.id %>" class="participant_detail">
+  <div style="margin-left: 15px;">
+    <% rf =  remote_function( :update => nil,
+							:url => { :controller => 'reports', :action => :update_annotation },
+							:with => "'participant=#{participant.id}&reason=#{infraction.id}" + '&text=\' + this.value')  %>
+    <% rf2 =  remote_function( :update => nil,
+							:url => { :controller => 'reports', :action => :update_duration },
+							:with => "'participant=#{participant.id}&reason=#{infraction.id}" + '&text=\' + this.value')  %>
+    <%= "Annotation" %><br />
+    <%= text_area_tag "annotation_#{participant.id}_#{infraction.id}", nil, :cols => 60, :rows => 2, :onblur => "#{rf}" %>
+    <br />
+    <%= "Duration (Minutes)" %><br />
+    <input type="text" id="duration_<%= participant.id %>_<%= infraction.id %>" name="duration_<%= participant.id %>_<%= infraction.id %>" onblur="<%= rf2 %>"></input>
+    
+  </div>
+</div>
+
+<script type="text/javascript">
+        AnyTime.picker( "duration_<%= participant.id %>_<%= infraction.id %>",
+            { format: "%k hour(s) %i min" } );
+</script>

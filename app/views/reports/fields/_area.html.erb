@@ -1,0 +1,7 @@
+<% if(type == "edit") %>
+<% elsif(type == "search") %>
+    <b>Area:</b><br />
+    <%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name"), :include_blank => true %>
+<% elsif(type == "index") %>
+<% elsif(type == "show") %>
+<% end %>

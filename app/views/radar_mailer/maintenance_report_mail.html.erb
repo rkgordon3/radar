@@ -12,9 +12,9 @@
 
   <% current_participant_id = -1 %>
 
-  <b> <%= t "annotation" %></b>
+  <b> <%= t "#{current_staff.organization}.annotation" %></b>
   <%= @report.annotation_text %><br/><br />
-  <b><%= t "location" %></b>
+  <b><%= t "#{current_staff.organization}.location" %></b>
   <%= @report.building.name %><br/><br />
   <b>Room Number:</b>
   <%= @report.room_number %><br/><br />

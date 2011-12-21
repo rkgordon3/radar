@@ -25,6 +25,4 @@ class RelationshipToReport < ActiveRecord::Base
 	return -1 if self.id == RelationshipToReport.fyi
 	return self.description <=> other.description  
   end
-  
-  
 end

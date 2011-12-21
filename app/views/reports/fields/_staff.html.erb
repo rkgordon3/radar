@@ -1,0 +1,12 @@
+<% if(type == "edit") %>
+<% elsif(type == "search") %>
+<% elsif(type == "index") %>
+    <% if(part == "header") %>
+        <%= link_to "Staff", params.merge(:sort => "submitter"), :remote => true %>
+    <% elsif(part == "data") %>
+        <%= report.staff.last_name rescue unknown %>
+    <% end %>
+<% elsif(type == "show") %>
+    <b><%= t "#{current_staff.organization}.submitter" %></b>
+    <%= @report.staff.name %>
+<% end %>

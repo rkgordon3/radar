@@ -1,9 +1,11 @@
 class AcademicSkillsCenterOrganization < Organization
- include CanCan::Ability
+
  def apply_privileges(ability, staff)
-    if staff.access_level? :system_administrator
-        trim_privileges_to(ability, :system_administrator,staff)
-    end
+    ability.can :manage, TutorReport
+	ability.can :manage, Participant
+    #if staff.access_level? :system_administrator
+    #    trim_privileges_to(ability, :system_administrator,staff)
+    #end
   end
   
   private
@@ -12,10 +14,11 @@ class AcademicSkillsCenterOrganization < Organization
     if access_level_symbol == :system_administrator
       ability.can :manage, :all
 	  
-	  ability.can :register, Organization, :id => self.id
-      ability.cannot :manage, Report
-      ability.can :manage, TutorLog
+	  ability.can :register, Organization
+	  #ability.can :register, Organization, :id => self.id
+      ability.can :manage, TutorReport
       ability.cannot :update_organization, Staff
+      ability.can :manage, [ Participant]
     end
   end
 end

@@ -1,0 +1,18 @@
+<% if(type == "edit") %>
+    <div class="field">
+        <b><%= f.label :building_id %>:<br /></b>
+		<%= select :report, :building_id, options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>
+    </div>
+<% elsif(type == "search") %>
+    <b>Building:</b><br />
+    <%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>
+<% elsif(type == "index") %>
+    <% if(part == "header") %>
+        <%= link_to "Building", params.merge(:sort => "building"), :remote => true %>
+    <% elsif(part == "data") %>
+        <%= report.building.name %>
+    <% end %>
+<% elsif(type == "show") %>
+    <b><%= t "#{current_staff.organization}.location" %></b>
+    <%= @report.building.name %>
+<% end %>

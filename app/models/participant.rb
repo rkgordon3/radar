@@ -4,6 +4,8 @@ class Participant < ActiveRecord::Base
   has_many :reports, :through => :report_participant_relationships
   
   def contact_history(report=nil)
+    logger.debug "!!!!!!!!!!!!??!!!!!!!!!!"
+    logger.debug report_participant_relationships[0].report.type
 	rp = (not report.nil?) ? report_participant_relationships.select { |r| r.report.type == report.type } :
                         report_participant_relationships
 	

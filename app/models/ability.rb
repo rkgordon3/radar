@@ -6,13 +6,14 @@ class Ability
     alias_action :forward_as_mail => :forward
 
     staff ||= Staff.new
-    begin
+    if not staff.organizations.empty? 
        staff.organizations.each do |org|
 	     org.apply_privileges(self, staff)
 	   end
-    rescue => e
-      # this user does not belong to an organization and is therefore not logged in
-      can :landingpage, :home
+    else
+      # this user does not belong to an organization and is super-user
+	  puts "**************Applying super user abilities"
+      can :manage, :all
     end
   end
 

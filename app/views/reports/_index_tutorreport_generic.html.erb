@@ -1,0 +1,48 @@
+<table>
+    <tr>
+        <td valign=top>
+            <%= form_tag 'index_search', :remote => true %>
+                <table>
+                    <tr>
+                        <td valign=top>
+                            <b>Student:</b><br />  
+                            <%=text_field_tag 'full_name', '',  :autocomplete => search_autocomplete_student_full_name_path %> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% report_type_id = @report_type.id %>
+                            <b><%= t "#{current_staff.organization}.#{@report_type.class}.reasons" %>:</b><br />
+                            <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
+                               
+                                <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
+                                    <option value="<%= i.id %>"><%= i.description %></option>
+                                <% end %>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%= hidden_field_tag 'type', @report_type.name %>
+                            <input id="submit" name="submit" type="submit" value="Update" />
+                        </td>
+                    </tr>
+                </table>    
+            </form>
+        </td>
+        <td valign=top>
+            <br />
+            <div id="results">
+                <%= render :partial => 'reports/tutorreport_table_row', :locals => { :reports => @reports, :num_rows => 0} %>
+            </div>
+            <br />
+        </td>
+    </tr>    
+</table>
+
+<script type="text/javascript">
+        AnyTime.picker( "submitted_before",
+            { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+        AnyTime.picker( "submitted_after",
+            { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
+</script>

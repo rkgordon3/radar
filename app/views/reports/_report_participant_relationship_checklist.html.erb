@@ -4,9 +4,9 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	<span class="small-label"><%= t "#{params[:controller]}.reasons" %></span>
+  	<span class="small-label"><%= t "#{current_staff.organization}.#{params[:controller]}.reasons" %></span>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
-  			<% infractions = report.reasons%>
+  			<% infractions = report.reasons(participant)%>
   			<% infractions.each do |infraction| %>
 			<% rf =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_reason },
@@ -14,10 +14,14 @@
   		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
-  				       report.get_contact_reason_for_participant(participant.id, infraction.id) != nil, 
-					   :onclick => "#{rf}" %>
-  				    <%= infraction.description %>			
-  				
+  				       report.get_contact_reason_for_participant(participant.id, infraction.id) != nil,
+					   :onclick => "#{rf}; if(this.checked){document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'none';} " %>
+  				    <%= infraction.description %>		
+                    <% if @report.supports_contact_reason_details? %>
+                        <div id="<%= participant.id %>_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">
+                            <%= render :partial => 'reports/contact_details', :locals => { :participant => participant, :infraction => infraction } %>
+                        </div>
+                    <% end %>
   				  </div>
   			<% end %>
   	</div>

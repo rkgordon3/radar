@@ -12,10 +12,10 @@
 
 
 <%= form_for(@report) do |f| %>
-
-  <div id="s-i-form">
-    <%= render :partial=> "reports/participants_in_report", :locals => { :width => 3, :report => @report, :participants => Participant.where(:id => @report.participant_ids).order(:last_name) } %>
-  </div>
+    <table>
+    <tbody id="s-i-form">
+    </tbody>
+    </table>
 
   <% common_reasons_state = @report.participant_ids.size > 1 ? "block" : "none" %>
   <% content_tag :div, :id=>"common-reasons-container", :style=>"display:#{common_reasons_state}" do -%>
@@ -23,61 +23,13 @@
   <% end -%>
 
   <div class="field">
-    <b>  <%= t "annotation" %></b><br />
+    <b>  <%= t "#{current_staff.organization}.annotation" %></b><br />
     <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
   </div>
-
-
-  <div class="field">
-    <b><%= f.label :building_id %>:<br /></b>
-    <%= select :report,:building_id,Building.order(:name).collect{|p| [p.name, p.id]},{}%>
-  </div>
-
-  <div class="field">
-    <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
-    <%= text_field(:report, :room_number) %>
-  </div>
-
-  <% if !@report.is_note? %>
-    <div class="field">
-      <b><%= f.label :approach_time %>:</b><br />
-      <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time) %>
-    </div>
-  <% end %>
-  <% adjuncts = current_staff.adjuncts %>
-  <% if not adjuncts.empty? %>
-  <div class="field">
-    <div>
-      <%= link_to image_tag("/images/add_icon.gif", :id => "ss-img"), "javascript:void(0)",
-        :onclick => "plusMinusToggle('ss-div', 'ss-img');" %>
-      <%= link_to('Secondary Submitter(s)', "javascript:void(0)",
-        :onclick => "plusMinusToggle('ss-div', 'ss-img');" , :class=>"toggle-link") %>
-    </div>
-    <div id="ss-div" style="display: none;">
-
-      <% adjuncts.each do |s| %>
-        <div class ="small-label" style="margin-left: 8px; margin-top: 4px; margin-bottom: 0px;" >
-          <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.is_adjunct?(s) } %>
-          <%= "#{s.first_name} #{s.last_name}" %><br />
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <% end %>
   
-  <div class="actions">
-    <p>
-      <% if !@report.submitted %>
-        <%= submit_tag "Save Report", { :name => "save_submit" } %>
-      <% end %>
-      <%= submit_tag "Submit Report",  { :name=> "report[submitted]" } %>
-    </p>
+  <% @report.report_type.fields("edit").each do |field| %>
+        <%= render :partial => "reports/fields/#{field.name}", :locals => { :f => f, :type => "edit"} %>
+  <% end %>
 
-  </div>
-
+  <%= render :partial => "reports/fields/submit_button" %>
 <% end %>
-<script type="text/javascript">
-  AnyTime.picker( "approach_time",
-  { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
-</script>
-

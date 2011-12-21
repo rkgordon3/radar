@@ -1,0 +1,2 @@
+class TutorReport < Report
+end
