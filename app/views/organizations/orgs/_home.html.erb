@@ -29,8 +29,8 @@
   <%if can? :index, TutorReport %>
   <li><%= link_to "Tutor Report", "/tutor_reports/new" %>
     <ul>
-      <li><%= link_to "New Tutor Report", "/tutor_reports/new" %></li>
-      <li><%= link_to "By Appointment", "/tutor_reports/new?type=ByAppointment" %></li>
+      <li><%= link_to "Tutor Report", "/tutor_reports/new?type=TutorReport" %></li>
+      <li><%= link_to "By Appointment Tutor Report", "/tutor_reports/new?type=TutorByAppointmentReport" %></li>
       <li><%= link_to "List Tutor Reports", "/reports?report=TutorReport" %></li>
     </ul>
   </li>
