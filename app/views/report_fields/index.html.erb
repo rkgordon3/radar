@@ -11,8 +11,8 @@
 
 <% @report_fields.each do |report_field| %>
   <tr>
-    <td><%= report_field.ReportTypeId %></td>
-    <td><%= report_field.Field %></td>
+    <td><%= report_field.report_type_id %></td>
+    <td><%= report_field.name %></td>
     <td><%= link_to 'Show', report_field %></td>
     <td><%= link_to 'Edit', edit_report_field_path(report_field) %></td>
     <td><%= link_to 'Destroy', report_field, :confirm => 'Are you sure?', :method => :delete %></td>
