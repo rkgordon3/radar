@@ -1,6 +1,6 @@
 <div id="inside_container" class="inside_container">
 <div class="form_header">Task Descriptions</div>
-
+      <% if can? :create, Task %><li><%= link_to "New Task", new_task_path  %></li><% end %>
   <table>
     <tr>
       <th><%= link_to "Title", :sort => "title" %></th>
