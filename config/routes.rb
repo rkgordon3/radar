@@ -1,41 +1,26 @@
 Radar::Application.routes.draw do
 
-  resources :report_fields
+# resources :report_fields
 
-  resources :enrollments
+# resources :enrollments
 
-  resources :courses
+#  resources :interested_party_reports
 
-  resources :tutor_reports
+#  resources :access_levels
 
-  resources :interested_party_reports
-
-  resources :access_levels
-
-  resources :writing_center_contacts
-
-  resources :study_tables
+#  resources :interested_parties
   
-  resources :tutor_contacts
-
-  resources :interested_parties
-  
-  resources :imports
+#  resources :imports
   
   match "/imports/proc/:id" => "imports#proc_csv"
 
   resources :task_assignments  
-  
-  resources  :tests
-  
-  
-  resources :staff_organizations
+
+#  resources :staff_organizations
 
   resources :organizations
 
   resources :tasks
-  
-  resources :tutor_logs
   
   resources :notes do
     get :on_duty_index, :on => :collection
@@ -114,18 +99,20 @@ Radar::Application.routes.draw do
   resources :maintenance_reports do
     get :on_duty_index, :on => :collection
   end
-
   
-  match "/reports_query/search" => "reports_query#search"
-  get "/reports_query/search"
+  resources :tutor_reports 
+  resources :tutor_by_appointment_reports, :controller => "tutor_reports"
   
-  match "/reports_query/search_results" => "reports_query#search_results" 
-  get "/reports_query/search_results"
+#  match "/reports_query/search" => "reports_query#search"
+#  get "/reports_query/search"
+  
+#  match "/reports_query/search_results" => "reports_query#search_results" 
+#  get "/reports_query/search_results"
   
  # get "/students/search_students"
   
-  match "/students/process_search_parameters" => "students#process_search_parameters" 
-  get "/students/process_search_parameters"
+  #match "/students/process_search_parameters" => "students#process_search_parameters" 
+  #get "/students/process_search_parameters"
     
   match "/index_search" => "reports#index_search"
   
@@ -133,7 +120,7 @@ Radar::Application.routes.draw do
   
   resources :rounds 		
 
-  resources :annotations
+ # resources :annotations
 
   resources :participants do
     get  :autocomplete_participant_full_name, :on => :collection
