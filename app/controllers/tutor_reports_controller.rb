@@ -25,7 +25,9 @@ class TutorReportsController < ReportsController
   # GET /incident_reports/new
   # GET /incident_reports/new.xml
   def new
-    @report = TutorReport.new(:staff_id => current_staff.id, :type => params[:type])    # new report
+    @report =  param_value_present(params[:type]) ? 
+	                        params[:type].constantize.new(:staff_id => current_staff.id)
+	                      : TutorReport.new(:staff_id => current_staff.id)    # new report
     super
   end
 
