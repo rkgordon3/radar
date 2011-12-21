@@ -22,6 +22,8 @@ td {
     padding: 5px;
 }
 
+label { color: #595959;  font-weight: bold;  font-size:12px;}
+
 .multi-select { height:150px; }
 
 .clear {
@@ -272,7 +274,7 @@ td {
     clear:left;
 }	
 
-label { font-weight:bold; }
+
 
 #page_title { font-weight:bold; }
 
