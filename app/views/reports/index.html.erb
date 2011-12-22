@@ -6,7 +6,7 @@
       Reports
     <% end %>
 	</div>
-  <%= render :partial => "reports/index_generic", :locals => { :reports => @reports } %>
+  <%= render :partial => "reports/index_generic", :locals => { :reports => @reports, :report_type => @reports.first.report_type } %>
   <div class="new_report_link">
     <%= link_to 'New Report', new_report_path if can? :create, Report %>
     <div class="edit_link">

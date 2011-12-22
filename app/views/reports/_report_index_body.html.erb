@@ -3,7 +3,7 @@
 <% end %>
 <table>
   <% if reports.length > 0 %>
-    <%= render :partial => "reports/report_index_header_linked_labels", :locals => {:report_type => @report_type} %>
+    <%= render :partial => "reports/report_index_header_linked_labels", :locals => {:report_type => report_type} %>
   <% else %>
     <%= "No Reports Match These Criteria" %>
   <% end %>

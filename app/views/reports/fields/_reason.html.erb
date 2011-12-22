@@ -1,12 +1,7 @@
 <% if(type == "edit") %>
 <% elsif(type == "search") %>
-    <% report_type_id = @report_type.id %>
-    <b><%= t "#{current_staff.organization}.#{@report_type.class}.reasons" %>:</b><br />
-    <select id="infraction_id" name="infraction_id[]" MULTIPLE style="height:150px;">
-        <% RelationshipToReport.where(:report_type_id => report_type_id).each do |i| %>
-            <option value="<%= i.id %>"><%= i.description %></option>
-        <% end %>
-    </select>
+    <b><%= t "#{current_staff.organization}.#{report_type.class}.reasons" %>:</b><br />
+	<%= select_tag "infaction_id", options_from_collection_for_select(report_type.associated_reasons, "id", "description"), :multiple => true, :class=> 'form_input' %>
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
 <% end %>

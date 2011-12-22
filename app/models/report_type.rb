@@ -16,7 +16,7 @@ class ReportType < ActiveRecord::Base
     self.report_fields.where("#{view}_position IS NOT NULL and #{view}_position > 0").order("#{view}_position")
   end
 
-  def associated_reasons(student)
+  def associated_reasons(student = nil)
     if (path_to_reason_context != nil && student != nil)
         (path_to_reason_context.constantize.for([student]) + ReportType.common_reasons).sort{|a,b| a.description <=> b.description}
     else

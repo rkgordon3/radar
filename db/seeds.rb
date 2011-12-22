@@ -1,5 +1,12 @@
+root_al = AccessLevel.find_by_name("root") || AccessLevel.create(:name => "root", display_name => "root", :numeric_level => 6) 
 
-
+Staff.create(:password=> "password", 
+             :password_confirmation => "password",
+			 :email => "radar-smumn.edu",
+			 :first_name  => "super", :last_name => "user",
+			 :access_level_id => root_al.id
+			 ) if Staff.find_by_email("radar-admin@smumn.edu").nil?
+			 
 acs = Organization.find_by_type("AcademicSkillsCenterOrganization")
 
 ReportType.create( { 
@@ -249,3 +256,33 @@ report = ReportType.find_by_name("TutorReport")
   :index_position => 3,
  } )  
   
+  
+report = ReportType.find_by_name("Note") 
+
+ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'date',
+  :index_position => 1,
+  :show_position => 1 } )
+  
+ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'time',
+  :index_position => 2,
+  :show_position => 2 } )
+  
+ ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'tag',
+  :index_position => 3 })
+  
+ ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'staff',
+  :index_position =>4,
+  :show_position => 6 })
+  
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'annotation',
+  :index_position => 5 } )

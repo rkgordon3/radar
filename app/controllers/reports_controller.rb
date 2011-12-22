@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_filter :authenticate_staff!
   load_resource :except => :remove_participant
   authorize_resource
+  load_and_authorize_resource :incident_report
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
@@ -9,13 +10,13 @@ class ReportsController < ApplicationController
       params[:report] = "Report"
     end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
-    @report_type = ReportType.find_by_name(params[:report])
+    report_type = ReportType.find_by_name(params[:report])
 	  
     params[:sort] ||= "approach_time"
     
     @reports = Report.sort(@reports,params[:sort])
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports } }
+      format.html { render :locals => { :reports => @reports, :report_type => report_type } }
       format.xml  { render :xml => @reports }
       format.js
     end

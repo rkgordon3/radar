@@ -14,7 +14,7 @@
       <div id="off-round-reports" style="display: none;" class='shift_log_div' >
         <% if reports.length > 0 %>
           <div id="off-round-reports-div" >
-            <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0 } %>
+            <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0, :report_type => reports.first.report_type } %>
           </div>
         <% else %>
           <p>No reports were created while not on a round.</p>
@@ -34,7 +34,7 @@
       <div id="off-round-notes" class='shift_log_div' style="display: none;">
         <% if notes.length > 0 %>
           <div id="off-round-notes-div" >
-            <%= render :partial => "reports/report_index_body", :locals => { :reports => notes, :num_rows=>0 } %>
+            <%= render :partial => "reports/report_index_body", :locals => { :reports => notes, :num_rows=>0, :report_type => notes.first.report_type } %>
           </div>
         <% else %>
           <p>No notes were created while not on a round.</p>
