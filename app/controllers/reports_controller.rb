@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     report_type = ReportType.find_by_name(params[:report])
 	  
-    params[:sort] ||= "approach_time"
+    params[:sort] ||= Report.default_sort_field
     
     @reports = Report.sort(@reports,params[:sort])
     respond_to do |format|
@@ -441,14 +441,14 @@ class ReportsController < ApplicationController
 	filter_by_datetime = false
     # if a date was provided, find all before that date
     if param_value_present(params[:submitted_before]) 
-       max = convert_arg_datetime(born_before) rescue nil
+       max = convert_arg_datetime(params[:submitted_before]) rescue nil
        filter_by_datetime = true if !max.nil?   
     end
         
     #-----------------
     # if a date was provided, find all after that date
     if param_value_present(params[:submitted_after])
-		min = convert_arg_datetime(born_after) rescue nil
+		min = convert_arg_datetime(params[:submitted_after]) rescue nil
         filter_by_datetime = true if !min.nil?
     end
 	logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
@@ -456,7 +456,7 @@ class ReportsController < ApplicationController
 	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
             
     # finishing touches...
-    @reports = @reports.where(:submitted => true).paginate(:page => params[:page], :per_page => 30)
+    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
     params[:sort] ||= Report.default_sort_field
     @reports = Report.sort(@reports,params[:sort])
       
