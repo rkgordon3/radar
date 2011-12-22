@@ -39,16 +39,16 @@
           { :round_count => round_count, :round => round, :reports =>on_round_report_map[round], :notes => on_round_note_map[round] } %>
       <% end %>
     <% else %>
-      <div id="inside_container" class="inside_container">
-        <font size="2" color="B40D10"><b>No rounds were completed for this shift.</b></font>
+      <div class="small-label">
+        No rounds were completed for this shift.
       </div>
     <% end %>
     <% if off_round_notes.length > 0 || off_round_reports.length > 0 %>
       <%= render :partial=> "shifts/off_round_in_duty_log", :locals =>
         { :reports => off_round_reports, :notes => off_round_notes } %>
     <% else %>
-      <div id="inside_container" class="inside_container">
-        <font size="2"><b>No submitted reports were created while not on a round.</b></font>
+      <div class="small-label">
+        No off-round reports were submitted.
       </div>
     <% end %>
   </div>

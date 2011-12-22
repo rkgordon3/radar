@@ -25,3 +25,4 @@ tmp/**/*
 /db/complete_data.yml
 /script/courses_import.log
 /script/enrollments_import.log
+/routes.out
