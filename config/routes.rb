@@ -14,7 +14,9 @@ Radar::Application.routes.draw do
   
   match "/imports/proc/:id" => "imports#proc_csv"
 
-  resources :task_assignments  
+  resources :task_assignments  do
+    get :to_do_list, :on => :collection
+  end
 
 #  resources :staff_organizations
 
@@ -62,7 +64,7 @@ Radar::Application.routes.draw do
   
   get "reports_query/reports_query"
 
-  match "/to_do_list" => "task_assignments#to_do_list"
+ # match "/to_do_list" => "task_assignments#to_do_list"
   match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/update_reason" => "reports#update_reason"
   match "/reports/update_annotation" => "reports#update_annotation"

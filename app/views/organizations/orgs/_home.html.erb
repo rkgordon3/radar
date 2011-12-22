@@ -44,12 +44,12 @@
   </li>
   <% end %>
   <li><%  if can? :index, Task %>
-      <%= link_to "Tasks", "/tasks" %>
+      <%= link_to "Tasks", tasks_path %>
     <% else %>
-      <%= link_to "Tasks", "/to_do_list" %>
+      <%= link_to "Tasks", to_do_list_task_assignments_path %>
     <% end %>
     <ul>
-      <% if can? :do, Shift  %><li><%= link_to "My To Do List", "/to_do_list" %></li><% end %>
+      <% if can? :do, TaskAssignment  %><li><%= link_to "My To Do List", to_do_list_task_assignments_path%></li><% end %>
     </ul>
   </li>
   <% if can? :index, Shift %>

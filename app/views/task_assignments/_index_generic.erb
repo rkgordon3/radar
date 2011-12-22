@@ -1,6 +1,6 @@
 <div id="to_do_list">
   <% if !current_staff.on_duty? %>
-    <h3>You must <%=image_tag("go_on_duty_sign.png", :size=> "35x35", :title=>"Go On Duty")%> on duty to be assigned tasks and then <%= link_to "refresh this page", "/to_do_list" %> to view them.</h3>
+    <h3>You must <%=image_tag("go_on_duty_sign.png", :size=> "35x35", :title=>"Go On Duty")%> on duty to be assigned tasks and then <%= link_to "refresh this page", to_do_list_task_assignments_path %> to view them.</h3>
   <% else %>
     <% if @task_assignments != nil %>
       <% if @task_assignments.length > 0 %>

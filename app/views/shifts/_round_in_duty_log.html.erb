@@ -15,7 +15,7 @@
     <div id="<%= round.id %>-reports" style="display: none;" class='shift_log_div' >
       <div id="round <%= round.id %>-reports-div" >
         <% if reports.length > 0 %>
-          <%= render :partial => "reports/report_table_row", :locals => { :reports => reports, :num_rows=>0 } %>
+          <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0 } %>
         <% else %>
           <p>No reports were submitted for this round.</p>
         <% end %>
@@ -36,7 +36,7 @@
     <div id="<%= round.id %>-notes" class='shift_log_div' style="display: none;">
       <div id="round <%= round.id %>-notes-div" >
         <% if notes.length > 0 %>
-          <%= render :partial => "reports/report_table_row", :locals => { :reports => notes, :num_rows=>0 } %>
+          <%= render :partial => "reports/report_index_body", :locals => { :reports => notes, :num_rows=>0 } %>
         <% else %>
           <p>No notes were submitted for this round.</p>
         <% end %>
