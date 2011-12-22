@@ -12,6 +12,10 @@
     <% end %>
  
 <% elsif(type == "show") %>
-    <b><%= t "#{current_staff.organization}.annotation" %></b>
-    <%= report.annotation_text %>
+  <div class="field">
+    <%= label_tag  do -%>
+	    <%= t "#{current_staff.organization}.annotation" %>:
+	<% end -%>
+     <%= report.annotation_text %>
+  </div>    
 <% end %>

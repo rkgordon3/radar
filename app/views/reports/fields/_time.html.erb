@@ -7,6 +7,10 @@
         <%= report.event_time %>
     <% end %> 
 <% elsif(type == "show") %>
-    <b>Approach Time:</b>
+  <div class="field">
+    <%= label_tag  do -%>
+	    Approach Time:
+	<% end -%>
     <%= @report.event_time %>
+  </div>
 <% end %>

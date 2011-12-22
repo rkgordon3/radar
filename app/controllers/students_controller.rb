@@ -40,11 +40,7 @@ class StudentsController < ApplicationController
     end
   end 
   
-  private
-	def convert_arg_date(date)
-		dd,mm,yy = $1, $2, $3 if date =~ /(\d+)-([A-Z|a-z]{3})-(\d{4})/
-		logger.debug("yy = #{yy} mm = #{mm} dd = #{dd}")
-		Time.mktime(yy, mm, dd).gmtime
-	end	
+
+
 
 end

@@ -1,7 +1,6 @@
 <div class="generic_show_report" >
     <br/>
     <% @report.report_type.fields("show").each do |field| %>
-        <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "show"} %>
-        <br /><br />
+        <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "show", :report => @report} %>
     <% end %>
 </div>

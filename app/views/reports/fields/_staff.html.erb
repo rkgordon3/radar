@@ -7,6 +7,10 @@
         <%= report.staff.last_name rescue unknown %>
     <% end %>
 <% elsif(type == "show") %>
-    <b><%= t "#{current_staff.organization}.submitter" %></b>
+  <div class="field">
+    <%= label_tag  do -%>
+	    <%= t "#{current_staff.organization}.submitter" %>:
+	<% end -%>
     <%= @report.staff.name %>
+  </div>   
 <% end %>

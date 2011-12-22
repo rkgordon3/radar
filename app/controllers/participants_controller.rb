@@ -108,8 +108,8 @@ class ParticipantsController < ApplicationController
       #-----------------
       # if an area was selected, get students in that area
       if param_value_present(params[:area_id]) && (not param_value_present(params[:building_id]))
-        buildings = Building.where(:area_id => params[:area_id])
-        @participants = @participants.where(:building_id => buildings)
+        buildings = Area.find(params[:area_id]).buildings 
+        @participants = @participants.where(:building_id => buildings) rescue Participant.where(:building_id => buildings)
         
       end
 
@@ -117,7 +117,7 @@ class ParticipantsController < ApplicationController
         #-----------------
         # if a date was provided, find all before that date
         born_before = params[:participant][:born_before]
-	      max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
+	    max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
         filter_by_date = false
 		  
         if param_value_present(born_before)
@@ -131,11 +131,12 @@ class ParticipantsController < ApplicationController
         born_after = params[:participant][:born_after]
 
         if  param_value_present(born_after)
-          dd,mm,yy = $1, $2, $3 if born_after =~ /(\d{2})-([A-Z|a-z]{3})-(\d{4})/
           min = convert_arg_date(born_after) rescue nil
           filter_by_date = true if !min.nil?
         end
-        @participants = @participants.where(:birthday => min..max ) if filter_by_date
+		if filter_by_date
+          @participants = @participants.where(:birthday => min..max ) rescue Participant.where(:birthday => min..max)
+		end 
       end
       @participants = @participants.order(:last_name)
     end

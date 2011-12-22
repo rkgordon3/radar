@@ -13,6 +13,13 @@ class Report < ActiveRecord::Base
   has_many      :participants, :through => :report_participant_relationships
   attr_accessible :type, :staff_id
   # return true if report is a generic report, ie FYI
+  
+  DEFAULT_SORT_FIELD = "approach_time"
+  
+  def self.default_sort_field
+    DEFAULT_SORT_FIELD
+  end
+  
   def is_generic?
     type == nil
   end

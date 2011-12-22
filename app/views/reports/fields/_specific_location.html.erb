@@ -11,6 +11,12 @@
         <%= report.room_number %>
     <% end %>
 <% elsif(type == "show") %>
-    <b><%= t "#{current_staff.organization}.room_number" %></b>
+<div class="field">
+    <%= label_tag  do -%>
+	    <%= t "#{current_staff.organization}.room_number" %>:
+	<% end -%>
     <%= @report.room_number %>
+</div>
+
+    
 <% end %>

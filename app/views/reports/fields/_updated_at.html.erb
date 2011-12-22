@@ -2,6 +2,10 @@
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
-    <b>Updated at:</b>
+  <div class="field">
+    <%= label_tag  do -%>
+	    Updated at:
+	<% end -%>
     <%= @report.updated_at_string %>
+  </div>    
 <% end %>

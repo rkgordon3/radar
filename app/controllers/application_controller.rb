@@ -28,4 +28,14 @@ class ApplicationController < ActionController::Base
     (not param.nil?) && (not param.empty?)
   end
   
+  	def convert_arg_date(date)
+		dd,mm,yy = $1, $2, $3 if date =~ /(\d+)-([A-Z|a-z]{3})-(\d{4})/
+		Time.mktime(yy, mm, dd).gmtime
+	end	
+	
+	def convert_arg_datetime(datetime)
+	  dd,mm,yy, hh, min = $1, $2, $3, $4, $5 if datetime =~ /(\d+)-([A-Z|a-z]{3})-(\d{4}) (\d{2}):(\d{2})/
+	  Time.mktime(yy, mm, dd, hh, min).gmtime
+	end
+  
 end

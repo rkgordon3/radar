@@ -10,9 +10,15 @@
     <% if(part == "header") %>
         <%= link_to "Building", params.merge(:sort => "building"), :remote => true %>
     <% elsif(part == "data") %>
-        <%= report.building.name rescue unknown %>
+        <%= label_tag do -%>
+		  <% report.building.name rescue unknown %>
+		<% end -%>
     <% end %>
 <% elsif(type == "show") %>
-    <b><%= t "#{current_staff.organization}.location" %></b>
+<div class="field">
+    <%= label_tag  do -%>
+	    <%= t "#{current_staff.organization}.location" %>:
+	<% end -%>
     <%= @report.building.name rescue unknown %>
+</div>
 <% end %>
