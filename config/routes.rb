@@ -75,7 +75,7 @@ Radar::Application.routes.draw do
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/students/show_details/:id" => "students#show_details"
-  match "/participants/sort_search_results" => "participants#sort_search_results"
+
 
   match "/incident_reports/add_participant"         => "reports#add_participant"
   match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
@@ -115,8 +115,7 @@ Radar::Application.routes.draw do
   
   #match "/students/process_search_parameters" => "students#process_search_parameters" 
   #get "/students/process_search_parameters"
-    
-  match "/index_search" => "reports#index_search"
+  #get "/students/process_search_parameters"
   
   resources :shifts
   
@@ -125,9 +124,12 @@ Radar::Application.routes.draw do
  # resources :annotations
 
   resources :participants do
-    get  :autocomplete_participant_full_name, :on => :collection
-	get  :search, :on => :collection
-	post 'search' => :search_results, :on => :collection
+    collection do
+      get  :autocomplete_participant_full_name
+	  get  :search
+	  post 'search' => :search_results
+	 get  :sort_search_results
+	end
   end
   
   resources :reports_query
@@ -149,6 +151,7 @@ Radar::Application.routes.draw do
 	collection do
  	  get :on_duty_index
 	  post :new_with_participants
+	  post 'search' => :search_results
 	end
   end
 
