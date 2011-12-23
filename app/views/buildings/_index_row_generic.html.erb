@@ -6,8 +6,7 @@
         <td style="width:10%"><%=h building.abbreviation %></td>
         <td style="width:10%" align="center">
           <%= image_tag( "check_mark.jpg", :height=>16, :width=> 16) if building.is_residence %></td>
-        <% area = Area.where(:id =>building.area_id.to_i).first %>
-        <td style="width:25%"><%= area.name rescue "Unspecified" %></td>
+        <td style="width:25%;valign:right"><%= building.area.name rescue "Unspecified" %></td>
         <td><%= link_to 'Edit', "javascript:void(0)",
             :onclick => "doubleDivToggle('show_building_#{building.id}_row','edit_building_#{building.id}_row');" if can? :edit, building %></td>
         <td valign="middle"><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete, :remote => true, :id => building if can? :destroy, building %></td>
@@ -21,13 +20,8 @@
           <td style="width:25%"><%= f.text_field :name, :size => 25 %></td>
           <td style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
           <td style="width:10%" align="center"><%= f.check_box :is_residence %></td>
-          <% area = Area.where(:id =>building.area_id.to_i).first %>
           <td style="width:25%"><% areas = Area.all %>
-            <% area_id = building.area_id %>
-            <% if area_id == nil %>
-              <% area_id = Building.unspecified_id %>
-            <% end %>
-            <%= f.select "area_id", options_from_collection_for_select(areas, "id", "name", "#{area_id}") %></td>
+            <%= f.select "area_id", options_from_collection_for_select(AreasHelper::areas, "id", "name", "#{building.area}"), :include_blank => true %></td>
           <td><%= f.submit "Save" %>
             <%=  button_to_function "Cancel", "doubleDivToggle('show_building_#{building.id}_row','edit_building_#{building.id}_row')" %>
             <%= hidden_field :row, :style, {:value=>row_style}  %></td>
