@@ -285,13 +285,14 @@ class Report < ActiveRecord::Base
         ri.contact_duration = minutes
     end
   end
-  
+
   def get_relationship(participant_id, reason_id)
     report_participant_relationships.select { |r| r.participant_id == participant_id && r.relationship_to_report_id == reason_id }
   end
+
   
   def tag	
-    tag = ReportType.find_by_name(self.class.name).abbreviation + "-" + id.to_s
+    tag = report_type.abbreviation + "-" + id.to_s
   end
   
   def event_time
