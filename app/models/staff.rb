@@ -50,10 +50,6 @@ class Staff < ActiveRecord::Base
   end
 
 
-  def access_level?(access_level)
-    self.access_level.name == access_level.to_s.camelize rescue false
-  end
-
   def sign_out_confirmation
     confirmation = ""
     if self.on_duty?
