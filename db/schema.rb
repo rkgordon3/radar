@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111217210739) do
+ActiveRecord::Schema.define(:version => 20111229204727) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20111217210739) do
     t.boolean  "submitted"
     t.integer  "annotation_id"
     t.string   "tag"
+    t.integer  "organization_id"
   end
 
   create_table "residence_life_organizations", :force => true do |t|
@@ -221,7 +222,7 @@ ActiveRecord::Schema.define(:version => 20111217210739) do
   end
 
 # Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xcf95cb8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd0c2450>
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -247,7 +248,7 @@ ActiveRecord::Schema.define(:version => 20111217210739) do
   end
 
 # Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd24b6f0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd35a9e0>
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"

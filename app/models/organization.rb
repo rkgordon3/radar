@@ -3,7 +3,9 @@ class Organization < ActiveRecord::Base
   attr_accessible :name,:abbreviation,:display_name  
   has_many :staff_organizations
   
-  def apply_privileges(ability, staff)
-     # subclass must define
+  def apply_privileges(ability, staff) 
+      ability.cannot :manage, :all
+	  
+      self.send(staff.access_level.name.tableize.singularize, ability, staff)
   end
 end

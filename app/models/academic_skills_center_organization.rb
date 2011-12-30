@@ -1,24 +1,30 @@
 class AcademicSkillsCenterOrganization < Organization
 
- def apply_privileges(ability, staff)
-    ability.can :manage, TutorReport
-	ability.can :manage, Participant
-    #if staff.access_level? :system_administrator
-    #    trim_privileges_to(ability, :system_administrator,staff)
-    #end
-  end
   
   private
-    # removes specific academic skills center privileges for the specified access level
-  def trim_privileges_to(ability, access_level_symbol, staff)
-    if access_level_symbol == :system_administrator
-      ability.can :manage, :all
+  
+  def system_administrator(ability, staff)
+  	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff"]
+    ability.can [:index, :search], Participant
+	# Can register users in this organization
+	ability.can :register, Organization, :id => self.id	  
+	# Limit access to those reports in this organization
+    ability.can [:create, :read, :update, :search, :add_particpant], TutorReport, :organization_id => self.id
+	ability.can [:read], Staff
+	ability.can :update, Staff, :id => staff.id
+	ability.can [:create, :update, :destroy], Staff, 
+                 	{ 
+					  :organizations => { :id => self.id },
+					  :access_level => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+					} 
+  end
+    
+  def staff(ability, staff)
+	ability.can [:index, :search], Participant
+	ability.can [:search, :read, :create, :add_participant], TutorReport, :staff_id => staff.id 
 	  
-	  ability.can :register, Organization
-	  #ability.can :register, Organization, :id => self.id
-      ability.can :manage, TutorReport
-      ability.cannot :update_organization, Staff
-      ability.can :manage, [ Participant]
-    end
+	# Can index staff within my organization
+    ability.can :index, Staff, :organizations => { :id => self.id }
+	ability.can [:update, :show], Staff, :id => staff.id
   end
 end

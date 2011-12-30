@@ -1,47 +1,9 @@
 class ResidenceLifeOrganization < Organization
   MY_REPORTS = [IncidentReport, MaintenanceReport, Note]
-
-  def apply_privileges(ability, staff) 
-      ability.cannot :manage, :all
-	  
-      self.send(staff.access_level.name.tableize.singularize, ability, staff)
-=begin  
-      if staff.access_level? :system_administrator
-        trim_privileges_to(ability, :system_administrator, staff)
-      elsif staff.access_level? :administrator
-        trim_privileges_to(ability, :system_administrator, staff)
-        trim_privileges_to(ability, :administrator, staff)
-      elsif staff.access_level? :administrative_assistant
-        trim_privileges_to(ability, :system_administrator, staff)
-        trim_privileges_to(ability, :administrator, staff)
-        trim_privileges_to(ability, :administrative_assistant, staff)
-      elsif staff.access_level? :hall_director
-        trim_privileges_to(ability, :system_administrator, staff)
-        trim_privileges_to(ability, :administrator, staff)
-        trim_privileges_to(ability, :administrative_assistant, staff)
-        trim_privileges_to(ability, :hall_director, staff)
-      elsif staff.access_level? :resident_assistant
-        trim_privileges_to(ability, :system_administrator, staff)
-        trim_privileges_to(ability, :administrator, staff)
-        trim_privileges_to(ability, :administrative_assistant, staff)
-        trim_privileges_to(ability, :hall_director, staff)
-        trim_privileges_to(ability, :resident_assistant, staff)
-      elsif staff.access_level? :campus_safety
-        trim_privileges_to(ability, :system_administrator, staff)
-        trim_privileges_to(ability, :administrator, staff)
-        trim_privileges_to(ability, :administrative_assistant, staff)
-        trim_privileges_to(ability, :hall_director, staff)
-        trim_privileges_to(ability, :resident_assistant, staff)
-        trim_privileges_to(ability, :campus_safety, staff)
-      end
-=end
-
-      #these apply to all levels of ResLife
-      ability.can [:update, :show], Staff, :id => staff.id
-      ability.cannot [:destroy,:update_access_level,:update_organization], Staff, :id => staff.id
-  end
   
-  private 
+  private
+
+=begin  
     # removes specific residence life privileges for the specified access level
   def trim_privileges_to(ability, access_level_symbol, staff)
     if access_level_symbol == :system_administrator
@@ -106,33 +68,83 @@ class ResidenceLifeOrganization < Organization
 
     end
   end
+=end
+
+  def system_administrator(ability, staff) 
+	# Limit access to those reports in this organization
+    ability.can [:create, :read, :show, :index, :update, :search, :add_particpant], Report, :organization_id => self.id
+	# Can view all staff 
+	ability.can [:read], Staff
+	ability.can :update, Staff, :id => staff.id
+	# These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
+	ability.can [:create, :update, :destroy], Staff, 
+					{
+						:organizations => { :id => self.id },
+						:access_level => {:display_name => ["Hall Director", "Resident Assistant"]}
+					}
+	# These access levels are organization-generic.
+	ability.can [:create, :update, :destroy], Staff, 
+					{ 
+						:organizations => { :id => self.id },
+						:access_level => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+					}
+	ability.can :manage, Task
+	ability.can :manage, NotificationPreference
+	ability.can :register, Organization, :id => self.id
+	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff"]
+  end
   
   def administrator(ability, staff)
-    ability.can :index, Participant
+	ability.can :assign, AccessLevel, :name => ["AdministrativeAssistant", "Supervisor", "Staff"]
+  	ability.can :register, Organization, :id => self.id
+    ability.can [:index, :search], Participant
 	ability.can [:create, :read, :update], MY_REPORTS
 	ability.can [:create, :read, :update], DutyLog
+	# Can view staff in my org
+	ability.can :index, Staff, organizations => { :id => self.id }
+	# Can c/u/d HD and RA in my org. These levels to be deprecated.
+	ability.can [:create, :update, :destroy], Staff, 
+					{
+						:organizations => { :id => self.id },
+						:access_level => {:display_name => ["Hall Director", "Resident Assistant"]}
+					}
+	# Can c/u/d admin asst, supervisor and staff for my org.
+	ability.can [:create, :update, :destroy], Staff, 
+					{
+						:organizations => { :id => self.id },
+						:access_level => {:display_name => ["Administrative Assistant", "Supervisor", "Staff"]}
+					}
 	ability.can :update, NotificationPreference
 	ability.can :manage, Task
-	ability.can [:register, :update], Staff, :organizations => { :id => self.id }
-	ability.can :index, Staff
+	ability.can [:register, :update], Staff, :organizations => { :id => self.id }	
   end
   
   def administrative_assistant(ability, staff)
-    ability.can :index, Participant
-	ability.can :create , MY_REPORTS
+    ability.can [:index,:search], Participant
+	ability.can [:add_participant], Report, { :staff_id => staff.id }
+	ability.can [:create, :search] , MY_REPORTS
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
 	ability.can :update, NotificationPreference
-	ability.can :index, Staff
+	ability.can :index, Staff, :organizations => { :id => self.id }
 	ability.can :manage, Task
   end
   
   def campus_safety(ability, staff)
-    ability.can :index, Participant
-    ability.can [:create, :read], IncidentReport
-	ability.can :update, NotificationPreference
-	ability.can :index, Staff
+    ability.can [:index, :search], Participant
+	ability.can [:index, :view_contact_info, :view_contact_history], Participant
+    ability.can [:create, :search], IncidentReport
+	ability.can [:show], Note, {:staff_id => staff.id }
+	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
+	ability.can [:index, :update], IncidentReport, { :staff_id => staff.id, :submitted  => false, :type => IncidentReport.to_s }
+	ability.can :update, NotificationPreference, :staff_id => staff.id
+	ability.can :index, Staff, :organizations => { :id => self.id }
+	ability.can [:update, :show], Staff, :id => staff.id
   end
 	
+  def staff(ability, staff)
+    resident_assistant(ability, staff)
+  end
+  
   def resident_assistant(ability, staff)
   puts ( "*********Apply abilities to resident assistant")
     ability.can [:index, :search], Participant
@@ -144,24 +156,35 @@ class ResidenceLifeOrganization < Organization
     ability.can :do, Round, :end_time => nil
 	ability.can :do, TaskAssignment
     ability.can [:shift_log, :read], Shift, { :staff_id => staff.id }
-	ability.can :index, Staff
+	ability.can :index, Staff, :organizations => { :id => self.id }
+	ability.can [:update, :show], Staff, :id => staff.id
 	ability.can [:index], Report, { :staff_id => staff.id, :type=> Note.to_s }
 	ability.can [:index, :search], Report, { :staff_id => staff.id, :type => MaintenanceReport.to_s }
 	ability.can [:index, :update], Report, { :staff_id => staff.id, :submitted  => false, :type => IncidentReport.to_s }
   end
   
+  def supervisor(ability, staff)
+    hall_director(ability,staff)
+  end
+  
   def hall_director(ability, staff)
     puts ("*********Apply abilities to hall director")
-	ability.can :index, Participant
-	ability.can :create , MY_REPORTS
+	ability.can [:index, :search, :view_contact_info, :view_contact_history], Participant
+	ability.can [:create, :search], MY_REPORTS
+    ability.can [:add_participant], Report, { :staff_id => staff.id }
+	ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
+	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
+	ability.can [:create, :read, :update], DutyLog
     ability.can [:list_RA_duty_logs], Shift
     ability.can [:shift_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     ability.can :update, Building
-	ability.can :manage, NotificationPreference
-	ability.can [:index, :view_contact_info, :view_contact_history], Participant
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
 	ability.can :manage, Task
+	ability.can :index, [Building, Area, Task, RelationshipToReport]
+	ability.can :index, Staff, :organizations => { :id => self.id }
+	ability.can [:update, :show], Staff, { :access_level => {:name => "ResidentAssistant"}, :organizations => { :id => self.id } }
   end
 			
 end
