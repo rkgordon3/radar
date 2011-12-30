@@ -1,7 +1,8 @@
 class ReportType < ActiveRecord::Base
-  has_many :interested_parties
-  has_many :report_fields
-  has_many :relationship_to_reports
+  has_many 		:interested_parties
+  has_many 		:report_fields
+  has_many 		:relationship_to_reports
+  belongs_to	:organization
   
   def ReportType.common_reasons
 	  @@common_reasons = RelationshipToReport.where("report_type_id is null") if not defined?(@@common_reasons) or @@common_reasons.nil?

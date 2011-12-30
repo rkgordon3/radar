@@ -1,18 +1,20 @@
 class Report < ActiveRecord::Base
-  belongs_to  	:staff
-  belongs_to    :building
-  has_many      :forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
-  has_many     	:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
+  belongs_to  		:staff
+  belongs_to    	:building
+  belongs_to		:organization
+  has_many      	:forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
+  has_many     		:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_one		    :annotation
-  has_many      :report_participant_relationships
-  belongs_to    :annotation
-  after_initialize :setup_defaults
+  has_many      	:report_participant_relationships
+  has_many      	:participants, :through => :report_participant_relationships
+  
+  #belongs_to    	:annotation
+  after_initialize 	:setup_defaults
   after_find		:cache_submitted
   after_save       	:save_everything
   before_destroy   	:destroy_everything
-  has_many      :participants, :through => :report_participant_relationships
-  attr_accessible :type, :staff_id
-  # return true if report is a generic report, ie FYI
+
+  attr_accessible 	:type, :staff_id
   
   DEFAULT_SORT_FIELD = "approach_time"
   
@@ -140,6 +142,7 @@ class Report < ActiveRecord::Base
   end
   
   def save
+	self.organization = report_type.organization
     if (not annotation.nil?) && annotation.save != nil 
       self.annotation_id = annotation.id
     end
