@@ -67,14 +67,6 @@ class Staff < ActiveRecord::Base
     return confirmation + "Are you sure you want to sign out?"
   end
 
-  # Return those organizations for which I can add users
-  # NB: This method has to be written to comprehend staff's
-  # ability to add users to a given organization. Code looks
-  # something like commented code below.
-  def registerable_organizations
-   # Organization.all.select { |org| current_ability.can? :manage, StaffOrganization.find_by_organization_id_and_staff_id(org.id, self.id) }
-   self.organizations
-  end
   
   # Organization in which user is currently acting
   # NB: Degenerate case is 'first' from list of organizations to which
