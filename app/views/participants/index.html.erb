@@ -31,7 +31,7 @@
         <td><%= participant.birthday %></td>
         <td><%= link_to 'Show', participant %></td>
         <td><%= link_to 'Edit', edit_participant_path(participant) if can? :edit, participant %></td>
-        <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete if can? :destroy, participant %></td>
+  
       </tr>
     <% end %>
   </table>
