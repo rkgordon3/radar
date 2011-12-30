@@ -49,21 +49,6 @@ class Staff < ActiveRecord::Base
     params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
 
-  def registerable_access_levels
-    if self.access_level? :system_administrator or self.access_level? :root
-      return AccessLevel.all
-    elsif self.access_level? :administrator
-      return AccessLevel.where(:name => ['AdministrativeAssistant', 'HallDirector', 'ResidentAssistant'])
-    elsif self.access_level? :administrative_assistant
-      return AccessLevel.where(:name => ['HallDirector', 'ResidentAssistant'])
-    elsif self.access_level? :hall_director
-      return AccessLevel.where(:name => 'ResidentAssistant')
-    elsif self.access_level? :resident_assistant
-      return nil
-    elsif self.access_level? :campus_safety
-      return nil
-    end
-  end
 
   def access_level?(access_level)
     self.access_level.name == access_level.to_s.camelize rescue false
