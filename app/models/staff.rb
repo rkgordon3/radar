@@ -48,21 +48,6 @@ class Staff < ActiveRecord::Base
     params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
     params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
-
-
-  def sign_out_confirmation
-    confirmation = ""
-    if self.on_duty?
-      confirmation += "You are still on duty"
-
-      if self.on_round?
-        confirmation += " and on a round"
-      end
-      confirmation += "!\n\n"
-    end
-    return confirmation + "Are you sure you want to sign out?"
-  end
-
   
   # Organization in which user is currently acting
   # NB: Degenerate case is 'first' from list of organizations to which
