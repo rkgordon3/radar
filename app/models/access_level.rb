@@ -8,5 +8,10 @@ class AccessLevel < ActiveRecord::Base
     end
     return "no"
   end
+  
+  def save
+    self.display_name = self.name.underscore.titleize if self.display_name.nil?
+	super
+  end
 
 end
