@@ -31,7 +31,7 @@ Radar::Application.routes.draw do
   resources :report_types
 
   resources :notification_preferences
-  match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
+  #match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
   
   match "/shifts/update_todo" => "shifts#update_todo"
@@ -85,7 +85,10 @@ Radar::Application.routes.draw do
   devise_scope :staff do
     get 'sign_up' => 'devise/sessions#new'
     get '/staffs/*id/edit' => 'devise/registrations#edit'
-    resources :staffs, :only => [:index, :show, :destroy]
+	resources :staffs, :only => [:index, :show, :destroy]
+    resources :staffs do
+		post :update_preferences
+	end 
   end
   
   get "home/landingpage"

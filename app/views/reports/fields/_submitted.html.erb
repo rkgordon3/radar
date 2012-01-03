@@ -3,11 +3,9 @@
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
 
-  <div class="field">
     <%= label_tag  do -%>
 	    <%= t :submitted %>:
 	<% end -%>
-    <%= @report.submitted %>
-  </div>   
+    <%= @report.submitted %>   
 
 <% end %>

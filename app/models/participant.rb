@@ -3,11 +3,10 @@ class Participant < ActiveRecord::Base
   has_many :report_participant_relationships
   has_many :reports, :through => :report_participant_relationships
   
-  def contact_history(report=nil)
-    logger.debug "!!!!!!!!!!!!??!!!!!!!!!!"
-    logger.debug report_participant_relationships[0].report.type
-	rp = (not report.nil?) ? report_participant_relationships.select { |r| r.report.type == report.type } :
-                        report_participant_relationships
+  def contact_history(report_type=nil)
+
+	rp = (not report_type.nil?) ? report_participant_relationships.select { |r| r.report.type == report_type } 
+								: report_participant_relationships
 	
 	rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
 

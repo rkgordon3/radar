@@ -2,7 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-    ResidenceLife:
+    ResidenceLifeOrganization:
       unknown: Unknown
       new_staff: New Staff Member
       staff_member_list: Staff Members
@@ -44,6 +44,6 @@ en:
          help: Add students to FYI Report
       notes:
          help: Add students related to rounds note
-    AcademicSkills:
+    AcademicSkillsCenterOrganization:
         tutor_reports:
             help: Add students involved in this tutor report.

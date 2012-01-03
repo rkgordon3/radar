@@ -1,6 +1,13 @@
 <% if(type == "edit") %>
 <% elsif(type == "search") %>
-    <b><%= t "#{current_staff.organization}.#{report_type.class}.reasons" %>:</b><br />
+<% report_type = ReportType.find_by_name("IncidentReport") %>
+	   <div class="field">
+    <%= label_tag do -%>
+
+	    <%= t "#{current_staff.organization}.#{report_type.class}.reasons" %>:
+		
+	<% end %>
+	</div>
 	<%= select_tag "infaction_id", options_from_collection_for_select(report_type.associated_reasons, "id", "description"), :multiple => true, :class=> 'form_input' %>
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>

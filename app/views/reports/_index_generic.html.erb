@@ -1,42 +1,103 @@
-<table>
+<table  onload="init_reasons();" >
     <tr>
         <td valign=top>
             <%= form_tag search_reports_path, :remote => true %>
                 <table>
-                    <% report_type.fields("search").each do |field| %>
+				<tr>
+					<td>
+                        <input id="submit" name="submit" type="submit" value="Update" />
+                    </td>
+                </tr>
+				<tr>
+					<td>
+					<div class="field"><%= label_tag "Student:"  %><br />  
+						<%=  render :partial => 'participants/autocomplete_full_name' %>
+					</div>
+					</td>
+				</tr>
+				<tr> 
+					<td> 
+					<div class="field">
+						<%= label_tag "Report Type:" %><br />
+						<%= select_tag "type",
+							options_from_collection_for_select(ReportTypesHelper::report_types_for(current_ability), "id", "display_name", current_staff.preferred_report_type.id ),
+							:id => 'report_select_id',
+							:onchange => "report_select('report_select_id');" %>
+					</div>
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td>
+					<div class="field">
+					   
+						<%= label_tag do -%>
+							<%-#  t "#{current_staff.organization}.#{report_type.class}.reasons" : -%>
+							<%= "Contact Reasons:" %>
+						<% end -%><br/>
+						<% ReportTypesHelper::report_types_for(current_ability).each do |report_type | -%>
+							<%= content_tag :div, 	:id => "#{report_type.id}-reasons", 
+													:style=>"display:#{report_type == current_staff.preferred_report_type ? 'block' : 'none'}" do -%>
+								<%= select_tag "infraction_id", 
+									options_from_collection_for_select(report_type.associated_reasons, "id", "description"), 
+									:multiple => true, 
+									:class=> 'form_input' %>
+							<% end -%>
+						<% end -%>
+					</div>
+					</td>
+				</tr>
+                    <% ReportType.find_by_name("IncidentReport").fields("search").each do |field| %>
                             <tr>
-                                <td valign=top>
-                                    <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "search", :report_type => report_type} %>
+                                <td valign="top" class="field">
+                                    <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "search"} %>
                                 </td>
                             </tr>
                     <% end %>
-                    <tr>
-                        <td valign=top>
-						  <div class="field">
-                            <b>Approached Before:</b><br />
-                            <input type="text" id="submitted_before" name="submitted_before"></input>	
-                          </div>
-						  <div class="field" >
-                            <b>Approached After:</b><br />
-                            <input type="text" id="submitted_after" name="submitted_after"></input>	
-					      </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <%= hidden_field_tag 'type', report_type.name %>
-                            <input id="submit" name="submit" type="submit" value="Update" />
-                        </td>
-                    </tr>
+                <tr>
+                    <td valign=top>
+					<div class="field">
+                        <%= label_tag "Approached Before:" %><br />
+                        <input type="text" id="submitted_before" name="submitted_before"></input>	
+                    </div>
+					</td>
+				<tr>
+					<td>
+					<div class="field" >
+                        <%= label_tag "Approached After:" %><br />
+                        <input type="text" id="submitted_after" name="submitted_after"></input>	
+					</div>
+                    </td>
+                </tr>
+				<tr>
+					<td>
+					<div class="field">
+						<%= label_tag "Building:" %><br />
+						<%= select_tag "building_id", 
+							options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), 
+							:include_blank => true %>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<div class="field">
+						<%= label_tag "Area:" %><br />
+						<%= select_tag "area_id", 
+							options_from_collection_for_select(AreasHelper::areas,"id", "name"), 
+							:include_blank => true %>
+					</div>
+					</td>
+				</tr>
+                
                 </table>    
             </form>
         </td>
         <td valign=top>
-            <br />
             <div id="results">
-                <%= render :partial => 'reports/report_index_body', :locals => { :reports => @reports, :num_rows => 0, :report_type => report_type } %>
+                <%= render :partial => 'reports/report_index_body', :locals => { :reports => @reports, :num_rows => 0 } %>
             </div>
-            <br />
         </td>
     </tr>    
 </table>
@@ -47,4 +108,15 @@
             { format: rangeDemoFormat, firstDOW: 0 } );
         AnyTime.picker( "submitted_after",
             { format: rangeDemoFormat, firstDOW: 0 } );
+	
+
+
+function report_select(id) {
+   report_choices = document.getElementById('report_select_id');
+   for (choice = 0; choice < report_choices.length; choice++) {
+	  item = report_choices.item(choice);
+	  reasons_id = item.value + '-reasons';
+	  document.getElementById(reasons_id).style.display = (choice == report_choices.selectedIndex) ? 'block' : 'none';
+   }
+}	
 </script>

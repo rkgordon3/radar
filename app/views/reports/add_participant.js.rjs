@@ -3,7 +3,7 @@
 #
 # IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO create_participant_add_and_to_report.js.rjs ALSO
 #
-page.replace_html("new-part-div", "")
+#page.replace_html("new-part-div", "")
 page.select("input#full_name").first.clear
 if @report.participant_ids.size > 1
   page.show 'common-reasons-container'

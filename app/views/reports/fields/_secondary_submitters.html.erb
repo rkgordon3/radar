@@ -1,6 +1,5 @@
 <% if(type == "edit") %>
 <% if current_staff.adjuncts.size > 0 %>
-    <div class="field">
         <div>
           <%= link_to image_tag("/images/add_icon.gif", :id => "ss-img"), "javascript:void(0)",
             :onclick => "plusMinusToggle('ss-div', 'ss-img');" %>
@@ -15,7 +14,6 @@
             </div>
           <% end %>
         </div>
-    </div>
 <% end %>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>

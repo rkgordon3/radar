@@ -1,22 +1,12 @@
 <% if(type == "edit") %>
-    <div class="field">
         <b><%= f.label "Specific Location (Room Number)" %>:</b><br />
         <%= text_field(:report, :room_number) %>
-    </div>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
-    <% if(part == "header") %>
-        <%= link_to "Location", params.merge(:sort => "location"), :remote => true %>
-    <% elsif(part == "data") %>
         <%= report.room_number %>
-    <% end %>
 <% elsif(type == "show") %>
-<div class="field">
     <%= label_tag  do -%>
 	    <%= t "#{current_staff.organization}.room_number" %>:
 	<% end -%>
     <%= @report.room_number %>
-</div>
-
-    
 <% end %>

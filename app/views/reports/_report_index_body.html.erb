@@ -3,7 +3,7 @@
 <% end %>
 <table>
   <% if reports.length > 0 %>
-    <%= render :partial => "reports/report_index_header_linked_labels", :locals => {:report_type => report_type} %>
+    <%= render :partial => "reports/report_index_header_linked_labels" %>
   <% else %>
     <%= "No Reports Match Your Criteria" %>
   <% end %>
@@ -16,10 +16,9 @@
         <% num_rows = 0 %>
       <tr>
       <% end %>
-      
       <% report.report_type.fields("index").each do |field| %>
-            <td>
-                <%= render :partial => "reports/fields/#{field.name}", :locals => {:report => report, :type => "index", :part => "data"} %>
+            <td class="field">
+                <%= render :partial => "reports/fields/#{field.name}", :locals => {:report => report, :type => "index"} %>
             </td>
       <% end %>
 
@@ -31,9 +30,6 @@
 		 </td>
 	  <% end %>
 	  
-      <% if can? :edit, report %>
-      <td id="edit_destroy_link"><%= link_to 'Edit', :controller =>"#{report.type.underscore.pluralize}", :action => "edit", :id => report if can? :edit, report %></td>
-      <% end %>
 	  <% if can? :destroy, report %>
 	    <% if report.type == "MaintenanceReport" %>
 			<td id="edit_destroy_link"><%= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete, :id => report if can? :destroy, report %></td>

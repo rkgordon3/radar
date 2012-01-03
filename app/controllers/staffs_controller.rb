@@ -58,4 +58,24 @@ class StaffsController < Devise::RegistrationsController
     end
   end
   
+   # PUT
+  def update_preferences
+	staff_id = params[:staff_id]
+	ReportType.find(:all).each do |r|
+		pref = NotificationPreference.find_by_staff_id_and_report_type(staff_id,r.name) || NotificationPreference.new(:staff_id => staff_id, :report_type => r.name)
+		pref.update_attributes(params[r.name.to_sym])
+		pref.time_offset = Notification.get_time_offset_for_frequency(pref.frequency)
+		pref.save
+	end
+logger.debug("****************** update preferences complete")
+    respond_to do |format|
+      if true
+        format.html { redirect_to('/home/landingpage/', :notice => 'Your Notification Preferences were successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "index" }
+      end
+    end
+  end
+  
 end

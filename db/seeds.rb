@@ -17,7 +17,7 @@ asc_sys_admin = Staff.create(:password=> "password",
 			 :access_level_id => system_admin_al.id
 ) || Staff.find_by_email("asc.system.admin@smumn.edu")
 
-acs = Organization.find_by_type("AcademicSkillsCenterOrganization")
+asc = Organization.find_by_type("AcademicSkillsCenterOrganization")
 
 # create staff/org for ASC system admin
 StaffOrganization.create(:staff_id => asc_sys_admin.id, :organization_id => asc.id) if StaffOrganization.find_by_staff_id(asc_sys_admin.id).nil?
@@ -31,7 +31,7 @@ ReportType.create( {
   :name=> 'TutorReport' , 
   :display_name => 'Tutor Report', 
   :abbreviation=> 'TR',
-  :organization_id => acs.id, 
+  :organization_id => asc.id, 
   :selectable_contact_reasons => true, 
   :has_contact_reason_details => true,
   :path_to_reason_context => 'Enrollment',
@@ -43,7 +43,7 @@ ReportType.create( {
   :name=> 'TutorByAppointmentReport' , 
   :display_name => 'By Appointment Tutor Report', 
   :abbreviation=> 'TBA',
-  :organization_id => acs.id, 
+  :organization_id => asc.id, 
   :selectable_contact_reasons => true, 
   :has_contact_reason_details => true,
   :path_to_reason_context => 'Enrollment',
@@ -78,11 +78,6 @@ ReportField.create( {
   :edit_position => 4,
  } )
  
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'save_button',
-  :edit_position => 5,
- } )
   
   
 ReportField.create( {
@@ -131,13 +126,6 @@ ReportField.create( {
   :report_type_id => report.id,
   :name => 'annotation',
   :show_position => 5 } )
-  
-   
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'submitted',
-  :show_position => 8 } )
-  
     
  ReportField.create( {
   :report_type_id => report.id,
@@ -179,11 +167,6 @@ ReportField.create( {
   :edit_position => 4,
  } )
  
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'save_button',
-  :edit_position => 5,
- } )
   
   
 ReportField.create( {
@@ -233,14 +216,7 @@ ReportField.create( {
   :report_type_id => report.id,
   :name => 'annotation',
   :show_position => 5 } )
-  
-   
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'submitted',
-  :show_position => 8 } )
-  
-    
+     
  ReportField.create( {
   :report_type_id => report.id,
   :name => 'created_at',

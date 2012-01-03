@@ -5,17 +5,13 @@
 </div>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
-    <% if(part == "header") %>
-        Annotation
-    <% elsif(part == "data") %>
-        <%= report.annotation_text %>
-    <% end %>
+<% if  can? :show, report %>
+        <%= report.annotation_text[0..20]  rescue "" %>
+<% end %>
  
 <% elsif(type == "show") %>
-  <div class="field">
     <%= label_tag  do -%>
 	    <%= t "#{current_staff.organization}.annotation" %>:
 	<% end -%>
-     <%= report.annotation_text %>
-  </div>    
+     <%= report.annotation_text %>   
 <% end %>

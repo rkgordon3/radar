@@ -1,24 +1,16 @@
 <% if(type == "edit") %>
-    <div class="field">
         <b><%= f.label :building_id %>:<br /></b>
-		<%= select :report, :building_id, options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>
-    </div>
+		<%= select :report, :building_id, options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name", (report.building.nil? ? "" : report.building.id)), :include_blank => true %>
 <% elsif(type == "search") %>
     <b>Building:</b><br />
     <%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>
 <% elsif(type == "index") %>
-    <% if(part == "header") %>
-        <%= link_to "Building", params.merge(:sort => "building"), :remote => true %>
-    <% elsif(part == "data") %>
         <%= label_tag do -%>
 		  <% report.building.name rescue unknown %>
 		<% end -%>
-    <% end %>
 <% elsif(type == "show") %>
-<div class="field">
     <%= label_tag  do -%>
 	    <%= t "#{current_staff.organization}.location" %>:
 	<% end -%>
     <%= @report.building.name rescue unknown %>
-</div>
 <% end %>

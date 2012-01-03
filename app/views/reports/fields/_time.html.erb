@@ -1,16 +1,10 @@
 <% if(type == "edit") %>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
-    <% if(part == "header") %>
-        <%= link_to "Time", params.merge(:sort => "date"), :remote => true %>
-    <% elsif(part == "data") %>
         <%= report.event_time %>
-    <% end %> 
 <% elsif(type == "show") %>
-  <div class="field">
     <%= label_tag  do -%>
 	    Approach Time:
 	<% end -%>
     <%= @report.event_time %>
-  </div>
 <% end %>

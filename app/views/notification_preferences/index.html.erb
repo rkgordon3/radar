@@ -3,10 +3,10 @@
 <tr>
 	<th>Report Type:</th><th>How often to<br> receive reports:</th><div id="scopeheader"><th>What locations to<br> receive reports for:</th></div></tr>
 </tr>
-<%= form_tag("/notification_preferences/update_user_preferences/#{current_staff.id}", :method => 'put') do %>
-<% @notification_preferences.each do |notification_preference| %>
+<%= form_tag staff_update_preferences_path(current_staff) do %>
+	<% @notification_preferences.each do |notification_preference| %>
 		<%= render :partial => "notification_preference", :object => notification_preference %>			
-<% end %>
+	<% end %>
 <tr>
 <td>
 <%= submit_tag "Update" %>

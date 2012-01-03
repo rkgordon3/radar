@@ -369,7 +369,8 @@ class ReportsController < ApplicationController
   end
   
   def search_results
-    @reports = Kernel.const_get(params[:type]).accessible_by(current_ability)
+    @reports = Report.accessible_by(current_ability)
+   # @reports = Kernel.const_get(params[:type]).accessible_by(current_ability)
     report_ids = Array.new
     student = nil
     # if a student's name was entered, find all reports with that student

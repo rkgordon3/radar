@@ -25,9 +25,14 @@ class TutorReportsController < ReportsController
   # GET /incident_reports/new
   # GET /incident_reports/new.xml
   def new
+  logger.debug("****************In TutorController NEW  ")
     @report =  param_value_present(params[:type]) ? 
 	                        params[:type].constantize.new(:staff_id => current_staff.id)
-	                      : TutorReport.new(:staff_id => current_staff.id)    # new report
+	                      : TutorReport.new(:staff_id => current_staff.id) 
+
+logger.debug("****************TutorController NEW  #{@report.class.name}")
+
+						  # new report
     super
   end
 

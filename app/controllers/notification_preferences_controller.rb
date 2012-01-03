@@ -21,7 +21,8 @@ class NotificationPreferencesController < ApplicationController
       format.xml  { render :xml => @notification_preferences }
     end
   end
-
+=begin
+# moved to staff controller
   # PUT
   def update_user_preferences
 	ReportType.find(:all).collect.each do |r|
@@ -46,4 +47,5 @@ class NotificationPreferencesController < ApplicationController
       end
     end
   end
+=end
 end

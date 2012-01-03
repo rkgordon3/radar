@@ -9,7 +9,7 @@
   	    Reports <%= " (#{reports.length})" %>
     <div id="<%= round.id %>-reports" style="display: none;" class='shift_log_div' >
       <div id="round <%= round.id %>-reports-div" >      
-          <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0, :report_type => reports.first.report_type } %>      
+          <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0 } %>      
       </div>
     </div>
    <% else %>

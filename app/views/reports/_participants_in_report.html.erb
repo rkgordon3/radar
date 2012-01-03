@@ -15,8 +15,8 @@
           :action => 'remove_participant', :id => participant.id }, :remote => true %>
         <br />
         <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
-        <%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(@report.type) } %>
-        <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => participant } %>
+        <%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(report.type) } %>
+        <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => report, :participant => participant } %>
       </td>
       <% num_parts = num_parts + 1 %>
     <% end %>

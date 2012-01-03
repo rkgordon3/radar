@@ -19,10 +19,24 @@ class AcademicSkillsCenterOrganization < Organization
 					} 
   end
     
-  def staff(ability, staff)
+  def supervisor(ability, staff)
+    puts ( "*********Apply abilities to supervisor")
 	ability.can [:index, :search], Participant
-	ability.can [:search, :read, :create, :add_participant], TutorReport, :staff_id => staff.id 
+	ability.can [:index], Report, { :staff_id => staff.id}
+	ability.can [ :create], TutorReport
+	ability.can [:search, :read, :create, :update, :add_participant], TutorReport, :staff_id => staff.id 
 	  
+	# Can index staff within my organization
+    ability.can :index, Staff, :organizations => { :id => self.id }
+	ability.can [:update, :show], Staff, :id => staff.id
+  end
+  
+  def staff(ability, staff)
+    puts ( "*********Apply abilities to staff")
+	ability.can [:index, :search], Participant
+
+	ability.can [:search, :read, :create, :add_participant], TutorReport, :staff_id => staff.id 
+	ability.can [:index, :update], Report, { :staff_id => staff.id,  :type => TutorReport.to_s }
 	# Can index staff within my organization
     ability.can :index, Staff, :organizations => { :id => self.id }
 	ability.can [:update, :show], Staff, :id => staff.id

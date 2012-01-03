@@ -25,11 +25,12 @@
     <p><%= f.label :access_level %><br />
       <%= f.collection_select( :access_level_id, @access_levels, :id, :display_name ) %></p>
   </div>
+  <% if can? :assign, Area %>
   <div class="field">
     <%= f.label :area %><br />
     <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => 1}) %>
   </div>
-
+  <% end %>
   <br />
   <div class="actions">
     <%= f.submit %>

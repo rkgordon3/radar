@@ -3,6 +3,7 @@ class Staff < ActiveRecord::Base
   has_many :organizations, :through => :staff_organizations
   has_many :staff_areas, :dependent => :destroy
   has_many :areas, :through => :staff_areas
+  has_many :report_views, :foreign_key => :staff_id, :class_name => "ReportViewLog"
   belongs_to :access_level
   belongs_to :area
 
@@ -35,9 +36,14 @@ class Staff < ActiveRecord::Base
   end
   # return true is I have seen given report
   def has_seen? (report)
-    ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id) != nil
+    #not ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id).nil?
+	report_views.include?(report)
   end
   
+  # Returns  user's preferred report type
+  def preferred_report_type
+    ReportType.find_by_name("IncidentReport")
+  end
   
   # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
