@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   end
   
   def param_value_present(param)
+    return false if param == Array  && param.length == 0
     (not param.nil?) && (not param.empty?)
   end
   

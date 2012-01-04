@@ -370,73 +370,25 @@ class ReportsController < ApplicationController
   
   def search_results
     @reports = Report.accessible_by(current_ability)
-   # @reports = Kernel.const_get(params[:type]).accessible_by(current_ability)
-    report_ids = Array.new
-    student = nil
-    # if a student's name was entered, find all reports with that student
-    if params[:full_name].length > 3 # arbitrary number
-      # get the student for the string entered
-      student = Participant.get_participant_for_full_name(params[:full_name])
-=begin   
-      # get all reported infractions for that student
-      reported_inf = ReportParticipantRelationship.where(:participant_id => student.id)
-          
-      # get all of the report ids from the reported infractions
-      reported_inf.each do |ri|
-        report_ids << ri.report_id
-      end
-	   # get the incident reports with those ids
-      @reports = @reports.where(:id => report_ids)
-=end
-          
-       @reports = student.reports
-    end
-    
-    #-----------------
-    # if a particular infraction was selected, get all reports w/ that infraction
-    if (params[:infraction_id] != nil)
-      if !(params[:infraction_id].count == 1 && params[:infraction_id].include?("0"))
-        # get reported infractions all with that infraction
-        reported_inf = ReportParticipantRelationship.where(:relationship_to_report_id => params[:infraction_id])
-			  
-        # if a student was selected, limit to only those infractions by that student
-        if student != nil
-          reported_inf = reported_inf.where(:participant_id => student.id)
-          report_ids = Array.new
-        end
-			  
-        # collect the report_ids from the reported infractions into an array
-        reported_inf.each do |ri|
-          report_ids << ri.report_id
-        end
-			  
-        # get the reports with ids in the array
-        @reports = @reports.where(:id => report_ids)
-      end
-    end
-        
-    #----------------
-    # if no student or infraction was selected, select all
-    if @reports == nil
-      @reports = @reports.where(:submitted => true)
-    end
-        
-        
-    #-----------------
-    # if a building was selected, get reports in that building
-    if param_value_present(params[:building_id]) 
-      @reports = @reports.where(:building_id => params[:building_id])
-    end
-        
-    #-----------------
-    # if an area was selected, get reports in that area
-    if param_value_present(params[:area_id]) and (not param_value_present(params[:building_id]))
-      #buildings = Building.where(:area_id => params[:area_id])
-      #@reports = @reports.where(:building_id => buildings) 
-	  @reports = @reports.where(Area.find(params[:area_id]).buildings)
-    end
-        
-    #-----------------
+    # Select for student id if present
+    @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(:id) if param_value_present(params[:participant][:id])
+    # Select for type if present
+	@reports = @reports.where(:type => params[:type]) if param_value_present(params[:type]) 
+	
+	# Select for reasons
+	# Clean up params[:infraction_id] array. There are null strings from browser
+	# Not going to figure it out now.
+	if param_value_present(params[:infraction_id])
+	  params[:infraction_id].select! { |id| id.length > 0 }
+	  @reports = @reports.joins(:report_participant_relationships)
+	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]})
+						 .group(:id) 
+	end
+	
+	# Select for building if present   
+    @reports = @reports.where(:building_id => params[:building_id]) if param_value_present(params[:building_id]) 
+	# Select for area, if present and building not selected
+	@reports = @reports.where(Area.find(params[:area_id]).buildings) if param_value_present(params[:area_id]) and (not param_value_present(params[:building_id]))
 	
 	max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
 	filter_by_datetime = false
@@ -455,17 +407,15 @@ class ReportsController < ApplicationController
 	logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
 	
 	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
-            
+         
     # finishing touches...
-    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
-    params[:sort] ||= Report.default_sort_field
-    @reports = Report.sort(@reports,params[:sort])
-      
-logger.debug("Search result #{@reports.size} reports")	  
-    @num_reports = @reports.count
-    report_type = ReportType.find_by_name(params[:type])
-    respond_to do |format|
-      format.js{ render :locals => { :report_type => report_type } }
+    @reports = @reports.paginate(:page => params[:page], :per_page => 30)    
+    @reports = Report.sort(@reports,params[:sort] ||= Report.default_sort_field)
+       
+    @num_reports = @reports.length
+
+    respond_to do |format|	  
+        format.js 
     end
   end
   

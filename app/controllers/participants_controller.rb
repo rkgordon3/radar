@@ -141,7 +141,7 @@ class ParticipantsController < ApplicationController
       @participants = @participants.order(:last_name)
     end
     
-    @num_results = @participants.count
+    @num_results = @participants.length
     
     respond_to do |format|
       format.html

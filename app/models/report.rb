@@ -4,9 +4,8 @@ class Report < ActiveRecord::Base
   belongs_to		:organization
   has_many      	:forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
   has_many     		:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
-  #has_one		    :annotation
-  has_many      	:report_participant_relationships
-  has_many      	:participants, :through => :report_participant_relationships
+  has_many		    :report_participant_relationships
+  has_many			:participants, :through => :report_participant_relationships
   
   belongs_to    	:annotation
   after_initialize 	:setup_defaults
