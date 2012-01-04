@@ -361,7 +361,6 @@ class ReportsController < ApplicationController
         reasons[$1] = checked
       end
     end
-    logger.debug("reasons #{reasons}")
     respond_to do |format|
       format.js { render_common_reasons_update(participant_ids, reasons, false) }
       format.iphone { render_common_reasons_update(participant_ids, reasons, true) }

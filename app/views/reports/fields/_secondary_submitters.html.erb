@@ -8,10 +8,12 @@
         </div>
         <div id="ss-div" style="display: none;">
           <% current_staff.adjuncts.each do |s| %>
+		    <% if Ability.new(s).can? :create, @report -%>
             <div class ="small-label" style="margin-left: 8px; margin-top: 4px; margin-bottom: 0px;" >
               <%= check_box :report_adjuncts, :"#{s.id}", {:checked => @report.is_adjunct?(s) } %>
               <%= "#{s.first_name} #{s.last_name}" %><br />
             </div>
+			<% end -%>
           <% end %>
         </div>
 <% end %>
