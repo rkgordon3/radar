@@ -147,7 +147,7 @@ class Report < ActiveRecord::Base
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?   # make sure the reported infraction isn't frozen
-        ri.context = report_type.reason_context
+        ri.context = report_type.reason_context unless ri.for_generic_reason?
         ri.report_id = self.id # establish connection
         ri.save		# actually save
       end

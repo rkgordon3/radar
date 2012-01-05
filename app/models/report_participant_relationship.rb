@@ -9,22 +9,24 @@ class ReportParticipantRelationship < ActiveRecord::Base
   def self.table_name() "report_participants" end
   
   def setup_defaults
-    if self.id == nil && self.relationship_to_report_id == nil
+    if self.id.nil? && self.relationship_to_report_id.nil?
       self.relationship_to_report_id = RelationshipToReport.fyi
     end
   end
   
-  def relationship_to_report
-    if self.context != nil
-        self.context.constantize.where(:id => self.relationship_to_report_id).first
-    else
-        RelationshipToReport.where(:id => self.relationship_to_report_id).first
-    end
+  def reason
+    self.context.nil? ? relationship_to_report : self.context.constantize.where(:id => self.relationship_to_report_id).first
+  end
+  #
+  # Test whether this report/participant relationship is result of a 'generic'
+  # reason. A generic reason is not associated with any specific report, e.g. Other
+  # The actual test 
+  #
+  def for_generic_reason?
+    reason.respond_to?(:report_type_id) 
   end
   
-  def save_annotation
-    if self.annotation != nil
-        self.annotation_id = annotation.id
-    end
+  def save_annotation   
+    self.annotation_id = annotation.id if not self.annotation.nil?
   end
 end

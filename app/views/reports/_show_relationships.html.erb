@@ -25,15 +25,15 @@
           <br />
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
             <b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b>
-            <%= rpr.relationship_to_report.description %><br/>
+            <%= rpr.reason.description %><br/>
             <% if @report.supports_contact_reason_details? %>
-            <% if rpr.annotation != nil %>
+            <% if not rpr.annotation.nil? %>
                 <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annotation:</b> 
                 <%= rpr.annotation.text %><br/>
             <% end %>
-            <% if rpr.contact_duration != nil %>
+            <% if not rpr.contact_duration.nil? %>
                 <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duration:</b> 
-                <%= rpr.contact_duration %> minutes<br/>
+                <%= rpr.contact_duration %> hrs/minutes<br/>
             <% end %>
             <% end %>
           <% end %>
