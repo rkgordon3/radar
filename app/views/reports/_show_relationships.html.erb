@@ -20,20 +20,24 @@
             <a href="../participants/<%= p.id %>" target="blank"> <%= p.name %></a>
           <% end %>
           <br />
-          <%= render :partial => "participants/participant_details", :locals => { :participant => p } %><br/>
-          <%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(@report.type) } if can? :view_contact_history, p %>
+          <% if can? :view_contact_info, p %><%= render :partial => "participants/participant_details", :locals => { :participant => p } %><br/><% end %>
+          <% if can? :view_contact_history, p %><%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(@report.type) } if can? :view_contact_history, p %><% end %>
           <br />
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Reported:" %>
             <%= rpr.reason.description %><br/>
             <% if @report.supports_contact_reason_details? %>
             <% if not rpr.annotation.nil? %>
-                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annotation:</b> 
-                <%= rpr.annotation.text %><br/>
+			<div class="field" >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Annotation:" %>
+                <%= rpr.annotation.text %>
+			</div>
             <% end %>
             <% if not rpr.contact_duration.nil? %>
-                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duration:</b> 
-                <%= rpr.contact_duration %> hrs/minutes<br/>
+			<div class="field" >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Duration:" %> 
+                <%= rpr.contact_duration %> hrs/minutes
+			</div>
             <% end %>
             <% end %>
           <% end %>
