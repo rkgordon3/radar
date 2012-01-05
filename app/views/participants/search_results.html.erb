@@ -7,8 +7,12 @@
 	<tr>
 		<td><div class="form_header"><%= t :student_search_results %></div></td>
 		<td style="width: 150px;"></td>
-		<td><%= submit_tag "Add To New Incident Report" , :onclick => "xmit('IncidentReport')" %></td>
-		<td><%= submit_tag "Add To New Maintenance Request", :onclick => "xmit('MaintenanceReport')" %></td>
+		<td>						
+			<%= submit_tag "Add" %>&nbsp;to
+			<%= select_tag "report_type",
+				options_from_collection_for_select(ReportTypesHelper::report_types_for(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
+				:id => 'report_select_id' %>
+		</td>
 	</tr>
 </table>
 
@@ -17,7 +21,7 @@
 <p>
 	Showing <%= @num_results %> of <%= @num_results %> results.
 </p>
-<%= hidden_field_tag 'report_type' %>
+
 
 <% end %>
 </div>
