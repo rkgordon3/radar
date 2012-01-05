@@ -1,0 +1,8 @@
+	<%if can? :create, TutorReport %>
+		<li><%= link_to "Tutor Contacts", new_tutor_report_path %>
+			<ul>
+				<li><%= link_to "Tutor Report", "/tutor_reports/new?type=TutorReport" %></li>
+				<li><%= link_to "By Appointment Tutor Report", "/tutor_reports/new?type=TutorByAppointmentReport" %></li>
+			</ul>
+		</li>
+	<% end %>

@@ -8,4 +8,8 @@ class Organization < ActiveRecord::Base
 	  
       self.send(staff.access_level.name.tableize.singularize, ability, staff)
   end
+  
+  def == other
+    self.class.name == other.class.name
+  end
 end

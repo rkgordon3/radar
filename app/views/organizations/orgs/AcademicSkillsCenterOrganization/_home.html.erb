@@ -1,1 +1,30 @@
-<ul>  <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>  <li><%= link_to "Students", "/students" %>    <ul>      <li><%= link_to "List Students", "/students" %></li>      <li><%= link_to "Search Students", "/students/search_students" %></li>    </ul>  </li>  <li><%= link_to "Tutor Report", "/tutor_reports/new" %>    <ul>      <li><%= link_to "New Tutor Report", "/tutor_reports/new" %></li>      <li><%= link_to "By Appointment", "/tutor_reports/new?type=ByAppointment" %></li>      <li><%= link_to "List Tutor Reports", "/reports?report=TutorReport" %></li>    </ul>  </li>  <li><a href="/">Miscellaneous</a>    <ul>      <li><%= link_to "Staff Members", "/staffs" %></li>    </ul>  </li></ul>
+
+<ul>
+  <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
+  <% if can? :index, Student %>
+  <li><%= link_to "Search", search_participants_path  %>
+    <ul>
+      <li><%= link_to "Students", search_participants_path  %></li>
+	  <% if can? :search, Report %><li><%= link_to "Search Reports", reports_path  %></li>   <% end %>   
+    </ul>
+  </li>
+  <% end %>
+ 
+  <%if can? :create, TutorReport %>
+  <li><%= link_to "New Report", new_tutor_report_path %>
+    <ul>
+      <li><%= link_to "Tutor Report", "/tutor_reports/new?type=TutorReport" %></li>
+      <li><%= link_to "By Appointment Tutor Report", "/tutor_reports/new?type=TutorByAppointmentReport" %></li>
+	  <% if can? :create, Note  %><li><%= link_to "Note", new_note_path %></li><% end %>
+    </ul>
+  </li>
+  <% end %>
+ 
+
+  <li><%= link_to "Manage", staffs_path %>
+    <ul>
+      <% if can? :index, Staff %><li><%= link_to "Manage Staff Members", staffs_path %></li><% end %>
+	  <% if can? :index, RelationshipToReport %><li><%= link_to "Manage Contact Reasons", relationship_to_reports_path  %></li><% end %>
+    </ul>
+  </li>
+</ul>

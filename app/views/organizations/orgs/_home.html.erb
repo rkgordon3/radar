@@ -2,65 +2,19 @@
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
   <% if can? :index, Student %>
-  <li><%= link_to "Students", students_path  %>
+  <li><%= link_to "Search", search_participants_path  %>
     <ul>
-      <li><%= link_to "List Students", students_path %></li>
-      <li><%= link_to "Search Students", search_participants_path  %></li>
+      <li><%= link_to "Students", search_participants_path  %></li>
+	  <% if can? :search, Report %><li><%= link_to "Reports", reports_path  %></li>   <% end %>   
     </ul>
   </li>
   <% end %>
-  <% if can? :create, IncidentReport  %>
-  <li><%= link_to "Incident Reports", new_incident_report_path  %>
-    <ul>
-	  <li><%= link_to "New Incident Report", new_incident_report_path  %></li>
-	  <% if can? :index, IncidentReport %><li><%= link_to "List Incident Reports", "/reports?report=IncidentReport"  %></li>   <% end %>   
-    </ul>
-  </li>
-  <% end %>
-  <% if can? :create, MaintenanceReport %>
-  <li><%= link_to "Maintenence Requests", new_maintenance_report_path %>
-    <ul>
-	  <li><%= link_to "New Maintenence Request", new_maintenance_report_path %></li>
-      <% if can? :index, MaintenanceReport  %><li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport"  %></li><% end %> 
-    </ul>
-  </li>
-  <% end %>
-  <%if can? :create, TutorReport %>
-  <li><%= link_to "Tutor Contacts", "/tutor_reports/new" %>
-    <ul>
-      <li><%= link_to "Tutor Report", "/tutor_reports/new?type=TutorReport" %></li>
-      <li><%= link_to "By Appointment Tutor Report", "/tutor_reports/new?type=TutorByAppointmentReport" %></li>
-      <li><%= link_to "List Tutor Reports", "/reports?report=TutorReport" %></li>
-    </ul>
-  </li>
-  <% end %>
-  <% if can? :create, Note %>
-  <li><%= link_to "Notes", new_note_path  %>
-    <ul>
-	  <li><%= link_to "New Note", new_note_path %></li>
-      <% if can? :index, Note %><li><%= link_to "List Notes", "/reports?report=Note"  %></li><% end %>
-    </ul>
-  </li>
-  <% end %>
-  <li><%  if can? :index, Task %>
-      <%= link_to "Tasks", tasks_path %>
-    <% elsif can? :do, TaskAssignment %>
-      <%= link_to "Tasks", to_do_list_task_assignments_path %>
-    <% end %>
-    <ul>
-      <% if can? :do, TaskAssignment  %><li><%= link_to "My To Do List", to_do_list_task_assignments_path%></li><% end %>
-    </ul>
-  </li>
-  <% if can? :index, Shift %>
-  <li><%= link_to "Shifts/Logs", "/shifts?access_level=Any"  %>
-    <ul>
-      <% if can? :create, Shift %><li><%= link_to "Record Shift", new_shift_path  %></li><% end %>
-      <% if can? :index, Shift %> <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}"  %></li><% end %>
-      <% if can? :list_HD_call_logs, Shift %><li><%= link_to "List HD Call Logs", "/shifts?access_level=HallDirector"  %></li><% end %>
-      <% if can? :list_RA_duty_logs, Shift %><li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant"  %></li><% end %>
-    </ul>
-  </li>
-  <% end %>
+  <% Organization.all.each do |org| -%>
+	<% if current_staff.member_of? org.class %>
+		<%= render "organizations/orgs/#{org.class.name}/org_features" %>
+	<% end %>
+  <% end -%>
+
   <li><%= link_to "Manage", staffs_path %>
     <ul>
       <% if can? :index, Staff %><li><%= link_to "Manage Staff Members", staffs_path %></li><% end %>

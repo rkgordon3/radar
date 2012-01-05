@@ -45,12 +45,6 @@ class Report < ActiveRecord::Base
   def supports_contact_reason_details?
     report_type.has_contact_reason_details?
   end
-
-=begin
-  def submitter?(staff)
-    return staff.nil? ? false : staff.id==self.staff.id
-  end
-=end
   
   def is_note?
     type == "Note"

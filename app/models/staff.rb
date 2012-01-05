@@ -45,6 +45,10 @@ class Staff < ActiveRecord::Base
     ReportType.find_by_name("IncidentReport")
   end
   
+  def member_of?(klass)
+     not self.organizations.select { |o| o.class.name == klass.name}.empty?
+  end
+  
   # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
 	Staff.joins(:staff_areas, :staff_organizations)

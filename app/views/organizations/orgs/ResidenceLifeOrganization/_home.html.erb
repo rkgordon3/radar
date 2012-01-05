@@ -2,65 +2,50 @@
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
   <% if can? :index, Student %>
-  <li><%= link_to "Students", students_path  %>
+  <li><%= link_to "Search", search_participants_path  %>
     <ul>
-      <li><%= link_to "List Students", students_path %></li>
-      <li><%= link_to "Search Students", search_participants_path  %></li>
+      <li><%= link_to "Students", search_participants_path  %></li>
+	  <% if can? :search, IncidentReport %><li><%= link_to "Search Reports", reports_path  %></li>   <% end %>   
     </ul>
   </li>
   <% end %>
-  <% if can? :index, IncidentReport  %>
-  <li><%= link_to "Incident Reports", "/reports?report=IncidentReport" %>
+  <% if can? :create, IncidentReport  %>
+  <li><%= link_to "New Report", new_incident_report_path  %>
     <ul>
-	  <li><%= link_to "List Incident Reports", "/reports?report=IncidentReport"  %></li>
-      <% if can? :create, IncidentReport %><li><%= link_to "New Incident Report", "/incident_reports/new"  %></li> <% end %> 
+	  <li><%= link_to "Incident Report", new_incident_report_path  %></li>
+	   <% if can? :create, MaintenanceReport  %><li><%= link_to "Maintenence Request", new_maintenance_report_path %></li><% end %>
+	   <% if can? :create, Note  %><li><%= link_to "Note", new_note_path %></li><% end %>
     </ul>
   </li>
   <% end %>
-  <% if can? :index, MaintenanceReport %>
+
   <li>
-  <%= link_to "Maintenance Requests", "/reports?report=MaintenanceReport" %>
-    <ul>
-	  <li><%= link_to "List Maintenence Requests", "/reports?report=MaintenanceReport"  %></li>
-      <% if can? :create, MaintenanceReport  %><li><%= link_to "New Maintenence Request", "/maintenance_reports/new" %></li><% end %> 
-    </ul>
-  </li>
-  <% end %>
-  <% if can? :index, Note %>
-  <li><%= link_to "Notes", "/notes/new"  %>
-    <ul>
-	  <li><%= link_to "List Notes", "/reports?report=Note"  %></li>
-      <% if can? :create, Note %><li><%= link_to "New Note", "/notes/new"  %></li><% end %>
-    </ul>
-  </li>
-  <% end %>
-  <li><%  if can? :index, Task %>
-      <%= link_to "Tasks", "/tasks" %>
-    <% else %>
-      <%= link_to "Tasks", "/to_do_list" %>
-    <% end %>
-    <ul>
-      <% if can? :do, Shift  %><li><%= link_to "My To Do List", "/to_do_list" %></li><% end %>
-      <% if can? :create, Task %><li><%= link_to "New Task", "/tasks/new"  %></li><% end %>
-      <% if can? :index, Task  %><li><%= link_to "List Tasks", "/tasks" %></li><% end %>
+	<%  if can? :index, Task %>
+		<%= link_to "Tasks", tasks_path %>
+	<% elsif can? :do, TaskAssignment %>
+		<%= link_to "Tasks", to_do_list_task_assignments_path %>
+	<% end %>
+	<ul>
+      <% if can? :do, TaskAssignment  %><li><%= link_to "My To Do List", to_do_list_task_assignments_path%></li><% end %>
     </ul>
   </li>
   <% if can? :index, Shift %>
   <li><%= link_to "Shifts/Logs", "/shifts?access_level=Any"  %>
     <ul>
-      <% if can? :create, Shift %><li><%= link_to "Record Shift", "/shifts/new"  %></li><% end %>
+      <% if can? :create, Shift %><li><%= link_to "Record Shift", new_shift_path  %></li><% end %>
       <% if can? :index, Shift %> <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}"  %></li><% end %>
       <% if can? :list_HD_call_logs, Shift %><li><%= link_to "List HD Call Logs", "/shifts?access_level=HallDirector"  %></li><% end %>
       <% if can? :list_RA_duty_logs, Shift %><li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant"  %></li><% end %>
     </ul>
   </li>
   <% end %>
-  <li><a href="/">Miscellaneous</a>
+  <li><%= link_to "Manage", staffs_path %>
     <ul>
-      <% if can? :index, Staff %><li><%= link_to "Manage Staff Members", "/staffs" %></li><% end %>
-      <% if can? :index, Building %><li><%= link_to "Manage Buildings", "/buildings"  %></li><% end %>
-      <% if can? :index, Area %><li><%= link_to "Manage Areas", "/areas" %></li><% end %>
-	  <% if can? :index, RelationshipToReport %><li><%= link_to "Manage Contact Reasons", "/relationship_to_reports"  %></li><% end %>
+      <% if can? :index, Staff %><li><%= link_to "Manage Staff Members", staffs_path %></li><% end %>
+      <% if can? :index, Building %><li><%= link_to "Manage Buildings", buildings_path  %></li><% end %>
+      <% if can? :index, Area %><li><%= link_to "Manage Areas", areas_path %></li><% end %>
+	  <% if can? :index, Task  %><li><%= link_to "Manage Tasks", tasks_path %></li><% end %>
+	  <% if can? :index, RelationshipToReport %><li><%= link_to "Manage Contact Reasons", relationship_to_reports_path  %></li><% end %>
     </ul>
   </li>
 </ul>
