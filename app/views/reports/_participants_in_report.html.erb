@@ -14,8 +14,8 @@
         <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), { :controller => "reports",
           :action => 'remove_participant', :id => participant.id }, :remote => true %>
         <br />
-        <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
-        <%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(report.type) } %>
+        <% if can? :view_contact_info, participant %><%= render :partial => "participants/participant_details", :locals => { :participant => participant } %><% end %>
+        <% if can? :view_contact_history, participant %><%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(report.type) } %><% end %>
         <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => report, :participant => participant } %>
       </td>
       <% num_parts = num_parts + 1 %>
