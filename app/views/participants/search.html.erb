@@ -6,46 +6,37 @@
 <table style="vertical-align: middle; border:none; margin: none;">
 	<tr>
 		<td>
+			<%= submit_tag "Submit" %>	   
+			<input id="reset" name="reset" type="reset" value="Reset" onclick="clear_fields(this);" />
+		</td>
+	</tr>
+	<tr>
+		<td>
 			<div class="field">
-				<%= label_tag "Name" , nil, { :class => "bold_label" } %><br />
+				<%= label_tag "Name"  %><br />
 				<%=  render :partial => 'participants/autocomplete_full_name' %>  
 			</div>
-		</td>
-		<td>
-			-or-
-		<td>
 			<div class="field">
-    			<%= label_tag "Student ID" , nil, { :class => "bold_label" } %><br />
+    			<%= label_tag "Student ID" %><br />
     			<%= text_field_tag "student_id" %>
   			</div>
 		</td>
 	</tr>
-</table>
-<div class="actions">
-    <%= submit_tag "Submit" %>
-</div>
-<br />
-<hr />
-  	
 
-<table style="vertical-align: middle; border:none; margin: none;">
 	<tr>
 		<td>
 			<div class="field">
-    			<b>Building:</b><br />
-				
+    			<%= label_tag "Building:" %><br />				
     			<%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::residence_halls, "id", "name"), :include_blank => true %>
-			</div>
-			<div class="field">
-				<b>Room Number:</b><br />
+				<br/><%= label_tag "Room Number:" %><br/>
 				<%= text_field_tag "room_number" %> 
 			</div>
 		</td>
-		<td>
+	</tr>
+	<tr>
 		<td>
 			<div class="field">
-    			<b>Area:</b><br />
-				
+    			<b>Area:</b><br />				
 					<%= select_tag "area_id", options_from_collection_for_select(AreasHelper::areas,"id", "name"), :include_blank => true %>
 				</div>
 		</td>
@@ -56,13 +47,7 @@
     			<b>Born After:</b>
 				
 				 <%= text_field(:participant, :born_after, :id => "born_after",:size=>'12') %>
-<br />
-			</div>
-		</td>
-		<td>
-		</td>
-		<td>
-			<div class="field">
+
     			<b>Born Before:</b>
 				<%= text_field(:participant, :born_before, :id => "born_before" , :size=>'12') %><br/>
   			</div>
@@ -70,9 +55,7 @@
 	</tr>
 </table>
 
-<div class="actions">
-    <%= submit_tag "Submit" %>
-</div>
+
 </div>
 
 <script type="text/javascript">
@@ -83,4 +66,10 @@
    AnyTime.picker( "born_before",
 	{ format: rangeDemoFormat, firstDOW: 0 } );
 
+	// Clear hidden field containing participant id. Reset button does 
+// not do this.
+function clear_fields(elem) {
+  document.getElementById("participant_id").value = ""
+  return false;
+}
 </script>

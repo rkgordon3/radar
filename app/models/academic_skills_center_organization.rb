@@ -6,6 +6,7 @@ class AcademicSkillsCenterOrganization < Organization
   def system_administrator(ability, staff)
   	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff"]
     ability.can [:index, :search], Participant
+	ability.can :search, Report
 	# Can register users in this organization
 	ability.can :register, Organization, :id => self.id	  
 	# Limit access to those reports in this organization
@@ -20,7 +21,7 @@ class AcademicSkillsCenterOrganization < Organization
   end
     
   def supervisor(ability, staff)
-    puts ( "*********Apply abilities to supervisor")
+	ability.can :search, Report
 	ability.can [:index, :search], Participant
 	ability.can [:index], Report, { :staff_id => staff.id}
 	ability.can [ :create], TutorReport
@@ -32,7 +33,7 @@ class AcademicSkillsCenterOrganization < Organization
   end
   
   def staff(ability, staff)
-    puts ( "*********Apply abilities to staff")
+    ability.can :search, Report
 	ability.can [:index, :search], Participant
 
 	ability.can [:search, :read, :create, :add_participant], TutorReport, :staff_id => staff.id 
