@@ -9,7 +9,9 @@ if @report.participant_ids.size > 1
   page.show 'common-reasons-container'
   page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
 end
-if (@report.participant_ids.size % 3) == 1
-    page.insert_html(:top, "s-i-form", "<tr id=#{(@report.participant_ids.size/3).floor}>")
+# We need to insert first <tr> if this is first participant added
+if @report.participant_ids.size  == 1
+    page.insert_html(:top, "s-i-form", "<tr id=#{(@report.participant_ids.size/columns).floor}></tr>")
 end
-page.insert_html(:top, "#{((@report.participant_ids.size-1)/3).floor}", :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant, :size => @report.participant_ids.size })
+page.insert_html(:top, "#{((@report.participant_ids.size-1)/columns).floor}", 
+                         :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant, :size => @report.participant_ids.size })

@@ -1,4 +1,7 @@
 class ReportsController < ApplicationController
+
+include ReportsHelper
+
   before_filter :authenticate_staff!
   load_resource :except => :remove_participant
   authorize_resource
