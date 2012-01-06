@@ -4,14 +4,18 @@
 # IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO create_participant_add_and_to_report.js.rjs ALSO
 #
 #page.replace_html("new-part-div", "")
-page.select("input#full_name").first.clear
-if @report.participant_ids.size > 1
-  page.show 'common-reasons-container'
-  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
+if @insert_new_participant_partial 
+	page.select("input#full_name").first.clear
+	if @report.participant_ids.size > 1
+	  page.show 'common-reasons-container'
+	  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
+	end
+	# We need to insert first <tr> if this is first participant added
+	if ((@report.participant_ids.size-1).floor % columns  == 0)
+		page.insert_html(:top, "s-i-form", 
+		  "<tr id=#{((@report.participant_ids.size-1)/columns).floor}></tr>")
+	end
+	page.insert_html(:top, "#{((@report.participant_ids.size-1)/columns).floor}", 
+							 :partial => "participant_in_report", 
+							 :locals => { :report => @report, :participant => @participant})
 end
-# We need to insert first <tr> if this is first participant added
-if @report.participant_ids.size  == 1
-    page.insert_html(:top, "s-i-form", "<tr id=#{(@report.participant_ids.size/columns).floor}></tr>")
-end
-page.insert_html(:top, "#{((@report.participant_ids.size-1)/columns).floor}", 
-                         :partial => "participant_in_report", :locals => { :report => @report, :participant => @participant, :size => @report.participant_ids.size })

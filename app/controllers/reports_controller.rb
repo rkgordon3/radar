@@ -143,16 +143,17 @@ include ReportsHelper
 	
       name_tokens = params[:full_name].split(' ')
       first_name = name_tokens[0].capitalize
-      if (name_tokens.length > 2)
-        middle_initial = name_tokens[1].capitalize
-      end
+      
+      middle_initial = name_tokens[1].capitalize if (name_tokens.length > 2)
       last_name = name_tokens[name_tokens.length-1].capitalize
       
       respond_to do |format|
         format.js{
           render :update do |page|
             page.select("input#full_name").first.clear
-            page.replace_html "new-part-div", :partial => "participants/new_participant_partial", :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
+            page.replace_html "new-part-div", 
+			       :partial => "participants/new_participant_partial", 
+				   :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
             if @report.participant_ids.size > 1
               page.show 'common-reasons-container'
@@ -161,13 +162,13 @@ include ReportsHelper
         }
       end
     else
-      insert_new_participant_partial = !@report.associated?(@participant)
-      @report.add_default_contact_reason(@participant.id)
+      @insert_new_participant_partial = !@report.associated?(@participant)
+      @report.add_default_contact_reason(@participant.id) unless @report.associated?(@participant)
       respond_to do |format|
-        format.js
+        format.js 
         format.iphone {
           render :update do |page|
-            if insert_new_participant_partial
+            if @insert_new_participant_partial
               @report.add_default_contact_reason(@participant.id)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))

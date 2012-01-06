@@ -194,7 +194,7 @@ class Report < ActiveRecord::Base
   
   #return true if participant is associated with report
   def associated?(participant) 
-    participant != nil && participant_ids.include?(participant.id)
+    (not participant.nil?) && participant_ids.include?(participant.id)
   end
   
   def empty_of_participants?
