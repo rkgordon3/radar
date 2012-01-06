@@ -1,12 +1,6 @@
 <% if(type == "edit") %>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
-        <% if can? :edit, report %>
-           <%= link_to report.tag, edit_report_path(report), :class => "link-report-viewed-#{current_staff.has_seen?(report)}" %>
-		<% elsif can? :show, report %>
-		   <%= link_to report.tag, report, :class => "link-report-viewed-#{current_staff.has_seen?(report)}" %>
-        <% else %>
-            <%= "#{report.tag}" %>
-		<% end %>
+
 <% elsif(type == "show") %>
 <% end %>

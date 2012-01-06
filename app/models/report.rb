@@ -49,6 +49,7 @@ class Report < ActiveRecord::Base
   def is_note?
     type == "Note"
   end
+  
 
   def includes_secondary_submitter?(staff)
     ReportAdjunct.find_by_report_id_and_staff_id(self.id, staff.id) != nil
@@ -81,6 +82,10 @@ class Report < ActiveRecord::Base
     report_type.edit_on_mobile?
   end
   
+  def display_name
+    return report_type.display_name
+  end
+  
   def annotation_text
     annotation != nil ? annotation.text : nil
   end
@@ -101,6 +106,10 @@ class Report < ActiveRecord::Base
   
   def common_reasons
     report_type.common_reasons(participant_ids)
+  end
+  
+  def building_name
+	self.building.name rescue unspecified
   end
   
   def update_attributes_without_saving(params)
@@ -331,9 +340,7 @@ class Report < ActiveRecord::Base
     return new_data
   end
  
-  def display_name
-    return ReportType.find_by_name(self.class.name).display_name
-  end
+
   # An array of participant IDs
   def add_participants(participant_ids)
     participant_ids.each do |id|

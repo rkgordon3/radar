@@ -11,7 +11,7 @@
       <b>Approach Time:</b>
       <span id="approach_time"><%= @report.event_time %></span><br/>
       <b><%= t "location" %>:</b>
-      <%= @report.building.name %><br/>
+      <%= @report.building_name %><br/>
       <b><%= t :room_number %>:</b>
       <%= @report.room_number %><br/>
 	  <b><%= t :submitter %>:</b>
@@ -96,7 +96,7 @@
 			  <div class="current_contact_reasons" >
 			    <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
                    <b>Reported:</b>
-                   <%= rpr.relationship_to_report.description %><br/>
+                   <%= rpr.reason.description %><br/>
                 <% end %>
 			  </div>
               <% if can? :view_contact_history, p %>

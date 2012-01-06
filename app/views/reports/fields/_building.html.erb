@@ -5,12 +5,10 @@
     <b>Building:</b><br />
     <%= select_tag "building_id", options_from_collection_for_select(BuildingsHelper::all_buildings, "id", "name"), :include_blank => true %>
 <% elsif(type == "index") %>
-        <%= label_tag do -%>
-		  <% report.building.name rescue unknown %>
-		<% end -%>
+
 <% elsif(type == "show") %>
     <%= label_tag  do -%>
 	    <%= t "#{current_staff.organization}.location" %>:
 	<% end -%>
-    <%= @report.building.name rescue unknown %>
+    <%= @report.building_name  %>
 <% end %>

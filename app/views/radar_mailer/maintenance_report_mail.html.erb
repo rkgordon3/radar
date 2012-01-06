@@ -4,7 +4,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <% @loc =  "#{@report.room_number}" +" " + @report.building.name %>
+    <% @loc =  "#{@report.room_number}" +" " + @report.building_name %>
     <%  @loc = @loc.match(/Unspecified/)? "an unspecified location" : @loc.strip %>
     <p><h3><%= @report.display_name.match(/^[AaEeIiOoUu]/)? "An":"A" %> <%= @report.display_name %> has been forwarded to you by <%= @first_name%> <%= @last_name%> regarding <%= @loc %> on <%= @report.created_at_string %>.</h3></p>
 
@@ -15,7 +15,7 @@
   <b> <%= t "#{current_staff.organization}.annotation" %></b>
   <%= @report.annotation_text %><br/><br />
   <b><%= t "#{current_staff.organization}.location" %></b>
-  <%= @report.building.name %><br/><br />
+  <%= @report.building_name %><br/><br />
   <b>Room Number:</b>
   <%= @report.room_number %><br/><br />
 

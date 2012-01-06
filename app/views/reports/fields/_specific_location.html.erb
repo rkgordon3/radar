@@ -3,7 +3,7 @@
         <%= text_field(:report, :room_number) %>
 <% elsif(type == "search") %>
 <% elsif(type == "index") %>
-        <%= report.room_number %>
+
 <% elsif(type == "show") %>
     <%= label_tag  do -%>
 	    <%= t "#{current_staff.organization}.room_number" %>:
