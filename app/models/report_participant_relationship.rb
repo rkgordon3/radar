@@ -4,6 +4,8 @@ class ReportParticipantRelationship < ActiveRecord::Base
 	belongs_to :relationship_to_report
     belongs_to :annotation
     before_save :save_annotation
+	
+	attr_reader :comment
     
   after_initialize :setup_defaults
   def self.table_name() "report_participants" end

@@ -9,7 +9,7 @@
     <% rf2 =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_duration },
 							:with => "'participant=#{participant.id}&reason=#{reason.id}" + '&text=\' + this.value')  %>
-    <%= "Annotation" %><br />
+    <%= "Comment" %><br />
     <%= text_area_tag "annotation_#{participant.id}_#{reason.id}", (participant_reason.nil? ? "" : participant_reason.comment), :cols => 60, :rows => 2, :onblur => "#{rf}" %>
     <br />
     <%= "Duration (minutes)" %><br />

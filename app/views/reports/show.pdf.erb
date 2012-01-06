@@ -57,7 +57,7 @@
 			  <hr/>
 			      <span class="detail_name"><%= p.name %></span><br/>
                   <span class="detail_label">Student ID #: </span>
-                  <%=  p.student_id rescue "Unknown" %><br/>
+                  <%=  p.student_id rescue unknown %><br/>
                   <span class="detail_label"><%= t :class %>: </span><%= p.grade_level rescue unknown %><br/>
                   <span class="detail_label"><%= t :age %> :</span>
                   <% if p.is_of_drinking_age? %>
@@ -80,23 +80,30 @@
                   <%= p.extension rescue unknown %><br/>
                   <span class="detail_label"><%= t :affiliation %>: </span>
                   <%= p.affiliation rescue unknown %><br/>
+				  <% if can? :view_contact_info, p %>
                   <div id="emergency_contact">
                     <% if can? :view_contact_info, Student %>
                       <span class="detail_label">Emergency Contact: </span>
                       <%= p.emergency_contact_name rescue "" %>
                       <%= " @ " if p.emergency_contact_name != nil && p.emContact!=nil %>
-                      <%= p.emContact rescue "Unknown" %><br />
+                      <%= p.emContact rescue unknown %><br />
                     <% end %>
                   </div>
+				  <% end %>
               </div>
 			  </td>
 			  </tr>
 			  </table>
 			  </div>
 			  <div class="current_contact_reasons" >
-			    <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
-                   <b>Reported:</b>
-                   <%= rpr.reason.description %><br/>
+			    <% @report.report_participant_relationships.where(:participant_id => p.id).each do |participant_reason| %>
+                    Reported: <%= participant_reason.reason.description %><br/>
+					<% if (not participant_reason.contact_duration.nil?) %>
+						Duration: <%= participant_reason.contact_duration %><br/>
+					<% end %>
+					<% if (not participant_reason.comment.nil?) && (participant_reason.comment.length > 0) %>
+						Comment: <%= participant_reason.comment %> <br/>
+					<% end %>
                 <% end %>
 			  </div>
               <% if can? :view_contact_history, p %>
@@ -104,8 +111,6 @@
 			  <% if history.size == 0 %>
                 <span class="small-label"><%= t :no_contact_history %></span>
               <% else %>
-                <%= link_to image_tag("/images/add_icon.gif", :class => "plus_minus_icon", :id => "#{p.id}-history_img"), "javascript:void(0)",
-                  :onclick => "plusMinusToggle('history_div_#{p.id}', '#{p.id}-history_img');" %>
                 <div class="contact_history" >
 					<b><%= t :contact_history %></b>
 					<div id="history_div_<%= p.id %>" >
