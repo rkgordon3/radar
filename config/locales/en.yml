@@ -42,6 +42,6 @@ en:
   Report:
     help: Add students to FYI Report
   Note:
-    help: Add students related to rounds note
+    help: Add students to a Note
   TutorReport:
     help: Add students involved in a tutoring session. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
