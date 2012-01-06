@@ -178,7 +178,7 @@ class Report < ActiveRecord::Base
     end
   end
   
-  def get_contact_reason_for_participant(participant_id, reason_id)
+  def contact_reason_for_participant(participant_id, reason_id)
     self.report_participant_relationships.select { |ri|
       ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
@@ -240,13 +240,13 @@ class Report < ActiveRecord::Base
       end
       self.report_participant_relationships << ri
     else
-      ri = get_contact_reason_for_participant(participant_id, RelationshipToReport.fyi) 
+      ri = contact_reason_for_participant(participant_id, RelationshipToReport.fyi) 
     end
     return ri
   end
    
   def add_contact_reason_for(participant_id, reason_id)
-    ri = get_contact_reason_for_participant(participant_id, reason_id) 
+    ri = contact_reason_for_participant(participant_id, reason_id) 
     if ri == nil
       ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
       self.report_participant_relationships << ri
@@ -261,21 +261,21 @@ class Report < ActiveRecord::Base
   
   def add_annotation_for(participant_id, reason, text)
     annotation = Annotation.new(:text => text)
-    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
     if ri != nil
         ri.annotation = annotation
     end
   end
   
   def remove_annotation_for(participant_id, reason, text)
-    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
     if ri != nil
         ri.annotation = nil
     end
   end
   
   def add_duration_for(participant_id, reason, minutes)
-    ri = get_contact_reason_for_participant(Integer(participant_id), Integer(reason))
+    ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
     if ri != nil
         logger.debug minutes
         ri.contact_duration = minutes

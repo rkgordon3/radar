@@ -29,4 +29,8 @@ class ReportParticipantRelationship < ActiveRecord::Base
   def save_annotation   
     self.annotation_id = annotation.id if not self.annotation.nil?
   end
+  
+  def comment
+	annotation.text rescue ""
+  end
 end

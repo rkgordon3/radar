@@ -11,7 +11,8 @@
 							:url => { :controller => 'reports', :action => :update_reason },
 							:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
   		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
-						<% selected =  (not report.get_contact_reason_for_participant(participant.id, infraction.id).nil?) %>
+						<% participant_reason = report.contact_reason_for_participant(participant.id, infraction.id) %>
+						<% selected =  (not participant_reason.nil?) %>
   						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
   				       infraction.description,
   				       selected,
@@ -20,7 +21,8 @@
                     <% if @report.supports_contact_reason_details? %>
 						<%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 
 						                      :style => "margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: #{selected ? 'block' : 'none'};"  do -%>
-                            <%= render :partial => 'reports/contact_details', :locals => { :participant => participant, :infraction => infraction } %>
+                            <%= render :partial => 'reports/contact_details', 
+							           :locals => { :participant => participant, :reason => infraction, :participant_reason => participant_reason  } %>
                         <% end -%>
                     <% end %>
   				</div>
