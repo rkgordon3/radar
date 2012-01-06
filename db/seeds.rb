@@ -231,24 +231,12 @@ ReportField.create( {
 
 report = ReportType.find_by_name("TutorReport")
 
- 
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'student_search',
-  :search_position => 1,
- } )
 
  ReportField.create( {
   :report_type_id => report.id,
-  :name => 'time',
-  :index_position => 2,
- } )
-
- ReportField.create( {
-  :report_type_id => report.id,
-  :name => 'staff',
-  :index_position => 3,
- } )  
+  :name => 'approach_datetime',
+  :edit_position => 3,
+ } ) 
   
   
 report = ReportType.find_by_name("Note") 
