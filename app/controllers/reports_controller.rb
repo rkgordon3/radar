@@ -210,9 +210,7 @@ include ReportsHelper
     @participant.middle_initial = params[:middle_initial]
     @participant.affiliation = params[:affiliation]
 
-    if params[:ignore_dob].nil?
-      @participant.birthday = Date.civil(params[:range][:"#{:birthday}(1i)"].to_i,params[:range][:"#{:birthday}(2i)"].to_i,params[:range][:"#{:birthday}(3i)"].to_i) rescue unknown_date
-    end
+    @participant.birthday = convert_arg_date(params[:birthday])  if params[:ignore_dob].nil?
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 

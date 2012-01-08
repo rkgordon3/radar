@@ -1,6 +1,6 @@
 <div id="newParticipantPartialDiv">
   <%= form_tag('/reports/create_participant_and_add_to_report', :method => :post, :remote => true) do %>
-    <h3>No entries found for <%= "#{fName} #{mInitial} #{lName}" %></h3>
+    <h3>No entry found for <%= "#{fName} #{mInitial} #{lName}" %></h3>
 	<%= label :participant, :first_name %>
 	<%= text_field_tag 'first_name', "#{fName}" %>
 	<br />
@@ -15,9 +15,16 @@
 	<br />
 	<%= check_box_tag 'ignore_dob', 'ignore_dob', true %><%= t :ignore_dob %></br>
 	<%= label :participant, :birthday, "Date of Birth" %>
-	<%= date_select 'range', :birthday, :start_year => 1940, :end_year => Time.now.year, :order => [:month, :day, :year] %>
+	<%= text_field_tag "birthday", "", :id => "birthday",:size=>'12'  %>
 	<br />
 	<%= submit_tag "Create Participant",  :name => "create_participant" %>
 	<input type="button" value="Cancel" name="cancel" onClick="document.getElementById('new-part-div').innerHTML = '';" >	
   <% end %>
 </div>
+
+<script type="text/javascript">
+  var rangeDemoFormat = "%e-%b-%Y";
+	AnyTime.picker("birthday",
+	{ format: rangeDemoFormat, firstDOW: 0 });
+	
+</script>
