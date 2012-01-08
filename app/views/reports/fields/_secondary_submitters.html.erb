@@ -21,10 +21,9 @@
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
   <% if @report.adjunct_submitters.size > 0 %>
-    <b><%= "Secondary Submitter(s):" %></b>
+		<%= label_tag  do -%> <%= t "#{@report.class.name}.secondary_submitters" %><% end -%>
         <% @report.adjunct_submitters.each do |a| -%>
             <%= a.staff.last_name_first_initial %>
         <% end -%>
-        <br /><br />
   <% end %>
 <% end %>

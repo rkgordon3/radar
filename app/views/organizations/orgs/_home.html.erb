@@ -1,6 +1,7 @@
 
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
+  <li><%= link_to "Home", "/"  %>
   <% if can? :index, Student %>
   <li><%= link_to "Search", search_participants_path  %>
     <ul>

@@ -76,6 +76,7 @@ ReportField.create( {
   :report_type_id => report.id,
   :name => 'secondary_submitters',
   :edit_position => 4,
+  :show_positin => 7
  } )
  
   
