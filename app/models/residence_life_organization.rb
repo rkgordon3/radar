@@ -34,7 +34,7 @@ class ResidenceLifeOrganization < Organization
   	ability.can :register, Organization, :id => self.id
     ability.can [:index, :search], Participant
 	ability.can [:create, :read, :update, :search], MY_REPORTS
-	#ability.can [:create, :read, :update], DutyLog
+	ability.can [:create, :update, :read], Report, { :type => ["Note", "MaintenanceReport", "IncidentReport" ] }
 	# Can view staff in my org
 	ability.can :index, Staff, organizations => { :id => self.id }
 	# Can c/u/d HD and RA in my org. These levels to be deprecated.
@@ -59,7 +59,8 @@ class ResidenceLifeOrganization < Organization
   def administrative_assistant(ability, staff)
     ability.can [:index,:search], Participant
 	ability.can [:add_participant], Report, { :staff_id => staff.id }
-	ability.can [:create, :search] , MY_REPORTS
+	ability.can [:search] , MY_REPORTS
+	ability.can [:create], Report, { :type => ["Note", "MaintenanceReport", "IncidentReport" ] }
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
 	ability.can :update, NotificationPreference
 	ability.can :index, Staff, :organizations => { :id => self.id }
@@ -71,7 +72,9 @@ class ResidenceLifeOrganization < Organization
   def campus_safety(ability, staff)
     ability.can [:index, :search], Participant
 	ability.can [:index, :view_contact_info, :view_contact_history], Participant
-    ability.can [:create, :search], IncidentReport
+    ability.can [:search], IncidentReport
+	ability.can [:create], Report, { :type => "IncidentReport" }
+	ability.can [:add_participant, :remove_participant], Report, { :staff_id => staff.id }
 	ability.can [:show], Note, {:staff_id => staff.id }
 	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
 	ability.can [:index, :update], IncidentReport, { :staff_id => staff.id, :submitted  => false, :type => IncidentReport.to_s }
@@ -88,8 +91,8 @@ class ResidenceLifeOrganization < Organization
   def hall_director(ability, staff)
     puts ("*********Apply abilities to hall director")
 	ability.can [:index, :search, :view_contact_info, :view_contact_history], Participant
-	ability.can [:create], MY_REPORTS
-    ability.can [:add_participant], Report, { :staff_id => staff.id }
+	ability.can [:create], Report, { :type => ["Note", "MaintenanceReport", "IncidentReport" ] }
+    ability.can [:add_participant, :remove_participant], Report, { :staff_id => staff.id }
 	ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
 	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
@@ -115,8 +118,9 @@ class ResidenceLifeOrganization < Organization
   def resident_assistant(ability, staff)
     puts ( "*********Apply abilities to resident assistant")
     ability.can [:index, :search], Participant
-	ability.can [:create, :search], MY_REPORTS
-    ability.can [:add_participant], Report, { :staff_id => staff.id }
+	ability.can [:search], MY_REPORTS
+	ability.can [:create], Report, { :type => ["Note", "MaintenanceReport", "IncidentReport" ] }
+   # ability.can [:add_participant, :remove_participant], Report, { :staff_id => staff.id }
 	ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
 	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
 	ability.can :do, Shift, :time_out => nil
