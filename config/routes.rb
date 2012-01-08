@@ -1,24 +1,10 @@
 Radar::Application.routes.draw do
-
-# resources :report_fields
-
-# resources :enrollments
-
-#  resources :interested_party_reports
-
-#  resources :access_levels
-
-#  resources :interested_parties
-  
-#  resources :imports
   
   match "/imports/proc/:id" => "imports#proc_csv"
 
   resources :task_assignments  do
     get :to_do_list, :on => :collection
   end
-
-#  resources :staff_organizations
 
   resources :organizations
 
@@ -31,7 +17,6 @@ Radar::Application.routes.draw do
   resources :report_types
 
   resources :notification_preferences
-  #match "/notification_preferences/update_user_preferences/:id" => "notification_preferences#update_user_preferences"
   
   
   match "/shifts/update_todo" => "shifts#update_todo"
@@ -107,19 +92,7 @@ Radar::Application.routes.draw do
   
   resources :tutor_reports 
   resources :tutor_by_appointment_reports, :controller => "tutor_reports"
-  
-#  match "/reports_query/search" => "reports_query#search"
-#  get "/reports_query/search"
-  
-#  match "/reports_query/search_results" => "reports_query#search_results" 
-#  get "/reports_query/search_results"
-  
- # get "/students/search_students"
-  
-  #match "/students/process_search_parameters" => "students#process_search_parameters" 
-  #get "/students/process_search_parameters"
-  #get "/students/process_search_parameters"
-  
+
   resources :shifts
   
   resources :rounds 		

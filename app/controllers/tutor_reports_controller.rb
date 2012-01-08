@@ -22,14 +22,9 @@ class TutorReportsController < ReportsController
   
 
   def new
-  logger.debug("****************In TutorController NEW  ")
     @report =  param_value_present(params[:type]) ? 
 	                        params[:type].constantize.new(:staff_id => current_staff.id)
 	                      : TutorReport.new(:staff_id => current_staff.id) 
-
-logger.debug("****************TutorController NEW  #{@report.class.name}")
-
-						  # new report
     super
   end
 
@@ -39,7 +34,6 @@ logger.debug("****************TutorController NEW  #{@report.class.name}")
   end
 
   def show
-    logger.debug "!!!!!!!!!!!"
     @tutor_report = Report.find(params[:id])
     @report = @tutor_report
     super
