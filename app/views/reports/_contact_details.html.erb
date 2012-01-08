@@ -13,8 +13,9 @@
     <%= text_area_tag "annotation_#{participant.id}_#{reason.id}", (participant_reason.nil? ? "" : participant_reason.comment), :cols => 60, :rows => 2, :onblur => "#{rf}" %>
     <br />
     <%= "Duration (minutes)" %><br />
+	<% duration_value = (participant_reason.nil? || participant_reason.contact_duration.nil?) ? "01 hour(s) 00 min" :  participant_reason.contact_duration %>
     <%= text_field_tag "duration_#{participant.id}_#{reason.id}", 
-	      (participant_reason.nil? ? "" : participant_reason.contact_duration), 
+	      duration_value, 
 	      :id=>"duration_#{participant.id}_#{reason.id}" , 
 		  :onblur=> "#{rf2}" %>
   </div>
