@@ -3,7 +3,11 @@
   <%  else %>
     <%= image_tag(student.getImageUrl, :border=> 0, :width => 50) %>
   <% end %></td>
-<td><%= student.student_id %></td>
+<%if can? :read, Participant, :student_id %>
+<td>
+	<%= student.student_id %>
+</td>
+<% end %>
 <td><%= student.first_name %></td>
 <td><%= student.middle_initial %></td>
 <td><%= student.last_name %></td>
