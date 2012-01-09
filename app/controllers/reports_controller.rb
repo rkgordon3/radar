@@ -382,7 +382,7 @@ include ReportsHelper
 	  params[:infraction_id].select! { |id| id.length > 0 }
 	  @reports = @reports.joins(:report_participant_relationships)
 	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]})
-						 .group(:id) 
+						 .group(:id) if params[:infraction_id].length > 0
 	end
 	
 	# Select for building if present   
