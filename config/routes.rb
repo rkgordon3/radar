@@ -62,8 +62,8 @@ Radar::Application.routes.draw do
   match "/students/show_details/:id" => "students#show_details"
 
 
-  match "/incident_reports/add_participant"         => "reports#add_participant"
-  match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
+  #match "/incident_reports/add_participant"         => "reports#add_participant"
+  #match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
   
   match "/participant/createNoRedirect" => "participant#createNoRedirect"
   devise_for :staffs
@@ -104,7 +104,7 @@ Radar::Application.routes.draw do
       get  :autocomplete_participant_full_name
 	  get  :search
 	  post 'search' => :search_results
-	 get  :sort_search_results
+	  get  :sort_search_results
 	end
   end
   
@@ -126,9 +126,12 @@ Radar::Application.routes.draw do
   resources :reports  do
 	collection do
  	  get :on_duty_index
+	  get :add_participant
+	  get :remove_participant
 	  post :new_with_participants
 	  post 'search' => :search_results
 	end
+	
   end
 
   resources :students do

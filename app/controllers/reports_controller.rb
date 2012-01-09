@@ -3,9 +3,11 @@ class ReportsController < ApplicationController
 include ReportsHelper
 
   before_filter :authenticate_staff!
+  # This is a kludge to prevent controller form interpreting
+  # id in remove_participant url as a report id
   load_resource :except => :remove_participant
   authorize_resource
-  load_and_authorize_resource :incident_report
+
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
@@ -185,12 +187,9 @@ include ReportsHelper
   
   def remove_participant
     @report = session[:report]
-    @participant_id = Integer(params[:id])
-    infractions = @report.contact_reasons_for(@participant_id)
-    infractions.each do |ri|
-      @report.report_participant_relationships.delete(ri)
-      ri.destroy
-    end
+    @participant_id = params[:id]
+	@report.remove_participant(@participant_id)
+
     @iphone_div_id = "p-in-report-#{@participant_id}"
     
     respond_to do |format|

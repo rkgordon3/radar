@@ -264,6 +264,14 @@ class Report < ActiveRecord::Base
     return ri
   end
   
+  def remove_participant(pid)
+    p = pid.to_i if pid.class == String || pid
+    contact_reasons_for(p).each do |ri|
+      report_participant_relationships.delete(ri)
+      ri.destroy
+    end
+  end
+  
   def remove_contact_reason_for(participant_id, reason_id)
     self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
   end

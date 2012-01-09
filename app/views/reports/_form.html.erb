@@ -2,7 +2,7 @@
   <%= t "#{@report.class.name}.help" %>
 <br/>
 </div>
-<%= render :partial => "participants/autocomplete_full_name_form", :locals => { :target => "/reports/add_participant" } %>
+<%= render :partial => "participants/autocomplete_full_name_form", :locals => { :target => add_participant_reports_path } %>
 <div id="new-part-div">
 </div>
 <%= render :partial => "reports/report_generic" %>
