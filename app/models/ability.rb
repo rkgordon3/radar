@@ -5,7 +5,7 @@ class Ability
     alias_action :call_log, :duty_log, :to => :shift_log
 	alias_action :autocomplete_participant_full_name, :search_results, :to => :search
     alias_action :forward_as_mail => :forward
-	alias_action :new, :new_with_participants, :add_participant, :create_participant_and_add_to_report, :remove_participant, :to => :create
+	alias_action :new, :new_with_participants, :to => :create
 
     staff ||= Staff.new
     if not staff.organizations.empty? 
