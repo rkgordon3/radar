@@ -31,7 +31,9 @@
 
   <p><%= f.label :access_level %><br />
     <% if can? :update_access_level, @staff %>
-      <%= f.collection_select( :access_level_id, @access_levels, :id, :display_name, {:selected => @staff.access_level.id} ) %>
+  
+	  <%= f.select :access_level_id,
+		options_from_collection_for_select(AccessLevelsHelper::assignable_for(current_ability), "id", "display_name",  @staff.access_level.id ) %>
     <% else %>
       <b><%= @staff.access_level.display_name %></b>
     <% end %></p>

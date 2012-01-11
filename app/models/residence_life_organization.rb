@@ -13,13 +13,13 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:read], Staff
 	ability.can :update, Staff, :id => staff.id
 	# These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
-	ability.can [:create, :update, :destroy], Staff, 
+	ability.can [:create, :update, :destroy, :update_access_level ], Staff, 
 					{
 						:organizations => { :id => self.id },
 						:access_level => {:name => ["HallDirector", "ResidentAssistant", "CampusSafety" ]}
 					}
 	# These access levels are organization-generic.
-	ability.can [:create, :update, :destroy], Staff, 
+	ability.can [:create, :update, :destroy, :update_access_level], Staff, 
 					{ 
 						:organizations => { :id => self.id },
 						:access_level => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
@@ -27,7 +27,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :manage, [Task, Building, Area]
 	ability.can :manage, NotificationPreference
 	ability.can :register, Organization, :id => self.id
-	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety"]
+	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "HallDirector", "ResidentAssistant"]
 	ability.can :assign, Area
 	ability.can :search, Report
   end
