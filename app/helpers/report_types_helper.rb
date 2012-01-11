@@ -6,8 +6,8 @@ module ReportTypesHelper
   #
   # Present array of [report name, id] plus placehold for "All" to view
   #
-  def self.report_types_for(ability)   
-    @@types ||= ReportType.accessible_by(ability, :search).collect.sort
+  def self.selectable_by(ability)   
+    @@types ||= ReportType.accessible_by(ability, :select).collect.sort
   end
   
   def self.all_label

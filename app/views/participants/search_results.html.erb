@@ -10,7 +10,7 @@
 		<td>						
 			<%= submit_tag "Add" %>&nbsp;to
 			<%= select_tag "report_type",
-				options_from_collection_for_select(ReportTypesHelper::report_types_for(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
+				options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
 				:id => 'report_select_id' %>
 		</td>
 	</tr>

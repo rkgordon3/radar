@@ -18,7 +18,7 @@ class AcademicSkillsCenterOrganization < Organization
 					  :organizations => { :id => self.id },
 					  :access_level  => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
 					} 
-	ability.can [:search], ReportType, { :name => ["TutorReport" , "TutorByAppointmentReport" ] }
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
     
   def supervisor(ability, staff)
@@ -29,7 +29,7 @@ class AcademicSkillsCenterOrganization < Organization
 	# Can index staff within my organization
     ability.can :index, Staff, :organizations => { :id => self.id }
 	ability.can [:update, :show], Staff, :id => staff.id    
-	ability.can [:search], ReportType, { :name => ["TutorReport" , "TutorByAppointmentReport" ] }
+    ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
   
   def staff(ability, staff)
@@ -49,6 +49,6 @@ class AcademicSkillsCenterOrganization < Organization
 	ability.can [:update, :show], Staff, :id => staff.id
 
 
-    ability.can [:search], ReportType, { :name => MY_REPORT_TYPES }
+    ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
 end

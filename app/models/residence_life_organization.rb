@@ -29,7 +29,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :register, Organization, :id => self.id
 	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "HallDirector", "ResidentAssistant"]
 	ability.can :assign, Area
-	ability.can :search, Report
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
   
   def administrator(ability, staff)
@@ -57,7 +57,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :manage, Task
 	ability.can [:register, :update], Staff, :organizations => { :id => self.id }	
 	ability.can :assign, Area
-	ability.can [:search], ReportType, { :name => MY_REPORT_TYPES }
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
   
   def administrative_assistant(ability, staff)
@@ -69,7 +69,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :update, NotificationPreference
 	ability.can :index, Staff, :organizations => { :id => self.id }
 	ability.can :manage, Task
-	ability.can [:search], ReportType, { :name => MY_REPORT_TYPES }
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
 	ability.can :search, Report
   end
   
@@ -111,7 +111,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:update, :show], Staff, { :access_level => {:name => "ResidentAssistant"}, :organizations => { :id => self.id } }
 	ability.can :assign, Area
 	ability.can [ :index, :search], Report, {:type => MY_REPORT_TYPES }
-	ability.can [:search], ReportType, { :name => MY_REPORT_TYPES }
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end
   
   def staff(ability, staff)
@@ -126,7 +126,8 @@ class ResidenceLifeOrganization < Organization
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
 	ability.can [:index, :search], Report, { :staff_id => staff.id, :type => MaintenanceReport.to_s }
 	ability.can [:index, :update], Report, { :staff_id => staff.id, :submitted  => false, :type => MY_REPORT_TYPES }
-	ability.can [:search], ReportType, { :name => MY_REPORT_TYPES }
+	# Establish authority to select reports from menu
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
 	ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
 	ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
 	ability.can :do, Shift, :time_out => nil
