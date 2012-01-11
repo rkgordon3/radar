@@ -238,6 +238,39 @@ report = ReportType.find_by_name("TutorReport")
   :name => 'approach_datetime',
   :edit_position => 3,
  } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'annotation',
+  :show_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'staff',
+  :show_position => 6,
+ } ) 
+ 
+ report = ReportType.find_by_name("TutorByAppointmentReport")
+
+
+ ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'approach_datetime',
+  :edit_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'annotation',
+  :show_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'staff',
+  :show_position => 6,
+ } ) 
   
   
 report = ReportType.find_by_name("Note") 
