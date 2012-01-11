@@ -5,7 +5,9 @@
     <%= image_tag(participant.getImageUrl, :border=> 0, :width => 50) %>
   <% end %>
 </td>
+ <%if can? :read, Participant, :student_id %>
 <td>&nbsp;</td>
+<% end %>
 <td><%= participant.first_name %></td>
 <td><%= participant.middle_initial %></td>
 <td><%= participant.last_name %></td>
