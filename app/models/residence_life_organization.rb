@@ -16,13 +16,13 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:create, :update, :destroy, :update_access_level ], Staff, 
 					{
 						:organizations => { :id => self.id },
-						:access_level => {:name => ["HallDirector", "ResidentAssistant", "CampusSafety" ]}
+						:access_levels=> {:name => ["HallDirector", "ResidentAssistant", "CampusSafety" ]}
 					}
 	# These access levels are organization-generic.
 	ability.can [:create, :update, :destroy, :update_access_level], Staff, 
 					{ 
 						:organizations => { :id => self.id },
-						:access_level => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+						:access_levels => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
 					}
 	ability.can :manage, [Task, Building, Area]
 	ability.can :manage, NotificationPreference
@@ -45,13 +45,13 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:create, :update, :destroy], Staff, 
 					{
 						:organizations => { :id => self.id },
-						:access_level => {:name => ["HallDirector", "ResidentAssistant", "CampusSafety"]}
+						:access_levels => {:name => ["HallDirector", "ResidentAssistant", "CampusSafety"]}
 					}
 	# Can c/u/d admin asst, supervisor and staff for my org.
 	ability.can [:create, :update, :destroy], Staff, 
 					{
 						:organizations => { :id => self.id },
-						:access_level => {:name => ["AdministrativeAssistant", "Supervisor", "Staff"]}
+						:access_levels => {:name => ["AdministrativeAssistant", "Supervisor", "Staff"]}
 					}
 	ability.can :update, NotificationPreference
 	ability.can :manage, Task
@@ -101,14 +101,14 @@ class ResidenceLifeOrganization < Organization
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
 	#ability.can [:create, :read, :update], DutyLog
     ability.can [:list_RA_duty_logs], Shift
-    ability.can [:shift_log, :read], Shift, :staff => {:access_level => {:display_name => "Resident Assistant"}}
+    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     ability.can :update, Building
 	ability.can :manage, NotificationPreference, :staff_id => staff.id
 	ability.can :manage, Task
 	ability.can :index, [Building, Area, Task, RelationshipToReport]
 	ability.can :index, Staff, :organizations => { :id => self.id }
-	ability.can [:update, :show], Staff, { :access_level => {:name => "ResidentAssistant"}, :organizations => { :id => self.id } }
+	ability.can [:update, :show], Staff, { :access_levels => {:name => "ResidentAssistant"}, :organizations => { :id => self.id } }
 	ability.can :assign, Area
 	ability.can [ :index, :search], Report, {:type => MY_REPORT_TYPES }
 	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }

@@ -1,5 +1,5 @@
 class AccessLevel < ActiveRecord::Base
-
+  has_and_belongs_to_many	:staffs, :join_table => "staff_organizations"
 # FIXME This should not be here.
 	
   def log_type

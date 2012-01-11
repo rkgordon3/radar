@@ -16,7 +16,7 @@ class AcademicSkillsCenterOrganization < Organization
 	ability.can [:create, :update, :destroy], Staff, 
                  	{ 
 					  :organizations => { :id => self.id },
-					  :access_level  => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+					  :access_levels  => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
 					} 
 	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
   end

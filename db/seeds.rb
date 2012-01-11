@@ -1,3 +1,12 @@
+
+Staff.all.each { |s|
+  if not s.staff_organizations.first.nil?
+	so = s.staff_organizations.first
+	so = s.access_level
+    so.save
+  end
+}
+
 root_al = AccessLevel.find_by_name("root") || AccessLevel.create(:name => "root", display_name => "root", :numeric_level => 6) 
 system_admin_al = AccessLevel.find_by_name("SystemAdministrator")
 

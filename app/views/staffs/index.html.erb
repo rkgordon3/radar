@@ -11,11 +11,14 @@
       <th></th>
       <th></th>
     </tr>
-
-    <%= render :partial => "staffs/staff_table_row", :locals => { :staffs => @staffs, :num_rows=>0 } %>
-
+	<% @staffs.each do |staff| %>
+		<tr <%= @numRows == 0 ? "class='shaded'" : "" %> >
+			<% @numRows = @numRows == 0 ? @numRows + 1 : 0 %>
+			<%= render :partial => "staffs/staff_table_row", :locals => { :staff => staff } %>
+		</tr>
+	<% end %>
   </table>
 
   <br />
-  <%= link_to 'New Staff Member', "/staffs/sign_up" if can? :create, Staff %>
+  <%= link_to 'New User', "/staffs/sign_up" if can? :create, Staff %>
 </div>

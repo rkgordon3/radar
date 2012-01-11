@@ -1,13 +1,14 @@
 class Staff < ActiveRecord::Base
   has_many :staff_organizations, :dependent => :destroy
   has_many :organizations, :through => :staff_organizations
+  has_and_belongs_to_many	:access_levels, :join_table => "staff_organizations"
   has_many :staff_areas, :dependent => :destroy
   has_many :areas, :through => :staff_areas
   has_many :report_views, :foreign_key => :staff_id, :class_name => "ReportViewLog"
   belongs_to :access_level
   belongs_to :area
 
-  belongs_to :organization
+  #belongs_to :organization
   has_many :notification_preferences
   before_save :lower_email
   after_initialize :set_active
@@ -21,8 +22,15 @@ class Staff < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+  
+  # AccessLeve for staff in a given organization
+  def role_in(org)
 
- 
+	AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first.name.tableize.singularize rescue 'Staff'
+  end
+  
+  
+  
   def name
     first_name + " " + last_name
   end
@@ -58,7 +66,7 @@ class Staff < ActiveRecord::Base
   end
   
   def devise_creation_param_handler(params)
-    params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ]
+    params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ] unless params[:staff_areas].nil?
     params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
   end
   

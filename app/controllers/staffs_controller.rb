@@ -36,7 +36,9 @@ class StaffsController < Devise::RegistrationsController
   def destroy
     @staff = Staff.find(params[:id])
     authorize! :destroy, @staff
-    @staff.destroy
+	logger.debug("********************* Set active of #{@staff.id} to false  ************")
+    @staff.active = false
+	@staff.save
 
     respond_to do |format|
       format.html { redirect_to(staffs_url) }

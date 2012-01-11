@@ -1,11 +1,4 @@
-<% @staffs.each do |staff| %>
- <% if @numRows == 0 %>
-    <% @numRows = @numRows + 1 %>
-    <tr class="shaded">
-  <% else %>
-    <% @numRows = 0 %> 
-    <tr>
-  <% end %>
+
     <td><%= "#{staff.last_name}, #{staff.first_name}" %></td>
     <td><%= staff.email %></td>
     <td><%= staff.access_level.display_name rescue 'None' %></td>
@@ -14,7 +7,11 @@
 		 <% end -%>
 	</td>
 	<td><%= staff.last_login.to_s(:short_date_time) rescue "Not yet logged in" %>
-    <td><%= link_to 'Edit', "/staffs/#{staff.id}/edit" if can? :edit, staff %></td>
-    <td><%= link_to 'Destroy', staff, :confirm => 'Are you sure?', :method => :delete if can? :destroy, staff %></td>
-  </tr>
-<% end %>
+    <td><%= link_to 'Edit', edit_staff_path(staff) if can? :edit, staff %></td>
+	<td>
+	<% if staff.active %>
+		<%= link_to 'De-activate', staff, :confirm => 'Are you sure?', :method => :delete if can? :destroy, staff %>
+	<% else %>
+		<%= link_to 'Activate', staff, :confirm => 'Are you sure?', :method => :delete if can? :destroy, staff %>
+	<% end %>
+	</td>

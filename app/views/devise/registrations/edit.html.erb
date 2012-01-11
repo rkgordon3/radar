@@ -5,46 +5,60 @@
 <%= form_for(@staff, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="small-label" >
-  <p><%= f.label :first_name %><br />
-    <%= f.text_field :first_name %></p>
-</div>
-  <p><%= f.label :last_name %><br />
-    <%= f.text_field :last_name %></p>
+	<div class="field" >
+		<%= f.label :first_name %><br />
+		<%= f.text_field :first_name %>
+	</div>
+	<div class="field">
+		<%= f.label :last_name %><br />
+		<%= f.text_field :last_name %>
+	</div>
 
-  <p><%= f.label :email %><br />
-    <%= f.text_field :email %></p>
+	<div class="field"> 
+		<%= f.label :email %><br />
+		<%= f.text_field :email %>
+	</div>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password %></p>
+	<div class="field">
+		<%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+		<%= f.password_field :password %>
+	</div>
 
-  <p><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></p>
-
-
-  <p><%= f.label :organization %><br />
-    <% if can? :update_organization, @staff %>
-      <%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:selected => @staff.staff_organizations.first.organization_id} ) %>
-    <% else %>
-      <b><%= @staff.staff_organizations.first.organization.display_name %></b>
-    <% end %></p>
-
-  <p><%= f.label :access_level %><br />
-    <% if can? :update_access_level, @staff %>
-  
-	  <%= f.select :access_level_id,
-		options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name",  @staff.access_level.id ) %>
-    <% else %>
-      <b><%= @staff.access_level.display_name %></b>
-    <% end %></p>
+	<div class="field" >
+		<%= f.label :password_confirmation %><br />
+		<%= f.password_field :password_confirmation %>
+	</div>
 
 
-  <p><%= f.label :area %><br />
-    <% if can? :update_area, @staff %>
-      <%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
-  <% else %>
-    <b><%= @staff.staff_areas.first.area.name %></b>
-  <% end %></p>
+	<div class="field" >
+		<%= f.label :organization %>
+		<% if can? :update_organization, @staff %>
+			<br /><%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:multiple => true, :selected => @staff.staff_organizations.first.organization_id} ) %>
+		<% else %>
+			&nbsp;<%= @staff.staff_organizations.first.organization.display_name %>
+		<% end %>
+	</div>
+	
+	<div class="field" >
+		<%= f.label :access_level %>
+		<% if can? :update_access_level, @staff %>
+			<br /><%= f.select :access_level_id,
+				options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name",  @staff.access_level.id ) %>
+		<% else %>
+			&nbsp;<%= @staff.access_level.display_name %>
+		<% end %>
+	</div>
+
+  <% if @staff.staff_areas.length > 0 %>
+	<div class="field" >
+		<%= f.label :area %>
+		<% if can? :update_area, @staff %>
+			<br /><%= f.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => @staff.staff_areas.first.area_id} ) %></p>
+		<% else %>
+			&nbsp;<%= @staff.staff_areas.first.area.name %></b>
+		<% end %>
+	</div>
+  <% end %>
   <%= f.hidden_field :id, :value => @staff.id %>
 
   <p><%= f.submit "Update" %></p>

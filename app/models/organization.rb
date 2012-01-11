@@ -4,9 +4,8 @@ class Organization < ActiveRecord::Base
   has_many :staff_organizations
   
   def apply_privileges(ability, staff) 
-      ability.cannot :manage, :all
-	  
-      self.send(staff.access_level.name.tableize.singularize, ability, staff)
+    ability.cannot :manage, :all
+    self.send(staff.role_in(self), ability, staff)
   end
   
   def == other

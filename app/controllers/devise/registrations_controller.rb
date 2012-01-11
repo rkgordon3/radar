@@ -8,7 +8,6 @@ class Devise::RegistrationsController < ApplicationController
   def new
     authorize! :create, Staff
     build_resource({})
-    #@organizations = current_staff.registerable_organizations
     render_with_scope :new
   end
 
