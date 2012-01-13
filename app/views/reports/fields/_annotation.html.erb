@@ -1,6 +1,6 @@
 <% if(type == "edit") %>
 <div class="field">
-    <b><%= t "#{current_staff.organization}.annotation" %></b><br />
+    <b><%= t "#{report.report_type.name}.annotation" %></b><br />
     <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> report.annotation_text) %>
 </div>
 <% elsif(type == "search") %>
@@ -11,7 +11,7 @@
  
 <% elsif(type == "show") %>
     <%= label_tag  do -%>
-	    <%= t "#{current_staff.organization}.annotation" %>:
+	    <%= t "#{report.report_type.name}.annotation" %>:
 	<% end -%>
      <%= report.annotation_text %>   
 <% end %>

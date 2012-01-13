@@ -35,8 +35,7 @@
 					<div class="field">
 					   
 						<%= label_tag do -%>
-							<%-#  t "#{current_staff.organization}.#{report_type.class}.reasons" : -%>
-							<%= "Contact Reasons:" %>
+							<%= t "#{report_type.name}.reasons" : -%>
 						<% end -%><br/>
 						<% ReportTypesHelper::selectable_by(current_ability).each do |report_type | -%>
 							<%= content_tag :div, 	:id => "#{report_type.name}-reasons", 

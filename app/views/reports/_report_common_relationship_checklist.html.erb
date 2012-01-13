@@ -4,7 +4,7 @@
 <%= link_to image_tag("/images/add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('common-reasons', 'common-reasons-toggle');" %>
  
-  	<b><%= t "#{current_staff.organization}.#{params[:controller]}.common_reasons" %> </b>
+  	<b><%= t "#{report.report_type.name}.#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
   			<% infractions = report.common_reasons %>
 			<% rf =  remote_function( :update => nil,

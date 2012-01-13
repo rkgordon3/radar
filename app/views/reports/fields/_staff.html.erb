@@ -4,7 +4,7 @@
         
 <% elsif(type == "show") %>
     <%= label_tag  do -%>
-	    <%= t "#{current_staff.organization}.submitter" %>:
+	    <%= t "#{@report.report_type.name}.submitter" %>:
 	<% end -%>
     <%= @report.staff.name %>  
 <% end %>

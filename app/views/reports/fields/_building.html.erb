@@ -8,7 +8,7 @@
 
 <% elsif(type == "show") %>
     <%= label_tag  do -%>
-	    <%= t "#{current_staff.organization}.location" %>:
+	    <%= t "#{report.report_type.name}.location" %>:
 	<% end -%>
     <%= @report.building_name  %>
 <% end %>
