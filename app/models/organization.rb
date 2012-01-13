@@ -1,11 +1,15 @@
 class Organization < ActiveRecord::Base
   include CanCan::Ability
   attr_accessible :name,:abbreviation,:display_name  
-  has_many :staff_organizations
+  has_and_belongs_to_many :staffs, :join_table => :staff_organizations
   
   def apply_privileges(ability, staff) 
     ability.cannot :manage, :all
-    self.send(staff.role_in(self), ability, staff)
+	begin
+		self.send(staff.role_in(self).name.tableize.singularize, ability, staff)
+	rescue 
+		puts "No role for #{staff.email} in #{self.display_name}"
+	end
   end
   
   def == other

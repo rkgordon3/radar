@@ -28,26 +28,10 @@
 		<%= f.label :password_confirmation %><br />
 		<%= f.password_field :password_confirmation %>
 	</div>
+  <div class="field">
+    <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>
+  </div>
 
-
-	<div class="field" >
-		<%= f.label :organization %>
-		<% if can? :update_organization, @staff %>
-			<br /><%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:multiple => true, :selected => @staff.staff_organizations.first.organization_id} ) %>
-		<% else %>
-			&nbsp;<%= @staff.staff_organizations.first.organization.display_name %>
-		<% end %>
-	</div>
-	
-	<div class="field" >
-		<%= f.label :access_level %>
-		<% if can? :update_access_level, @staff %>
-			<br /><%= f.select :access_level_id,
-				options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name",  @staff.access_level.id ) %>
-		<% else %>
-			&nbsp;<%= @staff.access_level.display_name %>
-		<% end %>
-	</div>
 
   <% if @staff.staff_areas.length > 0 %>
 	<div class="field" >

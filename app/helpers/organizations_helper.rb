@@ -1,2 +1,5 @@
 module OrganizationsHelper
+  def self.assignable_by(ability) 
+    Organization.accessible_by(ability, :register).sort{|a,b| a.display_name <=> b.display_name}
+  end
 end

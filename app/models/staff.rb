@@ -1,7 +1,7 @@
 class Staff < ActiveRecord::Base
   has_many :staff_organizations, :dependent => :destroy
-  has_many :organizations, :through => :staff_organizations
-  has_and_belongs_to_many	:access_levels, :join_table => "staff_organizations"
+  has_and_belongs_to_many :organizations, :join_table => :staff_organizations
+  has_and_belongs_to_many	:access_levels, :join_table => :staff_organizations
   has_many :staff_areas, :dependent => :destroy
   has_many :areas, :through => :staff_areas
   has_many :report_views, :foreign_key => :staff_id, :class_name => "ReportViewLog"
@@ -25,12 +25,9 @@ class Staff < ActiveRecord::Base
   
   # AccessLeve for staff in a given organization
   def role_in(org)
-
-	AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first.name.tableize.singularize rescue 'Staff'
+	AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first
   end
-  
-  
-  
+
   def name
     first_name + " " + last_name
   end
@@ -102,15 +99,14 @@ class Staff < ActiveRecord::Base
   end
 
   def current_round
-    if self.current_shift != nil
+    unless self.current_shift.nil?
       Round.where(:end_time => nil, :shift_id => self.current_shift.id).first
     end
   end
   
   def currently_assigned_tasks
-    if (current_shift == nil)
-      return []
-    end
+    return [] if current_shift.nil?
+   
     anytime = -1
     timed_assignments = TaskAssignment.joins(:task).where( "shift_id = ? AND tasks.time > ?", self.current_shift.id, anytime ).order(:time).all
     untimed_assignments = TaskAssignment.joins(:task).where( :shift_id => self.current_shift.id, :tasks => {:time => anytime }).all
@@ -120,13 +116,23 @@ class Staff < ActiveRecord::Base
   end
   
   def update_attributes(staff)
-    if staff[:staff_organizations] != nil
+    unless staff[:staff_organizations].nil?
+	# staff[:staff_organizations] is an array of organization ids
+	
+	# Delete those staff_orgs whose org_id not in input parameter list
+	  self.organizations.reverse_each  do |e|  
+		unless staff[:staff_organizations].include?(e.organization_id.to_s) 
+			self.organizations.delete(e)
+		end
+	  end
+	  self.organizations.each 
+	  self.staff_organizations.select! { |e| }
       so = StaffOrganization.where(:staff_id => self.id).first
       so.organization_id = staff[:staff_organizations]
       so.save
       staff[:staff_organizations] = [so]
     end
-    if staff[:staff_areas] != nil
+    unless staff[:staff_areas].nil?
       sa = StaffArea.where(:staff_id => self.id).first
       sa.area_id = staff[:staff_areas]
       sa.save

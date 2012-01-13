@@ -18,15 +18,9 @@
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :organization %><br />
-    <%= f.collection_select( :staff_organizations, @organizations, :id, :display_name, {:selected => 1}) %>
+    <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>
   </div>
-  <div class="field">
-    <%= f.label :access_level %><br />
-	<%= f.select :access_level_id,
-		options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name" ) %>
-
-  </div>
+  
   <% if can? :assign, Area %>
   <div class="field">
     <%= f.label :area %><br />

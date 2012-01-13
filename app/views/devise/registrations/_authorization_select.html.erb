@@ -1,0 +1,9 @@
+<%= label_tag "Authorizations" %>
+<% OrganizationsHelper.assignable_by(current_ability).each do |org| -%>
+<% al = staff.role_in(org) %>
+  <div class="field">
+	<%= check_box_tag  "org[]", "#{org.id}", (not al.nil?) -%><%= select_tag "authorization[#{org.id}]",
+				options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name",  (al.nil? ? 1 : al.id) ) -%>
+				in <%= label_tag org.display_name  -%>
+	</div>
+<% end -%>

@@ -1,7 +1,6 @@
 class Devise::RegistrationsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [  ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy, :new, :create]
-  before_filter :instantiate_registerables, :only => [:new,:edit]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_up
@@ -66,9 +65,5 @@ class Devise::RegistrationsController < ApplicationController
     self.resource = resource_class.find(send(:"current_#{resource_name}").id)
   end
 
-  def instantiate_registerables
-    @organizations ||= Organization.accessible_by(current_ability, :register).sort{|a,b| a.display_name <=> b.display_name}
-    @access_levels ||= AccessLevel.accessible_by(current_ability, :assign).sort{|a,b| a.display_name <=> b.display_name}
-  end
 
 end
