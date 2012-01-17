@@ -13,7 +13,7 @@ system_admin_al = AccessLevel.find_by_name("SystemAdministrator")
 # Create radar-amdmin "super user"
 Staff.create(:password=> "password", 
              :password_confirmation => "password",
-			 :email => "radar-smumn.edu",
+			 :email => "radar-admin@smumn.edu",
 			 :first_name  => "super", :last_name => "user",
 			 :access_level_id => root_al.id
 ) if Staff.find_by_email("radar-admin@smumn.edu").nil?

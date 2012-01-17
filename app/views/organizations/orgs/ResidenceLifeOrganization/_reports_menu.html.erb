@@ -1,4 +1,4 @@
-  <li><%= link_to "ResLife Reports", new_incident_report_path  %>
+  <li><%= link_to "ResLife Reports", new_incident_report_path, :class=>"menubar_link"  %>
     <ul>
 	   <% if can? :create, IncidentReport  %><li><%= link_to "Incident Report", new_incident_report_path  %></li><% end %>
 	   <% if can? :create, MaintenanceReport  %><li><%= link_to "Maintenence Request", new_maintenance_report_path %></li><% end %>

@@ -12,6 +12,12 @@ a {
     color: #CC3333;
 }
 
+.menubar_link {
+color: #CC3333;
+font-size: 14pt;
+}
+
+
 .generic_show_report { width:50%; }
 
 table {
@@ -61,6 +67,7 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
     background-color: #FFF;
     padding: 10px;
     margin-top: 0px;
+	margin-left:20px;
     font-family: Arial;
 
 }

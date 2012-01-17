@@ -8,7 +8,7 @@ class ResidenceLifeOrganization < Organization
     ability.can [:index,:search], Participant
 	ability.can [:create, :read, :update, :search], MY_REPORTS
 	# Limit access to those reports in this organization
-    ability.can [:create, :read, :show, :index, :update, :search, :add_particpant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
+    ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
 	# Can view all staff 
 	ability.can [:read], Staff
 	ability.can :update, Staff, :id => staff.id

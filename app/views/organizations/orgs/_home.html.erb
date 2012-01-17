@@ -1,9 +1,8 @@
 
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
-  <li><%= link_to "Home", "/"  %>
   <% if can? :index, Student %>
-  <li><%= link_to "Search", search_participants_path  %>
+  <li><%= link_to "Search", search_participants_path, :class=>"menubar_link"  %>
     <ul>
       <li><%= link_to "Students", search_participants_path  %></li>
 	  <% if can? :search, Report %><li><%= link_to "Reports", reports_path  %></li>   <% end %>   
@@ -16,7 +15,7 @@
 	<% end %>
   <% end -%>
 
-  <li><%= link_to "Manage", staffs_path %>
+  <li><%= link_to "Manage", staffs_path, :class=>"menubar_link" %>
     <ul>
       <% if can? :index, Staff %><li><%= link_to "Manage Staff Members", staffs_path %></li><% end %>
       <% if can? :index, Building %><li><%= link_to "Manage Buildings", buildings_path  %></li><% end %>
@@ -26,3 +25,4 @@
     </ul>
   </li>
 </ul>
+

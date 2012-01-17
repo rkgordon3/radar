@@ -1,7 +1,7 @@
 <% if reports.respond_to?('total_pages') %>
   <%= will_paginate reports %>
 <% end %>
-<table>
+<table >
   <% if reports.length > 0 %>
     <%= render :partial => "reports/report_index_header_linked_labels" %>
   <% else %>
@@ -17,7 +17,7 @@
 		<tr>
     <% end %>
     <td>
-		<div class="field">
+		<div class="field"  >
 		    <%= report.event_date %>
 		</div>
 	</td>
