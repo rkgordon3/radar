@@ -116,21 +116,21 @@ class Staff < ActiveRecord::Base
   end
   
   def update_attributes(staff)
-    unless staff[:staff_organizations].nil?
-	# staff[:staff_organizations] is an array of organization ids
-	
-	# Delete those staff_orgs whose org_id not in input parameter list
-	  self.organizations.reverse_each  do |e|  
-		unless staff[:staff_organizations].include?(e.organization_id.to_s) 
-			self.organizations.delete(e)
-		end
-	  end
-	  self.organizations.each 
-	  self.staff_organizations.select! { |e| }
-      so = StaffOrganization.where(:staff_id => self.id).first
-      so.organization_id = staff[:staff_organizations]
-      so.save
-      staff[:staff_organizations] = [so]
+    unless staff[:org].nil?
+	  # delete all existing
+	  self.access_levels.delete_all
+	  # staff[:staff_organizations] is an array of organization ids
+	  solist = []
+	  staff[:org].each { |id| 
+		
+	    al_id = staff[:authorization][id.to_s].to_i
+		logger.debug("++++++++++++++++New staff org staff #{self.id} org #{id.to_i} access #{al_id}")
+	    so = StaffOrganization.new(:organization_id=>id.to_i, :staff_id => self.id, :access_level_id =>al_id)
+	    so.save
+		solist << so
+	  }
+	  staff.delete(:org)
+	  staff.delete(:authorization)
     end
     unless staff[:staff_areas].nil?
       sa = StaffArea.where(:staff_id => self.id).first

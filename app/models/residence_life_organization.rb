@@ -11,7 +11,6 @@ class ResidenceLifeOrganization < Organization
     ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
 	# Can view all staff 
 	ability.can [:read], Staff
-	ability.can :update, Staff, :id => staff.id
 	# These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
 	ability.can [:create, :update, :destroy, :update_access_level ], Staff, 
 					{
@@ -22,7 +21,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:create, :update, :destroy, :update_access_level], Staff, 
 					{ 
 						:organizations => { :id => self.id },
-						:access_levels => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+						:access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
 					}
 	ability.can :manage, [Task, Building, Area]
 	ability.can :manage, NotificationPreference
