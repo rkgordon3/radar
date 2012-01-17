@@ -1,9 +1,8 @@
 
     <td><%= "#{staff.last_name}, #{staff.first_name}" %></td>
     <td><%= staff.email %></td>
-    <td><%= staff.access_level.display_name rescue 'None' %></td>
-    <td><% staff.organizations.each  do |o| -%>
-         <%=	o.display_name  rescue 'Unattached' %><br/>
+    <td><% staff.staff_organizations.each  do |so| -%>
+         <%=	"#{so.access_level.display_name} in #{so.organization.display_name}"  rescue 'Unattached' %><br/>
 		 <% end -%>
 	</td>
 	<td><%= staff.last_login.to_s(:short_date_time) rescue "Not yet logged in" %>
