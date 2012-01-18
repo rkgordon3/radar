@@ -15,14 +15,19 @@ class Devise::RegistrationsController < ApplicationController
     authorize! :create, Staff
     resource.devise_creation_param_handler(params[resource_name])
     build_resource
-    
+
     if resource.save
+	# This is absolutelyl a kludge to compensate for poorly designed (rkg takes full responsibility)
+	# associations between staff, org and access_level. The relationships between these models has
+	# to be re-thunk.
+	  resource.handle_authorization_params(resource.id, params[resource_name])
       #sign_in_and_redirect(resource_name, resource)
       redirect_to(staffs_url, :notice => "Account for #{resource.last_name_first_initial} was successfully created.")
     else
       clean_up_passwords(resource)
       render_with_scope :new
     end
+
   end
 
   # GET /resource/edit

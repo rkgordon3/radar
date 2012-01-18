@@ -23,7 +23,7 @@ class Staff < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
   
-  # AccessLeve for staff in a given organization
+  # AccessLevel for staff in a given organization
   def role_in(org)
 	AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first
   end
@@ -64,15 +64,6 @@ class Staff < ActiveRecord::Base
   
   def devise_creation_param_handler(params)
     params[:staff_areas] = [ StaffArea.new( :area_id => params[:staff_areas]) ] unless params[:staff_areas].nil?
-    params[:staff_organizations] = [ StaffOrganization.new( :organization_id => params[:staff_organizations]) ]
-  end
-  
-  # Organization in which user is currently acting
-  # NB: Degenerate case is 'first' from list of organizations to which
-  # user belongs. When full support for multiple orgs is in place, this
-  # method we have to be revisited.
-  def organization_of_agency
-    self.organizations.first
   end
 
   def lower_email
@@ -116,19 +107,11 @@ class Staff < ActiveRecord::Base
   end
   
   def update_attributes(staff)
+  logger.debug("*************** Inside update_attributes #{staff[:org]} " )
     unless staff[:org].nil?
 	  # delete all existing
 	  self.access_levels.delete_all
-	  # staff[:staff_organizations] is an array of organization ids
-	  solist = []
-	  staff[:org].each { |id| 
-		
-	    al_id = staff[:authorization][id.to_s].to_i
-		logger.debug("++++++++++++++++New staff org staff #{self.id} org #{id.to_i} access #{al_id}")
-	    so = StaffOrganization.new(:organization_id=>id.to_i, :staff_id => self.id, :access_level_id =>al_id)
-	    so.save
-		solist << so
-	  }
+	  handle_authorization_params(self.id, staff)
 	  staff.delete(:org)
 	  staff.delete(:authorization)
     end
@@ -142,4 +125,17 @@ class Staff < ActiveRecord::Base
     super(staff)
   end
   
+  	# This is absolutely a kludge to compensate for poorly designed (rkg takes full responsibility)
+	# associations between staff, org and access_level. The relationships between these models has
+	# to be re-thunk. This code is used on registrations_controller after save of staff.
+ 
+  def handle_authorization_params(staff_id, staff)
+	staff[:org].each { |id| 
+		al_id = staff[:authorization][id.to_s].to_i
+		logger.debug("++++++++++++++++New staff org: staff  #{staff_id} org #{id.to_i} access #{al_id}")
+	    so = StaffOrganization.new(:staff_id => staff_id, :organization_id=>id.to_i, :access_level_id =>al_id)
+	    so.save
+	}
+
+  end
 end

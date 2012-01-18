@@ -1,6 +1,6 @@
 class AcademicSkillsCenterOrganization < Organization 
-  MY_REPORTS = [TutorReport, TutorByAppointmentReport, Note]
-  MY_REPORT_TYPES = ["TutorReport", "TutorByAppointmentReport", "Note"]
+  MY_REPORTS = [TutorReport, TutorByAppointmentReport]
+  MY_REPORT_TYPES = ["TutorReport", "TutorByAppointmentReport"]
   private
   
   def system_administrator(ability, staff)
