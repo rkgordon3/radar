@@ -18,6 +18,12 @@ font-size: 14pt;
 }
 
 
+.heading_link {
+	color: #595959;
+	font-size:12pt;
+}
+
+
 .generic_show_report { width:50%; }
 
 table {
@@ -118,20 +124,6 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
     vertical-align: bottom;
     position: relative;
 
-}
-
-#flash_notice, #flash_error, #flash_alert {
-    padding: 5px 8px;
-    margin: 10px 0;
-}
-
-#flash_notice {
-    background-color: #94c0d9;
-}
-
-#flash_error, #flash_alert {
-    background-color: #f99;
-    border: solid 1px #C66;
 }
 
 .fieldWithErrors {
