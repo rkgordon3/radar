@@ -44,7 +44,7 @@ module EnrollmentsHelper
 				raise "Error updating #{enrollment.id}" if !enrollment.update_attributes(params)
 				@@update_count += 1
 			else 
-				raise "Error creating #{}" if Enrollment.create(params).nil? 
+				raise "Error creating course #{params["course_id"]} enrollment for #{params["student_id"]}" if Enrollment.create(params).nil? 
 				@@new_count += 1
 			end
 			enrollment

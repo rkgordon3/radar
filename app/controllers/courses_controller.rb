@@ -1,4 +1,7 @@
 class CoursesController < ApplicationController
+
+  autocomplete :course, :full_name, :display_value => :full_name, :full => true
+  
   # GET /courses
   # GET /courses.xml
   def index

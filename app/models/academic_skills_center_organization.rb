@@ -6,11 +6,13 @@ class AcademicSkillsCenterOrganization < Organization
   def system_administrator(ability, staff)
   	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff"]
     ability.can [:index, :search, :view_contact_history], Participant
-	ability.can :search, Report
+	ability.can :search, MY_REPORTS
+	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
 	# Can register users in this organization
 	ability.can :register, Organization, :id => self.id	  
 	# Limit access to those reports in this organization
-    ability.can [:create, :read, :update, :search, :add_participant], MY_REPORTS, :organization_id => self.id
+	ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
+
 	ability.can [:read], Staff
 	ability.can :update, Staff, :id => staff.id
 	ability.can [:create, :update, :destroy], Staff, 

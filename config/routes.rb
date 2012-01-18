@@ -97,7 +97,11 @@ Radar::Application.routes.draw do
   
   resources :rounds 		
 
- # resources :annotations
+	resources :courses do
+		collection do
+	      get  :autocomplete_course_full_name
+		end
+	end
 
   resources :participants do
     collection do

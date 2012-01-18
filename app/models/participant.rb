@@ -30,8 +30,8 @@ class Participant < ActiveRecord::Base
     end
     IMAGE_PATH + url_for_id.url 
   end
-		
-	def Participant.get_participant_for_full_name(name_string)
+  
+  def Participant.get_participant_for_full_name(name_string)
     message= name_string
     split_up = message.split(/, /)
 	
@@ -70,7 +70,7 @@ class Participant < ActiveRecord::Base
 		# but both approaches assume only one match. Is this safe assumption?
 	end
 	
-	def age
+  def age
     dob = self.birthday
     unless dob.nil?
       a = Date.today.year - dob.year

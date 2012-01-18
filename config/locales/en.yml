@@ -33,7 +33,8 @@ en:
     help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
     common_reasons: Common Infractions
     reasons: Infractions
-    reason: Infraction
+    reason: Infraction(
+    reasons: Infraction(s)
     history: Infraction History
     secondary_submitters: Secondary Submitter(s)
     annotation: Incident Description
@@ -41,19 +42,24 @@ en:
     help: Add students reporting problem for Maintenance to contact for follow-up
     history: Contact History
     annotation: Problem Description
+    reasons: Contact Reason(s)
   Report:
     help: Add students to FYI Report
     annotation: Comments
+    reasons: Contact Reason(s)
   Note:
     help: Add students to a Note
     annotation: Comments
+    reasons: Contact Reason(s)
   TutorReport:
     help: Add students involved in a tutoring session. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
+    reasons: Courses
   TutorByAppointmentReport:
     help: Add students involved in a tutoring session. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
-    submitter: Tutor
+    submitter: Tuto
+    reasons: Courses

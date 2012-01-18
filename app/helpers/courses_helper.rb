@@ -39,16 +39,17 @@ module CoursesHelper
             params["semester"] = line[TERM][4..6]
             params["year"] = line[TERM][0..4]
             params["term"] = line[TERM]
+			params["full_name"] = line[DEPARTMENT] + line[COURSE_NUMBER] +line[DESCRIPTION] + line[TERM]
             params            
         end
         
         def self.update_course(params)
             course = Course.where(:department => params["department"], :section => params["section"], :course_number => params["course_number"], :term => params["term"]).first
 			if not course.nil?  
-				raise "Error updating #{course.id}" if !course.update_attributes(params)
+				raise "Error updating #{course.id} #{params["full_name"]}" if !course.update_attributes(params)
 				@@update_count += 1
 			else 
-				raise "Error creating #{}" if Course.create(params).nil? 
+				raise "Error creating #{params["full_name"]}" if Course.create(params).nil? 
 				@@new_count += 1
 			end
 			course
