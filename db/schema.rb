@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117222935) do
+ActiveRecord::Schema.define(:version => 20120118235313) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "text",       :limit => 20480
+    t.text     "text"
   end
 
   create_table "areas", :force => true do |t|
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
-    t.string   "abbreviation"
-    t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "area_id"
+    t.string   "abbreviation"
     t.boolean  "is_residence", :default => false
   end
 
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.string   "abbreviation"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",         :limit => 64
+    t.string   "type"
   end
 
   create_table "participants", :force => true do |t|
@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "abbreviation"
     t.string   "display_name"
+    t.string   "abbreviation"
     t.integer  "organization_id"
     t.boolean  "forwardable"
     t.string   "reason_context"
@@ -222,8 +222,12 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.datetime "end_time"
   end
 
-# Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd0b2718>
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -249,8 +253,25 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.integer  "access_level_id"
   end
 
-# Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd3a0b08>
+  create_table "staffs", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "access_level_id"
+    t.boolean  "active"
+  end
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"
