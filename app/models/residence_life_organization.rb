@@ -5,7 +5,7 @@ class ResidenceLifeOrganization < Organization
   private
 
   def system_administrator(ability, staff) 
-    ability.can [:index,:search], Participant
+    ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can [:create, :read, :update, :search], MY_REPORTS
 	# Limit access to those reports in this organization
     ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
@@ -34,7 +34,7 @@ class ResidenceLifeOrganization < Organization
   def administrator(ability, staff)
 	ability.can :assign, AccessLevel, :name => ["AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety"]
   	ability.can :register, Organization, :id => self.id
-    ability.can [:index, :search], Participant
+    ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can [:create, :read, :update, :search], MY_REPORTS
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :type => MY_REPORT_TYPES}
 	ability.can [:create, :update, :read], Report, { :type => MY_REPORT_TYPES }
@@ -60,7 +60,7 @@ class ResidenceLifeOrganization < Organization
   end
   
   def administrative_assistant(ability, staff)
-    ability.can [:index,:search], Participant
+    ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :staff_id => staff.id }
 	ability.can [:search] , MY_REPORTS
 	ability.can [:create], Report, { :type => MY_REPORT_TYPES }
@@ -73,7 +73,7 @@ class ResidenceLifeOrganization < Organization
   end
   
   def campus_safety(ability, staff)
-    ability.can [:index, :search], Participant
+    ability.can [:index, :search, :view_contact_info, :show], Participant
 	ability.can [:index, :view_contact_info, :view_contact_history], Participant
 	ability.can [:create, :search], Report, { :type => "IncidentReport" }
 	ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :staff_id => staff.id }
@@ -92,7 +92,7 @@ class ResidenceLifeOrganization < Organization
   
   def hall_director(ability, staff)
     puts ("*********Apply abilities to hall director")
-	ability.can [:index, :search, :view_contact_info, :view_contact_history], Participant
+	ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can [:create], Report, { :type => MY_REPORT_TYPES}
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
 	ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }

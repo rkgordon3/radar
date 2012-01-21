@@ -5,7 +5,7 @@ class AcademicSkillsCenterOrganization < Organization
   
   def system_administrator(ability, staff)
   	ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff"]
-    ability.can [:index, :search, :view_contact_history], Participant
+    ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can :search, MY_REPORTS
 	ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
 	# Can register users in this organization
@@ -25,7 +25,7 @@ class AcademicSkillsCenterOrganization < Organization
     
   def supervisor(ability, staff)
 	ability.can [:create, :search, :read], Report, { :type => MY_REPORT_TYPES  }
-	ability.can [:index, :search, :view_contact_history], Participant
+	ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
 	ability.can [:index], Report, { :type => ["TutorReport" , "TutorByAppointmentReport" , "Note" ]  }
 	ability.can [:search, :read, :create, :update, :add_participant], MY_REPORTS, :staff_id => staff.id 	  
 	# Can index staff within my organization
