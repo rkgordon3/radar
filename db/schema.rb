@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.datetime "updated_at"
     t.string   "department"
     t.string   "course_number"
+    t.string   "course_number"
     t.string   "section"
     t.string   "semester"
     t.integer  "year",          :precision => 38, :scale => 0
