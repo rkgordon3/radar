@@ -107,7 +107,7 @@
                 <% end %>
 			  </div>
               <% if can? :view_contact_history, p %>
-              <% history = p.contact_history(@report)%>
+              <% history = p.contact_history(current_ability, @report)%>
 			  <% if history.size == 0 %>
                 <span class="small-label"><%= t :no_contact_history %></span>
               <% else %>
