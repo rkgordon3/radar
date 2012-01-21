@@ -6,5 +6,5 @@
     <%= label_tag  do -%>
 	    <%= t "#{@report.report_type.name}.submitter" %>:
 	<% end -%>
-    <%= @report.staff.name %>  
+    <%= @report.staff.name rescue unknown %>  
 <% end %>
