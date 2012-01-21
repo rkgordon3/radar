@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117222935) do
+ActiveRecord::Schema.define(:version => 20120120220314) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20120117222935) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "department"
-    t.string   "course_number"
     t.string   "course_number"
     t.string   "section"
     t.string   "semester"
