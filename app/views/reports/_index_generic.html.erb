@@ -24,6 +24,7 @@
 						<%= select_tag "type",
 							options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
 							:id => 'report_select_id',
+							:include_blank => true,
 							:onchange => "report_select();" %>
 					</div>
 					</td>

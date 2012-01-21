@@ -1,10 +1,6 @@
 <div id="inside_container" class="inside_container">
   <div class="form_header">
-  <% if @report_type != nil %>
-      <%= "#{@report_type.display_name.pluralize}" %>
-    <% else %>
-      Reports
-    <% end %>
+      <%= t "report_search" %>
 	</div>
   <%= render :partial => "reports/index_generic", :locals => { :reports => @reports } %>
 </div>
