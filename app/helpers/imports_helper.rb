@@ -147,6 +147,11 @@ module ImportsHelper
 			if not student.nil?
 			  
 				student.is_active = false
+        student.affiliation = "Former Student"
+        student.building_id = nil
+        student.room_number = nil
+        student.extension = nil
+        student.classification = nil
 				student.save
       end
 			student
