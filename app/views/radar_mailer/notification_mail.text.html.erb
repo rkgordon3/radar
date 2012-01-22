@@ -8,7 +8,7 @@
     <% @reports_keys.each do |rs| %>
       <h3><%=rs+"s" %></h3>
       <% @reports.fetch(rs).each do |r| %>
-        <% @loc =  "#{r.room_number}" +" " + Building.find(r.building_id).name  rescue UNSPECIFIED_BUILDING %>
+        <% @loc =  "#{r.room_number r.building.name}"  rescue UNSPECIFIED_BUILDING %>
         <%  @loc = @loc.match(/Unspecified/)  ? "an unspecified location" : @loc.strip %>
         <% @report_url = "http://#{report_host_ip}/"+r.class.name.tableize+"/"+r.id.to_s %>
 
