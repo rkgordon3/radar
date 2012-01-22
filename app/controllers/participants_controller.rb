@@ -149,7 +149,7 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  def sort
+  def sort_search_results
     @participants = Participant.where(:id => params[:participants])
     sort = params[:sort]
     if sort == "First Name"

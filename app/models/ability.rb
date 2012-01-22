@@ -3,7 +3,7 @@ class Ability
   def initialize(staff)
     alias_action :start_shift, :end_shift, :update_todo, :start_round, :end_round, :update, :to_do_list, :to => :do
     alias_action :call_log, :duty_log, :to => :shift_log
-    alias_action :autocomplete_participant_full_name, :search_results, :to => :search
+    alias_action :autocomplete_participant_full_name, :sort_search_results, :search_results, :to => :search
     alias_action :forward_as_mail, :to => :forward
     alias_action :new, :new_with_participants, :update_duration, :update_common_duration, :update_reason,
       :update_common_reasons, :render_set_reason, :render_common_reasons_update, :update_common_annotation,
