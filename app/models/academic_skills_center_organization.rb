@@ -12,7 +12,7 @@ class AcademicSkillsCenterOrganization < Organization
     # Can register users in this organization
     ability.can :register, Organization, :id => self.id
     # Limit access to those reports in this organization
-    ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
+    ability.can [:create, :read, :show, :index, :update, :search], Report, :organization_id => self.id
 
     ability.can [:read], Staff
     ability.can :update, Staff, :id => staff.id
