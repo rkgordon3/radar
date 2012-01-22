@@ -39,11 +39,13 @@ en:
     history: Infraction History
     secondary_submitters: Secondary Submitter(s)
     annotation: Incident Description
+    location: Location
   MaintenanceReport:
     help: Add students reporting problem for Maintenance to contact for follow-up
     history: Contact History
     annotation: Problem Description
-    reasons: Contact Reason(s)
+    reasons: Contact Reason(s) 
+    location: Location
   Report:
     help: Add students to FYI Report
     annotation: Comments

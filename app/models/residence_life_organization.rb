@@ -9,7 +9,7 @@ class ResidenceLifeOrganization < Organization
     ability.can [:create, :read, :update, :search, :pdf, :show], MY_REPORTS
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
     # Limit access to those reports in this organization
-    ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report], Report, :organization_id => self.id
+    ability.can [:create, :read, :show, :index, :update, :search, :add_participant, :remove_participant, :create_participant_and_add_to_report, :forward], Report, :organization_id => self.id
     # Can view all staff
     ability.can [:read], Staff
     # These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
@@ -37,7 +37,7 @@ class ResidenceLifeOrganization < Organization
   	ability.can :register, Organization, :id => self.id
     ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can [:create, :read, :update, :search, :show], MY_REPORTS
+    ability.can [:create, :read, :update, :search, :show, :forward], MY_REPORTS
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :type => MY_REPORT_TYPES}
     ability.can [:create, :update, :read, :pdf], Report, { :type => MY_REPORT_TYPES }
     # Can view staff in my org
@@ -66,7 +66,7 @@ class ResidenceLifeOrganization < Organization
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :staff_id => staff.id }
     ability.can [:search] , MY_REPORTS
-    ability.can [:create, :pdf, :show], Report, { :type => MY_REPORT_TYPES }
+    ability.can [:create, :pdf, :show, :forward], Report, { :type => MY_REPORT_TYPES }
     ability.can [:read, :update], MY_REPORTS,  { :staff_id => staff.id, :submitted => false }
     ability.can :update, NotificationPreference
     ability.can :index, Staff, :organizations => { :id => self.id }
@@ -77,7 +77,7 @@ class ResidenceLifeOrganization < Organization
   
   def campus_safety(ability, staff)
     ability.can [:index, :search, :view_contact_info, :show], Participant
-    ability.can [:create, :index, :search, :pdf, :show], Report, { :type => "IncidentReport" }
+    ability.can [:create, :index, :search, :pdf, :show, :forward], Report, { :type => "IncidentReport" }
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, { :staff_id => staff.id }
     ability.can [:show], Note, {:staff_id => staff.id }
     ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
@@ -96,7 +96,7 @@ class ResidenceLifeOrganization < Organization
     puts ("*********Apply abilities to hall director")
     ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can [:create, :pdf], Report, { :type => MY_REPORT_TYPES}
+    ability.can [:create, :pdf, :forward], Report, { :type => MY_REPORT_TYPES}
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
     ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
     ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
@@ -125,7 +125,7 @@ class ResidenceLifeOrganization < Organization
     puts ( "*********Apply abilities to resident assistant")
     ability.can [:index, :search], Participant
     ability.can [:search], MY_REPORTS
-    ability.can [:create], Report, { :type => MY_REPORT_TYPES }
+    ability.can [:create, :forward], Report, { :type => MY_REPORT_TYPES }
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
     ability.can [:index, :search], Report, { :staff_id => staff.id, :type => MaintenanceReport.to_s }
     ability.can [:index, :update], Report, { :staff_id => staff.id, :submitted  => false, :type => MY_REPORT_TYPES }
