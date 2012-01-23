@@ -38,7 +38,7 @@ class AcademicSkillsCenterOrganization < Organization
   
   def staff(ability, staff)
     puts ( "*********Apply abilities to staff")
-    ability.can [:index, :search], Participant
+    ability.can [:index, :search, :show], Participant
 
 
     ability.can [:create, :search, ], Report, { :type => MY_REPORT_TYPES }

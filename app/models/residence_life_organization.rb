@@ -123,7 +123,7 @@ class ResidenceLifeOrganization < Organization
   
   def resident_assistant(ability, staff)
     puts ( "*********Apply abilities to resident assistant")
-    ability.can [:index, :search], Participant
+    ability.can [:index, :search, :show], Participant
     ability.can [:search], MY_REPORTS
     ability.can [:create, :forward], Report, { :type => MY_REPORT_TYPES }
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
