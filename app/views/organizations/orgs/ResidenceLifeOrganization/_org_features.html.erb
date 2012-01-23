@@ -1,6 +1,6 @@
 <%= render :partial => "organizations/orgs/ResidenceLifeOrganization/reports_menu" %>
 <%  if can? :do, TaskAssignment, :class=>"menubar_link" %>
-	<li><%= link_to "Tasks", to_do_list_task_assignments_path %>
+	<li><%= link_to "Tasks", to_do_list_task_assignments_path, :class=>"menubar_link" %>
 		<ul>
 			<li><%= link_to "My To Do List", to_do_list_task_assignments_path%></li>
 		</ul>
