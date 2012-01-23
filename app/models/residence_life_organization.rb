@@ -128,7 +128,8 @@ class ResidenceLifeOrganization < Organization
     ability.can [:create, :forward], Report, { :type => MY_REPORT_TYPES }
     ability.can [:add_participant, :create_participant_and_add_to_report, :remove_participant], Report, {  :submitted  => false, :staff_id => staff.id }
     ability.can [:index, :search], Report, { :staff_id => staff.id, :type => MaintenanceReport.to_s }
-    ability.can [:index, :update], Report, { :staff_id => staff.id, :submitted  => false, :type => MY_REPORT_TYPES }
+    ability.can [ :update], Report, { :staff_id => staff.id, :submitted  => false, :type => MY_REPORT_TYPES }
+	ability.can :index, Report, { :staff_id => staff.id, :type => MY_REPORT_TYPES }
     # Establish authority to select reports from menu
     ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
     ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }

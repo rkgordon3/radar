@@ -93,7 +93,8 @@ include ReportsHelper
         if can? :show, @report
           format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
         else
-          format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully created.') }
+          #format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully created.') }
+		  format.html { redirect_to home_landingpage_path, :notice => 'Report was successfully created.' }
         end
         format.xml  { render :xml => @report, :status => :created, :location => @report }
         format.iphone {redirect_to(@report)}
