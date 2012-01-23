@@ -13,7 +13,7 @@ class Participant < ActiveRecord::Base
     rp.collect { |rp|
       c = ParticipantsHelper::ContactSummary.new
       c.report = rp.report rescue unknown
-      c.date = rp.report.approach_time.to_s(:my_time) rescue unknown
+      c.date = rp.report.approach_time.to_s(:short_date_only) rescue unknown
       c.reason = rp.reason.description rescue unknown
       c
     }
