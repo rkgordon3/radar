@@ -57,13 +57,13 @@ class Shift < ActiveRecord::Base
   
   def Shift.sort(data,key)
     if key=="time_out"
-      return data.order("time_out DESC")
+      return data.order("shifts.time_out DESC")
     elsif key=="area"
-      return data.joins(:area).order("name ASC")
+      return data.joins(:area).order("areas.name ASC")
     elsif key=="submitter"
-      return data.joins(:staff).order("last_name ASC")
+      return data.joins(:staff).order("staffs.last_name ASC")
     end
-    return data.order("created_at DESC")
+    return data.order("shifts.created_at DESC")
   end
   
 end
