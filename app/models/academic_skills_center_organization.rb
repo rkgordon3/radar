@@ -12,7 +12,7 @@ class AcademicSkillsCenterOrganization < Organization
     # Can register users in this organization
     ability.can :register, Organization, :id => self.id
     # Limit access to those reports in this organization
-    ability.can [:create, :read, :show, :index, :update, :search], Report, :organization_id => self.id
+    ability.can [:create, :read, :show, :index, :update, :search, :pdf], Report, {:type => MY_REPORT_TYPES} 
 
     ability.can [:read], Staff
     ability.can :update, Staff, :id => staff.id
@@ -25,10 +25,9 @@ class AcademicSkillsCenterOrganization < Organization
   end
     
   def supervisor(ability, staff)
-    ability.can [:create, :search, :read], Report, { :type => MY_REPORT_TYPES  }
+    ability.can [:index, :pdf, :show, :create, :search, :read], Report, { :type => MY_REPORT_TYPES  }
     ability.can [:index, :search, :view_contact_info, :view_contact_history, :show], Participant
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can [:index], Report, { :type => ["TutorReport" , "TutorByAppointmentReport" , "Note" ]  }
     ability.can [:search, :read, :create, :update, :add_participant], MY_REPORTS, :staff_id => staff.id
     # Can index staff within my organization
     ability.can :index, Staff, :organizations => { :id => self.id }
@@ -38,12 +37,13 @@ class AcademicSkillsCenterOrganization < Organization
   
   def staff(ability, staff)
     puts ( "*********Apply abilities to staff")
+
     ability.can [:index, :search, :show], Participant
 
 
-    ability.can [:create, :search, ], Report, { :type => MY_REPORT_TYPES }
+    ability.can [:create, :search ], Report, { :type => MY_REPORT_TYPES }
     ability.can [:create, :search, :update,:index], Note
-    ability.can [:index, :search, :read, :add_participant, :remove_participant, :create_participant_and_add_to_report],
+    ability.can [:index, :show, :read, :add_participant, :remove_participant, :create_participant_and_add_to_report],
       Report,
       { :type => MY_REPORT_TYPES, :staff_id => staff.id }
     ability.can [:update], Report, { :staff_id => staff.id,  :type => MY_REPORT_TYPES, :submitted => false }
@@ -54,5 +54,6 @@ class AcademicSkillsCenterOrganization < Organization
 
 
     ability.can [:select], ReportType, { :name => MY_REPORT_TYPES }
+
   end
 end

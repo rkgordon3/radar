@@ -25,7 +25,8 @@
           <br />
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
             &nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Reported:" %>
-            <%= rpr.reason.description %><br/>
+		
+            <%= rpr.reason.description rescue "no reason" %><br/>
             <% if @report.supports_contact_reason_details? %>
             <% if not rpr.annotation.nil? %>
 			<div class="field" >

@@ -334,11 +334,12 @@ include ReportsHelper
   end
   
   def update_reason
-    pid = params[:participant]
+    pid = params[:participant].to_i
     id = params[:reason]
-    reason = /\d+_(\d+)/.match(id)[1]
+    reason = /\d+_(\d+)/.match(id)[1].to_i
     checked = params[:checked]
     report = session[:report]
+	logger.debug("====> reports_controller:update_reasons checked : #{checked.downcase} ")
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
     respond_to do |format|
       format.js { render_set_reason(id, checked, false)	}
