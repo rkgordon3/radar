@@ -378,13 +378,17 @@ include ReportsHelper
 	@reports = @reports.where(:type => params[:type]) if param_value_present(params[:type]) 
 	
 	# Select for reasons
-	# Clean up params[:infraction_id] array. There are null strings from browser
-	# Not going to figure it out now.
 	if param_value_present(params[:infraction_id])
+     # Clean up params[:infraction_id] array. There are null strings from browser
+	 # Not going to figure it out now.
 	  params[:infraction_id].select! { |id| id.length > 0 }
+	  # The clunky group() invocation is [rightfully] imposed by Oracle. Any fields appearing in select
+	  # but NOT appearing in an aggregate (in this case there is none) must appear in group by. The previous
+	  # implementation, group(:id) caused Oracle to complain, again, rightfully, about ambiguous field. It did
+	  # not know from which table the :id was to be 'grouped'.
 	  @reports = @reports.joins(:report_participant_relationships)
-	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]})
-						 .group(:id) if params[:infraction_id].length > 0
+	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]}) 
+						 .group("reports.id,reports.created_at,reports.updated_at,reports.building_id,reports.approach_time,reports.room_number,reports.type, reports.staff_id, reports.submitted, reports.annotation_id, reports.tag, reports.organization_id") if params[:infraction_id].length > 0
 	end
 	
 	# Select for building if present   
@@ -413,7 +417,7 @@ include ReportsHelper
     # finishing touches...
     @reports = @reports.paginate(:page => params[:page], :per_page => 30)    
     @reports = Report.sort(@reports,params[:sort] ||= Report.default_sort_field)
-       
+
     @num_reports = @reports.length
 
     respond_to do |format|	  
