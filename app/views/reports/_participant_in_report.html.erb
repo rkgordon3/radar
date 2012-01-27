@@ -3,12 +3,14 @@
     <%=  image_tag(participant.getImageUrl, :style=>"align:left;", :border=> 0, :width => 50) %>
 </td>
 <td style="vertical-align: top;" id=<%= "'p-in-report-#{participant.id}_details'" %>>
-     <%= link_to " #{participant.last_name}, #{participant.first_name} #{participant.middle_initial}", participant, :target=>"blank" %>
-     <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), 
+    <%= link_to " #{participant.last_name}, #{participant.first_name} #{participant.middle_initial}", participant, :target=>"blank" %>
+    <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), 
            	 { :controller=> "reports", :action => "remove_participant", :id => participant.id } , 
 			 :remote => true  %>
-     <br />
-     <% if can? :view_contact_info, participant %><%= render :partial => "participants/participant_details", :locals => { :participant => participant } %><% end %>
-	 <% if can? :view_contact_history, participant %><%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(current_ability, @report.type) } %><% end %>
-     <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => report, :participant => participant } %>
+    <br />
+    <% if can? :view_contact_info, participant %><%= render :partial => "participants/participant_details", :locals => { :participant => participant } %><% end %>
+	<% if can? :view_contact_history, participant %><%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(current_ability, @report.type) } %><% end %>
+    <% if report.supports_selectable_contact_reasons? %>
+		<%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => report, :participant => participant } %>
+	<% end %>
 </td>

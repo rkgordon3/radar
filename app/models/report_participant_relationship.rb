@@ -22,7 +22,10 @@ class ReportParticipantRelationship < ActiveRecord::Base
   #
   # Test whether this report/participant relationship is result of a 'generic'
   # reason. A generic reason is not associated with any specific report, e.g. Other
-  # The actual test 
+  # The actual test tests whether 'reason' has a 'report_type_id' property. Those
+  # 'generic' properties do, other 'contextual' reasons do not. 
+  #
+  # This is not a very good solution and needs to be revisited.
   #
   def for_generic_reason?
     reason.respond_to?(:report_type_id) 

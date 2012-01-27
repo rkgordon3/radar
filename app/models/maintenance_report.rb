@@ -6,4 +6,9 @@ class MaintenanceReport < Report
   def forwardable?
     true
   end
+  
+  def default_contact_reason
+	RelationshipToReport.maintenance_concern
+  end
+
 end

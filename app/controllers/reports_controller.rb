@@ -139,6 +139,8 @@ include ReportsHelper
   end
   
   def add_participant
+  logger.debug("======> Add participant #{params[:participant][:id]}")
+  
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
     @report = session[:report]
 
@@ -172,7 +174,7 @@ include ReportsHelper
         format.iphone {
           render :update do |page|
             if @insert_new_participant_partial
-              @report.add_default_contact_reason(@participant.id)
+              @report.add_default_contact_reason(@participant.id) unless @report.associated?(@participant)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
