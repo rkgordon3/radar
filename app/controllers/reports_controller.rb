@@ -371,9 +371,10 @@ include ReportsHelper
   end
   
   def search_results
+    group_fields = %{reports.id,reports.created_at,reports.updated_at,reports.building_id,reports.approach_time,reports.room_number,reports.type, reports.staff_id, reports.submitted, reports.annotation_id, reports.tag, reports.organization_id}
     @reports = Report.accessible_by(current_ability)
     # Select for student id if present
-    @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(:id) if param_value_present(params[:participant][:id])
+    @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(group_fields) if param_value_present(params[:participant][:id])
     # Select for type if present
 	@reports = @reports.where(:type => params[:type]) if param_value_present(params[:type]) 
 	
@@ -388,7 +389,7 @@ include ReportsHelper
 	  # not know from which table the :id was to be 'grouped'.
 	  @reports = @reports.joins(:report_participant_relationships)
 	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]}) 
-						 .group("reports.id,reports.created_at,reports.updated_at,reports.building_id,reports.approach_time,reports.room_number,reports.type, reports.staff_id, reports.submitted, reports.annotation_id, reports.tag, reports.organization_id") if params[:infraction_id].length > 0
+						 .group(group_fields) if params[:infraction_id].length > 0
 	end
 	
 	# Select for building if present   
