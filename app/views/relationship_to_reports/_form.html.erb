@@ -18,9 +18,11 @@
   </div>
   <div  class="field" >
   <label><%= t 'select_a_report_for_infraction' %></label><br/>
-  <%= select(:relationship_to_report,
-		:report_type_id, ReportTypesHelper::for_select, 
-		html_options = { :selected => @relationship_to_report.report_type.nil? ? ReportTypesHelper::all_id : @relationship_to_report.report_type_id.to_s } )%>
+  <%= select_tag 'relationship_to_report[report_type_id]',
+		options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), :id, :display_name, 
+		            @relationship_to_report.report_type.nil? ? "" : @relationship_to_report.report_type.id.to_s),
+		:include_blank => true,
+		:id => 'report_select_id' %>
   </div>
   <div class="actions">
     <%= f.submit "Create" %>
