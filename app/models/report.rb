@@ -93,7 +93,7 @@ class Report < ActiveRecord::Base
   def update_attributes_and_save(params)
     update_attributes_without_saving(params)
     valid?
-    save
+    save!
   end
   
   def supports_selectable_contact_reasons?
@@ -120,12 +120,9 @@ class Report < ActiveRecord::Base
     self.submitted = (params[:submitted] != nil) 
     annotation_text = params[:annotation]
 
-    if annotation_text != nil && annotation_text.length > 0 
-      if self.annotation == nil
-        self.annotation = Annotation.new(:text => annotation_text)
-      else
+    if annotation_text != nil && annotation_text.length > 0   
+        self.annotation = Annotation.new if self.annotation.nil?
         self.annotation.text = annotation_text
-      end
     end
 
     self.adjunct_submitters.each do |ra|
@@ -145,7 +142,7 @@ class Report < ActiveRecord::Base
   
   def save
 	self.organization = report_type.organization
-    if (not annotation.nil?) && annotation.save != nil 
+    if (not annotation.nil?) && annotation.save! != nil 
       self.annotation_id = annotation.id
     end
     super
@@ -158,7 +155,7 @@ class Report < ActiveRecord::Base
       if !ri.frozen?   # make sure the reported infraction isn't frozen
         ri.context = report_type.reason_context unless ri.for_generic_reason?
         ri.report_id = self.id # establish connection
-        ri.save		# actually save
+        ri.save!		# actually save
       end
     end
 
@@ -172,9 +169,11 @@ class Report < ActiveRecord::Base
     adjunct_submitters.each do |ra|
       ra.destroy
     end
-    if annotation != nil
-      annotation.destroy
-    end
+
+    unless annotation.nil? 
+		annotation.destroy 
+	end
+
   end
   
   def contact_reasons_for(participant_id)
@@ -188,6 +187,9 @@ class Report < ActiveRecord::Base
   end
   
   def contact_reason_for_participant(participant_id, reason_id)
+	reason_id = reason_id.to_i if reason_id.is_a? String
+	participant_id = participant_id.to_i if participant_id.is_a? String
+	
     self.report_participant_relationships.select { |ri|
       ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
@@ -255,8 +257,8 @@ class Report < ActiveRecord::Base
   end
    
   def add_contact_reason_for(participant_id, reason_id)
-    ri = contact_reason_for_participant(participant_id, reason_id) 
-    if ri == nil
+    ri = contact_reason_for_participant(participant_id, reason_id)
+	if ri.nil?
       ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
       self.report_participant_relationships << ri
     end
@@ -265,7 +267,7 @@ class Report < ActiveRecord::Base
   end
   
   def remove_participant(pid)
-    p = pid.to_i if pid.class == String || pid
+    p = pid.to_i if pid.is_a? String || pid
     contact_reasons_for(p).each do |ri|
       report_participant_relationships.delete(ri)
       ri.destroy
@@ -273,7 +275,9 @@ class Report < ActiveRecord::Base
   end
   
   def remove_contact_reason_for(participant_id, reason_id)
-    self.report_participant_relationships.delete(get_relationship(participant_id, reason_id)) rescue nil
+	reason = contact_reason_for_participant(participant_id, reason_id)
+	logger.debug("=======> removing #{reason.participant.last_name} for #{reason.relationship_to_report.description} " )
+    self.report_participant_relationships.delete(r) if reason
   end
   
   def add_annotation_for(participant_id, reason, text)
@@ -299,11 +303,6 @@ class Report < ActiveRecord::Base
     end
   end
 
-  def get_relationship(participant_id, reason_id)
-    report_participant_relationships.select { |r| r.participant_id == participant_id && r.relationship_to_report_id == reason_id }
-  end
-
-  
   def tag	
     tag = report_type.abbreviation + "-" + id.to_s
   end
@@ -334,56 +333,7 @@ class Report < ActiveRecord::Base
       self.add_default_contact_reason(id)
     end
   end
-
-def add_contact_reason(params)
-    # create arrays for the new reported infractions
-    new_ris = Array.new
-    old_ris = Array.new
-    
-    report_participant_relationships.each do |ri|
-      old_ris << ri
-    end
  
-	common_reasons = params[:common_reasons]
-	
-    #create array for the participants we have
-    participants = participant_ids
-    
-    # begin loop for each participant
-    participants.each do |p|
-      # variable to see if we have found an infraction for p
-      any_relationship_to_report_found_for_participant = false 
-     
-      # example: if the user wants student 6 to have infraction 1 (community disruption) and 2 (smoking)
-      # param entry would look like params[6] = { "1" => "Community Disruption", "2" => "Smoking" }
-        if params[p.to_s()] != nil
-				params[p.to_s()].each_key { |key| 
-					any_relationship_to_report_found_for_participant = true
-					new_ris << add_contact_reason_for(p, key.to_i)
-				}
-        end
-      #end
-
-      
-      # if there are no checkboxes checked for particpant
-      if any_relationship_to_report_found_for_participant == false
-        new_ris << add_default_contact_reason(p)
-      end
-    end
-    
-    # destroy all old rep. inf.s if they are not in new list
-    old_ris.each do |ori|
-      if !new_ris.include?(ori)
-        ori.report_id = 0 # make sure connection is broken
-        ori.destroy
-      end
-    end
-    
-    # save new ris to report
-   report_participant_relationships = new_ris
-    
-  end  
-   
   private  
   
   # after_find (load) we cache submitted value so we can

@@ -41,8 +41,7 @@ class Staff < ActiveRecord::Base
   end
   # return true is I have seen given report
   def has_seen? (report)
-    #not ReportViewLog.find_by_staff_id_and_report_id(self.id, report.id).nil?
-	report_views.include?(report)
+	not report_views.select { |rv| rv.report_id == report.id }.empty?
   end
   
   # Returns  user's preferred report type

@@ -6,17 +6,13 @@ class TutorReportsController < ReportsController
   
 
   def create
-    @report = session[:report]
-    # process parameters into reported infractions
-    @report.add_contact_reason(params)   
+    @report = session[:report] 
     super  
   end
   
 
   def update
-    @report = session[:report]
-    # process check boxes to update reported infractions
-    @report.add_contact_reason(params)   
+    @report = session[:report]  
     super
   end
   

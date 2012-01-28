@@ -91,7 +91,8 @@ include ReportsHelper
         if can? :show, @report
           format.html { redirect_to(@report, :notice => 'Report was successfully created.') }
         else
-          format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully created.') }
+          #format.html { redirect_to({:action => 'index', :controller => 'reports', :report => @report.type}, :notice => 'Report was successfully created.') }
+		  format.html { redirect_to home_landingpage_path, :notice => 'Report was successfully created.' }
         end
         format.xml  { render :xml => @report, :status => :created, :location => @report }
         format.iphone {redirect_to(@report)}
@@ -331,11 +332,12 @@ include ReportsHelper
   end
   
   def update_reason
-    pid = params[:participant]
+    pid = params[:participant].to_i
     id = params[:reason]
-    reason = /\d+_(\d+)/.match(id)[1]
+    reason = /\d+_(\d+)/.match(id)[1].to_i
     checked = params[:checked]
     report = session[:report]
+	logger.debug("====> reports_controller:update_reasons checked : #{checked.downcase} ")
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
     respond_to do |format|
       format.js { render_set_reason(id, checked, false)	}
@@ -367,20 +369,25 @@ include ReportsHelper
   end
   
   def search_results
+    group_fields = %{reports.id,reports.created_at,reports.updated_at,reports.building_id,reports.approach_time,reports.room_number,reports.type, reports.staff_id, reports.submitted, reports.annotation_id, reports.tag, reports.organization_id}
     @reports = Report.accessible_by(current_ability)
     # Select for student id if present
-    @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(:id) if param_value_present(params[:participant][:id])
+    @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(group_fields) if param_value_present(params[:participant][:id])
     # Select for type if present
 	@reports = @reports.where(:type => params[:type]) if param_value_present(params[:type]) 
 	
 	# Select for reasons
-	# Clean up params[:infraction_id] array. There are null strings from browser
-	# Not going to figure it out now.
 	if param_value_present(params[:infraction_id])
+     # Clean up params[:infraction_id] array. There are null strings from browser
+	 # Not going to figure it out now.
 	  params[:infraction_id].select! { |id| id.length > 0 }
+	  # The clunky group() invocation is [rightfully] imposed by Oracle. Any fields appearing in select
+	  # but NOT appearing in an aggregate (in this case there is none) must appear in group by. The previous
+	  # implementation, group(:id) caused Oracle to complain, again, rightfully, about ambiguous field. It did
+	  # not know from which table the :id was to be 'grouped'.
 	  @reports = @reports.joins(:report_participant_relationships)
-	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]})
-						 .group(:id) if params[:infraction_id].length > 0
+	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]}) 
+						 .group(group_fields) if params[:infraction_id].length > 0
 	end
 	
 	# Select for building if present   
@@ -409,7 +416,7 @@ include ReportsHelper
     # finishing touches...
     @reports.order("reports.#{Report.default_sort_field} DESC")
     @reports = @reports.paginate(:page => params[:page], :per_page => 30)
-       
+
     @num_reports = @reports.length
 
     respond_to do |format|	  

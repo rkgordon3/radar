@@ -8,17 +8,13 @@ class IncidentReportsController < ReportsController
   # POST /incident_reports.xml
   def create
     @report = session[:report]
-    # process parameters into reported infractions
-    @report.add_contact_reason(params)   
     super  
   end
   
   # PUT /incident_reports/1
   # PUT /incident_reports/1.xml
   def update
-    @report = session[:report]
-    # process check boxes to update reported infractions
-    @report.add_contact_reason(params)   
+    @report = session[:report]  
     super
   end
   

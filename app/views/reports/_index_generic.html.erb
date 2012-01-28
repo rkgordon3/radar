@@ -53,13 +53,7 @@
 					</div>
 					</td>
 				</tr>
-                    <% ReportType.find_by_name("IncidentReport").fields("search").each do |field| %>
-                            <tr>
-                                <td valign="top" class="field">
-                                    <%= render :partial => "reports/fields/#{field.name}", :locals => {:type => "search"} %>
-                                </td>
-                            </tr>
-                    <% end %>
+                    
                 <tr>
                     <td valign=top>
 					<div class="field">
@@ -115,10 +109,15 @@
 
 
 function report_select() {
+
    report_choices = document.getElementById('report_select_id');
    for (choice = 0; choice < report_choices.length; choice++) {
+ 
 	  item = report_choices.item(choice);
-	  document.getElementById(item.value + '-reasons').style.display = (choice == report_choices.selectedIndex) ? 'block' : 'none';
+		reason_div = document.getElementById(item.value + '-reasons')
+		if (reason_div != null) {
+	        reason_div.style.display = (choice == report_choices.selectedIndex) ? 'block' : 'none';
+	    }
    }
    return false;
 }	
