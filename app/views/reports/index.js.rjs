@@ -1,1 +1,0 @@
-page.replace_html 'results', :partial => 'reports/report_index_body', :locals => { :reports => @reports, :num_rows => 0}

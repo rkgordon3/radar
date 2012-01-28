@@ -1,9 +1,11 @@
+<div id="<%= div_id %>">
 <% if reports.respond_to?('total_pages') %>
   <%= will_paginate reports %>
 <% end %>
 <table >
   <% if reports.length > 0 %>
-    <%= render :partial => "reports/report_index_header_linked_labels" %>
+    <% r_ids = reports.collect{|r| r.id} %>
+    <%= render :partial => "reports/report_index_header_linked_labels", :locals => { :reports => r_ids, :div_id => div_id} %>
   <% else %>
     <%= "No Reports Match Your Criteria" %>
   <% end %>
@@ -73,3 +75,4 @@
   <% end %>
 </tr>
 </table>
+</div>

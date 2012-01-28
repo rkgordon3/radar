@@ -16,14 +16,12 @@ include ReportsHelper
     end
     @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
     report_type = ReportType.find_by_name(params[:report])
-	  
-    params[:sort] ||= Report.default_sort_field
-    
-    @reports = Report.sort(@reports,params[:sort])
+	  @reports.order("reports.#{Report.default_sort_field} DESC")
+    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
+
     respond_to do |format|
       format.html { render :locals => { :reports => @reports, :report_type => report_type } }
       format.xml  { render :xml => @reports }
-      format.js
     end
   end
   
@@ -418,13 +416,41 @@ include ReportsHelper
 	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
          
     # finishing touches...
-    @reports = @reports.paginate(:page => params[:page], :per_page => 30)    
-    @reports = Report.sort(@reports,params[:sort] ||= Report.default_sort_field)
+    @reports.order("reports.#{Report.default_sort_field} DESC")
+    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
 
     @num_reports = @reports.length
 
     respond_to do |format|	  
         format.js 
+    end
+  end
+
+  def sort_search_results
+    @reports = Report.where(:id => params[:reports])
+    sort = params[:sort]
+
+    if sort == "date"
+      @reports.order("reports.approach_time DESC")
+    elsif sort == "time"
+      @reports.order("reports.approach_time DESC")
+    elsif sort == "area"
+      @reports = @reports.joins(:building=>:area).order("areas.name ASC")
+    elsif sort == "type"
+      @reports = @reports.order("reports.type ASC")
+    elsif sort == "building"
+      @reports = @reports.joins(:building).order("buildings.name ASC")
+    elsif sort == "location"
+      @reports = @reports.order("reports.room_number ASC")
+    elsif sort == "tag"
+      @reports = @reports.order("reports.tag DESC")
+    elsif sort == "submitter"
+      @reports = @reports.joins(:staff).order("staffs.last_name ASC")
+    end
+    
+    msg = "Reports are now sorted by #{sort}."
+    respond_to do |format|
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id]  }}
     end
   end
   

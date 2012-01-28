@@ -1,0 +1,4 @@
+page["flash_notice"].show
+page.replace_html 'flash_notice', flash_notice
+page.replace div_id, :partial => 'reports/report_index_body',
+    :locals => { :reports => @reports, :div_id => div_id, :num_rows => 0}

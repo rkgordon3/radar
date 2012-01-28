@@ -8,9 +8,7 @@
 
   	    Reports <%= " (#{reports.length})" %>
     <div id="<%= round.id %>-reports" style="display: none;" class='shift_log_div' >
-      <div id="round <%= round.id %>-reports-div" >      
-          <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :num_rows=>0 } %>      
-      </div>
+      <%= render :partial => "reports/report_index_body", :locals => { :reports => reports, :div_id => "round #{round.id}-reports-div", :num_rows=>0 } %>
     </div>
    <% else %>
       No reports were submitted for this round.
@@ -23,9 +21,7 @@
 
   	    Notes<%= " (#{notes.length})" %>
       <div id="<%= round.id %>-notes" class='shift_log_div' style="display: none;">
-        <div id="round <%= round.id %>-notes-div" >
-          <%= render :partial => "reports/report_index_body", :locals => { :reports => notes, :num_rows=>0 } %>      
-        </div>
+        <%= render :partial => "reports/report_index_body", :locals => { :reports => notes, :div_id => "round #{round.id}-notes-div", :num_rows=>0 } %>      
       </div>
 	<% else %>
         No notes were submitted for this round.

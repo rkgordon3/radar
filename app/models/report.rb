@@ -311,27 +311,6 @@ class Report < ActiveRecord::Base
     s = s.chop
     s.chop
   end
- 
-  def Report.sort(data,key)
-    new_data = data.order("reports.approach_time DESC")
-    if key=="time"
-      #default already sorted by time
-    elsif key=="area"
-      new_data = data.joins(:building=>:area).order("areas.name ASC")
-    elsif key=="type"
-      new_data = data.order("reports.type ASC")
-    elsif key=="building"
-      new_data = data.joins(:building).order("buldings.name ASC")
-    elsif key=="location"
-      new_data = data.order("reports.room_number ASC")
-    elsif key=="tag"
-      new_data = data.order("reports.tag DESC")
-    elsif key=="submitter"
-      new_data = data.joins(:staff).order("staffs.last_name " + "ASC")
-    end
-    return new_data
-  end
- 
 
   # An array of participant IDs
   def add_participants(participant_ids)
