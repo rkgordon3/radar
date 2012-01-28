@@ -19,7 +19,7 @@
           <td></td>
         <% end %>
       </tr>
-      <%= render :partial => "reports/report_index_body", :locals => { :reports => @reports, :num_rows=>num_rows } %>
+      <%= render :partial => "reports/report_index_body", :locals => { :reports => @reports, :div_id => "", :num_rows=>num_rows } %>
     </table>
   <% else %>
     <p> No Incident Reports </p>

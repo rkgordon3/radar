@@ -1,2 +1,0 @@
-page.replace_html 'unsubmitted', :partial => 'reports/report_table_row', :locals => { :reports => @unsubmitted, :num_rows => 0}
-page.replace_html 'recent', :partial => 'reports/report_table_row', :locals => { :reports => @recent, :num_rows => 0}
