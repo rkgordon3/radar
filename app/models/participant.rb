@@ -2,10 +2,12 @@ class Participant < ActiveRecord::Base
   belongs_to :building
   has_many :report_participant_relationships
   has_many :reports, :through => :report_participant_relationships
-  
-  def contact_history(ability, report_type=nil)
 
-	rp = (not report_type.nil?) ? report_participant_relationships.accessible_by(ability).select { |r| r.report.type == report_type }
+  #returns all relationships accessible by the given ability and of the same type
+  #as the report given, excluding those associated with that report specifically.
+  def contact_history(ability, report=nil)
+
+	rp = (not report.nil?) ? report_participant_relationships.accessible_by(ability).select { |r| (r.report.type == report.type) && (r.report != report) }
 								: report_participant_relationships.accessible_by(ability)
 	
 	rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
