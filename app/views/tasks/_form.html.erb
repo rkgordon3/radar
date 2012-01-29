@@ -20,8 +20,8 @@
     <%= f.text_field :note %>
   </div>
   <div class="field">
-    <b><%= f.label :area %>
-    <%= f.collection_select( :area_id, Area.order(:name), :id, :name, {:selected => 1}) %>
+    <b><%= f.label :area %></b>
+      <%= f.collection_select( :area_id, Area.all, :id, :name, {:selected => @task.area_id.nil? ? Area.unspecified_id : @task.area_id}) %>
   </div>
   <div class="field">
     <b><%= f.label :time %><b/><br />
