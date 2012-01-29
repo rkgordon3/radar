@@ -10,13 +10,17 @@ class Report < ActiveRecord::Base
   belongs_to    	:annotation
   after_initialize 	:setup_defaults
   after_find		:cache_submitted
-  after_save       	:save_everything
-  before_destroy   	:destroy_everything
+  after_save       	:save_associations
+  before_destroy   	:destroy_associations
 
   attr_accessible 	:type, :staff_id
   
   DEFAULT_SORT_FIELD = "approach_time"
   
+  def default_contact_reason
+	RelationshipToReport.fyi
+  end
+    
   def self.default_sort_field
     DEFAULT_SORT_FIELD
   end
@@ -125,9 +129,7 @@ class Report < ActiveRecord::Base
         self.annotation.text = annotation_text
     end
 
-    self.adjunct_submitters.each do |ra|
-      ra.destroy
-    end
+    self.adjunct_submitters.each { |ra| ra.destroy }
     params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
   end
   
@@ -148,8 +150,16 @@ class Report < ActiveRecord::Base
     super
   end
 
+  def remove_default_contact_reason_if_redundant
+	participants.each do |p|	 
+		unless contact_reason_for_participant(p.id, default_contact_reason).nil?
+			remove_contact_reason_for(p.id,  default_contact_reason) if contact_reasons_for(p.id).length > 1
+		end
+	end	
+  end
   
-  def save_everything
+  def save_associations
+	remove_default_contact_reason_if_redundant
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?   # make sure the reported infraction isn't frozen
@@ -164,11 +174,9 @@ class Report < ActiveRecord::Base
     end
   end
   
-  def destroy_everything
-    destroy_participants
-    adjunct_submitters.each do |ra|
-      ra.destroy
-    end
+  def destroy_associations
+    report_participant_relationships.each { |ri| ri.destroy }
+    adjunct_submitters.each { |ra| ra.destroy }
 
     unless annotation.nil? 
 		annotation.destroy 
@@ -179,12 +187,7 @@ class Report < ActiveRecord::Base
   def contact_reasons_for(participant_id)
     self.report_participant_relationships.select { |ri| ri.participant_id == participant_id } 
   end
- 
-  def destroy_participants
-    report_participant_relationships.each do |ri|
-      ri.destroy
-    end
-  end
+
   
   def contact_reason_for_participant(participant_id, reason_id)
 	reason_id = reason_id.to_i if reason_id.is_a? String
@@ -238,32 +241,17 @@ class Report < ActiveRecord::Base
     
     return participants
   end
-  
-  def add_default_contact_reason(participant_id)
-    # only want to add if fyi doesn't already exist
-    all_relationships_for_participant = contact_reasons_for(participant_id)
-    
-    # only want to add if no relationships exist
-    if all_relationships_for_participant.count == 0
-      ri = ReportParticipantRelationship.new(:participant_id => participant_id)
-      if self.is_a? MaintenanceReport
-        ri.relationship_to_report_id = RelationshipToReport.maintenance_concern
-      end
-      self.report_participant_relationships << ri
-    else
-      ri = contact_reason_for_participant(participant_id, RelationshipToReport.fyi) 
-    end
-    return ri
-  end
+
    
   def add_contact_reason_for(participant_id, reason_id)
-    ri = contact_reason_for_participant(participant_id, reason_id)
-	if ri.nil?
-      ri = ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
-      self.report_participant_relationships << ri
-    end
-    
-    return ri
+    unless contact_reason_for_participant(participant_id, reason_id)
+      self.report_participant_relationships << ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
+	end
+  end
+  
+  def add_default_contact_reason(participant_id)
+  logger.debug("=======> Add #{participant_id} for #{default_contact_reason}")
+	add_contact_reason_for(participant_id, default_contact_reason)
   end
   
   def remove_participant(pid)
@@ -277,20 +265,20 @@ class Report < ActiveRecord::Base
   def remove_contact_reason_for(participant_id, reason_id)
 	reason = contact_reason_for_participant(participant_id, reason_id)
 	logger.debug("=======> removing #{reason.participant.last_name} for #{reason.relationship_to_report.description} " )
-    self.report_participant_relationships.delete(r) if reason
+    self.report_participant_relationships.delete(reason) if reason
   end
   
   def add_annotation_for(participant_id, reason, text)
     annotation = Annotation.new(:text => text)
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
-    if ri != nil
+    unless ri.nil?
         ri.annotation = annotation
     end
   end
   
   def remove_annotation_for(participant_id, reason, text)
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
-    if ri != nil
+    unless ri.nil?
         ri.annotation = nil
     end
   end
@@ -312,11 +300,8 @@ class Report < ActiveRecord::Base
   end
  
   def event_date
- 	  #(approach_time != nil ? approach_time : created_at).strftime("%m/%d/%Y")
 	   (approach_time != nil ? approach_time : created_at).to_s(:date_only)
   end
-  
- 
 
   def secondary_submitters_string
     s=""
