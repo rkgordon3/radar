@@ -1,7 +1,9 @@
-<div id="new_area_link">
-  <%= link_to 'New Area', "javascript:void(0)",
-    :onclick => "doubleDivToggle('new_area_div', 'new_area_link');" if can? :create, Area %>
-</div>
+<% if can? :create, Area %>
+  <div id="new_area_link">
+    <li><%= link_to 'New Area', "javascript:void(0)",
+        :onclick => "doubleDivToggle('new_area_div', 'new_area_link');" %></li>
+  </div>
+<% end %>
 <div id="new_area_div" style="display:none;">
   <%= form_for(Area.new, :remote=>true) do |f| %>
     <% area = Area.new %>
