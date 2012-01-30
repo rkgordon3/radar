@@ -1,7 +1,9 @@
-<div id="new_building_link">
-  <%= link_to 'New Building', "javascript:void(0)",
-    :onclick => "doubleDivToggle('new_building_div', 'new_building_link');" if can? :create, Building %>
-</div>
+<% if can? :create, Building %>
+  <div id="new_building_link">
+    <li><%= link_to 'New Building', "javascript:void(0)",
+        :onclick => "doubleDivToggle('new_building_div', 'new_building_link');" %></li>
+  </div>
+<% end %>
 <div id="new_building_div" style="display:none;">
   <%= form_for(Building.new, :remote=>true) do |f| %>
     <% building = Building.new %>
