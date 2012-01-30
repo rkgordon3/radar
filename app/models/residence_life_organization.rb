@@ -12,7 +12,7 @@ class ResidenceLifeOrganization < Organization
   def administrator_base reports, ability, staff
     ability.can [ :view_contact_info, :view_contact_history], Participant
 	reports.each { |r| ability.can [:show,:index, :pdf, :forward, :update], Report, { :type => r.name } } 
-	reports.each { |r| ability.can :manage, ReportParticipantRelationship, { :type => r.name } }
+	reports.each { |r| ability.can :manage, ReportParticipantRelationship, { :report => { :type => r.name } } }
 	ability.can :manage, RelationshipToReport, { :organization_id => self.id }
 	ability.can [:register,:assign], Organization, { :id => self.id }
   end
