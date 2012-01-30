@@ -157,7 +157,9 @@ class Report < ActiveRecord::Base
 
   def remove_default_contact_reason_if_redundant
 	participants.each do |p|	 
-		unless contact_reason_for_participant(p.id, default_contact_reason_id).nil?
+	# We only remove default if annotation or contact_duration is not nil
+		cr = contact_reason_for_participant(p.id, default_contact_reason_id)
+		unless cr.nil? || (not cr.annotation.nil?) || (not cr.contact_duration.nil?)
 			remove_contact_reason_for(p.id,  default_contact_reason_id) if contact_reasons_for(p.id).length > 1
 		end
 	end	
