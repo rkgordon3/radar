@@ -177,6 +177,14 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
 	color: #595959;
 }
 
+.offset_field {
+	padding: 12px;
+	font-size:95%;
+	font-weight:normal;
+}
+
+.offset_label { font-size:96%; font-weight:600; }
+
 .box_shadow{
     box-shadow: 3px 3px 4px #818181;
     -webkit-box-shadow: 3px 3px 4px #818181;
