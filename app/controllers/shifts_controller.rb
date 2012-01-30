@@ -162,9 +162,7 @@ class ShiftsController < ApplicationController
     total_reports = reports.length
     total_incident_reports = reports.where(:type => "IncidentReport").length
     notes = reports.where(:type => "Note")
-    #notes = ReportController.sort_earch_results(notes,params[:sort])
     reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
-    #reports = Report.sort(reports,params[:sort])
 
     @task_assignments = TaskAssignment.where(:shift_id => ra_shift_ids)
     total_incomplete_task_assignments = @task_assignments.where(:done => false).length
@@ -200,9 +198,8 @@ class ShiftsController < ApplicationController
       reports = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
       total_reports += reports.length
       notes = reports.where(:type => "Note")
-      notes = Report.sort(notes,params[:sort])
       reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
-      reports = Report.sort(reports,params[:sort])
+      
       on_round_report_map[round] = reports
       on_round_note_map[round] = notes
     end
@@ -213,7 +210,6 @@ class ShiftsController < ApplicationController
     total_reports += off_round_reports.length
     total_reports += off_round_notes.length
 
-    # off_round_reports = Report.sort(off_round_reports,params[:sort]) <<<<==== Report.sort does not work with Array class TODO: make off_round_reports instance of ActiveRecord::Relation class
     
     respond_to do |format|
       format.html { render :locals => { :on_round_report_map => on_round_report_map, :on_round_note_map => on_round_note_map, :total_reports => total_reports, :total_incomplete_task_assignments => total_incomplete_task_assignments, :off_round_notes => off_round_notes, :off_round_reports => off_round_reports } }
