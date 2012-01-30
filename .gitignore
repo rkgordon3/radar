@@ -27,3 +27,6 @@ tmp/**/*
 /script/enrollments_import.log
 /routes.out
 /app/views/organizations/orgs/_home.html - Copy.erb
+/ability_stack.log
+*.log
+/routes.list
