@@ -10,12 +10,17 @@ class Report < ActiveRecord::Base
   belongs_to    	:annotation
   after_initialize 	:setup_defaults
   after_find		:cache_submitted
-  after_save       	:save_associations
+  after_save       	:save_relationships
   before_destroy   	:destroy_associations
 
   attr_accessible 	:type, :staff_id
   
   DEFAULT_SORT_FIELD = "approach_time"
+  
+  
+  def default_contact_duration
+	0
+  end
   
   def default_contact_reason_id
 	report_type.default_contact_reason_id
@@ -158,12 +163,13 @@ class Report < ActiveRecord::Base
 	end	
   end
   
-  def save_associations
+  def save_relationships
 	remove_default_contact_reason_if_redundant
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?   # make sure the reported infraction isn't frozen
         ri.context = report_type.reason_context unless ri.for_generic_reason?
+		ri.contact_duration = default_contact_duration if ri.contact_duration.nil? 
         ri.report_id = self.id # establish connection
         ri.save!		# actually save
       end
