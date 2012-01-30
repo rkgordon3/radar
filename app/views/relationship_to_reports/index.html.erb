@@ -22,7 +22,7 @@
   <% end %>
     <td><%= relationship.description %></td>
 	<td><%= relationship.report_type.display_name rescue ReportTypesHelper::all_label %></td>
-    <td><%= link_to 'Edit', edit_relationship_to_report_path(relationship) %></td>
+    <td><%= link_to 'Edit', edit_relationship_to_report_path(relationship) if can? :edit, RelationshipToReport %></td>
     <td><%= link_to 'Destroy', relationship, :confirm => 'Are you sure?', :method => :delete if can? :destroy, RelationshipToReport %></td>
   </tr>
 <% end %>

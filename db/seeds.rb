@@ -3,6 +3,11 @@ asc = Organization.find_by_display_name("Academic Skills Center") ||
        AcademicSkillsCenterOrganization.create(:name => "AcademicSkillsCenter",
                                        :display_name => "Academic Skills Center",
                                        :abbreviation => "ASC")
+	
+puts "Creating 'other' reason for ASC"
+other = RelationshipToReport.find_by_description_and_organization_id("Other", asc.id) ||
+        RelationshipToReport.create(:description=>"Other", :organization_id=>asc.id)
+
 
 puts "creating ResLife Organization"
 rl = Organization.find_by_display_name("Residence Life") ||
@@ -12,6 +17,28 @@ rl = Organization.find_by_display_name("Residence Life") ||
 
 rl.type ||= "ResidenceLifeOrganization"
 rl.save
+
+# update all existing RTR to be in RL org
+# Update existing reasons so that associated with RL org
+puts "Attaching existing reasons to reslife org	"
+RelationshipToReport.all.each do |rtr|
+ rtr.organization_id = rl.id
+ rtr.save
+end
+puts "update default reason for MR"
+mr = ReportType.find_by_name("MaintenanceReport")
+mr.default_reason_id = RelationshipToReport.where(:description=>"Maintenance Concern", :organization_id => rl).first.id
+mr.save
+
+puts "update default reason for IR"
+ir = ReportType.find_by_name("IncidentReport")
+ir.default_reason_id = RelationshipToReport.where(:description=>"FYI", :organization_id => rl).first.id
+ir.save
+
+puts "update default reason for Note"
+ir = ReportType.find_by_name("Note")
+ir.default_reason_id = RelationshipToReport.where(:description=>"FYI", :organization_id => rl).first.id
+ir.save
 
 #TODO: fix this staff org assignments
 puts "updating staff_org with access_level"
@@ -80,7 +107,10 @@ ReportType.create( {
   :edit_on_mobile => false,
   :submit_on_mobile => false,
   :path_to_reason_context => 'Enrollment',
+  :default_reason_id => other.id,
   :reason_context => 'Course' }) if ReportType.find_by_name("TutorReport").nil?
+  
+
 
 
 puts "creating tutor by appointment report"
@@ -95,6 +125,7 @@ ReportType.create( {
   :edit_on_mobile => false,
   :submit_on_mobile => false,
   :path_to_reason_context => 'Enrollment',
+  :default_reason_id => other.id,
   :reason_context => 'Course' }) if ReportType.find_by_name("TutorByAppointmentReport").nil?
 
 puts "update Report select/submit/edit attributes"

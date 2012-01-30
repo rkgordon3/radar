@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
 	before_filter :set_iphone_format
 	protect_from_forgery
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to("/", :notice => "Unauthorized Access: #{exception.message}" )
-  end
+	rescue_from CanCan::AccessDenied do |exception|
+		logger.debug("##################### Acess denied action  #{exception.action} ")
+		logger.debug("##################### Acess denied subject  #{exception.subject} ")
+		logger.debug("##################### Acess denied #{exception.message} ")
+		redirect_to("/", :notice => "Unauthorized Access: #{exception.message}" )
+	end
   
 	def set_iphone_format
 		if is_iphone_request? || is_android_request?

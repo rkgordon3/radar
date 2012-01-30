@@ -17,8 +17,8 @@ class Report < ActiveRecord::Base
   
   DEFAULT_SORT_FIELD = "approach_time"
   
-  def default_contact_reason
-	RelationshipToReport.fyi
+  def default_contact_reason_id
+	report_type.default_contact_reason_id
   end
     
   def self.default_sort_field
@@ -152,8 +152,8 @@ class Report < ActiveRecord::Base
 
   def remove_default_contact_reason_if_redundant
 	participants.each do |p|	 
-		unless contact_reason_for_participant(p.id, default_contact_reason).nil?
-			remove_contact_reason_for(p.id,  default_contact_reason) if contact_reasons_for(p.id).length > 1
+		unless contact_reason_for_participant(p.id, default_contact_reason_id).nil?
+			remove_contact_reason_for(p.id,  default_contact_reason_id) if contact_reasons_for(p.id).length > 1
 		end
 	end	
   end
@@ -250,8 +250,8 @@ class Report < ActiveRecord::Base
   end
   
   def add_default_contact_reason(participant_id)
-  logger.debug("=======> Add #{participant_id} for #{default_contact_reason}")
-	add_contact_reason_for(participant_id, default_contact_reason)
+  logger.debug("=======> Add #{participant_id} for #{default_contact_reason_id}")
+	add_contact_reason_for(participant_id, default_contact_reason_id)
   end
   
   def remove_participant(pid)

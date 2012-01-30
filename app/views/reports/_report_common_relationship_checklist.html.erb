@@ -1,4 +1,4 @@
-<% if report.reasons.size > 0 %>
+<% if report.reasons.length > 0 %>
 
 <div class="relationship-checklist">
 <%= link_to image_tag("/images/add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
@@ -6,11 +6,11 @@
  
   	<b><%= t "#{report.report_type.name}.#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
-  			<% infractions = report.common_reasons %>
+  			<% infractions = report.common_reasons %> 
 			<% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
-  			<% infractions.each do |infraction| %>
+  			 <% infractions.each do |infraction| %>
   		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "common_reasons[#{infraction.id}]", 
   				       infraction.description,
