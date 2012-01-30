@@ -1,3 +1,5 @@
-<div id="inside_container" class="inside_container"><h1>Editing <%= "#{ReportType.find(@report.type_id).display_name} #{@report.tag}" %> </h1>
+<div id="inside_container" class="inside_container">
+<%= render :partial => "reports/print_forward", :locals => { :report => @report } if not @report.new_record? %>
+<h1>Editing <%= "#{ReportType.find(@report.type_id).display_name} #{@report.tag}" %> </h1>
 <%= render 'reports/form' %>
 </div>

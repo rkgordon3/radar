@@ -96,7 +96,7 @@ AccessLevel.find_by_name("Staff") || AccessLevel.create(:name => "Staff", :numer
 AccessLevel.find_by_name("Supervisor") || AccessLevel.create(:name => "Supervisor", :numeric_level => 100)
 
 puts "creating tutor report"
-ReportType.create( { 
+tr = ReportType.find_by_name("TutorReport") || ReportType.create( { 
   :name=> 'TutorReport' , 
   :display_name => 'Tutor Report', 
   :abbreviation=> 'TR',
@@ -108,13 +108,18 @@ ReportType.create( {
   :submit_on_mobile => false,
   :path_to_reason_context => 'Enrollment',
   :default_reason_id => other.id,
-  :reason_context => 'Course' }) if ReportType.find_by_name("TutorReport").nil?
+  :reason_context => 'Course' }) 
   
+if tr.default_reason_id.nil?
+puts 'update default contact id for TR'
+ tr.default_reason_id = other_id
+ tr.save
+end
 
 
 
 puts "creating tutor by appointment report"
-ReportType.create( { 
+tba = ReportType.find_by_name("TutorByAppointmentReport") || ReportType.create( { 
   :name=> 'TutorByAppointmentReport' , 
   :display_name => 'By Appointment Tutor Report', 
   :abbreviation=> 'TBA',
@@ -126,7 +131,14 @@ ReportType.create( {
   :submit_on_mobile => false,
   :path_to_reason_context => 'Enrollment',
   :default_reason_id => other.id,
-  :reason_context => 'Course' }) if ReportType.find_by_name("TutorByAppointmentReport").nil?
+  :reason_context => 'Course' }) 
+  
+    
+if tba.default_reason_id.nil?
+puts 'update default contact id for TBA'
+ tba.default_reason_id = other_id
+ tba.save
+end
 
 puts "update Report select/submit/edit attributes"
 report = ReportType.find_by_name("Report")

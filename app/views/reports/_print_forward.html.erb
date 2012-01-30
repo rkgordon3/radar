@@ -1,0 +1,9 @@
+<div id="pdf_div" style="float:left;">
+    <%= link_to 'View this page as PDF', "/#{@report.type.underscore.pluralize}/#{report.id}.pdf" if can? :pdf, report %>
+</div>
+<br/>
+<% if report.forwardable? && (can? :forward, report) %>
+    <div id="forward_div" style="float:right;">
+      <%= render :partial => "reports/forward_as_mail", :locals => {:display => "display: none;", :plus_minus_button_path => "/images/add_icon.gif"}%> 
+    </div>
+<% end %>
