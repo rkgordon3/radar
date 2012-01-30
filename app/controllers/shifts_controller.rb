@@ -162,9 +162,9 @@ class ShiftsController < ApplicationController
     total_reports = reports.length
     total_incident_reports = reports.where(:type => "IncidentReport").length
     notes = reports.where(:type => "Note")
-    notes = Report.sort(notes,params[:sort])
+    #notes = ReportController.sort_earch_results(notes,params[:sort])
     reports = reports.where(:type=>["IncidentReport","MaintenanceReport"])
-    reports = Report.sort(reports,params[:sort])
+    #reports = Report.sort(reports,params[:sort])
 
     @task_assignments = TaskAssignment.where(:shift_id => ra_shift_ids)
     total_incomplete_task_assignments = @task_assignments.where(:done => false).length
