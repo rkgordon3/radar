@@ -1,27 +1,28 @@
- <% if history.size == 0 %>   <div class="small-label"><%= t :no_contact_history %></div>
- <% else %>
-<div>
- <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-history_img"), "javascript:void(0)",  
-  :onclick => "plusMinusToggle('history_div_#{participant.id}', '#{participant.id}-history_img');" %>
+<% if history.size == 0 %>  
+	<div class="small-label"><%= t :no_contact_history %></div>
+<% else %>
+	<div>
+	 <%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-history_img"), "javascript:void(0)",  
+	  :onclick => "plusMinusToggle('history_div_#{participant.id}', '#{participant.id}-history_img');" %>
 
-  <span class="small-label"><%= t :history %></span>
-  <div id="history_div_<%= participant.id %>" class="participant_detail">
+	  <span class="small-label"><%= t :history %></span>
+	  <div id="history_div_<%= participant.id %>" class="participant_detail">
 
-    <div style="margin-left: 15px;">
-      <table cellspacing="0" cellpadding="0">
-	     <% history.each  do |h| -%>
-		 <tr>
-			<span class="detail_label">
-			<td><%= link_to h.report.tag,  "/#{h.report.class.name.tableize}/#{h.report.id}" %></td>
-			<td><%= h.date %></td>
-			<td><%= h.reason %></td>
-			</span>
-		 </tr>
-         <% end -%>
-      </table>
+		<div style="margin-left: 15px;">
+		  <table cellspacing="0" cellpadding="0">
+			 <% history.each  do |h| -%>
+			 <tr>
+				<span class="detail_label">
+				<td><%= link_to h.report.tag,  "/#{h.report.class.name.tableize}/#{h.report.id}" %></td>
+				<td><%= h.date %></td>
+				<td><%= h.reason %></td>
+				</span>
+			 </tr>
+			 <% end -%>
+		  </table>
 
-    </div>
+		</div>
 
-  </div>
-</div>
+	  </div>
+	</div>
 <% end %>

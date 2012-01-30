@@ -10,8 +10,8 @@ class AcademicSkillsCenterOrganization < Organization
   def administrator_base reports, ability, staff
     ability.can [ :view_contact_info, :view_contact_history], Participant
 	reports.each { |r| ability.can [:show,:index, :pdf, :forward, :update], Report, { :type => r.name } } 
-
-	#ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
+	# required to show contact history
+	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 	ability.can :manage, RelationshipToReport, { :organization_id => self.id }
 	ability.can [:register,:assign], Organization, { :id => self.id }
   end
