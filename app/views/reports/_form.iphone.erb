@@ -1,6 +1,6 @@
 
 <div class="iPanel">
-  <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
+<%= render :partial => "participants/autocomplete_full_name_form", :locals => { :target => add_participant_reports_path } %>
 </div>
 <%= form_for(@report) do |f| %>
   <div id="iGroup">

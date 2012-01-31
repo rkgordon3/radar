@@ -1,41 +1,38 @@
 <div class="iLayer" id="wa<%=participant.id%>" title="<%= participant.full_name%>">
-	<a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Incident Report</a>
+	<a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Report</a>
     <div class="iPanel">
 	
-        <% if report.class.name == "IncidentReport" %>
-        <div align="center">
-            <img src="<%=participant.getImageUrl%>"></img>
-        </div>
-        
-        <br/>
-        <fieldset>
-            <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
-        </fieldset>
-        <fieldset>
-            <Legend>
-                Infractions:
-            </Legend>
-            <div id="<%= participant.id %>-infractions">
-                <% infractions = report.reasons %>
-                <ul>
-                    <% infractions.each do |infraction| %>
-					<% rf =  remote_function( :update => nil,
-											:url => { :controller => 'reports', :action => :update_reason },
-											:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
-                    <li>
-                        <%= check_box_tag "#{participant.id}[#{infraction.id}]",
-							infraction.description,
-							report.get_contact_reason_for_participant(participant.id, infraction.id) != nil,
-							:onclick => "#{rf}",
-							:class=> "iToggle",
-							:title=>"YES|NO" %>
-                        <%= label_tag infraction.description %>
-                    </li>
-                    <%end %>
-                </ul>
-            </div>
+			<div align="center">
+				<img src="<%=participant.getImageUrl%>"></img>
+			</div>
 			
-        </fieldset>
-        <% end %>
+			<br/>
+			<fieldset>
+				<%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+			</fieldset>
+			<fieldset>
+				<Legend>
+					Infractions:
+				</Legend>
+				<div id="<%= participant.id %>-infractions">
+					<ul>
+						<% report.reasons.each do |infraction| %>
+							<% rf =  remote_function( :update => nil,
+													:url => { :controller => 'reports', :action => :update_reason },
+													:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
+							<li>
+								<%= check_box_tag "#{participant.id}[#{infraction.id}]",
+									infraction.description,
+									report.contact_reason_for_participant(participant.id, infraction.id) != nil,
+									:onclick => "#{rf}",
+									:class=> "iToggle",
+									:title=>"YES|NO" %>
+								<%= label_tag infraction.description %>
+							</li>
+						<%end %>
+					</ul>
+				</div>
+				
+			</fieldset>
     </div>
 </div>

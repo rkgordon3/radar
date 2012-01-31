@@ -34,14 +34,14 @@
 
                     <ul>
                         <li>
-                            <%= t "#{current_staff.organization}.building" %><span><%= @report.building.name %></span>
+                            <%= t "building" %><span><%= @report.building.name %></span>
                         </li>
                         <li>
-                            <%= t "#{current_staff.organization}.location" %><span><%= @report.room_number %></span>
+                             <%= t "#{@report.report_type.name}.location" %><span><%= @report.room_number %></span>
                         </li>
                     </ul>
                     <Legend>
-                        <%= t "#{current_staff.organization}.annotation" %>
+                        <%= t "#{@report.report_type.name}.annotation" %>
                     </Legend>
                     <ul>
                         <li>
