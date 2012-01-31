@@ -1,0 +1,48 @@
+<div id="iGroup">
+  <div class="iLayer" id="waSearchResults" title="Search Results">
+    <a href="#" href="/students/search_students"   >Back</a>
+    <div class="iPanel">
+
+		<%= form_tag (new_with_participants_reports_path)  do -%>
+			<fieldset>
+			
+				<h1>Search Results</h1>
+					<%= submit_tag "Add" %>&nbsp;to
+					<%= select_tag "report_type",
+						options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
+						:id => 'report_select_id' %>
+			
+				<ul>
+				<% @participants.each do |student| %>
+					<li >
+					
+					<% content_tag :input,  :type=>"checkbox", :name=>"participants[]", :value=> "#{student.id}", :id=>"participants[#{student.id}]" do -%><% end -%>		
+					<div style="position:relative;left:60px;top:-10px;">
+					   <%= content_tag :a, :href=>"#_StudentDetails_#{student.id}" do -%>
+							<%=image_tag(student.getImageUrl, :border=> 0, :width=>30) %><%= "#{student.name}" %>
+						<% end -%>
+					</div>
+					</li>
+				<% end %>
+				</ul>
+			</fieldset>
+
+		<% end -%>
+	</div>  
+  </div>
+  <% @participants.each do |student| %>
+	    
+	  <%= content_tag :div, :class => "iLayer" , :id => "waStudentDetails_#{student.id}" do -%>
+	        <a href="#"  id="waBackButton" rel="back" >Back</a> 
+			<div    align="center" >
+				<% content_tag :img,   :src=>"#{student.getImageUrl}" do -%><br/><% end -%>
+				<%= "#{student.name}" %>
+			</div>
+		
+         
+		<fieldset>
+			<%=  render :partial=>"participants/participant_details", :locals=> { :participant => student } %>
+		</fieldset>
+     <% end -%>
+  <% end %>
+</div>
