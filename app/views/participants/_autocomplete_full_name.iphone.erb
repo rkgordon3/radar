@@ -1,5 +1,5 @@
 
-<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
+<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id', :placeholder=>"Search students by name" %>  
 <%= hidden_field :participant, :id %>
 
 <script type="text/javascript">

@@ -1,36 +1,22 @@
 <div id="inside_container" class="inside_container">
 	<%= form_tag search_participants_path, { :format => 'iphone' }  do -%>
 	
-	<div class="actions">
-		<%= submit_tag "Submit",  :class=>"iPush iBClassic" ,:style=>"width:100%" %>
-		<%= submit_tag "Reset",  :id=>"reset", :name=>"reset", :type=>"reset" , :class=>"iPush iBClassic" ,:style=>"width:100%", :onclick=>"clear_fields(this);" %>
-	</div>
+
   
 	<h1>Student Search</h1>
 
 	<fieldset>
-        <legend>Student Name:</legend>
 		<ul>
     	    <li>
 				<%=  render :partial => 'participants/autocomplete_full_name' %>  
 			</li>
-		</ul>
-		
-    			
-				
-	   <legend>Student ID Number:</legend><br />
-		 <ul>
-    	   <li>
-    			<%= text_field_tag "student_id" %>
+		</ul>	
+			
+		<ul>
+			<li>
+				<%= text_field_tag "student_id" , nil, :placeholder=> "#{t 'student_id'}" %> 
   			</li>
 		</ul>
-
-			<legend>Room Number</legend>
-			<ul>
-				<li >
-					<%= text_field_tag "room_number" %> 
-				</li>
-			</ul>
 
 			<ul>
 				<%= hidden_field_tag 'building_id' %>
@@ -43,6 +29,11 @@
 						</label>
 					<% end %>
 
+				</li>
+			</ul>
+			<ul>
+				<li >
+					<%= text_field_tag "room_number" , nil, :placeholder=> "#{t 'room_number'}" %> 
 				</li>
 			</ul>
 			<ul>
@@ -59,5 +50,9 @@
 				</li>
 			</ul>
 	</fieldset>	
+		<div class="actions">
+		<%= submit_tag "Submit",  :class=>"iPush iBClassic" ,:style=>"width:100%" %>
+		<%= submit_tag "Reset",  :id=>"reset", :name=>"reset", :type=>"reset" , :class=>"iPush iBClassic" ,:style=>"width:100%", :onclick=>"clear_fields(this);" %>
+	</div>
 	<% end -%>
 </div>

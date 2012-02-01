@@ -4,7 +4,7 @@
 </div>
 <%= form_for(@report) do |f| %>
   <div id="iGroup">
-    <div class="iLayer" id="waIncidentReport" title="Incident Report">
+    <div class="iLayer" id="waIncidentReport" title='<%= @report.display_name %>' >
       <div class="iPanel">
         <div id="s-i-form">
           <% @report.participant_ids.each  do |pid| %>
@@ -15,13 +15,9 @@
         
 		  
           <ul  class='iArrow'  id="common-reasons-link"  style="display:none;" >
-              <li><a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a></li>
+              <li><a href = "#_CommonInfractions" ><%= t "#{params[:controller]}.common_reasons" %></a></li>
           </ul>
-		  
 
-          <legend>
-            <%= t "building" %>
-          </legend>
           <ul>
 
             <li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
@@ -35,25 +31,23 @@
 
           </ul>
 
-          <legend>
-            <%= t "location" %>
-          </legend>
           <ul>
             <li>
               <input type="text" name="report[room_number]" placeholder="Specific Location" value="<%=@report.room_number%>" />
             </li>
           </ul>
-          <legend>
-            <%= t "annotation" %>
-          </legend>
+
           <ul>
             <li>
-              <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
+			<% rt = "#{@report.type}.annotation_placeholder" %>
+              <%= text_area_tag "report[annotation]", nil,  :cols=> "60", :rows => "4", :value=> @report.annotation_text,:placeholder=> "#{t rt}" %>
             </li>
           </ul>
-          <legend>
+          <ul>
+		  <li>
             Time: <%=@report.approach_time%>
-          </legend>
+          </li>
+		  </ul>
           <% if @report.can_submit_from_mobile? || @report.submitted %>
             <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
           <%else %>
@@ -68,7 +62,7 @@
       <% end %>
     </div>
     <div class="iLayer" id="waCommonInfractions" >
-      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Incident Report</a>
+      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
       <div class="iPanel">
         <%= render :partial=>"reports/report_common_relationship_checklist", :locals => { :report => @report } %>
       </div>

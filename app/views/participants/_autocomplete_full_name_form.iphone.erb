@@ -1,8 +1,6 @@
 <%= form_tag(target,:id=>"searchform", :method => :get, :remote => true, :format=>"js" ) do %>
   <fieldset>
-		<legend>
-        	Students:
-        </legend>
+
 		<ul>
 			<li>
 				<%= render :partial => 'participants/autocomplete_full_name' %>
