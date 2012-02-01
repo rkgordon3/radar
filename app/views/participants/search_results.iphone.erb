@@ -7,10 +7,18 @@
 			<fieldset>
 			
 				<h1>Search Results</h1>
-					<%= submit_tag "Add" %>&nbsp;to
-					<%= select_tag "report_type",
-						options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
-						:id => 'report_select_id' %>
+				<ul>
+				<%= hidden_field_tag 'report_type_id' %>
+					<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+						<span id="report_type"></span>
+						Add to Report
+						<% ReportTypesHelper::selectable_by(current_ability).each do |rt| %>
+							<label>
+								<input type="radio" name="report_type[]" value="<%= rt.id %>" onclick="javascript:populateIphoneMenu('report_type','<%=rt.name%>','<%=rt.id%>');submit();" /><%= rt.name %>
+							</label>
+						<% end %>
+					</li>
+				</ul>
 			
 				<ul>
 				<% @participants.each do |student| %>

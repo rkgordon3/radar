@@ -44,7 +44,7 @@ include ReportsHelper
   end
   
   def new_with_participants
-	report_name = params[:report_type]
+	report_name =  params[:report_type] || ReportType.find(params[:report_type_id].to_i).name 
 	@report = report_name.constantize.new(:staff_id => current_staff.id) 
     session[:report] = @report
     if (params[:participants] != nil)
@@ -459,9 +459,11 @@ include ReportsHelper
     render :update do |page|
       checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
       page << "$('#{id}').checked = #{checked.downcase}"
+=begin
       if (webapp_refresh)
         page << "WebApp.Refresh('#{pid}_#{reason}')"
       end
+=end
     end
   end
   def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
