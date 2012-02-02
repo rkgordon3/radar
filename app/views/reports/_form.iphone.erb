@@ -11,48 +11,42 @@
             <%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
           <% end %>
         </div>
-        <fieldset>
-        
-		  
-          <ul  class='iArrow'  id="common-reasons-link"  style="display:none;" >
-              <li><a href = "#_CommonInfractions" ><%= t "#{params[:controller]}.common_reasons" %></a></li>
-          </ul>
-
-          <ul>
-
-            <li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
-              <span id="building"><%=@report.building_name%></span>
-              Select Building<% BuildingsHelper.all_buildings.each do |b| %>
-                <label>
-                  <input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:populateIphoneMenu('building','<%=b.name%>', null)"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
-                </label><% end %>
-
-            </li>
-
-          </ul>
-
-          <ul>
-            <li>
-              <input type="text" name="report[room_number]" placeholder="Specific Location" value="<%=@report.room_number%>" />
-            </li>
-          </ul>
-
-          <ul>
+        <fieldset> 
+			<ul    id="common-reasons-link"  style="display:none;">
+				<li  >
+					<a href = "#_CommonInfractions" ><%= t "#{params[:controller]}.common_reasons" %></a>				
+				</li>
+			</ul>
+			<ul>
+				<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+				  <span id="building"><%=@report.building_name%></span>
+				  Select Building<% BuildingsHelper.all_buildings.each do |b| %>
+					<label>
+					  <input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:populateIphoneMenu('building','<%=  escape_javascript b.name %>', null)"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
+					</label><% end %>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<input type="text" name="report[room_number]" placeholder="Specific Location" value="<%=@report.room_number%>" />
+				</li>
+			</ul>
+			<ul>
             <li>
 			<% rt = "#{@report.type}.annotation_placeholder" %>
               <%= text_area_tag "report[annotation]", nil,  :cols=> "60", :rows => "4", :value=> @report.annotation_text,:placeholder=> "#{t rt}" %>
             </li>
-          </ul>
-          <ul>
-		  <li>
-            Time: <%=@report.approach_time%>
-          </li>
-		  </ul>
-          <% if @report.can_submit_from_mobile? || @report.submitted %>
-            <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
-          <%else %>
-            <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
-          <% end %>
+			</ul>
+			<ul>
+				<li>
+				Time: <%=@report.approach_time%>
+			</li>
+			</ul>
+			<% if @report.can_submit_from_mobile? || @report.submitted %>
+				<input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
+			<%else %>
+				<input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
+			<% end %>
         </fieldset>
       </div>
     </div>

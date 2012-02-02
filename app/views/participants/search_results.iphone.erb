@@ -14,7 +14,7 @@
 						Add to Report
 						<% ReportTypesHelper::selectable_by(current_ability).each do |rt| %>
 							<label>
-								<input type="radio" name="report_type[]" value="<%= rt.id %>" onclick="javascript:populateIphoneMenu('report_type','<%=rt.name%>','<%=rt.id%>');submit();" /><%= rt.name %>
+								<input type="radio" name="report_type[]" value="<%= rt.id %>" onclick="javascript:populateIphoneMenu('report_type','<%= escape_javascript(rt.name)%>','<%=rt.id%>');submit();" /><%= rt.name %>
 							</label>
 						<% end %>
 					</li>

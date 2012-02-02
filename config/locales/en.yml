@@ -40,7 +40,7 @@ en:
     history: Infraction History
     secondary_submitters: Secondary Submitter(s)
     annotation: Incident Description
-    annotation_placeholder: Provide a decription of the incident
+    annotation_placeholder: Provide a description of the incident
     location: Location
   MaintenanceReport:
     help: Add students reporting problem for Maintenance to contact for follow-up
@@ -48,7 +48,7 @@ en:
     annotation: Problem Description
     reasons: Contact Reason(s) 
     location: Location
-    annotation_placeholder: Provide a decription of the maintenance issue
+    annotation_placeholder: Provide a description of the maintenance issue
   Report:
     help: Add students to FYI Report
     annotation: Comments

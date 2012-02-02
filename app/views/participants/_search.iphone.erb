@@ -25,7 +25,10 @@
 					 Select Building
 					<% BuildingsHelper::residence_halls.each do |b| %>
 						<label>
-							<input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:populateIphoneMenu('building','<%=b.name%>','<%=b.id%>')" <%if Building.unspecified.id == b.id %> checked="checked"<% end %>/><%= b.name %>
+							<input type="radio" 
+								   name="report[building_id]" 
+							       value="<%= b.id %>" 
+								   onclick="javascript:populateIphoneMenu('building','<%= escape_javascript(b.name) %>','<%=b.id%>')" <%if Building.unspecified.id == b.id %> checked="checked"<% end %>/><%= b.name %>
 						</label>
 					<% end %>
 
@@ -43,7 +46,10 @@
 					 Select Area
 					<% AreasHelper::areas.each do |area| %>
 						<label>
-							<input type="radio" name="report[area_id]" value="<%= area.id %>" onclick="javascript:populateIphoneMenu('area','<%=area.name%>','<%=area.id%>')" <%if Area.unspecified.id == area.id %> checked="checked"<% end %>/><%= area.name %>
+							<input type="radio" 
+							       name="report[area_id]" 
+								   value="<%= area.id %>" 
+							       onclick="javascript:populateIphoneMenu('area','<%= escape_javascript(area.name)%>','<%=area.id%>')" <%if Area.unspecified.id == area.id %> checked="checked"<% end %>/><%= area.name %>
 						</label>
 					<% end %>
 
