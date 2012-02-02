@@ -12,11 +12,15 @@
           <% end %>
         </div>
         <fieldset> 
+
 			<ul    id="common-reasons-link"  style="display:none;">
-				<li  >
+				<li onclick="javascript:hideDiv('searchform')"  >
 					<a href = "#_CommonInfractions" ><%= t "#{params[:controller]}.common_reasons" %></a>				
 				</li>
 			</ul>
+			
+		
+			
 			<ul>
 				<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
 				  <span id="building"><%=@report.building_name%></span>
