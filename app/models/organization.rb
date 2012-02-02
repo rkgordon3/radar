@@ -4,12 +4,11 @@ class Organization < ActiveRecord::Base
   has_and_belongs_to_many :staffs, :join_table => :staff_organizations
   
   def apply_privileges(ability, staff) 
-    ability.cannot :manage, :all
+  
 	begin
-	puts staff.role_in(self).name.tableize.singularize
+		puts staff.role_in(self).name.tableize.singularize
 		self.send(staff.role_in(self).name.tableize.singularize, ability, staff)
 	rescue Exception => e
-	puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 	    puts e.backtrace.join("\n")
 		puts "No role for #{staff.email} in #{self.display_name}"
 	end
