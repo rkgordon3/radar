@@ -1,3 +1,4 @@
+
 <% if report.reasons.size > 0 %>
 
 <div class="common-relationship-checklist">
@@ -5,8 +6,7 @@
   	<div id="common-reasons">
 		<fieldset>
 		<ul>
-  			<% infractions =report.reasons %>
-  			<% infractions.each do |infraction| %>
+  			<% report.reasons.each do |infraction| %>
   		  		<li><% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
