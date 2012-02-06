@@ -10,7 +10,7 @@ class Ability
       :update_common_reasons, :render_set_reason, :render_common_reasons_update, :update_common_annotation,
       :update_annotation, :remove_participant, :create_participant_and_add_to_report, :add_participant, :to => :modify_live
 
-    staff ||= Staff.new
+
 	cannot :manage, :all
     if not staff.organizations.empty? 
       staff.organizations.each do |org|
