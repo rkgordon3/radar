@@ -2,6 +2,8 @@ class ParticipantsController < ApplicationController
   before_filter :authenticate_staff!
   load_and_authorize_resource
   
+
+  
   autocomplete :participant, :full_name, :display_value => :full_name, :full => true
   
   def index
@@ -76,19 +78,15 @@ class ParticipantsController < ApplicationController
   end
   
   def search_results
-  	@participants = []
+  	@participants = Participant.active
 
-    @participants << Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
-    if @participants.empty?
-      @participants = Participant.where("lower(full_name) like ?", "%#{params[:full_name].downcase}%") if (param_value_present(params[:full_name]) && @participants.empty?)
+	if param_value_present(params[:participant][:id])
+     @participants = @participants.where(:id => params[:participant][:id])
+    else
+      @participants = @participants.where("lower(full_name) like ?", "%#{params[:full_name].downcase}%") if param_value_present(params[:full_name])
     
-      @participants = Participant.where("student_id like ?", "%#{params[:student_id]}%") if (param_value_present(params[:student_id]) && @participants.empty?)
+      @participants = @participants.where("student_id like ?", "%#{params[:student_id]}%") if param_value_present(params[:student_id]) 
 
-      #----------------
-      # if no student was selected, select all
-    
-      #@participants = Participant.where(:type => "Student") if @participants.empty?
-    
       #-----------------
       # if a building was selected, get students in that building
 

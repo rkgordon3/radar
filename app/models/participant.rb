@@ -2,6 +2,9 @@ class Participant < ActiveRecord::Base
   belongs_to :building
   has_many :report_participant_relationships
   has_many :reports, :through => :report_participant_relationships
+  # Used with seach results so that only active participants are 'found'
+  # Not used with autocomplete
+  scope :active, lambda { where(:is_active => true) }
 
   #returns all relationships accessible by the given ability and of the same type
   #as the report given, excluding those associated with that report specifically.

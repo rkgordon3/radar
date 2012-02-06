@@ -1,5 +1,5 @@
 <div id="inside_container" class="inside_container">
-  <h1><%= "#{@student.name}" " ID: #{@student.student_id}" %></h1>
+  <h1><%= "#{@student.name}" " ID: #{@student.student_id}" %> <%= "(Withdrawn)" unless @student.is_active? %></h1>
   <%= render :partial=>"participants/participant_history", :locals=> { :participant => @student, :history => @student.contact_history(current_ability) } if can? :view_contact_history, @student %>
   <p id="notice"><%= notice %></p>
   <div style="display: inline-block;" >
