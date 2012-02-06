@@ -30,6 +30,15 @@ class StaffsController < Devise::RegistrationsController
     end
   end
 
+  def activate
+	  @staff = Staff.find(params[:staff_id])
+	  @staff.active = true
+	  @staff.save
+	  respond_to do |format|
+        format.html { redirect_to(staffs_url) }
+        format.xml  { head :ok }
+	  end	  
+  end
 
   # DELETE /staffs/1
   # DELETE /staffs/1.xml
@@ -69,7 +78,7 @@ class StaffsController < Devise::RegistrationsController
 		pref.time_offset = Notification.get_time_offset_for_frequency(pref.frequency)
 		pref.save
 	end
-logger.debug("****************** update preferences complete")
+
     respond_to do |format|
       if true
         format.html { redirect_to('/home/landingpage/', :notice => 'Your Notification Preferences were successfully updated.') }

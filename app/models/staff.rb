@@ -11,7 +11,6 @@ class Staff < ActiveRecord::Base
   #belongs_to :organization
   has_many :notification_preferences
   before_save :lower_email
-  after_initialize :set_active
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -19,9 +18,15 @@ class Staff < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable,
     :timeoutable
   
-  
   # Setup accessible (or protected) attributes for your model
   attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+  
+  #
+  # Do not authenticate a user who is not active
+  # This method is called out to by devise
+  def valid_password?(password)
+    self.active && super(password)
+  end
   
   # AccessLevel for staff in a given organization
   def role_in(org)
@@ -76,14 +81,7 @@ class Staff < ActiveRecord::Base
   def on_round?
     (Round.where(:shift_id => current_shift.id, :end_time => nil).first != nil) rescue false
   end
-  
 
-  
-  def set_active
-    self.active = true
-  end
-  
-  
   def current_shift
     Shift.where(:staff_id => self.id, :time_out => nil).first
   end
@@ -123,6 +121,7 @@ class Staff < ActiveRecord::Base
     
     super(staff)
   end
+  
   
   	# This is absolutely a kludge to compensate for poorly designed (rkg takes full responsibility)
 	# associations between staff, org and access_level. The relationships between these models has

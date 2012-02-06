@@ -7,13 +7,13 @@
 	</td>
 	<td><%= staff.last_login.to_s(:short_date_time) rescue "Not yet logged in" %>
     <td><%= link_to 'Edit', edit_staff_path(staff) if can? :edit, staff %></td>
-	<% if false %>
+
 	<td>
 	
 	<% if staff.active %>
 		<%= link_to 'De-activate', staff, :confirm => 'Are you sure?', :method => :delete, :id => 'deactivate' if can? :destroy, staff %>
 	<% else %>
-		<%= link_to 'Activate', staff, :confirm => 'Are you sure?', :method => :delete, :id => 'activate'  if can? :destroy, staff %>
+		<%= link_to 'Activate',  staff_activate_path(staff) if can? :destroy, staff %>
 	<% end %>
 	</td>
-	<% end %>
+
