@@ -8,8 +8,8 @@
     <tr>
     <% end %>
 
-    <td><%= assignment.task.title %></td>
-    <td><%= assignment.task.note %></td>
+    <td><%= assignment.task.title rescue 'Task Deleted' %></td>
+    <td><%= assignment.task.note rescue '' %></td>
     <td><%= assignment.due_time %></td>
     <td><%= assignment.done_string %></td>
     <td><%= assignment.done_time %></td>

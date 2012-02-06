@@ -1,0 +1,64 @@
+<div id="inside_container" class="inside_container">
+	<%= form_tag search_participants_path, { :format => 'iphone' }  do -%>
+	
+
+  
+	<h1>Student Search</h1>
+
+	<fieldset>
+		<ul>
+    	    <li>
+				<%=  render :partial => 'participants/autocomplete_full_name' %>  
+			</li>
+		</ul>	
+			
+		<ul>
+			<li>
+				<%= text_field_tag "student_id" , nil, :placeholder=> "#{t 'student_id'}" %> 
+  			</li>
+		</ul>
+
+			<ul>
+				<%= hidden_field_tag 'building_id' %>
+				<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+					<span id="building"></span>
+					 Select Building
+					<% BuildingsHelper::residence_halls.each do |b| %>
+						<label>
+							<input type="radio" 
+								   name="report[building_id]" 
+							       value="<%= b.id %>" 
+								   onclick="javascript:populateIphoneMenu('building','<%= escape_javascript(b.name) %>','<%=b.id%>')" <%if Building.unspecified.id == b.id %> checked="checked"<% end %>/><%= b.name %>
+						</label>
+					<% end %>
+
+				</li>
+			</ul>
+			<ul>
+				<li >
+					<%= text_field_tag "room_number" , nil, :placeholder=> "#{t 'room_number'}" %> 
+				</li>
+			</ul>
+			<ul>
+				<%= hidden_field_tag 'area_id' %>
+				<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+					<span id="area"></span>
+					 Select Area
+					<% AreasHelper::areas.each do |area| %>
+						<label>
+							<input type="radio" 
+							       name="report[area_id]" 
+								   value="<%= area.id %>" 
+							       onclick="javascript:populateIphoneMenu('area','<%= escape_javascript(area.name)%>','<%=area.id%>')" <%if Area.unspecified.id == area.id %> checked="checked"<% end %>/><%= area.name %>
+						</label>
+					<% end %>
+
+				</li>
+			</ul>
+	</fieldset>	
+		<div class="actions">
+		<%= submit_tag "Submit",  :class=>"iPush iBClassic" ,:style=>"width:100%" %>
+		<%= submit_tag "Reset",  :id=>"reset", :name=>"reset", :type=>"reset" , :class=>"iPush iBClassic" ,:style=>"width:100%", :onclick=>"clear_fields(this);" %>
+	</div>
+	<% end -%>
+</div>

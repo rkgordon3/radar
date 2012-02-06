@@ -1,7 +1,6 @@
 class ResidenceLifeOrganization < Organization
   MY_REPORTS = [IncidentReport, MaintenanceReport, Note]
   MY_REPORT_TYPES = MY_REPORTS.each.collect { |r| r.name }
-  REPORT_TYPE_IDS = MY_REPORTS.collect { |r| ReportType.find_by_name(r).id }
   
   def default_contact_reason
     RelationshipToReport.where(:description => "FYI", :organization_id => self.id).first
@@ -12,7 +11,9 @@ class ResidenceLifeOrganization < Organization
   def administrator_base reports, ability, staff
     ability.can [ :view_contact_info, :view_contact_history], Participant
 	reports.each { |r| ability.can [:show,:index, :pdf, :forward, :update], Report, { :type => r.name } } 
-	reports.each { |r| ability.can :manage, ReportParticipantRelationship, { :report => { :type => r.name } } }
+
+	# required to show contact history
+	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 	ability.can :manage, RelationshipToReport, { :organization_id => self.id }
 	ability.can [:register,:assign], Organization, { :id => self.id }
   end
@@ -83,9 +84,9 @@ class ResidenceLifeOrganization < Organization
   
   def campus_safety(ability, staff)
     ability_base [IncidentReport, Note], ability, staff
-	
+
     ability.can [:view_contact_info], Participant
-   
+    ability.can [:pdf, :show], IncidentReport, { :staff_id => staff.id }
     ability.can :update, NotificationPreference, :staff_id => staff.id
 
   end
@@ -105,6 +106,7 @@ class ResidenceLifeOrganization < Organization
 	
     MY_REPORTS.each { |r| ability.can [:show,:index, :pdf, :forward], Report, { :type => r.name } }  
 	
+	# required to show contact history
 	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 
 	ability.can :assign, Organization, :id => self.id
@@ -152,12 +154,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :search, Report
 	
 	ability.can [:create], reports
-	ability.can [:new_with_participants, 
-				:remove_participant, 
-				:create_participant_and_add_to_report, 
-				:add_participant, 
-				:update_reason,
-				:update_common_reasons], Report
+	ability.can :modify_live, Report
 	reports.each do |r| 
 		ability.can :index, Report, { :type=> r.name, :staff_id => staff.id } 
 	end

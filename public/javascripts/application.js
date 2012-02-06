@@ -45,7 +45,11 @@ function hideDiv(divID){
 function showDiv(divID){
     document.getElementById(divID).setAttribute("style", "display:block");
 }
-function displayBuilding(spanID,building){
+function populateIphoneMenu(spanID,building, building_id){
+
+    if (building_id != null) {
+		document.getElementById(spanID+'_id').value = building_id
+	}
     document.getElementById(spanID).innerHTML=building;
 }
 

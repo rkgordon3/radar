@@ -22,26 +22,25 @@
           <br />
           <% if can? :view_contact_info, p %><%= render :partial => "participants/participant_details", :locals => { :participant => p } %><br/><% end %>
           <% if can? :view_contact_history, p %><%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(current_ability, @report) } %><% end %>
-          <br />
+		  <div >
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
-            &nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Reported:" %>
+			<%= label_tag "Reported:" %>
 		
             <%= rpr.reason.description rescue "no reason" %><br/>
             <% if @report.supports_contact_reason_details? %>
-            <% if not rpr.annotation.nil? %>
-			<div class="field" >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Annotation:" %>
-                <%= rpr.annotation.text %>
-			</div>
-            <% end %>
-            <% if not rpr.contact_duration.nil? %>
-			<div class="field" >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= label_tag "Duration:" %> 
-                <%= rpr.contact_duration %> minutes
-			</div>
-            <% end %>
-            <% end %>
+				<div class="offset_field" >
+					<% if not rpr.annotation.nil? %>					
+						<%= label_tag "Annotation:" , nil, :class=>"offset_label" %>
+						<%= rpr.annotation.text %><br/>
+					<% end %>
+					<% if not rpr.contact_duration.nil? %>
+						<%= label_tag "Duration:" , nil, :class=> "offset_label" %> 
+						<%= rpr.contact_duration %> minutes
+					<% end %>
+				</div>
+			<% end %>
           <% end %>
+		  </div>
         </td>
         <% num_parts = num_parts + 1 %>
       <% end %>

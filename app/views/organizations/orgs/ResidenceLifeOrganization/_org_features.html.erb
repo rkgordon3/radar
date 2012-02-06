@@ -1,13 +1,13 @@
 <%= render :partial => "organizations/orgs/ResidenceLifeOrganization/reports_menu" %>
 <%  if can? :do, TaskAssignment, :class=>"menubar_link" %>
-	<li><%= link_to "Tasks", to_do_list_task_assignments_path, :class=>"menubar_link" %>
+	<li><%= link_to "Tasks", to_do_list_task_assignments_path, :class=>"small_menubar_link" %>
 		<ul>
 			<li><%= link_to "My To Do List", to_do_list_task_assignments_path%></li>
 		</ul>
 	</li>
 <% end %>
 <% if can? :index, Shift, :class=>"menubar_link" %>
-	<li><%= link_to "Shifts/Logs", "/shifts?access_level=Any" , :class=>"menubar_link" %>
+	<li><%= link_to "Shifts/Logs", "/shifts?access_level=Any" , :class=>"small_menubar_link" %>
 		<ul>
 		  <% if can? :create, Shift %><li><%= link_to "Record Shift", new_shift_path  %></li><% end %>
 		  <% if can? :index, Shift %> <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}"  %></li><% end %>

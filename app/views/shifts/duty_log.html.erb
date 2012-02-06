@@ -1,10 +1,11 @@
 <div id="inside_container" class="inside_container">
   <%= link_to_function("Print this Page", "javascript:print()", :id=>'print_link') %><br />
-  <font size="4" color="595959"><b><%= "#{@shift.staff.access_level.display_name}: " %></b></font><font size="4"><%= "#{@shift.staff.name}" %></font><br />
-  <font size="4" color="595959"><b>On Duty: </b></font><font size="4"><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></font><br />
-  <font size="4" color="595959"><b>Area: </b></font><font size="4"><%= "#{@shift.area.name rescue "Unknown"}" %></font><br /><br />
-
-  <p><div>
+  <div class="form_header" >
+ <%= "#{@shift.staff.access_level.display_name}: " %><span style="font-weight:500" ><%= "#{@shift.staff.name}" %></span><br/>
+  On Duty: <span style="font-weight:500" ><%= "#{@shift.start_date}, #{@shift.start_time} - #{@shift.end_date}, #{@shift.end_time}" %></span><br/>
+  Area: <span style="font-weight:500" ><%= "#{@shift.area.name rescue unknown}" %></span><br/>
+  </div>
+  <div>
     <b><font size="3">Summary</font></b><br />
     <% if @shift.annotation.text.length > 0 %>
       <%= @shift.annotation_text %>

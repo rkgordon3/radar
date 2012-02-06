@@ -1,5 +1,5 @@
 <div id="inside_container" class="inside_container">
-	<%= form_tag('/students/search_results', { :format => 'iphone' }  ) do -%>
+	<%= form_tag search_participants_path, { :format => 'iphone' }  do -%>
   
 	<h1>Student Search</h1>
 
@@ -7,7 +7,7 @@
         <legend>Student Name:</legend>
 		<ul>
     	    <li>
-				<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
+				<%=  render :partial => 'participants/autocomplete_full_name' %>  
 			</li>
 		</ul>
 		

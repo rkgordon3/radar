@@ -1,17 +1,15 @@
-<%= form_tag(target,:id=>"searchform", :method => :get, :remote => true, :format=>"js" ) do %>
-  <fieldset>
-	<legend>
-        	Students:
-        </legend>
-	  <ul>
-		<li>
-			<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id' %>  
-            <%= hidden_field :participant, :id %>
-  		</li>
-  	  </ul>
-  
-         <%= submit_tag "Add", :class =>"iPush iBClassic", :style =>"width:100%"%>
 
-  </fieldset>
-<% end %>
+<%= autocomplete_field_tag 'full_name', '', autocomplete_participant_full_name_participants_path, :id_element => '#participant_id', :placeholder=>"Search students by name" %>  
+<%= hidden_field :participant, :id %>
 
+<script type="text/javascript">
+     Event.observe(window, 'load', function() { document.getElementById('full_name').focus(); });
+
+
+// Clear hidden field containing participant id. Reset button does 
+// not do this.
+function clear_fields(elem) {
+  document.getElementById("participant_id").value = ""
+  return false;
+}
+</script>

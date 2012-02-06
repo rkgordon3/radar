@@ -31,6 +31,7 @@ class TaskAssignment < ActiveRecord::Base
   end
 
   def due_time
+	return unknown if self.task.nil?
     ts = self.task.time_string
     return  ts +  (ts.length > 0 ? ", " : "") + self.created_at.to_s(:short_date_only)
   end

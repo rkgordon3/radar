@@ -114,7 +114,7 @@ Radar::Application.routes.draw do
   
   resources :reports_query
 
-  resources :report_participant_relationships
+  #resources :report_participant_relationships
 
   resources :buildings  do
     get :select, :on => :collection

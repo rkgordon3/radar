@@ -4,6 +4,13 @@
 
 <script type="text/javascript">
      Event.observe(window, 'load', function() { document.getElementById('full_name').focus(); });
+	 
+// Clear hidden field containing participant id. Reset button does 
+// not do this.
+function clear_fields(elem) {
+  document.getElementById("participant_id").value = ""
+  return false;
+}
 </script>
   
 

@@ -1,64 +1,56 @@
 
 <div class="iPanel">
-  <%= render :partial => "search/autocomplete_full_name", :locals => { :target => "/reports/add_participant" } %>
+<%= render :partial => "participants/autocomplete_full_name_form", :locals => { :target => add_participant_reports_path } %>
 </div>
 <%= form_for(@report) do |f| %>
   <div id="iGroup">
-    <div class="iLayer" id="waIncidentReport" title="Incident Report">
+    <div class="iLayer" id="waIncidentReport" title='<%= @report.display_name %>' >
       <div class="iPanel">
         <div id="s-i-form">
           <% @report.participant_ids.each  do |pid| %>
             <%=render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => Participant.find(pid) })%>
           <% end %>
         </div>
-        <fieldset>
-        
-		  
-          <ul  class='iArrow'  id="common-reasons-link"  style="display:none;" >
-              <li><a href = "#_CommonInfractions"><%= t "#{params[:controller]}.common_reasons" %></a></li>
-          </ul>
-		  
+        <fieldset> 
 
-          <legend>
-            <%= t "building" %>
-          </legend>
-          <ul>
-
-            <li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
-              <span id="blabel"><%=@report.building_name%></span>
-              Select Building<% Building.find(:all).each do |b| %>
-                <label>
-                  <input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:displayBuilding('blabel','<%=b.name%>')"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
-                </label><% end %>
-
-            </li>
-
-          </ul>
-
-          <legend>
-            <%= t "location" %>
-          </legend>
-          <ul>
+			<ul    id="common-reasons-link"  style="display:none;">
+				<li onclick="javascript:hideDiv('searchform')"  >
+					<a href = "#_CommonInfractions" ><%= t "#{params[:controller]}.common_reasons" %></a>				
+				</li>
+			</ul>
+			
+		
+			
+			<ul>
+				<li class="iRadio" value="autoback" onclick="javascript:hideDiv('searchform')">
+				  <span id="building"><%=@report.building_name%></span>
+				  Select Building<% BuildingsHelper.all_buildings.each do |b| %>
+					<label>
+					  <input type="radio" name="report[building_id]" value="<%= b.id %>" onclick="javascript:populateIphoneMenu('building','<%=  escape_javascript b.name %>', null)"<%if @report.building_id == b.id %> checked="checked"<% end %>/><%= b.name %>
+					</label><% end %>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<input type="text" name="report[room_number]" placeholder="Specific Location" value="<%=@report.room_number%>" />
+				</li>
+			</ul>
+			<ul>
             <li>
-              <input type="text" name="report[room_number]" placeholder="Specific Location" value="<%=@report.room_number%>" />
+			<% rt = "#{@report.type}.annotation_placeholder" %>
+              <%= text_area_tag "report[annotation]", nil,  :cols=> "60", :rows => "4", :value=> @report.annotation_text,:placeholder=> "#{t rt}" %>
             </li>
-          </ul>
-          <legend>
-            <%= t "annotation" %>
-          </legend>
-          <ul>
-            <li>
-              <%= text_area(:report, :annotation,  :cols=> "60", :rows => "4", :value=> @report.annotation_text) %>
-            </li>
-          </ul>
-          <legend>
-            Time: <%=@report.approach_time%>
-          </legend>
-          <% if @report.can_submit_from_mobile? || @report.submitted %>
-            <input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
-          <%else %>
-            <input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
-          <% end %>
+			</ul>
+			<ul>
+				<li>
+				Time: <%=@report.approach_time%>
+			</li>
+			</ul>
+			<% if @report.can_submit_from_mobile? || @report.submitted %>
+				<input id="submit_submit" name="report[submitted]" type="submit" value="Submit" class="iPush iBClassic" style="width:100%"/>
+			<%else %>
+				<input id="save_submit" name="save_submit" type="submit" value="Save" class="iPush iBClassic" style="width:100%"/>
+			<% end %>
         </fieldset>
       </div>
     </div>
@@ -68,7 +60,7 @@
       <% end %>
     </div>
     <div class="iLayer" id="waCommonInfractions" >
-      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back to Incident Report</a>
+      <a href="#" id="waBackButton" rel="back"  onclick="javascript:showDiv('searchform');">Back</a>
       <div class="iPanel">
         <%= render :partial=>"reports/report_common_relationship_checklist", :locals => { :report => @report } %>
       </div>
