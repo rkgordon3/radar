@@ -73,6 +73,7 @@ Radar::Application.routes.draw do
 	resources :staffs, :only => [:index, :show, :destroy]
     resources :staffs do
 		post :update_preferences
+		get "activate" => :activate
 	end 
   end
   
@@ -92,6 +93,7 @@ Radar::Application.routes.draw do
   
   resources :tutor_reports 
   resources :tutor_by_appointment_reports, :controller => "tutor_reports"
+  resources :tutor_study_table_reports, :controller => "tutor_reports"
 
   resources :shifts
   

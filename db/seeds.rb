@@ -116,7 +116,19 @@ puts 'update default contact id for TR'
  tr.save
 end
 
-
+tst = ReportType.find_by_name("TutorStudyTableReport") || ReportType.create( { 
+  :name=> 'TutorStudyTableReport' , 
+  :display_name => 'Study Table Tutor Report', 
+  :abbreviation=> 'TST',
+  :organization_id => asc.id, 
+  :selectable_contact_reasons => true, 
+  :has_contact_reason_details => true,
+  :forwardable => false,
+  :edit_on_mobile => false,
+  :submit_on_mobile => false,
+  :path_to_reason_context => 'Enrollment',
+  :default_reason_id => other.id,
+  :reason_context => 'Course' }) 
 
 puts "creating tutor by appointment report"
 tba = ReportType.find_by_name("TutorByAppointmentReport") || ReportType.create( { 
@@ -389,6 +401,27 @@ puts "creating report fields for tutor-by-app report"
   :show_position => 6,
  } ) 
 
+ puts "creating report fields for study table report"
+ report = ReportType.find_by_name("TutorStudyTableReport")
+
+
+ ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'approach_datetime',
+  :edit_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'annotation',
+  :show_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'staff',
+  :show_position => 6,
+ } ) 
  
 puts "update MaintenanceReport  select/submit/edit attributes"
 
