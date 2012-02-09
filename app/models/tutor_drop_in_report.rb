@@ -1,0 +1,2 @@
+class TutorDropInReport < TutorReport
+end

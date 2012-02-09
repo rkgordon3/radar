@@ -145,6 +145,21 @@ tba = ReportType.find_by_name("TutorByAppointmentReport") || ReportType.create( 
   :default_reason_id => other.id,
   :reason_context => 'Course' }) 
   
+  puts "creating tutor drop in report"
+dit = ReportType.find_by_name("TutorDropInReport") || ReportType.create( { 
+  :name=> 'TutorDropInReport' , 
+  :display_name => 'Drop In Tutor Report', 
+  :abbreviation=> 'DIT',
+  :organization_id => asc.id, 
+  :selectable_contact_reasons => true, 
+  :has_contact_reason_details => true,
+  :forwardable => false,
+  :edit_on_mobile => false,
+  :submit_on_mobile => false,
+  :path_to_reason_context => 'Enrollment',
+  :default_reason_id => other.id,
+  :reason_context => 'Course' }) 
+  
     
 if tba.default_reason_id.nil?
 puts 'update default contact id for TBA'
@@ -405,6 +420,26 @@ puts "creating report fields for tutor-by-app report"
  report = ReportType.find_by_name("TutorStudyTableReport")
 
 
+ ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'approach_datetime',
+  :edit_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'annotation',
+  :show_position => 3,
+ } ) 
+ 
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'staff',
+  :show_position => 6,
+ } ) 
+ 
+ puts "creating report fields for drop in report"
+ report = ReportType.find_by_name("TutorDropInReport")
  ReportField.create( {
   :report_type_id => report.id,
   :name => 'approach_datetime',

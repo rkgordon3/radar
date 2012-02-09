@@ -94,6 +94,7 @@ Radar::Application.routes.draw do
   resources :tutor_reports 
   resources :tutor_by_appointment_reports, :controller => "tutor_reports"
   resources :tutor_study_table_reports, :controller => "tutor_reports"
+  resources :tutor_drop_in_reports, :controller => "tutor_reports"
 
   resources :shifts
   

@@ -59,18 +59,24 @@ en:
     reasons: Contact Reason(s)
     annotation_placeholder: Record notes 
   TutorReport:
-    help: Add students involved in a tutoring session. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
+    help: Add students involved in a tutoring session. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
     reasons: Courses
   TutorByAppointmentReport:
-    help: Add students involved in a tutoring session. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
+    help: Add students involved in a tutoring session. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
   TutorStudyTableReport:
-    help: Add students involved in Study Table. After student is added to report, you can select from a list of course for each student, note how long the student was helped for the selected course, and add additional comments.
+    help: Add students involved in Study Table. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
+    secondary_submitters: Other Tutor(s)
+    annotation: Comments
+    submitter: Tutor
+    reasons: Courses
+  TutorDropInReport:
+    help: Add students for Drop-In tutoring sessions. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor

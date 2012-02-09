@@ -1,5 +1,5 @@
 class AcademicSkillsCenterOrganization < Organization 
-  MY_REPORTS = [TutorReport, TutorByAppointmentReport, TutorStudyTableReport ]
+  MY_REPORTS = [TutorReport, TutorByAppointmentReport, TutorStudyTableReport, TutorDropInReport ]
   MY_REPORT_TYPES = MY_REPORTS.each.collect { |r| r.name }
   
   def default_contact_reason
