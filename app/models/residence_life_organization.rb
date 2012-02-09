@@ -29,7 +29,7 @@ class ResidenceLifeOrganization < Organization
 	
     # These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
     ability.can [:create, :update, :destroy], Staff,
-      {
+    {
       :organizations => { :id => self.id },
       :access_levels=> {:name => ["HallDirector", "ResidentAssistant", "CampusSafety" ]}
     }
@@ -40,7 +40,7 @@ class ResidenceLifeOrganization < Organization
       :access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
     }
 	
-	ability.can [:list_RA_duty_logs], Shift
+	ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
     ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
 	
@@ -114,7 +114,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 
 	ability.can :assign, Organization, :id => self.id
-    ability.can [:list_RA_duty_logs], Shift
+    ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
     ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
     ability.can :update, Building
