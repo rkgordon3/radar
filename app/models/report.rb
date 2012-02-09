@@ -128,7 +128,7 @@ class Report < ActiveRecord::Base
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
     annotation_text = params[:annotation]
-
+	self.organization_id = report_type.organization.id
     if annotation_text != nil && annotation_text.length > 0   
         self.annotation = Annotation.new if self.annotation.nil?
         self.annotation.text = annotation_text
@@ -148,7 +148,6 @@ class Report < ActiveRecord::Base
   end
   
   def save
-	self.organization = report_type.organization
     if (not annotation.nil?) && annotation.save! != nil 
       self.annotation_id = annotation.id
     end
