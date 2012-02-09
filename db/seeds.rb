@@ -45,7 +45,7 @@ puts "updating staff_org with access_level"
 Staff.all.each { |s|
   unless s.staff_organizations.first.nil?
     so = s.staff_organizations.first
-	if not so.access_level.nil? # if access_level nil then this update has been performed
+	if so.access_level.nil? # if access_level nil then this update has not been performed
 		if not s.access_level.nil?  # if staff access level is nil, this is 'root' and so is trans-organizational
 		  org_id = so.organization_id
 		  soa = StaffOrganization.delete_all([ "staff_id = ? and organization_id = ?", s.id, so.organization_id])

@@ -18,7 +18,6 @@ class Ability
       end
     else
       # this user does not belong to an organization and is super-user
-      puts "**************Applying super user abilities"
       can :manage, :all
     end
   end

@@ -39,6 +39,11 @@ class ResidenceLifeOrganization < Organization
       :organizations => { :id => self.id },
       :access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
     }
+	
+	ability.can [:list_RA_duty_logs], Shift
+    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
+    ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
+	
     ability.can :manage, [Task, Building, Area]
     ability.can :manage, NotificationPreference
     ability.can :assign, Area
@@ -96,7 +101,6 @@ class ResidenceLifeOrganization < Organization
   end
   
   def hall_director(ability, staff)
-    puts ("*********Apply abilities to hall director")
 	# ability_base
 	ability_base MY_REPORTS, ability, staff
 	# Participant
@@ -127,7 +131,6 @@ class ResidenceLifeOrganization < Organization
   end
   
   def resident_assistant(ability, staff)
-    puts ( "*********Apply abilities to resident assistant")
 	
     ability_base MY_REPORTS, ability, staff
 	
@@ -141,7 +144,7 @@ class ResidenceLifeOrganization < Organization
   # ability_base Abilities
   #	 
   def ability_base(reports, ability, staff)
-   puts ( "*********Apply ability_base abilities")
+  
     ability.can [:index, :search, :show], Participant
 	ability.can :index, Staff, :organizations => { :id => self.id }
     ability.can [:update, :show], Staff, :id => staff.id

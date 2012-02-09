@@ -34,7 +34,6 @@ class AcademicSkillsCenterOrganization < Organization
   end
     
   def supervisor(ability, staff)
-    puts ( "*********Apply abilities to asc supervisor ")
 	ability_base MY_REPORTS, ability, staff
 	
 	ability.can [:view_contact_info, :view_contact_history], Participant
@@ -47,7 +46,6 @@ class AcademicSkillsCenterOrganization < Organization
   end
   
   def staff(ability, staff)
-    puts ( "*********Apply abilities to asc staff ")
     ability_base MY_REPORTS, ability, staff
 	
     ability.can [:show], TutorReport, { :staff_id => staff.id  }
