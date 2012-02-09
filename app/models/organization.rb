@@ -6,7 +6,7 @@ class Organization < ActiveRecord::Base
   def apply_privileges(ability, staff) 
   
 	begin
-		puts staff.role_in(self).name.tableize.singularize
+		
 		self.send(staff.role_in(self).name.tableize.singularize, ability, staff)
 	rescue Exception => e
 	    puts e.backtrace.join("\n")
