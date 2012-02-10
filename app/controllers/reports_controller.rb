@@ -14,10 +14,8 @@ include ReportsHelper
     if (params[:report].nil?) 
       params[:report] = "Report"
     end
-    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).paginate(:page => params[:page], :per_page => 30)
+    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).order("approach_time  DESC").paginate(:page => params[:page], :per_page => 30)
     report_type = ReportType.find_by_name(params[:report])
-	  @reports.order("reports.#{Report.default_sort_field} DESC")
-    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       format.html { render :locals => { :reports => @reports, :report_type => report_type } }
