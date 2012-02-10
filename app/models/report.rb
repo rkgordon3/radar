@@ -16,7 +16,7 @@ class Report < ActiveRecord::Base
   attr_accessible 	:type, :staff_id
   
   DEFAULT_SORT_FIELD = "approach_time"
-  
+  scope :by_most_recent, lambda { order("approach_time  DESC") }
   
   def default_contact_duration
 	0
@@ -26,8 +26,8 @@ class Report < ActiveRecord::Base
 	report_type.default_contact_reason_id
   end
     
-  def self.default_sort_field
-    DEFAULT_SORT_FIELD
+  def default_sort_field
+    report_type.sort_field rescue DEFAULT_SORT_FIELD
   end
   
   def is_generic?

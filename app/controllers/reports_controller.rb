@@ -14,7 +14,7 @@ include ReportsHelper
     if (params[:report].nil?) 
       params[:report] = "Report"
     end
-    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).order("approach_time  DESC").paginate(:page => params[:page], :per_page => 30)
+    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => 30)
     report_type = ReportType.find_by_name(params[:report])
 
     respond_to do |format|
@@ -405,8 +405,7 @@ include ReportsHelper
 	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
          
     # finishing touches...
-    @reports.order("reports.#{Report.default_sort_field} DESC")
-    @reports = @reports.paginate(:page => params[:page], :per_page => 30)
+    @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => 30)
 
     @num_reports = @reports.length
 
