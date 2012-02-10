@@ -22,7 +22,7 @@
 					<div class="field">
 						<%= label_tag "Report Type:" %><br />
 						<%= select_tag "type",
-							options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preferred_report_type.name ),
+							options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preference(:report_type) ),
 							:id => 'report_select_id',
 							:include_blank => true,
 							:onchange => "report_select();" %>
@@ -36,7 +36,7 @@
 					<div class="field">
 						<% ReportTypesHelper::selectable_by(current_ability).each do |report_type | -%>						   
 								<%= content_tag :div, 	:id => "#{report_type.name}-reasons", 
-													:style=>"display:#{report_type == current_staff.preferred_report_type ? 'block' : 'none'}" do -%>
+													:style=>"display:#{report_type.name == current_staff.preference(:report_type) ? 'block' : 'none'}" do -%>
 									<%= label_tag do -%>
 										<%= t "#{report_type.name}.reasons"  -%>
 									<% end -%><br/>

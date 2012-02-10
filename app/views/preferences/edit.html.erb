@@ -1,0 +1,7 @@
+<div id="inside_container" class="inside_container">
+<div class="form_header"><%= t :editing_preference %><%= " value for #{@preference.name}" %></div>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', staff_preferences_path(@staff) %>
+</div>

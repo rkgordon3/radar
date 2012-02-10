@@ -1,5 +1,6 @@
 Radar::Application.routes.draw do
-  
+
+
   match "/imports/proc/:id" => "imports#proc_csv"
 
   resources :task_assignments  do
@@ -69,11 +70,12 @@ Radar::Application.routes.draw do
   devise_for :staffs
   devise_scope :staff do
     get 'sign_up' => 'devise/sessions#new'
-    get '/staffs/*id/edit' => 'devise/registrations#edit'
+    get '/staffs/:id/edit' => 'devise/registrations#edit'
 	resources :staffs, :only => [:index, :show, :destroy]
     resources :staffs do
 		post :update_preferences
 		get "activate" => :activate
+		resources :preferences
 	end 
   end
   

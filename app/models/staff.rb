@@ -4,6 +4,7 @@ class Staff < ActiveRecord::Base
   has_and_belongs_to_many	:access_levels, :join_table => :staff_organizations
   has_many :staff_areas, :dependent => :destroy
   has_many :areas, :through => :staff_areas
+  has_many :preferences
   has_many :report_views, :foreign_key => :staff_id, :class_name => "ReportViewLog"
   belongs_to :access_level
   belongs_to :area
@@ -39,6 +40,10 @@ class Staff < ActiveRecord::Base
   
   def last_name_first_initial
     last_name + ( ", #{first_name[0]}" rescue "")
+  end
+  
+  def preference(name)
+    Preference.find_by_staff_id_and_name(self.id, name).value rescue self.organizations.first.send("preferred_#{name}") 
   end
   
   def last_login

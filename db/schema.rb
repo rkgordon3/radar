@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129224109) do
+ActiveRecord::Schema.define(:version => 20120210183656) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -134,6 +134,14 @@ ActiveRecord::Schema.define(:version => 20120129224109) do
     t.string   "emergency_contact_name"
     t.string   "middle_initial"
     t.boolean  "is_active",              :precision => 1,  :scale => 0, :default => true
+  end
+
+  create_table "preferences", :force => true do |t|
+    t.string   "staff_id"
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "relationship_to_reports", :force => true do |t|

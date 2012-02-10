@@ -11,11 +11,10 @@ include ReportsHelper
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
-    if (params[:report].nil?) 
-      params[:report] = "Report"
-    end
-    @reports = Kernel.const_get(params[:report]).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => 30)
-    report_type = ReportType.find_by_name(params[:report])
+	report_type = current_staff.preference(:report_type) 
+	#ReportType.find_by_name(params[:report]) rescue "Report"
+    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => 30)
+   
 
     respond_to do |format|
       format.html { render :locals => { :reports => @reports, :report_type => report_type } }

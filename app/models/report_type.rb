@@ -11,6 +11,10 @@ class ReportType < ActiveRecord::Base
 	return self.display_name <=> other.display_name  
   end
   
+  def default
+   "IncidentReport"
+  end
+  
   def default_contact_reason_id
     default_reason_id
   end

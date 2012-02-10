@@ -1,0 +1,31 @@
+<div id="inside_container" class="inside_container">
+<div class="form_header"><%= t :my_preferences %></div>
+
+<div class="field">
+<%= link_to 'New Preference', new_staff_preference_path(@staff) %>
+</div>
+
+<% if @preferences.nil?  %>
+<%= t :no_preferences_defined %>
+<% else %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @preferences.each do |preference| %>
+  <tr>
+    <td><%= preference.name %></td>
+    <td><%= preference.value %></td>
+    <td><%= link_to 'Edit', edit_staff_preference_path(@staff, preference) %></td>
+    <td><%= link_to 'Destroy', staff_preference_path(@staff, preference), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+
+</table>
+<% end %>
+</div>
+

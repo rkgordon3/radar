@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Staff:</b>
+  <%= @preference.staff_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @preference.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @preference.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_preference_path(@preference) %> |
+<%= link_to 'Back', preferences_path %>

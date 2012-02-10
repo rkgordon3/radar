@@ -17,6 +17,7 @@ class Report < ActiveRecord::Base
   
   DEFAULT_SORT_FIELD = "approach_time"
   scope :by_most_recent, lambda { order("approach_time  DESC") }
+  scope :user_preferred, lambda { where(:type => current_staff.preference(:report_type)) }
   
   def default_contact_duration
 	0

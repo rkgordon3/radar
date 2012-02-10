@@ -5,6 +5,11 @@ class AcademicSkillsCenterOrganization < Organization
   def default_contact_reason
     RelationshipToReport.where(:description => "Other", :organization_id => self.id).first
   end
+  
+  def preferred_report_type
+	"TutorReport"
+  end
+    
   private
   
   def administrator_base reports, ability, staff
@@ -53,6 +58,7 @@ class AcademicSkillsCenterOrganization < Organization
   
   def ability_base reports, ability, staff
     ability.can [:index, :search, :show], Participant
+	ability.can [:manage], Preference, { :staff_id => self.id }
 	# Can index staff within my organization
     ability.can :index, Staff, :organizations => { :id => self.id }
     ability.can [:update, :show], Staff, :id => staff.id 

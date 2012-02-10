@@ -1,4 +1,6 @@
 class ResidenceLifeOrganization < Organization
+  attr_reader :preferred_report_type
+  
   MY_REPORTS = [IncidentReport, MaintenanceReport, Note]
   MY_REPORT_TYPES = MY_REPORTS.each.collect { |r| r.name }
   
@@ -6,6 +8,9 @@ class ResidenceLifeOrganization < Organization
     RelationshipToReport.where(:description => "FYI", :organization_id => self.id).first
   end
   
+  def preferred_report_type
+	"IncidentReport"
+  end
   private
 
   def administrator_base reports, ability, staff
@@ -146,6 +151,7 @@ class ResidenceLifeOrganization < Organization
   def ability_base(reports, ability, staff)
   
     ability.can [:index, :search, :show], Participant
+	ability.can [:manage], Preference, { :staff_id => self.id }
 	ability.can :index, Staff, :organizations => { :id => self.id }
     ability.can [:update, :show], Staff, :id => staff.id
 
