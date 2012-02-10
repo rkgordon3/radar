@@ -46,7 +46,7 @@ class ResidenceLifeOrganization < Organization
     }
 	
 	ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
-    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
+    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => ["Resident Assistant", "Hall Director"]}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
 	
     ability.can :manage, [Task, Building, Area]
@@ -119,9 +119,11 @@ class ResidenceLifeOrganization < Organization
 	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 
 	ability.can :assign, Organization, :id => self.id
+	
     ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
     ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
+	
     ability.can :update, Building
     ability.can :manage, NotificationPreference, :staff_id => staff.id
     ability.can :manage, Task
