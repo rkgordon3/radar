@@ -13,7 +13,7 @@ include ReportsHelper
   def index
 	report_type = current_staff.preference(:report_type) 
 	#ReportType.find_by_name(params[:report]) rescue "Report"
-    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => 30)
+    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
    
 
     respond_to do |format|
@@ -404,7 +404,7 @@ include ReportsHelper
 	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
          
     # finishing touches...
-    @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => 30)
+    @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     @num_reports = @reports.length
 
