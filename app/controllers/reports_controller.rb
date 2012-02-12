@@ -11,21 +11,25 @@ class ReportsController < ApplicationController
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
-    if params[:r_ids] != nil
-      #reports were passed to index
-      r_ids = params[:r_ids]
-      @reports = Report.where(:id => r_ids).accessible_by(current_ability)
+
+    if params[:reports] != nil
+      #reports were passed to index through js by sort links
+      all_reports = params[:reports]
+      sort = params[:sort]
+      @reports = Report.sort_by(sort).where(:id => params[:reports]).accessible_by(current_ability)
       report_type = params[:report_type]
+      msg = "Reports are now sorted by #{sort}."
     end
     
     @reports ||= Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
     report_type ||= current_staff.preference(:report_type)
-    r_ids ||= @reports.collect{|r| r.id}
+    all_reports ||= @reports.collect{|r| r.id}
     @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports, :report_type => report_type, :r_ids => r_ids } }
+      format.html { render :locals => { :reports => @reports, :report_type => report_type, :all_reports => all_reports } }
       format.xml  { render :xml => @reports }
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :all_reports => all_reports }}
     end
   end
   
@@ -57,7 +61,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { render 'reports/new' }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
-    end 
+    end
   end
   
   
@@ -134,7 +138,7 @@ class ReportsController < ApplicationController
   def add_participant
     logger.debug("======> Add participant #{params[:participant][:id]}")
   
-    @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
+    @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id])
     @report = session[:report]
 
     if not defined? @participant
@@ -149,7 +153,7 @@ class ReportsController < ApplicationController
         format.js{
           render :update do |page|
             page.select("input#full_name").first.clear
-            page.replace_html "new-part-div", 
+            page.replace_html "new-part-div",
             :partial => "participants/new_participant_partial",
             :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
@@ -163,7 +167,7 @@ class ReportsController < ApplicationController
       @insert_new_participant_partial = !@report.associated?(@participant)
       @report.add_default_contact_reason(@participant.id) unless @report.associated?(@participant)
       respond_to do |format|
-        format.js 
+        format.js
         format.iphone {
           render :update do |page|
             if @insert_new_participant_partial
@@ -388,14 +392,14 @@ class ReportsController < ApplicationController
     end
 	
     # Select for building if present
-    @reports = @reports.where(:building_id => params[:building_id]) if param_value_present(params[:building_id]) 
+    @reports = @reports.where(:building_id => params[:building_id]) if param_value_present(params[:building_id])
     # Select for area, if present and building not selected
     @reports = @reports.where(Area.find(params[:area_id]).buildings) if param_value_present(params[:area_id]) and (not param_value_present(params[:building_id]))
 	
     max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
     filter_by_datetime = false
     # if a date was provided, find all before that date
-    if param_value_present(params[:submitted_before]) 
+    if param_value_present(params[:submitted_before])
       max = convert_arg_datetime(params[:submitted_before]) rescue nil
       filter_by_datetime = true if !max.nil?
     end
@@ -411,48 +415,13 @@ class ReportsController < ApplicationController
     @reports = @reports.where(:approach_time => min..max) if filter_by_datetime
          
     # finishing touches...
-    r_ids = @reports.collect{|r| r.id}
+    all_reports = @reports.collect{|r| r.id}
     @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
-    @num_reports = @reports.length
-
     respond_to do |format|
       #html format is called by paginate links
-      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :r_ids => r_ids, :page => params[:page] }) }
-      format.js { render :locals => { :r_ids => r_ids }}
-    end
-  end
-
-  def sort_search_results
-    @reports = Report.where(:id => params[:reports])
-    sort = params[:sort]
-
-    if sort == "date"
-      @reports.order("reports.approach_time DESC")
-    elsif sort == "time"
-      @reports.order("reports.approach_time DESC")
-    elsif sort == "area"
-      @reports = @reports.joins(:building=>:area).order("areas.name ASC")
-    elsif sort == "type"
-      @reports = @reports.order("reports.type ASC")
-    elsif sort == "building"
-      @reports = @reports.joins(:building).order("buildings.name ASC")
-    elsif sort == "location"
-      @reports = @reports.order("reports.room_number ASC")
-    elsif sort == "tag"
-      @reports = @reports.order("reports.tag DESC")
-    elsif sort == "submitter"
-      @reports = @reports.joins(:staff).order("staffs.last_name ASC")
-    end
-    
-    r_ids = @reports.collect{|r| r.id}
-    @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
-    
-    msg = "Reports are now sorted by #{sort}."
-    respond_to do |format|
-      #html format is called by paginate links
-      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :r_ids => r_ids, :page => params[:page] }) }
-      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :r_ids => r_ids }}
+      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :reports => @reports, :page => params[:page] }) }
+      format.js { render :locals => { :all_reports => all_reports }}
     end
   end
   

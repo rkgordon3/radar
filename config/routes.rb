@@ -140,7 +140,6 @@ Radar::Application.routes.draw do
 	  post :new_with_participants
 	  post 'search' => :search_results
     get 'search' => :search_results
-    get  :sort_search_results
 	end
 	
   end

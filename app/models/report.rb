@@ -15,9 +15,30 @@ class Report < ActiveRecord::Base
 
   attr_accessible 	:type, :staff_id
   
-  DEFAULT_SORT_FIELD = "approach_time"
+  DEFAULT_SORT_FIELD = "reports.approach_time"
   scope :by_most_recent, lambda { order("approach_time  DESC") }
   scope :user_preferred, lambda { where(:type => current_staff.preference(:report_type)) }
+  scope :sort_by, lambda { |key|
+    if key == "date"
+      order("reports.approach_time DESC")
+    elsif key == "time"
+      order("reports.approach_time DESC")
+    elsif key == "area"
+      joins(:building=>:area).order("areas.name ASC")
+    elsif key == "type"
+      order("reports.type ASC")
+    elsif key == "building"
+      joins(:building).order("buildings.name ASC")
+    elsif key == "location"
+      order("reports.room_number ASC")
+    elsif key == "tag"
+      order("reports.tag DESC")
+    elsif key == "submitter"
+      joins(:staff).order("staffs.last_name ASC")
+    else
+      order(DEFAULT_SORT_FIELD)
+    end
+  }
   
   def default_contact_duration
 	0
@@ -343,5 +364,6 @@ class Report < ActiveRecord::Base
   
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
-  end 
+  end
+
 end
