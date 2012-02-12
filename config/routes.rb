@@ -139,6 +139,7 @@ Radar::Application.routes.draw do
 	  get :remove_participant
 	  post :new_with_participants
 	  post 'search' => :search_results
+    get 'search' => :search_results
     get  :sort_search_results
 	end
 	

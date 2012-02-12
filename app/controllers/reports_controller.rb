@@ -11,10 +11,16 @@ class ReportsController < ApplicationController
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
-    report_type = current_staff.preference(:report_type)
-    #ReportType.find_by_name(params[:report]) rescue "Report"
-    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
-    r_ids = @reports.collect{|r| r.id}
+    if params[:r_ids] != nil
+      #reports were passed to index
+      r_ids = params[:r_ids]
+      @reports = Report.where(:id => r_ids).accessible_by(current_ability)
+      report_type = params[:report_type]
+    end
+    
+    @reports ||= Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
+    report_type ||= current_staff.preference(:report_type)
+    r_ids ||= @reports.collect{|r| r.id}
     @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
@@ -410,7 +416,9 @@ class ReportsController < ApplicationController
 
     @num_reports = @reports.length
 
-    respond_to do |format|	  
+    respond_to do |format|
+      #html format is called by paginate links
+      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :r_ids => r_ids, :page => params[:page] }) }
       format.js { render :locals => { :r_ids => r_ids }}
     end
   end
@@ -437,14 +445,14 @@ class ReportsController < ApplicationController
       @reports = @reports.joins(:staff).order("staffs.last_name ASC")
     end
     
+    r_ids = @reports.collect{|r| r.id}
     @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
-    report_type = current_staff.preference(:report_type)
     
     msg = "Reports are now sorted by #{sort}."
     respond_to do |format|
       #html format is called by paginate links
-      format.html { render :file => 'reports/index', :locals => { :reports => @reports, :report_type => report_type, :r_ids => params[:reports] } }
-      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :r_ids => params[:reports] }}
+      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :r_ids => r_ids, :page => params[:page] }) }
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :r_ids => r_ids }}
     end
   end
   
