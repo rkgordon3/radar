@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 
-include ReportsHelper
+  include ReportsHelper
 
   before_filter :authenticate_staff!
   # This is a kludge to prevent controller form interpreting
@@ -11,13 +11,14 @@ include ReportsHelper
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
-	report_type = current_staff.preference(:report_type) 
-	#ReportType.find_by_name(params[:report]) rescue "Report"
-    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
-   
+    report_type = current_staff.preference(:report_type)
+    #ReportType.find_by_name(params[:report]) rescue "Report"
+    @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
+    r_ids = @reports.collect{|r| r.id}
+    @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports, :report_type => report_type } }
+      format.html { render :locals => { :reports => @reports, :report_type => report_type, :r_ids => r_ids } }
       format.xml  { render :xml => @reports }
     end
   end
@@ -41,13 +42,13 @@ include ReportsHelper
   end
   
   def new_with_participants
-	report_name =  params[:report_type] || ReportType.find(params[:report_type_id].to_i).name 
-	@report = report_name.constantize.new(:staff_id => current_staff.id) 
+    report_name =  params[:report_type] || ReportType.find(params[:report_type_id].to_i).name
+    @report = report_name.constantize.new(:staff_id => current_staff.id)
     session[:report] = @report
     if (params[:participants] != nil)
       @report.add_participants(params[:participants])
     end
-	respond_to do |format|
+    respond_to do |format|
       format.html { render 'reports/new' }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
     end 
@@ -125,7 +126,7 @@ include ReportsHelper
   end
   
   def add_participant
-  logger.debug("======> Add participant #{params[:participant][:id]}")
+    logger.debug("======> Add participant #{params[:participant][:id]}")
   
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id]) 
     @report = session[:report]
@@ -143,8 +144,8 @@ include ReportsHelper
           render :update do |page|
             page.select("input#full_name").first.clear
             page.replace_html "new-part-div", 
-			       :partial => "participants/new_participant_partial", 
-				   :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
+            :partial => "participants/new_participant_partial",
+            :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
 			
             if @report.participant_ids.size > 1
               page.show 'common-reasons-container'
@@ -177,7 +178,7 @@ include ReportsHelper
   def remove_participant
     @report = session[:report]
     @participant_id = params[:id]
-	@report.remove_participant(@participant_id)
+    @report.remove_participant(@participant_id)
 
     @iphone_div_id = "p-in-report-#{@participant_id}"
     
@@ -263,12 +264,12 @@ include ReportsHelper
     reason = params[:reason]
     report = session[:report]
     if text.length == 0 or text == nil
-        report.remove_annotation_for(pid, reason, text)
+      report.remove_annotation_for(pid, reason, text)
     else
-        report.add_annotation_for(pid, reason, text)
+      report.add_annotation_for(pid, reason, text)
     end
     respond_to do |format|
-        format.js {render :nothing => true}
+      format.js {render :nothing => true}
     end
   end
   
@@ -278,14 +279,14 @@ include ReportsHelper
     report = session[:report]
     pids = report.participant_ids
     pids.each do |pid|
-        if text.length == 0 or text == nil
-            report.remove_annotation_for(pid, reason, text)
-        else
-            report.add_annotation_for(pid, reason, text)
-        end
+      if text.length == 0 or text == nil
+        report.remove_annotation_for(pid, reason, text)
+      else
+        report.add_annotation_for(pid, reason, text)
+      end
     end
     respond_to do |format|
-        format.js {render :nothing => true}
+      format.js {render :nothing => true}
     end
   end
   
@@ -300,7 +301,7 @@ include ReportsHelper
     minutes = (hours*60) + min
     report.add_duration_for(pid, reason, minutes)
     respond_to do |format|
-        format.js {render :nothing => true}
+      format.js {render :nothing => true}
     end
   end
   
@@ -314,10 +315,10 @@ include ReportsHelper
     min = time_string[2].to_i()
     minutes = (hours*60) + min
     pids.each do |pid|
-        report.add_duration_for(pid, reason, minutes)
+      report.add_duration_for(pid, reason, minutes)
     end
     respond_to do |format|
-        format.js {render :nothing => true}
+      format.js {render :nothing => true}
     end
   end
   
@@ -327,7 +328,7 @@ include ReportsHelper
     reason = /\d+_(\d+)/.match(id)[1].to_i
     checked = params[:checked]
     report = session[:report]
-	logger.debug("====> reports_controller:update_reasons checked : #{checked.downcase} ")
+    logger.debug("====> reports_controller:update_reasons checked : #{checked.downcase} ")
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
     respond_to do |format|
       format.js { render_set_reason(id, checked, false)	}
@@ -364,52 +365,53 @@ include ReportsHelper
     # Select for student id if present
     @reports = @reports.joins(:participants).where(:participants => { :id => params[:participant][:id]}).group(group_fields) if param_value_present(params[:participant][:id])
     # Select for type if present
-	@reports = @reports.where(:type => params[:type]) if param_value_present(params[:type]) 
+    @reports = @reports.where(:type => params[:type]) if param_value_present(params[:type])
 	
-	# Select for reasons
-	if param_value_present(params[:infraction_id])
-     # Clean up params[:infraction_id] array. There are null strings from browser
-	 # Not going to figure it out now.
-	  params[:infraction_id].select! { |id| id.length > 0 }
-	  # The clunky group() invocation is [rightfully] imposed by Oracle. Any fields appearing in select
-	  # but NOT appearing in an aggregate (in this case there is none) must appear in group by. The previous
-	  # implementation, group(:id) caused Oracle to complain, again, rightfully, about ambiguous field. It did
-	  # not know from which table the :id was to be 'grouped'.
-	  @reports = @reports.joins(:report_participant_relationships)
-	                     .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]}) 
-						 .group(group_fields) if params[:infraction_id].length > 0
-	end
+    # Select for reasons
+    if param_value_present(params[:infraction_id])
+      # Clean up params[:infraction_id] array. There are null strings from browser
+      # Not going to figure it out now.
+      params[:infraction_id].select! { |id| id.length > 0 }
+      # The clunky group() invocation is [rightfully] imposed by Oracle. Any fields appearing in select
+      # but NOT appearing in an aggregate (in this case there is none) must appear in group by. The previous
+      # implementation, group(:id) caused Oracle to complain, again, rightfully, about ambiguous field. It did
+      # not know from which table the :id was to be 'grouped'.
+      @reports = @reports.joins(:report_participant_relationships)
+      .where(:report_participants => {:relationship_to_report_id => params[:infraction_id]})
+      .group(group_fields) if params[:infraction_id].length > 0
+    end
 	
-	# Select for building if present   
+    # Select for building if present
     @reports = @reports.where(:building_id => params[:building_id]) if param_value_present(params[:building_id]) 
-	# Select for area, if present and building not selected
-	@reports = @reports.where(Area.find(params[:area_id]).buildings) if param_value_present(params[:area_id]) and (not param_value_present(params[:building_id]))
+    # Select for area, if present and building not selected
+    @reports = @reports.where(Area.find(params[:area_id]).buildings) if param_value_present(params[:area_id]) and (not param_value_present(params[:building_id]))
 	
-	max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
-	filter_by_datetime = false
+    max,min = Time.now.gmtime, Time.parse("01/01/1970").gmtime
+    filter_by_datetime = false
     # if a date was provided, find all before that date
     if param_value_present(params[:submitted_before]) 
-       max = convert_arg_datetime(params[:submitted_before]) rescue nil
-       filter_by_datetime = true if !max.nil?   
+      max = convert_arg_datetime(params[:submitted_before]) rescue nil
+      filter_by_datetime = true if !max.nil?
     end
         
     #-----------------
     # if a date was provided, find all after that date
     if param_value_present(params[:submitted_after])
-		min = convert_arg_datetime(params[:submitted_after]) rescue nil
-        filter_by_datetime = true if !min.nil?
+      min = convert_arg_datetime(params[:submitted_after]) rescue nil
+      filter_by_datetime = true if !min.nil?
     end
-	logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
+    logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
 	
-	@reports = @reports.where(:approach_time => min..max) if filter_by_datetime
+    @reports = @reports.where(:approach_time => min..max) if filter_by_datetime
          
     # finishing touches...
+    r_ids = @reports.collect{|r| r.id}
     @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     @num_reports = @reports.length
 
     respond_to do |format|	  
-        format.js 
+      format.js { render :locals => { :r_ids => r_ids }}
     end
   end
 
@@ -435,9 +437,14 @@ include ReportsHelper
       @reports = @reports.joins(:staff).order("staffs.last_name ASC")
     end
     
+    @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
+    report_type = current_staff.preference(:report_type)
+    
     msg = "Reports are now sorted by #{sort}."
     respond_to do |format|
-      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id]  }}
+      #html format is called by paginate links
+      format.html { render :file => 'reports/index', :locals => { :reports => @reports, :report_type => report_type, :r_ids => params[:reports] } }
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :r_ids => params[:reports] }}
     end
   end
   

@@ -94,7 +94,7 @@
             </form>
         </td>
         <td valign=top>
-            <%= render :partial => 'reports/report_index_body', :locals => { :reports => @reports, :div_id => "results", :num_rows => 0 } %>
+            <%= render :partial => 'reports/report_index_body', :locals => { :reports => reports, :div_id => "results", :num_rows => 0, :r_ids => r_ids } %>
         </td>
     </tr>    
 </table>
