@@ -158,7 +158,7 @@ class ShiftsController < ApplicationController
     ra_shifts.each do |ra_shift|
       ra_shift_ids << ra_shift.id
     end
-    reports = Report.where(:created_at => @shift.created_at..@shift.time_out, :submitted=> true)
+    reports = Report.where(:approach_time => @shift.created_at..@shift.time_out, :submitted=> true)
     total_reports = reports.length
     total_incident_reports = reports.where(:type => "IncidentReport").length
     notes = reports.where(:type => "Note")
