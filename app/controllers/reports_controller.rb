@@ -11,26 +11,26 @@ class ReportsController < ApplicationController
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   def index
+	@reports = nil
 
     params[:paginate] ||= '1'
     params[:paginate] = params[:paginate].to_i
 
-    if params[:reports] != nil
+    if params[:reports].nil?
+	  @reports = Kernel.const_get(current_staff.preference(:report_type)).accessible_by(current_ability).by_most_recent
+	else
       #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]
       sort = params[:sort]
       @reports = Report.sort_by(sort).where(:id => params[:reports]).accessible_by(current_ability)
-      report_type = params[:report_type]
       msg = "Reports are now sorted by #{sort}." if sort != nil
     end
-    
-    @reports ||= Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
-    report_type ||= current_staff.preference(:report_type)
-    all_reports ||= @reports.collect{|r| r.id}
+
+    all_reports = @reports.collect{|r| r.id}
     @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE) if params[:paginate] > 0
 
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports, :report_type => report_type, :all_reports => all_reports, :paginate => 1 } }
+      format.html { render :locals => { :reports => @reports,  :all_reports => all_reports, :paginate => 1 } }
       format.xml  { render :xml => @reports }
       format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :all_reports => all_reports, :paginate => params[:paginate] }}
     end

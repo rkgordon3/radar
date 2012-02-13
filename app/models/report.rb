@@ -15,7 +15,7 @@ class Report < ActiveRecord::Base
 
   attr_accessible 	:type, :staff_id
   
-  DEFAULT_SORT_FIELD = "reports.approach_time"
+  DEFAULT_SORT_FIELD = "reports.approach_time DESC"
   scope :by_most_recent, lambda { order("approach_time  DESC") }
   scope :user_preferred, lambda { where(:type => current_staff.preference(:report_type)) }
   scope :sort_by, lambda { |key|
