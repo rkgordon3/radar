@@ -96,7 +96,7 @@ class ResidenceLifeOrganization < Organization
     ability_base [IncidentReport, Note], ability, staff
 
     ability.can [:view_contact_info], Participant
-    ability.can [:pdf, :show], IncidentReport, { :staff_id => staff.id }
+    ability.can [:pdf, :show], IncidentReport
     ability.can :update, NotificationPreference, :staff_id => staff.id
 
   end
