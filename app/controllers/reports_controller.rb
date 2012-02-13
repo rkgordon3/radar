@@ -13,12 +13,12 @@ class ReportsController < ApplicationController
   def index
 
     if params[:reports] != nil
-      #reports were passed to index through js by sort links
+      #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]
       sort = params[:sort]
       @reports = Report.sort_by(sort).where(:id => params[:reports]).accessible_by(current_ability)
       report_type = params[:report_type]
-      msg = "Reports are now sorted by #{sort}."
+      msg = "Reports are now sorted by #{sort}." if sort != nil
     end
     
     @reports ||= Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { render :locals => { :reports => @reports, :report_type => report_type, :all_reports => all_reports } }
       format.xml  { render :xml => @reports }
-      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :all_reports => all_reports }}
+      format.js { render :locals => { :flash_notice => msg, :all_reports => all_reports }}
     end
   end
   
@@ -419,9 +419,7 @@ class ReportsController < ApplicationController
     @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      #html format is called by paginate links
-      format.html { redirect_to({:action => "index", :report_type => @reports.first.type, :reports => @reports, :page => params[:page] }) }
-      format.js { render :locals => { :all_reports => all_reports }}
+      format.js { redirect_to({:action => "index", :report_type => @reports.first.type, :reports => all_reports, :page => params[:page] })}
     end
   end
   
