@@ -300,7 +300,9 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
 }
 
 .digg_pagination {
-    background: white;
+    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+    font-size:12px;
+    background: #FFFFFF;
     cursor: default;
     /* self-clearing method: */ }
 .digg_pagination a, .digg_pagination span, .digg_pagination em {
@@ -312,28 +314,28 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
     color: #999999;
     border: 1px solid #dddddd; }
 .digg_pagination .current {
-    font-style: normal;
     font-weight: bold;
-    background: #2e6ab1;
-    color: white;
-    border: 1px solid #2e6ab1; }
+    background: #F1F1F1;
+    color: #595959;
+    border: 1px solid #5a99bd; }
 .digg_pagination a {
     text-decoration: none;
-    color: #105cb6;
-    border: 1px solid #9aafe5; }
+    color: #595959;
+    border: 1px solid #595959; }
 .digg_pagination a:hover, .digg_pagination a:focus {
-    color: #000033;
+    color: #FFFFFF;
+    background: #5a99bd;
     border-color: #000033; }
 .digg_pagination .page_info {
-    background: #2e6ab1;
-    color: white;
+    background: #F1F1F1;
+    color: #595959;
     padding: 0.4em 0.6em;
-    width: 22em;
+    width: 26em;
     margin-bottom: 0.3em;
     text-align: center; }
 .digg_pagination .page_info b {
-    color: #000033;
-    background: #6aa6ed;
+    color: #FFFFFF;
+    background: #5a99bd;
     padding: 0.1em 0.25em; }
 .digg_pagination:after {
     content: ".";
