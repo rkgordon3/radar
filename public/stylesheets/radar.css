@@ -320,11 +320,12 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
     border: 1px solid #5a99bd; }
 .digg_pagination a {
     text-decoration: none;
-    color: #595959;
+    background: #5a99bd;
+    color: #FFFFFF;
     border: 1px solid #595959; }
 .digg_pagination a:hover, .digg_pagination a:focus {
     color: #FFFFFF;
-    background: #5a99bd;
+    background: #b40d10;
     border-color: #000033; }
 .digg_pagination .page_info {
     background: #F1F1F1;
