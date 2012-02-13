@@ -12,6 +12,8 @@ class ReportsController < ApplicationController
   
   def index
 
+    params[:paginate] ||= 0
+
     if params[:reports] != nil
       #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]
@@ -24,12 +26,12 @@ class ReportsController < ApplicationController
     @reports ||= Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
     report_type ||= current_staff.preference(:report_type)
     all_reports ||= @reports.collect{|r| r.id}
-    @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
+    @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE) if params[:paginate] > 0
 
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports, :report_type => report_type, :all_reports => all_reports } }
+      format.html { render :locals => { :reports => @reports, :report_type => report_type, :all_reports => all_reports, :paginate => 1 } }
       format.xml  { render :xml => @reports }
-      format.js { render :locals => { :flash_notice => msg, :all_reports => all_reports }}
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :all_reports => all_reports, :paginate => params[:paginate] }}
     end
   end
   
@@ -419,7 +421,7 @@ class ReportsController < ApplicationController
     @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      format.js { redirect_to({:action => "index", :report_type => @reports.first.type, :reports => all_reports, :page => params[:page] })}
+      format.js { redirect_to({:action => "index",:div_id => 'results', :report_type => @reports.first.type, :reports => all_reports, :page => params[:page] })}
     end
   end
   

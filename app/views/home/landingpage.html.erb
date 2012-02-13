@@ -15,7 +15,7 @@
 
       <h3><%= current_staff.name %>'s Unsubmitted Reports</h3>
       <% if @unsubmitted.length > 0 %>
-         <%= render :partial => "reports/report_index_body", :locals => { :reports => @unsubmitted, :div_id => "unsubmitted", :num_rows=>0 } %>
+         <%= render :partial => "reports/report_index_body", :locals => { :reports => @unsubmitted, :all_reports => @unsubmitted.collect{|r| r.id}, :paginate => 0, :div_id => "unsubmitted", :num_rows=>0 } %>
       <% else %>
         <div id = "unsubmitted">
           <p> No Unsubmitted Reports </p>
@@ -25,7 +25,7 @@
       <hr />
       <h3>Recent Reports</h3>
       <% if @recent.length > 0 %>
-          <%= render :partial => "reports/report_index_body", :locals => { :reports => @recent, :div_id => "recent", :num_rows=>0} %>
+          <%= render :partial => "reports/report_index_body", :locals => { :reports => @recent, :all_reports => @recent.collect{|r| r.id}, :paginate => 0, :div_id => "recent", :num_rows=>0} %>
       <% else %>
         <div id = "recent">
           <p> No Recent Reports </p>
