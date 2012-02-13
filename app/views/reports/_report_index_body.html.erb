@@ -2,9 +2,11 @@
 
   <% if reports.respond_to?('total_pages') && paginate > 0 %>
     <div class="digg_pagination">
+	<% if false %>
       <div class="page_info">
         <%= page_entries_info reports %>
       </div>
+	<% end %>
       <%= will_paginate reports, :container => false %>
     </div>
   <% end %>
