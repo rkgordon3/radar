@@ -71,7 +71,7 @@
 
 
         <% if staff_signed_in? %>
-          <%= render  :partial => "organizations/orgs/home" %>
+          <%= render  :partial => "organizations/orgs/#{current_staff.preference(:menu_bar) rescue 'home' }" %>
         <% end %>
 
 

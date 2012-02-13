@@ -17,7 +17,8 @@ class ReportsController < ApplicationController
     params[:paginate] = params[:paginate].to_i
 
     if params[:reports].nil?
-	  @reports = Kernel.const_get(current_staff.preference(:report_type)).accessible_by(current_ability).by_most_recent
+	  report_type = param_value_present(params[:report_type]) ? params[:report_type] : current_staff.preference(:report_type)
+	  @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
 	else
       #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]

@@ -11,6 +11,10 @@ class ResidenceLifeOrganization < Organization
   def preferred_report_type
 	"IncidentReport"
   end
+  
+  def preferred_menu_bar
+	self.type + "/home"
+  end
   private
 
   def administrator_base reports, ability, staff
