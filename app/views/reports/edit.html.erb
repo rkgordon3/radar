@@ -1,7 +1,7 @@
 <div id="inside_container" class="inside_container">
 <%= render :partial => "reports/print_forward", :locals => { :report => @report } if not @report.new_record? %>
 <div class="report_title" >
-Editing <%= "#{ReportType.find(@report.type_id).display_name} #{@report.tag}" %><% if not @report.submitted %><%= " (Not yet submitted)" %><% end %>
+Editing <%= "#{@report.display_name} #{@report.tag}" %><% if not @report.submitted %><%= " (Not yet submitted)" %><% end %>
 </div>
 <%= render 'reports/form' %>
 </div>
