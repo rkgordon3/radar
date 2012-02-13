@@ -144,7 +144,8 @@ class Report < ActiveRecord::Base
   end
   
   def update_attributes_without_saving(params)
-    self.building_id = params[:building_id] if !params[:building_id].nil?
+    self.building_id = params[:building_id]
+    self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] || Time.now
     self.approach_time = Time.zone.local_to_utc(approach_time)
