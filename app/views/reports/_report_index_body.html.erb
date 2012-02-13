@@ -1,6 +1,6 @@
 <div id="<%= div_id %>">
 
-  <% if paginate > 0 %>
+  <% if reports.respond_to?('total_pages') && paginate > 0 %>
     <div class="digg_pagination">
       <div class="page_info">
         <%= page_entries_info reports %>
@@ -11,7 +11,7 @@
 
   <table >
     <% if reports.length > 0 %>
-      <%= render :partial => "reports/report_index_header_linked_labels", :locals => { :reports => all_reports, :div_id => div_id} %>
+      <%= render :partial => "reports/report_index_header_linked_labels", :locals => { :reports => all_reports, :paginate => paginate, :div_id => div_id} %>
     <% else %>
       <%= "No Reports Match Your Criteria" %>
     <% end %>

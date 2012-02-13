@@ -12,7 +12,8 @@ class ReportsController < ApplicationController
   
   def index
 
-    params[:paginate] ||= 0
+    params[:paginate] ||= '1'
+    params[:paginate] = params[:paginate].to_i
 
     if params[:reports] != nil
       #reports were passed to index through js by sort links or search results
