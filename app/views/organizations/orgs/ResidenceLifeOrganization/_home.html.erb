@@ -35,14 +35,14 @@
   </li>
   <% end %>
   <li><%  if can? :index, Task %>
-      <%= link_to "Tasks", "/tasks", :class=>"menubar_link" %>
+      <%= link_to "Tasks", tasks_path, :class=>"menubar_link" %>
     <% else %>
-      <%= link_to "Tasks", "/to_do_list", :class=>"menubar_link" %>
+      <%= link_to "Tasks", to_do_list_task_assignments_path, :class=>"menubar_link" %>
     <% end %>
     <ul>
-      <% if can? :do, Shift  %><li><%= link_to "My To Do List", "/to_do_list" %></li><% end %>
+      <% if can? :do, Shift  %><li><%= link_to "My To Do List", to_do_list_task_assignments_path %></li><% end %>
       <% if can? :create, Task %><li><%= link_to "New Task", new_task_path  %></li><% end %>
-      <% if can? :index, Task  %><li><%= link_to "List Tasks", "/tasks" %></li><% end %>
+      <% if can? :index, Task  %><li><%= link_to "List Tasks", tasks_path %></li><% end %>
     </ul>
   </li>
   <% if can? :index, Shift %>
