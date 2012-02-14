@@ -78,7 +78,7 @@ class ResidenceLifeOrganization < Organization
       :access_levels => {:name => ["AdministrativeAssistant", "Supervisor", "Staff"]}
     }
 	
-    ability.can :update, NotificationPreference
+    ability.can :manage, NotificationPreference, :staff_id => staff.id
     ability.can :manage, Task
     ability.can :assign, Area
   end
@@ -92,7 +92,8 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:update, :show], Staff, { :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , :organizations => { :id => self.id } }
 
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can :update, NotificationPreference
+    ability.can :manage, NotificationPreference, :staff_id => staff.id
+
     ability.can :manage, Task
   end
   
