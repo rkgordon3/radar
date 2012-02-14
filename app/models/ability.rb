@@ -1,6 +1,10 @@
 class Ability
   include CanCan::Ability
   def initialize(staff)
+	# An attempt is made to build abilities when 'signin' page is hit
+	# In this case, initialize is called with staff eq nil
+	return if staff.nil?
+	
     alias_action :start_shift, :end_shift, :update_todo, :start_round, :end_round, :update, :to_do_list, :to => :do
     alias_action :call_log, :duty_log, :to => :shift_log
     alias_action :autocomplete_participant_full_name, :sort_search_results, :search_results, :to => :search
