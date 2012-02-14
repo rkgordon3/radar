@@ -494,4 +494,5 @@ ReportField.create( {
   ReportField.create( {
   :report_type_id => report.id,
   :name => 'annotation',
+  :show_position => 5,
   :index_position => 5 } )
