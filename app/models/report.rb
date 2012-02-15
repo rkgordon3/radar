@@ -13,7 +13,7 @@ class Report < ActiveRecord::Base
   after_save       	:save_associations
   before_destroy   	:destroy_associations
 
-  attr_accessible 	:type, :staff_id
+  attr_accessible 	:type, :staff_id, :location
   
   DEFAULT_SORT_FIELD = "reports.approach_time DESC"
   scope :by_most_recent, lambda { order("approach_time  DESC") }
@@ -42,6 +42,10 @@ class Report < ActiveRecord::Base
   
   def default_contact_duration
 	0
+  end
+  
+  def location 
+     self.room_number rescue "" + " " + self.building_name rescue unspecified
   end
   
   def default_contact_reason_id
@@ -190,7 +194,7 @@ class Report < ActiveRecord::Base
   
   def save_associations
 	# save annotation
-	self.annotation.save
+	self.annotation.save if not self.annotation.nil?
 	remove_default_contact_reason_if_redundant
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
@@ -369,5 +373,7 @@ class Report < ActiveRecord::Base
   def tag_datetime
     (approach_time != nil ? approach_time : created_at).strftime("%Y%m%d-%H%M")
   end
+  
+
 
 end
