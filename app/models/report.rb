@@ -45,7 +45,7 @@ class Report < ActiveRecord::Base
   end
   
   def location 
-     self.room_number rescue "" + " " + self.building_name rescue unspecified
+     ((self.room_number.nil?  ? "" : self.room_number) + " " + (self.building_name rescue unspecified)).strip
   end
   
   def default_contact_reason_id
