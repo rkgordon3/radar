@@ -471,9 +471,9 @@ puts "creating report fields for note"
 ReportField.create( {
   :report_type_id => report.id,
   :name => 'date',
-  :index_position => 1,
-  :show_position => 1 } )
+  :index_position => 1 } )
   
+
 ReportField.create( {
   :report_type_id => report.id,
   :name => 'time',
@@ -494,5 +494,19 @@ ReportField.create( {
   ReportField.create( {
   :report_type_id => report.id,
   :name => 'annotation',
-  :show_position => 5,
+  :show_position => 3,
   :index_position => 5 } )
+  
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'building',
+  :edit_position => 4,
+  :show_position => 4 } )
+  
+  ReportField.create( {
+  :report_type_id => report.id,
+  :name => 'specific_location',
+  :edit_position => 5,
+  :show_position => 5 } )
+  
+  
