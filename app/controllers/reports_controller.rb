@@ -118,7 +118,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
-        format.html { redirect_to home_landingpage_path, :flash_notice => 'Report was successfully created.' }
+        format.html { redirect_to home_landingpage_path, :flash_notice => 'Report was successfully updated.' }
         format.xml  { head :ok }
         format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
       else

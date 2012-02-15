@@ -10,7 +10,7 @@ class Report < ActiveRecord::Base
   belongs_to    	:annotation
   after_initialize 	:setup_defaults
   after_find		:cache_submitted
-  after_save       	:save_relationships
+  after_save       	:save_associations
   before_destroy   	:destroy_associations
 
   attr_accessible 	:type, :staff_id
@@ -150,8 +150,9 @@ class Report < ActiveRecord::Base
     self.approach_time = params[:approach_time] || Time.now
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
-    annotation_text = params[:annotation]
+
 	self.organization_id = report_type.organization.id
+	annotation_text = params[:annotation]
     if annotation_text != nil && annotation_text.length > 0   
         self.annotation = Annotation.new if self.annotation.nil?
         self.annotation.text = annotation_text
@@ -187,7 +188,9 @@ class Report < ActiveRecord::Base
 	end	
   end
   
-  def save_relationships
+  def save_associations
+	# save annotation
+	self.annotation.save
 	remove_default_contact_reason_if_redundant
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
