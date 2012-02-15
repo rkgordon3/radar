@@ -8,7 +8,6 @@
     <% @reports_keys.each do |rs| %>
       <h3><%=rs+"s" %></h3>
       <% @reports.fetch(rs).each do |r| %>
-	  <% logger.debug("+++++++++ LOCATION #{r.location}") %>
         <%  @loc = r.location.match(/Unspecified/)  ? "an unspecified location" : r.location%>
         <% @report_url = "http://#{report_host_ip}/"+r.class.name.tableize+"/"+r.id.to_s %>
 
