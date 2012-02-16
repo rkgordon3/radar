@@ -118,6 +118,17 @@ class Report < ActiveRecord::Base
     report_type.edit_on_mobile?
   end
   
+  # Return approach time format for Anytime.Pick
+  # TODO : make a helper?
+  # TODO : move to ReportType table?
+  def approach_time_format
+    "%b %e, %Y  %l:%M%p"
+  end
+  
+  def approach_time_format_picker
+	"%b %e, %Y  %l:%i%p"
+  end
+  
   def display_name
     return report_type.display_name
   end
@@ -153,6 +164,7 @@ class Report < ActiveRecord::Base
     self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] || Time.now
+	logger.debug("++++++++++++++++++++ approach time #{self.approach_time}")
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
 
@@ -334,11 +346,11 @@ class Report < ActiveRecord::Base
   end
   
   def event_time
-    (approach_time != nil ? approach_time : created_at).to_s(:time_only)
+    ( (not approach_time.nil?) ? approach_time : created_at).to_s(:time_only)
   end
  
   def event_date
-	   (approach_time != nil ? approach_time : created_at).to_s(:date_only)
+	( (not approach_time.nil?) ? approach_time : created_at).to_s(:date_only)
   end
 
   def secondary_submitters_string

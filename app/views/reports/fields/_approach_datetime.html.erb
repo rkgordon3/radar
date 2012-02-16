@@ -1,14 +1,13 @@
 <% if(type == "edit") %>
           <b><%= f.label :approach_time %>:</b><br />
-          <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time) %>
+          <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time.strftime(@report.approach_time_format)) %>
 <% elsif(type == "search") %>
       <b><%= label_tag :approach_time %>:</b><br />
-      <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time) %>
+      <%= text_field(:report, :approach_time, :id => "approach_time", :value => @report.approach_time.strftime(@report.approach_time_format)) %>
 <% elsif(type == "index") %>
 <% elsif(type == "show") %>
 <% end %>
     
-<script type="text/javascript">
-  AnyTime.picker( "approach_time",
-  { format: "%b %D, %z  %I:%i%p", firstDOW: 0 } );
-</script>
+<%= javascript_tag "AnyTime.picker( 'approach_time', { format: '#{@report.approach_time_format_picker}', firstDOW: 0 } );"
+
+%>
