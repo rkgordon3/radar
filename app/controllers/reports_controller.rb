@@ -15,8 +15,11 @@ class ReportsController < ApplicationController
 
     params[:paginate] ||= '1'
     params[:paginate] = params[:paginate].to_i
-
-    if params[:reports].nil?
+	
+	# search_results places 'referrer' param in request before redirect
+	# Conversely, 'list' reports contains only a report_type, so if :referrer
+	# not present and there is no reports from previous result, generate generic list
+    if (params[:reports].nil?) and (not param_value_present(params[:referrer]))
 	  report_type = param_value_present(params[:report_type]) ? params[:report_type] : current_staff.preference(:report_type)
 	  @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
 	else
@@ -24,11 +27,12 @@ class ReportsController < ApplicationController
       all_reports = params[:reports]
       sort = params[:sort]
       @reports = Report.sort_by(sort).where(:id => params[:reports]).accessible_by(current_ability)
-      msg = "Reports are now sorted by #{sort}." if sort != nil
+      msg = "Reports are now sorted by #{sort}." if not sort.nil?
     end
 
     all_reports = @reports.collect{|r| r.id}
     @reports = @reports.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE) if params[:paginate] > 0
+	
 
     respond_to do |format|
       format.html { render :locals => { :reports => @reports,  :all_reports => all_reports, :paginate => 1 } }
@@ -417,13 +421,13 @@ class ReportsController < ApplicationController
     logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
 	
     @reports = @reports.where(:approach_time => min..max) if filter_by_datetime
-         
+
     # finishing touches...
     all_reports = @reports.collect{|r| r.id}
     @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      format.js { redirect_to({:action => "index",:div_id => 'results', :report_type => @reports.first.type, :reports => all_reports, :page => params[:page] })}
+      format.js { redirect_to({:action => "index",:div_id => 'results', :referrer => "search", :reports => all_reports, :page => params[:page] })}
     end
   end
   
