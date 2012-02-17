@@ -22,7 +22,7 @@ class Shift < ActiveRecord::Base
   end
 
   def annotation_text
-    self.annotation.nil?  ? "" : self.annotation.text
+    self.annotation.nil?  ? "" : (self.annotation.text.nil? ? "" :  self.annotation.text)
   end
   
   def save
