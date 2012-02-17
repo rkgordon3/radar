@@ -22,7 +22,7 @@ class Shift < ActiveRecord::Base
   end
 
   def annotation_text
-    self.annotation != nil ? self.annotation.text : nil
+    self.annotation.nil?  ? "" : self.annotation.text
   end
   
   def save
@@ -36,6 +36,10 @@ class Shift < ActiveRecord::Base
   
   def tasks_completed? 
     TaskAssignment.where(:shift_id => self.id, :done => false).length == 0
+  end
+  
+  def summary 
+      self.annotation_text.length > 0 ?  self.annotation_text :  "No summary for this shift"
   end
   
   

@@ -4,7 +4,7 @@
   <div class="form_header2">On Call from <%= "#{@shift.start_date}, #{@shift.start_time} to #{@shift.end_date}, #{@shift.end_time}" %></div>
   <div class="field" >
     <b><font size="3">Summary</font></b><br />
-    <%= @shift.annotation.text.length rescue "No summary for this shift" %>
+	    <%=  @shift.summary %>
   </div></p>
 <p><div>
    <% if total_reports == 0 %>
