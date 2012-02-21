@@ -44,8 +44,6 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
-    session[:report] = @report
-
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
@@ -86,7 +84,7 @@ class ReportsController < ApplicationController
   
   # GET /reports/1/edit
   def edit
-    session[:report]=@report
+    @report = Report.find(params[:id])
 
     @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
 
@@ -100,6 +98,7 @@ class ReportsController < ApplicationController
   # POST /reports.xml
   def create
     @report = session[:report]
+	#@report = Report.new(params[:report])
     params[:report][:report_adjuncts] = params[:report_adjuncts]
 
     respond_to do |format|
@@ -118,13 +117,14 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
+    @report =  Report.find(params[:id])
     params[:report][:report_adjuncts] = params[:report_adjuncts]
 
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to home_landingpage_path, :flash_notice => 'Report was successfully updated.' }
         format.xml  { head :ok }
-        format.iphone { redirect_to("/home/landingpage", :notice => "Report updated" ) }
+        format.iphone { redirect_to(home_landingpage_path, :notice => "Report updated" ) }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @report.errors, :status => :unprocessable_entity }
@@ -144,6 +144,7 @@ class ReportsController < ApplicationController
   end
   
   def add_participant
+    #@report = Report.find(params[:id]))
     logger.debug("======> Add participant #{params[:participant][:id]}")
   
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id])

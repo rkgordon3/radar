@@ -13,7 +13,7 @@
 			 <% history.each  do |h| -%>
 			 <tr>
 				<span class="detail_label">
-				<td><%= link_to h.report.tag,  "/#{h.report.class.name.tableize}/#{h.report.id}" %></td>
+				<td><%= link_to h.report.tag,  "/#{h.report.class.name.tableize}/#{h.report.id}", :target => "blank" %></td>
 				<td><%= h.date %></td>
 				<td><%= h.reason %></td>
 				</span>
