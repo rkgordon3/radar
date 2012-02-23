@@ -1,0 +1,5 @@
+# Locals: report, reason_id, time
+# Set DOM element value setValue 
+report.participant_ids.each do |pid|
+	page << "$('duration_#{pid}_#{reason_id}').value = '#{time}'" 
+end

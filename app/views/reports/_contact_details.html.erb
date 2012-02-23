@@ -5,16 +5,16 @@
   <div style="margin-left: 15px;">
     <% rf =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_annotation },
-							:with => "'participant=#{participant.id}&reason=#{reason.id}" + '&text=\' + this.value')  %>
+							:with => "'participant=#{participant.id}&report[id]=#{report.id}&reason=#{reason.id}" + '&text=\' + this.value')  %>
     <% rf2 =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_duration },
-							:with => "'participant=#{participant.id}&reason=#{reason.id}" + '&text=\' + this.value')  %>
-    <%= "Comment" %><br />
-    <%= text_area_tag "annotation_#{participant.id}_#{reason.id}", (participant_reason.nil? ? "" : participant_reason.comment), :cols => 60, :rows => 2, :onblur => "#{rf}" %>
+							:with => "'participant=#{participant.id}&report[id]=#{report.id}&reason=#{reason.id}" + '&text=\' + this.value')  %>
+    <%= t("#{report.report_type.name}.annotation") %><br />
+    <%= text_area_tag "report[annotations][#{participant.id}][#{reason.id}]", (participant_reason.nil? ? "" : participant_reason.comment), :cols => 40, :rows => 2, :onblur => "#{rf}" %>
     <br />
     <%= "Duration (minutes)" %><br />
-	<% duration_value = (participant_reason.nil? || participant_reason.contact_duration.nil?) ? "01 hour(s) 00 min" :  participant_reason.contact_duration %>
-    <%= text_field_tag "duration_#{participant.id}_#{reason.id}", 
+	<% duration_value = (participant_reason.nil? || participant_reason.contact_duration.nil?) ? "1:00" :  participant_reason.display_contact_duration %>
+    <%= text_field_tag "report[durations][#{participant.id}][#{reason.id}]", 
 	      duration_value, 
 	      :id=>"duration_#{participant.id}_#{reason.id}" , 
 		  :onblur=> "#{rf2}" %>
@@ -23,5 +23,5 @@
 
 <script type="text/javascript">
         AnyTime.picker( "duration_<%= participant.id %>_<%= reason.id %>",
-            { format: "%k hour(s) %i min" } );
+            { format: "%k:%i" } );
 </script>

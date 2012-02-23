@@ -15,8 +15,8 @@ class Report < ActiveRecord::Base
 
   attr_accessible 	:type, :staff_id, :location
   
-  DEFAULT_SORT_FIELD = "reports.approach_time DESC"
-  scope :by_most_recent, lambda { order("approach_time  DESC") }
+ 
+  scope :preferred_order, lambda { |user|  order("reports.#{user.preference(:sort_order)}") }
   scope :preferred, lambda { |user| where(:type=> user.preference(:report_type)) }
   
   scope :sort_by, lambda { |key|
@@ -37,7 +37,7 @@ class Report < ActiveRecord::Base
     elsif key == "submitter"
       joins(:staff).order("staffs.last_name ASC")
     else
-      order(DEFAULT_SORT_FIELD)
+      order("reports.#{user.preference(:sort_order)}")
     end
   }
   
@@ -53,9 +53,7 @@ class Report < ActiveRecord::Base
 	report_type.default_contact_reason_id
   end
     
-  def default_sort_field
-    report_type.sort_field rescue DEFAULT_SORT_FIELD
-  end
+
   
   def is_generic?
     type == nil
@@ -174,10 +172,34 @@ class Report < ActiveRecord::Base
         self.annotation = Annotation.new if self.annotation.nil?
         self.annotation.text = annotation_text
     end
+	
+	update_relationships(params)
 
     self.adjunct_submitters.each { |ra| ra.destroy }
     params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
   end
+  
+  def update_relationships(params)
+	report_participant_relationships.destroy_all
+	annotations = params[:annotations]
+	durations = params[:durations]
+	participants = params[:reason]
+	participants.each_pair  do | pid, reasons |
+		reasons.each_key do |reason_id| 
+			rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id)
+		    unless annotations.nil?
+				rpr.annotation = Annotation.new(:text=>annotations[pid][reason_id]) if annotations[pid][reason_id].length > 0
+			end
+			unless durations.nil?
+				rpr.contact_duration = ReportParticipantRelationship.parse_duration(durations[pid][reason_id] )
+			end
+			report_participant_relationships << rpr
+		end		
+		#add_default_contact_reason(pid) if report_participant_relationships.empty?
+	end
+	
+  end
+  
   
   def setup_defaults
     if self.id == nil
@@ -197,10 +219,13 @@ class Report < ActiveRecord::Base
 
   def remove_default_contact_reason_if_redundant
 	participants.each do |p|	 
-	# We only remove default if annotation or contact_duration is not nil
-		cr = contact_reason_for_participant(p.id, default_contact_reason_id)
-		unless cr.nil? || (not cr.annotation.nil?) || (not cr.contact_duration.nil?)
-			remove_contact_reason_for(p.id,  default_contact_reason_id) if contact_reasons_for(p.id).length > 1
+		if contact_reasons_for(p.id).length > 1
+	# We only remove default if annotation is nil
+			cr = contact_reason_for_participant(p.id, default_contact_reason_id)
+			unless cr.nil? || (not cr.annotation.nil?) 
+			#||  ((not cr.contact_duration.nil?) and (cr.contact_duration > 0))
+				remove_contact_reason_for(p.id,  default_contact_reason_id) 
+			end
 		end
 	end	
   end
@@ -208,12 +233,13 @@ class Report < ActiveRecord::Base
   def save_associations
 	# save annotation
 	self.annotation.save if not self.annotation.nil?
-	remove_default_contact_reason_if_redundant
+	remove_default_contact_reason_if_redundant 
     # save each reported infraction to database  
     self.report_participant_relationships.each do |ri|
       if !ri.frozen?   # make sure the reported infraction isn't frozen
         ri.context = report_type.reason_context unless ri.for_generic_reason?
-		ri.contact_duration = default_contact_duration if ri.contact_duration.nil? 
+		ri.contact_duration = default_contact_duration if ri.contact_duration.nil?
+		ri.annotation.save if not ri.annotation.nil?
         ri.report_id = self.id # establish connection
         ri.save!		# actually save
       end
@@ -300,7 +326,7 @@ class Report < ActiveRecord::Base
   end
   
   def add_default_contact_reason(participant_id)
-  logger.debug("=======> Add #{participant_id} for #{default_contact_reason_id}")
+  logger.info("=======> Add  default oparty=#{participant_id} for reason #{default_contact_reason_id}")
 	add_contact_reason_for(participant_id, default_contact_reason_id)
   end
   
@@ -314,29 +340,32 @@ class Report < ActiveRecord::Base
   
   def remove_contact_reason_for(participant_id, reason_id)
 	reason = contact_reason_for_participant(participant_id, reason_id)
-	logger.debug("=======> removing #{reason.participant.last_name} for #{reason.relationship_to_report.description} " )
-    self.report_participant_relationships.delete(reason) if reason
+    self.report_participant_relationships.destroy(reason) if reason
   end
   
   def add_annotation_for(participant_id, reason, text)
-    annotation = Annotation.new(:text => text)
+    
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
+	ActiveRecord::Base.logger.info("+++++++++++add_annotation_for report = #{self.id}  p=#{Integer(participant_id)} r= #{Integer(reason)} relation=#{ri.id} text= #{text}")
     unless ri.nil?
-        ri.annotation = annotation
+        if not ri.annotation.nil?
+		ActiveRecord::Base.logger.info(" +++++ update existing annotation #{text}")
+			ri.annotation.text = text
+		else
+		ActiveRecord::Base.logger.info(" +++++ create new annotation #{text}")
+			ri.annotation = Annotation.new(:text=>text)
+		end
     end
   end
   
-  def remove_annotation_for(participant_id, reason, text)
-    ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
-    unless ri.nil?
-        ri.annotation = nil
-    end
+  def remove_annotation_for(participant_id, reason)
+    ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))   
+    ri.annotation = nil unless ri.nil?
   end
   
   def add_duration_for(participant_id, reason, minutes)
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
     if ri != nil
-        logger.debug minutes
         ri.contact_duration = minutes
     end
   end
@@ -366,6 +395,26 @@ class Report < ActiveRecord::Base
   def add_participants(participant_ids)
     participant_ids.each do |id|
       self.add_default_contact_reason(id)
+    end
+  end
+  
+   
+  def update_durations(pids, reason, minutes)
+	pids = self.participant_ids if pids.nil?
+	pids.each do |pid|
+      self.add_duration_for(pid, reason, minutes)
+    end
+  end
+  
+  def update_annotations(pids, reason, text)
+	pids = self.participant_ids if pids.nil?
+
+	pids.each do |pid|
+      if text.nil? or (text.length == 0)
+        self.remove_annotation_for(pid, reason)
+      else
+        self.add_annotation_for(pid, reason, text)
+      end
     end
   end
  

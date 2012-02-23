@@ -1,0 +1,3 @@
+report.participant_ids.each do |pid|
+	page.replace_html "report_annotations_#{pid}_#{reason_id}", text
+end

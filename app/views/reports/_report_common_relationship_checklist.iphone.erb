@@ -9,7 +9,7 @@
   			<% report.reasons.each do |infraction| %>
   		  		<li><% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
-											:with => '\'reason=\'+ this.id + \'&checked=\' + this.checked')  %>
+											:with => "'report[id]=#{report.id}"  + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
 					<%= check_box_tag "common_reasons[#{infraction.id}]", 
 						infraction.description,
 						false ,

@@ -24,17 +24,19 @@
           <% if can? :view_contact_history, p %><%= render :partial => "participants/participant_history", :locals => { :participant => p, :history => p.contact_history(current_ability, @report) } %><% end %>
 		  <div >
           <% @report.report_participant_relationships.where(:participant_id => p.id).each do |rpr| %>
-			<%= label_tag "Reported:" %>
+			<%= label_tag  do %>
+			  <%= t("#{@report.report_type.name}.reported") %>:
+			<% end %>
 		
             <%= rpr.reason.description rescue "no reason" %><br/>
             <% if @report.supports_contact_reason_details? %>
 				<div class="offset_field" >
 					<% if not rpr.annotation.nil? %>					
-						<%= label_tag "Annotation:" , nil, :class=>"offset_label" %>
+						<%= label_tag  t("#{@report.report_type.name}.annotation") , nil, :class=>"offset_label" %>:
 						<%= rpr.annotation.text %><br/>
 					<% end %>
 					<% if not rpr.contact_duration.nil? %>
-						<%= label_tag "Duration:" , nil, :class=> "offset_label" %> 
+						<%= label_tag t("#{@report.report_type.name}.duration") , nil, :class=> "offset_label" %>:
 						<%= rpr.contact_duration %> minutes
 					<% end %>
 				</div>

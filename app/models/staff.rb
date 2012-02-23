@@ -43,7 +43,9 @@ class Staff < ActiveRecord::Base
   end
   
   def preference(name)
-    Preference.find_by_staff_id_and_name(self.id, name).value rescue self.organizations.first.send("preferred_#{name}") 
+  # In support of super user (no organization)
+	org = self.organizations.first || Organization.new
+    Preference.find_by_staff_id_and_name(self.id, name).value rescue org.send("preferred_#{name}") 
   end
   
   def last_login

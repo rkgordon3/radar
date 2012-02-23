@@ -1,9 +1,13 @@
 class ReportParticipantRelationship < ActiveRecord::Base
+
+	N_COMPONENTS_IN_DURATION = 2
+  
 	belongs_to :report
 	belongs_to :participant
 	belongs_to :relationship_to_report
     belongs_to :annotation
     before_save :save_annotation
+	before_destroy :destroy_annotation
 	
 	attr_reader :comment
     
@@ -12,7 +16,7 @@ class ReportParticipantRelationship < ActiveRecord::Base
   
   def setup_defaults
     if self.id.nil? && self.relationship_to_report_id.nil?
-      self.relationship_to_report_id = RelationshipToReport.fyi
+      #self.relationship_to_report_id = RelationshipToReport.fyi
     end
   end
   
@@ -31,11 +35,31 @@ class ReportParticipantRelationship < ActiveRecord::Base
     reason.respond_to?(:report_type_id) 
   end
   
-  def save_annotation   
+  def save_annotation 
+puts ("+++++++++++ report_participant_relationship.save_annotatiopn anno = #{self.annotation} " ) 
     self.annotation_id = annotation.id if not self.annotation.nil?
+  end
+  
+  def destroy_annotation
+    self.annotation.delete if not self.annotation.nil?
   end
   
   def comment
 	annotation.text rescue ""
   end
+  
+  def display_contact_duration
+    h = contact_duration / 60
+	m = contact_duration % 60
+	h.to_s + ":" + (m < 10 ? ("0"+m.to_s) : m.to_s)
+  end
+  
+  def ReportParticipantRelationship.parse_duration(duration_string) 
+	time_string = duration_string.split(":")
+	return 60 if time_string.length != N_COMPONENTS_IN_DURATION
+    hours = time_string[0].to_i()
+    min = time_string[1].to_i()
+    minutes = (hours*60) + min
+  end
+  
 end

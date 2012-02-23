@@ -13,11 +13,11 @@
     <%= text_area_tag "common_annotation_#{infraction.id}", nil, :cols => 60, :rows => 2, :onblur => "#{rf}" %>
     <br />
     <%= "Duration (Minutes)" %><br />
-    <input type="text" id="common_duration_<%= infraction.id %>" name="common_duration_<%= infraction.id %>" onblur="<%= rf2 %>"></input>
+    <input type="text" id="common_duration_<%= infraction.id %>" name="common_duration_<%= infraction.id %>" value="0:00" onblur="<%= rf2 %>"></input>
   </div>
 </div>
 
 <script type="text/javascript">
         AnyTime.picker( "common_duration_<%= infraction.id %>",
-            { format: "%k hour(s) %i min" } );
+            { format: "%k:%i" } );
 </script>

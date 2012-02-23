@@ -1,5 +1,9 @@
 class ReportsController < ApplicationController
 
+  REASON_ID_INDEX_IN_REASON_PARAM  = 3
+  REASON_ID_INDEX_IN_COMMON_REASON_PARAM = 2
+
+  
   include ReportsHelper
 
   before_filter :authenticate_staff!
@@ -9,6 +13,12 @@ class ReportsController < ApplicationController
   authorize_resource
 
   rescue_from Errno::ECONNREFUSED, :with => :display_error
+  
+  # if params[:report][:id] contains a report id, use that report, otherwise
+  # use report in the sesson, i.e. a new report 
+  def active_report
+   (Report.find(params[:report][:id]) rescue nil) ||  session[:report]
+  end
   
   def index
 	@reports = nil
@@ -21,7 +31,7 @@ class ReportsController < ApplicationController
 	# not present and there is no reports from previous result, generate generic list
     if (params[:reports].nil?) and (not param_value_present(params[:referrer]))
 	  report_type = param_value_present(params[:report_type]) ? params[:report_type] : current_staff.preference(:report_type)
-	  @reports = Kernel.const_get(report_type).accessible_by(current_ability).by_most_recent
+	  @reports = Kernel.const_get(report_type).accessible_by(current_ability).preferred_order(current_staff)
 	else
       #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]
@@ -44,6 +54,8 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
+  logger.info("+++++++++++++ In show #{params[:id]}")
+    @report = Report.find(params[:id])
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
     # get the interested parties to email for this report type
@@ -61,7 +73,7 @@ class ReportsController < ApplicationController
     report_name =  params[:report_type] || ReportType.find(params[:report_type_id].to_i).name
     @report = report_name.constantize.new(:staff_id => current_staff.id)
     session[:report] = @report
-    if (params[:participants] != nil)
+    unless params[:participants].nil?
       @report.add_participants(params[:participants])
     end
     respond_to do |format|
@@ -144,11 +156,11 @@ class ReportsController < ApplicationController
   end
   
   def add_participant
-    #@report = Report.find(params[:id]))
-    logger.debug("======> Add participant #{params[:participant][:id]}")
-  
+    @report = active_report
+    
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id])
-    @report = session[:report]
+   
+	logger.info("======> Add participant #{params[:participant][:id]} to report #{@report.id}")
 
     if not defined? @participant
 	
@@ -164,11 +176,8 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.replace_html "new-part-div",
             :partial => "participants/new_participant_partial",
-            :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }
-			
-            if @report.participant_ids.size > 1
-              page.show 'common-reasons-container'
-            end
+            :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }           
+            page.show 'common-reasons-container' if display_common_reasons?(@report)
           end
         }
       end
@@ -184,9 +193,8 @@ class ReportsController < ApplicationController
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-              if @report.participant_ids.size > 1
-                page.show 'common-reasons-link'
-              end
+              page.show 'common-reasons-link' if display_common_reasons?(@report)
+
             end
           end
         }
@@ -195,7 +203,7 @@ class ReportsController < ApplicationController
   end
   
   def remove_participant
-    @report = session[:report]
+    @report = active_report
     @participant_id = params[:id]
     @report.remove_participant(@participant_id)
 
@@ -212,7 +220,9 @@ class ReportsController < ApplicationController
   end
   
   def create_participant_and_add_to_report
-    @participant = Participant.create
+    @report = active_report
+    
+	@participant = Participant.create
     @participant.first_name = params[:first_name]
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
@@ -222,9 +232,6 @@ class ReportsController < ApplicationController
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 
-    @report = session[:report]
-    # This redirect presents a problem for https
-    #redirect_to :action => 'add_participant', :full_name => @participant.full_name, :format => :js
     @report.add_default_contact_reason(@participant.id)
     respond_to do |format|
       format.js
@@ -234,9 +241,7 @@ class ReportsController < ApplicationController
             page.select("input#full_name").first.clear
             page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
             page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
-            if @report.participant_ids.size > 1
-              page.show 'common-reasons-link'
-            end
+            page.show 'common-reasons-link' if display_common_reasons?(@report)
           end
         end
       }
@@ -244,14 +249,12 @@ class ReportsController < ApplicationController
   end
   
   def forward_as_mail
-    parties = params[:parties]
-    parties.delete_if {|key, value| value != "1" }
-    parties = InterestedParty.where(:id => parties.keys)
+    @report = Report.find(params[:id])
+    parties = InterestedParty.where(:id => params[:parties].keys)
     emails = parties.collect { |p| p.email }
     # add "other" forwarding emails
     (emails  += params[:other].split(/[,|;|\s+]/).select { |e| e.size  > 0 }) if not params[:other].nil?
-    @report = session[:report]
-    
+   
     begin
       RadarMailer.report_mail(@report, emails, current_staff).deliver
       InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
@@ -277,104 +280,65 @@ class ReportsController < ApplicationController
     end
   end
   
+
   def update_annotation
-    text = params[:text]
-    pid = params[:participant]
-    reason = params[:reason]
-    report = session[:report]
-    if text.length == 0 or text == nil
-      report.remove_annotation_for(pid, reason, text)
-    else
-      report.add_annotation_for(pid, reason, text)
-    end
+	active_report.update_annotations([ params[:participant] ], params[:reason], params[:text]) 
     respond_to do |format|
       format.js {render :nothing => true}
     end
   end
   
   def update_common_annotation
-    text = params[:text]
-    reason = params[:reason]
-    report = session[:report]
-    pids = report.participant_ids
-    pids.each do |pid|
-      if text.length == 0 or text == nil
-        report.remove_annotation_for(pid, reason, text)
-      else
-        report.add_annotation_for(pid, reason, text)
-      end
-    end
+	active_report.update_annotations(nil, params[:reason], params[:text])
     respond_to do |format|
-      format.js {render :nothing => true}
+      format.js  { render :locals => { :report => active_report, :reason_id => params[:reason], :text => params[:text] } }
     end
   end
-  
+ 
   def update_duration
-    text = params[:text]
-    pid = params[:participant]
-    reason = params[:reason]
-    report = session[:report]
-    time_string = text.split(" ")
-    hours = time_string[0].to_i()
-    min = time_string[2].to_i()
-    minutes = (hours*60) + min
-    report.add_duration_for(pid, reason, minutes)
+    active_report.update_durations([params[:participant]], params[:reason],  ReportParticipantRelationship.parse_duration(params[:text]))
     respond_to do |format|
       format.js {render :nothing => true}
     end
   end
   
   def update_common_duration
-    text = params[:text]
-    reason = params[:reason]
-    report = session[:report]
-    pids = report.participant_ids
-    time_string = text.split(" ")
-    hours = time_string[0].to_i()
-    min = time_string[2].to_i()
-    minutes = (hours*60) + min
-    pids.each do |pid|
-      report.add_duration_for(pid, reason, minutes)
-    end
+    active_report.update_durations(nil, params[:reason], ReportParticipantRelationship.parse_duration(params[:text]))
     respond_to do |format|
-      format.js {render :nothing => true}
+      format.js  { render :locals => { :report => active_report, :reason_id => params[:reason], :time => params[:text] } }
     end
   end
   
   def update_reason
+	report = active_report
     pid = params[:participant].to_i
-    id = params[:reason]
-    reason = /\d+_(\d+)/.match(id)[1].to_i
     checked = params[:checked]
-    report = session[:report]
-    logger.debug("====> reports_controller:update_reasons checked : #{checked.downcase} ")
-    checked.downcase == "true" ? report.add_contact_reason_for(pid, reason) : report.remove_contact_reason_for(pid,  reason)
+    reason_id = params[:reason].split("_")[REASON_ID_INDEX_IN_REASON_PARAM]
+	
+    logger.info("====> reports_controller:update_reasons report = #{report.id} party = #{pid} checked : #{checked.downcase} ")
+    checked.downcase == "true" ? report.add_contact_reason_for(pid, reason_id) : report.remove_contact_reason_for(pid,  reason_id)
     respond_to do |format|
-      format.js { render_set_reason(id, checked, false)	}
-      format.iphone { render_set_reason(id, checked, true) }
+      format.js { render_common_reasons_update(report, [pid], [reason_id],  checked, false)	}
+      format.iphone { render_common_reasons_update(report, [pid], [reason_id], checked, true) }
     end
   end
   
   def update_common_reasons
-    report = session[:report]
+    report = active_report
     checked = params[:checked]
 	
     participant_ids = report.participant_ids
-    reasons = {}
-	
-    params.each do |key, value|
-      if /common_reasons_(\d+)/.match(value) != nil
-        logger.debug("update reason #{$1} to #{checked}")
-        participant_ids.each do |pid|
-          logger.debug("update reason for #{pid}")
-          checked.downcase == "true" ? report.add_contact_reason_for(pid, $1) : report.remove_contact_reason_for(pid, $1)
-        end
-        reasons[$1] = checked
-      end
+    reason_id = params[:reason].split("_")[REASON_ID_INDEX_IN_COMMON_REASON_PARAM]
+
+    logger.info("update reason #{reason_id} to #{checked}")
+    participant_ids.each do |pid|
+        logger.info("update reason #{reason_id} for #{pid}")
+        checked.downcase == "true" ? report.add_contact_reason_for(pid, reason_id) : report.remove_contact_reason_for(pid, reason_id)
     end
+
     respond_to do |format|
-      format.js { render_common_reasons_update(participant_ids, reasons, false) }
-      format.iphone { render_common_reasons_update(participant_ids, reasons, true) }
+      format.js { render_common_reasons_update(report, participant_ids, [reason_id], checked, false) }
+      format.iphone { render_common_reasons_update(report, participant_ids, [reason_id], checked, true) }
     end
   end
   
@@ -425,7 +389,7 @@ class ReportsController < ApplicationController
 
     # finishing touches...
     all_reports = @reports.collect{|r| r.id}
-    @reports = @reports.by_most_recent.paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
+    @reports = @reports.preferred_order(current_staff).paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
       format.js { redirect_to({:action => "index",:div_id => 'results', :referrer => "search", :reports => all_reports, :page => params[:page] })}
@@ -433,6 +397,10 @@ class ReportsController < ApplicationController
   end
   
   private
+  
+    # Return minutes
+
+
   def render_set_reason(id, checked, webapp_refresh)
     render :update do |page|
       checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
@@ -444,20 +412,23 @@ class ReportsController < ApplicationController
 =end
     end
   end
-  def render_common_reasons_update(participant_ids, reasons, webapp_refresh)
+  def render_common_reasons_update(report, participant_ids, reason_ids, checked, webapp_refresh)
     render :update do |page|
-      participant_ids.each do |p|
-        reasons.each do |reason, checked |
-          id = "#{p}_#{reason}"
+      participant_ids.each do |pid|
+        reason_ids.each do |reason_id |
+          id = "report_reason_#{pid}_#{reason_id}"
+		  detail_id = "#{pid}_#{reason_id}_details"
           checked.downcase == "true" ? page[id].set_attribute('checked', 'true') : page[id].remove_attribute('checked')
-          checked.downcase == "true" ? page << "$('#{id}').checked = true" :
-            page << "$('#{id}').checked = false"
+          page << "$('#{id}').checked = #{checked.downcase}"
+		  page.show(detail_id) if report.supports_contact_reason_details?
         end
       end
+	  
       if (webapp_refresh)
-        participant_ids.each do |p|
-          reasons.each do |reason, checked |
-            page << "WebApp.Refresh('#{p}_#{reason}');"
+        participant_ids.each do |pid|
+          reasons_ids.each do |reason_id |
+		    id = "reason_#{pid}_#{reason_id}"
+            page << "WebApp.Refresh('#{id}');"
           end
         end
       end

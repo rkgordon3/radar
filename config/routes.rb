@@ -25,7 +25,7 @@ Radar::Application.routes.draw do
   get "shifts/start_shift"
   match "/shifts/start_shift" => "shifts#start_shift"
   
-  match "/reports/forward_as_mail" => "reports#forward_as_mail"
+
 
   get "shifts/end_shift"
   match "/shifts/end_shift" => "shifts#end_shift"
@@ -47,10 +47,7 @@ Radar::Application.routes.draw do
   
   get "rounds/end_round"
   match "/rounds/end_round" => "rounds#end_round"
-  
-  get "reports_query/reports_query"
 
- # match "/to_do_list" => "task_assignments#to_do_list"
   match "/reports/update_common_reasons" => "reports#update_common_reasons"
   match "/reports/update_reason" => "reports#update_reason"
   match "/reports/update_annotation" => "reports#update_annotation"
@@ -61,10 +58,6 @@ Radar::Application.routes.draw do
   match "/reports/create_participant_and_add_to_report" => "reports#create_participant_and_add_to_report"
   match "/reports/remove_participant/:id" => "reports#remove_participant"
   match "/students/show_details/:id" => "students#show_details"
-
-
-  #match "/incident_reports/add_participant"         => "reports#add_participant"
-  #match "/incident_reports/remove_participant/:id"  => "reports#remove_participant"
   
   match "/participant/createNoRedirect" => "participant#createNoRedirect"
   devise_for :staffs
@@ -94,9 +87,9 @@ Radar::Application.routes.draw do
   end
   
   resources :tutor_reports 
-  resources :tutor_by_appointment_reports, :controller => "tutor_reports"
-  resources :tutor_study_table_reports, :controller => "tutor_reports"
-  resources :tutor_drop_in_reports, :controller => "tutor_reports"
+  resources :tutor_by_appointment_reports
+  resources :tutor_study_table_reports
+  resources :tutor_drop_in_reports
 
   resources :shifts
   
@@ -133,6 +126,9 @@ Radar::Application.routes.draw do
   resources :relationship_to_reports
   
   resources :reports  do
+	member do
+		post :forward_as_mail
+	end
 	collection do
  	  get :on_duty_index
 	  get :add_participant

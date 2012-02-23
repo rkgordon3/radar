@@ -32,6 +32,7 @@ en:
   building: Building
   history: Contact History
   IncidentReport:
+    reported: Infraction
     help: Add students involved in incident. After student is added, you may assign him/her infractions. If no infractions are selected, the student will be assigned an FYI.
     common_reasons: Common Infractions
     reasons: Infractions
@@ -43,6 +44,7 @@ en:
     annotation_placeholder: Provide a description of the incident
     location: Location
   MaintenanceReport:
+    reported: Problem
     help: Add students reporting problem for Maintenance to contact for follow-up
     history: Contact History
     annotation: Problem Description
@@ -59,25 +61,34 @@ en:
     reasons: Contact Reason(s)
     annotation_placeholder: Record notes 
   TutorReport:
+    reported: Course
     help: Add students involved in a tutoring session. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
     reasons: Courses
+    duration: Duration
   TutorByAppointmentReport:
+    reported: Course
     help: Add students involved in a tutoring session. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
+    reasons: Courses
+    duration: Duration
   TutorStudyTableReport:
+    reported: Course
     help: Add students involved in Study Table. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
     reasons: Courses
+    duration: Duration
   TutorDropInReport:
+    reported: Course
     help: Add students for Drop-In tutoring sessions. After student is added to report, you can select from a list of courses for each student, note how long the student was helped for the selected course, and add additional comments.
     secondary_submitters: Other Tutor(s)
     annotation: Comments
     submitter: Tutor
     reasons: Courses
+    duration: Duration

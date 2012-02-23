@@ -1,6 +1,8 @@
 <% if report.reasons.size > 0  %>
-
-<div class="relationship-checklist">
+<%= content_tag :div, 
+     :class=>"relationship-checklist", 
+     :style=>"display:#{report.supports_selectable_contact_reasons? ? 'block' : 'none'}"   do -%>
+	 
 	<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
@@ -9,11 +11,11 @@
   			<%  report.reasons(participant).each do |infraction| %>
 				<% rf =  remote_function( :update => nil,
 							:url => { :controller => 'reports', :action => :update_reason },
-							:with => "'participant=#{participant.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
+							:with => "'participant=#{participant.id}&report[id]=#{report.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
   		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
 						<% participant_reason = report.contact_reason_for_participant(participant.id, infraction.id) %>
 						<% selected =  (not participant_reason.nil?) %>
-  						<%= check_box_tag "#{participant.id}[#{infraction.id}]", 
+  						<%= check_box_tag "report[reason][#{participant.id}][#{infraction.id}]", 
   				       infraction.description,
   				       selected,
 					   :onclick => "#{rf}; if(this.checked){document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'none';} " %>
@@ -22,11 +24,11 @@
 						<%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 
 						                      :style => "margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: #{selected ? 'block' : 'none'};"  do -%>
                             <%= render :partial => 'reports/contact_details', 
-							           :locals => { :participant => participant, :reason => infraction, :participant_reason => participant_reason  } %>
+							           :locals => { :report=> report, :participant => participant, :reason => infraction, :participant_reason => participant_reason  } %>
                         <% end -%>
                     <% end %>
   				</div>
   			<% end %>
   	</div>
-</div>
+<% end -%>
 <% end %>

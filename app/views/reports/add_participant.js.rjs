@@ -7,7 +7,7 @@
 if @insert_new_participant_partial 
 	page.select("input#full_name").first.clear
 	page.select("input#participant_id").first.clear
-	if @report.participant_ids.size > 1
+	if display_common_reasons?(@report)
 	  page.show 'common-reasons-container'
 	  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
 	end

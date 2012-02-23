@@ -29,8 +29,10 @@ class ApplicationController < ActionController::Base
   
   def param_value_present(param)
 	return false if param.nil?
-    return false if (param.is_a? Array)  && (param.length == 0)
-    not param.empty?
+    return false if (param.is_a? Array) and param.empty?  
+	return false if (param.is_a? Hash) and param.empty?
+    return false if (param.is_a? String) and (param.length == 0)
+	true
   end
   
   	def convert_arg_date(date)

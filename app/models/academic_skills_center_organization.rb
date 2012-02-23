@@ -7,7 +7,11 @@ class AcademicSkillsCenterOrganization < Organization
   end
   
   def preferred_report_type
-	"TutorReport"
+	MY_REPORT_TYPES
+  end
+  
+  def preferred_sort_order
+	"created_at DESC"
   end
     
   private

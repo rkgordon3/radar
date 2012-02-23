@@ -14,6 +14,18 @@ class Organization < ActiveRecord::Base
 	end
   end
   
+  def default_contact_reason
+    RelationshipToReport.where(:description => "Other", :organization_id => Organization.find_by_name("ResidenceLife").id)
+  end
+  
+  def preferred_report_type
+	"Report"
+  end
+  
+  def preferred_sort_order
+	"approach_time DESC"
+  end
+  
   def == other
     self.class.name == other.class.name
   end

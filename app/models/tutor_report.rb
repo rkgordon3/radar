@@ -14,4 +14,8 @@ class TutorReport < Report
   def approach_time_format_picker
 	approach_time_format
   end
+  
+  def default_sort_field
+    "created_at DESC"
+  end
 end
