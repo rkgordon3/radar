@@ -61,7 +61,7 @@ class AcademicSkillsCenterOrganization < Organization
   end
   
   def ability_base reports, ability, staff
-    ability.can [:index, :search, :show], Participant
+    ability.can [:index, :search], Participant
 	ability.can [:manage], Preference, { :staff_id => self.id }
 	# Can index staff within my organization
     ability.can :index, Staff, :organizations => { :id => self.id }
