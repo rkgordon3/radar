@@ -52,8 +52,10 @@ class Report < ActiveRecord::Base
   def default_contact_reason_id
 	report_type.default_contact_reason_id
   end
-    
-
+  
+  def can_save?
+	true
+  end
   
   def is_generic?
     type == nil

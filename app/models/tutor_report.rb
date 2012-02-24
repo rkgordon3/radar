@@ -18,4 +18,8 @@ class TutorReport < Report
   def default_sort_field
     "created_at DESC"
   end
+  
+  def can_save?
+	false
+  end
 end

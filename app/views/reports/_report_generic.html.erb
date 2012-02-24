@@ -30,7 +30,7 @@
         <%= render :partial => "reports/fields/#{field.name}", :locals => { :report=> @report,  :f => f, :type => "edit"} %>
 	</div>
   <% end %>
-  <% if !@report.submitted %>
+  <% if (not @report.submitted)  and (@report.can_save?) %>
     <%= submit_tag "Save Report", { :name => "save_submit" } %>
   <% end %>
   <%= render :partial => "reports/fields/submit_button" %>
