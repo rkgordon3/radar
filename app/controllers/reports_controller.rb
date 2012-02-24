@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
       #reports were passed to index through js by sort links or search results
       all_reports = params[:reports]
       sort = params[:sort]
-      @reports = Report.sort_by(sort).where(:id => params[:reports]).accessible_by(current_ability)
+      @reports = Report.sort_by(current_staff, sort).where(:id => params[:reports]).accessible_by(current_ability)
       msg = "Reports are now sorted by #{sort}." if not sort.nil?
     end
 

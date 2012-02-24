@@ -19,7 +19,7 @@ class Report < ActiveRecord::Base
   scope :preferred_order, lambda { |user|  order("reports.#{user.preference(:sort_order)}") }
   scope :preferred_reports, lambda { |user| where(:type=> user.preference(:report_types)) }
   
-  scope :sort_by, lambda { |key|
+  scope :sort_by, lambda { |user, key|
     if key == "date"
       order("reports.approach_time DESC")
     elsif key == "time"
