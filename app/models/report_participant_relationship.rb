@@ -36,7 +36,6 @@ class ReportParticipantRelationship < ActiveRecord::Base
   end
   
   def save_annotation 
-puts ("+++++++++++ report_participant_relationship.save_annotatiopn anno = #{self.annotation} " ) 
     self.annotation_id = annotation.id if not self.annotation.nil?
   end
   
