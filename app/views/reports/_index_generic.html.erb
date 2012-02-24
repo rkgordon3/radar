@@ -22,7 +22,8 @@
 					<div class="field">
 						<%= label_tag "Report Type:" %><br />
 						<%= select_tag "type",
-							options_from_collection_for_select(ReportTypesHelper::selectable_by(current_ability), "name", "display_name", current_staff.preference(:report_type) ),
+							options_from_collection_for_select(
+									ReportTypesHelper::selectable_by(current_ability), "name", "display_name", report_type),
 							:id => 'report_select_id',
 							:include_blank => true,
 							:onchange => "report_select();" %>

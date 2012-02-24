@@ -26,11 +26,13 @@ class ReportsController < ApplicationController
     params[:paginate] ||= '1'
     params[:paginate] = params[:paginate].to_i
 	
+
+	report_type = param_value_present(params[:report_type]) ? params[:report_type] : current_staff.preference(:report_type)
+
 	# search_results places 'referrer' param in request before redirect
 	# Conversely, 'list' reports contains only a report_type, so if :referrer
 	# not present and there is no reports from previous result, generate generic list
     if (params[:reports].nil?) and (not param_value_present(params[:referrer]))
-	  report_type = param_value_present(params[:report_type]) ? params[:report_type] : current_staff.preference(:report_type)
 	  @reports = Kernel.const_get(report_type).accessible_by(current_ability).preferred_order(current_staff)
 	else
       #reports were passed to index through js by sort links or search results
@@ -45,9 +47,9 @@ class ReportsController < ApplicationController
 	
 
     respond_to do |format|
-      format.html { render :locals => { :reports => @reports,  :all_reports => all_reports, :paginate => 1 } }
+      format.html { render :locals => { :reports => @reports, :report_type=> report_type, :all_reports => all_reports, :paginate => 1 } }
       format.xml  { render :xml => @reports }
-      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :all_reports => all_reports, :paginate => params[:paginate] }}
+      format.js { render :locals => { :flash_notice => msg, :div_id => params[:div_id], :report_type => report_type, :all_reports => all_reports, :paginate => params[:paginate] }}
     end
   end
   

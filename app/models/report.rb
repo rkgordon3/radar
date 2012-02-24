@@ -17,7 +17,7 @@ class Report < ActiveRecord::Base
   
  
   scope :preferred_order, lambda { |user|  order("reports.#{user.preference(:sort_order)}") }
-  scope :preferred, lambda { |user| where(:type=> user.preference(:report_type)) }
+  scope :preferred_reports, lambda { |user| where(:type=> user.preference(:report_types)) }
   
   scope :sort_by, lambda { |key|
     if key == "date"
@@ -346,13 +346,10 @@ class Report < ActiveRecord::Base
   def add_annotation_for(participant_id, reason, text)
     
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
-	ActiveRecord::Base.logger.info("+++++++++++add_annotation_for report = #{self.id}  p=#{Integer(participant_id)} r= #{Integer(reason)} relation=#{ri.id} text= #{text}")
     unless ri.nil?
         if not ri.annotation.nil?
-		ActiveRecord::Base.logger.info(" +++++ update existing annotation #{text}")
 			ri.annotation.text = text
 		else
-		ActiveRecord::Base.logger.info(" +++++ create new annotation #{text}")
 			ri.annotation = Annotation.new(:text=>text)
 		end
     end

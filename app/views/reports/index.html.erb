@@ -2,5 +2,5 @@
   <div class="form_header">
       <%= t "report_search" %>
 	</div>
-  <%= render :partial => "reports/index_generic", :locals => { :reports => @reports, :all_reports => all_reports } %>
+  <%= render :partial => "reports/index_generic", :locals => { :reports => @reports, :report_type=> report_type, :all_reports => all_reports } %>
 </div>
