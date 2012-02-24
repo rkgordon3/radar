@@ -41,6 +41,19 @@ class AcademicSkillsCenterOrganization < Organization
       :access_levels  => {:display_name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
     }
   end
+  
+  def administrative_assistant(ability, staff)
+	ability_base MY_REPORTS, ability, staff
+	
+    ability.can [ :view_contact_info, :view_contact_history], Participant
+
+    #ability.can [:pdf, :show, :forward], Report, { :type => MY_REPORT_TYPES }
+    MY_REPORT_TYPES.each { |r| ability.can [:show, :index, :pdf, :forward], Report, { :type => r } }  
+	
+	ability.can [:update, :show], Staff, { :access_levels => {:name => [ "Supervisor", "Staff" ]} , :organizations => { :id => self.id } }
+
+    ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
+  end
     
   def supervisor(ability, staff)
 	ability_base MY_REPORTS, ability, staff
