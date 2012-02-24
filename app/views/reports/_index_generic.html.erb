@@ -35,17 +35,18 @@
 				<tr>
 					<td>
 					<div class="field">
-						<% ReportTypesHelper::selectable_by(current_ability).each do |report_type | -%>						   
-								<%= content_tag :div, 	:id => "#{report_type.name}-reasons", 
-													:style=>"display:#{report_type.name == current_staff.preference(:report_type) ? 'block' : 'none'}" do -%>
+						<% ReportTypesHelper::selectable_by(current_ability).each do |rt | -%>						   
+								<%= content_tag :div, 	
+								        :id => "#{rt.name}-reasons", 
+										:style=>"display:#{rt.name == report_type ? 'block' : 'none'}" do -%>
 									<%= label_tag do -%>
-										<%= t "#{report_type.name}.reasons"  -%>
+										<%= t "#{rt.name}.reasons"  -%>
 									<% end -%><br/>
-									<% if (report_type.name =~ /^Tutor/) == 0 -%>
+									<% if (rt.name =~ /^Tutor/) == 0 -%>
 										<%=  render :partial => 'courses/autocomplete_full_name' %>
 									<% else %>
 										<%= select_tag "infraction_id", 
-											options_from_collection_for_select(report_type.associated_reasons, "id", "description"), 
+											options_from_collection_for_select(rt.associated_reasons, "id", "description"), 
 											:multiple => true, 
 											:class=> 'form_input' %>
 									<% end -%>
