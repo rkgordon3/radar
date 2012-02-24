@@ -52,7 +52,6 @@ class Staff < ActiveRecord::Base
   # In support of super user (no organization)
 	org = self.organizations.first || Organization.new
     prefs = Preference.find_by_staff_id_and_name(self.id, name).value rescue org.send("preferred_#{name.singularize}")
-			ActiveRecord::Base.logger.info(" +++++ preference #{prefs}  type #{prefs.class}")
 
 	(prefs.is_a?(Array) and is_plural?(name)) ? prefs : (prefs.is_a?(Array) ? prefs[0] : prefs)
   end
