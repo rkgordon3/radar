@@ -71,8 +71,6 @@ class AcademicSkillsCenterOrganization < Organization
   
   def staff(ability, staff)
     ability_base MY_REPORTS, ability, staff
-	
-    ability.can [:show], TutorReport, { :staff_id => staff.id  }
   end
   
   def ability_base reports, ability, staff
@@ -97,7 +95,7 @@ class AcademicSkillsCenterOrganization < Organization
 		ability.can :index, Report, { :type=> r.name, :staff_id => staff.id } 
 	end
 
-	ability.can [:update], reports, { :staff_id => staff.id, :submitted  => false } 
+	ability.can [:update, :show], reports, { :staff_id => staff.id, :submitted  => false } 
 
   end
 end
