@@ -38,7 +38,8 @@
 			<ul>
             <li>
 			<% rt = "#{@report.type}.annotation_placeholder" %>
-              <%= text_area_tag "report[annotation]", nil,  :cols=> "60", :rows => "4", :value=> @report.annotation_text,:placeholder=> "#{t rt}" %>
+			<% logger.info("+++++ Edit from iphone anno text #{@report.annotation_text}" ) %>
+              <%= text_area_tag "report[annotation]", @report.annotation_text,  :cols=> "60", :rows => "4", :placeholder=> "#{t rt}" %>
             </li>
 			</ul>
 			<ul>
