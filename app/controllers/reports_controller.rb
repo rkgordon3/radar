@@ -425,7 +425,7 @@ class ReportsController < ApplicationController
 		  page.show(detail_id) if report.supports_contact_reason_details?
         end
       end
-	  
+=begin	  
       if (webapp_refresh)
         participant_ids.each do |pid|
           reasons_ids.each do |reason_id |
@@ -434,6 +434,7 @@ class ReportsController < ApplicationController
           end
         end
       end
+=end
     end
   end
 end
