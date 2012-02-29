@@ -290,37 +290,9 @@ class Report < ActiveRecord::Base
   
   # Return id of all participants associated with report
   def participant_ids
-    partic_relationships = Array.new
-    
-    # populate the old reported infractions array with the report's infractions
-    self.report_participant_relationships.each do |ri|
-      partic_relationships << ri
-    end
-    
-    # sort the infractions so all infractions by same student are grouped
-    partic_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } 
-    
-    #create array for the participants we have
-    participants = Array.new
-    
-    # if we have more than one old reported infraction
-    if partic_relationships.count > 0
-      # search for unique participants and save ids
-      curr_participant_id = partic_relationships.first.participant_id
-      participants << curr_participant_id
-      
-      partic_relationships.each do |ri|
-        if curr_participant_id != ri.participant_id
-          curr_participant_id = ri.participant_id
-          participants << curr_participant_id
-        end
-      end # end loop
-    end # end if more than one old reported infraction
-    
-    return participants
+   self.participants.uniq.collect { |p| p.id }
   end
 
-   
   def add_contact_reason_for(participant_id, reason_id)
     unless contact_reason_for_participant(participant_id, reason_id)
       self.report_participant_relationships << ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
