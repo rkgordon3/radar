@@ -301,19 +301,15 @@ class Report < ActiveRecord::Base
   end
   
   def remove_participant(pid)
-  logger.info("+++++++++++Remove party #{pid} ")
-  	 logger.info("+++++++++++ before delete # of participants #{number_of_participants} ")
 
     p = pid.to_i if pid.is_a? String || pid
     contact_reasons_for(p).each do |ri|
       report_participant_relationships.delete(ri)
       ri.destroy
     end
-	 logger.info("+++++++++++ after delete # of participants #{number_of_participants} ")
   end
   
   def remove_contact_reason_for(participant_id, reason_id)
-  logger.info("+++++ Remove reason #{reason_id} for #{participant_id} ")
 	reason = contact_reason_for_participant(participant_id, reason_id)
     self.report_participant_relationships.destroy(reason) if reason
   end
