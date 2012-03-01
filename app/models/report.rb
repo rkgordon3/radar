@@ -164,7 +164,6 @@ class Report < ActiveRecord::Base
     self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] || Time.now
-	logger.debug("++++++++++++++++++++ approach time #{self.approach_time}")
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
 
@@ -188,7 +187,7 @@ class Report < ActiveRecord::Base
 	participants = params[:reason]
 	participants.each_pair  do | pid, reasons |
 		reasons.each_key do |reason_id| 
-			rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id)
+			rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id.to_i)
 		    unless annotations.nil?
 				rpr.annotation = Annotation.new(:text=>annotations[pid][reason_id]) if annotations[pid][reason_id].length > 0
 			end
@@ -197,7 +196,6 @@ class Report < ActiveRecord::Base
 			end
 			report_participant_relationships << rpr
 		end		
-		#add_default_contact_reason(pid) if report_participant_relationships.empty?
 	end
 	
   end
@@ -220,13 +218,13 @@ class Report < ActiveRecord::Base
   end
 
   def remove_default_contact_reason_if_redundant
-	participants.each do |p|	 
-		if contact_reasons_for(p.id).length > 1
+	participant_ids.each do |pid|	 
+		if contact_reasons_for(pid).length > 1
 	# We only remove default if annotation is nil
-			cr = contact_reason_for_participant(p.id, default_contact_reason_id)
+			cr = contact_reason_for_participant(pid, default_contact_reason_id)
 			unless cr.nil? || (not cr.annotation.nil?) 
 			#||  ((not cr.contact_duration.nil?) and (cr.contact_duration > 0))
-				remove_contact_reason_for(p.id,  default_contact_reason_id) 
+				remove_contact_reason_for(pid,  default_contact_reason_id) 
 			end
 		end
 	end	
@@ -259,7 +257,6 @@ class Report < ActiveRecord::Base
     unless annotation.nil? 
 		annotation.destroy 
 	end
-
   end
   
   def contact_reasons_for(participant_id)
@@ -277,20 +274,20 @@ class Report < ActiveRecord::Base
   
   #return true if participant is associated with report
   def associated?(participant) 
-    (not participant.nil?) && participant_ids.include?(participant.id)
+    (not participant.nil?) and participant_ids.include?(participant.id)
   end
   
   def empty_of_participants?
-    participant_ids.size == 0
+    participant_ids.empty?
   end
   
   def number_of_participants
-    participant_ids.size
+    participant_ids.length
   end
   
   # Return id of all participants associated with report
   def participant_ids
-   self.participants.uniq.collect { |p| p.id }
+   self.report_participant_relationships.collect { |r| r.participant_id }.uniq
   end
 
   def add_contact_reason_for(participant_id, reason_id)
@@ -299,20 +296,24 @@ class Report < ActiveRecord::Base
 	end
   end
   
-  def add_default_contact_reason(participant_id)
-  logger.info("=======> Add  default oparty=#{participant_id} for reason #{default_contact_reason_id}")
-	add_contact_reason_for(participant_id, default_contact_reason_id)
+  def add_default_contact_reason(participant)
+	add_contact_reason_for(participant.id, default_contact_reason_id)
   end
   
   def remove_participant(pid)
+  logger.info("+++++++++++Remove party #{pid} ")
+  	 logger.info("+++++++++++ before delete # of participants #{number_of_participants} ")
+
     p = pid.to_i if pid.is_a? String || pid
     contact_reasons_for(p).each do |ri|
       report_participant_relationships.delete(ri)
       ri.destroy
     end
+	 logger.info("+++++++++++ after delete # of participants #{number_of_participants} ")
   end
   
   def remove_contact_reason_for(participant_id, reason_id)
+  logger.info("+++++ Remove reason #{reason_id} for #{participant_id} ")
 	reason = contact_reason_for_participant(participant_id, reason_id)
     self.report_participant_relationships.destroy(reason) if reason
   end
@@ -363,9 +364,9 @@ class Report < ActiveRecord::Base
   end
 
   # An array of participant IDs
-  def add_participants(participant_ids)
-    participant_ids.each do |id|
-      self.add_default_contact_reason(id)
+  def add_participants(participants)
+    participants.each do |p|
+      self.add_default_contact_reason(p)
     end
   end
   

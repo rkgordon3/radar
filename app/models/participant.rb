@@ -25,7 +25,7 @@ class Participant < ActiveRecord::Base
   end
   
   def name
-    first_name + " " + (middle_initial != nil ? (middle_initial + " ") : "") + last_name
+    ((first_name.nil? ? "" : first_name) + " " + (middle_initial.nil? ?  "" : (middle_initial + " ")) + (last_name.nil? ? "" : last_name)).strip()
   end
   
   def getImageUrl

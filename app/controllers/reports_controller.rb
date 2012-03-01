@@ -56,7 +56,6 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.xml
   def show
-  logger.info("+++++++++++++ In show #{params[:id]}")
     @report = Report.find(params[:id])
     # add entry to view log if one does not exist for this staff/report combination
     current_staff.has_seen?(@report) || ReportViewLog.create(:staff_id => current_staff.id, :report_id=> @report.id)
@@ -76,7 +75,8 @@ class ReportsController < ApplicationController
     @report = report_name.constantize.new(:staff_id => current_staff.id)
     session[:report] = @report
     unless params[:participants].nil?
-      @report.add_participants(params[:participants])
+	  new_participants = params[:participants].collect { |id| Participant.find(id) }
+      @report.add_participants(new_participants)
     end
     respond_to do |format|
       format.html { render 'reports/new' }
@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
   # GET /reports/new.xml
   def new
     session[:report] = @report
-
+	
     respond_to do |format|
       format.html { render "reports/new" }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
@@ -162,8 +162,6 @@ class ReportsController < ApplicationController
     
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id])
    
-	logger.info("======> Add participant #{params[:participant][:id]} to report #{@report.id}")
-
     if not defined? @participant
 	
       name_tokens = params[:full_name].split(' ')
@@ -185,13 +183,13 @@ class ReportsController < ApplicationController
       end
     else
       @insert_new_participant_partial = !@report.associated?(@participant)
-      @report.add_default_contact_reason(@participant.id) unless @report.associated?(@participant)
+      @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
             if @insert_new_participant_partial
-              @report.add_default_contact_reason(@participant.id) unless @report.associated?(@participant)
+              @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -234,7 +232,7 @@ class ReportsController < ApplicationController
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 
-    @report.add_default_contact_reason(@participant.id)
+    @report.add_default_contact_reason(@participant)
     respond_to do |format|
       format.js
       format.iphone {
@@ -262,9 +260,8 @@ class ReportsController < ApplicationController
       InterestedPartyReport.log_forwards(@report, parties, emails, current_staff)
       msg = "Report #{@report.tag} was forwarded to "+ emails.join(",")
     rescue => e
-      logger.debug(e.backtrace.join("\n"))
+      logger.info(e.backtrace.join("\n"))
       msg = "Unable to deliver mail. #{$!}"
-      logger.debug("Failed to send mail #{$!}")
     end
     respond_to do |format|
       format.js { render :locals => { :flash_notice => msg } }
@@ -317,7 +314,6 @@ class ReportsController < ApplicationController
     checked = params[:checked]
     reason_id = params[:reason].split("_")[REASON_ID_INDEX_IN_REASON_PARAM]
 	
-    logger.info("====> reports_controller:update_reasons report = #{report.id} party = #{pid} checked : #{checked.downcase} ")
     checked.downcase == "true" ? report.add_contact_reason_for(pid, reason_id) : report.remove_contact_reason_for(pid,  reason_id)
     respond_to do |format|
       format.js { render_common_reasons_update(report, [pid], [reason_id],  checked, false)	}
@@ -332,9 +328,7 @@ class ReportsController < ApplicationController
     participant_ids = report.participant_ids
     reason_id = params[:reason].split("_")[REASON_ID_INDEX_IN_COMMON_REASON_PARAM]
 
-    logger.info("update reason #{reason_id} to #{checked}")
     participant_ids.each do |pid|
-        logger.info("update reason #{reason_id} for #{pid}")
         checked.downcase == "true" ? report.add_contact_reason_for(pid, reason_id) : report.remove_contact_reason_for(pid, reason_id)
     end
 
@@ -385,7 +379,6 @@ class ReportsController < ApplicationController
       min = convert_arg_datetime(params[:submitted_after]) rescue nil
       filter_by_datetime = true if !min.nil?
     end
-    logger.debug("Using date filter #{filter_by_datetime} max = #{max} min = #{min} ")
 	
     @reports = @reports.where(:approach_time => min..max) if filter_by_datetime
 

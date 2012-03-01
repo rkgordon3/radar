@@ -12,11 +12,12 @@ if @insert_new_participant_partial
 	  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
 	end
 	# We need to insert first <tr> if this is first participant added
-	if ((@report.participant_ids.size-1).floor % columns  == 0)
+	#ActiveRecord::Base.logger.info  "[add_participant.js.rjs] Size of parties: #{@report.number_of_participants}"
+	if ((@report.number_of_participants-1) % columns  == 0)
 		page.insert_html(:top, "s-i-form", 
-		  "<tr id=#{((@report.participant_ids.size-1)/columns).floor}></tr>")
+		  "<tr id=#{((@report.number_of_participants-1)/columns)}></tr>")
 	end
-	page.insert_html(:top, "#{((@report.participant_ids.size-1)/columns).floor}", 
+	page.insert_html(:top, "#{((@report.number_of_participants-1)/columns)}", 
 							 :partial => "participant_in_report", 
 							 :locals => { :report => @report, :participant => @participant})
 end

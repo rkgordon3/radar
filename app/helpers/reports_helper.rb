@@ -5,7 +5,7 @@ module ReportsHelper
     REPORT_COLUMNS
   end
   
-  def display_common_reasons?(report)
-	(report.participant_ids.size > 1) and (report.supports_selectable_contact_reasons?)
+  def display_common_reasons?(report)  
+	 (report.supports_selectable_contact_reasons?) and (report.number_of_participants > 1)
   end
 end
