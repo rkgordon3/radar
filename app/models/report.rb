@@ -160,6 +160,7 @@ class Report < ActiveRecord::Base
   end
   
   def update_attributes_without_saving(params)
+	update_relationships(params)
     self.building_id = params[:building_id]
     self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
@@ -174,18 +175,21 @@ class Report < ActiveRecord::Base
         self.annotation.text = annotation_text
     end
 	
-	update_relationships(params)
 
     self.adjunct_submitters.each { |ra| ra.destroy }
     params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
   end
   
   def update_relationships(params)
+  logger.info("INSIDE update_relationships")
+    return false if params[:reason].nil?
+
 	report_participant_relationships.destroy_all
 	annotations = params[:annotations]
 	durations = params[:durations]
 	participants = params[:reason]
-	participants.each_pair  do | pid, reasons |
+	unless participants.nil?
+	  participants.each_pair  do | pid, reasons |
 		reasons.each_key do |reason_id| 
 			rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id.to_i)
 		    unless annotations.nil?
@@ -196,6 +200,7 @@ class Report < ActiveRecord::Base
 			end
 			report_participant_relationships << rpr
 		end		
+	  end
 	end
 	
   end
@@ -209,13 +214,14 @@ class Report < ActiveRecord::Base
       self.tag = tag
     end
   end
-  
+=begin
   def save
     if (not annotation.nil?) && annotation.save! != nil 
       self.annotation_id = annotation.id
     end
     super
   end
+=end
 
   def remove_default_contact_reason_if_redundant
 	participant_ids.each do |pid|	 

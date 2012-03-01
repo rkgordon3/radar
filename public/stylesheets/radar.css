@@ -291,6 +291,8 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
 
 #page_title { font-weight:bold; }
 
+.show-title { font-weight:bold; color: #595959; } 
+
 #print_link { display:block; float:left }
 #footer{
     background:#5A5A5A url("../images/footer-bot.gif") repeat-x;

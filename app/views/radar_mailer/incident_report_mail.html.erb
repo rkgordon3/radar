@@ -9,87 +9,82 @@
   <div>
     <h4><%= @report.display_name %> <%= @report.tag %></h4>
   </div>
+  <% if @report.number_of_participants > 0 %>
+	<% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
 
-  <% @report.report_participant_relationships.sort! { |a, b|  a.participant.last_name <=> b.participant.last_name } %>
+	<% current_participant_id = -1 %>
+	<% @report.report_participant_relationships.each do |b| %>
+		<% if b.participant.id != current_participant_id %>
+			<% if current_participant_id != -1 # aka we're starting a new participant %>
+			</td>
+			</tr>
+			</table>
+			</p>
+		<% end %>
+		<% current_participant_id = b.participant.id %>
+		<p>
+		<table>
+			<tr>
+				<td style="vertical-align: top;">
+				<%=image_tag(b.participant.getImageUrl, :width=> 50 ) %>
+			</td>
+			<td style="vertical-align: top;">
+				
+				<%= b.participant.name %><br />
 
-  <% current_participant_id = -1 %>
-  <% @report.report_participant_relationships.each do |b| %>
-    <% if b.participant.id != current_participant_id %>
-      <% if current_participant_id != -1 # aka we're starting a new participant %>
-      </td>
-      </tr>
-      </table>
-      </p>
-    <% end %>
-    <% current_participant_id = b.participant.id %>
-    <p>
-    <table>
-      <tr>
-        <td style="vertical-align: top;">
-          <%=image_tag(b.participant.getImageUrl, :width=> 50 ) %>
-        </td>
-        <td style="vertical-align: top;">
-          <% if b.participant.type == "Student" %>
-            <%= b.participant.last_name %>, <%= b.participant.first_name %> <%= b.participant.middle_initial %>
-          <% else %>
-            <%= b.participant.name %>
-          <% end %>
-          <br />
+				<b>Details</b>
+				<div class="participant_detail">
+					<div style="margin-left: 15px;">
+						<span style="font-style: italic;">Student ID #: </span>
+						<% if (b.participant.student_id != nil) %>
+							<%=  "#{b.participant.student_id}" %><br/>
+						<% else %>
+							<%=  "Unknown" %><br/>
+						<% end %>
 
-          <b>Details</b>
-          <div class="participant_detail">
-            <div style="margin-left: 15px;">
-              <span style="font-style: italic;">Student ID #: </span>
-              <% if (b.participant.student_id != nil) %>
-                <%=  "#{b.participant.student_id}" %><br/>
-              <% else %>
-                <%=  "Unknown" %><br/>
-              <% end %>
+						<%= render :partial=>"participants/birthday", :locals=> { :participant=>b.participant, :pclass=>"detail_label" %> <br/>
 
-              <%= render :partial=>"participants/birthday", :locals=> { :participant=>b.participant, :pclass=>"detail_label" %> <br/>
+						<span style="font-style: italic;">Residence: </span>
+						<% if (b.participant.building_id != nil) %>
+							<%=  "#{b.participant.room_number} #{Building.find(b.participant.building_id).name}" %><br/>
+						<% else %>
+							<%=  "Unknown" %><br/>
+						<% end %>
 
-              <span style="font-style: italic;">Residence: </span>
-              <% if (b.participant.building_id != nil) %>
-                <%=  "#{b.participant.room_number} #{Building.find(b.participant.building_id).name}" %><br/>
-              <% else %>
-                <%=  "Unknown" %><br/>
-              <% end %>
+						<span style="font-style: italic;">Extension: </span>
+						<span style="font-style: italic;"> @ </span>
+						<% if (b.participant.extension !=nil) %>
+							<%=  "#{b.participant.extension}" %>
+						<% else %>
+							<%=  "Unknown" %>
+						<% end %><br/>
 
-              <span style="font-style: italic;">Extension: </span>
-              <span style="font-style: italic;"> @ </span>
-              <% if (b.participant.extension !=nil) %>
-                <%=  "#{b.participant.extension}" %>
-              <% else %>
-                <%=  "Unknown" %>
-              <% end %><br/>
+						<span style="font-style: italic;">Emergency Contact Information: </span>
+						<% if (b.participant.emergency_contact_name !=nil) %>
+							<%=  "#{b.participant.emergency_contact_name}" %>
+						<% else %>
+							<%=  "Unknown" %>
+						<% end %>
+						<span style="font-style: italic;"> @ </span>
+						<% if (b.participant.emContact !=nil) %>
+							<%=  "#{b.participant.emContact}" %>
+						<% else %>
+							<%=  "Unknown" %>
+						<% end %>
+					</div>
+				</div>
 
-              <span style="font-style: italic;">Emergency Contact Information: </span>
-              <% if (b.participant.emergency_contact_name !=nil) %>
-                <%=  "#{b.participant.emergency_contact_name}" %>
-              <% else %>
-                <%=  "Unknown" %>
-              <% end %>
-              <span style="font-style: italic;"> @ </span>
-              <% if (b.participant.emContact !=nil) %>
-                <%=  "#{b.participant.emContact}" %>
-              <% else %>
-                <%=  "Unknown" %>
-              <% end %>
-            </div>
-          </div>
-
-        <% end %>
+			<% end %>
         <br />
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Reported:</b>
         <%= b.relationship_to_report.description %>
 
       <% end %>
 
-      <% if @report.report_participant_relationships.count >= 1%>
-      </td>
-    </tr>
-  </table>
-<% end %>
+		<% if @report.report_participant_relationships.count >= 1%>
+			</td></tr></table>
+		<% end %>
+	<% end %>
 </p>
 <%= render :partial => "reports/show_generic" %>
 </body>

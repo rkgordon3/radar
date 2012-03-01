@@ -1,7 +1,7 @@
-<% if @report.report_participant_relationships.count == 0  %>
-  <div class="show-title"><%= "No #{title}" %></div>
+<% if @report.number_of_participants == 0  %>
+  <div class="show-title"><%= t "#{@report.type}.noparticipants" %></div>
 <% else %>
-  <div class="show-title"><%= "#{title}:" %></div>
+  <div class="show-title"><%= t "#{@report.type}.participants" %></div>
   <% num_parts = 0 %>
   <table>
     <tr>
