@@ -100,8 +100,10 @@ class ResidenceLifeOrganization < Organization
   def campus_safety(ability, staff)
     ability_base [IncidentReport, Note], ability, staff
 
-    ability.can [:view_contact_info], Participant
+	ability.can [ :view_contact_info, :view_contact_history], Participant
     ability.can [:pdf, :show, :read], IncidentReport
+	# required to show contact history
+	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
     ability.can :update, NotificationPreference, :staff_id => staff.id
 
   end
