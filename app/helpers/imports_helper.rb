@@ -100,7 +100,7 @@ module ImportsHelper
 			params["full_name"] = params["first_name"]  + " " + params["last_name"]
 			params["classification"] = line[CLASS_INDEX]
 
-      building_index = "RSM" if line[BUILDING_INDEX] == "NV"
+      #building_index = "RSM" if line[BUILDING_INDEX] == "NV"
       building_index ||= line[BUILDING_INDEX]
 			params["building_id"] = Building.where(:abbreviation => building_index).first.id rescue Building.unspecified_id
 			params["room_number"] = line[ROOM_INDEX]
