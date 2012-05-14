@@ -62,7 +62,7 @@ class ResidenceLifeOrganization < Organization
 	ability_base MY_REPORTS, ability, staff
 	administrator_base MY_REPORTS, ability, staff
 		
-    ability.can :assign, AccessLevel, :name => ["AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety"]
+    ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety"]
 
 	# Staff
     # Can c/u/d HD and RA in my org. These levels to be deprecated.
