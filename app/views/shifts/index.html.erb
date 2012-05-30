@@ -1,8 +1,8 @@
 <div id="inside_container" class="inside_container">
   <h1><% if all_logs %>
       All Shifts
-    <% elsif access_level != nil %>
-      <%= "#{access_level} #{log_type.capitalize} Logs" %>
+    <% elsif log_type != nil %>
+      <%= "#{log_type.capitalize} Logs" %>
     <% else %>
       My Logs
     <% end %></h1>

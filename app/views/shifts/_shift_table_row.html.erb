@@ -14,7 +14,7 @@
     <td><%= shift.staff.last_name %>, <%= shift.staff.first_name %></td>
     <td>
       <% if shift.time_out != nil %>
-        <%= link_to "View #{shift.staff.access_level.log_type.capitalize} Log", :controller => "shifts", :action => "#{shift.staff.access_level.log_type}_log", :id => shift if can? :shift_log, shift %></td>
+        <%= link_to "View #{shift.staff.log_type.capitalize} Log", :controller => "shifts", :action => "#{shift.staff.log_type}_log", :id => shift if can? :shift_log, shift %></td>
       <td>
         <%= link_to 'Edit', edit_shift_path(shift) if can? :edit, shift %>
       <% end %>

@@ -6,15 +6,16 @@ class ShiftsController < ApplicationController
   
   def index
     all_logs = false
-    if params[:access_level] == "Any"
+    if params[:log_type] == "Any"
       #don't filter shifts
       all_logs = true
 
-    elsif params[:access_level] != nil
-      @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name = ?", params[:access_level])
-      access_level = AccessLevel.find_by_name(params[:access_level])
-      log_type = access_level.log_type
-      access_level = access_level.display_name
+    elsif params[:log_type] != nil
+	# This is a kludge to accommodate two flavors of HD vs Supervisor, RA vs Staff. 
+	# These two access levels need to be combined and only displayed as different levels
+	  level = params[:log_type] == CALL ? "('HallDirector', 'Supervisor')"   :  "( 'ResidentAssistant', 'Staff' )"
+	  @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name in " + level)
+      log_type = params[:log_type]
     end
 
     if params[:staff_id] != nil
@@ -25,7 +26,7 @@ class ShiftsController < ApplicationController
     
     
     respond_to do |format|
-      format.html { render :locals => { :shifts => @shifts, :access_level => access_level, :log_type => log_type, :all_logs => all_logs } }
+      format.html { render :locals => { :shifts => @shifts, :log_type => log_type, :all_logs => all_logs } }
       format.xml  { render :xml => @shifts }
     end
   end
@@ -73,7 +74,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Your shift has been logged.') }
+        format.html { redirect_to({:action => "#{@shift.staff.log_type}_log", :controller => 'shifts', :id => @shift}, :notice => 'Your shift has been logged.') }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @shift.errors, :status => :unprocessable_entity }
@@ -100,7 +101,7 @@ class ShiftsController < ApplicationController
       end
       @notice += ". Your shift has been logged."
     else
-      @notice += "Your #{@shift.staff.access_level.log_type} log has been updated."
+      @notice += "Your #{@shift.staff.log_type} log has been updated."
     end
 
     if !@shift.tasks_completed?
@@ -110,7 +111,7 @@ class ShiftsController < ApplicationController
     
     respond_to do |format|
       if @shift.update_attributes(params[:shift])
-        format.html { redirect_to({:action => "#{@shift.staff.access_level.log_type}_log", :controller => 'shifts', :id => @shift.id}, :notice => @notice) }
+        format.html { redirect_to({:action => "#{@shift.staff.log_type}_log", :controller => 'shifts', :id => @shift.id}, :notice => @notice) }
         format.js { render 'shifts/end_shift' }
         format.xml  { head :ok }
       else

@@ -11,8 +11,8 @@
 		<ul>
 		  <% if can? :create, Shift %><li><%= link_to "Record Shift", new_shift_path  %></li><% end %>
 		  <% if can? :index, Shift %> <li><%= link_to "My Logs", "/shifts?staff_id=#{current_staff.id}"  %></li><% end %>
-		  <% if can? :list_HD_call_logs, Shift %><li><%= link_to "List HD Call Logs", "/shifts?access_level=HallDirector"  %></li><% end %>
-		  <% if can? :list_RA_duty_logs, Shift %><li><%= link_to "List RA Duty Logs", "/shifts?access_level=ResidentAssistant"  %></li><% end %>
+		  <% if can? :list_HD_call_logs, Shift %><li><%= link_to "List HD Call Logs", "#shifts?log_type=#{CALL}"  %></li><% end %>
+		  <% if can? :list_RA_duty_logs, Shift %><li><%= link_to "List RA Duty Logs", "/shifts?log_type=#{DUTY}"  %></li><% end %>
 		</ul>
 	</li>
 <% end %>

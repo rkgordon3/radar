@@ -107,6 +107,16 @@ class Staff < ActiveRecord::Base
     end
   end
   
+  def log_type
+    access_name = self.access_levels.first.name
+    if  access_name == "ResidentAssistant" || access_name == "Staff"
+      return "duty"
+    elsif access_name == "HallDirector" || access_name == "Supervisor"
+      return "call"
+    end
+    return "no"
+  end
+  
   def currently_assigned_tasks
     return [] if current_shift.nil?
    
