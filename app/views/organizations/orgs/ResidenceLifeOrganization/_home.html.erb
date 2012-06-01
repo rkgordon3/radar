@@ -34,7 +34,7 @@
     </ul>
   </li>
   <% end %>
-  <li><%  if can? :index, Task %>
+  <li><%  if can? :do, TaskAssignment %>
       <%= link_to "Tasks", tasks_path, :class=>"menubar_link" %>
     <% else %>
       <%= link_to "Tasks", to_do_list_task_assignments_path, :class=>"menubar_link" %>

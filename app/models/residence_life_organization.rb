@@ -34,19 +34,19 @@ class ResidenceLifeOrganization < Organization
 	
     # Can view all staff
     ability.can [:show], Staff
-    ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "HallDirector", "ResidentAssistant"]
+    ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp", "HallDirector", "ResidentAssistant"]
 	
     # These access_levels are being deprecated. Staff => Resident Assistant, Supervisor => HD
     ability.can [:create, :update, :destroy], Staff,
     {
       :organizations => { :id => self.id },
-      :access_levels=> {:name => ["HallDirector", "ResidentAssistant", "CampusSafety" ]}
+      :access_levels=> {:name => ["HallDirector", "ResidentAssistant" ]}
     }
     # These access levels are organization-generic.
     ability.can [:create, :update, :destroy], Staff,
       {
       :organizations => { :id => self.id },
-      :access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff"]}
+      :access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp"]}
     }
 	
 	ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
@@ -62,20 +62,20 @@ class ResidenceLifeOrganization < Organization
 	ability_base MY_REPORTS, ability, staff
 	administrator_base MY_REPORTS, ability, staff
 		
-    ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety"]
+    ability.can :assign, AccessLevel, :name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp" ]
 
 	# Staff
     # Can c/u/d HD and RA in my org. These levels to be deprecated.
     ability.can [:create, :update, :destroy], Staff,
       {
       :organizations => { :id => self.id },
-      :access_levels => {:name => ["HallDirector", "ResidentAssistant", "CampusSafety"]}
+      :access_levels => {:name => ["HallDirector", "ResidentAssistant"]}
     }
     # Can c/u/d admin asst, supervisor and staff for my org.
     ability.can [:create, :update, :destroy], Staff,
       {
       :organizations => { :id => self.id },
-      :access_levels => {:name => ["AdministrativeAssistant", "Supervisor", "Staff"]}
+      :access_levels => {:name => ["AdministrativeAssistant", "Supervisor", "Staff", "CampusSafetyTemp", "CampusSafety"]}
     }
 	
     ability.can :manage, NotificationPreference, :staff_id => staff.id
@@ -106,6 +106,15 @@ class ResidenceLifeOrganization < Organization
 	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
     ability.can :update, NotificationPreference, :staff_id => staff.id
 
+  end
+  
+  def campus_safety_temp(ability, staff)
+	ability_base [IncidentReport, Note], ability, staff
+	ability.can [ :view_contact_info], Participant
+    #ability.can [:pdf, :show, :read], IncidentReport
+	# required to show contact history
+	#ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
+    ability.can :update, NotificationPreference, :staff_id => staff.id
   end
   
   def supervisor(ability, staff)
@@ -154,6 +163,8 @@ class ResidenceLifeOrganization < Organization
     ability.can [:shift_log, :read], Shift, { :staff_id => staff.id }
 
   end
+  
+
   
   # ability_base Abilities
   #	 
