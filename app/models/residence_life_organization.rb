@@ -46,7 +46,7 @@ class ResidenceLifeOrganization < Organization
     ability.can [:create, :update, :destroy], Staff,
       {
       :organizations => { :id => self.id },
-      :access_levels => {:name => ["Administrator", "Administrative Assistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp"]}
+      :access_levels => {:name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp"]}
     }
 	
 	ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
