@@ -11,7 +11,6 @@
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => "'report[id]=#{report.id}"  + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
   			 <% infractions.each do |infraction| %>
-			 <% logger.info("+++++++++ Render common check box for #{infraction.id}") %>
   		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "common_reasons[#{infraction.id}]", 
   				       infraction.description,
