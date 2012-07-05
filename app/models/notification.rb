@@ -40,41 +40,29 @@ class Notification
 	def Notification.immediate_notify(id)
 		notify_prefs = Array.new
 		
-		#staff_list = Array.new
-		
 		report = Report.find(id)
-		# Remove this reference to constant 1. WTF does it mean? Give me a name, baby!
+
 		notify_prefs = NotificationPreference.where(:frequency => immediate, :report_type => report.type).all
-		
 		notify_prefs.each do |np|
-			
-			mail = RadarMailer.notification_mail({report.display_name => [report]}, Staff.find(np.staff_id))
+			to_staff = Staff.find(np.staff_id) 
+			ok_to_send = (not to_staff.nil?) && to_staff.active
 			begin
-			  mail.deliver
-      rescue 
-      end
-			
-			#s = Staff.find(np.staff_id)
-			#staff_list << s
-			
+				RadarMailer.notification_mail({report.display_name => [report]}, to_staff).deliver if ok_to_send 
+			rescue 
+			end
 		end	
-		
-		#staff_list.each do |staff|
-		#	mail = RadarMailer.immediate_mail(report, staff)
-		#	mail.deliver
-		#end	
 	end
 	
 	def Notification.notify
 		plist = Array.new
-		staff_ids = NotificationPreference.all(:select => 'distinct(staff_id)')
+		prefs = NotificationPreference.all(:select => 'distinct(staff_id)')
 		
-		staff_ids.each do |s|
+		prefs.each do |pref|
 			reports = Hash.new
-			plist = NotificationPreference.where(:staff_id => s.staff_id, :frequency =>(daily..weekly))
+			plist = NotificationPreference.where(:staff_id => pref.staff_id, :frequency =>(daily..weekly))
 			notify = false
 			plist.each do |p|
-			notify = Notification.should_notify(p)
+				notify = Notification.should_notify(p)
 				if notify
 					r = Report.where(:created_at => (p.last_notified..Time.now), :type => p.report_type)
 					if r.first != nil
@@ -85,8 +73,9 @@ class Notification
 					p.save
 				end
 			end
-			if notify
-				mail = RadarMailer.notification_mail(reports, Staff.find(s.staff_id))
+			to_staff = Staff.find(pref.staff_id)
+			if notify and (not to_staff.nil?) and to_staff.active
+				mail = RadarMailer.notification_mail(reports, to_staff)
 				mail.deliver
 			end
 		end
