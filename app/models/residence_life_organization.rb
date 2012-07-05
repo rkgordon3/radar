@@ -55,6 +55,7 @@ class ResidenceLifeOrganization < Organization
 	
     ability.can :manage, [Task, Building, Area]
     ability.can :manage, NotificationPreference
+	ability.can :update_preferences, Staff, :staff_id => staff.id
     ability.can :assign, Area
   end
   
@@ -78,7 +79,12 @@ class ResidenceLifeOrganization < Organization
       :access_levels => {:name => ["AdministrativeAssistant", "Supervisor", "Staff", "CampusSafetyTemp", "CampusSafety"]}
     }
 	
-    ability.can :manage, NotificationPreference, :staff_id => staff.id
+    # Notification Preferences
+	# Both of these abilities are needs to update a user's notification preferences.
+	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
+	ability.can :update_preferences, Staff, :staff_id => staff.id
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
+	
     ability.can :manage, Task
     ability.can :assign, Area
   end
@@ -92,7 +98,11 @@ class ResidenceLifeOrganization < Organization
 	ability.can [:update, :show], Staff, { :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , :organizations => { :id => self.id } }
 
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can :manage, NotificationPreference, :staff_id => staff.id
+	# Notification Preferences
+	# Both of these abilities are needs to update a user's notification preferences.
+	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
+	ability.can :update_preferences, Staff, :staff_id => staff.id
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
 
     ability.can :manage, Task
   end
@@ -104,7 +114,11 @@ class ResidenceLifeOrganization < Organization
     ability.can [:pdf, :show, :read], IncidentReport
 	# required to show contact history
 	ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can :update, NotificationPreference, :staff_id => staff.id
+	# Notification Preferences
+	# Both of these abilities are needs to update a user's notification preferences.
+	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
+	ability.can :update_preferences, Staff, :staff_id => staff.id
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
 
   end
   
@@ -114,7 +128,13 @@ class ResidenceLifeOrganization < Organization
     #ability.can [:pdf, :show, :read], IncidentReport
 	# required to show contact history
 	#ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
-    ability.can :update, NotificationPreference, :staff_id => staff.id
+    
+	# Notification Preferences
+	# Both of these abilities are needs to update a user's notification preferences.
+	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
+	ability.can :update_preferences, Staff, :staff_id => staff.id
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
+
   end
   
   def supervisor(ability, staff)
@@ -128,6 +148,11 @@ class ResidenceLifeOrganization < Organization
     ability.can [:view_contact_info, :view_contact_history], Participant
 	# Staff
     ability.can [:update, :show], Staff, { :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , :organizations => { :id => self.id } }
+	# Notification Preferences
+	# Both of these abilities are needs to update a user's notification preferences.
+	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
+	ability.can :update_preferences, Staff, :staff_id => staff.id
+	ability.can :manage, NotificationPreference, :staff_id => staff.id
 	
     MY_REPORTS.each { |r| ability.can [:show,:index, :pdf, :forward], Report, { :type => r.name } }  
 	
@@ -141,7 +166,8 @@ class ResidenceLifeOrganization < Organization
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
 	
     ability.can :update, Building
-    ability.can :manage, NotificationPreference, :staff_id => staff.id
+
+
     ability.can :manage, Task
     ability.can :index, [Building, Area, Task]
 	ability.can [:index, :update, :create], RelationshipToReport, { :organization_id => self.id }
