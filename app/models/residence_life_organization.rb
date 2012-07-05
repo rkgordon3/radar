@@ -203,7 +203,7 @@ class ResidenceLifeOrganization < Organization
 
 	# Establish authority to select reports from menu
     reports.each do |r| 
-		ability.can [:select], ReportType, { :name => r.name } 
+		ability.can [:select, :index], ReportType, { :name => r.name } 
 	end
 	
 	ability.can :search, Report

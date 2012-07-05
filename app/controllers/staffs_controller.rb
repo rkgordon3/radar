@@ -72,7 +72,7 @@ class StaffsController < Devise::RegistrationsController
    # PUT
   def update_preferences
 	staff_id = params[:staff_id]
-	ReportType.find(:all).each do |r|
+	ReportType.accessible_by(current_ability).each do |r|
 		pref = NotificationPreference.find_by_staff_id_and_report_type(staff_id,r.name) || NotificationPreference.new(:staff_id => staff_id, :report_type => r.name)
 		pref.update_attributes(params[r.name.to_sym])
 		pref.time_offset = Notification.get_time_offset_for_frequency(pref.frequency)

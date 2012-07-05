@@ -8,7 +8,7 @@ class NotificationPreferencesController < ApplicationController
   # GET /notification_preferences.xml
   def index
   	@notification_preferences = Array.new
-	ReportType.find(:all).collect.each do |r|
+	ReportType.accessible_by(current_ability).each do |r|
 		pref = NotificationPreference.find_by_staff_id_and_report_type(current_staff.id,r.name) rescue nil
 		if(pref == nil)
 			pref = NotificationPreference.new(:staff_id => current_staff.id, :report_type => r.name)
