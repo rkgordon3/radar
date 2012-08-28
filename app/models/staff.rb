@@ -75,7 +75,7 @@ class Staff < ActiveRecord::Base
   
   # return an array of staff associated with same areas that I am (current definition of 'adjunct')
   def adjuncts
-	Staff.joins(:staff_areas, :staff_organizations)
+	Staff.where(:active=>true).joins(:staff_areas, :staff_organizations)
 		.where(:staff_areas => { :area_id => self.areas })
 		.where(:staff_organizations => { :organization_id => self.organizations })
 		.where("staff_areas.staff_id != ?", self.id)
