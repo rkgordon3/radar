@@ -194,9 +194,9 @@ class ShiftsController < ApplicationController
     @rounds.each do |round|
       round_time_start = round.created_at
 
-      off_round_reps = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_end..round_time_start, :submitted=> true)
-      off_round_reports += off_round_reps.where(:type=>["IncidentReport","MaintenanceReport"])
-      off_round_notes += off_round_reps.where(:type => "Note")
+      #off_round_reps = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_end..round_time_start, :submitted=> true)
+      #off_round_reports += off_round_reps.where(:type=>["IncidentReport","MaintenanceReport"])
+     # off_round_notes += off_round_reps.where(:type => "Note")
       round_time_end = round.end_time
       reports = Report.where(:staff_id=>@shift.staff_id, :approach_time => round_time_start..round_time_end, :submitted=> true)
       total_reports += reports.length
