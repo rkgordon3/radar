@@ -162,7 +162,7 @@ class ResidenceLifeOrganization < Organization
 	ability.can :assign, Organization, :id => self.id
 	
     ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
-    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:display_name => "Resident Assistant"}}
+    ability.can [:shift_log, :read], Shift, :staff => {:access_levels => {:name => ["ResidentAssistant", "Staff"] }}
     ability.can [:read, :create, :shift_log, :update, :update_shift_times], Shift, :staff_id => staff.id
 	
     ability.can :update, Building

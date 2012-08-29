@@ -46,6 +46,20 @@ class Staff < ActiveRecord::Base
   def is_plural?(word)
    word.singularize.pluralize == word
   end
+  
+  # Return current_access_level based on active organization
+  # NOTE (TODO): active organization is currently first in list
+  # returned bt staff.organization. THIS IS A KLUDGE. A general
+  # fix to ACTIVE ORGANIZATION needs to be implemented.
+  def current_access_level
+	
+	staff_org = StaffOrganization.find_by_staff_id_and_organization_id(self.id, active_organization.id)
+	AccessLevel.find(staff_org.access_level_id)
+  end
+  
+  def active_organization
+	self.organizations.first || Organization.new
+  end
 
   def preference(name)
 	name = name.to_s

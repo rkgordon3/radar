@@ -11,10 +11,12 @@ class ShiftsController < ApplicationController
       all_logs = true
 
     elsif params[:log_type] != nil
-	# This is a kludge to accommodate two flavors of HD vs Supervisor, RA vs Staff. 
-	# These two access levels need to be combined and only displayed as different levels
-	  level = params[:log_type] == CALL ? "('HallDirector', 'Supervisor')"   :  "( 'ResidentAssistant', 'Staff' )"
-	  @shifts = @shifts.joins(:staff => :access_level ).where("access_levels.name in " + level)
+
+	  level_ids = eval(params[:log_type].upcase+"_LOG_LEVELS")
+	  @shifts = Shift.joins(:staff => { :staff_organizations => :access_level })
+					   .where(:staff_organizations => 
+							{ :organization_id => current_staff.active_organization.id, 
+							  :access_level_id => level_ids})
       log_type = params[:log_type]
     end
 
