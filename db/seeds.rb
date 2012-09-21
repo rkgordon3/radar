@@ -124,12 +124,17 @@ puts "creating root access level"
 root_al = AccessLevel.find_by_name("root") || 
 			AccessLevel.create(:name => "root", 
 			   	:display_name => "root", 
-			   	:numeric_level => 6)
+			   	:numeric_level => 8)
 puts "creating sysadmin access level"
 system_admin_al = AccessLevel.find_by_name("SystemAdministrator") ||
 			AccessLevel.create(:name => "SystemAdministrator", 
 			  	:display_name => "System Administrator", 
-			   	:numeric_level => 6)
+			   	:numeric_level => 7)
+AccessLevel.find_by_name("CampusSafety") || AccessLevel.create!(:name=>"CampusSafety", :display_name=>"Campus Safety")
+AccessLevel.find_by_name("ResidentAssistant") || AccessLevel.create!(:name=>"ResidentAssistant", :display_name=>"Resident Assistant")
+AccessLevel.find_by_name("HallDirector") || AccessLevel.create!(:name=>"HallDirector", :display_name=>"Hall Director")
+AccessLevel.find_by_name("AdministrativeAssistant") || AccessLevel.create!(:name=>"AdministrativeAssistant", :display_name=>"Administrative Assistant")
+AccessLevel.find_by_name("Administrator") || AccessLevel.create!(:name=>"Administrator", :display_name=>"Administrator")
 
 # Create radar-admin "super user"
 puts "creating radar-admin"
