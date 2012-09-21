@@ -8,6 +8,6 @@ def level_ids_from_names(list)
 end
 
 
-DUTY_LOG_LEVELS = level_ids_from_names(['Resident Assistant','Staff'])
-CALL_LOG_LEVELS = level_ids_from_names(['Hall Director', 'Supervisor'])
+#DUTY_LOG_LEVELS = level_ids_from_names(['Resident Assistant','Staff'])
+#CALL_LOG_LEVELS = level_ids_from_names(['Hall Director', 'Supervisor'])
 
