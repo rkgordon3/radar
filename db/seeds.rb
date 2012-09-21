@@ -127,7 +127,7 @@ root_al = AccessLevel.find_by_name("root") ||
 			   	:numeric_level => 6)
 puts "creating sysadmin access level"
 system_admin_al = AccessLevel.find_by_name("SystemAdministrator") ||
-			AccessLevel.create(:name => "sysadmin", 
+			AccessLevel.create(:name => "SystemAdministrator", 
 			  	:display_name => "System Administrator", 
 			   	:numeric_level => 6)
 
