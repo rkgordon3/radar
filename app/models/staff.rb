@@ -26,6 +26,8 @@ class Staff < ActiveRecord::Base
   # Do not authenticate a user who is not active
   # This method is called out to by devise
   def valid_password?(password)
+
+    logger.debug "valid_password for #{self.email} active: #{self.active}"
     self.active && super(password)
   end
   
@@ -170,8 +172,7 @@ class Staff < ActiveRecord::Base
 	staff[:org].each { |id| 
 		al_id = staff[:authorization][id.to_s].to_i
 		logger.debug("++++++++++++++++New staff org: staff  #{staff_id} org #{id.to_i} access #{al_id}")
-	    so = StaffOrganization.new(:staff_id => staff_id, :organization_id=>id.to_i, :access_level_id =>al_id)
-	    so.save
+	    StaffOrganization.create!(:staff_id => staff_id, :organization_id=>id.to_i, :access_level_id =>al_id)
 	}
 
   end
