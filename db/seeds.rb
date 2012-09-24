@@ -145,11 +145,13 @@ rsmb = Area.find_by_name("Residencia Santiago Miller, Brother Leopold") || Area.
 hgc = Area.find_by_name("Hillside, Gilmore Creek") || Area.create(:name=>'Hillside, Gilmore Creek', :abbreviation=>'HGC')
 bny = Area.find_by_name("Benilde, St. Yons") || Area.create(:name=>'Benilde, St. Yons', :abbreviation=>'BNY')
 jp = Area.find_by_name("St. Josephs, Pines") || Area.create(:name=>'St. Josephs, Pines', :abbreviation=>'JP')
+ls = Area.find_by_name("LaSalle") || Area.create(:name=>'LaSalle', :abbreviation=>'LS')
+eds = Area.find_by_name("St. Edwards") || Area.create(:name=>'St. Edwards', :abbreviation=>'EDS')
 
 
 # Create building
-puts "creating buildings for specified areas'
-Buildings.find_by_name("Unspecified") || Building.create(:name=>"Unspecified", :abbreviation=>"NA", :area_id => na.id)
+puts "creating buildings for specified areas"
+Building.find_by_name("Unspecified") || Building.create(:name=>"Unspecified", :abbreviation=>"NA", :area_id => na.id)
 Building.find_by_name("Off Campus") || Building.create(:name=>'Off Campus', :abbreviation=>'OFFCAM', :area_id=>na.id)
 Building.find_by_name("Athletic Fields") || Building.create(:name=>'Athletic Fields', :abbreviation=>'ATHL', :area_id=>na.id)
 Building.find_by_name("Jul Gernes Pool") || Building.create(:name=>'Jul Gernes Pool', :abbreviation=>'POOL', :area_id=>na.id)
