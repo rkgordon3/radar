@@ -8,7 +8,7 @@ gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
 gem 'cancan'
-gem 'ruby-oci8', '>= 2.0.4'
+#gem 'ruby-oci8', '>= 2.0.4'
 gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
 gem 'ruby-plsql'
 gem 'will_paginate', '~> 3.0.pre4'
@@ -19,7 +19,9 @@ gem 'paperclip'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+#gem 'sqlite3-ruby', :require => 'sqlite3'
+
+gem sqlite3
 
 # Use unicorn as the web server
 # gem 'unicorn'
