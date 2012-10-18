@@ -14,7 +14,7 @@
         <td style="width:10%" align="center"><%= f.check_box :is_residence %></td>
         <td style="width:25%"><% areas = Area.all %>
           <%= f.select "area_id", options_from_collection_for_select(areas, "id", "name") %></td>
-        <td><div class="actions"><%= hidden_field :is, :shaded, {:value => is_shaded} %>
+        <td><div class="actions">
             <%= f.submit "Create" %>
             <%=  button_to_function "Cancel", "doubleDivToggle('new_building_div','new_building_link')" %>
           </div></td>

@@ -21,24 +21,31 @@ class BuildingsController < ApplicationController
   # POST /buildings
   # POST /buildings.xml
   def create
-    is_shaded = params[:is][:shaded]
-
-    if is_shaded == "1"
-      row_style = "class='shaded'"
-      is_shaded = 0
-    else
-      row_style = ""
-      is_shaded = 1
+    insrt_point = nil # represents the building you will be placing the new building before or after - Dylan
+    placement = nil # represents whether insertion is before or after -Dylan
+    list_counter = 0 # counter for determining list end -Dylan
+    row_style = "class='new_building_shade'"
+    Building.order("name DESC").all.each do |b|
+      list_counter += 1
+      if (@building.name <=> b.name) == -1
+        if list_counter == Building.all.length
+          insrt_point = b
+          placement = :before
+        end 
+      elsif (@building.name <=> b.name) == 1
+        insrt_point = b
+        placement = :after
+        break
+      end
     end
-    
     respond_to do |format|
       if @building.save
-        msg = "#{@building.name} has been successfully created."
+        msg = "#{@building.name} has been successfully created and is highlighted below."
       else
         msg = "Error: Building NOT created!"
       end
-      format.js { render :locals => { :flash_notice => msg, :row_style => row_style, :is_shaded => is_shaded } }
-    end
+      format.js { render :locals => { :building => insrt_point, :placement => placement, :flash_notice => msg, :row_style => row_style } }
+     end
   end
 
   # PUT /buildings/1
@@ -58,11 +65,10 @@ class BuildingsController < ApplicationController
   # DELETE /buildings/1.xml
   def destroy
     msg = "#{@building.name} has been successfully destroyed."
-    id = @building.id
     @building.destroy
 
     respond_to do |format|
-      format.js { render :locals => { :flash_notice => msg, :id => id } }
+      format.js { render :locals => { :flash_notice => msg, :building => @building } }
     end
   end
 end
