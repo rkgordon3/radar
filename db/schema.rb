@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210183656) do
+ActiveRecord::Schema.define(:version => 20121019195759) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(:version => 20120210183656) do
     t.integer  "annotation_id"
     t.string   "tag"
     t.integer  "organization_id"
+    t.integer  "parent_id"
   end
 
   create_table "residence_life_organizations", :force => true do |t|
@@ -257,7 +258,7 @@ ActiveRecord::Schema.define(:version => 20120210183656) do
     t.datetime "updated_at"
   end
 
-  create_table "staff_organizations", :id=> false,:force => true do |t|
+  create_table "staff_organizations", :id => false, :force => true do |t|
     t.integer  "staff_id"
     t.integer  "organization_id"
     t.datetime "created_at"
