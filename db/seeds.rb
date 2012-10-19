@@ -139,14 +139,15 @@ AccessLevel.find_by_name("Administrator") || AccessLevel.create!(:name=>"Adminis
 # Create areas on campus
 puts "creating areas on campus"
 na = Area.find_by_name("Unspecified") || Area.create(:name=>'Unspecified', :abbreviation=>'NA')
-hesk = Area.find_by_name("Heffron, Skemp") || Area.create(:name=>'Heffron, Skemp', :abbreviation=>'HESK')
-wek = Area.find_by_name("Watters, Ek Family Village") || Area.create(:name=>'Watters, Ek Family Village', :abbreviation=>'WEK')
-rsmb = Area.find_by_name("Residencia Santiago Miller, Brother Leopold") || Area.create(:name=>'Residencia Santiago Miller, Brother Leopold', :abbreviation=>'RSMB')
-hgc = Area.find_by_name("Hillside, Gilmore Creek") || Area.create(:name=>'Hillside, Gilmore Creek', :abbreviation=>'HGC')
-bny = Area.find_by_name("Benilde, St. Yons") || Area.create(:name=>'Benilde, St. Yons', :abbreviation=>'BNY')
-jp = Area.find_by_name("St. Josephs, Pines") || Area.create(:name=>'St. Josephs, Pines', :abbreviation=>'JP')
+skhe = Area.find_by_name("Skemp, Heffron") || Area.create(:name=>'Skemp, Heffron', :abbreviation=>'SKHE')
+willages = Area.find_by_name("Watters, Ek Village") || Area.create(:name=>'Watters, Ek Village', :abbreviation=>'WILLAGES')
+blrsm = Area.find_by_name("Brother Leopold, Residencia Santiago Miller") || Area.create(:name=>'Brother Leopold, Residencia Santiago Miller', :abbreviation=>'BLRSM')
+higc = Area.find_by_name("Hillside, Gilmore Creek") || Area.create(:name=>'Hillside, Gilmore Creek', :abbreviation=>'HIGC')
+bn = Area.find_by_name("Saint Benilde") || Area.create(:name=>'St. Benilde', :abbreviation=>'BN')
+stjopi = Area.find_by_name("St. Josephs, Pines") || Area.create(:name=>'St. Josephs, The Pines', :abbreviation=>'STJOPI')
 ls = Area.find_by_name("LaSalle") || Area.create(:name=>'LaSalle', :abbreviation=>'LS')
-eds = Area.find_by_name("St. Edwards") || Area.create(:name=>'St. Edwards', :abbreviation=>'EDS')
+se = Area.find_by_name("St. Edwards") || Area.create(:name=>'St. Edwards', :abbreviation=>'SE')
+sy = Area.find_by_name("Saint Yons Hall") || Area.create(:name=>'Saint Yons Hall', :abbreviation=>'SY')
 
 
 # Create building
@@ -171,20 +172,20 @@ Building.find_by_name("Saint Thomas More Chapel") || Building.create(:name=>'Sai
 Building.find_by_name("St. Yons Valley/X-Country Trails") || Building.create(:name=>'St. Yons Valley/X-Country Trails', :abbreviation=>'XCT', :area_id=>na.id)
 Building.find_by_name("Intramural Fields") || Building.create(:name=>'Intramural Fields', :abbreviation=>'INTF', :area_id=>na.id)
 Building.find_by_name("Michael H. Toner Student Center") || Building.create(:name=>'Michael H. Toner Student Center', :abbreviation=>'TON', :area_id=>na.id)
-Building.find_by_name("Skemp Hall") || Building.create(:name=>'Skemp Hall', :abbreviation=>'SK', :area_id=>hesk.id, :is_residence=>true)
-Building.find_by_name("Heffron Hall") || Building.create(:name=>'Heffron Hall', :abbreviation=>'HE', :area_id=>hesk.id, :is_residence=>true)
+Building.find_by_name("Skemp Hall") || Building.create(:name=>'Skemp Hall', :abbreviation=>'SK', :area_id=>skhe.id, :is_residence=>true)
+Building.find_by_name("Heffron Hall") || Building.create(:name=>'Heffron Hall', :abbreviation=>'HE', :area_id=>skhe.id, :is_residence=>true)
 Building.find_by_name("LaSalle Hall") || Building.create(:name=>'LaSalle Hall', :abbreviation=>'LS', :area_id=>ls.id, :is_residence=>true)
-Building.find_by_name("St. Edwards Hall") || Building.create(:name=>'St. Edwards Hall', :abbreviation=>'SE', :area_id=>eds.id, :is_residence=>true)
-Building.find_by_name("Watters Hall") || Building.create(:name=>'Watters Hall', :abbreviation=>'WT', :area_id=>wek.id, :is_residence=>true)
-Building.find_by_name("Ek Family Village") || Building.create(:name=>'Ek Family Village', :abbreviation=>'EV', :area_id=>wek.id, :is_residence=>true)
-Building.find_by_name("Residencia Santiago Miller") || Building.create(:name=>'Residencia Santiago Miller', :abbreviation=>'RSM', :area_id=>rsmb.id, :is_residence=>true)
-Building.find_by_name("Brother Leopold Hall") || Building.create(:name=>'Brother Leopold Hall', :abbreviation=>'BRO', :area_id=>rsmb.id, :is_residence=>true)
-Building.find_by_name("Gilmore Creek Hall") || Building.create(:name=>'Gilmore Creek Hall', :abbreviation=>'GC', :area_id=>hgc.id, :is_residence=>true)
-Building.find_by_name("St. Benilde Hall") || Building.create(:name=>'St. Benilde Hall', :abbreviation=>'BN', :area_id=>bny.id, :is_residence=>true)
-Building.find_by_name("St. Yons Hall") || Building.create(:name=>'St. Yons Hall', :abbreviation=>'SY', :area_id=>bny.id, :is_residence=>true)
-Building.find_by_name("St. Josephs Hall") || Building.create(:name=>'St. Josephs Hall', :abbreviation=>'STJO', :area_id=>jp.id, :is_residence=>true)
-Building.find_by_name("The Pines Hall") || Building.create(:name=>'The Pines Hall', :abbreviation=>'PI', :area_id=>jp.id, :is_residence=>true)
-Building.find_by_name("Hillside Hall") || Building.create(:name=>'Hillside Hall', :abbreviation=>'HI', :area_id=>hgc.id, :is_residence=>true)
+Building.find_by_name("St. Edwards Hall") || Building.create(:name=>'St. Edwards Hall', :abbreviation=>'SE', :area_id=>se.id, :is_residence=>true)
+Building.find_by_name("Watters Hall") || Building.create(:name=>'Watters Hall', :abbreviation=>'WT', :area_id=>willages.id, :is_residence=>true)
+Building.find_by_name("Ek Family Village") || Building.create(:name=>'Ek Family Village', :abbreviation=>'EV', :area_id=>willages.id, :is_residence=>true)
+Building.find_by_name("Residencia Santiago Miller") || Building.create(:name=>'Residencia Santiago Miller', :abbreviation=>'RSM', :area_id=>blrsm.id, :is_residence=>true)
+Building.find_by_name("Brother Leopold Hall") || Building.create(:name=>'Brother Leopold Hall', :abbreviation=>'BRO', :area_id=>blrsm.id, :is_residence=>true)
+Building.find_by_name("Gilmore Creek Hall") || Building.create(:name=>'Gilmore Creek Hall', :abbreviation=>'GC', :area_id=>higc.id, :is_residence=>true)
+Building.find_by_name("St. Benilde Hall") || Building.create(:name=>'St. Benilde Hall', :abbreviation=>'BN', :area_id=>bn.id, :is_residence=>true)
+Building.find_by_name("St. Yons Hall") || Building.create(:name=>'St. Yons Hall', :abbreviation=>'SY', :area_id=>sy.id, :is_residence=>true)
+Building.find_by_name("St. Josephs Hall") || Building.create(:name=>'St. Josephs Hall', :abbreviation=>'STJO', :area_id=>stjopi.id, :is_residence=>true)
+Building.find_by_name("The Pines Hall") || Building.create(:name=>'The Pines Hall', :abbreviation=>'PI', :area_id=>stjopi.id, :is_residence=>true)
+Building.find_by_name("Hillside Hall") || Building.create(:name=>'Hillside Hall', :abbreviation=>'HI', :area_id=>higc.id, :is_residence=>true)
 Building.find_by_name("My Building Hall") || Building.create(:name=>'My Building', :abbreviation=>'MYB', :area_id=>na.id)
 
 
@@ -198,7 +199,7 @@ root = Staff.find_by_email("radar-admin@smumn.edu") ||
 			 :last_name => "user",
 		         :active => true)
 
-StaffOrganization.create!(:staff_id => root.id, :access_level_id => root_al.id)
+#StaffOrganization.create!(:staff_id => root.id, :access_level_id => root_al.id)
 
 # create system admin for ASC
 puts "creating ACS admin"

@@ -23,6 +23,7 @@ class Ability
     else
       # this user does not belong to an organization and is super-user
       can :manage, :all
+      cannot :do, Shift
     end
   end
 
