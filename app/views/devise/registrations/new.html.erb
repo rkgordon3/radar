@@ -1,4 +1,28 @@
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<script>
+function type(obj){
+    return Object.prototype.toString.call(obj).match(/^\[object (.*)\]$/)[1]
+}
+
+function validate(e) { 
+  var boxes = $$('#staff_org_');
+  var checked_count = 0;
+
+  for (i =0; i < boxes.size(); i++) {
+       if (boxes[i].checked) {
+         checked_count++;
+       }
+  }
+  if (checked_count < 1) {
+       $$('label[for="staff_org_"]')[0].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+       e.stop();
+  }
+}
+Event.observe(window, 'load', function() {
+   Event.observe('staff_new', 'submit', validate);
+});
+
+</script>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :onSubmit=>"validate(this);" ) do |f| %>
   <%= devise_error_messages! %>
 <div class="form_header"><%= t :new_staff %></div>
 <%= hidden_field_tag "staff[active]",  "true" %>
