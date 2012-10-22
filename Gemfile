@@ -8,11 +8,11 @@ gem 'nifty-generators'
 gem 'devise'
 gem 'whenever'
 gem 'cancan'
-#group :production do
-#  gem 'ruby-oci8', '>= 2.0.4'
-#  gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
-#  gem 'ruby-plsql'
-#end
+group :production do
+  gem 'ruby-oci8', '>= 2.0.4'
+  gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
+  gem 'ruby-plsql'
+end
 gem 'will_paginate', '~> 3.0.pre4'
 
 gem 'mongrel', '1.2.0.pre2'
