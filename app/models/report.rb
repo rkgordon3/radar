@@ -2,6 +2,11 @@ class Report < ActiveRecord::Base
   belongs_to  		:staff
   belongs_to    	:building
   belongs_to		:organization
+
+ # belongs_to		:report, :as => :parent
+  belongs_to		:parent, :class_name => "Report", :foreign_key => :parent_id
+  has_many 		:associated_reports, :class_name => "Report", :foreign_key => :parent_id
+
   has_many      	:forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
   has_many     		:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_many		    :report_participant_relationships

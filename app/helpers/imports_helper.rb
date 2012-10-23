@@ -72,7 +72,7 @@ module ImportsHelper
 
 		# Create/update a student from an array 
 		def self.build_student_params(line)
-			#puts ("Student line: " + line[0])
+			puts ("build_student_params : " + line[0])
 			if !is_legal_id?(line[STUDENT_ID_INDEX]) 
 				raise ArgumentError, "IMPORT Bad ID #{line[STUDENT_ID_INDEX]}"
 			end
@@ -130,7 +130,11 @@ module ImportsHelper
 			params["affiliation"] = CLIENT_AFFILIATION_TAG
 			
 			# id, url
-			update_url(params["student_id"], line[IMAGE_URL_INDEX])
+			begin
+			 update_url(params["student_id"], line[IMAGE_URL_INDEX])
+			rescue => e
+			 puts e.backtrace.join("\n")
+			end
 		   
 			if not line[EMAIL_INDEX].nil?
 				params["email"] = line[EMAIL_INDEX]
@@ -143,27 +147,30 @@ module ImportsHelper
 		
 		def self.deactivate_student(params)
 			student = Student.where(:student_id => params["student_id"]).first
-      puts " FOUND #{student.student_id}"  unless student.nil?
+			puts " FOUND #{student.student_id}"  unless student.nil?
 			if not student.nil?
 			  
 				student.is_active = false
-        student.affiliation = "Former Student"
-        student.building_id = nil
-        student.room_number = nil
-        student.extension = nil
-        student.classification = nil
+				student.affiliation = "Former Student"
+				student.building_id = nil
+				student.room_number = nil
+				student.extension = nil
+				student.classification = nil
 				student.save
-      end
+			end
 			student
 		end
 		# create/update student from params hash
 		def self.update_student(params)
+			puts "entry update_student " + params["student_id"]
 			student = Student.where(:student_id => params["student_id"]).first
 			if not student.nil?  
+				puts "update_student: updating student " + params["student_id"]
 				raise "Error updating #{params[:student_id]}" if !student.update_attributes(params)
 				
 				@@update_count += 1
 			else 
+				puts "update_student could not find: " + params["student_id"]
 				raise "Error creating #{params[:student_id]}" if Student.create(params).nil? 
 				@@new_count += 1
 			end
@@ -177,12 +184,12 @@ module ImportsHelper
 	# Returns number of successful imports
 	def ImportsHelper.load_students(lines)
 		reset
-    log = File.new("import.log", "a")
+		log = File.new("import.log", "a")
 		log.puts "**************Import logging session started at #{Time.now} "
 		lines.each do |line|
-      log.puts "Processing #{line}"
+		log.puts "Processing #{line}"
 			begin 
-        raise  "Empty record" if line.nil? || line.empty?
+				raise  "Empty record" if line.nil? || line.empty?
 				params = Helpers.build_student_params(line)
 				Helpers.update_student(params)
 				@@successful_lines += 1				
@@ -190,7 +197,7 @@ module ImportsHelper
 				Helpers.add_error_message( "Record #{@@record_cnt} : #{$!}")
 			end
 			@@record_cnt += 1
-      print "."
+		print "."
 		end
     puts
 		@@successful_lines
@@ -210,13 +217,17 @@ module ImportsHelper
   def ImportsHelper.mail_load_results(load_results)
     message = load_results + "\n" + ImportsHelper::Helpers.stats
     message = message + "\n" + "ERROR MESSAGES:"
-		message = message + "\n" + ImportsHelper::Helpers.error_messages.join("\n")
+	message = message + "\n" + ImportsHelper::Helpers.error_messages.join("\n")
 
     begin
       RadarMailer.generic_mail("RADAR Import Results", message, system_status_email).deliver
     rescue => e
-      puts e.backtrace.join("\n")
+	  puts e.backtrace.join("\n")
       puts "Failed to send mail #{$!}"
+	  puts "************************"
+	  puts message
+	  puts "************************"
+
     end
   end
 	

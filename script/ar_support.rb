@@ -25,6 +25,7 @@ configurations = YAML::load(File.open("../config/database.yml"))
 database=nil
 
 if ["development","production","test"].include?(ARGV.first)
+
   database = configurations[ARGV.first]
 else
   database = configurations["development"]

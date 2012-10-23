@@ -83,13 +83,17 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
 
 }
 
+.new_building_shade {   background-color:#99ccff; } 
+
 .detail_label {   font-style: italic; }
 
 .show_label {  font-weight: bold; }
 
 .underage { color:#CC3333; }
 
-.error-message {  font-size:10px; color:#aa0000; }
+.error-message {  display:block; font-size:10px; color:#aa0000; }
+
+.validation-hide { display:none; font-size:10px; color:#aa0000; }
 
 .error-label { font-weight:bold; font-size:14px; color:#ff0000; }
 

@@ -1,4 +1,4 @@
-<%= label_tag "Authorizations" %>
+<%= label_tag "Authorizations" %> <%= label_tag "staff[org][]", "You must select an organization", :class=>"validation-hide" %>
  
 <% Organization.all.each do |org| -%>
 	<% al = staff.role_in(org) %>

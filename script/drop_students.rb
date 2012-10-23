@@ -1,7 +1,13 @@
 $LOAD_PATH << "."
-require "ar_support"
+if ARGV.length !=1 
+  puts "You must provide a CSV file name for this script"
+  exit
+end
 
-lines = ImportsHelper.parse_csv_file(File.expand_path("./shradarwdraw.csv"))
+require File.join(File.dirname(__FILE__), "..", "config", "boot")
+require File.join(File.dirname(__FILE__), "..", "config", "environment")
+
+lines = ImportsHelper.parse_csv_file(File.expand_path(ARGV[0]))
 lines.shift
 print "Process #{lines.size} drop records"
 scnt = ImportsHelper.deactivate_students(lines)

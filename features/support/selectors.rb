@@ -37,3 +37,7 @@ module HtmlSelectorsHelpers
 end
 
 World(HtmlSelectorsHelpers)
+
+Capybara.add_selector(:submenu) do |submenu |
+  xpath { | submenu| "//div[@class='menu']/ul/li/ul/li/a[text()='#{submenu}']" }
+end

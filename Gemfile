@@ -9,10 +9,11 @@ gem 'devise'
 gem 'whenever'
 gem 'cancan'
 group :production do
-  gem 'ruby-oci8', '>= 2.0.4'
-  gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0'
-  gem 'ruby-plsql'
+  gem 'ruby-oci8', '2.0.6'
+  gem 'activerecord-oracle_enhanced-adapter', '1.3.2'
+  gem 'ruby-plsql', '0.4.4'
 end
+
 gem 'will_paginate', '~> 3.0.pre4'
 
 gem 'mongrel', '1.2.0.pre2'
@@ -51,11 +52,11 @@ gem 'sqlite3'
 #   gem 'webrat'
 # end
 
-#group :test do
-#  gem 'capybara'
-#  gem 'cucumber-rails'
-#  gem 'rspec-rails', '>= 2.0.0.beta.12'
-#  gem 'factory_girl'
+group :test do
+	gem 'cucumber-rails', '1.2.1'
+	gem 'rspec-rails', '2.7.0'
+	gem 'database_cleaner', '0.7.0'
+	gem 'factory_girl', '2.3.2'
+    gem 'capybara'
 #  gem 'mongoid-rspec', :require => false
-#  gem 'database_cleaner'
-#end
+end

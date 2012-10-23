@@ -11,6 +11,6 @@ begin
 DUTY_LOG_LEVELS = level_ids_from_names(['Resident Assistant','Staff'])
 CALL_LOG_LEVELS = level_ids_from_names(['Hall Director', 'Supervisor'])
 rescue
-  puts "Can not load the log levels before they have been initialized."
+  puts 'WARNING: Can not create log level records before database created'
 end
 

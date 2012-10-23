@@ -7,7 +7,7 @@
     <th></th>
   </table>
   <% is_shaded = 0 %>
-  <%= render :partial => 'new_generic', :locals => {:is_shaded => is_shaded}%>
+  <%= render :partial => 'new_generic'%>
   <% buildings.each do |building| %>
     <% if is_shaded == 0 %>
       <% row_style = "class='shaded'" %>

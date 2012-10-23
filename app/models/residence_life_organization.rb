@@ -57,6 +57,8 @@ class ResidenceLifeOrganization < Organization
     ability.can :manage, NotificationPreference
 	ability.can :update_preferences, Staff, :staff_id => staff.id
     ability.can :assign, Area
+
+    ability.cannot :do, Staff
   end
   
   def administrator(ability, staff)
@@ -219,5 +221,5 @@ class ResidenceLifeOrganization < Organization
     ability.can [:show], [MaintenanceReport, Note], {:staff_id => staff.id }
     ability.can [:show], IncidentReport, { :staff_id => staff.id, :submitted  => false }
   end
-			
+
 end
