@@ -387,7 +387,12 @@ class ReportsController < ApplicationController
     @reports = @reports.preferred_order(current_staff).paginate(:page => params[:page], :per_page => INDEX_PAGE_SIZE)
 
     respond_to do |format|
-      format.js { redirect_to({:action => "index",:div_id => 'results', :referrer => "search", :reports => all_reports, :page => params[:page] })}
+      format.js { redirect_to({ :protocol => Rails.env.production? ? "https://" : "http://", 
+			       :action => "index",
+                               :div_id => 'results', 
+                               :referrer => "search", 
+                               :reports => all_reports, 
+                               :page => params[:page] })}
     end
   end
   
