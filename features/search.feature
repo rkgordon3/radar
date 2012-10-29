@@ -4,9 +4,10 @@ Feature: search
 
   Background:
      Given a user "TestUser@smumn.edu" with password "password" exists as role "HallDirector" in "Residence Life" organization
-     And "TestUser@smumn.edu" with is logged in with password "password" and viewing landing page
+     And "TestUser@smumn.edu" is logged in with password "password"
 
   Scenario: visit search
-        And I follow link "List Incident Report"
-	And I am viewing page entitled "Report Search"
+	And User is viewing page entitled "Unsubmitted Reports"
+        And User follows link "List Incident Report"
+	And User is viewing page entitled "Report Search"
 

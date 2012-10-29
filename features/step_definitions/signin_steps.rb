@@ -14,30 +14,6 @@ Given /^a user "(.*?)" with password "(.*?)" exists as role "(.*?)" in "(.*?)" o
   
 end
 
-Given /^I have visited signin page$/ do
-  visit(Capybara.app_host)
-  find_link("Sign In").visible?
-end
-
-Given /^I have clicked signin link$/ do
-  click_link("Sign In")
-end
-
-Then /^I am on login page$/ do
-  page.should have_selector(:xpath, "//form[@id='staff_new']")
-  page.should have_selector(:xpath, "//form//label[@for='staff_email']")
-  page.should have_selector(:xpath, "//form//label[@for='staff_password']")
-end
-
-
-Then /^I enter credentials for "(.*?)"$/ do |user|
-  fill_in "staff[email]", :with => user
-  fill_in "staff[password]", :with => "password"
-end
-
-When /^I click login$/ do
-  click_button("Sign in")
-end
 
 Then /^I should be on landing page for "(.*?)"$/ do |user| 
   user = Staff.find_by_email(user.downcase)
@@ -61,7 +37,7 @@ Then /^there is a submenu "(.*?)"$/ do |submenu|
   page.has_selector?(:submenu, submenu)
 end
 
-Given /^"(.*?)" with is logged in with password "(.*?)" and viewing landing page$/ do |username, password|
+Given /^"(.*?)" is logged in with password "(.*?)"$/ do |username, password|
    visit_radar_signin
    login username, password
 end

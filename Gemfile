@@ -5,7 +5,7 @@ gem 'composite_primary_keys', '=3.1.0'
 gem 'rails3-jquery-autocomplete', '=0.6.1'
 
 gem 'nifty-generators'
-gem 'devise'
+gem 'devise', '1.1.7'
 gem 'whenever'
 gem 'cancan'
 group :production do
@@ -57,6 +57,6 @@ group :test do
 	gem 'rspec-rails', '2.7.0'
 	gem 'database_cleaner', '0.7.0'
 	gem 'factory_girl', '2.3.2'
-    gem 'capybara'
+        gem 'capybara'
 #  gem 'mongoid-rspec', :require => false
 end
