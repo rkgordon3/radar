@@ -3,17 +3,37 @@ function type(obj){
     return Object.prototype.toString.call(obj).match(/^\[object (.*)\]$/)[1]
 }
 
+function reset_field(input) {
+  if (input.value != "") {
+       $$("label[for=" + input.id + "]")[1].setStyle({ display:'none' });
+  }
+}
+
 function validate(e) { 
+  var fields = $$('div.field input');
   var boxes = $$('#staff_org_');
+  var empty_fields = 0;
   var checked_count = 0;
 
-  for (i =0; i < boxes.size(); i++) {
+
+  for (i = 0; i < fields.size() - 2; i++) {
+       if(fields[i].value == "") {
+            empty_fields++;
+            $$("label[for=" + fields[i].id + "]")[1].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+       }
+  }
+
+  for (i = 0; i < boxes.size(); i++) {
        if (boxes[i].checked) {
          checked_count++;
        }
   }
+
   if (checked_count < 1) {
        $$('label[for="staff_org_"]')[0].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+  }
+
+  if (checked_count < 1||empty_fields > 0) {
        e.stop();
   }
 }
@@ -27,20 +47,20 @@ Event.observe(window, 'load', function() {
 <div class="form_header"><%= t :new_staff %></div>
 <%= hidden_field_tag "staff[active]",  "true" %>
   <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+    <%= f.label :first_name %> <br /> <%= label_tag "staff[first_name]", "You must enter your first name", :class=>"validation-hide" %>
+    <%= f.text_field :first_name, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+    <%= f.label :last_name %> <br /> <%= label_tag "staff[last_name]", "You must enter your last name", :class=>"validation-hide" %>
+    <%= f.text_field :last_name, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.label :email %> <br /> <%= label_tag "staff[email]", "You must enter your email address", :class=>"validation-hide" %>
+    <%= f.text_field :email, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.label :password %> <br /> <%= label_tag "staff[password]", "You must enter a password", :class=>"validation-hide" %>
+    <%= f.password_field :password, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
     <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>
