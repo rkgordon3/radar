@@ -38,6 +38,11 @@ function doubleDivToggle(divID1,divID2) {
     }
 }
 
+function reset_box(input) {
+  if (input.checked) {
+       $$("label[for=" + input.id + "]")[0].setStyle({ display:'none' }); 
+  }
+}
 
 function hideDiv(divID){
     document.getElementById(divID).setAttribute("style", "display:none");

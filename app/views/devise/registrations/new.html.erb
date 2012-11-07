@@ -3,6 +3,7 @@ function type(obj){
     return Object.prototype.toString.call(obj).match(/^\[object (.*)\]$/)[1]
 }
 
+
 function reset_field(input) {
   if (input.value != "") {
        $$("label[for=" + input.id + "]")[1].setStyle({ display:'none' });
@@ -14,13 +15,20 @@ function validate(e) {
   var boxes = $$('#staff_org_');
   var empty_fields = 0;
   var checked_count = 0;
-
+  var password_checked = false;
 
   for (i = 0; i < fields.size() - 2; i++) {
        if(fields[i].value == "") {
             empty_fields++;
             $$("label[for=" + fields[i].id + "]")[1].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
        }
+  }
+
+  if (fields[fields.size() - 3].value != fields[fields.size() - 4].value) {
+       $$("label[for=" + fields[fields.size() - 3].id + "]")[2].setStyle({ display:'block', fontSize:'10px', color:'#aa0000' });
+  } else {
+       password_checked = true;
+       $$("label[for=" + fields[fields.size() - 3].id + "]")[2].setStyle({ display:'none' });
   }
 
   for (i = 0; i < boxes.size(); i++) {
@@ -33,7 +41,7 @@ function validate(e) {
        $$('label[for="staff_org_"]')[0].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
   }
 
-  if (checked_count < 1||empty_fields > 0) {
+  if (checked_count < 1 || empty_fields > 0 || password_checked == false) {
        e.stop();
   }
 }
@@ -62,6 +70,10 @@ Event.observe(window, 'load', function() {
     <%= f.label :password %> <br /> <%= label_tag "staff[password]", "You must enter a password", :class=>"validation-hide" %>
     <%= f.password_field :password, :onblur=>"reset_field(this)" %>
   </div>
+  <div class="field">
+    <%= f.label :password_confirmation %> <br /> <%= label_tag "staff[password_confirmation]", "You must reenter in your password", :class=>"validation-hide" %> <%= label_tag "staff[password_confirmation]", "PASSWORD DOES NOT MATCH", :class=>"validation-hide" %>
+    <%= f.password_field :password_confirmation, :onblur=>"reset_field(this)" %>
+  </div> 
   <div class="field">
     <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>
   </div>

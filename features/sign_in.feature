@@ -1,17 +1,14 @@
+@sign-in
 Feature: sign in
   In order to access the landing page
   As a user of RADAR
   I want to sign in
 
   Background:
-     Given a user "TestUser@smumn.edu" exists as role "HallDirector" in "Residence Life" organization
-
+     Given a user "TestUser@smumn.edu" with password "password" exists as role "HallDirector" in "Residence Life" organization
+     And "TestUser@smumn.edu" is logged in with password "password"
   Scenario: visit login page
-    Given I have visited signin page
-    And I have clicked signin link
-    Then I am on login page
-    And I enter credentials for "TestUser@smumn.edu"
-    When I click login
+    And  User is viewing page entitled "Unsubmitted Reports"
     Then I should be on landing page for "TestUser@smumn.edu"
     And the following selections should be visible
        	|selection|
@@ -24,3 +21,5 @@ Feature: sign in
 	| Manage |
     And there is a submenu "Manage Staff Members"
        
+
+           
