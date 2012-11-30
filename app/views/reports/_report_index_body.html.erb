@@ -61,7 +61,9 @@
             <%= report.room_number %>
           </div>
         </td>
-
+	<td>
+	  <%= link_to 'Delete', report, :confirm => 'Are you sure?' %>
+	<td>
 
 
         <% if report.forwardable? %>
