@@ -3,7 +3,8 @@ Gemfile.lock
 db/*.sqlite3
 log/*.log
 tmp/**/*
-
+routes.out
+*.swp
 /.project
 /nbproject/private/private.properties
 /nbproject/private/rake-d.txt

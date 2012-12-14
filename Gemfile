@@ -5,14 +5,14 @@ gem 'composite_primary_keys', '=3.1.0'
 gem 'rails3-jquery-autocomplete', '=0.6.1'
 
 gem 'nifty-generators'
-gem 'devise'
+gem 'devise', '1.1.7'
 gem 'whenever'
 gem 'cancan'
-group :production do
-  gem 'ruby-oci8', '2.0.6'
-  gem 'activerecord-oracle_enhanced-adapter', '1.3.2'
-  gem 'ruby-plsql', '0.4.4'
-end
+#group :production do
+#  gem 'ruby-oci8', '2.0.6'
+#  gem 'activerecord-oracle_enhanced-adapter', '1.3.2'
+#  gem 'ruby-plsql', '0.4.4'
+#end
 
 gem 'will_paginate', '~> 3.0.pre4'
 
@@ -57,6 +57,6 @@ group :test do
 	gem 'rspec-rails', '2.7.0'
 	gem 'database_cleaner', '0.7.0'
 	gem 'factory_girl', '2.3.2'
-    gem 'capybara'
+        gem 'capybara'
 #  gem 'mongoid-rspec', :require => false
 end
