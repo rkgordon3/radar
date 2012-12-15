@@ -163,6 +163,10 @@ class Staff < ActiveRecord::Base
     super(staff)
   end
   
+  def assigned_area
+	self.staff_areas.first.area 
+  end
+  
   
   	# This is absolutely a kludge to compensate for poorly designed (rkg takes full responsibility)
 	# associations between staff, org and access_level. The relationships between these models has

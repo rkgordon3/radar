@@ -74,3 +74,56 @@ Ajax.Responders.register({
             });
     }
 });
+
+
+function type(obj){
+    return Object.prototype.toString.call(obj).match(/^\[object (.*)\]$/)[1]
+}
+
+
+function reset_field(input) {
+  if (input.value != "") {
+       $$("label[for=" + input.id + "]")[1].setStyle({ display:'none' });
+  }
+}
+
+function staff_form_validate(e) { 
+  var fields = $$('div.field input');
+  var boxes = $$('#staff_org_');
+  var empty_fields = 0;
+  var checked_count = 0;
+  var password_checked = false;
+
+  for (i = 0; i < fields.size() - 2; i++) {
+       if(fields[i].value == "") {
+            empty_fields++;
+            $$("label[for=" + fields[i].id + "]")[1].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+       }
+  }
+
+  if ( $("staff_password").value != $("staff_password_confirmation").value) {;
+	  $$("label[for=staff_password_confirmation]")[2].setStyle({ display:'block', fontSize:'10px', color:'#aa0000' });
+  } else if ($("staff_password").value != "") {
+      password_checked = true;
+      $$("label[for=staff_password_confirmation]")[2].setStyle({ display:'none' });
+  }
+  
+  for (i = 0; i < boxes.size(); i++) {
+       if (boxes[i].checked) {
+         checked_count++;
+       }
+  }
+
+  if (checked_count < 1) {
+       $$('label[for="staff_org_"]')[0].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+  }
+
+  if (checked_count < 1 || empty_fields > 0 || password_checked == false) {
+       e.stop();
+  }
+}
+Event.observe(window, 'load', function() {
+   Event.observe('staff_form', 'submit', staff_form_validate);
+});
+
+
