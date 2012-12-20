@@ -1,10 +1,4 @@
 <%= label_tag "Authorizations" %> <%= label_tag "staff[org][]", "You must select an organization", :class=>"validation-hide" %>
- 
-<% Organization.all.each do |org| -%>
-	<% al = staff.role_in(org) %>
-	<div class="field"  style="display:<%= (can? :register, org) ? "block" : "none" %>;" >
-		<%= check_box_tag  "staff[org][]", "#{org.id}", (not al.nil?), :onclick=>"reset_box(this)" -%><%= select_tag "staff[authorization][#{org.id}]",
-					options_from_collection_for_select(AccessLevelsHelper::assignable_by(current_ability), "id", "display_name",  (al.nil? ? 1 : al.id) ) -%>
-					in <%= label_tag org.display_name  -%>
-	</div>
-<% end -%>
+<%= authorization_select_tag(staff) %>
+
+

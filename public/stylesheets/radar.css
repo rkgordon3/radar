@@ -89,6 +89,8 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
 
 .show_label {  font-weight: bold; }
 
+.alert_label { color:#ff0000; }
+
 .underage { color:#CC3333; }
 
 .error-message {  display:block; font-size:10px; color:#aa0000; }

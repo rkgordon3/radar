@@ -22,4 +22,29 @@ module StaffsHelper
 	#nd
 	 out.html_safe
   end
+  
+  def update_password_tag(options={})
+    out = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+	out += label_tag("Update Password?", nil,options.reverse_merge(:class=>'alert_label'))
+    out +=	check_box "update_password", nil, :checked=>"checked", :id=>"update_password", :onclick=>"reset_password_fields(this);"
+	out.html_safe
+  end
+  
+  def authorization_select_tag(staff)
+    out = ""
+    Organization.all.each do |org|
+	  role = staff.role_in(org)
+	  opts = { :onclick=>"reset_box(this);" } 
+	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 
+	  assignable = AccessLevelsHelper::assignable_by(current_ability) 
+	  display = (can?(:register, org) || staff.organizations.include?(org)) ? "block;" : "none;"
+	  out += "<div class='field'  style='display:" + display +"' >"
+	  out += check_box_tag( "staff[org][]", "#{org.id}", (not role.nil?),opts )
+	  out += select_tag("staff[authorization][#{org.id}]",
+					options_from_collection_for_select(assignable, "id", "display_name",  (role.nil? ? 1 : role.id) ), opts )
+	  out += " in #{label_tag org.display_name}"
+	  out += "</div>"
+    end
+	out.html_safe
+  end
 end

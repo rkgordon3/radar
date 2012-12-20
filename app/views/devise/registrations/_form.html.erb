@@ -15,12 +15,12 @@
     <%= f.text_field :email, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
-    <%= f.label :password %> <br /> <%= label_tag "staff[password]", "You must enter a password", :class=>"validation-hide" %>
-    <%= f.password_field :password, :onblur=>"reset_field(this)" %>
+    <%= f.label :password %> <%= update_password_tag if controller.action_name == "edit" %><br /> <%= label_tag "staff[password]", "You must enter a password", :class=>"validation-hide" %>
+    <%= f.password_field  :password, :onblur=>"reset_field(this)" %>
   </div>
   <div class="field">
     <%= f.label :password_confirmation %> <br /> <%= label_tag "staff[password_confirmation]", "You must reenter your password", :class=>"validation-hide" %> <%= label_tag "staff[password_confirmation]", "Password does not match", :class=>"validation-hide" %>
-    <%= f.password_field :password_confirmation, :onblur=>"reset_field(this)" %>
+    <%= f.password_field  :password_confirmation, :onblur=>"reset_field(this)" %>
   </div> 
   <div class="field">
     <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>

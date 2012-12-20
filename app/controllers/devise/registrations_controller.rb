@@ -17,7 +17,7 @@ class Devise::RegistrationsController < ApplicationController
     build_resource
 
     if resource.save
-	# This is absolutelyl a kludge to compensate for poorly designed (rkg takes full responsibility)
+	# This is absolutely a kludge to compensate for poorly designed (rkg takes full responsibility)
 	# associations between staff, org and access_level. The relationships between these models has
 	# to be re-thunk.
 	  resource.handle_authorization_params(resource.id, params[resource_name])
