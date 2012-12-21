@@ -35,8 +35,18 @@ module StaffsHelper
     Organization.all.each do |org|
 	  role = staff.role_in(org)
 	  opts = { :onclick=>"reset_box(this);" } 
+	  # Disable components if current user can not 'register' users
+	  # in org.
 	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 
-	  assignable = AccessLevelsHelper::assignable_by(current_ability) 
+	  assignable = AccessLevelsHelper::assignable_by(current_ability)
+	  # Always place access level of staff into menu so that menu 
+	  # is not blank. 
+	  assignable << role unless (role.nil? || assignable.include?(role))
+	  # Display menu if current user can register in this org OR
+	  # if staff (being displayed) is in current org. In latter case,
+	  # unless staff can edit authorizations, menu/check box is disabled,
+	  # preventing modification (but preserving values in request to 
+	  # accommodate controller expectations.
 	  display = (can?(:register, org) || staff.organizations.include?(org)) ? "block;" : "none;"
 	  out += "<div class='field'  style='display:" + display +"' >"
 	  out += check_box_tag( "staff[org][]", "#{org.id}", (not role.nil?),opts )

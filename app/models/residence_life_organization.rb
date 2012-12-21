@@ -46,7 +46,7 @@ class ResidenceLifeOrganization < Organization
     ability.can [:create, :update, :destroy, :update_area], Staff,
       {
       :organizations => { :id => self.id },
-      :access_levels => {:name => ["Administrator", "AdministrativeAssistant", "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp"]}
+      :access_levels => {:name => ["Administrator", "AdministrativeAssistant",  "Supervisor", "Staff", "CampusSafety", "CampusSafetyTemp"]}
     }
 	
 	ability.can [:list_RA_duty_logs, :list_HD_call_logs], Shift
@@ -70,9 +70,9 @@ class ResidenceLifeOrganization < Organization
 	# Staff
     # Can c/u/d HD and RA in my org. These levels to be deprecated.
     ability.can [:create, :update, :destroy], Staff,
-      {
-      :organizations => { :id => self.id },
-      :access_levels => {:name => ["HallDirector", "ResidentAssistant"]}
+    {
+	    :access_levels => {:name => ["HallDirector", "ResidentAssistant"]},
+        :organizations => { :id => self.id },
     }
     # Can c/u/d admin asst, supervisor and staff for my org.
     ability.can [:create, :update, :destroy], Staff,
@@ -97,7 +97,10 @@ class ResidenceLifeOrganization < Organization
 
     ability.can [:pdf, :show, :forward], Report, { :type => MY_REPORT_TYPES }
 	
-	ability.can [:update, :show], Staff, { :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , :organizations => { :id => self.id } }
+	ability.can [:update, :show], Staff, { 
+	  :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , 
+	  :organizations => { :id => self.id } 
+	}
 
     ability.can :read, ReportParticipantRelationship, { :report => {:type => MY_REPORT_TYPES} }
 	# Notification Preferences
@@ -149,7 +152,10 @@ class ResidenceLifeOrganization < Organization
 	# Participant
     ability.can [:view_contact_info, :view_contact_history], Participant
 	# Staff
-    ability.can [:update, :show], Staff, { :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , :organizations => { :id => self.id } }
+    ability.can [:update, :show], Staff, { 
+	  :access_levels => {:name => [ "ResidentAssistant", "Staff" ]} , 
+	  :organizations => { :id => self.id } 
+	}
 	# Notification Preferences
 	# Both of these abilities are needs to update a user's notification preferences.
 	# NOTE: This is not  quite right, to have to have ability to two controllers for a single task!
