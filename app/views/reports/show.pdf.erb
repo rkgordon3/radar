@@ -114,14 +114,14 @@
                 <div class="contact_history" >
 					<b><%= t :contact_history %></b>
 					<div id="history_div_<%= p.id %>" >
-						<div style="margin-left: 15px;">
+						<div style="margin-left: 10px;">
 							<table cellspacing="0" cellpadding="0">
 								<% history.each  do |h| -%>
 									<tr>
 										<span class="contact_history_item">
 										<td><b><%=  h.report.tag %></b></td>
-										<td><%= h.date %></td>
-										<td><%= h.reason %></td>
+										<td><%= h.date.to_s(:short_date_only) rescue unknown %></td>
+										<td><%= h.reasons.join(", ") %></td>
 										</span>
 									</tr>
 								<% end -%>

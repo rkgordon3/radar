@@ -14,8 +14,8 @@
 			 <tr>
 				<span class="detail_label">
 				<td><%= link_to h.report.tag,  "/#{h.report.class.name.tableize}/#{h.report.id}", :target => "blank" %></td>
-				<td><%= h.date %></td>
-				<td><%= h.reason %></td>
+				<td><%= h.date.to_s(:short_date_only) rescue unknown %></td>
+				<td><%= h.reasons.join(", ") %></td>
 				</span>
 			 </tr>
 			 <% end -%>
