@@ -117,13 +117,22 @@
 						<div style="margin-left: 10px;">
 							<table cellspacing="0" cellpadding="0">
 								<% history.each  do |h| -%>
-									<tr>
-										<span class="contact_history_item">
+								    <% reasons = h.reasons.join(", ") %>
+									<% col_width = 40 %>
+								    <span class="contact_history_item">
+									<tr>	
 										<td><b><%=  h.report.tag %></b></td>
-										<td><%= h.date.to_s(:short_date_only) rescue unknown %></td>
-										<td><%= h.reasons.join(", ") %></td>
-										</span>
+										<td align="left"><%= h.date.to_s(:short_date_only) rescue unknown %></td>
+										<% if reasons.length < col_width %>
+										    <td><%= h.reasons.join(", ") %></td>
+										<% end %>
 									</tr>
+									<% if reasons.length >= col_width %>
+									   <tr>
+									    <td colspan="2"><%= h.reasons.join(", ") %></td>	
+									  </tr>
+									<% end %>
+									</span>
 								<% end -%>
 							</table>
 
