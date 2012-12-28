@@ -149,10 +149,11 @@ class ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.xml
   def destroy
+    @report = Report.find(params[:id])
     @report.destroy
     
     respond_to do |format|
-      format.html { redirect_to(:back) }
+      format.js 
       format.xml  { head :ok }
     end
   end

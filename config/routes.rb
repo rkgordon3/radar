@@ -127,7 +127,8 @@ Radar::Application.routes.draw do
   
   resources :reports  do
 	member do
-		post :forward_as_mail
+	  post :forward_as_mail
+          delete :destroy
 	end
 	collection do
  	  get :on_duty_index
@@ -135,7 +136,7 @@ Radar::Application.routes.draw do
 	  get :remove_participant
 	  post :new_with_participants
 	  post 'search' => :search_results
-    get 'search' => :search_results
+          get 'search' => :search_results
 	end
 	
   end
