@@ -146,7 +146,7 @@ class Staff < ActiveRecord::Base
   
   def update_attributes(staff)
   logger.debug("*************** Inside update_attributes #{staff[:org]} " )
-    unless staff[:org].nil?
+    unless staff[:org].nil? || staff[:authorization].nil?
 	  # delete all existing
 	  self.access_levels.delete_all
 	  handle_authorization_params(self.id, staff)
@@ -161,6 +161,10 @@ class Staff < ActiveRecord::Base
     end
     
     super(staff)
+  end
+  
+  def assigned_area
+	self.staff_areas.first.area 
   end
   
   

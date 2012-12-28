@@ -6,4 +6,8 @@ module BuildingsHelper
   def BuildingsHelper.all_buildings
     @@all_buildings  ||= Building.all.select { |b| b != Building.unspecified}.sort
   end
+  
+  def building_div_id(building)
+    "building_#{building.id}_div".html_safe
+  end
 end

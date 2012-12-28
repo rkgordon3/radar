@@ -74,3 +74,81 @@ Ajax.Responders.register({
             });
     }
 });
+
+
+function type(obj){
+    return Object.prototype.toString.call(obj).match(/^\[object (.*)\]$/)[1]
+}
+
+
+function reset_field(input) {
+       $$("label[for=" + input.id + "]")[1].setStyle({ display:'none' });
+	   if ($$("label[for=" + input.id + "]")[2] != undefined) {
+	     $$("label[for=" + input.id + "]")[2].setStyle({ display:'none' });
+	   }
+}
+
+function reset_password_fields(input) {
+  if (!input.checked) {
+	$("staff_password").value = "";
+	$("staff_password_confirmation").value  = "";
+  }
+  reset_field($("staff_password"));
+  reset_field($("staff_password_confirmation"));
+}
+
+function update_password() {
+   return $("update_password") == undefined || $("update_password").checked == true;
+}
+function staff_form_validate(e) { 
+  var fields = $$('div.field input');
+  var boxes = $$('#staff_org_');
+  var empty_fields = 0;
+  var checked_count = 0;
+  var password_ok = false;
+
+  for (i = 0; i < fields.size() - 2; i++) {
+       if ( !update_password()) {
+	     if (fields[i] == $("staff_password") ||
+		     fields[i] == $("staff_password_confirmation")) {
+			   continue;
+		  }
+       }	   
+       if(fields[i].value == "") {
+            empty_fields++;
+            $$("label[for=" + fields[i].id + "]")[1].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+       }
+  }
+
+  
+  
+  for (i = 0; i < boxes.size(); i++) {
+       if (boxes[i].checked) {
+         checked_count++;
+       }
+  }
+
+  if ( update_password())  {
+    if ( $("staff_password").value != $("staff_password_confirmation").value) {;
+	  $$("label[for=staff_password_confirmation]")[2].setStyle({ display:'block', fontSize:'10px', color:'#aa0000' });
+    } else if ($("staff_password").value != "") {
+      password_ok = true;
+      $$("label[for=staff_password_confirmation]")[2].setStyle({ display:'none' });
+    }
+  } else {
+     password_ok = true;
+  }
+
+  if (checked_count < 1) {
+       $$('label[for="staff_org_"]')[0].setStyle({ display:'block', fontSize:'10px', color:'#aa0000'  } );
+  }
+
+  if (checked_count < 1 || empty_fields > 0 || password_ok == false) {
+       e.stop();
+  }
+}
+Event.observe(window, 'load', function() {
+   Event.observe('staff_form', 'submit', staff_form_validate);
+});
+
+

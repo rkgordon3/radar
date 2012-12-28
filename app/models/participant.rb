@@ -11,17 +11,22 @@ class Participant < ActiveRecord::Base
   def contact_history(ability, report=nil)
 
 	rp = (not report.nil?) ? report_participant_relationships.accessible_by(ability).select { |r| (r.report.type == report.type) && (r.report != report) }
-								: report_participant_relationships.accessible_by(ability)
+			           : report_participant_relationships.accessible_by(ability)
 	
-	rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
-
-    rp.collect { |rp|
-      c = ParticipantsHelper::ContactSummary.new
-      c.report = rp.report rescue unknown
-      c.date = rp.report.approach_time.to_s(:short_date_only) rescue unknown
-      c.reason = rp.reason.description rescue unknown
-      c
+	#rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
+    contacts = {}
+    rp.each { |rp|
+	  if (contacts[rp.report_id].nil?)
+        c = ParticipantsHelper::ContactSummary.new
+		contacts[rp.report_id] = c
+		c.reasons = []
+        c.report = rp.report rescue unknown
+        #c.date = rp.report.approach_time.to_s(:short_date_only) rescue unknown
+		c.date = rp.report.approach_time rescue unknown
+	  end
+      contacts[rp.report_id].reasons << rp.reason.description rescue unknown
     }
+	contacts.values.sort { |c0, c1| c0.date <=> c1.date }
   end
   
   def name
