@@ -9,8 +9,12 @@ class Participant < ActiveRecord::Base
   #returns all relationships accessible by the given ability and of the same type
   #as the report given, excluding those associated with that report specifically.
   def contact_history(ability, report=nil)
-
-	rp = (not report.nil?) ? report_participant_relationships.accessible_by(ability).select { |r| (r.report.type == report.type) && (r.report != report) }
+	# FIXME
+    # The first condition within the select block is a work-around for report_participant_relationships
+	# which are NOT associated with a report. This indicates some latent but which has not been yet
+	# understood. The test for not nil avoid an error when display the participants who appear in these
+	# bad report_participant_relationships
+	rp = (not report.nil?) ? report_participant_relationships.accessible_by(ability).select { |r| (not r.report.nil?) && (r.report.type == report.type) && (r.report != report) }
 			           : report_participant_relationships.accessible_by(ability)
 	
 	#rp.sort { |r0, r1| r0.report.approach_time <=> r1.report.approach_time } 
