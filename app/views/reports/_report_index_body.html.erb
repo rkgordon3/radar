@@ -62,19 +62,16 @@
           </div>
         </td>
 
-
-        <% if report.forwardable? %>
           <td bgcolor="white" >
             <% if report.forwarded?  %>
               <%= image_tag( "check_mark.jpg", :height=>16, :width=> 16) %>
             <% end %>
           </td>
-        <% end %>
-
-        <% if can? :destroy, report %>
-	<td>
-          <%= link_to 'Delete', report_path(report), :class => 'delete_link', :confirm => 'Are you sure that you want to delete this report?', :controller=>:reports, :method => :delete, :remote => true %>
-	<td>
+ 
+        <% if can? :destroy, report %>		  
+	      <td>
+            <%= link_to 'Delete', report_path(report), :class => 'delete_link', :confirm => 'Are you sure that you want to delete this report?', :controller=>:reports, :method => :delete, :remote => true %>
+	      <td>
         <% end %>
 
       </tr>
