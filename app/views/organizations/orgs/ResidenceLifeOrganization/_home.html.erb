@@ -22,7 +22,7 @@
   <%= link_to "Maintenance Requests", "/reports?report_type=MaintenanceReport", :class=>"menubar_link" %>
     <ul>
 	  <li><%= link_to "List Maintenence Requests", "/reports?report_type=MaintenanceReport"  %></li>
-      <% if can? :create, MaintenanceReport  %><li><%= link_to "New Maintenence Request", new_maintenance_report_path %></li><% end %> 
+      <% if can? :create, MaintenanceReport  %><li><%= link_to "New Maintenence Request", new_maintenance_report_path, :confirm=> "#{maintenance_report_warning_text}" %></li><% end %> 
     </ul>
   </li>
   <% end %>
