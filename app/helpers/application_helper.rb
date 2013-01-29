@@ -16,6 +16,8 @@ def maintenance_report_warning_text
 
 DO NOT submit a Maintenance Request involving computer, printer, or network\nissues. Instead, please call the Helpdesk at x7800 or email helpdesk@smumn.edu.
 
+For lock, lost key or keycard issues, please contact the on-call Hall Director (507-429-3780)\nfor assistance.
+
 Press Okay to submit a Maintenance Request, otherwise press Cancel.].html_safe
 end
 
