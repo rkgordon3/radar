@@ -1,0 +1,1 @@
+select last_name, first_name, classification, room_number,  b.name from participants inner join buildings b on building_id = b.id where  building_id != 10069 and building_id != 10070 and building_id is not null order  by  last_name asc

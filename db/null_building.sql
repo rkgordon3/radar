@@ -1,0 +1,1 @@
+select last_name, first_name from participants where building_id is NULL
