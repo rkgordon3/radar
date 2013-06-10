@@ -84,16 +84,14 @@ class Participant < ActiveRecord::Base
 		# but both approaches assume only one match. Is this safe assumption?
 	end
 	
-  def age
-    dob = self.birthday
-    unless dob.nil?
-      a = Date.today.year - dob.year
-      b = Date.new(Date.today.year, dob.month, dob.day)
-      a = a-1 if b > Date.today
-      return a.to_s
-    end
-    unknown
-  end
+	def age
+		# from http://stackoverflow.com/questions/819263/get-persons-age-in-ruby
+		unless self.birthday?
+		  return (Time.now.to_s(:number).to_i - birthday.to_time.to_s(:number).to_i)/10e9.to_i
+		end
+		unknown
+	end
+	
 
   def birthday_string
     self.birthday.to_s(:short_date_only) rescue unknown
