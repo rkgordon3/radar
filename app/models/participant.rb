@@ -86,7 +86,7 @@ class Participant < ActiveRecord::Base
 	
 	def age
 		# from http://stackoverflow.com/questions/819263/get-persons-age-in-ruby
-		unless self.birthday?
+		unless self.birthday.nil?
 		  return (Time.now.to_s(:number).to_i - birthday.to_time.to_s(:number).to_i)/10e9.to_i
 		end
 		unknown
