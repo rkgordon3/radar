@@ -1,8 +1,10 @@
 source 'http://rubygems.org'
 
-#gem 'rails', '3.0.6'
-gem 'composite_primary_keys', '=3.1.0'
-gem 'rails3-jquery-autocomplete', '=0.6.1'
+gem 'rails', '~> 3.1.0'
+gem 'composite_primary_keys'
+gem 'rails3-jquery-autocomplete'
+
+gem 'prototype-rails'
 
 gem 'nifty-generators'
 gem 'devise', '1.1.7'
@@ -13,6 +15,12 @@ gem 'cancan'
 #  gem 'activerecord-oracle_enhanced-adapter', '1.3.2'
 #  gem 'ruby-plsql', '0.4.4'
 #end
+
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails', "~> 3.1.1"
+  gem 'uglifier',     ">= 1.0.3"
+end
 
 gem 'will_paginate', '~> 3.0.pre4'
 
@@ -53,7 +61,7 @@ gem 'sqlite3'
 # end
 
 group :test do
-	gem 'cucumber-rails', '1.2.1'
+	gem 'cucumber-rails'
 	gem 'rspec-rails', '2.7.0'
 	gem 'database_cleaner', '0.7.0'
 	gem 'factory_girl', '2.3.2'

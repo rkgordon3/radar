@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019195759) do
+ActiveRecord::Schema.define(:version => 20130831015910) do
 
   create_table "access_levels", :force => true do |t|
     t.string   "name"
@@ -110,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20121019195759) do
     t.string   "abbreviation"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",         :limit => 64
+    t.string   "type"
   end
 
   create_table "participants", :force => true do |t|
@@ -232,8 +233,15 @@ ActiveRecord::Schema.define(:version => 20121019195759) do
     t.datetime "end_time"
   end
 
-# Could not dump table "sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd6a6ef8>
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "shifts", :force => true do |t|
     t.datetime "created_at"
@@ -251,7 +259,7 @@ ActiveRecord::Schema.define(:version => 20121019195759) do
     t.datetime "updated_at"
   end
 
-  create_table "staff_organizations", :id => false, :force => true do |t|
+  create_table "staff_organizations", :force => true do |t|
     t.integer  "staff_id"
     t.integer  "organization_id"
     t.datetime "created_at"
@@ -259,8 +267,28 @@ ActiveRecord::Schema.define(:version => 20121019195759) do
     t.integer  "access_level_id"
   end
 
-# Could not dump table "staffs" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0xd4c9868>
+  create_table "staffs", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "access_level_id"
+    t.boolean  "active"
+  end
+
+  add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
+  add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
 
   create_table "task_assignments", :force => true do |t|
     t.integer  "shift_id"
