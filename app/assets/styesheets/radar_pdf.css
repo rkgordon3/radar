@@ -1,0 +1,133 @@
+body {
+    font-family: Verdana, Helvetica, Arial;
+    font-size: 10px;
+}
+
+a {
+    color: #CC3333;
+}
+
+td {
+    padding: 5px;
+}
+
+#container {
+    width: 120%;
+    height: 140%;
+    background-color: #FFF;
+    border: solid 1px black;
+    margin-left: -10%;
+
+}
+
+@page {
+    font-family: Verdana, Helvetica, Arial;
+	font-size:10px;
+}
+
+@page:left {
+
+    @bottom-right {	    
+        content: " Page " counter(page) " of " counter(pages); 
+    }
+	@bottom-left {
+		content: "Submitter: " string(submitter_name);
+	}
+    @top-left {  
+		content:  string(report_title);
+		font-weight:bold; 
+	}
+	@top-right {
+	    content: string(approach_time) string(report_date);
+	}
+}
+
+@page:right {
+
+    @bottom-left {	    
+        content: " Page " counter(page) " of " counter(pages); 
+    }
+	@bottom-right {
+		content: "Submitter: " string(submitter_name);
+	}
+    @top-right {  
+		content:  string(report_title);
+		font-weight:bold; 
+	}
+	@top-left {
+	    content: string(approach_time) string(report_date);
+	}
+}
+
+#inside_container {
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 5px;
+    margin-top: 0px;
+
+}
+
+.small-label { color: #595959;  font-weight: bold; }
+
+.show-title { 
+	margin-top:8px;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.generic_show_report { font-size:12px; }
+
+.participant_detail {
+    display: block !important;
+	page-break-inside: avoid;
+	vertical-align:top;
+	float:right;
+}
+
+.detail_name { 
+	font-weight:bold; 
+}
+.participant_image { page-break-after:avoid; }
+
+.detail_label {}
+
+.contact_history {
+    display: block !important;
+	margin-top: 8px;
+}
+
+.keep_image_with_details {
+	page-break-inside:avoid;
+}
+
+.contact_history_item {
+	page-break-inside:avoid;
+	font-size:8px;
+}
+
+.current_contact_reasons  {
+	margin-top:8px; 
+	page-break-inside:avoid;
+}
+
+.report_title {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+	string-set: report_title content();
+}
+
+#submitter_name {
+	string-set: submitter_name content();
+}
+
+#approach_time {
+	string-set: approach_time content();
+}
+
+.report_date  {
+   font-size: 16px;
+   string-set: report_date content();
+}
+
+.plus_minus_icon { display: none; }
