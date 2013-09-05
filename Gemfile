@@ -1,3 +1,4 @@
+# This file should be pushed to rails-31 branch : rkg (experimental)
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.0'
