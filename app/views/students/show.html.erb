@@ -16,7 +16,7 @@
     <%= label_tag 'email' do %><%= t 'email' %>:<% end %>
     <%= @student.email %>
 <br/>
-    <%= label_tag 'grade', do %><%= t 'grade_level' %>:<% end %>
+    <%= label_tag 'grade' do %><%= t 'grade_level' %>:<% end %>
     <%= @student.grade_level %>
 <br/>
     <%= render :partial=>"participants/age", :locals=> { :participant => @student, :pclass=>"show_label" } %>
