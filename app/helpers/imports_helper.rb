@@ -1,4 +1,6 @@
 module ImportsHelper
+	require 'csv'
+
 	STUDENT_ID_INDEX = 0
 	FN_INDEX = 1
 	MI_INDEX = 2
@@ -271,12 +273,14 @@ module ImportsHelper
       end
     rescue => e
       begin
+
         RadarMailer.generic_mail("RADAR Import CSV Parsing Error", "The CSV file failed to parse line #{lines.size}.", system_status_email).deliver
       rescue => e
         puts e.backtrace.join("\n")
         puts "Failed to send mail #{$!}"
       end
       puts e.backtrace.join("\n")
+      puts "Error parsing #{row}"
     end
     
 		lines

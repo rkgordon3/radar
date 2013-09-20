@@ -1,7 +1,7 @@
 # This file should be pushed to rails-31 branch : rkg (experimental)
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2'
 gem 'composite_primary_keys'
 gem 'rails3-jquery-autocomplete'
 
@@ -10,7 +10,8 @@ gem 'prototype-rails'
 gem 'princely'
 
 gem 'nifty-generators'
-gem 'devise', '1.1.7'
+gem 'devise'
+gem 'devise-encryptable'
 gem 'whenever'
 gem 'cancan'
 #group :production do

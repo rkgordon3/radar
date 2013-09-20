@@ -44,6 +44,7 @@ Devise.setup do |config|
   # you should set stretches above to 20 for default behavior) and :restful_authentication_sha1
   # (then you should set stretches to 10, and copy REST_AUTH_SITE_KEY to pepper)
   config.encryptor = :bcrypt
+  #config.secret_key = '3621dfca507342a7cdddd2861734f788ff7d45671c117ca6df73ddded06fad9f899bb455c718b29fcbbebd2b978da871a66e19353669a06bc65c8cd07fc956dd'
 
   # Setup a pepper to generate the encrypted password.
   config.pepper = "b513b3187bd78127ebc32f904a0a1049dcc8dfba4a54bb834fee6fdcc248eb0966ac3ed69484a48afcd3d821c27a42cc43a56adce4d0bc6781bc45bf7066687a"
