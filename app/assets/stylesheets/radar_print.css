@@ -1,5 +1,5 @@
 body {
-    background:#ffffff url('../images/background-tile2.jpg');
+    background:#ffffff url('background-tile2.jpg');
     font-family: Verdana, Helvetica, Arial;
     font-size: 12px;
 }
@@ -155,7 +155,7 @@ td {
     padding:0px;
 }
 .menu li a{
-    background:#f1f1f1 url("../images/seperator.gif") bottom right no-repeat;
+    background:#f1f1f1 url("seperator.gif") bottom right no-repeat;
     color:#595959;
     font-weight:bold;
     display:block;
@@ -194,7 +194,7 @@ td {
 
 }
 .menu li li {
-    background:url('../images/sub_sep.gif') bottom left no-repeat;
+    background:url('sub_sep.gif') bottom left no-repeat;
     display:block;
     float:none;
     margin:0px;
@@ -215,7 +215,7 @@ td {
     text-align:left;
 }
 .menu li ul a:hover, .menu li ul li:hover a{
-    background:#b40d10 url('../images/hover_sub.gif') center left no-repeat;
+    background:#b40d10 url('hover_sub.gif') center left no-repeat;
     border:0px;
     color:#ffffff;
     text-decoration:none;
@@ -230,7 +230,7 @@ td {
 
 #footer{
     display:none;
-    background:#5A5A5A url("../images/footer-bot.gif") repeat-x;
+    background:#5A5A5A url("footer-bot.gif") repeat-x;
     color:#fff;
     height:1%;
     padding:10px;

@@ -88,7 +88,7 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    session[:report] = @report
+    #session[:report] = @report
 	
     respond_to do |format|
       format.html { render "reports/new" }
@@ -183,14 +183,15 @@ class ReportsController < ApplicationController
         }
       end
     else
-      @insert_new_participant_partial = !@report.associated?(@participant)
-      @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
+     # @insert_new_participant_partial = !@report.associated?(@participant)
+     @insert_new_participant_partial = true
+      #@report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
             if @insert_new_participant_partial
-              @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
+             # @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
