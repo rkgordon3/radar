@@ -1,13 +1,11 @@
 # This file should be pushed to rails-31 branch : rkg (experimental)
 source 'http://rubygems.org'
 
-gem 'rails', '3.2'
+gem 'rails', '3.2.9'
 gem 'composite_primary_keys'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails3-jquery-autocomplete'
-
-gem 'prototype-rails'
 
 gem 'princely'
 
