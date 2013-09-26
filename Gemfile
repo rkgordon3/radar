@@ -1,7 +1,7 @@
 # This file should be pushed to rails-31 branch : rkg (experimental)
 source 'http://rubygems.org'
 
-gem 'rails', '3.2'
+gem 'rails', '3.2.9'
 gem 'composite_primary_keys'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -12,7 +12,7 @@ gem 'prototype-rails'
 gem 'princely'
 
 gem 'nifty-generators'
-gem 'devise'
+gem 'devise', '3.1.0'
 gem 'devise-encryptable'
 gem 'whenever'
 gem 'cancan'
