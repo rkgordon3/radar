@@ -46,8 +46,8 @@ Devise.setup do |config|
   config.encryptor = :bcrypt
   config.secret_key = 'a9ac0085869c8bb4b1101fabf7f5693059bb32e5cba1e61f43008771acc3bb209a52e8aeacd96e336035914b75bd0e907e4bd1d316a0ac96f7455cf9d37d4868'
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "b513b3187bd78127ebc32f904a0a1049dcc8dfba4a54bb834fee6fdcc248eb0966ac3ed69484a48afcd3d821c27a42cc43a56adce4d0bc6781bc45bf7066687a"
 
+  config.secret_key = 'e8dbfd9887d6814ca9ef60606cc962ec2603e358d0aceefa80336c30bb3e7756f53750e3c73edc9e83b9c24a091bdc2900660faa1b3b789dc6f62d1fca845efe'
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
   # he will be able to access your application without confirming. Default is nil.

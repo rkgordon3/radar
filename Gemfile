@@ -10,7 +10,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'princely'
 
 gem 'nifty-generators'
-gem 'devise'
+gem 'devise', '3.1.0'
 gem 'devise-encryptable'
 gem 'whenever'
 gem 'cancan'
