@@ -20,7 +20,19 @@ class Staff < ActiveRecord::Base
     :timeoutable
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+  attr_accessible :area, 
+                :email, 
+                :password, 
+                :password_confirmation, 
+                :remember_me, 
+                :first_name, 
+                :last_name, 
+                :access_level_id, 
+                :active, 
+                :staff_areas, 
+                :staff_organizations,
+                :id,
+                :org
   
   #
   # Do not authenticate a user who is not active
@@ -147,11 +159,11 @@ class Staff < ActiveRecord::Base
   def update_attributes(staff)
   logger.debug("*************** Inside update_attributes #{staff[:org]} " )
     unless staff[:org].nil? || staff[:authorization].nil?
-	  # delete all existing
-	  self.access_levels.delete_all
-	  handle_authorization_params(self.id, staff)
-	  staff.delete(:org)
-	  staff.delete(:authorization)
+	    # delete all existing
+	    self.access_levels.delete_all
+	    handle_authorization_params(self.id, staff)
+	    staff.delete(:org)
+	    staff.delete(:authorization)
     end
     unless staff[:staff_areas].nil?
       sa = StaffArea.where(:staff_id => self.id).first
@@ -173,7 +185,7 @@ class Staff < ActiveRecord::Base
 	# to be re-thunk. This code is used on registrations_controller after save of staff.
  
   def handle_authorization_params(staff_id, staff)
-	staff[:org].each { |id| 
+	  staff[:org].each { |id| 
 		al_id = staff[:authorization][id.to_s].to_i
 		logger.debug("++++++++++++++++New staff org: staff  #{staff_id} org #{id.to_i} access #{al_id}")
 	    StaffOrganization.create!(:staff_id => staff_id, :organization_id=>id.to_i, :access_level_id =>al_id)
