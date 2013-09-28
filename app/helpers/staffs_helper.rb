@@ -16,7 +16,9 @@ module StaffsHelper
   def area_assignment_tag(form, staff)
    #if can? :update_area, resource
 	    choice = (staff.assigned_area.id == 0 ? 1 : staff.assigned_area.id) rescue 1
-        out = form.collection_select( :staff_areas, Area.order(:name), :id, :name, {:selected => choice}) 
+        out = form.collection_select( :area_ids, Area.order(:name), :id, :name, 
+        	                         { :selected => choice}, 
+        	                         { :name=>'area_ids[]'} )
 	#lse
 	#   out = " #{staff.assigned_area.name}" rescue "None"
 	#nd
@@ -49,8 +51,8 @@ module StaffsHelper
 	  # accommodate controller expectations.
 	  display = (can?(:register, org) || staff.organizations.include?(org)) ? "block;" : "none;"
 	  out += "<div class='field'  style='display:" + display +"' >"
-	  out += check_box_tag( "staff[org][]", "#{org.id}", (not role.nil?),opts )
-	  out += select_tag("staff[authorization][#{org.id}]",
+	  out += check_box_tag( "org[]", "#{org.id}", (not role.nil?),opts )
+	  out += select_tag("authorization[#{org.id}]",
 					options_from_collection_for_select(assignable, "id", "display_name",  (role.nil? ? 1 : role.id) ), opts )
 	  out += " in #{label_tag org.display_name}"
 	  out += "</div>"

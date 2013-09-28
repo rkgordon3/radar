@@ -64,12 +64,17 @@ Radar::Application.routes.draw do
   devise_scope :staff do
     get 'sign_up' => 'devise/sessions#new'
     get '/staffs/:id/edit' => 'devise/registrations#edit'
-	resources :staffs, :only => [:index, :show, :destroy]
+    post '/staffs/create_staff' => 'staffs#create_staff'
+	  
+    #resources :staffs, :only => [:index, :destroy]
     resources :staffs do
-		post :update_preferences
-		get "activate" => :activate
-		resources :preferences
-	end 
+      get :index, :on => :collection
+      post :destroy
+		  post :update_preferences
+		  get  :activate
+		  resources :preferences
+      get :new_staff, :on => :new
+    end
   end
   
   get "home/landingpage"
@@ -104,10 +109,10 @@ Radar::Application.routes.draw do
   resources :participants do
     collection do
       get  :autocomplete_participant_full_name
-	  get  :search
-	  post 'search' => :search_results
-	  get  :sort_search_results
-	end
+	    get  :search
+	    post 'search' => :search_results
+	    get  :sort_search_results
+	  end
   end
   
   resources :reports_query
@@ -128,7 +133,7 @@ Radar::Application.routes.draw do
   resources :reports  do
 	member do
 	  post :forward_as_mail
-          delete :destroy
+    delete :destroy
 	end
 	collection do
  	  get :on_duty_index
@@ -136,7 +141,7 @@ Radar::Application.routes.draw do
 	  get :remove_participant
 	  post :new_with_participants
 	  post 'search' => :search_results
-          get 'search' => :search_results
+    get 'search' => :search_results
 	end
 	
   end
