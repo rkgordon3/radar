@@ -74,6 +74,11 @@ class StaffsController < Devise::RegistrationsController
   def create_staff
     create
   end
+
+  def edit
+    @staff = Staff.find(params[:id])
+    super
+  end
   # GET /staffs
   # GET /staffs.xml
   def index

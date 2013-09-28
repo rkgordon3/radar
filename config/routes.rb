@@ -63,7 +63,7 @@ Radar::Application.routes.draw do
   devise_for :staffs
   devise_scope :staff do
     get 'sign_up' => 'devise/sessions#new'
-    get '/staffs/:id/edit' => 'devise/registrations#edit'
+    get '/staffs/:id/edit' => 'staffs#edit'
     post '/staffs/create_staff' => 'staffs#create_staff'
 	  
     #resources :staffs, :only => [:index, :destroy]
