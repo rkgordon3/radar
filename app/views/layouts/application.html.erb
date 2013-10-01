@@ -10,12 +10,7 @@
     <%= csrf_meta_tag %>
 
     <%= yield(:head) %>
-    <link href='/assets/images/favicon.ico' 
-          rel='shortcut icon' 
-          type='image/x-icon' />
-    <link href='/assets/images/favicon.ico' 
-	  rel='apple-touch-icon' 
-          type='image/x-icon' />
+    <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
   <body>
@@ -77,12 +72,14 @@
 
       </div>
 
+	<p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>	
 	<div id="flash_notice" style="display:none;"  >
 	
 	
-		<% flash.each do |name, msg| %>
-			<%= content_tag :div, msg, :id => "flash_#{name}" %>
-		<% end -%>
+	<% flash.each do |name, msg| %>
+		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+	<% end -%>
 	
 	</div>
 
