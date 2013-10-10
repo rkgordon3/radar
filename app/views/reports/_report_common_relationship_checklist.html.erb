@@ -7,16 +7,26 @@
   	<b><%= t "#{report.report_type.name}.#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
   			<% infractions = report.common_reasons %> 
-			<% rf =  remote_function( :update => nil,
+  <%-# We temporarily remote_function mention so that we can render new report -%>
+  <%-# See use of rf variable below. It is also commented out.                 -%>
+  <% if false %>
+  			<% rf =  remote_function( :update => nil,
 											:url => { :controller => 'reports', :action => :update_common_reasons },
 											:with => "'report[id]=#{report.id}"  + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
+  <% end %>
+  <%-# end of block removing remote_function -%>
   			 <% infractions.each do |infraction| %>
   		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
   						<%= check_box_tag "common_reasons[#{infraction.id}]", 
   				       infraction.description,
-					    false,
+					    false
+              %>
+  <%-# This removal is associated with comment of remote_function above -%>
+  <% if false %>
+             ,
 					   :onclick => "#{rf}; if(this.checked){document.getElementById('common_reasons_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('common_reasons_#{infraction.id}_details').style.display = 'none';} "
   				       %>
+  <% end %>
   				    <%= infraction.description %>
                     <% if @report.supports_contact_reason_details? %>
                         <div id="common_reasons_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">

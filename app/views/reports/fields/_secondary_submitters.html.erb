@@ -1,7 +1,7 @@
 <% if(type == "edit") %>
 <% if current_staff.adjuncts.size > 0 %>
         <div>
-          <%= link_to image_tag("/images/add_icon.gif", :id => "ss-img"), "javascript:void(0)",
+          <%= link_to image_tag("add_icon.gif", :id => "ss-img"), "javascript:void(0)",
             :onclick => "plusMinusToggle('ss-div', 'ss-img');" %>
           <%= link_to( t("#{@report.type}.secondary_submitters"), "javascript:void(0)",
             :onclick => "plusMinusToggle('ss-div', 'ss-img');" , :class=>"toggle-link") %>

@@ -5,16 +5,16 @@ class Report < ActiveRecord::Base
 
  # belongs_to		:report, :as => :parent
   belongs_to		:parent, :class_name => "Report", :foreign_key => :parent_id
-  has_many 		:associated_reports, :class_name => "Report", :foreign_key => :parent_id
+  has_many 		  :associated_reports, :class_name => "Report", :foreign_key => :parent_id
 
   has_many      	:forwards, :foreign_key => :report_id, :class_name => "InterestedPartyReport"
   has_many     		:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_many		    :report_participant_relationships
-  has_many			:participants, :through => :report_participant_relationships
+  has_many			  :participants, :through => :report_participant_relationships
   
-  belongs_to    	:annotation
+  belongs_to    	  :annotation
   after_initialize 	:setup_defaults
-  after_find		:cache_submitted
+  after_find		    :cache_submitted
   after_save       	:save_associations
   before_destroy   	:destroy_associations
 

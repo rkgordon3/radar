@@ -1,8 +1,7 @@
 mage1 = new Image();
-image1.src = "/images/add_icon.gif";
-
+image1.src = "add_icon.gif";
 image2 = new Image();
-image2.src = "/images/minus_icon.gif";
+image2.src = "minus_icon.gif";
 
 
 
@@ -11,10 +10,10 @@ function plusMinusToggle(divID,imgID) {
     var state = document.getElementById(divID).style.display;
     if (state == 'block') {
         document.getElementById(divID).style.display = 'none';
-        document[imgID].src = '/images/add_icon.gif';
+        document[imgID].src = '/assets/add_icon.gif';
     } else {
         document.getElementById(divID).style.display = 'block';
-        document[imgID].src = '/images/minus_icon.gif';
+        document[imgID].src = '/assets/minus_icon.gif';
     }
 }
 

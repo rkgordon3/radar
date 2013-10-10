@@ -8,6 +8,9 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Radar
   class Application < Rails::Application
+    # asset loading quiet by default; change to false if you want
+    # to see logging as assets are loaded
+    config.quiet_assets = true
     config.assets.enabled = true
     config.assets.version = '1.0'
     # Settings in config/environments/* take precedence over those specified here.

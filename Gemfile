@@ -7,9 +7,10 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails3-jquery-autocomplete'
 
-gem 'prototype-rails'
-
 gem 'princely'
+gem 'quiet_assets', :group => :development
+
+gem 'thin', :group => :development
 
 gem 'nifty-generators'
 gem 'devise', '3.1.0'

@@ -20,7 +20,16 @@ class Staff < ActiveRecord::Base
     :timeoutable
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :area, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :access_level_id, :active, :staff_areas, :staff_organizations
+  attr_accessible :email, 
+                  :password, 
+                  :password_confirmation, 
+                  :remember_me, 
+                  :first_name, 
+                  :last_name, 
+                  :active, 
+                 :id
+
+  
   
   #
   # Do not authenticate a user who is not active
@@ -33,7 +42,7 @@ class Staff < ActiveRecord::Base
   
   # AccessLevel for staff in a given organization
   def role_in(org)
-	AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first
+	 AccessLevel.joins(:staffs).where(:staff_organizations => { :organization_id => org.id, :staff_id => self.id } ).first
   end
 
   def name
@@ -53,14 +62,13 @@ class Staff < ActiveRecord::Base
   # NOTE (TODO): active organization is currently first in list
   # returned bt staff.organization. THIS IS A KLUDGE. A general
   # fix to ACTIVE ORGANIZATION needs to be implemented.
-  def current_access_level
-	
-	staff_org = StaffOrganization.find_by_staff_id_and_organization_id(self.id, active_organization.id)
-	AccessLevel.find(staff_org.access_level_id)
+  def current_access_level	
+    staff_org = StaffOrganization.find_by_staff_id_and_organization_id(self.id, active_organization.id)
+    AccessLevel.find(staff_org.access_level_id)
   end
   
   def active_organization
-	self.organizations.first || Organization.new
+    self.organizations.first || Organization.new
   end
 
   def preference(name)
@@ -144,40 +152,10 @@ class Staff < ActiveRecord::Base
     return timed_assignments + untimed_assignments
   end
   
-  def update_attributes(staff)
-  logger.debug("*************** Inside update_attributes #{staff[:org]} " )
-    unless staff[:org].nil? || staff[:authorization].nil?
-	  # delete all existing
-	  self.access_levels.delete_all
-	  handle_authorization_params(self.id, staff)
-	  staff.delete(:org)
-	  staff.delete(:authorization)
-    end
-    unless staff[:staff_areas].nil?
-      sa = StaffArea.where(:staff_id => self.id).first
-      sa.area_id = staff[:staff_areas]
-      sa.save
-      staff[:staff_areas] = [sa]
-    end
-    
-    super(staff)
-  end
   
   def assigned_area
-	self.staff_areas.first.area 
+	 self.staff_areas.first.area 
   end
   
-  
-  	# This is absolutely a kludge to compensate for poorly designed (rkg takes full responsibility)
-	# associations between staff, org and access_level. The relationships between these models has
-	# to be re-thunk. This code is used on registrations_controller after save of staff.
- 
-  def handle_authorization_params(staff_id, staff)
-	staff[:org].each { |id| 
-		al_id = staff[:authorization][id.to_s].to_i
-		logger.debug("++++++++++++++++New staff org: staff  #{staff_id} org #{id.to_i} access #{al_id}")
-	    StaffOrganization.create!(:staff_id => staff_id, :organization_id=>id.to_i, :access_level_id =>al_id)
-	}
 
-  end
 end
