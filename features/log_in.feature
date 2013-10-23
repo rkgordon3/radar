@@ -1,4 +1,4 @@
-@rails-31
+
 Feature: Log In
    As a super user, I want to sign in and see a welcome message
    Scenario Outline: A user signs in
@@ -6,6 +6,7 @@ Feature: Log In
 	 When I visit the landing page
 	 And a user "<user>" signs in with "<password>"
 	 Then I should see a Hi, "<name>" message
+	 And the page should display System Admin menu options
 	 Examples:
 	 | user       			  | password      | name       |
 	 | radar-admin@smumn.edu  | password      | Super User |
