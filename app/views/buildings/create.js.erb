@@ -1,15 +1,10 @@
-console.log('<%= building.id %>');
-console.log('<%= placement %>');
-console.log('<%= row_style %>');
 var building_id = '<%= building.id %>';
 if ('<%= placement %>' == 'before') {
-	console.log("We got to here 1");
 	$("#building_" + building_id + "_div").before(insertBuilding());
 } else if ('<%= placement %>' == 'after') {
-	console.log("We got to here 2");
 	$("#building_" + building_id + "_div").after(insertBuilding());
 }
 function insertBuilding() {
-	console.log("We got to here 3");
 	return '<%= escape_javascript render :partial => "index_row_generic", :locals => {:building => @building, :row_style => row_style} %>';
 }
+$("#new_building_group").html('<%= escape_javascript render :partial => "new_generic" %>');
