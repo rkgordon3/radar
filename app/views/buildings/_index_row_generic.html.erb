@@ -9,7 +9,7 @@
         <td style="width:25%;valign:right"><%= building.area.name rescue "Unspecified" %></td>
         <td><%= link_to 'Edit', "javascript:void(0)",
             :onclick => "doubleDivToggle('show_building_#{building.id}_row','edit_building_#{building.id}_row');" if can? :edit, building %></td>
-        <td valign="middle"><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :class => "destroy_link", :method => :delete, :remote => true, :id => building if can? :destroy, building %></td>
+        <td valign="middle"><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete, :remote => true, :id => building if can? :destroy, building %></td>
       </tr>
     </table>
   </div>
@@ -22,8 +22,8 @@
           <td style="width:10%" align="center"><%= f.check_box :is_residence %></td>
           <td style="width:25%">
             <%= f.collection_select( :area_id, Area.all, :id, :name, {:selected => building.area_id.nil? ? Area.unspecified_id : building.area_id}) %></td>
-          <td><%= f.submit "Save", :id => "#{building.id}_edit_save" %>
-            <%=  button_to_function "Cancel", "doubleDivToggle('show_building_#{building.id}_row','edit_building_#{building.id}_row')"%>
+          <td><%= f.submit "Save" %>
+            <%=  button_to_function "Cancel", "doubleDivToggle('show_building_#{building.id}_row','edit_building_#{building.id}_row')" %>
             <%= hidden_field :row, :style, {:value=>row_style}  %></td>
         </tr>
       </table>
