@@ -1,0 +1,6 @@
+$('.destroy_link').bind('ajax:success', function() {
+	// @TODO This matching could be a little better. As in, use the div ID for selection
+	$(this).closest('div').fadeOut();
+	//Returning false ensures the page doesn't scroll to the top
+	return false;
+});
