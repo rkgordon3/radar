@@ -1,0 +1,10 @@
+var building_id = '<%= building.id %>';
+if ('<%= placement %>' == 'before') {
+	$("#building_" + building_id + "_div").before(insertBuilding());
+} else if ('<%= placement %>' == 'after') {
+	$("#building_" + building_id + "_div").after(insertBuilding());
+}
+function insertBuilding() {
+	return '<%= escape_javascript render :partial => "index_row_generic", :locals => {:building => @building, :row_style => row_style} %>';
+}
+$("#new_building_group").html('<%= escape_javascript render :partial => "new_generic" %>');

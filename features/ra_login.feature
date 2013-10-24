@@ -1,5 +1,4 @@
-@ra
-@rails-31
+@rails-31 @ra
 Feature: RA Log In
    As an ra, I want to sign in and see a welcome message
    Scenario Outline: An ra user signs in and sees the correct navbar

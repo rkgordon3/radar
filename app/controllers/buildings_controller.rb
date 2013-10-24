@@ -57,7 +57,7 @@ class BuildingsController < ApplicationController
       else
         msg = "Error: Building NOT updated!"
       end
-      format.js { render :locals => { :flash_notice => msg, :row_style => params[:row][:style]} }
+      format.js { render :locals => { :flash_notice => msg, :building => @building, :row_style => params[:row][:style]} }
     end
   end
 

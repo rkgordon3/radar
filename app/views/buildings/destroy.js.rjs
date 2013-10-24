@@ -1,3 +1,0 @@
-page["flash_notice"].show
-page.replace_html 'flash_notice', flash_notice
-page.replace_html building_div_id(@building), ""

@@ -1,4 +1,4 @@
-@rails-31
+@rails-31 @admin-assistant
 Feature: Admin Assistant Log In
    As an admin assistant, I want to sign in and see a welcome message
    Scenario Outline: An admin assistant user signs in and sees the correct navbar
