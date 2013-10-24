@@ -1,4 +1,4 @@
-@rails-31
+@rails-31 @ra
 Feature: RA Log In
    As an ra, I want to sign in and see a welcome message
    Scenario Outline: An ra user signs in and sees the correct navbar
@@ -34,6 +34,3 @@ Feature: RA Log In
    | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | List RA Duty Logs         |
    #| ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Manage                    |
    | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Staff Members             |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Buildings                 |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Areas                     |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Contact Reasons           |
