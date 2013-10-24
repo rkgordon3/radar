@@ -12,28 +12,28 @@ Feature: RA Log In
    And the page should display "<nav_option>" menu options containing a "<sub_option>" link
    Examples:
    | user          | password  |  name         | organization   |  role | nav_option           | sub_option                |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Students             | Students                  |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Students             | List Students             |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Students             | Search Students           |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Incident Reports     | Incident Reports          |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Incident Reports     | List Incident Reports     |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Incident Reports     | New Incident Reports      |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Maintenance Requests | Maintenance Requests      |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Maintenance Requests | List Maintenance Requests |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Maintenance Requests | New Maintenance Request   |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Notes                | Notes                     |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Notes                | List Notes                |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Notes                | New Note                  |    
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Tasks                | Tasks                     |   
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Tasks                | New Task                  |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Tasks                | List Tasks                |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Shifts/Logs          | Shifts/Logs               |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Shifts/Logs          | Record Shift              |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Shifts/Logs          | My Logs                   |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Shifts/Logs          | List HD Call Logs         |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Shifts/Logs          | List RA Duty Logs         |
-   #| ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Manage               | Manage                    |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Manage               | Staff Members             |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Manage               | Buildings                 |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Manage               | Areas                     |
-   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  ra   | Manage               | Contact Reasons           |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Students             | Students                  |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Students             | List Students             |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Students             | Search Students           |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Incident Reports     | Incident Reports          |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Incident Reports     | List Incident Reports     |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Incident Reports     | New Incident Reports      |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Maintenance Requests | Maintenance Requests      |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Maintenance Requests | List Maintenance Requests |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Maintenance Requests | New Maintenance Request   |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Notes                | Notes                     |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Notes                | List Notes                |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Notes                | New Note                  |    
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Tasks                | Tasks                     |   
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Tasks                | New Task                  |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Tasks                | List Tasks                |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | Shifts/Logs               |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | Record Shift              |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | My Logs                   |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | List HD Call Logs         |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Shifts/Logs          | List RA Duty Logs         |
+   #| ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Manage                    |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Staff Members             |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Buildings                 |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Areas                     |
+   | ra@smumn.edu  | password  |  ra reslife   | Residence Life |  Resident Assistant   | Manage               | Contact Reasons           |
