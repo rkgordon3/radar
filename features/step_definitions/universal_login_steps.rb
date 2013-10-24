@@ -24,5 +24,7 @@ And(/^the page should display "(.*?)" menu options containing a "(.*?) link$/) d
     page.find(:xpath, "#{manage_value(menu_option, sub_menu)}")
   elsif menu_option.include?("reports") or menu_option.include?("requests") or menu_option.include?("notes") or menu_option.include?("tasks")
     page.find(:xpath, "#{report_value(menu_option, sub_menu)}")
+  elsif menu_option == "shifts/logs"
+    page.find(:xpath, "#{shifts_logs_value(menu_option, sub_menu)}")
   end
 end

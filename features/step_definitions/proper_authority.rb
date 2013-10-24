@@ -8,6 +8,14 @@ module RadarEnv
      @organization
    end
 
+   def set_current_user(user)
+    @user = user
+   end
+
+   def get_current_user
+    @user
+   end
+
    def set_current_access_level(role)
      @role = FactoryGirl.create(:access_level, :name=>role.delete(' '), :display_name=>role)
      puts "name of role = " << @role.name
@@ -22,7 +30,11 @@ module RadarEnv
     if option.eql?("search")
       path = "participants/%s" % option
     elsif option.eql?("manage") 
-      path = "staffs"
+      if get_current_access_level.name.eql?("CampusSafety") or get_current_access_level.name.eql?("HallDirector") or get_current_access_level.name.eql?("Staff")
+        path = ""
+      else
+        path = "staffs"
+      end
     elsif option.eql?("incident reports") or option.eql?("maintenance requests")
       if option.eql?("maintenance requests")
         option.replace("maintenance reports")
@@ -32,7 +44,13 @@ module RadarEnv
     elsif option.eql?("notes")
       path = "#{option}/new"
     elsif option.eql?("tasks")
-      path = "task_assignments/to_do_list"
+      if get_current_access_level.name.eql?("Staff")
+        path= option
+      else
+        path = "task_assignments/to_do_list"
+      end
+    elsif option.eql?("shifts/logs")
+      path = "shifts?access_level=Any"
     else
       path = "#{option}"
     end
@@ -72,12 +90,27 @@ module RadarEnv
      if sub_option.eql?("list") and !option.eql?("tasks")
       option = option.titlecase.delete(' ')
       path = "reports?report_type=#{option.singularize}"
+     elsif sub_option.eql?("my to do list")
+      path = "task_assignments/to_do_list"
      elsif sub_option.eql?("new")
       path = "#{option.split(" ").join("_")}/new"
      else
       path = "#{option}"
      end
      "//div[@class='menu']/ul/li/ul/li/a[@href='/#{path}']"  
+   end
+
+   def shifts_logs_value(option, sub_option)
+    if sub_option.eql?("my logs")
+      path = "shifts?staff_id=#{get_current_user.id}"
+    elsif sub_option.eql?("record shift")
+      path ="shifts/new"
+    elsif sub_option.eql?("list hd call logs")
+      path ="shifts?log_type=call"
+    elsif sub_option.eql?("list ra duty logs")
+      path ="shifts?log_type=duty"
+    end
+    "//div[@class='menu']/ul/li/ul/li/a[@href='/#{path}']"
    end
 end
 
@@ -101,6 +134,7 @@ And(/^there exists a user "(.*?)" whose password is "(.*?)" with name "(.*?)"$/)
     :password=>password, 
     :first_name=>name.split[0], 
     :last_name=>name.split[1])
+  set_current_user(user)
 end
 
 And(/^"(.*?)" fulfills the "(.*?)" role within the "(.*?)" organization$/) do |user, role, org|
