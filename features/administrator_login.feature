@@ -17,15 +17,15 @@ Feature: Administrator Log In
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Students            | Search Students          |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Incident Reports    | Incident Reports         |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Incident Reports    | List Incident Reports    |
-   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Incident Reports    | New Incident Reports     |
+   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Incident Reports    | New Incident Report      |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Maintenance Requests| Maintenance Requests     |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Maintenance Requests| List Maintenance Requests|
-   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Maintenance Requests| New Maintenance Requests |
+   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Maintenance Requests| New Maintenance Request  |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Notes               | Notes                    |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Notes               | List Notes               |
-   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Notes               | New Notes                |    
+   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Notes               | New Note                 |    
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Tasks               | Tasks                    |   
-   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Tasks               | New Tasks                |
+   | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Tasks               | New Task                 |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Tasks               | List Tasks               |
    #| administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Manage              | Manage                   |
    | administrator@smumn.edu  | password  | Radar Administrator | Residence Life | Administrator | Manage              | Staff Members            |

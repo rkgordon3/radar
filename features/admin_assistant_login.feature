@@ -17,10 +17,10 @@ Feature: Admin Assistant Log In
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Students            | Search Students          |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Incident Reports    | Incident Reports         |    
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Incident Reports    | List Incident Reports    |
-   | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Incident Reports    | New Incident Reports     |
+   | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Incident Reports    | New Incident Report      |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Maintenance Requests| Maintenance Requests     |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Maintenance Requests| List Maintenance Requests|
-   | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Maintenance Requests| New Maintenance Requests |
+   | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Maintenance Requests| New Maintenance Request  |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Notes               | Notes                    |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Notes               | List Notes               |
    | admin-assistant@smumn.edu  | password  | Admin Assistant | Residence Life | Administrative Assistant | Notes               | New Note                 |    

@@ -44,7 +44,7 @@ module RadarEnv
     elsif option.eql?("notes")
       path = "#{option}/new"
     elsif option.eql?("tasks")
-      if get_current_access_level.name.eql?("Staff")
+      if get_current_access_level.name.eql?("Staff") or get_current_access_level.name.eql?("ResidentAssistant")
         path= option
       else
         path = "task_assignments/to_do_list"
@@ -80,7 +80,7 @@ module RadarEnv
 
    def report_value(option, sub_option)
      sub_option = sub_option.chomp(" #{option}").strip
-     if sub_option.eql?("new task") or sub_option.eql?("new note")
+     if sub_option.eql?("new task") or sub_option.eql?("new note") or sub_option.eql?("new maintenance request") or sub_option.eql?("new incident report")
       sub_option = sub_option.chomp(" #{option.singularize}").strip
      end
      puts "After chomping reports, sub_option = " << sub_option
