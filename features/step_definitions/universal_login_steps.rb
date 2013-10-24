@@ -25,10 +25,4 @@ And(/^the page should display "(.*?)" menu options containing a "(.*?) link$/) d
   elsif menu_option.include?("reports") or menu_option.include?("requests") or menu_option.include?("notes") or menu_option.include?("tasks")
     page.find(:xpath, "#{report_value(menu_option, sub_menu)}")
   end
-  #page.find(:xpath, "//div[@class='menu']/ul/li/ul/li/a[@href='/reports]")
-  #page.find(:xpath, "//div[@class='menu']//ul/li/a[@href='/tasks']")
-  #page.find(:xpath, "//ul/li/a[@href='/buildings']")
-  #page.find(:xpath, "//ul/li/a[@href='/areas']")
-  #page.find(:xpath, "//ul/li/a[@href='/tasks']")
-  #page.find(:xpath, "//ul/li/a[@href='/relationship_to_reports']")
 end

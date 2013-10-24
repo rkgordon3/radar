@@ -13,4 +13,17 @@ FactoryGirl.define do
 	  so.organization_id 0
 	  so.access_level_id 0
 	end
+
+	factory :access_level do |al|
+		al.name 'SampleName'
+		al.display_name 'Sample Name'
+	end
+
+	factory :organization do |o|
+		o.display_name 'Organization Name'
+	end
+
+	factory :residence_life_organization do |rlo|
+		rlo.display_name 'Residence Life Organization'
+	end
 end
