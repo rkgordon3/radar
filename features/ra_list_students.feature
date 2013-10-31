@@ -4,14 +4,10 @@ Feature: RA wants to View Student List
 
 Background:
    Given the the user "ra@smumn.edu" is logged in
-   And the "ra@smumn.edu" is on the "list students" page
-   And the expected students exist
+   And the "ra@smumn.edu" is on the list "students" page
+   And the student "Joe" exists
+   And the student "Mary" exits
 
 Scenario: An ra navigates to the list students link from the students menu
    Then the text "Student List" should be displayed
-   And the "<student>" student should appear "<before_after>" "<before_after_student>" in the student list
-   Examples:
-   | student   | id | before_after | before_after_student |
-   | student C | 2  | Nil          | Nil                  |
-   | student B | 3  | after        | student B            |
-   | student A | 1  | before       | student B            |
+   And the students should appear in "alphabetical" order by last name
