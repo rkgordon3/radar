@@ -12,7 +12,7 @@ Feature: RA wants to View Student List
    And "<user>" signs in with "<password>"
    Then the welcome message Hi, "<name>" should be displayed
    And the page should display "<nav_option>" menu options containing a "<sub_option>" link
-   When the user visits the list students page
+   When the "<user>" visits the list students page
    Then the text "Student List" should be displayed
    Then the students are listed by last name
    Examples:
