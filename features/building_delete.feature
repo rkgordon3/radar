@@ -8,7 +8,7 @@ Scenario Outline: A system administrator navigates to manage building link from 
    Given the user clicks the destroy link on "<building>"
    Then the "<building>" should be removed from the page
    Examples:
-   | user                     | password  | organization   | role                 | building               |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building A  |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building B  |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building C  |
+   | building              |
+   | Radar Test Building A |
+   | Radar Test Building B |
+   | Radar Test Building C |

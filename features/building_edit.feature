@@ -12,7 +12,7 @@ Scenario Outline: A system administrator navigates to manage building link from 
    And the user clicks the Save button
    Then the "<building>" building should be updated to "<new_building>" along with its new abbrevation: "<new_abbreviation>" and its new area: "<new_area>"
    Examples:
-   | user                     | password  | organization   | role                 | building               | abbreviation | area          | new_building     | new_abbreviation | new_area                                    |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building A  | rtba         | Unspecified   | Crazy Building X | cbx              | Brother Leopold, Residencia Santiago Miller |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building B  | rtbb         | Unspecified   | Crazy Building Y | cby              | St. Edwards                                 |
-   | radar-admin@smumn.edu    | password  | Residence Life | System Administrator | Radar Test Building C  | rtbc         | Unspecified   | Crazy Building Z | cbz              | Unspecified                                 |
+   | building               | abbreviation | area          | new_building     | new_abbreviation | new_area                                    |
+   | Radar Test Building A  | rtba         | Unspecified   | Crazy Building X | cbx              | Brother Leopold, Residencia Santiago Miller |
+   | Radar Test Building B  | rtbb         | Unspecified   | Crazy Building Y | cby              | St. Edwards                                 |
+   | Radar Test Building C  | rtbc         | Unspecified   | Crazy Building Z | cbz              | Unspecified                                 |
