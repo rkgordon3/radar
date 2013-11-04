@@ -6,7 +6,7 @@ Background:
    And the user "ra@smumn.edu" is on duty
    Scenario: A Resident Assistant user is on duty and wants to go off duty
       Then the "red STOP" icon should be displayed
-      When the user clicks the "red STOP" icon
+      When the user selects the "red STOP" icon
       Then the "shift summary" form should be displayed
       When the user fills out the shift summary # Add shift to world
       And the user selects the "Update Shift" button
