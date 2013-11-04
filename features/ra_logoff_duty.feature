@@ -2,7 +2,7 @@
 Feature: RA wants to Go Off Duty
 As a Resident Assistant, I want to be able to go off duty
 Background:
-   Given the user "ra@smumn.edu" is logged in 
+   Given the "Resident Assistant" user "ra@smumn.edu" is logged in 
    And the user "ra@smumn.edu" is on duty
    Scenario: A Resident Assistant user is on duty and wants to go off duty
       Then the "red STOP" icon should be displayed
