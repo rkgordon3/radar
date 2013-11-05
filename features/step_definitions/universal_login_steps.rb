@@ -10,7 +10,6 @@ end
 
 Then(/^the welcome message Hi, "(.*?)" should be displayed$/) do |text|
   page.should have_content(text)
-  #print page.html
 end
 
 And(/^the page should display "(.*?)" menu options containing a "(.*?)" link$/) do |menu_option, sub_menu|
