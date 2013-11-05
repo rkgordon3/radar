@@ -13,9 +13,9 @@ Then(/^the welcome message Hi, "(.*?)" should be displayed$/) do |text|
   #print page.html
 end
 
-And(/^the page should display "(.*?)" menu options containing a "(.*?) link$/) do |menu_option, sub_menu|
+And(/^the page should display "(.*?)" menu options containing a "(.*?)" link$/) do |menu_option, sub_menu|
   menu_option = menu_option.downcase
-  sub_menu = sub_menu.chomp('"').downcase
+  sub_menu = sub_menu.downcase
   if menu_option.eql?(sub_menu)
     page.find(:xpath, "#{top_level_value(menu_option)}")
   elsif menu_option == "search"
