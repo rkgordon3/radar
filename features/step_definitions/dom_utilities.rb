@@ -15,5 +15,9 @@ When(/^the user selects the "(.*?)" button$/) do |button|
 end
 
 When(/^the user selects the "(.*?)" icon$/) do |icon|
-  	pending # express the regexp above with the code you wish you had
+	puts "------------------ouput for icon selection------------------", page.html
+  	click_button icon
+  	visit current_path
+  	#sleep(50)
+  	puts "=================after icon click=================", page.html
 end

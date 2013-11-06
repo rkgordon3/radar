@@ -117,28 +117,29 @@ end
 World(RadarEnv)
 
 Given(/^the "(.*?)" organization exists$/) do |org|
-  #puts org
   set_current_organization(org) 
   true
 end
 
 And(/^the "(.*?)" role exists$/) do |role|
-  #puts role
   set_current_access_level(role) 
   true
 end
 
 And(/^there exists a user "(.*?)" whose password is "(.*?)" with name "(.*?)"$/) do |user, password, name|
+  area = FactoryGirl.create(:area, 
+    :name => 'Some Area', :abbreviation => 'SA')
   user = FactoryGirl.create(:staff, 
     :email=>user, 
     :password=>password, 
     :first_name=>name.split[0], 
     :last_name=>name.split[1])
+  staff_area = FactoryGirl.create(:staff_area, 
+    :staff_id => user.id, :area_id => area.id)
   set_current_user(user)
 end
 
 And(/^"(.*?)" fulfills the "(.*?)" role within the "(.*?)" organization$/) do |user, role, org|
-  #puts "[#{get_current_organization}]"
   if (org == "current")
     this_org = get_current_organization
   else

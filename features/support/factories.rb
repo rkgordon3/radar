@@ -28,11 +28,17 @@ FactoryGirl.define do
 	end
 
 	factory :shift do |s|
-		#s.created_at '2013-11-04 01:03:22'
-		#s.updated_at '2013-11-04 01:03:22'
 		s.staff_id 0
-		#s.time_out '2013-11-04 01:03:22'
-		#s.area_id 0
-		#s.annotation_id 0
+		s.area_id 0
+	end
+
+	factory :area do |a|
+		a.name 'Some Area'
+		a.abbreviation 'SA'
+	end
+
+	factory :staff_area do |sa|
+		sa.staff_id 0
+		sa.area_id 0
 	end
 end
