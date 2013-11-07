@@ -72,6 +72,7 @@ group :test do
 	gem 'rspec-rails', '2.7.0'
 	gem 'database_cleaner', '0.7.0'
 	gem 'factory_girl', '2.3.2'
-        gem 'capybara'
+    gem 'capybara'
+    gem 'selenium-webdriver'
 #  gem 'mongoid-rspec', :require => false
 end

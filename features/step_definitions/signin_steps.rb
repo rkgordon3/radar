@@ -1,17 +1,16 @@
 Given /^a user "(.*?)" with password "(.*?)" exists as role "(.*?)" in "(.*?)" organization$/ do |user, password, role, org|
   fname,lname = user.tableize.singularize.split("_")
   lname =~ /^(\w+)@.*/ 
-  user = FactoryGirl.create(:staff, :email=>user, 
+  staff = FactoryGirl.create(:staff, :email=>user, 
                         :password=>password, 
                         :first_name=>fname.capitalize, 
                         :last_name=>$~.captures[0].capitalize)
   level = AccessLevel.find_by_name(role)
   organization = Organization.find_by_display_name(org)
   FactoryGirl.create(:staff_organization, 
-                :staff_id=>user.id, 
+                :staff_id=>staff.id, 
                 :access_level_id=>level.id, 
                 :organization_id=>organization.id)
-  
 end
 
 
