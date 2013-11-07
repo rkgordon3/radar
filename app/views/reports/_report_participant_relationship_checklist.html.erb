@@ -3,7 +3,7 @@
      :class=>"relationship-checklist", 
      :style=>"display:#{report.supports_selectable_contact_reasons? ? 'block' : 'none'}"   do -%>
 	 
-	<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
+	<%= link_to image_tag("add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
   	<span class="small-label"><%= t "#{report.report_type.name}.reasons" %></span>

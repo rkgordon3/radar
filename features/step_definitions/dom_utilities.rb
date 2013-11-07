@@ -15,9 +15,6 @@ When(/^the user selects the "(.*?)" button$/) do |button|
 end
 
 When(/^the user selects the "(.*?)" icon$/) do |icon|
-	puts "------------------ouput for icon selection------------------", page.html
   	click_button icon
   	visit root_path
-  	#sleep(50)
-  	puts "=================after icon click=================", page.html
 end

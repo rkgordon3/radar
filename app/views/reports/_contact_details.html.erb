@@ -1,4 +1,4 @@
-<%= link_to image_tag("/images/add_icon.gif", :id => "#{participant.id}_#{reason.id}-annotation_img"), "javascript:void(0)",  
+<%= link_to image_tag("add_icon.gif", :id => "#{participant.id}_#{reason.id}-annotation_img"), "javascript:void(0)",  
   :onclick => "plusMinusToggle('contact_details_#{participant.id}_#{reason.id}', '#{participant.id}_#{reason.id}-annotation_img');" %>
 <b><%= "Details" %></b></br>
 <div id="contact_details_<%= participant.id %>_<%= reason.id %>" class="participant_detail">

@@ -3,7 +3,7 @@
     <%= "[reports created between rounds]" %></font><br />
   <div class="field">
     <% if reports.length > 0 %>
-     <%= link_to image_tag("/images/add_icon.gif", :id => "off-round-reports-img"), "javascript:void(0)",
+     <%= link_to image_tag("add_icon.gif", :id => "off-round-reports-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('off-round-reports', 'off-round-reports-img');" %>
   	    Reports <%= " (#{reports.length})" %>
         <div id="off-round-reports" style="display: none;" class='shift_log_div' >
@@ -15,7 +15,7 @@
   </div>
   <div class="field" > 
     <% if notes.length > 0 %>
-      <%= link_to image_tag("/images/add_icon.gif", :id => "off-round-notes-img"), "javascript:void(0)",
+      <%= link_to image_tag("add_icon.gif", :id => "off-round-notes-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('off-round-notes', 'off-round-notes-img');" %>
   	    Notes<%= " (#{notes.length})" %>
       <div id="off-round-notes" class='shift_log_div' style="display: none;">      
