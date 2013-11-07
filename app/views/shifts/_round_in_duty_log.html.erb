@@ -3,7 +3,7 @@
     <%= "[#{round.start_date}, #{round.start_time} - #{round.end_date}, #{round.end_time_only}]" %></font><br />
   <div class="field" >
    <% if reports.length > 0 %>
-    <%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
+    <%= link_to image_tag("add_icon.gif", :id => "#{round.id}-reports-img"), "javascript:void(0)",
         :onclick => "plusMinusToggle('#{round.id}-reports', '#{round.id}-reports-img');" %>
 
   	    Reports <%= " (#{reports.length})" %>
@@ -16,7 +16,7 @@
   </div>
   <div  class="field" >
       <% if notes.length > 0 %>
-       <%= link_to image_tag("/images/add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
+       <%= link_to image_tag("add_icon.gif", :id => "#{round.id}-notes-img"), "javascript:void(0)",
              :onclick => "plusMinusToggle('#{round.id}-notes', '#{round.id}-notes-img');" %>
 
   	    Notes<%= " (#{notes.length})" %>

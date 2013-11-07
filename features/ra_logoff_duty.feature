@@ -1,4 +1,4 @@
-@rails-31 @ra_logoff_duty
+@rails-31 @ra_logoff_duty @javascript
 Feature: RA wants to Go Off Duty
 As a Resident Assistant, I want to be able to go off duty
 Background:
