@@ -29,7 +29,9 @@ When(/^the user fills out the shift summary with "(.*?)"$/) do |summary|
 end
 
 Then(/^the "(.*?)" form should be displayed$/) do |form|
-    visit '/shifts/end_shift'
+    if form.eql?("shift summary")
+      visit '/shifts/end_shift'
+    end
     puts "looking for the form page", page.html
   	page.find(:xpath, "//div[@class='field']//textarea[@id='annotation_text']")
 end
