@@ -1,5 +1,5 @@
 <div id="inside_container" class="inside_container">
-  <b><%= link_to image_tag("/images/add_icon.gif", :id => "reports-img"), "javascript:void(0)",
+  <b><%= link_to image_tag("add_icon.gif", :id => "reports-img"), "javascript:void(0)",
       :onclick => "plusMinusToggle('reports', 'reports-img');" %>
   	    Reports</b>
   <% if reports.length == 0 %>
@@ -16,7 +16,7 @@
       <% end %>
     </div>
     <div>
-      <b><%= link_to image_tag("/images/add_icon.gif", :id => "notes-img"), "javascript:void(0)",
+      <b><%= link_to image_tag("add_icon.gif", :id => "notes-img"), "javascript:void(0)",
           :onclick => "plusMinusToggle('notes', 'notes-img');" %>
   	    Notes</b>
       <% if notes.length == 0 %>

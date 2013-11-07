@@ -17,7 +17,7 @@ And(/^the user "(.*?)" is on duty$/) do |user|
 end
 
 Then(/^the "(.*?)" icon should be displayed$/) do |icon|
-  puts "------------------icon display on page------------------", page.html
+  #puts "------------------icon display on page------------------", page.html
   page.find(:xpath, "//input[@type='image'][@title='#{icon}']")
 end
 
@@ -29,9 +29,11 @@ When(/^the user fills out the shift summary with "(.*?)"$/) do |summary|
 end
 
 Then(/^the "(.*?)" form should be displayed$/) do |form|
-    visit '/shifts/end_shift'
-    puts "looking for the form page", page.html
-  	page.find(:xpath, "//div[@class='field']//textarea[@id='annotation_text']")
+    if form.eql?("shift summary")
+      visit '/shifts/end_shift'
+    end
+    #puts "looking for the form page", page.html
+    page.find(:xpath, "//div[@class='field']//textarea[@id='annotation_text']")
 end
 
 Then(/^the "(.*?)" message should be displayed$/) do |message|
@@ -39,6 +41,6 @@ Then(/^the "(.*?)" message should be displayed$/) do |message|
 end
 
 And(/^the "(.*?)" for the current shift should be displayed$/) do |log|
-  	page.should have_content 'Reports Submitted (0)'
+    page.should have_content 'Reports Submitted (0)'
     page.should have_content 'Tasks Assigned (0)'
 end

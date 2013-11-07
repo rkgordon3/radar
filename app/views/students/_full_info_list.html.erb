@@ -1,7 +1,7 @@
 <% if students.respond_to?('total_pages') %>
   <%= will_paginate students %>
 <% end %>
-<table>
+<table class="student_list" >
   <tr>
     <th></th>
     <%if can? :view_student_id, Student %>
@@ -21,10 +21,10 @@
 
     <% if num_rows == 0 %>
       <% num_rows = num_rows + 1 %>
-      <tr class="shaded">
+      <tr id=<%= p.student_id %> class="shaded">
       <% else %>
         <% num_rows = 0 %>
-      <tr>
+      <tr id=<%= p.student_id %> >
       <% end %>
       <%= render :partial => "full_info", :locals => { :student => p} %>
     <% end %>

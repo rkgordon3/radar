@@ -1,7 +1,7 @@
 <% if report.reasons.length > 0 %>
 
 <div class="relationship-checklist">
-<%= link_to image_tag("/images/add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
+<%= link_to image_tag("add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('common-reasons', 'common-reasons-toggle');" %>
  
   	<b><%= t "#{report.report_type.name}.#{params[:controller]}.common_reasons" %> </b>
