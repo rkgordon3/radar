@@ -15,6 +15,8 @@ When(/^the user selects the "(.*?)" button$/) do |button|
 end
 
 When(/^the user selects the "(.*?)" icon$/) do |icon|
+	puts "================before click", page.html
   	click_button icon
-  	visit root_path
+  	#visit root_path
+  	puts "----------------after click", page.html
 end
