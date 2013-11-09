@@ -16,5 +16,5 @@ end
 
 When(/^the user selects the "(.*?)" icon$/) do |icon|
   	click_button icon
-  	visit root_path
+  	#visit root_path
 end

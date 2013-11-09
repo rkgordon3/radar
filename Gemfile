@@ -31,7 +31,6 @@ end
 
 gem 'will_paginate', '~> 3.0.pre4'
 
-gem 'mongrel', '1.2.0.pre2'
 
 gem 'paperclip'
 # Bundle edge Rails instead:
@@ -68,11 +67,11 @@ gem 'sqlite3'
 # end
 
 group :test do
-	gem 'cucumber-rails'
-	gem 'rspec-rails', '2.7.0'
-	gem 'database_cleaner', '0.7.0'
-	gem 'factory_girl', '2.3.2'
-    gem 'capybara'
-    gem 'selenium-webdriver'
-#  gem 'mongoid-rspec', :require => false
+  gem 'cucumber-rails'
+  gem 'rspec-rails', '2.7.0'
+  gem 'database_cleaner', '0.7.0'
+  gem 'factory_girl', '2.3.2'
+  gem 'capybara-webkit'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
 end

@@ -1,7 +1,6 @@
-<%= form_tag('/shifts/start_shift', :method => :put , :remote => true) do %>
+<%= form_tag(shifts_start_shift_path, :method => :post , :remote => true) do %>
 <table style = "width: 150px;" border="0">
-		<tr>
-	<td style = "width: 40px;"><%=image_submit_tag("go_on_duty_sign.png", :size=> "35x35", :title=>"Go On Duty")%> </td> 
-	<td style = "width: 110px;"><b> Go On Duty </b></td>
-</tr></table>	
+<tr>
+	<td style = "width: 40px;"><%=image_submit_tag("go_on_duty_sign.png", :size=> "35x35", :id => "go_on_duty", :title=>"Go On Duty")%> </td> 
+	<td style = "width: 110px;"><b> Go On Duty </b></td>	
 <% end %>

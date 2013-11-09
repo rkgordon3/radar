@@ -146,6 +146,9 @@ class ShiftsController < ApplicationController
     
       @shift.save
       @task_assignments = TaskAssignment.where(:shift_id => @shift.id)
+
+      logger.debug( "*********** in start shift ************************")
+     
     
       respond_to do |format|
         format.js

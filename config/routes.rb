@@ -22,7 +22,7 @@ Radar::Application.routes.draw do
   
   match "/shifts/update_todo" => "shifts#update_todo"
   
-  get "shifts/start_shift"
+  get "shifts/start_shift", defaults: { format: 'js' }
   match "/shifts/start_shift" => "shifts#start_shift"
   
 

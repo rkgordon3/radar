@@ -18,7 +18,8 @@ class Report < ActiveRecord::Base
   after_save       	:save_associations
   before_destroy   	:destroy_associations
 
-  attr_accessible 	:type, :staff_id, :location
+  attr_accessible 	:type, :staff_id, :location, :annotation, 
+                    :building_id, :room_number, :approach_time, :submitted
   
  
   scope :preferred_order, lambda { |user|  order("reports.#{user.preference(:sort_order)}") }

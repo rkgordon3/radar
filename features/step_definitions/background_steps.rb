@@ -11,13 +11,13 @@ Given(/^the user "(.*?)" is logged in as an? "(.*?)"$/) do |user, role|
 end
  
 And(/^the user "(.*?)" is on duty$/) do |user|
+  page.should have_content("Go Off Duty")
 	staff = Staff.find_by_email(user) rescue false
 	shift = Shift.find_by_staff_id(staff.id) rescue false
   staff.id == shift.staff_id
 end
 
 Then(/^the "(.*?)" icon should be displayed$/) do |icon|
-  #puts "------------------icon display on page------------------", page.html
   page.find(:xpath, "//input[@type='image'][@title='#{icon}']")
 end
 
