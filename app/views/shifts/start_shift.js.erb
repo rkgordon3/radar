@@ -2,7 +2,7 @@ $('#duty_button').bind('ajax:success', function(){
 	$(this).closest('div').html('<%= escape_javascript render :partial => 'end_shift_button'%>');
 	$('#round_button').closest('div').html('<%= escape_javascript render :partial => 'rounds/start_round_button'%>');
 	$('#flash_notice').closest('div').html('You are now on duty.');
-	$('#flash_notice').show();
+	$('.notice').closest('p').html('You are now on duty.');
 	return false;
 });
 

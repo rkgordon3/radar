@@ -41,4 +41,14 @@ FactoryGirl.define do
 		sa.staff_id 0
 		sa.area_id 0
 	end
+
+	factory :student do |st|
+		st.first_name 'Sample'
+		st.last_name 'User'
+		st.building_id 0
+	end
+
+	factory :building do |b|
+		b.name 'Sample Name'
+	end
 end
