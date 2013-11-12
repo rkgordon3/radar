@@ -51,4 +51,9 @@ FactoryGirl.define do
 	factory :building do |b|
 		b.name 'Sample Name'
 	end
+
+	factory :report_type do |rt|
+		rt.name 'TheGuy'
+		rt.display_name 'The Guy'
+	end
 end

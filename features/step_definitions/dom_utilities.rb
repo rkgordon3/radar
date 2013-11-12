@@ -7,7 +7,7 @@ When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
-  	select value, :from => 'field'
+  	select value, :from => field
 end
 
 When(/^the user selects the "(.*?)" button$/) do |button|
