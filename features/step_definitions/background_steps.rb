@@ -11,13 +11,13 @@ Given(/^the user "(.*?)" is logged in as an? "(.*?)"$/) do |user, role|
 end
  
 And(/^the user "(.*?)" is on duty$/) do |user|
+  page.should have_content("Go Off Duty")
 	staff = Staff.find_by_email(user) rescue false
 	shift = Shift.find_by_staff_id(staff.id) rescue false
   staff.id == shift.staff_id
 end
 
 Then(/^the "(.*?)" icon should be displayed$/) do |icon|
-  #puts "------------------icon display on page------------------", page.html
   page.find(:xpath, "//input[@type='image'][@title='#{icon}']")
 end
 
@@ -43,4 +43,15 @@ end
 And(/^the "(.*?)" for the current shift should be displayed$/) do |log|
     page.should have_content 'Reports Submitted (0)'
     page.should have_content 'Tasks Assigned (0)'
+end
+
+
+And(/^the "(.*?)" is on the list "(.*?)" page$/) do |user, page|
+  staff = Staff.find_by_email(user) rescue false
+  visit("/#{page}")
+end
+
+And(/^the student "(.*?)" lives in "(.*?)"$/) do |name, residence|
+  building = FactoryGirl.create(:building, :name => residence)
+  student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :building_id => building.id)
 end

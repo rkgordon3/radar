@@ -12,6 +12,8 @@ class ReportsController < ApplicationController
   load_resource :except => :remove_participant
   authorize_resource
 
+ 
+
   rescue_from Errno::ECONNREFUSED, :with => :display_error
   
   # if params[:report][:id] contains a report id, use that report, otherwise
@@ -111,8 +113,8 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.xml
   def create
-    @report = session[:report]
-	#@report = Report.new(params[:report])
+    #@report = session[:report]
+	  @report = Report.new(params[:report])
     params[:report][:report_adjuncts] = params[:report_adjuncts]
 
     respond_to do |format|
