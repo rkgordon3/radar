@@ -5,7 +5,7 @@
   <li><%= link_to "Students", students_path , :class=>"menubar_link" %>
     <ul>
       <li><%= link_to "List Students", students_path %></li>
-      <li><%= link_to "Search Students", search_participants_path  %></li>
+      <li><%= link_to "Search Students", search_participants_path, :id => "#{link_id_from_text('Search Students')}"  %></li>
     </ul>
   </li>
   <% end %>

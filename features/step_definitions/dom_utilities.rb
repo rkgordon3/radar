@@ -1,5 +1,9 @@
-When(/^the user selects the "(.*?)" link$/) do |link|
-   click_link link
+include ApplicationHelper
+When(/^the user selects the "(.*?)" link$/) do |text|
+	puts "--------------before link click-----------", page.html
+	link = page.find(:xpath, "//a[@id=#{link_id_from_text(text)}]")
+   link.click 
+   puts "-----------after link click----------", page.html
 end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
@@ -7,6 +11,7 @@ When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
+	field = field.downcase << "_id"
   	select value, :from => field
 end
 

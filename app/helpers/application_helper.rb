@@ -21,6 +21,10 @@ For lock, lost key or keycard issues, please contact the on-call Hall Director (
 Press Okay to submit a Maintenance Request, otherwise press Cancel.].html_safe
 end
 
+def link_id_from_text(text)
+	text.split.join("_").downcase
+end
+
 end
 
 
