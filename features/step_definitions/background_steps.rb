@@ -17,6 +17,10 @@ And(/^the user "(.*?)" is on duty$/) do |user|
   staff.id == shift.staff_id
 end
 
+And(/the text "(.*?)" should be displayed$/) do |text|
+  page.should have_content(text)
+end
+
 Then(/^the "(.*?)" icon should be displayed$/) do |icon|
   page.find(:xpath, "//input[@type='image'][@title='#{icon}']")
 end
