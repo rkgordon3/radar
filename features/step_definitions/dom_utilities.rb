@@ -1,9 +1,10 @@
 include ApplicationHelper
+
+When(/^the user visits the "(.*?)" page$/) do |text|
+  visit send(named_route_from_text(text))
+end
 When(/^the user selects the "(.*?)" link$/) do |text|
-	puts "--------------before link click-----------", page.html
-	link = page.find(:xpath, "//a[@id=#{link_id_from_text(text)}]")
-   link.click 
-   puts "-----------after link click----------", page.html
+  pending
 end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|

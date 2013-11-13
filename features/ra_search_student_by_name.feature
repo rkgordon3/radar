@@ -5,7 +5,7 @@ Background:
    Given the user "ra@smumn.edu" is logged in as a "Resident Assistant"
    And the student "Joe" lives in "LaSalle Hall"
    Scenario: A Resident Assistant user is on duty and wants to search for a student by name
-      When the user selects the "Search Students" link
+      When the user visits the "Participants Search" page
       Then the "Participant Search" message should be displayed
       And the user fills in the "Name" field with "Joe"
       And the user selects from the auto-suggestion field

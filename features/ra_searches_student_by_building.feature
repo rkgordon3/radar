@@ -5,7 +5,7 @@ Feature: RA searches student by building
    Given the user "ra@smumn.edu" is logged in as a "Resident Assistant"
    And the student "Joe" lives in "LaSalle Hall"
   Scenario: A resident Assistant wants to search for a resident by building.
-  When the user selects the "Search Students" link
+  When the user visits the "Participants Search" page
   Then the text "Participant Search" should be displayed
   When the user selects "LaSalle Hall" from the "Building" menu
   Then the user selects the "Submit" button

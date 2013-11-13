@@ -2,9 +2,11 @@
 <ul>
   <%=link_to image_tag("radar_logo.png", :title=>"RADAR Home", :align=>'left'), "/" %>
   <% if can? :index, Student %>
-  <li><%= link_to "Students", students_path , :class=>"menubar_link" %>
+  <li><%= link_to "Students", students_path , 
+                  :class=>"menubar_link", 
+                  :id=> "#{link_id_from_text("Students")}" %>
     <ul>
-      <li><%= link_to "List Students", students_path %></li>
+      <li><%= link_to "List Students", students_path, :id=> "#{link_id_from_text("List Students")}" %></li>
       <li><%= link_to "Search Students", search_participants_path, :id => "#{link_id_from_text('Search Students')}"  %></li>
     </ul>
   </li>
