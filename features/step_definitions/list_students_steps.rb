@@ -1,6 +1,6 @@
-Then(/^the text "(.*?)" should be displayed$/) do |text|
-	page.should have_content("#{text}")
-end
+#Then(/^the text "(.*?)" should be displayed$/) do |text|
+#	page.should have_content("#{text}")
+#end
 
 Then(/^I should see the students in this order:$/) do |table|
 	expected_order = table.raw

@@ -1,5 +1,10 @@
-When(/^the user selects the "(.*?)" link$/) do |link|
-   click_link link
+include ApplicationHelper
+
+When(/^the user visits the "(.*?)" page$/) do |text|
+  visit send(named_route_from_text(text))
+end
+When(/^the user selects the "(.*?)" link$/) do |text|
+  pending
 end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
@@ -7,6 +12,7 @@ When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
+	field = field.downcase << "_id"
   	select value, :from => field
 end
 

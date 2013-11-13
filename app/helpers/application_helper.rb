@@ -21,6 +21,15 @@ For lock, lost key or keycard issues, please contact the on-call Hall Director (
 Press Okay to submit a Maintenance Request, otherwise press Cancel.].html_safe
 end
 
+def link_id_from_text(text)
+	text[0] = '_' if text[0] == '/'
+	text.split.join("_").downcase
+end
+
+def named_route_from_text(text)
+	text.split.reverse.join("_").downcase+"_path"
+end
+
 end
 
 
