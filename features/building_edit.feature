@@ -1,9 +1,9 @@
-@rails-31 
+@rails-31 @buildings_edit @buildings
 Feature: System admin editing buildings
    As a system administrator, I want to be able to edit a building
 Background:
    Given the user "radar-admin@smumn.edu" is logged in
-   And the user "radar-admin@smumn.edu" is on the manage buildings page
+    When the user visits the "Manage Buildings" page
 Scenario Outline: A system administrator navigates to manage building link from the manage menu and clicks the Edit link to edit a building
    Given the user clicks the edit link on "<building>"
    And the user changes the name of "<building>" to "<new_building>"

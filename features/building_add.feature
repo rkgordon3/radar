@@ -1,10 +1,10 @@
-@rails-31 @add_buildings
+@rails-31 @buildings @add_buildings
 Feature: System admin adding buildings
 As a system administrator, I want to be able to add a building
 
 Background:
    Given the user "radar-admin@smumn.edu" is logged in as a "System Administrator"
-   And the "radar-admin@smumn.edu" is on the list "buildings" page
+   When the user visits the "Manage Buildings" page
    
 Scenario: A system administrator navigates to manage building link from the manage menu and wants to add a new building
    When the user selects the "New Building" js link

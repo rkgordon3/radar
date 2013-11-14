@@ -1,10 +1,10 @@
-@rails-31 @add_areas
+@rails-31 @add_areas @areas
 Feature: Sys Admin wants to add an area
 	As a Sys Admin, I want to add an area
 
 Background:
 	Given the user "radar-admin@smumn.edu" is logged in as a "System Administrator"
-    And the "radar-admin@smumn.edu" is on the list "areas" page
+    When the user visits the "Manage Areas" page
 
 Scenario: A Sys Admin navigates to the manage areas link from the manage menu and wants to add a new area
    When the user selects the "New Building" js link
