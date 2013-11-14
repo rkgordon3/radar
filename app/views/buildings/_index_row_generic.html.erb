@@ -8,7 +8,7 @@
           <%= image_tag( "check_mark.jpg", :height=>16, :width=> 16) if building.is_residence %></td>
         <td style="width:25%;valign:right"><%= building.area.name rescue "Unspecified" %></td>
         <td><%= link_to 'Edit', "javascript:void(0)",
-            :onclick => '$("#show_building_#{building.id}_row").toggle();$("#edit_building_#{building.id}_row").toggle();' if can? :edit, building %></td>
+            :onclick => "$('#show_building_#{building.id}_row').toggle();$('#edit_building_#{building.id}_row').toggle();" if can? :edit, building %></td>
         <td valign="middle"><%= link_to 'Destroy', building, :confirm => 'Are you sure?', :class => "destroy_link", :method => :delete, :remote => true, :id => building if can? :destroy, building %></td>
       </tr>
     </table>
@@ -23,7 +23,7 @@
           <td style="width:25%">
             <%= f.collection_select( :area_id, Area.all, :id, :name, {:selected => building.area_id.nil? ? Area.unspecified_id : building.area_id}) %></td>
           <td><%= f.submit "Save", :id => "#{building.id}_edit_save" %>
-            <%=  button_to_function "Cancel", '$("#show_building_#{building.id}_row").toggle();$("#edit_building_#{building.id}_row").toggle();'%>
+            <%=  button_to_function "Cancel", "$('#show_building_#{building.id}_row').toggle();$('#edit_building_#{building.id}_row').toggle();" %>
             <%= hidden_field :row, :style, {:value=>row_style}  %></td>
         </tr>
       </table>
