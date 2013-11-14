@@ -47,7 +47,7 @@ class AreasController < ApplicationController
   # PUT /buildings/1
   # PUT /buildings/1.xml
   def update
-    params[:area][:buildings] = params[:buildings]
+    params[:area][:buildings] = Building.find(params[:buildings])
     @areas = Area.sort("name")
 
     respond_to do |format|
@@ -57,7 +57,7 @@ class AreasController < ApplicationController
         msg = "Error: Area NOT updated!"
       end
       unassigned_buildings = Building.where( :area_id => Area.unspecified_id ).order("name ASC")
-      format.js { render "areas/index", :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
+      format.js { render :locals => { :unassigned_buildings => unassigned_buildings, :area => @area, :flash_notice => msg } }
     end
   end
 
@@ -70,7 +70,7 @@ class AreasController < ApplicationController
     @areas = Area.sort("name")
     
     respond_to do |format|
-      format.js { render "areas/index", :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
+      format.js { render :locals => { :unassigned_buildings => unassigned_buildings, :flash_notice => msg } }
     end
   end
 end
