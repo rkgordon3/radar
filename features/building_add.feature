@@ -1,18 +1,15 @@
-@rails-31 @buildings
+@rails-31 @add_buildings
 Feature: System admin adding buildings
 As a system administrator, I want to be able to add a building
+
 Background:
-   Given the user "radar-admin@smumn.edu" is logged in
-   And the user "radar-admin@smumn.edu" is on the manage "<buildings>" page
-Scenario Outline: A system administrator navigates to manage building link from the manage menu and wants to add new buildings
-   When the user selects the "New Building" link
-   And the user fills in the "Name" field with "<building>"
-   And the user fills in the "Abbreviation" field with "<abbreviation>"
-   And the user selects "<area>" from the "Area" menu
+   Given the user "radar-admin@smumn.edu" is logged in as a "System Administrator"
+   And the "radar-admin@smumn.edu" is on the list "buildings" page
+   
+Scenario: A system administrator navigates to manage building link from the manage menu and wants to add a new building
+   When the user selects the "New Building" js link
+   And the user fills in the "building_name" field with "Test Building"
+   And the user fills in the "building_abbreviation" field with "TBA"
+   And the user selects "area" from the "building_area" menu
    And the user selects the "Create" button
-   Then the "<building>" list should appear in "alphabetical" order
-   Examples:
-   | building               | abbreviation | area                  |
-   | Radar Test Building B  | rtbb         | Unspecified           |
-   | Radar Test Building C  | rtbc         | Watters, Ek Village   |
-   | Radar Test Building A  | rtba         | LaSalle               |
+   Then the text "Test Building" should be displayed

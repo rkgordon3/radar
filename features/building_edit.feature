@@ -1,4 +1,4 @@
-@rails-31 @buildings
+@rails-31 
 Feature: System admin editing buildings
    As a system administrator, I want to be able to edit a building
 Background:
