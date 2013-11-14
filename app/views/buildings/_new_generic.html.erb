@@ -2,7 +2,7 @@
 <% if can? :create, Building %>
   <div id="new_building_link">
     <li><%= link_to 'New Building', "javascript:void(0)",
-        :onclick => "doubleDivToggle('new_building_div', 'new_building_link');" %></li>
+        :onclick => '$("#new_building_div").toggle(); $("#new_building_link").toggle();' %></li>
   </div>
 <% end %>
 <div id="new_building_div" style="display:none;">
@@ -17,7 +17,7 @@
           <%= f.select "area_id", options_from_collection_for_select(areas, "id", "name") %></td>
         <td><div class="actions">
             <%= f.submit "Create" %>
-            <%=  button_to_function "Cancel", "doubleDivToggle('new_building_div','new_building_link')" %>
+            <%=  button_to_function "Cancel", '$("#new_building_div").toggle(); $("#new_building_link").toggle();' %>
           </div></td>
       </tr>
     </table>
