@@ -36,7 +36,7 @@ Then(/^the "(.*?)" form should be displayed$/) do |form|
     if form.eql?("shift summary")
       visit '/shifts/end_shift'
     end
-    #puts "looking for the form page", page.html
+    #puts "looking for the formpage", page.html
     page.find(:xpath, "//div[@class='field']//textarea[@id='annotation_text']")
 end
 
@@ -56,6 +56,8 @@ And(/^the "(.*?)" is on the list "(.*?)" page$/) do |user, page|
 end
 
 And(/^the student "(.*?)" lives in "(.*?)"$/) do |name, residence|
+  full_name = name << " #{name}"
+  puts 
   building = FactoryGirl.create(:building, :name => residence, :is_residence => true)
-  student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :building_id => building.id)
+  student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :full_name => full_name, :building_id => building.id)
 end
