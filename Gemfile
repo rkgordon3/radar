@@ -73,5 +73,6 @@ group :test do
   gem 'factory_girl', '2.3.2'
   #gem 'capybara-webkit'
   gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
   gem 'selenium-webdriver'
 end

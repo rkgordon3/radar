@@ -11,15 +11,15 @@ class Area < ActiveRecord::Base
   end
 
   def Area.sort(key)
-    a = Area.where("id <> ?", Area.unspecified.id)
+    #a = Area.where("id <> ?", Area.unspecified.id)
     if key=="name"
-      return a.order("name ASC").all
+      return Area.order("name ASC").all
     elsif key=="abbreviation"
-      return a.order("abbreviation ASC").all
+      return Area.order("abbreviation ASC").all
     elsif key=="buildings"
-      return a.order("name ASC").all
+      return Area.order("name ASC").all
     else
-      return a.order("name ASC").all
+      return Area.order("name ASC").all
     end
   end
 

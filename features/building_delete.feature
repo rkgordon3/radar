@@ -1,6 +1,6 @@
 @rails-31 @delete_buildings
-Feature: System admin deleting buildings
-   As a system administrator, I want to be able to delete a building
+Feature: System admin wants to delete a building
+   As a system administrator, I want to delete a building
    
 Background:
    Given the user "radar-admin@smumn.edu" is logged in as a "System Administrator"
@@ -8,5 +8,5 @@ Background:
    And the "radar-admin@smumn.edu" is on the list "buildings" page
    
 Scenario: A system administrator navigates to manage building link from the manage menu and clicks the Destroy link to remove a building
-   Given the user selects the Destroy link on "Test Building"
+   Given the user selects the Destroy link on building "Test Building"
    Then the "Test Building" should be removed from the page
