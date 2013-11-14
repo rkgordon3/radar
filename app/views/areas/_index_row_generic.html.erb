@@ -9,8 +9,8 @@
             <%= b.name %><br/>
           <% end %>
         </td>
-        <td valign="middle"><%= link_to 'Edit', "javascript:void(0)",
-            :onclick => "doubleDivToggle('show_area_#{area.id}_row','edit_area_#{area.id}_row');" if can? :edit, area %></td>
+        <td valign="middle"><%= link_to 'Edit', "javascript:void(0)", 
+            :onclick => '$("#show_area_#{area.id}_row").toggle();$("#edit_area_#{area.id}_row").toggle();' if can? :edit, area %></td>
         <td valign="middle"><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete, :remote => true, :id => area if can? :destroy, area %></td>
       </tr>
     </table>
@@ -26,7 +26,7 @@
             <%= select_tag "buildings", options_from_collection_for_select(buildings, "id", "name", area.buildings.collect{|b| b.id}), :multiple => true, :class => 'form_input', :size => 5 %>
           </td>
           <td valign="middle"><%= f.submit "Save" %>
-            <%=  button_to_function "Cancel", "doubleDivToggle('show_area_#{area.id}_row','edit_area_#{area.id}_row')" %>
+            <%=  button_to_function "Cancel", '$("#show_area_#{area.id}_row").toggle();$("#edit_area_#{area.id}_row").toggle();' %>
             <%= hidden_field :row, :style, {:value=>row_style}  %></td>
         </tr>
       </table>
