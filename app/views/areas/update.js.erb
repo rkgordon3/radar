@@ -1,0 +1,6 @@
+var area_id = '<%= area.id %>';
+$("#area_" + area_id + "_div").bind('ajax:success', function() {
+	$(this).replaceWith("<%= escape_javascript render :partial => 'index_row_generic', :locals => {:unassigned_buildings => unassigned_buildings, :area => @area} %>");
+	//Returning false ensures the page doesn't scroll to the top
+	return false;
+});

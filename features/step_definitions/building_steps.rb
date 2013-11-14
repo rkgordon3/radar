@@ -1,5 +1,5 @@
-And(/^the building "(.*?)" exists$/) do |area|
-	FactoryGirl.create(:building, :name => area)
+And(/^the building "(.*?)" exists$/) do |building|
+	FactoryGirl.create(:building, :name => building)
 end
 
 Then(/^I should see the buildings in this order:$/) do |table|

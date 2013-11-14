@@ -1,7 +1,7 @@
 <div id="<%= "area_#{area.id}_div" %>">
   <div id="<%= "show_area_#{area.id}_row" %>">
     <table width="100%">
-      <tr <%= row_style %> valign="bottom">
+      <tr valign="bottom">
         <td valign="middle" style="width:25%"><%=h area.name %></td>
         <td valign="middle" style="width:10%"><%=h area.abbreviation %></td>
         <td valign="middle" style="width:25%">
@@ -10,15 +10,15 @@
           <% end %>
         </td>
         <td valign="middle"><%= link_to 'Edit', "javascript:void(0)", 
-            :onclick => '$("#show_area_#{area.id}_row").toggle();$("#edit_area_#{area.id}_row").toggle();' if can? :edit, area %></td>
-        <td valign="middle"><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :method => :delete, :remote => true, :id => area if can? :destroy, area %></td>
+            :onclick => "$('#show_area_#{area.id}_row').toggle();$('#edit_area_#{area.id}_row').toggle();" if can? :edit, area %></td>
+        <td valign="middle"><%= link_to 'Destroy', area, :confirm => 'Are you sure?', :class => "destroy_link", :method => :delete, :remote => true, :id => area if can? :destroy, area %></td>
       </tr>
     </table>
   </div>
   <div id="<%= "edit_area_#{area.id}_row" %>" style="display:none;">
     <%= form_for(area, :remote=>true) do |f| %>
       <table width="100%" frame="border">
-        <tr <%= row_style %> valign="bottom">
+        <tr valign="bottom">
           <td valign="middle" style="width:25%"><%= f.text_field :name, :size => 25 %></td>
           <td valign="middle" style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
           <td valign="middle" style="width:25%">
@@ -26,8 +26,8 @@
             <%= select_tag "buildings", options_from_collection_for_select(buildings, "id", "name", area.buildings.collect{|b| b.id}), :multiple => true, :class => 'form_input', :size => 5 %>
           </td>
           <td valign="middle"><%= f.submit "Save" %>
-            <%=  button_to_function "Cancel", '$("#show_area_#{area.id}_row").toggle();$("#edit_area_#{area.id}_row").toggle();' %>
-            <%= hidden_field :row, :style, {:value=>row_style}  %></td>
+            <%=  button_to_function "Cancel", "$('#show_area_#{area.id}_row').toggle();$('#edit_area_#{area.id}_row').toggle();" %>
+            </td>
         </tr>
       </table>
     <% end %>
