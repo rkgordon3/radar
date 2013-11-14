@@ -1,3 +1,10 @@
+
+class String
+	def list_word?
+		[ "manage", "list" ].include? self.downcase  
+	end
+end
+
 module ApplicationHelper
 
 
@@ -27,7 +34,9 @@ def link_id_from_text(text)
 end
 
 def named_route_from_text(text)
-	text.split.reverse.join("_").downcase+"_path"
+	words = text.split
+	words = words[1..-1] if words[0].list_word?
+	words.reverse.join("_").downcase+"_path"
 end
 
 end
