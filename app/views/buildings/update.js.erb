@@ -1,5 +1,4 @@
 var building_id = '<%= building.id %>';
-console.log($("#building_" + building_id + "_div"));
 $("#building_" + building_id + "_div").bind('ajax:success', function() {
 	// @TODO This matching could be a little better. As in, use the div ID for selection
 	$(this).closest('div').html('<%= escape_javascript render :partial => 'index_row_generic', :locals => {:building => @building, :row_style =>row_style} %>');

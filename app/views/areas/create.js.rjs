@@ -1,4 +1,0 @@
-page["flash_notice"].show
-page.replace_html 'flash_notice', flash_notice
-page.replace "new_area_div", :partial => 'index_row_generic', :locals => {:unassigned_buildings => unassigned_buildings, :area => @area, :row_style => row_style}
-page.replace "new_area_link", :partial => 'new_generic', :locals => {:unassigned_buildings => unassigned_buildings, :is_shaded => is_shaded}

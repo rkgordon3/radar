@@ -1,0 +1,7 @@
+$("#new_area_group").after(insertArea());
+
+function insertArea() {
+	return '<%= escape_javascript render :partial => "index_row_generic", :locals => {:unassigned_buildings => unassigned_buildings, :area => @area, :row_style => row_style} %>';
+}
+
+$("#new_area_group").html('<%= escape_javascript render :partial => "new_generic", :locals => {:unassigned_buildings => unassigned_buildings, :is_shaded => is_shaded} %>');
