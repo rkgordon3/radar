@@ -34,6 +34,9 @@ gem 'will_paginate', '~> 3.0.pre4'
 gem 'mongrel', '1.2.0.pre2'
 
 gem 'paperclip'
+
+gem "remotipart", "~> 1.2"
+gem "httpclient", "~> 2.3.4.1"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

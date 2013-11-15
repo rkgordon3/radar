@@ -1,5 +1,7 @@
 Radar::Application.routes.draw do
 
+  resources :photos, :only => [:create], :defaults => { :format => 'js' }
+  get "photos/new"
 
   match "/imports/proc/:id" => "imports#proc_csv"
 

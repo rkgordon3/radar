@@ -11,11 +11,12 @@ class Report < ActiveRecord::Base
   has_many     		:adjunct_submitters, :foreign_key => :report_id, :class_name => "ReportAdjunct"
   has_many		    :report_participant_relationships
   has_many			  :participants, :through => :report_participant_relationships
+  # has_many        :photos
   
   belongs_to    	  :annotation
   after_initialize 	:setup_defaults
   after_find		    :cache_submitted
-  after_save       	:save_associations
+  after_save       	:save_associations, :save_photo
   before_destroy   	:destroy_associations
 
   attr_accessible 	:type, :staff_id, :location
@@ -45,6 +46,13 @@ class Report < ActiveRecord::Base
       order("reports.#{user.preference(:sort_order)}")
     end
   }
+
+  def save_photo
+    puts "after save of report"
+    # for each photo associated with report
+       # send photo to g3
+    # end
+  end
   
   def default_contact_duration
 	0
