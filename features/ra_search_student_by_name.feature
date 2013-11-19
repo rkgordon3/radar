@@ -11,3 +11,4 @@ Background:
       And the user selects "Joe Joe" from the auto-suggestion field
       When the user selects the "Submit" button
       And the text "Joe Joe" should be displayed
+      And the student with name Joe Joe should exist
