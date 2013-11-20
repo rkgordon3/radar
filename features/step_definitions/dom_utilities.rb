@@ -31,3 +31,22 @@ When(/^the user selects the "(.*?)" icon$/) do |icon|
   	#visit root_path
   	puts "----------------after click", page.html
 end
+
+Then(/^the user selects the "(.*?)" checkbox$/) do |checkbox|
+  check checkbox
+end
+
+Then(/^the (.*?) is selected$/) do |checkbox|
+  check_save = checkbox.split(" ").each {|x| x.capitalize}.join
+  id = Organization.find_by_type(check_save).id
+  check check_save.downcase+"_#{id}"
+end
+
+Then(/^an edit link (.*?) be available for (.*?)$/) do |type, user|
+  staff = Staff.find_by_email(user)
+  if type == "should"
+    page.should have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
+  else
+    page.should_not have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
+  end
+end
