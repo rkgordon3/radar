@@ -1,6 +1,0 @@
-unless flash_notice.nil?
-  page["flash_notice"].show
-  page.replace_html 'flash_notice', flash_notice
-end
-page.replace div_id, :partial => 'reports/report_index_body',
-  :locals => { :reports => @reports, :num_rows => 0, :all_reports => all_reports, :paginate => paginate, :div_id => div_id}

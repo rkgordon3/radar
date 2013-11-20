@@ -10,7 +10,7 @@ Background:
 
    
 Scenario: A system administrator navigates to manage building link from the manage menu and wants to add a new building
-   When the user selects the "New Building" js link
+   When the user selects the "New Building" link
    And the user fills in the "building_name" field with "Test Building"
    And the user fills in the "building_abbreviation" field with "TBA"
    And the user selects "LaSalle" from the "building_area" menu

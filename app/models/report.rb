@@ -18,7 +18,7 @@ class Report < ActiveRecord::Base
   after_save       	:save_associations
   before_destroy   	:destroy_associations
 
-  attr_accessible 	:type, :staff_id, :location, :annotation, 
+  attr_accessible 	:type, :staff_id, :location, :annotation,  
                     :building_id, :room_number, :approach_time, :submitted
   
  
@@ -166,28 +166,29 @@ class Report < ActiveRecord::Base
   end
   
   def update_attributes_without_saving(params)
-	update_relationships(params)
+    logger.debug("++++++++report:update attributes without saving")
+	  update_relationships(params)
     self.building_id = params[:building_id]
     self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
     self.approach_time = params[:approach_time] || Time.now
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
-
-	self.organization_id = report_type.organization.id
+    self.organization_id = report_type.organization.id
+=begin
 	annotation_text = params[:annotation]
     if annotation_text != nil && annotation_text.length > 0   
         self.annotation = Annotation.new if self.annotation.nil?
         self.annotation.text = annotation_text
     end
-	
-
+=end
     self.adjunct_submitters.each { |ra| ra.destroy }
     params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
+    logger.debug("+++++++at end of update_attribute_without_saving")
   end
   
   def update_relationships(params)
-  logger.info("INSIDE update_relationships")
+  logger.debug("+++++++++++++INSIDE update_relationships")
     return false if params[:reason].nil?
 
 	report_participant_relationships.destroy_all

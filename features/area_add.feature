@@ -8,7 +8,7 @@ Background:
     And the building "Test Building" exists
 
 Scenario: A Sys Admin navigates to the manage areas link from the manage menu and wants to add a new area
-   When the user selects the "New Area" js link
+   When the user selects the "New Area" link
    And the user fills in the "area_name" field with "Test Area"
    And the user fills in the "area_abbreviation" field with "TA"
    And the user selects "Test Building" from the "buildings" menu

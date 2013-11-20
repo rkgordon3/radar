@@ -114,9 +114,9 @@ class ReportsController < ApplicationController
   # POST /reports.xml
   def create
     #@report = session[:report]
+    params[:report][:annotation] = Annotation.new(text: params[:report][:annotation]) if not params[:report][:annotation].blank?
 	  @report = Report.new(params[:report])
     params[:report][:report_adjuncts] = params[:report_adjuncts]
-
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to home_landingpage_path, :flash_notice => 'Report was successfully created.' }
