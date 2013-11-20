@@ -4,8 +4,13 @@ When(/^the user visits the "(.*?)" page$/) do |text|
   visit send(named_route_from_text(text))
 end
 
+When(/^the user visits the "(.*?)" report page$/) do |report_type|
+	report_type = report_type.delete(" ")
+  	visit("/reports?report_type=#{report_type}")
+end
+
 When(/^the user selects the "(.*?)" link$/) do |link|
-  click_link link
+  	click_link link
 end
 
 When(/^the user selects the "(.*?)" js link$/) do |link|

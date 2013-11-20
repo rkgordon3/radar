@@ -49,6 +49,17 @@ FactoryGirl.define do
 		st.building_id 0
 	end
 
+	factory :incident_report do |r|
+		r.type 'IncidentReport'
+		r.submitted 'true'
+	end
+
+	factory :report_participant_relationship do |r|
+		r.participant_id 0
+		r.report_id 0
+		r.relationship_to_report_id 0
+	end
+
 	factory :building do |b|
 		b.name 'Sample Name'
 	end
