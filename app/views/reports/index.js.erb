@@ -1,0 +1,5 @@
+<% unless flash_notice.nil? %>
+  $("#flash_notice").show();
+  $("#flash_notice").html("<%= escape_javascript flash_notice %>");
+<% end %>
+$("#<%= div_id %>").replaceWith("<%= escape_javascript render :partial => 'reports/report_index_body', :locals => {:reports => @reports, :num_rows => 0, :all_reports => all_reports, :paginate => paginate, :div_id => div_id } %>");
