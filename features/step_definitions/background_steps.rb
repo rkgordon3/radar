@@ -57,7 +57,6 @@ end
 
 And(/^the student "(.*?)" lives in "(.*?)"$/) do |name, residence|
   full_name = name << " #{name}"
-  puts 
   building = FactoryGirl.create(:building, :name => residence, :is_residence => true)
   student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :full_name => full_name, :building_id => building.id)
 end

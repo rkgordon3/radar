@@ -44,11 +44,8 @@ end
 
 Then(/^an edit link (.*?) be available for (.*?)$/) do |type, user|
   staff = Staff.find_by_email(user)
-  if type == "should"
-    page.should have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
-  else
-    page.should_not have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
-  end
+  type = type.split.join("_")
+  page.send(type) have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
 end
 
 When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|

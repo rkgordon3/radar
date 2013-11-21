@@ -39,6 +39,10 @@ def named_route_from_text(text)
 	words.reverse.join("_").downcase+"_path"
 end
 
+def html_id(model)
+	model.class.to_s.downcase+"_#{model.id}"
+end
+
 end
 
 
