@@ -9,7 +9,7 @@ Background:
 
 Scenario: A System Administrator navigates to the manage areas link from the manage menu and clicks the Destroy link to remove an area and then clicks cancel on the alert which pops up
 	Given I expect to click "Cancel" on a confirmation box saying "Are you sure?"
-	Then the user selects the Destroy link on area "Test Area"
+	Then the user selects the Destroy link on area Test Area
 	Then the confirmation box should have been displayed
 	Then the text "Test Area" should be displayed
 	And the area named Test Area should exist
