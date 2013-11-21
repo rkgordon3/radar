@@ -7,10 +7,10 @@ Background:
    And the building named Watters exists
    And the area named Foo exists
    When the user visits the "Manage Areas" page
-Scenario: A system administrator navigates to manage building link from the manage menu and clicks the Edit link to edit a building
+Scenario: A system administrator navigates to manage area link from the manage menu and clicks the Edit link to edit a area
    Given the user selects the Edit link on area Foo
    And the user changes the area name from Foo to Foobar
    And the user changes the area abbreviation from f to fb
-   And the user selects LaSalle from the buildings menu
+   And the user selects "LaSalle" from the "buildings" menu
    And the user selects the "Save" button
    Then the area named Foobar should exist

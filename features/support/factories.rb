@@ -69,6 +69,7 @@ FactoryGirl.define do
 
 	factory :building do |b|
 		b.name 'Sample Name'
+		b.area_id 0
 	end
 
 	factory :report_type do |rt|
