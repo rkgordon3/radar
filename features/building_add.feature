@@ -13,7 +13,6 @@ Scenario: A system administrator navigates to manage building link from the mana
    When the user selects the "New Building" link
    And the user fills in the "building_name" field with "Test Building"
    And the user fills in the "building_abbreviation" field with "TBA"
-   And the user selects LaSalle from the building_area menu
+   And the user selects "LaSalle" from the "building_area" menu
    And the user selects the "Create" button
-   Then the text "Test Building" should be displayed
    And the building named Test Building should exist

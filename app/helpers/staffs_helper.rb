@@ -1,3 +1,4 @@
+include ApplicationHelper
 module StaffsHelper
 
   def StaffsHelper.sign_out_confirmation(staff)
@@ -36,7 +37,7 @@ module StaffsHelper
     out = ""
     Organization.all.each do |org|
 	  role = staff.role_in(org)
-	  opts = { :onclick=>"reset_box(this);" } 
+	  opts = { :id=> html_id(org), :onclick=>"reset_box(this);" } 
 	  # Disable components if current user can not 'register' users
 	  # in org.
 	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 

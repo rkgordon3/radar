@@ -1,4 +1,4 @@
-@ra_cannot_manage_others
+@ra_cannot_manage_others @rails-31
 Feature: Resident Assistance cannot manage other staff members besides themself
 	As a resident assistant, I should not be able to manage any other staff members besides myself
 	Background:
