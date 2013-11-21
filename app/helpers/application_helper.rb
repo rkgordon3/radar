@@ -39,7 +39,6 @@ def named_route_from_text(text)
 	words.reverse.join("_").downcase+"_path"
 end
 
-<<<<<<< HEAD
 def model_element_id(model)
 	name = model.class.name.downcase
 	name = "organization" if name.match(/^(.*)organization/)
