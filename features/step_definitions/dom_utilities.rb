@@ -62,3 +62,19 @@ When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
       first(:link, link).click
     end
 end
+
+Given /^I expect to click "([^"]*)" on a confirmation box saying "([^"]*)"$/ do |option, message|
+	retval = (option == "OK") ? "true" : "false"
+	evaluate_script("window.confirm = function (msg) {
+		$.cookie('confirm_message', msg);
+		return #{retval};
+	}")
+	 
+	@expected_message = message
+end
+
+Then /^the confirmation box should have been displayed$/ do
+	page.evaluate_script("$.cookie('confirm_message')").should_not be_nil
+	page.evaluate_script("$.cookie('confirm_message')").should eq(@expected_message)
+	page.evaluate_script("$.cookie('confirm_message', null)")
+end
