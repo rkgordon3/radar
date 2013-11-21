@@ -50,8 +50,15 @@ FactoryGirl.define do
 	end
 
 	factory :incident_report do |r|
-		r.type 'IncidentReport'
 		r.submitted 'true'
+		r.building_id 0
+		r.room_number 'Room 69'
+	end
+
+	factory :maintenance_report do |r|
+		r.submitted 'true'
+		r.building_id 0
+		r.room_number 'Room 69'
 	end
 
 	factory :report_participant_relationship do |r|
