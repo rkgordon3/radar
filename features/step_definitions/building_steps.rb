@@ -8,11 +8,11 @@ Then(/^I should see the buildings in this order:$/) do |table|
 	expected_order.should == actual_order
 end
  
-When(/^the user selects the Destroy link on building "(.*?)"$/) do |building|
-	within("div#building_#{Building.find_by_name(building).id}_div") do
-		find_link('Destroy').click
-	end
-end
+# When(/^the user selects the Destroy link on building "(.*?)"$/) do |building|
+# 	within("div#building_#{Building.find_by_name(building).id}_div") do
+# 		find_link('Destroy').click
+# 	end
+# end
  
 Then(/^the "(.*?)" should be removed from the page$/) do |building|
 	#page.has_content?(building)
