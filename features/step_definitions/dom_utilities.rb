@@ -5,11 +5,7 @@ When(/^the user visits the "(.*?)" page$/) do |text|
 end
 
 When(/^the user selects the "(.*?)" link$/) do |link|
-  click_link link
-end
-
-When(/^the user selects the "(.*?)" js link$/) do |link|
-	click_link link
+  click_on(link)
 end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
@@ -17,8 +13,12 @@ When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
-	field = field.downcase << "_id"
-	select value, :from => field
+	if field.eql?("buildings")
+    select value, :from => field
+  else
+     field = field.downcase << "_id"
+     select value, :from => field
+  end
 end
 
 When(/^the user selects the "(.*?)" button$/) do |button|
@@ -49,4 +49,11 @@ Then(/^an edit link (.*?) be available for (.*?)$/) do |type, user|
   else
     page.should_not have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
   end
+end
+
+When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
+    within("div##{model}_#{model.capitalize.constantize.find_by_name(name).id}_div") do
+      # find_link(link).click
+      first(:link, link).click
+    end
 end
