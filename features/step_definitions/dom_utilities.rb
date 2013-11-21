@@ -4,11 +4,6 @@ When(/^the user visits the "(.*?)" page$/) do |text|
   visit send(named_route_from_text(text))
 end
 
-When(/^the user visits the "(.*?)" report page$/) do |report_type|
-	report_type = report_type.delete(" ")
-  	visit("/reports?report_type=#{report_type}")
-end
-
 When(/^the user selects the "(.*?)" link$/) do |link|
   click_on(link)
 end
@@ -58,8 +53,7 @@ end
 
 When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
     within("div##{model}_#{model.capitalize.constantize.find_by_name(name).id}_div") do
-      # find_link(link).click
-      first(:link, link).click
+      find_link(link).click
     end
 end
 

@@ -11,6 +11,6 @@ Scenario: A Sys Admin navigates to the manage areas link from the manage menu an
    When the user selects the "New Area" link
    And the user fills in the "area_name" field with "Test Area"
    And the user fills in the "area_abbreviation" field with "TA"
-   And the user selects Test Building from the buildings menu
+   And the user selects "Test Building" from the "buildings" menu
    And the user selects the "Create" button
    And the area named New Area should exist
