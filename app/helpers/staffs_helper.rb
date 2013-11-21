@@ -37,7 +37,7 @@ module StaffsHelper
     out = ""
     Organization.all.each do |org|
 	  role = staff.role_in(org)
-	  opts = { :id=> html_id(org), :onclick=>"reset_box(this);" } 
+	  opts = { :id=> model_element_id(org), :onclick=>"reset_box(this);" } 
 	  # Disable components if current user can not 'register' users
 	  # in org.
 	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 
@@ -52,7 +52,7 @@ module StaffsHelper
 	  # accommodate controller expectations.
 	  display = (can?(:register, org) || staff.organizations.include?(org)) ? "block;" : "none;"
 	  out += "<div class='field'  style='display:" + display +"' >"
-	  out += check_box_tag(model_element_id(org), org.id, (not role.nil?),opts )
+	  out += check_box_tag(model_array_element_id(org), org.id, (not role.nil?),opts )
 	  out += select_tag("authorization[#{org.id}]",
 					options_from_collection_for_select(assignable, "id", "display_name",  (role.nil? ? 1 : role.id) ), opts )
 	  out += " in #{label_tag org.display_name}"

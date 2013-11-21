@@ -26,10 +26,8 @@ When(/^the user selects the "(.*?)" button$/) do |button|
 end
 
 When(/^the user selects the "(.*?)" icon$/) do |icon|
-	puts "================before click", page.html
   	click_button icon
   	#visit root_path
-  	puts "----------------after click", page.html
 end
 
 Then(/^the user selects the "(.*?)" checkbox$/) do |checkbox|
@@ -42,14 +40,14 @@ Then(/^the (.*?) is selected$/) do |checkbox|
   check check_save.downcase+"_#{id}"
 end
 
-Then(/^an edit link (.*?) be available for (.*?)$/) do |type, user|
+Then(/^an edit link (should|should not) be available for (.*?)$/) do |polarity, user|
   staff = Staff.find_by_email(user)
-  type = type.split.join("_")
-  page.send(type) have_xpath("//a[@href='/staffs/#{staff.id}/edit']")
+  polarity = polarity.split.join("_")
+  page.send(polarity,  have_xpath("//a[@href='/staffs/#{staff.id}/edit']"))
 end
 
 When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
-    within("div##{model}_#{model.capitalize.constantize.find_by_name(name).id}_div") do
+    within("div##{model}_#{model_id(model,name)}_div") do
       find_link(link).click
     end
 end

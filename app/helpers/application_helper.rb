@@ -3,6 +3,10 @@ class String
 	def list_word?
 		[ "manage", "list" ].include? self.downcase  
 	end
+
+	def stripto(val) 
+		self.match(Regexp.new("^(.*)#{val}")) ? val : self		
+	end
 end
 
 module ApplicationHelper
@@ -39,12 +43,16 @@ def named_route_from_text(text)
 	words.reverse.join("_").downcase+"_path"
 end
 
-def model_element_id(model)
-	name = model.class.name.downcase
-	name = "organization" if name.match(/^(.*)organization/)
-	[name, model.id].join("_")
+def normalize_model_name(model) 
+	model.class.name.downcase.stripto("organization")
 end
 
-def html_id(model)
-	model.class.to_s.downcase+"_#{model.id}"
+def model_element_id(model)
+	[normalize_model_name(model), model.id].join("_")
+end
+
+def model_array_element_id(model) 
+	"#{normalize_model_name(model)}[#{model.id}]"
+end
+
 end

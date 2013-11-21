@@ -38,10 +38,10 @@ class StaffsController < Devise::RegistrationsController
     # delete all existing
     staff.access_levels.delete_all
     staff.staff_areas.build(staff: staff.id, area_id: params[:area_ids].first)
-    params[:org].each { |org_id| 
+    params[:organization].each_key { |org_id| 
       staff.staff_organizations.build(:staff_id => staff.id, 
-                                    :organization_id=>org_id.to_i, 
-                                    :access_level_id =>params[:authorization][org_id.to_s].to_i)
+                  :organization_id=>org_id.to_i, 
+                  :access_level_id =>params[:authorization][org_id.to_s].to_i)
     }
   end
 
