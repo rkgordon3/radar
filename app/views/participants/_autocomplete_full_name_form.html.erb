@@ -1,6 +1,7 @@
 <%= form_tag(target, :method => :get, :remote => true) do %>
   <%  if not report.nil? %>
 	<%= hidden_field :report, :id %>
+	<%= hidden_field :report, :type %>
   <% end %>
   <%= label_tag "Search Students" , nil, { :class => "bold_label" } %>
   <%= render :partial => 'participants/autocomplete_full_name' %>
