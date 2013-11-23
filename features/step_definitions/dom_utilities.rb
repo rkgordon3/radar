@@ -8,17 +8,18 @@ When(/^the user selects the "(.*?)" link$/) do |link|
   click_on(link)
 end
 
-When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
-    fill_in field, :with => value
+When(/^the user fills in the (.*?) (.*?) field with "(.*?)"$/) do |model, field, value|
+  field = model << '_' << field
+  fill_in field, :with => value
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
-	if field.eql?("buildings")
-    select value, :from => field
-  else
-     field = field.downcase << "_id"
+	# if field.eql?("buildings")
+ #    select value, :from => field
+ #  else
+     # field = field.downcase << "_id"
      select value, :from => field
-  end
+  # end
 end
 
 When(/^the user selects the "(.*?)" button$/) do |button|

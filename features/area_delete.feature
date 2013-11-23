@@ -1,4 +1,4 @@
-@rails-31 @delete_areas @areas 
+@rails-31 @delete_areas @areas @David
 Feature: Sys Admin wants to delete an area
 	As a Sys Admin, I want to delete an area
 

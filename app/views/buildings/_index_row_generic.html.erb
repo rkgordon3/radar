@@ -21,7 +21,7 @@
           <td style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
           <td style="width:10%" align="center"><%= f.check_box :is_residence %></td>
           <td style="width:25%">
-            <%= f.collection_select( :area_id, Area.all, :id, :name, {:selected => building.area_id.nil? ? Area.unspecified_id : building.area_id}) %></td>
+            <%= f.collection_select( :area_id, Area.all, :id, :name, {:selected => building.area_id.nil? ? Area.unspecified_id : building.area_id}, {:id=>'areas'}) %></td>
           <td><%= f.submit "Save", :id => "#{building.id}_edit_save" %>
             <%=  button_to_function "Cancel", "$('#show_building_#{building.id}_row').toggle();$('#edit_building_#{building.id}_row').toggle();" %>
             <%= hidden_field :row, :style, {:value=>row_style}  %></td>
