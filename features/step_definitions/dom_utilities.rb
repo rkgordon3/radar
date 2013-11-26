@@ -42,13 +42,14 @@ And(/^the user selects the (.*?) checkbox for (.*?)$/) do |checkbox, model|
   check "#{id}".downcase
 end
 
-Then(/^an edit link (should|should not) be available for (.*?) with email (.*?)$/) do 
-  |polarity, model, email|
-  model_plural = model.downcase.pluralize
+Then(/^an edit link (should|should not) be available for (.*?) with (name|email) (.*?)$/) do 
+  |polarity, model, name_or_email, identifier|
+  puts "=========#{model}======="
+  model_plural = model.delete(" ").tableize
   model = model.split(" ").each {|x| x.capitalize}.join
-  user_id = model_id(model, email)
+  id = model_id(model, identifier)
   polarity = polarity.split.join("_")
-  page.send(polarity,  have_xpath("//a[@href='/#{model_plural}/#{user_id}/edit']"))
+  page.send(polarity,  have_xpath("//a[@href='/#{model_plural}/#{id}/edit']"))
 end
 
 When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
