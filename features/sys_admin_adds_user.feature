@@ -1,4 +1,4 @@
-@sys_admin_add_user @rails-31
+@sys_admin_add_user @rails-31 @gabe
 Feature: Radar Administrator adds a user
 	As a System Administrator, I want to add a new user to the staff group
 	Background:

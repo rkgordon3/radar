@@ -55,4 +55,8 @@ def model_array_element_id(model)
 	"#{normalize_model_name(model)}[#{model.id}]"
 end
 
+def model_element_type(model)
+	[normalize_model_name(model), "#{model.display_name}".split.join("_")].join("_").downcase
+end
+
 end

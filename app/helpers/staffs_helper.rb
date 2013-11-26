@@ -37,7 +37,7 @@ module StaffsHelper
     out = ""
     Organization.all.each do |org|
 	  role = staff.role_in(org)
-	  opts = { :id=> model_element_id(org), :onclick=>"reset_box(this);" } 
+	  opts = { :id=> model_element_type(org), :onclick=>"reset_box(this);" } 
 	  # Disable components if current user can not 'register' users
 	  # in org.
 	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 

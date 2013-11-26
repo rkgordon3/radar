@@ -42,10 +42,13 @@ And(/^the user selects the (.*?) checkbox for (.*?)$/) do |checkbox, model|
   check "#{id}".downcase
 end
 
-Then(/^an edit link (should|should not) be available for (.*?)$/) do |polarity, user|
-  staff = Staff.find_by_email(user)
+Then(/^an edit link (should|should not) be available for (.*?) with email (.*?)$/) do 
+  |polarity, model, email|
+  model_plural = model.downcase.pluralize
+  model = model.split(" ").each {|x| x.capitalize}.join
+  user_id = model_id(model, email)
   polarity = polarity.split.join("_")
-  page.send(polarity,  have_xpath("//a[@href='/staffs/#{staff.id}/edit']"))
+  page.send(polarity,  have_xpath("//a[@href='/#{model_plural}/#{user_id}/edit']"))
 end
 
 When(/^the user selects the (.*?) link on (.*?) (.*?)$/) do |link, model, name|
