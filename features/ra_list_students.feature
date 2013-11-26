@@ -1,4 +1,4 @@
-@rails-31 @ra_list_students
+@rails-31 @ra_list_students @David
 Feature: RA wants to View Student List
 	As an ra, I want to see a list of students
 

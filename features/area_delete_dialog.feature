@@ -1,4 +1,4 @@
-@rails-31 @delete_areas_dialog @areas @javascript
+@rails-31 @delete_areas_dialog @areas @javascript @Owen
 Feature: Sys Admin wants to cancel an in-process area deletion
 	As a Sys Admin, I want to cancel an area deleltion
 

@@ -1,4 +1,4 @@
-@ra_duty @rails-31 @javascript
+@ra_duty @rails-31 @javascript @gabe
 Feature: RA Goes on Duty
 	As a Resident Assistant, I want to be able to go on duty.
   Background:

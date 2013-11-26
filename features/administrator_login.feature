@@ -1,4 +1,4 @@
-@rails-31 @rkg @administrator
+@rails-31 @rkg @administrator @dylan
 Feature: Administrator Log In
    As an administrator, I want to sign in and see a welcome message
    Scenario Outline: An administrator user signs in and sees the correct navbar

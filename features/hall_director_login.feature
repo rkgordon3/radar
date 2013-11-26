@@ -1,4 +1,4 @@
-@rails-31 @hd
+@rails-31 @hd @gabe
 Feature: System Admin Log In
    As a Hall Director member, I want to sign in and see a welcome message
    Scenario Outline: A system admin user signs in and sees the correct navbar

@@ -26,10 +26,10 @@ module StaffsHelper
 	 out.html_safe
   end
   
-  def update_password_tag(options={})
+	def update_password_tag(options={})
     out = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 	out += label_tag("Update Password?", nil,options.reverse_merge(:class=>'alert_label'))
-    out +=	check_box "update_password", nil, :checked=>"checked", :id=>"update_password", :onclick=>"reset_password_fields(this);"
+    out +=	check_box "update_password", nil, :id=>"update_password"
 	out.html_safe
   end
   
@@ -37,7 +37,7 @@ module StaffsHelper
     out = ""
     Organization.all.each do |org|
 	  role = staff.role_in(org)
-	  opts = { :id=> model_element_id(org), :onclick=>"reset_box(this);" } 
+	  opts = { :id=> model_element_type(org), :onclick=>"reset_box(this);" } 
 	  # Disable components if current user can not 'register' users
 	  # in org.
 	  opts.merge!  :disabled=> "disabled"  if cannot?(:register, org) 

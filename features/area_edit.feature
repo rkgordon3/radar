@@ -1,4 +1,4 @@
-@rails-31 @edit_areas @areas @javascript
+@rails-31 @edit_areas @areas @javascript @David
 Feature: System admin editing areas
    As a system administrator, I want to be able to edit an area
 Background:
@@ -9,8 +9,9 @@ Background:
    When the user visits the "Manage Areas" page
 Scenario: A system administrator navigates to manage area link from the manage menu and clicks the Edit link to edit a area
    Given the user selects the Edit link on area Foo
-   And the user changes the area name from Foo to Foobar
-   And the user changes the area abbreviation from f to fb
+   And the user fills in the "Area Name" field with "Foobar"
+   And the user fills in the "Area Abbreviation" field with "fb"
    And the user selects "LaSalle" from the "buildings" menu
    And the user selects the "Save" button
+   Then the text "Foobar" should be displayed
    Then the area named Foobar should exist

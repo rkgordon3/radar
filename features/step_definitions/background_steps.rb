@@ -56,7 +56,7 @@ And(/^the "(.*?)" is on the list "(.*?)" page$/) do |user, page|
 end
 
 And(/^the student "(.*?)" lives in "(.*?)"$/) do |name, residence|
-  full_name = name << " #{name}"
+  # full_name = name << " #{name}"
   building = FactoryGirl.create(:building, :name => residence, :is_residence => true)
-  student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :full_name => full_name, :building_id => building.id)
+  student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :full_name => name, :building_id => building.id)
 end

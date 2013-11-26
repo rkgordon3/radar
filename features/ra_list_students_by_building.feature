@@ -1,4 +1,4 @@
-@rails-31 @ra_list_students
+@rails-31 @ra_list_students_building @David
 Feature: RA wants to View Student List by Building
    As an ra, I want to see a list of students by building
 

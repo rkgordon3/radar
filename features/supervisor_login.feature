@@ -1,4 +1,4 @@
-@rails-31 @supervisor
+@rails-31 @supervisor @David
 Feature: Supervisor Log In
    As a supervisor, I want to sign in and see a welcome message
    Scenario Outline: A supervisor user signs in and sees the correct navbar
