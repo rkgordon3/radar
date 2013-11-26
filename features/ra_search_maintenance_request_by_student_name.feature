@@ -4,7 +4,7 @@ As a Resident Assistant, I want to be able to search maintenance requests by stu
 Background:
    Given the user "ra@smumn.edu" is logged in as a "Resident Assistant"
    And the student "Joe" lives in "LaSalle Hall"
-   And an "Incident Report" exists for student "Joe"
+   And an "Maintenance Report" exists for student "Joe"
    Scenario: A Resident Assistant user is on duty and wants to search for a student by name
       When the user visits the "Maintenance Report" report page
       Then the text "Report Search" should be displayed
