@@ -1,4 +1,4 @@
-@rails-31 @edit_buildings @buildings @javascript @David
+@rails-31 @edit_buildings @buildings @javascript @David @Owen
 Feature: System admin editing buildings
    As a system administrator, I want to be able to edit a building
 Background:
