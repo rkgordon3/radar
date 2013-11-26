@@ -19,12 +19,12 @@ When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
-	# if field.eql?("buildings")
- #    select value, :from => field
- #  else
+	if field.eql?("buildings")
+    select value, :from => field
+  else
      field = field.downcase << "_id"
      select value, :from => field
-  # end
+  end
 end
 
 When(/^the user selects the "(.*?)" button$/) do |button|
