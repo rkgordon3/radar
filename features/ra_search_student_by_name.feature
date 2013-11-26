@@ -1,4 +1,4 @@
-@rails-31 @ra_search_student_by_name @javascript
+@rails-31 @ra_search_student_by_name @javascript @gabe
 Feature: RA wants to search student by name
 As a Resident Assistant, I want to be able to search students by name
 Background:

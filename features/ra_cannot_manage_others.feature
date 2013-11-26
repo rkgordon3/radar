@@ -1,4 +1,4 @@
-@ra_cannot_manage_others @rails-31
+@ra_cannot_manage_others @rails-31 @gabe
 Feature: Resident Assistance cannot manage other staff members besides themself
 	As a resident assistant, I should not be able to manage any other staff members besides myself
 	Background:
@@ -8,5 +8,5 @@ Feature: Resident Assistance cannot manage other staff members besides themself
 	Scenario: A resident assistant wants to make sure they can edit their own account, but not others
 		When the user visits the "Manage Staffs" page
 		Then the text "Users" should be displayed
-		And an edit link should be available for ra@smumn.edu
-		And an edit link should not be available for otherra@smumn.edu
+		And an edit link should be available for Staff with email ra@smumn.edu
+		And an edit link should not be available for Staff with email otherra@smumn.edu
