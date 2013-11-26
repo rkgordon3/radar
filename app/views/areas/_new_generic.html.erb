@@ -13,7 +13,7 @@
         <td valign="middle" style="width:25%"><%= f.text_field :name, :size => 25 %></td>
         <td valign="middle" style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
         <td valign="middle" style="width:25%">
-          <%= select_tag "buildings", options_from_collection_for_select(unassigned_buildings, "id", "name"), :multiple => true, :class => 'form_input' %>
+          <%= select_tag "buildings_id", options_from_collection_for_select(unassigned_buildings, "id", "name"), :multiple => true, :class => 'form_input' %>
         </td>
         <td valign="middle"><div class="actions"><%= hidden_field :is, :shaded, {:value => is_shaded} %>
             <%= f.submit "Create" %>

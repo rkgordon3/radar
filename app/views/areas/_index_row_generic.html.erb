@@ -23,7 +23,7 @@
           <td valign="middle" style="width:10%"><%= f.text_field :abbreviation, :size => 5 %></td>
           <td valign="middle" style="width:25%">
             <% buildings = area.buildings + unassigned_buildings %>
-            <%= select_tag "buildings", options_from_collection_for_select(buildings, "id", "name", area.buildings.collect{|b| b.id}), :multiple => true, :class => 'form_input', :size => 5 %>
+            <%= select_tag "buildings_id", options_from_collection_for_select(buildings, "id", "name", area.buildings.collect{|b| b.id}), :multiple => true, :class => 'form_input', :size => 5 %>
           </td>
           <td valign="middle"><%= f.submit "Save" %>
             <%=  button_to_function "Cancel", "$('#show_area_#{area.id}_row').toggle();$('#edit_area_#{area.id}_row').toggle();" %>
