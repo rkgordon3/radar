@@ -9,8 +9,8 @@ Background:
    When the user visits the "Manage Areas" page
 Scenario: A system administrator navigates to manage area link from the manage menu and clicks the Edit link to edit a area
    Given the user selects the Edit link on area Foo
-   And the user fills in the area name field with "Foobar"
-   And the user fills in the area abbreviation field with "fb"
+   And the user fills in the "Area Name" field with "Foobar"
+   And the user fills in the "Area Abbreviation" field with "fb"
    And the user selects "LaSalle" from the "buildings" menu
    And the user selects the "Save" button
    Then the text "Foobar" should be displayed

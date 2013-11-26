@@ -4,12 +4,17 @@ When(/^the user visits the "(.*?)" page$/) do |text|
   visit send(named_route_from_text(text))
 end
 
+When(/^the user visits the "(.*?)" report page$/) do |report_type|
+	report_type = report_type.delete(" ")
+  	visit("/reports?report_type=#{report_type}")
+end
+
 When(/^the user selects the "(.*?)" link$/) do |link|
   click_on(link)
 end
 
-When(/^the user fills in the (.*?) (.*?) field with "(.*?)"$/) do |model, field, value|
-  field = model << '_' << field
+When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
+  field = field.split.join("_").downcase
   fill_in field, :with => value
 end
 
@@ -31,14 +36,10 @@ When(/^the user selects the "(.*?)" icon$/) do |icon|
   	#visit root_path
 end
 
-Then(/^the user selects the "(.*?)" checkbox$/) do |checkbox|
-  check checkbox
-end
-
-Then(/^the (.*?) is selected$/) do |checkbox|
-  check_save = checkbox.split(" ").each {|x| x.capitalize}.join
-  id = Organization.find_by_type(check_save).id
-  check check_save.downcase+"_#{id}"
+And(/^the user selects the (.*?) checkbox for (.*?)$/) do |checkbox, model|
+  check_save = checkbox.split.join("_")
+  id = ["#{model}", "#{check_save}"].join("_")
+  check "#{id}".downcase
 end
 
 Then(/^an edit link (should|should not) be available for (.*?)$/) do |polarity, user|
