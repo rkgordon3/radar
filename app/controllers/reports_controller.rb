@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
   # if params[:report][:id] contains a report id, use that report, otherwise
   # use report in the sesson, i.e. a new report 
   def active_report
-   (Report.find(params[:report][:id]) rescue nil) ||  session[:report]
+   (Report.find(params[:report][:id]) rescue nil) ||  Report.find(session[:report])
   end
   
   def index
@@ -90,8 +90,8 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    #session[:report] = @report
-	
+    session[:report] = @report.id
+
     respond_to do |format|
       format.html { render "reports/new" }
       format.iphone { render "reports/new", :layout => 'mobile_application' }
