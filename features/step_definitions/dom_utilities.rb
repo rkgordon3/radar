@@ -17,7 +17,7 @@ When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
 	# if field.eql?("buildings")
  #    select value, :from => field
  #  else
-     # field = field.downcase << "_id"
+     field = field.downcase << "_id"
      select value, :from => field
   # end
 end

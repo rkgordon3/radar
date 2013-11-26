@@ -1,4 +1,4 @@
-@rails-31 @sysadmin @gabe
+@rails-31 @sysadmin @dylan
 Feature: System Admin Log In
    As a system admin, I want to sign in and see a welcome message
    Scenario Outline: A system admin user signs in and sees the correct navbar
