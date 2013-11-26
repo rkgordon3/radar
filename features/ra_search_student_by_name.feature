@@ -7,8 +7,8 @@ Background:
    Scenario: A Resident Assistant user is on duty and wants to search for a student by name
       When the user visits the "Participants Search" page
       Then the text "Participant Search" should be displayed
-      And the user fills in the "full_name" field with "Joe"
-      And the user selects "Joe Joe" from the auto-suggestion field
+      And the user fills in the "full_name" field with "Jo"
+      And the user selects "Joe" from the auto-suggestion field
       When the user selects the "Submit" button
-      And the text "Joe Joe" should be displayed
-      And the student with name Joe Joe should exist
+      And the text "Joe" should be displayed
+      And the student with name Joe should exist

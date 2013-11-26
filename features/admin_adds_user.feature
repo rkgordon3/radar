@@ -13,6 +13,6 @@ Feature: Radar Administrator adds a user
 	And the user fills in the "Email" field with "admin@test.com"
 	And the user fills in the "Password" field with "password"
 	And the user fills in the "Password confirmation" field with "password"
-	And the Residence Life Organization is selected
+	And the user selects the Residence Life checkbox for Organization
 	When the user selects the "Create Staff" button
 	Then the text "last name, first name" should be displayed
