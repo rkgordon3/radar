@@ -13,6 +13,7 @@ module RailsSupport
     return model_constant.find_by_name(name).id \
 		rescue model_constant.find_by_email(name).id \
 		rescue model_constant.find_by_display_name(name).id \
+    rescue model_constant.find_by_first_name_and_last_name(name.split[0], name.split[1]).id \
 		rescue nil if not name.nil?
 
   end

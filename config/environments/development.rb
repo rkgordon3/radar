@@ -1,5 +1,8 @@
 Radar::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+	
+	# Ensure all assets are pre-compiled so that files in vendor/assets can be included in the app
+	config.serve_static_assets = true
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development

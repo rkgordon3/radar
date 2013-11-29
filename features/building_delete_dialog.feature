@@ -1,4 +1,4 @@
-@rails-31 @buildings @delete_buildings_dialog @javascript
+@rails-31 @buildings @delete_buildings_dialog @javascript @Owen
 Feature: System admin deleting buildings
    As a system administrator, I want to cancel a building deleltion
    

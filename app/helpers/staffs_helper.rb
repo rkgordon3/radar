@@ -26,10 +26,10 @@ module StaffsHelper
 	 out.html_safe
   end
   
-  def update_password_tag(options={})
+	def update_password_tag(options={})
     out = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 	out += label_tag("Update Password?", nil,options.reverse_merge(:class=>'alert_label'))
-    out +=	check_box "update_password", nil, :checked=>"checked", :id=>"update_password", :onclick=>"reset_password_fields(this);"
+    out +=	check_box "update_password", nil, :id=>"update_password"
 	out.html_safe
   end
   

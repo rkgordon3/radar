@@ -1,4 +1,4 @@
-@rails-31 @buildings @add_buildings @javascript @David
+@rails-31 @buildings @add_buildings @javascript @David @Owen
 Feature: System admin adding buildings
 As a system administrator, I want to be able to add a building
 

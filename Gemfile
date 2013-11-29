@@ -1,7 +1,7 @@
 # This file should be pushed to rails-31 branch : rkg (experimental)
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.12'
 gem 'composite_primary_keys'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -10,7 +10,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'princely'
 gem 'quiet_assets', :group => :development
 
-gem 'thin', :group => :development
+#gem 'thin', :group => :development
 
 gem 'nifty-generators'
 gem 'devise', '3.1.0'

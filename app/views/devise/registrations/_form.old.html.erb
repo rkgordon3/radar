@@ -1,0 +1,46 @@
+<% logger.debug("++++ #{resource} +++") %>
+<%= form_for(resource, :as => resource_name, 
+           :url =>  staffs_create_staff_path,
+           :onSubmit=>"validate(this);" ,  
+           :html=> { :id=>"staff_form", :"parsley-validate" => "" } ) do |f| %>
+  <%= devise_error_messages! %>
+
+<%= hidden_field_tag "staff[active]",  "true" %>
+  <div class="field">
+    <%= f.label :first_name %> <br /> <%= label_tag "staff[first_name]", "You must enter your first name", :class=>"validation-hide" %>
+    <%= f.text_field :first_name, :onblur=>"reset_field(this)" %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %> <br /> <%= label_tag "staff[last_name]", "You must enter your last name", :class=>"validation-hide" %>
+    <%= f.text_field :last_name, :onblur=>"reset_field(this)" %>
+  </div>
+  <div class="field">
+    <%= f.label :email %> <br /> <%= label_tag "staff[email]", "You must enter your email address", :class=>"validation-hide" %>
+    <%= f.text_field :email, :onblur=>"reset_field(this)" %>
+  </div>
+  <div class="field">
+    <%= f.label :password %> <%= update_password_tag if controller.action_name == "edit" %><br /> <%= label_tag "staff[password]", "You must enter a password", :class=>"validation-hide" %>
+    <%= f.password_field  :password, :onblur=>"reset_field(this)" %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %> <br /> <%= label_tag "staff[password_confirmation]", "You must reenter your password", :class=>"validation-hide" %> <%= label_tag "staff[password_confirmation]", "Password does not match", :class=>"validation-hide" %>
+    <%= f.password_field  :password_confirmation, :onblur=>"reset_field(this)" %>
+  </div> 
+  <div class="field">
+    <%= render :partial => "devise/registrations/authorization_select", :locals=> { :staff => @staff } %>
+  </div>
+  
+  <% if can? :assign, Area %>
+  <div class="field">
+    <%= f.label :area %><br />
+    <%= area_assignment_tag f, resource %>
+  </div>
+  <% end %>
+  <br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+   <%= f.hidden_field :id, :value => resource.id %>
+  <br />
+<% end %>
+
