@@ -137,7 +137,6 @@ And(/^there exists a user "(.*?)" whose password is "(.*?)" with name "(.*?)"$/)
   staff_area = FactoryGirl.create(:staff_area, 
     :staff_id => user.id, :area_id => area.id)
   set_current_user(user)
-  rt = FactoryGirl.create(:report_type, :name => "IncidentReport", :display_name => "Incident Report")
 end
 
 And(/^"(.*?)" fulfills the "(.*?)" role within the "(.*?)" organization$/) do |user, role, org|

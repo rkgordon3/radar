@@ -4,9 +4,14 @@ When(/^the user visits the "(.*?)" page$/) do |text|
   visit send(named_route_from_text(text))
 end
 
+When(/^the user visits the New (.*?) page$/) do |report_type|
+  report_type = report_type.split.join("_").downcase
+  visit("/#{report_type.pluralize}/new")
+end
+
 When(/^the user visits the "(.*?)" report page$/) do |report_type|
 	report_type = report_type.delete(" ")
-  	visit("/reports?report_type=#{report_type}")
+  visit("/reports?report_type=#{report_type}")
 end
 
 When(/^the user selects the "(.*?)" link$/) do |link|
@@ -15,7 +20,7 @@ end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
   field = field.split.join("_").downcase
-  fill_in field, :with => value
+  fill_in field, :with => value rescue field = "report_" << field
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|

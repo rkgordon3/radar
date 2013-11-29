@@ -1,4 +1,4 @@
-@rails-31 @ra_search_incident_report_by_student_name @javascript @dylan-pending
+@rails-31 @ra_search_incident_report_by_student_name @javascript @dylan
 Feature: RA wants to search Incident Reports by student name
 As a Resident Assistant, I want to be able to search incident reports by students name
 Background:
