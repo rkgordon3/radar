@@ -1,0 +1,20 @@
+# This file is a duplidate of add_participant.js.rjs
+# It is (hopefully) a temporary fix to solve http cross-domain problem 
+# caused by old redirect in create_participant_add_add_to_report action
+#
+# IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO add_pariticpant.js.rjs ALSO
+#
+#page.replace_html("new-part-div", "")
+page.hide("new-part-div")
+page.select("input#full_name").first.clear
+if display_common_reasons?(@report)
+  page.show 'common-reasons-container'
+  page.replace_html("common-reasons-container", :partial => "report_common_relationship_checklist", :locals => {:report => @report})
+end
+if ((@report.number_of_participants-1).floor % columns  == 0)
+	page.insert_html(:top, "s-i-form", 
+	   "<tr id=#{((@report.number_of_participants-1)/columns).floor}></tr>")
+end
+page.insert_html(:top, "#{((@report.number_of_participants-1)/columns).floor}",
+                :partial => "participant_in_report", 
+                :locals => { :report => @report, :participant => @participant})
