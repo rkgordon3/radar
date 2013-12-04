@@ -50,6 +50,11 @@ module Radar
     # Bundler.require(:default, :assets, Rails.env)
 
     config.assets.initialize_on_precompile = false
+
+
+    def load_test_seed
+        puts "place code here to load test seeds"
+    end
   end
 end
 
