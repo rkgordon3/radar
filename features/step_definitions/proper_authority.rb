@@ -1,7 +1,8 @@
 module RadarEnv
    def set_current_organization(org)
-     @organization = FactoryGirl.create(:residence_life_organization, :display_name=>org)
-     #@organization = org
+     @organization = Organization.find_by_display_name(org)
+
+     #@organization = FactoryGirl.create(:residence_life_organization, :display_name=>org)
    end
 
    def get_current_organization
@@ -117,8 +118,7 @@ end
 World(RadarEnv)
 
 Given(/^the "(.*?)" organization exists$/) do |org|
-  set_current_organization(org) 
-  true
+  set_current_organization(org).should_not be_nil
 end
 
 And(/^the "(.*?)" role exists$/) do |role|
