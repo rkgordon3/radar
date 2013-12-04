@@ -53,7 +53,7 @@ module Radar
 
 
     def load_test_seed
-        puts "place code here to load test seeds"
+        load 'db/test_seeds.rb'
     end
   end
 end
