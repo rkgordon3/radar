@@ -19,13 +19,9 @@ FactoryGirl.define do
 		al.display_name 'Sample Name'
 	end
 
-	factory :organization do |o|
-		o.display_name 'Organization Name'
-	end
-
-	factory :residence_life_organization do |rlo|
+	factory :residence_life_organization do |rlo| 
 		rlo.display_name 'Residence Life Organization'
-	end
+	end unless Organization.find_by_display_name("Residence Life Organization")
 
 	factory :shift do |s|
 		s.staff_id 0
