@@ -1,6 +1,6 @@
-@rails-31 @hd_submits_ir @javascript @dylan
-Feature: HD wants to submit an incident report
-As a Hall Director, I want to be able to submit an incident report
+@rails-31 @hd_cannot_edit_submitted_ir @javascript @dylan
+Feature: HD cannot edit submitted incident report
+As a Hall Director, I want to make sure that I cannot edit a submitted incident report
 Background:
    Given the user "hd@smumn.edu" is logged in as a "Hall Director"
    And the student "Joe" lives in "LaSalle Hall"
@@ -9,4 +9,3 @@ Background:
       Then the text "New Incident Report" should be displayed
       When the user fills in the "Report Annotation" field with "Residents were acting crazy."
       And the user selects the "Submit Report" button
-      Then the "submitted" "Incident Report" for "LaSalle Hall" should be displayed

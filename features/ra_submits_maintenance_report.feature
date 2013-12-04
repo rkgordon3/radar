@@ -1,4 +1,4 @@
-@rails-31 @ra_submits_maintenance_report @javascript @dylan
+@rails-31 @ra_submits_mr @javascript @dylan
 Feature: RA wants to submit a maintenance report
 As a Resident Assistant, I want to be able to submit a maintenance report
 Background:
@@ -7,4 +7,4 @@ Background:
       When the user visits the New Maintenance Report page
       Then the text "New Maintenance Report" should be displayed
       When the user fills in the "Report Annotation" field with "There's a leak."
-      When the user selects the "Submit Report" button
+      And the user selects the "Submit Report" button

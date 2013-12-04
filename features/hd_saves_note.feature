@@ -7,4 +7,4 @@ Background:
       When the user visits the New Note page
       Then the text "New Note" should be displayed
       When the user fills in the "Note Annotation" field with "Suspicious activity in the plaza."
-      When the user selects the "Save Note" button
+      And the user selects the "Save Note" button

@@ -6,6 +6,7 @@ class ActiveRecord::Base
     @@shared_connection || retrieve_connection
   end
 end
+
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 FactoryGirl.create(:area, :name => UNSPECIFIED_AREA)
