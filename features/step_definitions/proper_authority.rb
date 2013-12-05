@@ -1,8 +1,6 @@
 module RadarEnv
    def set_current_organization(org)
      @organization = Organization.find_by_display_name(org)
-
-     #@organization = FactoryGirl.create(:residence_life_organization, :display_name=>org)
    end
 
    def get_current_organization
