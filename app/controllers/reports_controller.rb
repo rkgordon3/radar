@@ -189,8 +189,8 @@ class ReportsController < ApplicationController
         }
       end
     else
-     # @insert_new_participant_partial = !@report.associated?(@participant)
-     @insert_new_participant_partial = true
+      @insert_new_participant_partial = !@report.associated?(@participant)
+      #@insert_new_participant_partial = true
       @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
       respond_to do |format|
         format.js
