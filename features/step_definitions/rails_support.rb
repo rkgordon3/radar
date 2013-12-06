@@ -17,6 +17,11 @@ module RailsSupport
 		rescue nil if not name.nil?
 
   end
+
+  def most_recent_for(email, report_type)
+  	staff = Staff.find_by_email(email)
+  	report_type.delete(" ").constantize.where("staff_id = ?", staff.id).order(created_at: :desc)
+  end
 end
 
 if Rails.env.test?

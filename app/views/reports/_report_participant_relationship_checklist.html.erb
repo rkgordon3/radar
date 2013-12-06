@@ -9,16 +9,12 @@
   	<span class="small-label"><%= t "#{report.report_type.name}.reasons" %></span>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
   			<%  report.reasons(participant).each do |infraction| %>
-				<% rf =  remote_function( :update => nil,
-							:url => { :controller => 'reports', :action => :update_reason },
-							:with => "'participant=#{participant.id}&report[id]=#{report.id}" + '&reason=\'+ this.id + \'&checked=\' + this.checked')  %>
   		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
 						<% participant_reason = report.contact_reason_for_participant(participant.id, infraction.id) %>
 						<% selected =  (not participant_reason.nil?) %>
   						<%= check_box_tag "report[reason][#{participant.id}][#{infraction.id}]", 
   				       infraction.description,
-  				       selected,
-					   :onclick => "#{rf}; if(this.checked){document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'block';}else{document.getElementById('#{participant.id}_#{infraction.id}_details').style.display = 'none';} " %>
+  				       selected %>
   				    <%= infraction.description %>		
                     <% if @report.supports_contact_reason_details? %>
 						<%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 

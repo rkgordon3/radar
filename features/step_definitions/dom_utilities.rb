@@ -10,8 +10,12 @@ When(/^the user visits the New (.*?) page$/) do |report_type|
 end
 
 When(/^the user visits the "(.*?)" report page$/) do |report_type|
-	report_type = report_type.delete(" ")
+  report_type = report_type.delete(" ")
   visit("/reports?report_type=#{report_type}")
+end
+
+And(/^an? "(.*?)" link (should|should not) be displayed$/) do |link, polarity|
+  page.send(polarity.split.join("_"), have_link(link))
 end
 
 When(/^the user selects the "(.*?)" link$/) do |link|
@@ -21,6 +25,10 @@ end
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
   field = field.split.join("_").downcase
   fill_in field, :with => value rescue field = "report_" << field
+end
+
+And(/^the user selects "(.*?)" from the auto-suggestion field$/) do |selection|
+  page.find(:xpath, "//li[@class='ui-menu-item']/a['#{selection}']").click
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
