@@ -91,7 +91,13 @@ puts 'update default contact id for TBA'
 end
 
 puts "update Report select/submit/edit attributes"
-report = ReportType.find_by_name("Report")
+report = ReportType.find_by_name("Report")  ||
+	ReportType.create!(:name=>"Report", 
+                  :abbreviation=>"FYI", 
+		  :display_name=>"FYI",
+		  :organization_id=>rl.id,
+		  :forwardable=>false,
+		  :selectable_contact_reasons=>true)
 report.edit_on_mobile = false
 report.submit_on_mobile = true
 report.selectable_contact_reasons = false
@@ -100,7 +106,13 @@ report.save
 
 
 puts "update Incident Report select/submit/edit attributes"
-report = ReportType.find_by_name("IncidentReport") 
+report = ReportType.find_by_name("IncidentReport")  ||
+	ReportType.create!(:name=>"Report", 
+                  :abbreviation=>"FYI", 
+		  :display_name=>"FYI",
+		  :organization_id=>rl.id,
+		  :forwardable=>false,
+		  :selectable_contact_reasons=>true)
 puts " updating IncidentReport type properties"
 
 report.edit_on_mobile = true
@@ -199,7 +211,13 @@ ReportField.create( {
   :show_position => 10  } )
 
 puts "update MaintenanceReport  select/submit/edit attributes"
-report = ReportType.find_by_name("MaintenanceReport")
+report = ReportType.find_by_name("MaintenanceReport") ||
+	ReportType.create!(:name=>"MaintenanceReport", 
+                  :abbreviation=>"MR", 
+		  :display_name=>"Maintenance Report",
+		  :organization_id=>rl.id,
+		  :forwardable=>true,
+		  :selectable_contact_reasons=>true)
 report.edit_on_mobile = false
 report.submit_on_mobile = true
 report.selectable_contact_reasons = false
@@ -383,7 +401,13 @@ puts "creating report fields for tutor-by-app report"
  
 puts "update MaintenanceReport  select/submit/edit attributes"
 
-report = ReportType.find_by_name("Note") 
+report = ReportType.find_by_name("Note")  ||
+	 ReportType.create!(:name=>"Note", 
+                  :abbreviation=>"N", 
+		  :display_name=>"Note",
+		  :organization_id=>rl.id,
+		  :forwardable=>false,
+		  :selectable_contact_reasons=>false)
 report.edit_on_mobile = false
 report.submit_on_mobile = true
 report.selectable_contact_reasons = false

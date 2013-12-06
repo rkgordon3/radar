@@ -67,7 +67,7 @@ gem 'sqlite3'
 # end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'rspec-rails', '2.7.0'
   gem 'database_cleaner', '0.7.0'
   gem 'factory_girl', '2.3.2'
