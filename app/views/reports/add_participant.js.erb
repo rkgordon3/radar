@@ -1,7 +1,8 @@
 
+$("input#full_name").val("");
+$("input#participant_id").val("");
 <% if @insert_new_participant_partial  %>
-	$("input#full_name").val("");
-	$("input#participant_id").val("");
+
 	<%  if display_common_reasons?(@report) %>
 	      $("#common-reasons-container").show();
 	      $("#common-reasons-container").html(
@@ -9,8 +10,8 @@
 	<%  end %>
    
 	<%  if ((@report.number_of_participants-1) % ReportsHelper::REPORT_COLUMNS  == 0) %>
-		$("#s-i-form").prepend("<tr id= <%= ((@report.number_of_participants-1)/ReportsHelper::REPORT_COLUMNS) %>></tr>");
+		$("#s-i-form").prepend("<tr id=<%= participant_row_id(@report) %>></tr>");
 	<% end %>
-	$("#<%= ((@report.number_of_participants-1)/ReportsHelper::REPORT_COLUMNS) %>").prepend("<%= escape_javascript render(:partial => 'participant_in_report', :locals => {:report => @report, :participant => @participant}) %>");
+	$("#<%= participant_row_id(@report) %>").prepend("<%= escape_javascript render(:partial => 'participant_in_report', :locals => {:report => @report, :participant => @participant}) %>");
 <% end %>
 

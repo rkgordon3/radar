@@ -16,4 +16,8 @@ module ReportsHelper
   def reason_name(participant, infraction)
    "report[participant][#{participant.id}][#{infraction.id}]" 
   end
+
+  def participant_row_id(report)
+    (report.number_of_participants-1)/ReportsHelper::REPORT_COLUMNS
+  end
 end
