@@ -306,11 +306,11 @@ class Report < ActiveRecord::Base
   def add_contact_reason_for(participant_id, reason_id)
     unless contact_reason_for_participant(participant_id, reason_id)
       self.report_participant_relationships << ReportParticipantRelationship.new(:participant_id => participant_id, :relationship_to_report_id => reason_id)
-	end
+	  end
   end
   
   def add_default_contact_reason(participant)
-	add_contact_reason_for(participant.id, default_contact_reason_id)
+    add_contact_reason_for(participant.id, default_contact_reason_id)
   end
   
   def remove_participant(pid)
@@ -323,7 +323,7 @@ class Report < ActiveRecord::Base
   end
   
   def remove_contact_reason_for(participant_id, reason_id)
-	reason = contact_reason_for_participant(participant_id, reason_id)
+    reason = contact_reason_for_participant(participant_id, reason_id)
     self.report_participant_relationships.destroy(reason) if reason
   end
   
@@ -332,10 +332,10 @@ class Report < ActiveRecord::Base
     ri = contact_reason_for_participant(Integer(participant_id), Integer(reason))
     unless ri.nil?
         if not ri.annotation.nil?
-			ri.annotation.text = text
-		else
-			ri.annotation = Annotation.new(:text=>text)
-		end
+			   ri.annotation.text = text
+		    else
+			   ri.annotation = Annotation.new(:text=>text)
+		    end
     end
   end
   
@@ -381,16 +381,16 @@ class Report < ActiveRecord::Base
   
    
   def update_durations(pids, reason, minutes)
-	pids = self.participant_ids if pids.nil?
-	pids.each do |pid|
+	  pids = self.participant_ids if pids.nil?
+	  pids.each do |pid|
       self.add_duration_for(pid, reason, minutes)
     end
   end
   
   def update_annotations(pids, reason, text)
-	pids = self.participant_ids if pids.nil?
+	  pids = self.participant_ids if pids.nil?
 
-	pids.each do |pid|
+	  pids.each do |pid|
       if text.nil? or (text.length == 0)
         self.remove_annotation_for(pid, reason)
       else
