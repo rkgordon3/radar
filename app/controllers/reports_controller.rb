@@ -90,6 +90,9 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
+    # experiment
+    @report.save
+    #end experiment
     session[:report] = @report.id
 
     respond_to do |format|
