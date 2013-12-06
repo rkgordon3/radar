@@ -12,4 +12,8 @@ module ReportsHelper
   def report_index_id(report)
     "report-"+report.id.to_s
   end
+
+  def reason_name(participant, infraction)
+   "report[participant][#{participant.id}][#{infraction.id}]" 
+  end
 end

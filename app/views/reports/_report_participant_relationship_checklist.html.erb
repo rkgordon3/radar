@@ -12,15 +12,18 @@
   		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
 						<% participant_reason = report.contact_reason_for_participant(participant.id, infraction.id) %>
 						<% selected =  (not participant_reason.nil?) %>
-  						<%= check_box_tag "report[reason][#{participant.id}][#{infraction.id}]", 
-  				       infraction.description,
-  				       selected %>
+  						<%= check_box_tag reason_name(participant, infraction), 
+  				                    infraction.description,
+  				                    selected %>
   				    <%= infraction.description %>		
                     <% if @report.supports_contact_reason_details? %>
-						<%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 
-						                      :style => "margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: #{selected ? 'block' : 'none'};"  do -%>
+						            <%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 
+						                  :style => "margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: #{selected ? 'block' : 'none'};"  do -%>
                             <%= render :partial => 'reports/contact_details', 
-							           :locals => { :report=> report, :participant => participant, :reason => infraction, :participant_reason => participant_reason  } %>
+							                  :locals => { :report=> report, 
+                                            :participant => participant, 
+                                            :reason => infraction, 
+                                            :participant_reason => participant_reason  } %>
                         <% end -%>
                     <% end %>
   				</div>
