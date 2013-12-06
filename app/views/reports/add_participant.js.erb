@@ -1,20 +1,16 @@
-# This file is a duplicate of create_participant_add_and_to_report.js.rjs
-# See comment in that file for reason for duplication
-#
-# IF ANY CHANGES ARE MADE TO THIS FILE THEY SHOULD PROBABLY BE MADE TO create_participant_add_and_to_report.js.rjs ALSO
-#
-#page.replace_html("new-part-div", "")
+
 <% if @insert_new_participant_partial  %>
-  $("input#full_name").val("");
-  $("input#participant_id").val("");
-<%  if display_common_reasons?(@report) %>
-      $('#common-reasons-container').show();
-      $("#common-reasons-container").html(
-        '<%= escape_javascript :partial => "report_common_relationship_checklist", :locals => {:report => @report} %>' );
-<%  end %>
+	$("input#full_name").val("");
+	$("input#participant_id").val("");
+	<%  if display_common_reasons?(@report) %>
+	      $("#common-reasons-container").show();
+	      $("#common-reasons-container").html(
+	        "<%= escape_javascript render(:partial => 'report_common_relationship_checklist', :locals => {:report => @report}) %>" );
+	<%  end %>
    
-<%  if ((@report.number_of_participants-1) % ReportsHelper::REPORT_COLUMNS  == 0) %>
-
-<%  end %>
-
+	<%  if ((@report.number_of_participants-1) % ReportsHelper::REPORT_COLUMNS  == 0) %>
+		$("#s-i-form").prepend("<tr id= <%= ((@report.number_of_participants-1)/ReportsHelper::REPORT_COLUMNS) %>></tr>");
+	<% end %>
+	$("#<%= ((@report.number_of_participants-1)/ReportsHelper::REPORT_COLUMNS) %>").prepend("<%= escape_javascript render(:partial => 'participant_in_report', :locals => {:report => @report, :participant => @participant}) %>");
 <% end %>
+

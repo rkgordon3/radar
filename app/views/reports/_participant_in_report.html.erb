@@ -8,7 +8,7 @@
 <% else %>
   <%= " #{participant.last_name}, #{participant.first_name} #{participant.middle_initial}" %>
 <% end %>
-    <%= link_to image_tag("/images/delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), 
+    <%= link_to image_tag("delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), 
            	 { :controller=> "reports", :action => "remove_participant", :id => participant.id , :report => { :id => report.id} }, 
 			 :remote => true  %>
      <br />

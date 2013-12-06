@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
   # if params[:report][:id] contains a report id, use that report, otherwise
   # use report in the sesson, i.e. a new report 
   def active_report
-   (Report.find(params[:report][:id]) rescue nil) ||  Report.find(session[:report])
+   (Report.find(params[:report][:id]) rescue nil) ||  (Report.find(session[:report]) rescue nil)
   end
   
   def index
@@ -162,6 +162,7 @@ class ReportsController < ApplicationController
   
   def add_participant
     @report = active_report
+    @report = params[:report][:type].constantize.new if @report.nil?
     
     @participant = Participant.find(params[:participant][:id]) if param_value_present(params[:participant][:id])
    
@@ -187,7 +188,7 @@ class ReportsController < ApplicationController
     else
      # @insert_new_participant_partial = !@report.associated?(@participant)
      @insert_new_participant_partial = true
-      #@report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
+      @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
       respond_to do |format|
         format.js
         format.iphone {
