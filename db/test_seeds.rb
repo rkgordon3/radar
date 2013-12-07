@@ -107,13 +107,13 @@ report.save
 
 puts "update Incident Report select/submit/edit attributes"
 report = ReportType.find_by_name("IncidentReport")  ||
-	ReportType.create!(:name=>"Report", 
-                  :abbreviation=>"FYI", 
-		  :display_name=>"FYI",
+	ReportType.create!(:name=>"IncidentReport", 
+                  :abbreviation=>"IR", 
+		  :display_name=>"Incident Report",
 		  :organization_id=>rl.id,
 		  :forwardable=>false,
 		  :selectable_contact_reasons=>true)
-puts " updating IncidentReport type properties"
+puts "updating IncidentReport type properties"
 
 report.edit_on_mobile = true
 report.submit_on_mobile = false
