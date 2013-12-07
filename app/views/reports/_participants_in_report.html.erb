@@ -2,14 +2,14 @@
 <table>
     <tbody id="s-i-form">
     <% participants.each do |participant| %>
-		<% if participant_count%columns == 0 %>
-			<tr  id=<%= "#{(participant_count/columns).floor}" %> >
+		<% if participant_count%ReportsHelper::REPORT_COLUMNS == 0 %>
+			<tr  id=<%= "#{(participant_count/ReportsHelper::REPORT_COLUMNS).floor}" %> >
 		<% end %>   
 		<%= render :partial => "reports/participant_in_report",
 				   :locals => {  :report =>  report, :participant => participant }  %>
 
 		<% participant_count = participant_count + 1 %>
-		<% if participant_count%columns == 0 %>
+		<% if participant_count%ReportsHelper::REPORT_COLUMNS == 0 %>
 			</tr>
 		<% end %> 
     <% end %>
