@@ -1,4 +1,4 @@
-@rails-31 @ra_search_mr_by_student_name @javascript @dylan
+@rails-31 @ra_search_mr_by_student @javascript @dylan
 Feature: RA wants to search Maintenance Requests by student name
 As a Resident Assistant, I want to be able to search maintenance requests by students name
 Background:
