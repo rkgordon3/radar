@@ -19,8 +19,8 @@ class Report < ActiveRecord::Base
   before_destroy   	:destroy_associations
 
   attr_accessible 	:type, :staff_id, :location, :annotation,  
-                    :building_id, :room_number, :approach_time, :submitted
-  
+                    :building_id, :room_number, :approach_time, :submitted,
+                    :report_participant_relationships
  
   scope :preferred_order, lambda { |user|  order("reports.#{user.preference(:sort_order)}") }
   scope :preferred_reports, lambda { |user| where(:type=> user.preference(:report_types)) }
@@ -48,7 +48,7 @@ class Report < ActiveRecord::Base
   }
   
   def default_contact_duration
-	0
+	 0
   end
   
   def location 
@@ -56,11 +56,11 @@ class Report < ActiveRecord::Base
   end
   
   def default_contact_reason_id
-	report_type.default_contact_reason_id
+	 report_type.default_contact_reason_id
   end
   
   def can_save?
-	true
+	 true
   end
   
   def is_generic?
@@ -72,12 +72,12 @@ class Report < ActiveRecord::Base
   end
 
   def times_forwarded_to(interested_party)
-	ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
-	ipforwards.first.times_forwarded rescue 0
+	 ipforwards = forwards.select { |f| f.interested_party_id == interested_party.id }
+	 ipforwards.first.times_forwarded rescue 0
   end
   
   def forwarded?
-	forwards.size > 0 
+	 forwards.size > 0 
   end
   
   def forwardable?
@@ -146,6 +146,7 @@ class Report < ActiveRecord::Base
   def update_attributes_and_save(params)
     update_attributes_without_saving(params)
     valid?
+    logger.debug("+++++++save report rpr = #{report_participant_relationships.size}")
     save!
   end
   
@@ -166,8 +167,6 @@ class Report < ActiveRecord::Base
   end
   
   def update_attributes_without_saving(params)
-    logger.debug("++++++++report:update attributes without saving")
-	  update_relationships(params)
     self.building_id = params[:building_id]
     self.building_id ||= Building.unspecified_id
     self.room_number = params[:room_number]
@@ -175,41 +174,35 @@ class Report < ActiveRecord::Base
     self.approach_time = Time.zone.local_to_utc(approach_time)
     self.submitted = (params[:submitted] != nil) 
     self.organization_id = report_type.organization.id
-=begin
-	annotation_text = params[:annotation]
-    if annotation_text != nil && annotation_text.length > 0   
-        self.annotation = Annotation.new if self.annotation.nil?
-        self.annotation.text = annotation_text
-    end
-=end
+
     self.adjunct_submitters.each { |ra| ra.destroy }
     params[:report_adjuncts].each_pair { |key, value|  self.adjunct_submitters << ReportAdjunct.new(:staff_id => key) if value == "1" } if  not params[:report_adjuncts].nil?
-    logger.debug("+++++++at end of update_attribute_without_saving")
   end
   
-  def update_relationships(params)
-  logger.debug("+++++++++++++INSIDE update_relationships")
-    return false if params[:reason].nil?
+  def update_relationships(participants, durations, annotations)
+    report_participant_relationships.destroy_all
+     
 
-	report_participant_relationships.destroy_all
-	annotations = params[:annotations]
-	durations = params[:durations]
-	participants = params[:reason]
-	unless participants.nil?
-	  participants.each_pair  do | pid, reasons |
-		reasons.each_key do |reason_id| 
-			rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id.to_i)
-		    unless annotations.nil?
-				rpr.annotation = Annotation.new(:text=>annotations[pid][reason_id]) if annotations[pid][reason_id].length > 0
-			end
-			unless durations.nil?
-				rpr.contact_duration = ReportParticipantRelationship.parse_duration(durations[pid][reason_id] )
-			end
-			report_participant_relationships << rpr
-		end		
-	  end
-	end
+    return false if participants.nil?
+
+    participant_reasons = []
 	
+    unless participants.nil?
+      participants.each_pair  do | pid, reasons |
+		    reasons.each_key do |reason_id| 
+          rpr = ReportParticipantRelationship.new(:participant_id=>pid,  :relationship_to_report_id=>reason_id.to_i)
+		      unless annotations.nil?
+				    rpr.annotation = Annotation.new(:text=>annotations[pid][reason_id]) if annotations[pid][reason_id].length > 0
+          end
+          unless durations.nil?
+            rpr.contact_duration = ReportParticipantRelationship.parse_duration(durations[pid][reason_id] )
+          end
+          logger.debug("update adding #{reason_id} for #{pid}")
+          participant_reasons << rpr
+		    end		
+      end
+      self.report_participant_relationships = participant_reasons
+    end
   end
   
   
@@ -272,17 +265,22 @@ class Report < ActiveRecord::Base
 	end
   end
   
-  def contact_reasons_for(participant_id)
-    self.report_participant_relationships.select { |ri| ri.participant_id == participant_id } 
+  def contact_reasons_for(participant)
+    id = (participant.kind_of? Participant) ? participant.id : participant.to_i
+    self.report_participant_relationships.select { |ri| ri.participant_id == id } 
+  end
+
+  def contact_reason_ids_for(participant)
+    contact_reasons_for(participant).collect { |r| r.relationship_to_report_id }
   end
 
   
   def contact_reason_for_participant(participant_id, reason_id)
-	reason_id = reason_id.to_i if reason_id.is_a? String
-	participant_id = participant_id.to_i if participant_id.is_a? String
+    reason_id = reason_id.to_i if reason_id.is_a? String
+    participant_id = participant_id.to_i if participant_id.is_a? String
 	
     self.report_participant_relationships.select { |ri|
-      ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
+    ri.participant_id == participant_id && ri.relationship_to_report_id == reason_id }.first
   end
   
   #return true if participant is associated with report

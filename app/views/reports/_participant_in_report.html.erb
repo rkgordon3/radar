@@ -12,15 +12,36 @@
   <%= " #{participant.last_name}, #{participant.first_name} #{participant.middle_initial}" %>
 <% end %>
     <%= link_to image_tag("delete.png", :size=>"15x15", :border=>0, :title=>"Remove"), 
-           	 { :controller=> "reports", 
-                :action => "remove_participant", 
-                :id => participant.id , 
-                :report => { :id => report.id} }, 
-			 :remote => true  %>
-     <br />
-     <% if can? :view_contact_info, participant %><%= render :partial => "participants/participant_details", :locals => { :participant => participant } %><% end %>
-	 <% if can? :view_contact_history, participant %><%= render :partial => "participants/participant_history", :locals => { :participant => participant, :history => participant.contact_history(current_ability, @report) } %><% end %>
-     <%= render :partial => "reports/report_participant_relationship_checklist", :locals => { :report => report, :participant => participant } %>
+           	 "javascript:void(0)",
+			       :class=> 'delete-participant', :id=> participant.id  %>
+    <br />
+    <% if can? :view_contact_info, participant %>
+      <%= render :partial => "participants/participant_details", :locals => { :participant => participant } %>
+    <% end %>
+	  <% if can? :view_contact_history, participant %>
+      <%= render :partial => "participants/participant_history", 
+                :locals => { :participant => participant, 
+                           :history => participant.contact_history(current_ability, @report) } %>
+    <% end %>
+    <%= render :partial => "reports/report_participant_relationship_checklist", 
+              :locals => { :report_type => report_type, 
+                          :participant_reasons => participant_reasons, 
+                          :participant => participant } %>
 </td>
+
+<script>
+// Remove image and participant. Each occupies a <td>, which are adjacent
+$(document).ready(function() {
+  $('a.delete-participant').click(function(event){
+    $(this).closest("td").prev("td").remove();
+    $(this).closest("td").remove();
+    var participant_count = $('div.participant-in-report').length;
+    if (participant_count  < 2) {
+      $('#common-reasons-container').hide();
+    }
+    event.preventDefault(); // Prevent link from following its href
+  });
+});
+</script>
 
 

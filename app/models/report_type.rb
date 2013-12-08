@@ -8,7 +8,7 @@ class ReportType < ActiveRecord::Base
   @log = File.new("report_type.log" , "a")
   
   def <=> other
-	return self.display_name <=> other.display_name  
+	 return self.display_name <=> other.display_name  
   end
   
   def default
@@ -20,11 +20,24 @@ class ReportType < ActiveRecord::Base
   end
 
   def controller_name
-	name.pluralize.underscore << "_controller"
+	 name.pluralize.underscore << "_controller"
   end
   
   def fields(view)
     self.report_fields.where("#{view}_position IS NOT NULL and #{view}_position > 0").order("#{view}_position")
+  end
+
+  def self.associated_reasons(type_name, student = nil)
+    ReportType.find_by_name(type_name).associated_reasons(student)
+  end
+
+
+  def self.supports_contact_reason_details?(report_type)
+    ReportType.find_by_name(report_type).has_contact_reason_details?
+  end
+
+  def self.default_contact_reason_ids(report_type)
+    [ ReportType.find_by_name(report_type).default_contact_reason_id ]
   end
 
   def associated_reasons(student = nil)
@@ -40,12 +53,9 @@ class ReportType < ActiveRecord::Base
    
     participants = Participant.find_all_by_id(participant_ids)
     if ((not path_to_reason_context.nil?) && (participants.length > 0))
-	
         (path_to_reason_context.constantize.for(participants) + self.org_common_reasons).sort{|a,b| a.description <=> b.description}
-
     else
-
-        associated_reasons(nil)
+        associated_reasons(self.name)
     end
   end
   

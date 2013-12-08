@@ -3,11 +3,13 @@ $("input#full_name").val("");
 $("input#participant_id").val("");
 
 if ($("td#<%= participant_in_report_id(@participant) %>").length == 0) {
+
     var participant_count = $('div.participant-in-report').length;
 	if ((participant_count > 0) && <%= supports_selectable_reasons?(@report_type) %>) {
 	      $("#common-reasons-container").show();
 	      $("#common-reasons-container").html(
-	        "<%= escape_javascript render(:partial => 'report_common_relationship_checklist', :locals => {:report => @report}) %>" );
+	        "<%= escape_javascript render(:partial => 'report_common_relationship_checklist', 
+	        							:locals => {:report_type => @report_type }) %>" );
 	}
   
     var row_id = Math.floor(participant_count/<%= ReportsHelper::REPORT_COLUMNS %>);
@@ -15,6 +17,9 @@ if ($("td#<%= participant_in_report_id(@participant) %>").length == 0) {
 	if (participant_count % <%= ReportsHelper::REPORT_COLUMNS %> == 0) {
 		$("#s-i-form").prepend("<tr id='"+row_id+"'></tr>");
 	}
-	$("#"+row_id).prepend("<%= escape_javascript render(:partial => 'participant_in_report', :locals => {:report => @report, :participant => @participant}) %>");
+	$("#"+row_id).prepend("<%= escape_javascript render(:partial => 'participant_in_report', 
+										:locals => {:report_type => @report_type, 
+										:participant_reasons => ReportType.default_contact_reason_ids(@report_type),
+										:participant => @participant}) %>");
 }
 

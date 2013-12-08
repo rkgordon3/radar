@@ -15,19 +15,45 @@ module ReportsHelper
   end
 
 
+
+
   def report_index_id(report)
     "report-"+report.id.to_s
   end
 
   def reason_name(participant, infraction)
-   "report[participant][#{participant.id}][#{infraction.id}]" 
+   "report[reasons][#{participant.id}][#{infraction.id}]" 
+  end
+
+  def common_reason_name(infraction) 
+    "common-reason[#{infraction.id}]"
+  end
+
+  def reason_id(participant, infraction) 
+    "reason-#{infraction.id}-#{participant.id}"
+  end
+
+  def common_reason_id(infraction)
+    "common-reason-#{infraction.id}"
   end
 
   def participant_row_id(participant_count)
     (participant_count-1)/ReportsHelper::REPORT_COLUMNS
   end
 
+  # Generaate an ID for a participant in a report
+  # If input is a ActiveRecord model, use id, else treat input
+  # as an ID 
   def participant_in_report_id(participant) 
-    "p-in-report-#{participant.id}"
+    id = (participant.kind_of? ActiveRecord::Base) ? participant.id : participant
+    "p-in-report-#{id}"
   end
+
+
+  # Return reasons supported by a particular report type
+  def supported_reasons(report_type)
+    ReportType.find_by_name(report_type).associated_reasons(nil)
+  end
+
+
 end

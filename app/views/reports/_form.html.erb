@@ -3,8 +3,8 @@
 <br/>
 </div>
 <%= render :partial => "participants/autocomplete_full_name_form", 
-           :locals => { :report => @report, :target => add_participant_reports_path } %>
+           :locals => { :report_type => @report_type, :report => @report, :target => add_participant_reports_path } %>
 <div id="new-part-div">
 </div>
-<%= render :partial => "reports/report_generic" %>
+<%= render :partial => "reports/report_generic" , :locals => { :report_type => @report_type } %>
 

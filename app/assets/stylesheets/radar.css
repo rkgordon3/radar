@@ -312,6 +312,24 @@ label { color: #595959;  font-weight: bold;  font-size:12px;}
     clear:left;
 }	
 
+div.common-reason-detail {
+    margin-left: 8px;
+    margin-top: 4px; 
+    margin-bottom: 0px; 
+    display: none;
+}
+
+div.common-reason {
+    margin-left: 8px;
+    margin-top: 4px; 
+    margin-bottom: 0px;
+}
+
+div.reason {
+    margin-left: 8px;
+    margin-top: 5px; 
+    margin-bottom: 0px;
+}
 
 
 #page_title { font-weight:bold; }

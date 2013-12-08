@@ -1,33 +1,43 @@
-<% if report.reasons.size > 0  %>
-<%= content_tag :div, 
+<% if supported_reasons(report_type).length > 0 %>
+
+  <%= content_tag :div, 
      :class=>"relationship-checklist", 
-     :style=>"display:#{report.supports_selectable_contact_reasons? ? 'block' : 'none'}"   do -%>
+     :style=>"display:#{supports_selectable_reasons?(report_type) ? 'block' : 'none'}"   do -%>
 	 
 	<%= link_to image_tag("add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
                      :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
  
-  	<span class="small-label"><%= t "#{report.report_type.name}.reasons" %></span>
+  	<span class="small-label"><%= t "#{report_type}.reasons" %></span>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
-  			<%  report.reasons(participant).each do |infraction| %>
-  		  		<div style="margin-left: 8px;margin-top: 5px; margin-bottom: 0px;" >
-						<% participant_reason = report.contact_reason_for_participant(participant.id, infraction.id) %>
-						<% selected =  (not participant_reason.nil?) %>
+  			<%  ReportType.associated_reasons(report_type, participant).each do |infraction| %>
+  		  		<div class="reason" >
+						  <% 
+                # participant_reasons is an array of reason id 
+              %>
   						<%= check_box_tag reason_name(participant, infraction), 
   				                    infraction.description,
-  				                    selected %>
-  				    <%= infraction.description %>		
-                    <% if @report.supports_contact_reason_details? %>
-						            <%= content_tag :div, :id => "#{participant.id}_#{infraction.id}_details", 
+  				                    (participant_reasons.include? infraction.id),
+                              :id => reason_id(participant, infraction) %>
+  				    <%= infraction.description %>	
+              <% # remove support for contact reason detail; only needed for ASC 
+                 if false
+              %>	
+                <% if ReportType.supports_contact_reason_details?(report_type) %>
+						      <%= content_tag :div, 
+                                  :id => "#{participant.id}_#{infraction.id}_details", 
+                                  :class => 'contact-reason-details',
 						                  :style => "margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: #{selected ? 'block' : 'none'};"  do -%>
-                            <%= render :partial => 'reports/contact_details', 
-							                  :locals => { :report=> report, 
+                    <%= render :partial => 'reports/contact_details', 
+							                 :locals => { :report=> report, 
+                                            :report_type => report_type,
                                             :participant => participant, 
                                             :reason => infraction, 
                                             :participant_reason => participant_reason  } %>
-                        <% end -%>
-                    <% end %>
-  				</div>
+                  <% end -%> 
+                <% end %>
+              <% end %>
+  				  </div>
   			<% end %>
   	</div>
-<% end -%>
+  <% end -%>
 <% end %>

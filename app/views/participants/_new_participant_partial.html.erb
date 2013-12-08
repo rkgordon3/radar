@@ -1,30 +1,37 @@
 <div id="newParticipantPartialDiv">
-  <%= form_tag('/reports/create_participant_and_add_to_report', :method => :post, :remote => true) do %>
+  <%= form_tag(reports_create_participant_and_add_to_report_path, :method => :post, :remote => true) do %>
+    <%= hidden_field_tag  :report_type, "#{report_type}"  %>
     <h3>No entry found for <%= "#{fName} #{mInitial} #{lName}" %></h3>
 	<%= label :participant, :first_name %>
-	<%= text_field_tag 'first_name', "#{fName}" %>
+	<%= text_field_tag 'participant[first_name]', "#{fName}" %>
 	<br />
 	<%= label :participant, :middle_initial %>
-	<%= text_field_tag 'middle_initial', "#{mInitial}" %>
+	<%= text_field_tag 'participant[middle_initial]', "#{mInitial}" %>
 	<br />
 	<%= label :participant, :last_name %>
-	<%= text_field_tag 'last_name', "#{lName}" %>
+	<%= text_field_tag 'participant[last_name]', "#{lName}" %>
 	<br />
 	<%= label :participant, :affiliation %>
-	<%= text_field_tag 'affiliation', nil %>
+	<%= text_field_tag 'participant[affiliation]', nil %>
 	<br />
-	<%= check_box_tag 'ignore_dob', 'ignore_dob', true %><%= t :ignore_dob %></br>
+	<%= check_box_tag 'participant[ignore_dob]', 'ignore_dob', true %><%= t :ignore_dob %></br>
 	<%= label :participant, :birthday, "Date of Birth" %>
-	<%= text_field_tag "birthday", "", :id => "birthday",:size=>'12'  %>
+	<%= text_field_tag "participant[birthday]", "", :id => "birthday",:size=>'12'  %>
 	<br />
 	<%= submit_tag "Create Participant",  :name => "create_participant" %>
-	<input type="button" value="Cancel" name="cancel" onClick="document.getElementById('new-part-div').innerHTML = '';" >	
+	<input type="button" id="cancel-new-participant" value="Cancel" name="cancel" >	
   <% end %>
 </div>
 
 <script type="text/javascript">
-  var rangeDemoFormat = "%e-%b-%Y";
-	AnyTime.picker("birthday",
-	{ format: rangeDemoFormat, firstDOW: 0 });
-	
+	$(document).ready(function() {
+	  $('#cancel-new-participant').click(function(event){
+	    // remove div contents
+	    $('#newParticipantPartialDiv').html("");
+	  });
+	});
+	var rangeDemoFormat = "%e-%b-%Y";
+		AnyTime.picker("birthday",
+		{ format: rangeDemoFormat, firstDOW: 0 });
+		
 </script>
