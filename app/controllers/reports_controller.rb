@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
   end
   
   def index
-	@reports = nil
+	  @reports = nil
 
     params[:paginate] ||= '1'
     params[:paginate] = params[:paginate].to_i
@@ -90,10 +90,8 @@ class ReportsController < ApplicationController
   # GET /reports/new
   # GET /reports/new.xml
   def new
-    # experiment
-    @report.save
-    #end experiment
-    session[:report] = @report.id
+ 
+    @report_type = @report.type
 
     respond_to do |format|
       format.html { render "reports/new" }
@@ -104,6 +102,7 @@ class ReportsController < ApplicationController
   # GET /reports/1/edit
   def edit
     @report = Report.find(params[:id])
+    @report_type = @report.type
 
     @report_adjuncts = ReportAdjunct.find_all_by_report_id(@report.id)
 
@@ -116,9 +115,18 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.xml
   def create
-    #@report = session[:report]
-    params[:report][:annotation] = Annotation.new(text: params[:report][:annotation]) if not params[:report][:annotation].blank?
+    participants = params[:report].delete(:reasons)
+    annotations = params[:report].delete(:annotations)
+    durations = params[:report].delete(:durations)
+   
+    if params[:report][:annotation].blank?
+      params[:report].delete(:annotation) 
+    else
+      params[:report][:annotation] = Annotation.new(text: params[:report][:annotation])
+    end
 	  @report = Report.new(params[:report])
+
+    @report.update_relationships(participants, annotations, durations)
     params[:report][:report_adjuncts] = params[:report_adjuncts]
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
@@ -136,9 +144,13 @@ class ReportsController < ApplicationController
   # PUT /reports/1
   # PUT /reports/1.xml
   def update
+    participants = params[:report].delete(:reasons)
+    annotations = params[:report].delete(:annotations)
+    durations = params[:report].delete(:durations)
+
     @report =  Report.find(params[:id])
     params[:report][:report_adjuncts] = params[:report_adjuncts]
-
+    @report.update_relationships(participants, annotations, durations)
     respond_to do |format|
       if @report.update_attributes_and_save(params[:report])
         format.html { redirect_to home_landingpage_path, :flash_notice => 'Report was successfully updated.' }
@@ -164,8 +176,6 @@ class ReportsController < ApplicationController
   end
   
   def add_participant
-    @report = active_report
-    @report = params[:report][:type].constantize.new if @report.nil?
 
     @report_type = params[:report][:type]
     
@@ -191,15 +201,12 @@ class ReportsController < ApplicationController
         }
       end
     else
-      @insert_new_participant_partial = !@report.associated?(@participant)
-      #@insert_new_participant_partial = true
-      @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
       respond_to do |format|
         format.js
         format.iphone {
           render :update do |page|
             if @insert_new_participant_partial
-             # @report.add_default_contact_reason(@participant) unless @report.associated?(@participant)
+
               page.select("input#full_name").first.clear
               page.insert_html(:top, "s-i-form", render( :partial => "reports/participant_in_report", :locals => { :report => @report, :participant => @participant }))
               page.insert_html(:top, "s-i-checkbox", render( :partial => "reports/report_participant_relationship_checklist", :locals => { :report => @report, :participant => @participant }))
@@ -212,27 +219,13 @@ class ReportsController < ApplicationController
     end
   end
   
-  def remove_participant
-    @report = active_report
-    @participant_id = params[:id]
-    @report.remove_participant(@participant_id)
 
-    @iphone_div_id = "p-in-report-#{@participant_id}"
-    
-    respond_to do |format|
-      format.js
-      format.iphone{
-        render :update do |page|
-          page.remove("#{@iphone_div_id}")
-        end
-      }
-    end
-  end
   
   def create_participant_and_add_to_report
-    @report = active_report
     
-	@participant = Participant.create
+    @report_type = params[:report][:type]
+
+    @participant = Participant.create
     @participant.first_name = params[:first_name]
     @participant.last_name = params[:last_name]
     @participant.middle_initial = params[:middle_initial]
@@ -242,7 +235,6 @@ class ReportsController < ApplicationController
     @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
     @participant.update_attributes(@participant)
 
-    @report.add_default_contact_reason(@participant)
     respond_to do |format|
       format.js
       format.iphone {
@@ -291,7 +283,7 @@ class ReportsController < ApplicationController
   
 
   def update_annotation
-	active_report.update_annotations([ params[:participant] ], params[:reason], params[:text]) 
+	 active_report.update_annotations([ params[:participant] ], params[:reason], params[:text]) 
     respond_to do |format|
       format.js {render :nothing => true}
     end
@@ -319,7 +311,7 @@ class ReportsController < ApplicationController
   end
   
   def update_reason
-	report = active_report
+    report = active_report
     pid = params[:participant].to_i
     checked = params[:checked]
     reason_id = params[:reason].split("_")[REASON_ID_INDEX_IN_REASON_PARAM]
@@ -433,16 +425,7 @@ class ReportsController < ApplicationController
 		  page.show(detail_id) if report.supports_contact_reason_details?
         end
       end
-=begin	  
-      if (webapp_refresh)
-        participant_ids.each do |pid|
-          reasons_ids.each do |reason_id |
-		    id = "reason_#{pid}_#{reason_id}"
-            page << "WebApp.Refresh('#{id}');"
-          end
-        end
-      end
-=end
+
     end
   end
 end

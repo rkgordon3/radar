@@ -1,12 +1,13 @@
-<% if report.reasons.length > 0 %>
+<% if supported_reasons(report_type).length > 0 %>
 
 <div class="relationship-checklist">
-<%= link_to image_tag("add_icon.gif", :id => "common-reasons-toggle"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('common-reasons', 'common-reasons-toggle');" %>
+<%= link_to image_tag("add_icon.gif", 
+              :id => "common-reasons-toggle"), "javascript:void(0)",  
+              :onclick => "plusMinusToggle('common-reasons', 'common-reasons-toggle');" %>
  
-  	<b><%= t "#{report.report_type.name}.#{params[:controller]}.common_reasons" %> </b>
+  	<b><%= t "#{report_type}.#{params[:controller]}.common_reasons" %> </b>
   	<div id="common-reasons" style="display: none;">
-  			<% infractions = report.common_reasons %> 
+  			<% infractions = ReportType.associated_reasons(report_type) %> 
   <%-# We temporarily remote_function mention so that we can render new report -%>
   <%-# See use of rf variable below. It is also commented out.                 -%>
   <% if false %>
@@ -16,10 +17,12 @@
   <% end %>
   <%-# end of block removing remote_function -%>
   			 <% infractions.each do |infraction| %>
-  		  		<div style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px;" >
-  						<%= check_box_tag "common_reasons[#{infraction.id}]", 
+            <% count = 0 %>
+  		  		<div class="common-reason" id=<%=  count += 1 %> >
+  						<%= check_box_tag common_reason_name(infraction), 
   				       infraction.description,
-					    false
+					       false,
+                 :id => common_reason_id(infraction)
               %>
   <%-# This removal is associated with comment of remote_function above -%>
   <% if false %>
@@ -28,9 +31,11 @@
   				       %>
   <% end %>
   				    <%= infraction.description %>
-                    <% if @report.supports_contact_reason_details? %>
-                        <div id="common_reasons_<%= infraction.id %>_details" style="margin-left: 8px;margin-top: 4px; margin-bottom: 0px; display: none;">
-                            <%= render :partial => 'reports/common_contact_details', :locals => { :infraction => infraction } %>
+                    <% if ReportType.supports_contact_reason_details?(report_type) %>
+                        <div class="common-reason-detail" 
+                            id="common_reasons_<%= infraction.id %>_details" >
+                            <%= render :partial => 'reports/common_contact_details', 
+                                       :locals => { :infraction => infraction } %>
                         </div>
                     <% end %>                    
   				  </div>
@@ -38,3 +43,27 @@
   	</div>
 </div>
 <% end %>
+
+
+<script>
+// Attach click listener on each common reason input
+// "div.common-reason input" selects each checkbox
+// Common reason ids look like: common-reason-<id>
+// Participant reason ids look like: reason-<id>
+$(document).ready(function() {
+  $('div.common-reason input').click(function(event){
+    // record whether common reason is checked or not
+    var checked = $(this).prop('checked');
+    // strip 'common' prefix off per participant reason
+    var reason = this.id.match(/common-(.*)/);
+  
+    var np = $("div.reason input[id^="+reason[1]+"]").length;
+    
+    for (i = 0; i < np; i++) {
+      $("div.reason input[id^="+reason[1]+"]").prop('checked', checked);
+    }
+    
+    //event.preventDefault(); // Prevent link from following its href
+  });
+});
+</script>
