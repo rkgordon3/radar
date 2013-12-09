@@ -209,7 +209,6 @@ class ReportsController < ApplicationController
           end
         }
       end
-      logger.debug("at end of add_participant")
     end
   end
   
@@ -217,17 +216,20 @@ class ReportsController < ApplicationController
   
   def create_participant_and_add_to_report
     
-    @report_type = params[:report][:type]
+    @report_type = params[:report_type]
 
-    @participant = Participant.create
-    @participant.first_name = params[:first_name]
-    @participant.last_name = params[:last_name]
-    @participant.middle_initial = params[:middle_initial]
-    @participant.affiliation = params[:affiliation]
+    participant_params = params[:participant]
 
-    @participant.birthday = convert_arg_date(params[:birthday])  if params[:ignore_dob].nil?
-    @participant.full_name = "#{@participant.first_name} #{@participant.middle_initial} #{@participant.last_name}"
-    @participant.update_attributes(@participant)
+    if participant_params[:ignore_dob].nil?
+        participant_params[:birthday] = convert_arg_date(participant_params[:birthday]) 
+    else 
+        participant_params.delete(:birthday)
+    end
+    participant_params.delete(:ignore_dob)
+
+    participant_params[:full_name] = "#{participant_params[:first_name]} #{participant_params[:middle_initial]} #{participant_params[:last_name]}"
+   #@participant.update_attributes(params)
+    @participant = Participant.create(participant_params)
 
     respond_to do |format|
       format.js

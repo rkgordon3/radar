@@ -1,4 +1,4 @@
 $("input#full_name").val("");    
 $('#new-part-div').html("<%= escape_javascript render(:partial => 'participants/new_participant_partial',
-            :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name })  %>");
+            :locals => { :report_type => @report_type, :fName => first_name, :mInitial => middle_initial, :lName => last_name })  %>");
 $('#new-part-div').show();

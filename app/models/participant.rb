@@ -6,6 +6,8 @@ class Participant < ActiveRecord::Base
   # Not used with autocomplete
   scope :active, lambda { where(:is_active => true) }
 
+  attr_accessible :first_name, :last_name, :middle_initial, :full_name, :birthday, :affiliation
+
   #returns all relationships accessible by the given ability and of the same type
   #as the report given, excluding those associated with that report specifically.
   def contact_history(ability, report=nil)
