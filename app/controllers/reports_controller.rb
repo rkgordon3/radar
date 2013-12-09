@@ -184,24 +184,18 @@ class ReportsController < ApplicationController
     if not defined? @participant
 	
       name_tokens = params[:full_name].split(' ')
-      first_name = name_tokens[0].capitalize
+      @first_name = name_tokens[0].capitalize
       
-      middle_initial = name_tokens[1].capitalize if (name_tokens.length > 2)
-      last_name = name_tokens[name_tokens.length-1].capitalize
+      @middle_initial = name_tokens[1].capitalize if (name_tokens.length > 2)
+      @last_name = name_tokens[name_tokens.length-1].capitalize
       
       respond_to do |format|
-        format.js{
-          render :update do |page|
-            page.select("input#full_name").first.clear
-            page.replace_html "new-part-div",
-            :partial => "participants/new_participant_partial",
-            :locals => { :fName => first_name, :mInitial => middle_initial, :lName => last_name }           
-            page.show 'common-reasons-container' if display_common_reasons?(@report)
-          end
-        }
+        logger.debug("***************** add_new_participant block *****************")
+        format.js render("reports/add_new_participant")
       end
     else
       respond_to do |format|
+        logger.debug("++++++++++++++++++   add_participant block ++++++++++++++++++")
         format.js
         format.iphone {
           render :update do |page|
