@@ -9,8 +9,5 @@ Then(/^I should see the buildings in this order:$/) do |table|
 end
  
 Then(/^the "(.*?)" should be removed from the page$/) do |building|
-	#page.has_content?(building)
-	#page.should have_no_content building
 	page.should have_no_selector(:xpath, "//*[@id='building_index']/div[3]/div[1]/table/tbody/tr/td[1]")
-	#//*[@id="building_index"]/div[3]/div[1]/table/tbody/tr/td[1]
 end

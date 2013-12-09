@@ -17,6 +17,7 @@ Background:
       	Scenario: A Hall Director user wants to view and edit a saved incident report.
       		And the user selects the "Save Report" button
       		Then the user's most recent "Incident Report" report should be displayed in the "Unsubmitted" section
+      		And the user "should" be able to view their most recent "Incident Report" report
       		When the user visits the show page for their most recent "Incident Report" report
       		And an "Edit" link should be displayed
 	  		When the user selects the "Edit" link
@@ -25,5 +26,5 @@ Background:
       	Scenario: A Hall Director user wants to view a submitted incident report but cannot edit it.
       		And the user selects the "Submit Report" button
       		Then the user's most recent "Incident Report" report should be displayed in the "Recent" section
-      		And the user should be able to view their most recent "Incident Report" report
+      		And the user "should" be able to view their most recent "Incident Report" report
       		And an "Edit" link should not be displayed

@@ -220,4 +220,4 @@ AccessLevel.find_by_name("Staff") || AccessLevel.create(:name => "Staff", :numer
 puts ' create supervisor'
 AccessLevel.find_by_name("Supervisor") || AccessLevel.create(:name => "Supervisor", :numeric_level => 100)
 
-load "#{Rails.root}/db/report_type_seeds.rb"
+load "#{Rails.root}/db/test_seeds.rb"

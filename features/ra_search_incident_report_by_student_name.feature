@@ -11,4 +11,4 @@ Background:
       And the user fills in the "full_name" field with "Jo"
       And the user selects "Joe" from the auto-suggestion field
       When the user selects the "Update" button
-      And the text "Joe" should be displayed
+      Then the "Incident Report" report for student "Joe" should be displayed
