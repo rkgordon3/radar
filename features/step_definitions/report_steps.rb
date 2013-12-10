@@ -13,7 +13,6 @@ And(/^the "(.*?)" report for student "(.*?)" should be displayed$/) do |report_t
 	sleep 10
 	s_id = Student.find_by_full_name(student_name).id
 	rtr = ReportParticipantRelationship.find_by_participant_id(s_id)
-	puts rtr.report_id
 	r = report_type.delete(' ').constantize.find(rtr.report_id)
 	page.should have_content("#{r.tag}")
 end
