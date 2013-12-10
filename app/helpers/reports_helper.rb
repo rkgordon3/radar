@@ -30,7 +30,9 @@ module ReportsHelper
   end
 
   def reason_id(participant, infraction) 
-    "reason-#{infraction.id}-#{participant.id}"
+    pid = (participant.kind_of? Participant) ? participant.id : participant
+    infid = (infraction.kind_of? RelationshipToReport) ? infraction.id : infraction
+    "reason-#{infid}-#{pid}"
   end
 
   def common_reason_id(infraction)
