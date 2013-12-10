@@ -17,7 +17,6 @@ module RadarEnv
 
    def set_current_access_level(role)
      @role = FactoryGirl.create(:access_level, :name=>role.delete(' '), :display_name=>role)
-     puts "name of role = " << @role.name
      #@role = role
    end
 
@@ -62,7 +61,6 @@ module RadarEnv
      elsif sub_option.eql?("reports")
       path = "#{sub_option}"
      end     
-     puts "path %s" % path
       "//div[@class='menu']/ul/li/ul/li/a[@href='/#{path}']"
    end
 
@@ -82,7 +80,6 @@ module RadarEnv
      if sub_option.eql?("new task") or sub_option.eql?("new note") or sub_option.eql?("new maintenance request") or sub_option.eql?("new incident report")
       sub_option = sub_option.chomp(" #{option.singularize}").strip
      end
-     puts "After chomping reports, sub_option = " << sub_option
      if option.eql?("maintenance requests")
        option.replace("maintenance reports")
      end
