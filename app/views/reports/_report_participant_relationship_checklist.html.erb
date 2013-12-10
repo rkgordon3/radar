@@ -5,7 +5,8 @@
      :style=>"display:#{supports_selectable_reasons?(report_type) ? 'block' : 'none'}"   do -%>
 	 
 	<%= link_to image_tag("add_icon.gif", :id => "#{participant.id}-img"), "javascript:void(0)",  
-                     :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" %>
+                     :onclick => "plusMinusToggle('#{participant.id}-infractions', '#{participant.id}-img');" ,
+                     :id=> participant_reason_link_id(participant) %>
  
   	<span class="small-label"><%= t "#{report_type}.reasons" %></span>
   	<div id="<%= participant.id %>-infractions" style="display: none;">
