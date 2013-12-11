@@ -36,7 +36,6 @@ Then(/^the "(.*?)" form should be displayed$/) do |form|
     if form.eql?("shift summary")
       visit '/shifts/end_shift'
     end
-    #puts "looking for the formpage", page.html
     page.find(:xpath, "//div[@class='field']//textarea[@id='annotation_text']")
 end
 

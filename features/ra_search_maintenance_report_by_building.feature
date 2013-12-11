@@ -1,4 +1,4 @@
-@rails-31 @ra_search_mr_by_building @javascript @dylan
+@rails-31 @ra_search_mr_by_building @javascript @dylan @ra_search_report_building
 Feature: RA wants to search Maintenance Reports by building
 As a Resident Assistant, I want to be able to search maintenance reports by building name
 Background:

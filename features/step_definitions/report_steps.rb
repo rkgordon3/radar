@@ -10,7 +10,6 @@ And(/^an? "(.*?)" submitted by "(.*?)" exists for building "(.*?)"$/) do |report
 end
 
 And(/^the "(.*?)" report for student "(.*?)" should be displayed$/) do |report_type, student_name|
-	sleep 10
 	s_id = Student.find_by_full_name(student_name).id
 	rtr = ReportParticipantRelationship.find_by_participant_id(s_id)
 	puts rtr.report_id
@@ -38,7 +37,6 @@ Then(/^the user's most recent "(.*?)" report should be displayed in the "(.*?)" 
 end
 
 Then(/^the user "(should|should not)" be able to view their most recent "(.*?)" report$/) do |polarity, report_type|
-    sleep 2
     polarity = polarity.split.join("_")
     page.send(polarity, have_link("#{most_recent_for(get_current_user.email, report_type)[0].tag}"))
 end
