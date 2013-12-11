@@ -4,7 +4,7 @@ module BuildingsHelper
   end
   
   def BuildingsHelper.all_buildings
-    @@all_buildings  ||= Building.all.select { |b| b != Building.unspecified}.sort
+    Building.all.select { |b| b != Building.unspecified}.sort
   end
   
   def building_div_id(building)
