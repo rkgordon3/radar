@@ -32,7 +32,6 @@ And(/^the user selects "(.*?)" from the auto-suggestion field$/) do |selection|
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
-	sleep 15
   if field.eql?("buildings")
     select value, :from => field
   else

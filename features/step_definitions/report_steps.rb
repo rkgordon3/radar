@@ -12,7 +12,6 @@ And(/^an? "(.*?)" submitted by "(.*?)" exists for building "(.*?)"$/) do |report
 end
 
 And(/^the "(.*?)" report for student "(.*?)" should be displayed$/) do |report_type, student_name|
-	sleep 10
 	s_id = Student.find_by_full_name(student_name).id
 	rtr = ReportParticipantRelationship.find_by_participant_id(s_id)
 	r = report_type.delete(' ').constantize.find(rtr.report_id)
@@ -67,4 +66,13 @@ Then(/^the (.*?) infraction should be selected for (.*?)$/) do |infraction, name
   s = Participant.find_by_full_name(name)
   rtr = RelationshipToReport.find_by_description(infraction)
   page.find("##{reason_id(s, rtr)}").should be_checked
+end
+
+Then(/^the results should contain (\d+) reports? from (.*?)$/) do |num, name|
+  # all will not wait like find, so we pause here to make sure page is loaded
+  # This is not best approach. Ideally, we would have some content/element in
+  # all result pages for which we could test using find(). This would force wait.
+  # We could then perform all test "certain" page has loaded.
+  sleep 2 if num.to_i == 0
+  page.all(:xpath, "//td[@class='building']/div[normalize-space(text())='#{name}']").size.should == num.to_i
 end
