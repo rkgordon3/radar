@@ -21,22 +21,22 @@
 
       <% if num_rows == 0 %>
         <% num_rows = num_rows + 1 %>
-        <tr id=<%= report_index_id(report) %> class="shaded">
+        <tr id="<%= report_index_id(report) %>" class="shaded">
         <% else %>
           <% num_rows = 0 %>
-        <tr id=<%= report_index_id(report) %> >
+        <tr id="<%= report_index_id(report) %>" >
         <% end %>
-        <td>
+        <td class='date'>
           <div class="field"  >
             <%= report.event_date %>
           </div>
         </td>
-        <td>
+        <td class='time'>
           <div class="field">
             <%= report.event_time %>
           </div>
         </td>
-        <td>
+        <td class='tag'>
           <div class="field">
 		  
             <% if can? :show, report %>
@@ -46,17 +46,17 @@
             <% end %>
           </div>
         </td>
-        <td>
+        <td class='staff'>
           <div class="field">
             <%= report.staff.last_name rescue unknown %>
           </div>
         </td>
-        <td>
+        <td class='building'>
           <div class="field">
             <%= report.building_name  %>
           </div>
         </td>
-        <td>
+        <td class='room_number'>
           <div class="field">
             <%= report.room_number %>
           </div>

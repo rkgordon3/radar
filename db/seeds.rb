@@ -51,27 +51,7 @@ mr_type = ReportType.find_by_name("MaintenanceReport") ||
 		  :forwardable=>true,
 		  :selectable_contact_reasons=>true)
 
-puts 'building Relationship to report table'
-RelationshipToReport.find_by_description("Community Disruption") ||
-	RelationshipToReport.create!(:description=>"Community Disruption",
-		:report_type => ir_type,
-		:organization_id=> rl.id)
-RelationshipToReport.find_by_description("Smoking") ||
-	RelationshipToReport.create!(:description=>"Smoking",
-		:report_type => ir_type,
-		:organization_id=> rl.id)
-RelationshipToReport.find_by_description("Alcohol(Underage)") ||
-	RelationshipToReport.create!(:description=>"Alcohol(Underage)",
-		:report_type => ir_type,
-		:organization_id=> rl.id)
-RelationshipToReport.find_by_description("FYI") ||
-	RelationshipToReport.create!(:description=>"FYI",
-		:report_type => ir_type,
-		:organization_id=> rl.id)
-RelationshipToReport.find_by_description("Maintenance Concern") ||
-	RelationshipToReport.create!(:description=>"Maintenance Concern",
-		:report_type => ir_type,
-		:organization_id=> rl.id)
+
 		
 
 # update all existing RTR to be in RL org
@@ -81,20 +61,8 @@ RelationshipToReport.all.each do |rtr|
  rtr.organization_id = rl.id
  rtr.save
 end
-puts "update default reason for MR"
-mr = ReportType.find_by_name("MaintenanceReport")
-mr.default_reason_id = RelationshipToReport.where(:description=>"Maintenance Concern", :organization_id => rl.id).first.id
-mr.save
 
-puts "update default reason for IR"
-ir = ReportType.find_by_name("IncidentReport")
-ir.default_reason_id = RelationshipToReport.where(:description=>"FYI", :organization_id => rl.id).first.id
-ir.save
 
-puts "update default reason for Note"
-ir = ReportType.find_by_name("Note")
-ir.default_reason_id = RelationshipToReport.where(:description=>"FYI", :organization_id => rl.id).first.id
-ir.save
 
 #TODO: fix this staff org assignments
 puts "updating staff_org with access_level"

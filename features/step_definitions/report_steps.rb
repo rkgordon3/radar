@@ -1,3 +1,5 @@
+include ReportsHelper
+
 And(/^an? "(.*?)" exists for student "(.*?)"$/) do |report_type, student|
 	report_link = report_type.split.join("_").downcase.to_sym
 	FactoryGirl.create(report_link, :submitted => 'true', :organization_id => get_current_organization.id, :staff_id => get_current_user.id, :type => report_type.delete(" "))
@@ -12,7 +14,6 @@ end
 And(/^the "(.*?)" report for student "(.*?)" should be displayed$/) do |report_type, student_name|
 	s_id = Student.find_by_full_name(student_name).id
 	rtr = ReportParticipantRelationship.find_by_participant_id(s_id)
-	puts rtr.report_id
 	r = report_type.delete(' ').constantize.find(rtr.report_id)
 	page.should have_content("#{r.tag}")
 end
@@ -45,3 +46,33 @@ When(/^the user visits the show page for their most recent "(.*?)" report$/) do 
   	visit("/#{report_type.split.join("_").downcase.pluralize}/#{most_recent_for(get_current_user.email, report_type)[0].id}")
 end
 
+
+Then(/^the student (.*?) should appear in the report$/) do |name|
+  s = Participant.find_by_full_name(name)
+  page.find(:xpath, "//tbody[@id='s-i-form']//td[@id='#{participant_in_report_id(s)}']").should_not be_nil
+  page.find(:xpath, "//tbody[@id='s-i-form']//td[@id='#{participant_in_report_id(s)}_details']").should_not be_nil
+  within(:xpath, "//a[@href='/students/#{s.id}']") do
+  	page.should have_content(name)
+  end
+end
+
+When(/^the user expands the infractions list associated with (.*?)$/) do |name|
+  s = Participant.find_by_full_name(name)
+  page.find(:xpath, "//a[@id='#{participant_reason_link_id(s)}']").click
+end
+
+
+Then(/^the (.*?) infraction should be selected for (.*?)$/) do |infraction, name|
+  s = Participant.find_by_full_name(name)
+  rtr = RelationshipToReport.find_by_description(infraction)
+  page.find("##{reason_id(s, rtr)}").should be_checked
+end
+
+Then(/^the results should contain (\d+) reports? from (.*?)$/) do |num, name|
+  # all will not wait like find, so we pause here to make sure page is loaded
+  # This is not best approach. Ideally, we would have some content/element in
+  # all result pages for which we could test using find(). This would force wait.
+  # We could then perform all test "certain" page has loaded.
+  sleep 2 if num.to_i == 0
+  page.all(:xpath, "//td[@class='building']/div[normalize-space(text())='#{name}']").size.should == num.to_i
+end

@@ -1,4 +1,4 @@
-@rails-31 @ra_search_ir_by_building @javascript @dylan
+@rails-31 @ra_search_ir_by_building @javascript @dylan 
 Feature: RA wants to search Incident Reports by building
 As a Resident Assistant, I want to be able to search incident reports by building name
 Background:
@@ -14,5 +14,5 @@ Background:
       And the "Incident Report" report for "Heffron Hall" should be displayed
       When the user selects "LaSalle Hall" from the "Building" menu
       And the user selects the "Update" button
-      Then the "Incident Report" report for "LaSalle Hall" should be displayed
-      And the "Incident Report" report for "Heffron Hall" should not be displayed
+      Then the results should contain 1 report from LaSalle Hall
+      And the results should contain 0 reports from Heffron Hall

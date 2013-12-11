@@ -30,7 +30,9 @@ module ReportsHelper
   end
 
   def reason_id(participant, infraction) 
-    "reason-#{infraction.id}-#{participant.id}"
+    pid = (participant.kind_of? Participant) ? participant.id : participant
+    infid = (infraction.kind_of? RelationshipToReport) ? infraction.id : infraction
+    "reason-#{infid}-#{pid}"
   end
 
   def common_reason_id(infraction)
@@ -45,7 +47,7 @@ module ReportsHelper
   # If input is a ActiveRecord model, use id, else treat input
   # as an ID 
   def participant_in_report_id(participant) 
-    id = (participant.kind_of? ActiveRecord::Base) ? participant.id : participant
+    id = (participant.kind_of? Participant) ? participant.id : participant
     "p-in-report-#{id}"
   end
 
@@ -53,6 +55,12 @@ module ReportsHelper
   # Return reasons supported by a particular report type
   def supported_reasons(report_type)
     ReportType.find_by_name(report_type).associated_reasons(nil)
+  end
+
+
+  def participant_reason_link_id(participant)
+    id = (participant.kind_of? Participant) ? participant.id : participant
+    "p-reason-#{id}"
   end
 
 
