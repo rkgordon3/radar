@@ -24,11 +24,13 @@ end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
   field = field.split.join("_").downcase
-  fill_in field, :with => value rescue field = "report_" << field
+  page.execute_script %Q{$('##{field}').val('#{value}').keydown()}
+  #fill_in field, :with => value rescue field = "report_" << field
 end
 
 And(/^the user selects "(.*?)" from the auto-suggestion field$/) do |selection|
-  page.find(:xpath, "//li[@class='ui-menu-item']/a['#{selection}']").click
+  page.execute_script("$('.ui-menu-item:contains(\"#{selection}\")').find('a').trigger('mouseenter').click()")
+  #page.find(:xpath, "//li[@class='ui-menu-item']/a['#{selection}']").click
 end
 
 When(/^the user selects "(.*?)" from the "(.*?)" menu$/) do |value, field|
