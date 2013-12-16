@@ -1,6 +1,7 @@
-And(/^the building "(.*?)" exists$/) do |building|
-	FactoryGirl.create(:building, :name => building)
-end
+#And(/^the building "(.*?)" exists$/) do |building|
+#	Building.find_by_name("#{building}")
+#	#FactoryGirl.create(:building, :name => name, :area_id => Area.unspecified_id)
+#end
 
 Then(/^I should see the buildings in this order:$/) do |table|
 	expected_order = table.raw

@@ -1,4 +1,4 @@
-@rails-31 @buildings @delete_buildings @David @Owen
+@rails-31 @buildings @delete_buildings @David @Owen @WIP
 Feature: System admin deleting buildings
    As a system administrator, I want to be able to delete a building
    

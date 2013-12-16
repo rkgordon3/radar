@@ -29,7 +29,7 @@ Capybara.default_selector = :css
 #
 ActionController::Base.allow_rescue = false
 
-do_not_truncate_list  = %w[report_types organizations report_fields relationship_to_reports]
+do_not_truncate_list  = %w[report_types organizations report_fields relationship_to_reports buildings areas]
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

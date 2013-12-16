@@ -1,4 +1,4 @@
-@rails-31 @buildings @delete_buildings_dialog @javascript @Owen
+@rails-31 @buildings @delete_buildings_dialog @javascript @Owen @WIP
 Feature: System admin deleting buildings
    As a system administrator, I want to cancel a building deleltion
    
@@ -18,5 +18,5 @@ Scenario: A system administrator navigates to manage building link from the mana
    Given I expect to click "OK" on a confirmation box saying "Are you sure?"
    Then the user selects the Destroy link on building Test Building
    Then the confirmation box should have been displayed
-   Then the "Test Building" should be removed from the page
+   Then the text "Test Building" should not be displayed
    And the building named Test Building should no longer exist

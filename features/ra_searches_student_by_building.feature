@@ -1,4 +1,4 @@
-@ra_search_student_by_building @rails-31 @gabe
+@ra_search_student_by_building @rails-31 @gabe @fail
 Feature: RA searches student by building
 	As a resident Assistant, I want to search for a students by building
   Background:

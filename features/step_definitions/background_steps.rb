@@ -17,8 +17,8 @@ And(/^the user "(.*?)" is on duty$/) do |user|
   staff.id == shift.staff_id
 end
 
-And(/the text "(.*?)" should be displayed$/) do |text|
-  page.should have_content(text)
+And(/the text "(.*?)" (should|should not) be displayed$/) do |text, polarity|
+  page.send(polarity.split.join("_"), have_content(text))
 end
 
 Then(/^the "(.*?)" icon should be displayed$/) do |icon|
@@ -55,6 +55,6 @@ And(/^the "(.*?)" is on the list "(.*?)" page$/) do |user, page|
 end
 
 And(/^the student "(.*?)" lives in "(.*?)"$/) do |name, residence|
-  building = FactoryGirl.create(:building, :name => residence, :is_residence => true, :area_id => FactoryGirl.create(:area, name: "Area", abbreviation: "AR").id)
+  building = Building.find_by_name(residence) #FactoryGirl.create(:building, :name => residence, :is_residence => true, :area_id => FactoryGirl.create(:area, name: "Area", abbreviation: "AR").id)
   student = FactoryGirl.create(:student, :first_name => name, :last_name => name, :full_name => name, :building_id => building.id)
 end
