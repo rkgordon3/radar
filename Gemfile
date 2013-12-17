@@ -18,9 +18,9 @@ gem 'devise-encryptable'
 gem 'whenever'
 gem 'cancan'
 #group :production do
-#  gem 'ruby-oci8', '2.0.6'
-#  gem 'activerecord-oracle_enhanced-adapter', '1.3.2'
-#  gem 'ruby-plsql', '0.4.4'
+#  gem 'ruby-oci8', '~> 2.1.0'
+#  gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+#  gem 'ruby-plsql'
 #end
 
 group :assets do
