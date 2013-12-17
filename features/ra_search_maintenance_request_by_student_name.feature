@@ -8,7 +8,7 @@ Background:
    Scenario: A Resident Assistant user is on duty and wants to search for a student by name
       When the user visits the "Maintenance Report" report page
       Then the text "Report Search" should be displayed
-      And the user fills in the "full_name" field with "Jo"
+      And the user fills in the "Full Name" field with "Jo"
       And the user selects "Joe" from the auto-suggestion field
       When the user selects the "Update" button
       Then the "Maintenance Report" report for student "Joe" should be displayed

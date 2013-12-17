@@ -7,7 +7,7 @@ Background:
    Scenario: A Resident Assistant user is on duty and wants to search for a student by name
       When the user visits the "Participants Search" page
       Then the text "Participant Search" should be displayed
-      And the user fills in the "full_name" field with "Jo"
+      And the user fills in the "Full Name" field with "Jo"
       And the user selects "Joe" from the auto-suggestion field
       When the user selects the "Submit" button
       And the text "Joe" should be displayed

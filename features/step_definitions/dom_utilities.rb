@@ -24,8 +24,8 @@ end
 
 When(/^the user fills in the "(.*?)" field with "(.*?)"$/) do |field, value|
   field = field.split.join("_").downcase
-  page.execute_script %Q{$('##{field}').val('#{value}').keydown()}
-  #fill_in field, :with => value rescue field = "report_" << field
+  #page.execute_script %Q{$('##{field}').val('#{value}').keydown()}
+  fill_in field, :with => value rescue field = "report_" << field
 end
 
 And(/^the user selects "(.*?)" from the auto-suggestion field$/) do |selection|

@@ -4,8 +4,8 @@ Feature: Sys Admin wants to add an area
 
 Background:
 	Given the user "radar-admin@smumn.edu" is logged in as a "System Administrator"
+  	And the building named Off Campus exists
   	When the user visits the "Manage Areas" page
-  	And the building named Off Campus should exist
 Scenario: A Sys Admin navigates to the manage areas link from the manage menu and wants to add a new area
    	When the user selects the "New Area" link
    	And the user fills in the "Area Name" field with "A Test Area"
