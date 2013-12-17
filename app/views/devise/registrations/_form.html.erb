@@ -30,7 +30,7 @@
 					"parsley-required" => "true" %>
   </div>
 	<div class="field">
-		<%= f.label :password %> <%= update_password_tag if controller.action_name == "edit" %><br />
+		<%= f.label :password %> <%= update_password_tag unless controller.action_name == "new_staff" %><br />
 	</div>
 	<div id="update_password_area" style="display:none;">
 		<div class="field"> 
@@ -90,4 +90,9 @@
 			$(".edit_staff").parsley( 'removeItem', '#staff_password_confirmation');
 		}
 	});
+	//Custom validation to deal with ensuring the user selects at least one role
+	$("#organization_academic_skills_center:checkbox,#organization_residence_life:checkbox").attr("parsley-group", "org-selection");
+	$("#organization_academic_skills_center:checkbox").attr("parsley-rangecheck", "[1,2]");
+	$("#organization_academic_skills_center:checkbox,#organization_residence_life:checkbox").attr("parsley-error-message", "You must select at least one organization");
+	$("#organization_academic_skills_center:checkbox,#organization_residence_life:checkbox").parsley("validate");
 </script>

@@ -133,11 +133,13 @@ class StaffsController < Devise::RegistrationsController
   end
   
   def update
+		params[:staff].delete("password") if params[:staff][:password].blank?
+		params[:staff].delete("password_confirmation") if params[:staff][:password].blank?
     respond_to do |format|
       if @staff.update_attributes(params[:staff])
         @current_ability = nil
         @current_staff = nil
-        format.html { redirect_to(@staff, :notice => 'Staff was successfully updated.') }
+        format.html { redirect_to(action: "index", :notice => 'Staff was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
